@@ -48,7 +48,7 @@ def get_static_file_content(filename: str):
         return path.read_text(encoding='utf-8')
     return ""
 
-# Передай эту функцию в контекст шаблонов
+
 templates.env.globals.update(get_css=get_static_file_content)
 
 

@@ -1,5 +1,5 @@
-@import "upload-zone/upload-area";
-@import "upload-zone/upload-hint";
+@use "upload-zone/upload-area";
+@use "upload-zone/upload-hint";
 
 /* Добавляем глобальную видимость текста для всей зоны загрузки */
 .upload-zone {
