@@ -1,0 +1,12 @@
+@echo off
+echo Adding all changes...
+git add .
+
+echo Committing changes...
+git commit -m "Automated push"
+
+echo Pushing to remote...
+git push
+
+echo Done!
+pause

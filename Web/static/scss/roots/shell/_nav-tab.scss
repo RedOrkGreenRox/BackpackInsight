@@ -1,7 +1,6 @@
 .nav-tabs {
     display: flex;
     flex-direction: column;
-    /* Отступ сверху зависит от высоты экрана */
     padding: clamp(60px, 15vh, 120px) 0 0 0;
     margin: 0;
     width: 100%;
@@ -12,37 +11,32 @@
 .nav-tab {
     display: flex;
     align-items: center;
-
-    /* Адаптивные отступы:
-       Никаких скрытий. Текст будет виден всегда. */
     padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
-
-    /* Расстояние между иконкой и текстом */
     gap: clamp(10px, 1.5vw, 20px);
-
     cursor: pointer;
     border-left: 4px solid transparent;
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
     background: transparent;
-
-    /* Размер шрифта адаптивный, но читаемый */
     font-size: clamp(1rem, 2vmin, 1.3rem);
-    white-space: nowrap;
 }
 
-/* Иконки внутри табов */
-.nav-tab i,
 .nav-tab img {
-    width: clamp(24px, 3vmin, 32px);
-    height: clamp(24px, 3vmin, 32px);
+    /* Иконки теперь масштабируются от 32px до 40px */
+    width: clamp(32px, 5vmin, 40px);
+    height: clamp(32px, 5vmin, 40px);
     object-fit: contain;
     transition: transform 0.2s;
-    /* Убрал margin: 0, который был для безтекстового режима */
+    flex-shrink: 0; /* Иконка не сжимается */
 }
 
-/* Эффекты наведения */
+.nav-tab .page-title {
+    /* Убираем nowrap, чтобы текст мог переноситься */
+    white-space: normal;
+    word-break: break-word; /* Добавляем перенос для очень длинных слов */
+}
+
 .nav-tab::before {
     content: "";
     position: absolute;
@@ -67,7 +61,6 @@
     text-shadow: 0 0 10px var(--azure);
 }
 
-.nav-tab:hover i,
 .nav-tab:hover img {
     transform: scale(1.1);
     filter: drop-shadow(0 0 5px var(--azure));

@@ -139,7 +139,7 @@ async def profile(
             "trophy": profile_obj.game_information.get("Trophy", 0),
             "bonus_trophy": profile_obj.game_information.get("BonusTrophy", 0),
             "area": profile_obj.game_information.get("Area", "Unknown"),
-            "background_image": f"/static/images/Area/Area{randint(1, 20):02d}.webp",
+            "background_image": f"Area{randint(1, 20):02d}",
             "coins": profile_obj.game_information.get("Currency", {}).get("coins", 0),
             "gems": profile_obj.game_information.get("Currency", {}).get("gems", 0),
             "heroes": heroes_data,

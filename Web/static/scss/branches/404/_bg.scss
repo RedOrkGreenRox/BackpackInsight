@@ -2,11 +2,18 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 110%;             // Запас 10% для смещения при параллаксе без белых полос
-    height: 110%;            // Запас 10% по высоте
+    width: 110%;
+    height: 110%;
     background-size: cover;
     background-position: center;
-    z-index: -2;             // Самый нижний слой
+    z-index: -2;
     background-repeat: no-repeat;
-    will-change: transform;  // Сообщает браузеру о выносе слоя на GPU (плавный параллакс)
+    will-change: transform, filter;
+    filter: blur(4px); /* Добавляем размытие */
+    transition: filter 0.3s ease;
+}
+
+/* Отключаем размытие в режиме низкого качества */
+.low-res-mode .bg-404 {
+    filter: none;
 }

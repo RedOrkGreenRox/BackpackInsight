@@ -48,3 +48,8 @@ body.sidebar-open .sidebar-overlay {
   opacity: 1;
   visibility: visible;
 }
+
+/* Отключаем блюр в режиме экономии */
+.low-res-mode .sidebar-overlay {
+    backdrop-filter: none;
+}

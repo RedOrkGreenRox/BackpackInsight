@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container">
-    <div class="profile-header" style="background-image: url('/static/images/Area/Area{{ area }}.webp');"
+    <div class="profile-header" style="background-image: url('/static/images/Area/webp/{{ background_image }}.webp');"
          data-aos="zoom-in">
         <h4>{{ nickname }}</h4>
         <div class="stats-grid">
@@ -36,10 +36,14 @@
                 {% for hero in heroes %}
                 <div class="stat-hero-card">
                     <div class="hero-header-row">
-                        <img class="stat-hero-icon"
-                             src="/static/images/Heroes/{{ hero.name }}/{{ hero.name }}{{ hero.skin_num }}.webp"
-                             alt="{{ hero.name }}"
-                             loading="lazy">
+                        <picture>
+                            <source srcset="/static/images/Heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
+                            <source srcset="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                            <img class="stat-hero-icon"
+                                 src="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                 alt="{{ hero.name }}"
+                                 loading="lazy">
+                        </picture>
                         <div class="stat-hero-level-container">
                             <img class="stat-hero-level-frame"
                                  src="/static/images/Profile/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
@@ -102,8 +106,12 @@
             <div class="main-hero-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800"
                  data-level="{{ hero.level }}" data-rating="{{ hero.rating }}">
                 <div class="main-hero-image">
-                    <img src="/static/images/Heroes/{{ hero.name }}/{{ hero.name }}{{ hero.skin_num }}.webp"
-                         alt="{{ hero.name }}" loading="lazy">
+                    <picture>
+                        <source srcset="/static/images/Heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
+                        <source srcset="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                        <img src="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                             alt="{{ hero.name }}" loading="lazy">
+                    </picture>
                 </div>
                 <div class="main-hero-header-row">
                     <div class="main-hero-level-container">

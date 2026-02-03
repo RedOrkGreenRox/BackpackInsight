@@ -31,4 +31,6 @@ structure.txt
 # Мы оставляем __init__.py, чтобы папка Profiles осталась модулем
 Profiles/*.json
 # Если захочешь оставить какой-то пример, можно сделать исключение:
-!Profiles/example.json
+!Profiles/Молодой_Жук.json
+!Profiles/Лотреомон.json
+!Profiles/Marat.json
