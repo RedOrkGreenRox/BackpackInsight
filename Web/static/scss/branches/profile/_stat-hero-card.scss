@@ -1,0 +1,84 @@
+.profile-header .stat-hero-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 60px;
+    min-height: 50px;
+    justify-content: center;
+}
+
+.stat-hero-card .hero-header-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stat-hero-card .stat-hero-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}
+.stat-hero-card .stat-hero-level-container,
+.stat-hero-card .stat-hero-rating-container {
+    position: relative;
+    /* Указываем желаемый размер */
+    width: 64px;
+    height: 64px;
+
+    /* ГЛАВНОЕ: ставим минимальный предел, ниже которого нельзя падать */
+    /* Если хочешь, чтобы они ВООБЩЕ не уменьшались — ставь тоже 64px */
+    min-width: 36px;
+    min-height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Рамки и иконки лиг внутри должны всегда заполнять контейнер */
+.stat-hero-card .stat-hero-level-frame,
+.stat-hero-card .stat-hero-league {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    /* Добавляем, чтобы картинка внутри не схлопнулась */
+    min-width: 100%;
+    min-height: 100%;
+}
+
+/* Текст: чтобы на мобилках он не вылезал за границы маленькой рамки */
+.stat-hero-card .stat-hero-level-text,
+.stat-hero-card .stat-hero-rating {
+    position: relative;
+    z-index: 2;
+    /* Используй clamp, чтобы на ПК было 15px, а на мобилках не меньше 12px */
+    font-size: clamp(12px, 2vw, 15px);
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 1px 3px #000;
+    white-space: nowrap; /* Чтобы цифры не переносились */
+}
+
+@media (max-width: 768px) {
+    /* Уменьшаем карточку героя */
+    .profile-header .stat-hero-card {
+        transform: scale(0.9);
+        transform-origin: center center;
+        /* Убираем жесткую высоту, чтобы scale не обрезал контент */
+        height: auto !important;
+        min-height: 0 !important;
+        margin: -15px -25px; /* Схлопываем внешние границы, чтобы сетка не разъехалась */
+    }
+}

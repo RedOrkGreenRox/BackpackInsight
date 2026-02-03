@@ -1,0 +1,34 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# --- PyCharm (JetBrains) ---
+# Игнорируем настройки IDE, чтобы не мешать другим (или себе на другом ПК)
+.idea/
+*.iml
+
+# --- Web & Node.js (Gulp) ---
+# Самое важное: не коммитим библиотеки node
+node_modules/
+src/node_modules/
+npm-debug.log
+
+# --- System ---
+.DS_Store
+Thumbs.db
+
+# --- Project Specific ---
+# Игнорируем сгенерированную структуру и временные файлы
+structure.txt
+*.log
+
+# --- Data ---
+# Игнорируем конкретные профили пользователей, но оставляем структуру папки
+# Мы оставляем __init__.py, чтобы папка Profiles осталась модулем
+Profiles/*.json
+# Если захочешь оставить какой-то пример, можно сделать исключение:
+!Profiles/example.json

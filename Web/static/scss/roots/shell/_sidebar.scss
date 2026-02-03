@@ -1,0 +1,50 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* ЛОГИКА ШИРИНЫ (Исправленная):
+     1. Clamp(240px, ..., ...) гарантирует, что сайдбар НЕ схлопнется меньше 240px.
+     2. На мобилках (где 22vw мало), сработает min-width 240px.
+     Это позволит тексту всегда влезать. */
+  width: clamp(240px, 22vw, 350px);
+
+  height: 100vh;
+  transform: translateX(-100%) translateY(0);
+  z-index: 1050;
+
+  /* Плавная анимация (как мы настроили ранее) */
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+
+  /* МОБИЛЬНАЯ КОРРЕКЦИЯ */
+  @media (max-width: 768px) {
+    /* На телефонах делаем ширину ~70% экрана, но не уже 240px */
+    width: clamp(240px, 70vw, 320px);
+  }
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.6s;
+}
+
+body.sidebar-open .sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,0 +1,515 @@
+@charset "UTF-8";
+:root {
+  --azure-raw: 0, 212, 255;
+  --azure: rgb(var(--azure-raw));
+  --azure-glow-low: 0 0 8px rgba(var(--azure-raw), 0.1), inset 0 0 2px rgba(var(--azure-raw), 0.05);
+  --azure-glow-high: 0 0 15px rgba(var(--azure-raw), 0.25), inset 0 0 4px rgba(var(--azure-raw), 0.1);
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Signika", "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Дополнительная страховка от прыжков ширины из-за скроллбара */
+  scrollbar-gutter: stable;
+}
+
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+.error {
+  background: rgba(255, 50, 50, 0.3);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(255, 50, 50, 0.5);
+}
+
+img, span, h1, h2, h3, button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  will-change: opacity;
+}
+
+text {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img.loaded, span.loaded, h4.loaded, button.loaded {
+  opacity: 1;
+}
+
+.h1, .h2, .upload-area,
+.upload-area * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+body {
+  opacity: 0;
+  background: black;
+  transition: opacity 2s ease-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.leaving {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes flicker-intense {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+.controls-wrapper {
+  position: fixed;
+  top: clamp(10px, 2vh, 30px);
+  left: clamp(10px, 3vw, 40px);
+  right: clamp(10px, 3vw, 40px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  /* Плавность появления при закрытии меню */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+@media (max-width: 1100px) {
+  .controls-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(10px, 1.5vh, 15px) clamp(10px, 2vw, 15px);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    pointer-events: auto;
+  }
+}
+
+.controls-wrapper > * {
+  pointer-events: auto;
+}
+
+/* При открытии сайдбара кнопки плавно исчезают */
+body.sidebar-open .controls-wrapper,
+body.leaving .controls-wrapper {
+  opacity: 0;
+  pointer-events: none;
+  /* Используем ту же кривую, что и у сайдбара */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body.sidebar-open .controls-wrapper > *,
+body.leaving .controls-wrapper > * {
+  pointer-events: none;
+}
+
+.button-logo {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  animation: none;
+}
+
+.button-logo:hover {
+  transform: scale(1.05);
+  animation: none;
+}
+
+.button-logo .logo-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.menu-toggle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border-radius: 20px;
+  border: var(--border);
+  /* Общая плавность для всех состояний */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-toggle .toggle-icon :hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--azure-raw), 0.8);
+  transform: translateY(-2px);
+  animation: none;
+}
+
+.toggle-icon {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  /* Плавный зум иконки */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: block;
+}
+
+.menu-toggle:hover .toggle-icon {
+  transform: scale(1.1);
+}
+
+/* Когда меню открыто */
+body.sidebar-open .menu-toggle {
+  pointer-events: none;
+  transform: translateX(-30px); /* Чуть дальше отъезжает для динамики */
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Синхрон с сайдбаром */
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* ЛОГИКА ШИРИНЫ (Исправленная):
+     1. Clamp(240px, ..., ...) гарантирует, что сайдбар НЕ схлопнется меньше 240px.
+     2. На мобилках (где 22vw мало), сработает min-width 240px.
+     Это позволит тексту всегда влезать. */
+  width: clamp(240px, 22vw, 350px);
+  height: 100vh;
+  transform: translateX(-100%) translateY(0);
+  z-index: 1050;
+  /* Плавная анимация (как мы настроили ранее) */
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+  /* МОБИЛЬНАЯ КОРРЕКЦИЯ */
+}
+@media (max-width: 768px) {
+  .sidebar {
+    /* На телефонах делаем ширину ~70% экрана, но не уже 240px */
+    width: clamp(240px, 70vw, 320px);
+  }
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.6s;
+}
+
+body.sidebar-open .sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
+  /* Отступ сверху зависит от высоты экрана */
+  padding: clamp(60px, 15vh, 120px) 0 0 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  /* Адаптивные отступы:
+     Никаких скрытий. Текст будет виден всегда. */
+  padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
+  /* Расстояние между иконкой и текстом */
+  gap: clamp(10px, 1.5vw, 20px);
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  /* Размер шрифта адаптивный, но читаемый */
+  font-size: clamp(1rem, 2vmin, 1.3rem);
+  white-space: nowrap;
+}
+
+/* Иконки внутри табов */
+.nav-tab i,
+.nav-tab img {
+  width: clamp(24px, 3vmin, 32px);
+  height: clamp(24px, 3vmin, 32px);
+  object-fit: contain;
+  transition: transform 0.2s;
+  /* Убрал margin: 0, который был для безтекстового режима */
+}
+
+/* Эффекты наведения */
+.nav-tab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at left, rgba(var(--azure-raw), 1) 0%, rgba(var(--azure-raw), 0) 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-tab:not(.active):hover::before,
+.nav-tab.active::before {
+  opacity: 1;
+}
+
+.nav-tab.active {
+  border-left-color: var(--azure);
+  color: #fff;
+  text-shadow: 0 0 10px var(--azure);
+}
+
+.nav-tab:hover i,
+.nav-tab:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px var(--azure));
+}
+
+/* Background Image */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.background-image img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%) scale(1.1) translate(0.01%, 0.01%);
+  object-fit: cover;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.page-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  white-space: nowrap;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+@media (max-width: 600px) {
+  .page-title {
+    font-size: small;
+  }
+}
+
+.body-404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  background-color: #000;
+}
+
+.bg-404 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110%;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+.overlay-404 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Более глубокое затемнение по краям для фокуса на центре */
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0.95) 100%);
+  z-index: -1;
+}
+
+.content-404 {
+  /* Темная подложка (Dark Glass) */
+  background: rgba(0, 0, 0, 0.4);
+  /* Размытие фона под блоком (если браузер поддерживает) */
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая рамка */
+  padding: clamp(20px, 5vw, 60px);
+  z-index: 10;
+  width: 100%;
+  max-width: 800px;
+  /* Тень блока, чтобы отделить его от фона */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.title-404 {
+  font-size: clamp(5em, 15vw, 10em);
+  margin: 0;
+  color: #fff;
+  font-family: "Signika", sans-serif;
+  line-height: 1;
+  font-weight: 700;
+  /* Эффект: Белый текст с жесткой черной тенью */
+  text-shadow: 4px 4px 0 #000, 0 0 20px rgba(255, 255, 255, 0.5); /* Свечение вокруг */
+  /* Легкая прозрачность, чтобы фон чуть проглядывал сквозь цифры (стильно) */
+  opacity: 0.95;
+}
+
+.text-404 {
+  font-size: clamp(1.2em, 4vw, 1.8em);
+  color: #fff;
+  margin-bottom: 40px;
+  font-family: "Signika", sans-serif;
+  font-weight: 500;
+  /* Максимальная читаемость на любом фоне */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 2px 10px rgba(0, 0, 0, 0.8); /* Глубокая тень под текстом */
+  line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  /* Чуть больше воздуха */
+  letter-spacing: 0.5px;
+}
+
+.btn-404 {
+  display: inline-block;
+  padding: 14px 45px;
+  /* Нейтральный темный фон */
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-decoration: none;
+  /* Белая рамка */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px; /* Скругленная, как везде в проекте */
+  font-size: 1.1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.2s ease-out;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.btn-404:hover {
+  /* При наведении — вспышка белого */
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+.btn-404:active {
+  transform: translateY(1px) scale(0.98);
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/*# sourceMappingURL=404.css.map */

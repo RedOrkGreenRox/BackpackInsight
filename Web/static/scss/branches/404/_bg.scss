@@ -1,0 +1,12 @@
+.bg-404 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110%;             // Запас 10% для смещения при параллаксе без белых полос
+    height: 110%;            // Запас 10% по высоте
+    background-size: cover;
+    background-position: center;
+    z-index: -2;             // Самый нижний слой
+    background-repeat: no-repeat;
+    will-change: transform;  // Сообщает браузеру о выносе слоя на GPU (плавный параллакс)
+}

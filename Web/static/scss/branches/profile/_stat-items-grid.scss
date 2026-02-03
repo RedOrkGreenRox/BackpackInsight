@@ -1,0 +1,48 @@
+.profile-header .stats-items-grid {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  width: fit-content;
+  min-height: 40px;
+  margin-top: auto;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stats-items-grid:hover {
+    box-shadow: 0 0 16px rgba(var(--azure-raw), 0.8);
+    transform: translateY(3px);
+}
+
+.rarity-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.rarity-icon {
+    // Ширина от 18px до 24px
+    width: clamp(18px, 4vw, 24px);
+    height: auto; // Высота подстроится пропорционально
+}
+
+.rarity-count {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.stats-items-grid {
+    @media (max-width: 1100px) {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}

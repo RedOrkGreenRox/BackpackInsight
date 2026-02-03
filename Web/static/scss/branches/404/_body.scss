@@ -1,0 +1,11 @@
+.body-404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Центровка по вертикали
+    align-items: center;     // Центровка по горизонтали
+    height: 100dvh;          // Dynamic VH: предотвращает прыжки интерфейса на мобилках из-за адресной строки
+    margin: 0;
+    overflow: hidden;        // Убираем скролл, так как это статичная страница
+    text-align: center;
+    background-color: #000;  // Запасной фон, пока грузится картинка
+}

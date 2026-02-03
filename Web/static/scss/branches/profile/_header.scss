@@ -1,0 +1,100 @@
+.container .profile-header {
+    position: relative;
+    display: flex;
+
+    /* Десктоп: в ряд */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    /* ГИБКОСТЬ: gap зависит от vmin. Если высота экрана упадет — отступы тоже */
+    gap: clamp(10px, 3vmin, 20px);
+    padding: clamp(15px, 4vmin, 30px);
+
+    /* ШИРИНА И ОТСТУПЫ */
+    width: calc(100% - 30px);
+    max-width: 1100px;
+
+    /* Безопасный отступ сверху/снизу, зависящий от высоты экрана (vh) */
+    margin: clamp(40px, 12vh, 150px) auto 40px auto;
+
+    /* ВЫСОТА */
+    /* Используем min(), чтобы на очень низких экранах (нетбуки) блок не был огромным */
+    min-height: min(400px, 80vh);
+
+    /* ОФОРМЛЕНИЕ */
+    border-radius: 25px;
+    overflow: hidden;
+
+    /* ФОН И ЗУМ: */
+    /* cover — гарантирует, что картинка не уменьшится меньше блока */
+    /* center — держит фокус по центру */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    text-align: left;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
+}
+
+/* === АДАПТАЦИЯ === */
+.profile-header {
+
+    /* 1. ПЛАНШЕТЫ И ТЕЛЕФОНЫ (Вертикально) */
+    @media (max-width: 1100px) {
+        flex-direction: column;
+        align-items: center;
+
+        /* ГАРАНТИЯ ОТСТУПОВ ПО БОКАМ */
+        /* 100% минус 30px = по 15px "фона" слева и справа всегда видно */
+        width: calc(100% - 30px);
+
+        /* Высота авто, так как элементы стоят столбиком */
+        height: auto;
+        min-height: auto; /* Сбрасываем жесткую высоту, пусть контент решает */
+
+        padding-top: 20px;
+        padding-bottom: 30px;
+
+        /* Отступ сверху тоже резиновый от высоты */
+        margin: clamp(20px, 8vh, 80px) auto 20px auto;
+
+        h4 {
+            margin: 10px auto;
+            /* Шрифт чуть меньше, если экран тесный */
+            font-size: clamp(1.5rem, 5vmin, 2rem);
+        }
+    }
+
+    /* 2. ЛАНДШАФТНЫЙ РЕЖИМ (Повернутый телефон / Низкий экран) */
+    /* Сработает, если высота < 500px (даже если ширина большая) */
+    @media (max-height: 500px) and (orientation: landscape) {
+        /* Принудительно возвращаем СТРОКУ, чтобы сэкономить высоту */
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        /* Ужимаем отступы до минимума */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        gap: 10px;
+
+        /* Ширина всё еще с отступами */
+        width: calc(100% - 40px);
+
+        min-height: auto;
+
+        /* Уменьшаем никнейм, чтобы влез в одну строку с героями */
+        h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Совсем мелкие телефоны */
+    @media (max-width: 400px) {
+        width: calc(100% - 20px); /* Чуть меньше отступы (по 10px), но они есть */
+    }
+}

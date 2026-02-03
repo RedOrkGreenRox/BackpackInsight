@@ -1,0 +1,22 @@
+.profile-header .stat-player-card {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    width: fit-content;
+    height: 50px;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.profile-header .stat-player-card img {
+    width: 40px;
+    height: 40px;
+    margin-right: 3px;
+}
+
+.profile-header .stat-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff;
+}

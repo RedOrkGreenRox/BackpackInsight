@@ -1,0 +1,64 @@
+/* Web/static/scss/branches/profile/_stats-grid.scss */
+
+.profile-header .stats-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* === РАЗМЕРЫ === */
+    /* Блок занимает ровно столько места, сколько нужно цифрам */
+    width: fit-content;
+    height: fit-content;
+
+    /* Ограничитель, чтобы не вылезать за экран */
+    max-width: 100%;
+
+    /* Гибкость: разрешаем сжиматься, если совсем тесно */
+    flex: 0 1 auto;
+
+    /* Отступы через clamp: на телефоне маленькие, на ПК — умеренные */
+    gap: clamp(10px, 2vmin, 20px);
+    padding: clamp(8px, 1.5vmin, 15px);
+
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* === HOVER (СОХРАНИЛ) === */
+.stats-grid:hover {
+    box-shadow: 0 0 16px rgba(var(--azure-raw), 0.8);
+    transform: translateY(3px);
+}
+
+/* Карточка отдельного стата */
+.profile-header .stats-grid .stat-player-card {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: auto;
+    padding: 0 5px; /* Небольшой зазор сбоку */
+}
+
+/* Иконки валюты */
+.profile-header .stats-grid img {
+    /* CLAMP: На телефоне 20px, на ПК максимум 32px. */
+    width: clamp(20px, 4vmin, 32px);
+    height: clamp(20px, 4vmin, 32px);
+
+    margin-right: 6px;
+    object-fit: contain; /* Сохраняет пропорции */
+}
+
+/* Цифры */
+.profile-header .stats-grid .stat-value {
+    /* CLAMP: На телефоне 14px, на ПК максимум 20px.
+       Больше никаких гигантских цифр на мониторе. */
+    font-size: clamp(14px, 3vmin, 20px);
+
+    font-weight: bold;
+    color: #ffffff;
+    white-space: nowrap;
+}

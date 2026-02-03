@@ -1,0 +1,81 @@
+.sort-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.sort-btn {
+    border: none;
+    border-radius: 15px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 0.95em;
+}
+
+.sort-btn.primary, .sort-btn.invert {
+    background: linear-gradient(45deg, var(--azure), #0056b3);
+}
+
+.sort-btn.invert {
+    min-width: 60px;
+    justify-content: center;
+}
+
+.sort-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+.sort-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 16px rgba(var(--azure-raw), 0.8);
+}
+
+.invert-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.invert-icon-btn img {
+    width: 32px;
+    height: 32px;
+    filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.invert-icon-btn:hover img {
+    transform: translateY(-3px) scale(1.1);
+}
+
+.invert-icon-btn:active img {
+    transform: scale(0.95);
+}
+
+#sortToggle, #invertToggle {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#sortToggle:hover ~ #invertToggle {
+    transform: translateX(30px);
+}
+
+#invertToggle:hover ~ #sortToggle {
+    transform: translateX(-30px);
+}

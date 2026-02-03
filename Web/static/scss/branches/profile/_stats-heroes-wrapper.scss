@@ -1,0 +1,20 @@
+.profile-header .stats-heroes-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: fit-content;
+  margin-left: 0;
+  border-radius: 10px;
+  margin-right: auto;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-header .stats-heroes-wrapper:hover {
+    transform: translateY(2px);
+}
+/* Специально для мобильных: 1 герой в ряд */
+@media (max-width: 480px) {
+    .profile-header .stats-heroes-wrapper {
+        max-width: 100%; /* Разрешаем обертке занять всю ширину */
+    }
+}

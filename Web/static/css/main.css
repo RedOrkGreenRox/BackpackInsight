@@ -1,0 +1,635 @@
+@charset "UTF-8";
+:root {
+  --azure-raw: 0, 212, 255;
+  --azure: rgb(var(--azure-raw));
+  --azure-glow-low: 0 0 8px rgba(var(--azure-raw), 0.1), inset 0 0 2px rgba(var(--azure-raw), 0.05);
+  --azure-glow-high: 0 0 15px rgba(var(--azure-raw), 0.25), inset 0 0 4px rgba(var(--azure-raw), 0.1);
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Signika", "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Дополнительная страховка от прыжков ширины из-за скроллбара */
+  scrollbar-gutter: stable;
+}
+
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+.error {
+  background: rgba(255, 50, 50, 0.3);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(255, 50, 50, 0.5);
+}
+
+img, span, h1, h2, h3, button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  will-change: opacity;
+}
+
+text {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img.loaded, span.loaded, h4.loaded, button.loaded {
+  opacity: 1;
+}
+
+.h1, .h2, .upload-area,
+.upload-area * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+body {
+  opacity: 0;
+  background: black;
+  transition: opacity 2s ease-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.leaving {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes flicker-intense {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+.controls-wrapper {
+  position: fixed;
+  top: clamp(10px, 2vh, 30px);
+  left: clamp(10px, 3vw, 40px);
+  right: clamp(10px, 3vw, 40px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  /* Плавность появления при закрытии меню */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+@media (max-width: 1100px) {
+  .controls-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(10px, 1.5vh, 15px) clamp(10px, 2vw, 15px);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    pointer-events: auto;
+  }
+}
+
+.controls-wrapper > * {
+  pointer-events: auto;
+}
+
+/* При открытии сайдбара кнопки плавно исчезают */
+body.sidebar-open .controls-wrapper,
+body.leaving .controls-wrapper {
+  opacity: 0;
+  pointer-events: none;
+  /* Используем ту же кривую, что и у сайдбара */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body.sidebar-open .controls-wrapper > *,
+body.leaving .controls-wrapper > * {
+  pointer-events: none;
+}
+
+.button-logo {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  animation: none;
+}
+
+.button-logo:hover {
+  transform: scale(1.05);
+  animation: none;
+}
+
+.button-logo .logo-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.menu-toggle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border-radius: 20px;
+  border: var(--border);
+  /* Общая плавность для всех состояний */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-toggle .toggle-icon :hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--azure-raw), 0.8);
+  transform: translateY(-2px);
+  animation: none;
+}
+
+.toggle-icon {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  /* Плавный зум иконки */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: block;
+}
+
+.menu-toggle:hover .toggle-icon {
+  transform: scale(1.1);
+}
+
+/* Когда меню открыто */
+body.sidebar-open .menu-toggle {
+  pointer-events: none;
+  transform: translateX(-30px); /* Чуть дальше отъезжает для динамики */
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Синхрон с сайдбаром */
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* ЛОГИКА ШИРИНЫ (Исправленная):
+     1. Clamp(240px, ..., ...) гарантирует, что сайдбар НЕ схлопнется меньше 240px.
+     2. На мобилках (где 22vw мало), сработает min-width 240px.
+     Это позволит тексту всегда влезать. */
+  width: clamp(240px, 22vw, 350px);
+  height: 100vh;
+  transform: translateX(-100%) translateY(0);
+  z-index: 1050;
+  /* Плавная анимация (как мы настроили ранее) */
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+  /* МОБИЛЬНАЯ КОРРЕКЦИЯ */
+}
+@media (max-width: 768px) {
+  .sidebar {
+    /* На телефонах делаем ширину ~70% экрана, но не уже 240px */
+    width: clamp(240px, 70vw, 320px);
+  }
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.6s;
+}
+
+body.sidebar-open .sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
+  /* Отступ сверху зависит от высоты экрана */
+  padding: clamp(60px, 15vh, 120px) 0 0 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  /* Адаптивные отступы:
+     Никаких скрытий. Текст будет виден всегда. */
+  padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
+  /* Расстояние между иконкой и текстом */
+  gap: clamp(10px, 1.5vw, 20px);
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  /* Размер шрифта адаптивный, но читаемый */
+  font-size: clamp(1rem, 2vmin, 1.3rem);
+  white-space: nowrap;
+}
+
+/* Иконки внутри табов */
+.nav-tab i,
+.nav-tab img {
+  width: clamp(24px, 3vmin, 32px);
+  height: clamp(24px, 3vmin, 32px);
+  object-fit: contain;
+  transition: transform 0.2s;
+  /* Убрал margin: 0, который был для безтекстового режима */
+}
+
+/* Эффекты наведения */
+.nav-tab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at left, rgba(var(--azure-raw), 1) 0%, rgba(var(--azure-raw), 0) 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-tab:not(.active):hover::before,
+.nav-tab.active::before {
+  opacity: 1;
+}
+
+.nav-tab.active {
+  border-left-color: var(--azure);
+  color: #fff;
+  text-shadow: 0 0 10px var(--azure);
+}
+
+.nav-tab:hover i,
+.nav-tab:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px var(--azure));
+}
+
+/* Background Image */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.background-image img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%) scale(1.1) translate(0.01%, 0.01%);
+  object-fit: cover;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.page-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  white-space: nowrap;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+@media (max-width: 600px) {
+  .page-title {
+    font-size: small;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(20px, 5vh, 60px) 20px;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 98%;
+    max-width: none;
+    padding-top: 15vh;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.2rem;
+  }
+  .container h1, .container h2 {
+    font-size: 2.5rem;
+  }
+  .container p, .container div {
+    line-height: 1.6;
+  }
+}
+@media (max-height: 600px) and (orientation: landscape) {
+  .container {
+    padding-top: 5vh;
+  }
+}
+@media (max-width: 1100px) {
+  .container, .upload-zone {
+    width: 95%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.main-title {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 30px;
+  /* Улучшаем видимость текста */
+  color: #fff;
+  font-weight: 800; /* Делаем жирнее */
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5); /* Мягкое свечение вокруг для контраста */
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* Легкий эффект при наведении */
+}
+.main-title:hover {
+  text-shadow: 0 4px 8px rgb(0, 0, 0), 0 0 25px rgba(255, 255, 255, 0.4);
+  transform: scale(1.02);
+}
+
+/* Адаптив для заголовка */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+  }
+}
+.upload-area {
+  position: relative;
+  /* ТЕМНЫЙ ФОН (Dark Glass) */
+  background: rgba(0, 0, 0, 0.6);
+  /* Граница чуть ярче для контраста */
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* Тень для объема */
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.upload-area:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.upload-area,
+.upload-area * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-user-drag: element;
+}
+
+.upload-area textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: white; /* Белый текст на темном фоне */
+  padding: 25px; /* Чуть больше отступа */
+  font-family: "Courier New", monospace;
+  /* УВЕЛИЧЕННЫЙ ШРИФТ */
+  font-size: 18px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  z-index: 5;
+  /* Тень текста для лучшей читаемости */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.upload-hint {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Больше воздуха между иконкой и текстом */
+  /* Текст ярче и крупнее */
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  pointer-events: none;
+  /* УВЕЛИЧЕННЫЙ РАЗМЕР */
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* Тень, чтобы текст "выпрыгивал" с фона */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.upload-hint i {
+  font-size: 3rem; /* Иконка загрузки (облачко/стрелка) крупнее */
+  opacity: 0.8;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+.upload-hint p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Добавляем глобальную видимость текста для всей зоны загрузки */
+.upload-zone {
+  /* Принудительно делаем весь текст внутри белым и с тенью */
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  /* Если там есть заголовки или параграфы */
+}
+.upload-zone h2, .upload-zone h3, .upload-zone h4, .upload-zone p, .upload-zone span, .upload-zone i {
+  color: #fff;
+  text-shadow: 0 2px 5px rgb(0, 0, 0); /* Еще более глубокая тень */
+}
+.upload-zone {
+  /* Убедимся, что иконки тоже видны (если это шрифтовые иконки) */
+}
+.upload-zone i {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8));
+}
+
+.button-view-profile {
+  width: 100%;
+  padding: 22px;
+  font-size: 1.5em;
+  /* Центрирование контента */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  /* --- СТИЛЬ GLASS UI (Как у кнопки скачивания) --- */
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+  border: 2px solid rgba(255, 255, 255, 0.25); /* Тонкая рамка */
+  border-radius: 50px;
+  /* Типографика */
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* Тень текста для читаемости */
+  /* Объем */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  position: relative;
+  overflow: hidden;
+  /* --- Эффекты наведения --- */
+}
+.button-view-profile:hover {
+  /* Неоновое свечение (Azure) */
+  box-shadow: 0 0 20px var(--azure), inset 0 0 10px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  /* Подсветка фона и границ */
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(var(--azure-raw), 0.6);
+}
+.button-view-profile:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 10px var(--azure);
+  filter: brightness(0.9);
+}
+
+/* Анимация пульсации, если нужна (опционально) */
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(var(--azure-raw), 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--azure-raw), 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(var(--azure-raw), 0.2);
+  }
+}
+@keyframes glow-pulse {
+  0% {
+    /* Минимальное свечение, почти сливающееся с кнопкой */
+    box-shadow: var(--azure-glow-low);
+  }
+  50% {
+    /* Пик мерцания: чуть ярче, но все еще прозрачно */
+    box-shadow: var(--azure-glow-high);
+  }
+  100% {
+    box-shadow: var(--azure-glow-low);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

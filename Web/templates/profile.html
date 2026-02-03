@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block page_styles %}
+    <link rel="stylesheet" href="/static/css/profile.css">
+{% endblock %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="profile-header" style="background-image: url('/static/images/Area/Area{{ area }}.webp');"
+         data-aos="zoom-in">
+        <h4>{{ nickname }}</h4>
+        <div class="stats-grid">
+            <div class="stat-player-card">
+                <img src="/static/images/Profile/Level.webp" alt="Lvl" loading="lazy">
+                <span class="stat-value">{{ level }}</span>
+            </div>
+            <div class="stat-player-card">
+                <img src="/static/images/Profile/xp.webp" alt="XP" loading="lazy">
+                <span class="stat-value">{{ "{:,}".format(xp_current) }} / {{ "{:,}".format(xp_need) }}</span>
+            </div>
+            <div class="stat-player-card">
+                <img src="/static/images/Profile/Trophy.webp" alt="Trophy" loading="lazy">
+                <span class="stat-value">{{ trophy + bonus_trophy }}</span>
+            </div>
+            <div class="stat-player-card">
+                <img src="/static/images/Profile/Gems.webp" alt="Gems" loading="lazy">
+                <span class="stat-value">{{ gems }}</span>
+            </div>
+            <div class="stat-player-card">
+                <img src="/static/images/Profile/Coins.webp" alt="Gems" loading="lazy">
+                <span class="stat-value">{{ coins }}</span>
+            </div>
+        </div>
+        <div class="stats-heroes-wrapper">
+            <div class="stats-heroes-grid">
+                {% for hero in heroes %}
+                <div class="stat-hero-card">
+                    <div class="hero-header-row">
+                        <img class="stat-hero-icon"
+                             src="/static/images/Heroes/{{ hero.name }}/{{ hero.name }}{{ hero.skin_num }}.webp"
+                             alt="{{ hero.name }}"
+                             loading="lazy">
+                        <div class="stat-hero-level-container">
+                            <img class="stat-hero-level-frame"
+                                 src="/static/images/Profile/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                 alt="rank"
+                                 loading="lazy">
+                            <span class="stat-hero-level-text">{{ hero.level }}</span>
+                        </div>
+                        <div class="stat-hero-rating-container">
+                            <img class="stat-hero-league"
+                                 src="/static/images/Profile/Rank{{ hero.league }}.webp"
+                                 alt="rank"
+                                 loading="lazy">
+                            <span class="stat-hero-rating">{{ hero.rating }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="stats-items-grid">
+            {% set priority_order = ["Common", "Rare", "Epic", "Legendary", "Mythic", "Relic", "Boon"] %}
+            {% for rarity in priority_order %}
+            {% if rarity in item_stats %}
+            <div class="rarity-item">
+                <img class="rarity-icon"
+                     src="/static/images/Profile/Card{{ rarity }}.webp"
+                     alt="{{ rarity }}"
+                     loading="lazy">
+                <span class="rarity-count">{{ item_stats[rarity] }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="actual-version-container">
+            <span class="actual-version">
+                {{ actual_version }}    {{ install_version }}
+            </span>
+        </div>
+    </div>
+    <div class="button-download-profile">
+        <button>
+            СОХРАНИТЬ КАРТОЧКУ
+        </button>
+    </div>
+
+    <!-- ГЕРОИ -->
+    <div class="section" data-aos="fade-up">
+        <h2>Персонажи ({{ heroes_count }})</h2>
+        <div class="sort-controls">
+            <button id="sortToggle" class="sort-btn" data-sort="level">
+                <img id="sortIcon" src="/static/images/Profile/Level.webp" alt="Сортировка по уровню" loading="lazy">
+                <span id="sortText">Сортировка по уровню</span>
+            </button>
+            <button id="invertToggle" class="invert-icon-btn">
+                <img id="invertIcon" src="/static/images/Profile/SortLow.webp" alt="↕ По убыванию" loading="lazy">
+            </button>
+        </div>
+        <div class="main-heroes-grid">
+            {% for hero in heroes %}
+            <div class="main-hero-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800"
+                 data-level="{{ hero.level }}" data-rating="{{ hero.rating }}">
+                <div class="main-hero-image">
+                    <img src="/static/images/Heroes/{{ hero.name }}/{{ hero.name }}{{ hero.skin_num }}.webp"
+                         alt="{{ hero.name }}" loading="lazy">
+                </div>
+                <div class="main-hero-header-row">
+                    <div class="main-hero-level-container">
+                        <img class="main-hero-level-frame"
+                             src="/static/images/Profile/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                             alt="level frame"
+                             loading="lazy">
+                        <span class="main-hero-level-text">{{ hero.level }}</span>
+                    </div>
+
+                    <div class="main-hero-name">{{ hero.name }}</div>
+
+                    <div class="main-hero-rating-container">
+                        <img class="main-hero-rating"
+                             src="/static/images/Profile/Rank{{ hero.league }}.webp"
+                             alt="rank"
+                             loading="lazy">
+                        <span class="main-hero-rating">{{ hero.rating }}</span>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- ПРЕДМЕТЫ -->
+    <div class="section" data-aos="fade-up" data-aos-delay="200">
+        <h2>Предметы ({{ items_count }})</h2>
+        <div class="items-grid">
+            {% for item in items[:10] %}
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800">
+                <div class="item-name">{{ item.name }}</div>
+                <div class="item-stats">
+                    <span>Lvl {{ item.level }}</span>
+                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
+                    <span>{{ item.cards }} карт</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sortBtn = document.getElementById('sortToggle');
+        const sortIcon = document.getElementById('sortIcon');
+        const sortText = document.getElementById('sortText');
+        const invertBtn = document.getElementById('invertToggle');
+        const invertIcon = document.getElementById('invertIcon');
+        const heroGrid = document.querySelector('.heroes-grid');
+
+        let sortByLevel = true;
+        let sortAscending = false;
+
+        sortBtn.addEventListener('click', function () {
+            sortByLevel = !sortByLevel;
+            sortIcon.src = sortByLevel ? '/static/images/Profile/Level.webp' : '/static/images/Profile/Trophy.webp';
+            sortText.textContent = sortByLevel ? 'Сортировка по уровню' : 'Сортировка по рейтингу';
+            sortHeroes();
+        });
+
+        invertBtn.addEventListener('click', function () {
+            sortAscending = !sortAscending;
+            invertIcon.src = sortAscending ? '/static/images/Profile/SortHigh.webp' : '/static/images/Profile/SortLow.webp';
+            sortHeroes();
+        });
+
+        function sortHeroes() {
+            const heroCards = Array.from(document.querySelectorAll('.hero-card'));
+
+            heroCards.sort((a, b) => {
+                let valA, valB;
+
+                if (sortByLevel) {
+                    valA = parseInt(a.dataset.level);
+                    valB = parseInt(b.dataset.level);
+                } else {
+                    valA = parseInt(a.dataset.rating);
+                    valB = parseInt(b.dataset.rating);
+                }
+
+                return sortAscending ? valA - valB : valB - valA;
+            });
+
+            // Перемещаем карточки в отсортированном порядке
+            heroCards.forEach(card => heroGrid.appendChild(card));
+
+            // Обновляем AOS анимации
+            if (typeof AOS !== 'undefined') {
+                setTimeout(AOS.refresh, 150);
+            }
+        }
+
+        // Первоначальная сортировка
+        sortHeroes();
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('finalDownloadBtn');
+        if (!btn) return;
+
+        btn.onclick = function () {
+            const target = document.querySelector('.profile-header');
+            if (!target) return;
+
+            // Визуальный отклик
+            const originalText = btn.innerText;
+            btn.innerText = "⌛ СОХРАНЕНИЕ...";
+            btn.style.opacity = "0.7";
+
+            // Используем проверенную логику
+            html2canvas(target, {
+                useCORS: true,
+                allowTaint: true,
+                scale: 2,
+                backgroundColor: "#000000"
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png");
+                link.download = "Profile_{{ nickname }}.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Возвращаем кнопку в норму
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }).catch(err => {
+                console.error("Ошибка:", err);
+                btn.innerText = "❌ ОШИБКА";
+                btn.style.opacity = "1";
+            });
+        };
+    });
+</script>
+{% endblock %}
+
