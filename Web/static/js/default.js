@@ -21,9 +21,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const instantElements = document.querySelectorAll('span, h4, button, .button-view-profile, .main-title');
     instantElements.forEach(el => el.classList.add('loaded'));
 
-    // 2. Обработка изображений
+    // 2. УМНАЯ ЗАГРУЗКА ИКОНОК САЙДБАРА
+    // Если интернет ХОРОШИЙ, грузим иконки меню сразу, не дожидаясь клика
+    if (!window.isSlowConnection) {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            const lazyIcons = sidebar.querySelectorAll('img[data-src]');
+            lazyIcons.forEach(img => {
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+                img.classList.add('loaded'); // Показываем сразу
+            });
+        }
+    }
+
+    // 3. Обработка остальных изображений
     const images = document.querySelectorAll('img');
     images.forEach(img => {
+        // Пропускаем иконки сайдбара, если у них все еще есть data-src (значит, мы на 3G и загрузим их позже)
+        if (img.closest('#sidebar') && img.hasAttribute('data-src')) return;
+
         // ОПТИМИЗАЦИЯ: Не ставим lazy на критически важные картинки (лого и фон)
         const isCritical = img.id === 'bgImg' || img.classList.contains('logo-icon');
 
@@ -150,7 +167,7 @@ const handleParallax = (e) => {
     const rect = img.closest('.background-image').getBoundingClientRect();
 
     // Считаем смещение относительно СТАРТОВОЙ точки, а не центра экрана
-    const intensivity = 1.5  ;
+    const intensivity = 1.5;
 
     // Формула смещения от начальной точки
     const moveX = -((e.clientX - initialX) / rect.width) * 100 * (intensivity / 50);
@@ -165,19 +182,27 @@ document.addEventListener('mousemove', throttle(handleParallax, 20));
 /**
  * Сайдбар
  */
+/**
+ * Сайдбар
+ */
 function toggleSidebar() {
     const body = document.body;
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
 
-    // Если включен режим low-res, подгружаем иконки при первом открытии
-    if (window.isSlowConnection && sidebar && !sidebar.classList.contains('open')) {
+    if (sidebar) {
         const pendingIcons = sidebar.querySelectorAll('img[data-src]');
-        pendingIcons.forEach(img => {
-            img.src = img.getAttribute('data-src');
-            img.removeAttribute('data-src');
-            img.onload = () => img.classList.add('loaded');
-        });
+        if (pendingIcons.length > 0) {
+            pendingIcons.forEach(img => {
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.onload = () => img.classList.add('loaded');
+                }
+            });
+        }
     }
 
     body.classList.toggle('sidebar-open');
