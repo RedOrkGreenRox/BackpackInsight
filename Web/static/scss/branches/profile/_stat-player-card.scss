@@ -1,22 +1,49 @@
+/* Основной контейнер шапки */
+.profile-header {
+    position: relative; /* Создаем контекст наложения */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    overflow: hidden; /* Чтобы скруглить края картинки под края карточки */
+    border-radius: 15px; /* Если у тебя есть скругление */
+    z-index: 1;
+}
+
+/* Стили для нового тега picture */
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Уводим картинку за текст */
+    pointer-events: none; /* Чтобы картинка не мешала кликать по кнопкам */
+}
+
+.header-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заменяет background-size: cover */
+    object-position: center;
+    filter: brightness(0.6); /* Затемнение, чтобы белые статы читались */
+}
+
+/* Твои карточки статов (уже внутри шапки поверх фона) */
 .profile-header .stat-player-card {
     display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
-    border: none;
-    width: fit-content;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.3); /* Добавим легкую подложку для читаемости */
+    border-radius: 8px;
+    margin: 5px;
     height: 50px;
     white-space: nowrap;
     transition: all 0.3s;
 }
 
 .profile-header .stat-player-card img {
-    width: 40px;
-    height: 40px;
-    margin-right: 3px;
-}
-
-.profile-header .stat-value {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #ffffff;
+    width: 35px;
+    height: 35px;
+    margin-right: 8px;
 }

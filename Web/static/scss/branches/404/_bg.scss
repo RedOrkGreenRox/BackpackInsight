@@ -1,19 +1,29 @@
 .bg-404 {
-    position: fixed;
+    position: fixed; /* Фиксирует блок относительно окна, а не страницы */
     top: 0;
     left: 0;
-    width: 110%;
-    height: 110%;
-    background-size: cover;
-    background-position: center;
+    width: 100vw; /* Строго 100% ширины видимой области */
+    height: 100vh; /* Строго 100% высоты видимой области */
     z-index: -2;
-    background-repeat: no-repeat;
-    will-change: transform, filter;
-    filter: blur(4px); /* Добавляем размытие */
+    overflow: hidden;
+    background-color: #000; /* Цвет-заглушка */
+}
+
+.bg-404 picture,
+.bg-404 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет всё пространство, обрезая лишнее (как background-size: cover) */
+    object-position: center;
+    filter: blur(4px);
     transition: filter 0.3s ease;
 }
 
-/* Отключаем размытие в режиме низкого качества */
-.low-res-mode .bg-404 {
+/* Для режима низкого качества отключаем блюр */
+.low-res-mode .bg-404 picture,
+.low-res-mode .bg-404 img {
     filter: none;
 }

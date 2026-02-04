@@ -11,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.gzip import GZipMiddleware  # Для сжатия данных
 from fastapi.staticfiles import StaticFiles
+
 # Настройка путей
 BASE_DIR = Path(__file__).parent
 SHARED_DIR = BASE_DIR / ".." / "Shared"
@@ -27,20 +28,22 @@ except ImportError:
 
 app = FastAPI()
 
-# 1. ВКЛЮЧАЕМ СЖАТИЕ (Критично для 3G)
-# Сжимает все ответы крупнее 1000 байт (твой CSS попадет под это)
-# noinspection PyTypeChecker
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+
 
 class MyStaticFiles(StaticFiles):
     def is_not_modified(self, response_headers, request_headers):
-        # Добавляем Cache-Control на год для всех файлов
-        response_headers["Cache-Control"] = "public, max-age=31536000"
+        # Отключаем кэширование полностью для разработки
+        response_headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response_headers["Pragma"] = "no-cache"
+        response_headers["Expires"] = "0"
         return super().is_not_modified(response_headers, request_headers)
+
 
 app.mount("/static", MyStaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
+
 
 def get_static_file_content(filename: str):
     path = BASE_DIR / "static" / "css" / filename
@@ -55,18 +58,12 @@ templates.env.globals.update(get_css=get_static_file_content)
 # Главная страница
 @app.get("/", response_class=HTMLResponse)
 async def show_form(request: Request):
-    # Проверяем заголовок экономии данных
-    save_data = request.headers.get("save-data") == "on"
-
-    # Выбираем картинку
-    suffix = "low" if save_data else ""
-    area_name = f"{randint(1, 20):02d}{suffix}"
-
+    bg = f"{randint(1, 20):02d}"
     return templates.TemplateResponse("main.html", {
         "request": request,
-        "background_image": f"{area_name}",
-        "is_low_res": save_data  # Передаем флаг в шаблон
+        "background_image": f"{bg}",
     })
+
 
 # Обработка глобальных ошибок
 @app.exception_handler(Exception)
@@ -75,13 +72,12 @@ async def global_exception_handler(request: Request, exc: Exception):
     return RedirectResponse(url="/?error=true", status_code=303)
 
 
-
 # Страница 404
 @app.exception_handler(404)
 async def not_found(request: Request, exc):
     rarity_weights = [80, 15, 4, 0.9, 0.1]
     rarity = choices([0, 1, 2, 3, 4], weights=rarity_weights, k=1)[0]
-    bg_image = f"/static/images/404/{rarity:02d}.avif"
+    bg_image = f"{rarity:02d}"
     return templates.TemplateResponse(
         "404.html", {
             "request": request,
@@ -139,7 +135,7 @@ async def profile(
             "trophy": profile_obj.game_information.get("Trophy", 0),
             "bonus_trophy": profile_obj.game_information.get("BonusTrophy", 0),
             "area": profile_obj.game_information.get("Area", "Unknown"),
-            "background_image": f"Area{randint(1, 20):02d}",
+            "background_image": f"{randint(1, 20):02d}",
             "coins": profile_obj.game_information.get("Currency", {}).get("coins", 0),
             "gems": profile_obj.game_information.get("Currency", {}).get("gems", 0),
             "heroes": heroes_data,

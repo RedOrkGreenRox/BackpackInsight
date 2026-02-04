@@ -11,7 +11,13 @@
     <link rel="preload" as="image" href="{{ background_image }}">
 </head>
 <body class="body-404 loaded">
-<div class="bg-404" style="background-image: url('{{ background_image }}');" aria-hidden="true"></div>
+<div class="bg-404" aria-hidden="true">
+    <picture>
+        <source srcset="/static/images/404/avif/{{ background_image }}.avif" type="image/avif">
+        <source srcset="/static/images/404/webp/{{ background_image }}.webp" type="image/webp">
+        <img src="/static/images/404/webp/{{ background_image }}.webp" alt="Background">
+    </picture>
+</div>
 <div class="overlay-404"></div>
 
 <main class="content-404">

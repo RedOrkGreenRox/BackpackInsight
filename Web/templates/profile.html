@@ -6,8 +6,15 @@
 
 {% block content %}
 <div class="container">
-    <div class="profile-header" style="background-image: url('/static/images/Area/webp/{{ background_image }}.webp');"
-         data-aos="zoom-in">
+<div class="profile-header" data-aos="zoom-in">
+    <picture class="header-bg">
+        <!-- Для случайного фона, заменить area на background_image -->
+        <source srcset="/static/images/Area/avif/Area{{ area }}.avif" type="image/avif">
+        <source srcset="/static/images/Area/webp/Area{{ area }}.webp" type="image/webp">
+        <img src="/static/images/Area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
+    </picture>
+
+    <h4>{{ nickname }}</h4>
         <h4>{{ nickname }}</h4>
         <div class="stats-grid">
             <div class="stat-player-card">
