@@ -23,7 +23,7 @@ git add --renormalize .
 git add -A
 
 echo Создаю коммит...
-git commit -m "Profile scss. Automated push: %date% %time%"
+git commit -m "See more button fix. Automated push: %date% %time%"
 
 echo Отправляю в удаленный репозиторий...
 git push origin HEAD

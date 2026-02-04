@@ -746,7 +746,7 @@ body.sidebar-open .sidebar-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; /* Больше воздуха между иконкой и текстом */
+  gap: 15px;
   /* Текст ярче и крупнее */
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
@@ -758,13 +758,26 @@ body.sidebar-open .sidebar-overlay {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 .upload-hint i {
-  font-size: 3rem; /* Иконка загрузки (облачко/стрелка) крупнее */
+  font-size: 3rem;
   opacity: 0.8;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
 }
 .upload-hint p {
   margin: 0;
   line-height: 1.4;
+}
+.upload-hint {
+  /* --- ЛОГИКА ДЛЯ PC-ONLY --- */
+}
+.upload-hint .pc-only {
+  /* Показываем по умолчанию */
+  display: block;
+  /* Если экран меньше 1024px (планшеты/мобилки), скрываем элемент */
+}
+@media (max-width: 1024px) {
+  .upload-hint .pc-only {
+    display: none;
+  }
 }
 
 /* Добавляем глобальную видимость текста для всей зоны загрузки */

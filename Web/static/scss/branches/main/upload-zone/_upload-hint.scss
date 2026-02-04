@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Больше воздуха между иконкой и текстом */
+    gap: 15px;
 
     /* Текст ярче и крупнее */
     color: rgba(255, 255, 255, 0.9);
@@ -19,7 +19,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 
     i {
-        font-size: 3rem; /* Иконка загрузки (облачко/стрелка) крупнее */
+        font-size: 3rem;
         opacity: 0.8;
         filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
     }
@@ -27,5 +27,16 @@
     p {
         margin: 0;
         line-height: 1.4;
+    }
+
+    /* --- ЛОГИКА ДЛЯ PC-ONLY --- */
+    .pc-only {
+        /* Показываем по умолчанию */
+        display: block;
+
+        /* Если экран меньше 1024px (планшеты/мобилки), скрываем элемент */
+        @media (max-width: 1024px) {
+            display: none;
+        }
     }
 }
