@@ -14,11 +14,18 @@ if not exist ".gitattributes" (
     exit /b
 )
 
-echo [OK] .gitattributes найден. Начинаю пуш...
+echo [OK] .gitattributes найден. Начинаю пуш с нормализацией...
 
+:: Сначала сбрасываем индекс и пересчитываем окончания строк
+git add --renormalize .
+
+:: Затем добавляем все остальные изменения (удаления, новые файлы)
 git add -A
+
+echo Создаю коммит...
 git commit -m "Automated push: %date% %time%"
+
+echo Отправляю в удаленный репозиторий...
 git push origin HEAD
 
 echo Готово!
-pause
