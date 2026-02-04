@@ -63,6 +63,16 @@
         read(e.dataTransfer.files[0]);
     });
 
+    // PASTE (Вставка файла через Ctrl+V)
+    input.addEventListener('paste', (e) => {
+        // Проверяем, есть ли файлы в буфере обмена
+        if (e.clipboardData && e.clipboardData.files && e.clipboardData.files.length > 0) {
+            e.preventDefault(); // Отменяем стандартную вставку (имени файла)
+            read(e.clipboardData.files[0]); // Читаем первый файл
+        }
+        // Если файлов нет, позволяем стандартную вставку текста
+    });
+
     fInput.addEventListener('change', (e) => read(e.target.files[0]));
     input.addEventListener('input', () => hint.style.display = input.value ? 'none' : 'flex');
 </script>
