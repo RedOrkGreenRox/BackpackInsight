@@ -393,6 +393,13 @@ body.sidebar-open .sidebar-overlay {
   filter: none;
 }
 
+.lock-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  top: calc(var(--scroll-y, 0) * -1px);
+}
+
 .page-title {
   font-size: 1.5em;
   font-weight: 700;

@@ -15,7 +15,6 @@ function throttle(func, limit) {
 document.addEventListener('DOMContentLoaded', () => {
     // МГНОВЕННО показываем body, чтобы не было белого экрана на 3G
     document.body.classList.add('loaded');
-    window.scrollTo(0, 0);
 
     // 1. Обработка текстовых элементов и кнопок (показываем сразу)
     const instantElements = document.querySelectorAll('span, h4, button, .button-view-profile, .main-title');

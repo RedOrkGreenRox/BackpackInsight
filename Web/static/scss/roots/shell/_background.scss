@@ -28,3 +28,10 @@
 .low-res-mode .background-image img {
     filter: none;
 }
+
+.lock-scroll {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    top: calc(var(--scroll-y, 0) * -1px);
+}
