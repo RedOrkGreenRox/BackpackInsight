@@ -1,0 +1,22 @@
+.wiki-section {
+    padding: clamp(80px, 15vh, 120px) 20px 40px;
+    min-height: 100vh;
+}
+
+.wiki-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+.wiki-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    margin-top: 10px;
+}

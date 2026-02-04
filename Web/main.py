@@ -45,16 +45,6 @@ app.mount("/static", MyStaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-def get_static_file_content(filename: str):
-    path = BASE_DIR / "static" / "css" / filename
-    if path.exists():
-        return path.read_text(encoding='utf-8')
-    return ""
-
-
-templates.env.globals.update(get_css=get_static_file_content)
-
-
 # Главная страница
 @app.get("/", response_class=HTMLResponse)
 async def show_form(request: Request):
@@ -62,6 +52,28 @@ async def show_form(request: Request):
     return templates.TemplateResponse("main.html", {
         "request": request,
         "background_image": f"{bg}",
+    })
+
+
+# Страница рецептов (бывшая items)
+@app.get("/recipes", response_class=HTMLResponse)
+async def show_recipes(request: Request):
+    bg = f"{randint(1, 20):02d}"
+    
+    # Загружаем предметы из JSON
+    items_path = BASE_DIR / ".." / "jsons" / "items.json"
+    items_data = []
+    if items_path.exists():
+        try:
+            with open(items_path, "r", encoding="utf-8") as f:
+                items_data = json.load(f)
+        except Exception as e:
+            print(f"Ошибка загрузки items.json: {e}")
+
+    return templates.TemplateResponse("recipes.html", {
+        "request": request,
+        "background_image": f"{bg}",
+        "items": items_data
     })
 
 

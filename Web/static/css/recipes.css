@@ -1,0 +1,515 @@
+@charset "UTF-8";
+:root {
+  --azure-raw: 0, 212, 255;
+  --azure: rgb(var(--azure-raw));
+  --azure-glow-low: 0 0 8px rgba(var(--azure-raw), 0.1), inset 0 0 2px rgba(var(--azure-raw), 0.05);
+  --azure-glow-high: 0 0 15px rgba(var(--azure-raw), 0.25), inset 0 0 4px rgba(var(--azure-raw), 0.1);
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Signika", "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Дополнительная страховка от прыжков ширины из-за скроллбара */
+  scrollbar-gutter: stable;
+}
+
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Signika";
+  src: url("/static/fonts/Signika-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-007F, U+00A0-00FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/static/fonts/NotoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+.error {
+  background: rgba(255, 50, 50, 0.3);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(255, 50, 50, 0.5);
+}
+
+img, span, h1, h2, h3, button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  will-change: opacity;
+}
+
+text {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img.loaded, span.loaded, h4.loaded, button.loaded {
+  opacity: 1;
+}
+
+.h1, .h2, .upload-area,
+.upload-area * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+body {
+  opacity: 0;
+  background: black;
+  transition: opacity 2s ease-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.leaving {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes flicker-intense {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+.controls-wrapper {
+  position: fixed;
+  top: clamp(10px, 2vh, 30px);
+  left: clamp(10px, 3vw, 40px);
+  right: clamp(10px, 3vw, 40px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  /* Плавность появления при закрытии меню */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+@media (max-width: 1100px) {
+  .controls-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(10px, 1.5vh, 15px) clamp(10px, 2vw, 15px);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    pointer-events: auto;
+  }
+}
+
+.controls-wrapper > * {
+  pointer-events: auto;
+}
+
+/* При открытии сайдбара кнопки плавно исчезают */
+body.sidebar-open .controls-wrapper,
+body.leaving .controls-wrapper {
+  opacity: 0;
+  pointer-events: none;
+  /* Используем ту же кривую, что и у сайдбара */
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body.sidebar-open .controls-wrapper > *,
+body.leaving .controls-wrapper > * {
+  pointer-events: none;
+}
+
+.button-logo {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  animation: none;
+}
+
+.button-logo:hover {
+  transform: scale(1.05);
+  animation: none;
+}
+
+.button-logo .logo-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.menu-toggle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border-radius: 20px;
+  border: var(--border);
+  /* Общая плавность для всех состояний */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-toggle .toggle-icon :hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--azure-raw), 0.8);
+  transform: translateY(-2px);
+  animation: none;
+}
+
+.toggle-icon {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  /* Плавный зум иконки */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: block;
+}
+
+.menu-toggle:hover .toggle-icon {
+  transform: scale(1.1);
+}
+
+/* Когда меню открыто */
+body.sidebar-open .menu-toggle {
+  pointer-events: none;
+  transform: translateX(-30px); /* Чуть дальше отъезжает для динамики */
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Синхрон с сайдбаром */
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* ЛОГИКА ШИРИНЫ (Исправленная):
+     1. Clamp(240px, ..., ...) гарантирует, что сайдбар НЕ схлопнется меньше 240px.
+     2. На мобилках (где 22vw мало), сработает min-width 240px.
+     Это позволит тексту всегда влезать. */
+  width: clamp(240px, 22vw, 350px);
+  height: 100vh;
+  transform: translateX(-100%) translateY(0);
+  z-index: 1050;
+  /* Плавная анимация (как мы настроили ранее) */
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform;
+  /* МОБИЛЬНАЯ КОРРЕКЦИЯ */
+}
+@media (max-width: 768px) {
+  .sidebar {
+    /* На телефонах делаем ширину ~70% экрана, но не уже 240px */
+    width: clamp(240px, 70vw, 320px);
+  }
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.6s;
+}
+
+body.sidebar-open .sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Отключаем блюр в режиме экономии */
+.low-res-mode .sidebar-overlay {
+  backdrop-filter: none;
+}
+
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(60px, 15vh, 120px) 0 0 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
+  gap: clamp(10px, 1.5vw, 20px);
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  font-size: clamp(1rem, 2vmin, 1.3rem);
+}
+
+.nav-tab img {
+  /* Иконки теперь масштабируются от 32px до 40px */
+  width: clamp(32px, 5vmin, 40px);
+  height: clamp(32px, 5vmin, 40px);
+  object-fit: contain;
+  transition: transform 0.2s;
+  flex-shrink: 0; /* Иконка не сжимается */
+}
+
+.nav-tab .page-title {
+  /* Убираем nowrap, чтобы текст мог переноситься */
+  white-space: normal;
+  word-break: break-word; /* Добавляем перенос для очень длинных слов */
+}
+
+.nav-tab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at left, rgba(var(--azure-raw), 1) 0%, rgba(var(--azure-raw), 0) 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-tab:not(.active):hover::before,
+.nav-tab.active::before {
+  opacity: 1;
+}
+
+.nav-tab.active {
+  border-left-color: var(--azure);
+  color: #fff;
+  text-shadow: 0 0 10px var(--azure);
+}
+
+.nav-tab:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px var(--azure));
+}
+
+/* Background Image */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.background-image img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%) scale(1.1) translate(0.01%, 0.01%);
+  object-fit: cover;
+  transition: transform 0.12s ease-out, filter 0.3s ease;
+  will-change: transform, filter;
+  filter: blur(4px); /* Добавляем размытие */
+}
+
+/* Отключаем размытие в режиме низкого качества */
+.low-res-mode .background-image img {
+  filter: none;
+}
+
+.lock-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  top: calc(var(--scroll-y, 0) * -1px);
+}
+
+.page-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  white-space: nowrap;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+@media (max-width: 600px) {
+  .page-title {
+    font-size: small;
+  }
+}
+
+.wiki-section {
+  padding: clamp(80px, 15vh, 120px) 20px 40px;
+  min-height: 100vh;
+}
+
+.wiki-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.wiki-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.items-grid {
+  display: grid;
+  /* Адаптивная сетка: карточки не меньше 100px, но растягиваются */
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.item-card {
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 16px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.item-card:hover {
+  transform: translateY(-5px);
+  background: rgba(50, 50, 50, 0.9);
+  border-color: rgba(var(--azure-raw), 0.5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--azure-raw), 0.2);
+}
+.item-card:hover .item-icon {
+  transform: scale(1.1);
+}
+
+.item-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1; /* Квадратный контейнер */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.item-icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.item-name {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 500;
+  /* Обрезаем длинные названия */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Адаптив */
+@media (max-width: 480px) {
+  .items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+  }
+  .item-card {
+    padding: 10px;
+  }
+  .item-name {
+    font-size: 0.8rem;
+  }
+}

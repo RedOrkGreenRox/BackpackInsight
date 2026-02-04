@@ -15,7 +15,6 @@
     </picture>
 
     <h4>{{ nickname }}</h4>
-        <h4>{{ nickname }}</h4>
         <div class="stats-grid">
             <div class="stat-player-card">
                 <img src="/static/images/Profile/Level.webp" alt="Lvl" loading="lazy">
@@ -144,24 +143,6 @@
             {% endfor %}
         </div>
     </div>
-
-
-    <!-- ПРЕДМЕТЫ -->
-    <div class="section" data-aos="fade-up" data-aos-delay="200">
-        <h2>Предметы ({{ items_count }})</h2>
-        <div class="items-grid">
-            {% for item in items[:10] %}
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800">
-                <div class="item-name">{{ item.name }}</div>
-                <div class="item-stats">
-                    <span>Lvl {{ item.level }}</span>
-                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
-                    <span>{{ item.cards }} карт</span>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
 </div>
 {% endblock %}
 {% block scripts %}
@@ -172,7 +153,7 @@
         const sortText = document.getElementById('sortText');
         const invertBtn = document.getElementById('invertToggle');
         const invertIcon = document.getElementById('invertIcon');
-        const heroGrid = document.querySelector('.heroes-grid');
+        const heroGrid = document.querySelector('.main-heroes-grid');
 
         let sortByLevel = true;
         let sortAscending = false;
@@ -191,7 +172,7 @@
         });
 
         function sortHeroes() {
-            const heroCards = Array.from(document.querySelectorAll('.hero-card'));
+            const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
 
             heroCards.sort((a, b) => {
                 let valA, valB;
@@ -207,37 +188,34 @@
                 return sortAscending ? valA - valB : valB - valA;
             });
 
-            // Перемещаем карточки в отсортированном порядке
-            heroCards.forEach(card => heroGrid.appendChild(card));
+            const fragment = document.createDocumentFragment();
+            heroCards.forEach(card => fragment.appendChild(card));
+            heroGrid.appendChild(fragment);
 
-            // Обновляем AOS анимации
             if (typeof AOS !== 'undefined') {
                 setTimeout(AOS.refresh, 150);
             }
         }
 
-        // Первоначальная сортировка
         sortHeroes();
     });
     document.addEventListener('DOMContentLoaded', function () {
-        const btn = document.getElementById('finalDownloadBtn');
+        const btn = document.querySelector('.button-download-profile button');
         if (!btn) return;
 
         btn.onclick = function () {
             const target = document.querySelector('.profile-header');
             if (!target) return;
 
-            // Визуальный отклик
             const originalText = btn.innerText;
             btn.innerText = "⌛ СОХРАНЕНИЕ...";
             btn.style.opacity = "0.7";
 
-            // Используем проверенную логику
             html2canvas(target, {
                 useCORS: true,
                 allowTaint: true,
                 scale: 2,
-                backgroundColor: "#000000"
+                backgroundColor: null
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.href = canvas.toDataURL("image/png");
@@ -246,7 +224,6 @@
                 link.click();
                 document.body.removeChild(link);
 
-                // Возвращаем кнопку в норму
                 btn.innerText = originalText;
                 btn.style.opacity = "1";
             }).catch(err => {
@@ -258,4 +235,3 @@
     });
 </script>
 {% endblock %}
-

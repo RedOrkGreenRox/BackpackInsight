@@ -953,3 +953,128 @@ body.sidebar-open .sidebar-overlay {
 #invertToggle:hover ~ #sortToggle {
   transform: translateX(-30px);
 }
+
+.section {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.section h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.main-heroes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.main-hero-card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.main-hero-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--azure-raw), 0.3);
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(var(--azure-raw), 0.4);
+}
+
+.main-hero-image {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+.main-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.main-hero-card:hover .main-hero-image {
+  transform: scale(1.05);
+}
+
+.main-hero-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.main-hero-name {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  flex-grow: 1;
+  text-shadow: 0 2px 4px black;
+}
+
+.main-hero-level-container,
+.main-hero-rating-container {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.main-hero-level-container img,
+.main-hero-rating-container img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+.main-hero-level-container span,
+.main-hero-rating-container span {
+  position: relative;
+  z-index: 2;
+  font-size: 1em;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 1px 3px black, 0 0 5px black;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 600px) {
+  .main-heroes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+  .main-hero-card {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+  }
+  .main-hero-image {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 0;
+  }
+  .main-hero-header-row {
+    background: none;
+    padding: 0;
+  }
+}
