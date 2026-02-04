@@ -127,16 +127,19 @@
             <img src="/static/images/const/webp/menu.webp" alt="Menu" class="toggle-icon">
         </picture>
     </button>
-    <button class="button-logo" onclick="goTo('/')">
-        <picture>
-            <source srcset="/static/images/const/avif/logo.avif" type="image/avif">
-            <source srcset="/static/images/const/webp/logo.webp" type="image/webp">
-            <img src="/static/images/const/webp/logo.webp" alt="Home" class="logo-icon">
-        </picture>
-    </button>
 </div>
 
 <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <button class="button-logo" onclick="goTo('/')">
+            <picture>
+                <source srcset="/static/images/const/avif/logo.avif" type="image/avif">
+                <source srcset="/static/images/const/webp/logo.webp" type="image/webp">
+                <img src="/static/images/const/webp/logo.webp" alt="Home" class="logo-icon">
+            </picture>
+        </button>
+    </div>
+
     <div class="nav-tabs">
         <div class="nav-tab {{ 'active' if request.url.path in ['/', ''] }}" onclick="goTo('/')">
             <img src="/static/images/Templates/main.webp" alt="Главная">

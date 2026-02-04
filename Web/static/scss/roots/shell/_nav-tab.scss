@@ -1,11 +1,13 @@
 .nav-tabs {
     display: flex;
     flex-direction: column;
-    padding: clamp(60px, 15vh, 120px) 0 0 0;
+    /* Убрал большой отступ сверху, так как теперь там логотип */
+    padding: 10px 0 0 0;
     margin: 0;
     width: 100%;
-    height: 100%;
+    /* Оставляем скролл только для списка табов, если он длинный */
     overflow-y: auto;
+    flex-grow: 1; /* Занимает все оставшееся место */
 }
 
 .nav-tab {

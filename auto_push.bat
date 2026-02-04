@@ -23,7 +23,7 @@ git add --renormalize .
 git add -A
 
 echo Создаю коммит...
-git commit -m "Main buttons Optional (avif/webp). Automated push: %date% %time%"
+git commit -m "Main buttons refactor (sidebar). Automated push: %date% %time%"
 
 echo Отправляю в удаленный репозиторий...
 git push origin HEAD

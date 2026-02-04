@@ -48,6 +48,7 @@
 /* Когда меню открыто */
 body.sidebar-open .menu-toggle {
     pointer-events: none;
-    transform: translateX(-30px); /* Чуть дальше отъезжает для динамики */
+    /* Кнопка уезжает вправо (за экран или просто сдвигается) */
+    transform: translateX(30px);
     transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Синхрон с сайдбаром */
 }

@@ -127,12 +127,12 @@ body.leaving {
 .controls-wrapper {
   position: fixed;
   top: clamp(10px, 2vh, 30px);
-  left: clamp(10px, 3vw, 40px);
+  /* Переносим в правый угол */
   right: clamp(10px, 3vw, 40px);
+  left: auto; /* Сбрасываем left */
   z-index: 1100;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   pointer-events: none;
   /* Плавность появления при закрытии меню */
@@ -149,6 +149,9 @@ body.leaving {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     pointer-events: auto;
+    /* На мобильных бургер тоже справа */
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
@@ -256,31 +259,35 @@ body.leaving .controls-wrapper > * {
 /* Когда меню открыто */
 body.sidebar-open .menu-toggle {
   pointer-events: none;
-  transform: translateX(-30px); /* Чуть дальше отъезжает для динамики */
+  /* Кнопка уезжает вправо (за экран или просто сдвигается) */
+  transform: translateX(30px);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Синхрон с сайдбаром */
 }
 
 .sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  /* Меняем left на right */
+  right: 0;
+  left: auto;
   /* АДАПТИВНАЯ ШИРИНА */
-  /* max-content заставляет блок расширяться на всю длину текста */
   width: max-content;
-  /* Но не меньше минимума */
   min-width: clamp(240px, 22vw, 350px);
-  /* И не больше 80% экрана. Если max-content больше, сработает это ограничение */
   max-width: 80vw;
   height: 100vh;
-  transform: translateX(-100%) translateY(0);
+  /* Начальное состояние: скрыт справа */
+  transform: translateX(100%);
   z-index: 1050;
   /* Плавная анимация */
   transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   will-change: transform;
-  /* Оставляем блюр, если нужен эффект стекла */
   backdrop-filter: blur(10px);
-  /* Тонкая граница для отделения от контента */
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  /* Граница теперь слева */
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  /* Flex для вертикального расположения */
+  display: flex;
+  flex-direction: column;
   /* МОБИЛЬНАЯ КОРРЕКЦИЯ */
 }
 @media (max-width: 768px) {
@@ -290,7 +297,17 @@ body.sidebar-open .menu-toggle {
   }
 }
 
+.sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .sidebar.open {
+  /* Открытое состояние: на месте */
   transform: translateX(0);
 }
 
@@ -321,11 +338,13 @@ body.sidebar-open .sidebar-overlay {
 .nav-tabs {
   display: flex;
   flex-direction: column;
-  padding: clamp(60px, 15vh, 120px) 0 0 0;
+  /* Убрал большой отступ сверху, так как теперь там логотип */
+  padding: 10px 0 0 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  /* Оставляем скролл только для списка табов, если он длинный */
   overflow-y: auto;
+  flex-grow: 1; /* Занимает все оставшееся место */
 }
 
 .nav-tab {
