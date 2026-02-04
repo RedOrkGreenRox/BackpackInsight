@@ -23,7 +23,7 @@ git add --renormalize .
 git add -A
 
 echo Создаю коммит...
-git commit -m "Profile CharList Fix. Automated push: %date% %time%"
+git commit -m "Page Items. Automated push: %date% %time%"
 
 echo Отправляю в удаленный репозиторий...
 git push origin HEAD

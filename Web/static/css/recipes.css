@@ -472,6 +472,38 @@ body.sidebar-open .sidebar-overlay {
   }
 }
 
+.items-grid {
+  display: grid;
+  /* Ровно 5 колонок */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  /* Центрирование и отступы */
+  width: calc(100% - 20px);
+  max-width: 1000px; /* Ограничиваем ширину, чтобы карточки не были гигантскими */
+  margin: 0 auto;
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+  .items-grid {
+    /* На планшетах 4 колонки */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .items-grid {
+    /* На больших телефонах 3 колонки */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .items-grid {
+    /* На маленьких телефонах 2 колонки */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+/* Теперь берем из корней */
 .wiki-section {
   padding: clamp(80px, 15vh, 120px) 20px 40px;
   min-height: 100vh;
@@ -486,6 +518,7 @@ body.sidebar-open .sidebar-overlay {
   font-size: 3rem;
   color: white;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  opacity: 1;
   margin-bottom: 10px;
 }
 
@@ -495,21 +528,6 @@ body.sidebar-open .sidebar-overlay {
   margin-top: 10px;
 }
 
-.items-grid {
-  display: grid;
-  /* Адаптивная сетка: карточки не меньше 100px, но растягиваются */
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 15px;
-  width: 100%;
-}
-
-/* Адаптив */
-@media (max-width: 480px) {
-  .items-grid {
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 10px;
-  }
-}
 .item-card {
   background: rgba(30, 30, 30, 0.8);
   border-radius: 16px;

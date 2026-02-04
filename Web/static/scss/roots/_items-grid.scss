@@ -1,0 +1,34 @@
+.items-grid {
+    display: grid;
+    /* Ровно 5 колонок */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+
+    /* Центрирование и отступы */
+    width: calc(100% - 20px);
+    max-width: 1000px; /* Ограничиваем ширину, чтобы карточки не были гигантскими */
+    margin: 0 auto;
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+    .items-grid {
+        /* На планшетах 4 колонки */
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .items-grid {
+        /* На больших телефонах 3 колонки */
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .items-grid {
+        /* На маленьких телефонах 2 колонки */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

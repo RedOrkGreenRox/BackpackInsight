@@ -25,9 +25,9 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b %ERRORLEVEL%
 )
 
-call sass static/scss/branches/recipes.scss static/css/recipes.css -q --no-source-map
+call sass static/scss/branches/items.scss static/css/items.css -q --no-source-map
 IF %ERRORLEVEL% NEQ 0 (
-    echo FAILED to compile recipes.scss. Halting script.
+    echo FAILED to compile items.scss. Halting script.
     pause
     exit /b %ERRORLEVEL%
 )

@@ -198,6 +198,39 @@
             {% endfor %}
         </div>
     </div>
+
+    <!-- ПРЕДМЕТЫ -->
+    <div class="section" data-aos="fade-up">
+        <h2 class="section-title">Предметы ({{ items_count }})</h2>
+        <div class="items-grid" id="profileItemsGrid">
+            {% for item in items %}
+            <div class="item-card {{ 'hidden' if loop.index > 5 else '' }}"
+                 data-aos="fade-up"
+                 data-aos-delay="{{ (loop.index0 % 5) * 50 }}">
+                <div class="item-image-wrapper">
+                    <picture>
+                        <source srcset="/static/images/items/avif/{{ item.name }}.avif" type="image/avif">
+                        <source srcset="/static/images/items/webp/{{ item.name }}.webp" type="image/webp">
+                        <img src="/static/images/items/webp/{{ item.name }}.webp"
+                             alt="{{ item.name }}"
+                             loading="lazy"
+                             class="item-icon">
+                    </picture>
+                </div>
+                <span class="item-name">{{ item.name }}</span>
+                <div class="item-stats">
+                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
+                    <span>Lvl {{ item.level }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if items_count > 5 %}
+        <div class="load-more-container">
+            <button id="loadMoreItemsBtn" class="load-more-btn">Показать еще</button>
+        </div>
+        {% endif %}
+    </div>
 </div>
 
 <!-- Передаем данные о скинах в JS -->
@@ -283,7 +316,6 @@
         const invertBtn = document.getElementById('invertToggle');
         const invertIcon = document.getElementById('invertIcon');
         const heroGrid = document.querySelector('.main-heroes-grid');
-        const statsHeroGrid = document.querySelector('.stats-heroes-grid'); // Сетка в шапке
 
         if (sortIcon) sortIcon.classList.add('loaded');
         if (sortText) sortText.classList.add('loaded');
@@ -338,59 +370,82 @@
         });
 
         function sortHeroes() {
-            const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
+    const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
+    const headerHeroGrid = document.querySelector('.stats-heroes-grid'); // Контейнер в шапке
 
-            // Сортируем основную сетку
-            heroCards.sort((a, b) => {
-                let valA, valB;
+    // 1. Сортируем массив основных карточек
+    heroCards.sort((a, b) => {
+        let valA, valB;
 
-                if (sortByLevel) {
-                    const prestigeA = a.dataset.prestige === 'true' ? 20 : 0;
-                    const prestigeB = b.dataset.prestige === 'true' ? 20 : 0;
-                    valA = (parseInt(a.dataset.level) || 0) + prestigeA;
-                    valB = (parseInt(b.dataset.level) || 0) + prestigeB;
-                } else {
-                    valA = parseInt(a.dataset.rating) || 0;
-                    valB = parseInt(b.dataset.rating) || 0;
-                }
-
-                return sortAscending ? valA - valB : valB - valA;
-            });
-
-            heroGrid.innerHTML = '';
-            const fragment = document.createDocumentFragment();
-            heroCards.forEach(card => fragment.appendChild(card));
-            heroGrid.appendChild(fragment);
-
-            // Сортируем сетку в шапке (синхронизируем порядок)
-            if (statsHeroGrid) {
-                const statsCards = Array.from(statsHeroGrid.querySelectorAll('.stat-hero-card'));
-                // Создаем карту для быстрого поиска: имя героя -> элемент карточки в шапке
-                const statsMap = new Map();
-                statsCards.forEach(card => statsMap.set(card.dataset.heroName, card));
-
-                const statsFragment = document.createDocumentFragment();
-
-                // Проходимся по отсортированным карточкам основной сетки и берем соответствующие из шапки
-                heroCards.forEach(mainCard => {
-                    const heroName = mainCard.dataset.heroName;
-                    const statCard = statsMap.get(heroName);
-                    if (statCard) {
-                        statsFragment.appendChild(statCard);
-                    }
-                });
-
-                statsHeroGrid.innerHTML = '';
-                statsHeroGrid.appendChild(statsFragment);
-            }
-
-            if (typeof AOS !== 'undefined') {
-                setTimeout(AOS.refresh, 150);
-            }
+        if (sortByLevel) {
+            // Учитываем престиж для корректной сортировки уровней
+            const prestigeA = a.dataset.prestige === 'true' ? 100 : 0;
+            const prestigeB = b.dataset.prestige === 'true' ? 100 : 0;
+            valA = (parseInt(a.dataset.level) || 0) + prestigeA;
+            valB = (parseInt(b.dataset.level) || 0) + prestigeB;
+        } else {
+            valA = parseInt(a.dataset.rating) || 0;
+            valB = parseInt(b.dataset.rating) || 0;
         }
+
+        return sortAscending ? valA - valB : valB - valA;
+    });
+
+    // 2. Перемещаем карточки в основной сетке (внизу)
+    const mainFragment = document.createDocumentFragment();
+    heroCards.forEach(card => mainFragment.appendChild(card));
+    heroGrid.appendChild(mainFragment);
+
+    // 3. Синхронизируем порядок в шапке (в карточке профиля)
+    if (headerHeroGrid) {
+        const headerFragment = document.createDocumentFragment();
+        heroCards.forEach(card => {
+            const heroName = card.dataset.heroName;
+            // Находим соответствующую маленькую карточку по имени героя
+            const headerCard = headerHeroGrid.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
+            if (headerCard) {
+                headerFragment.appendChild(headerCard);
+            }
+        });
+        headerHeroGrid.appendChild(headerFragment);
+    }
+
+    if (typeof AOS !== 'undefined') {
+        setTimeout(AOS.refresh, 150);
+    }
+}
 
         updateIcons();
         sortHeroes();
+    });
+
+    // Логика "Показать еще" для предметов
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadMoreBtn = document.getElementById('loadMoreItemsBtn');
+        if (!loadMoreBtn) return;
+
+        loadMoreBtn.addEventListener('click', function() {
+            const hiddenItems = document.querySelectorAll('.items-grid .item-card.hidden');
+            const itemsToShow = 10; // Показываем по 10 штук
+
+            for (let i = 0; i < itemsToShow && i < hiddenItems.length; i++) {
+                const item = hiddenItems[i];
+                item.classList.remove('hidden');
+                // Сбрасываем класс анимации, чтобы AOS мог его снова добавить
+                item.classList.remove('aos-animate');
+            }
+
+            // Если скрытых больше нет, прячем кнопку
+            if (document.querySelectorAll('.items-grid .item-card.hidden').length === 0) {
+                loadMoreBtn.style.display = 'none';
+            }
+
+            // Обновляем AOS
+            if (typeof AOS !== 'undefined') {
+                // refreshHard может быть надежнее для новых элементов
+                setTimeout(AOS.refresh, 100);
+            }
+        });
     });
 
     document.addEventListener('DOMContentLoaded', function () {

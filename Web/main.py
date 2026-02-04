@@ -57,10 +57,10 @@ async def show_form(request: Request):
 
 
 # Страница рецептов (бывшая items)
-@app.get("/recipes", response_class=HTMLResponse)
+@app.get("/items", response_class=HTMLResponse)
 async def show_recipes(request: Request):
     bg = f"{randint(1, 20):02d}"
-    
+
     # Загружаем предметы из JSON
     items_path = BASE_DIR / ".." / "jsons" / "items.json"
     items_data = []
@@ -71,7 +71,7 @@ async def show_recipes(request: Request):
         except Exception as e:
             print(f"Ошибка загрузки items.json: {e}")
 
-    return templates.TemplateResponse("recipes.html", {
+    return templates.TemplateResponse("items.html", {
         "request": request,
         "background_image": f"{bg}",
         "items": items_data
@@ -167,11 +167,7 @@ async def profile(
 
     except Exception as e:
         print(f"Ошибка парсинга: {e}")
-        return templates.TemplateResponse("main.html", {
-            "request": request,
-            "error": "Неверный формат JSON файла",
-            "background_image": f"{randint(1, 20):02d}"
-        })
+        return RedirectResponse(url="/?error=json_error", status_code=status.HTTP_303_SEE_OTHER)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 {% block title %}Википедия предметов - Backpack Insight{% endblock %}
 
 {% block page_styles %}
-    <link rel="stylesheet" href="/static/css/items.css">
+<link rel="stylesheet" href="/static/css/items.css">
 {% endblock %}
 
 {% block content %}
@@ -13,19 +13,40 @@
             <p class="wiki-subtitle">Все предметы из Backpack Brawl</p>
         </div>
         <div class="items-grid">
-            {% for item in items %}
+            {% for item in items if item.rarity != "Boon" and item.rarity != "Special" %}
             <div class="item-card"
                  data-aos="fade-up"
                  data-aos-delay="{{ (loop.index0 % 20) * 30 }}">
                 <div class="item-image-wrapper">
-                    <!-- Предполагаем, что картинки лежат в /static/images/Items/ -->
-                    <!-- Если формат webp, используем его -->
-                    <img src="/static/images/Items/{{ item.name }}.webp"
-                         alt="{{ item.name }}"
-                         loading="lazy"
-                         class="item-icon">
+                    <picture>
+                        <source srcset="/static/images/items/avif/{{ item.name | urlencode }}.avif" type="image/avif">
+                        <source srcset="/static/images/items/webp/{{ item.name | urlencode }}.webp" type="image/webp">
+                        <img src="/static/images/items/webp/{{ item.name | urlencode }}.webp"
+                             alt="{{ item.name }}"
+                             loading="lazy"
+                             class="item-icon"
+                             onerror="handleImageError(this)">
+                    </picture>
                 </div>
+
+                <script>
+                    function handleImageError(img) {
+                        // 1. Находим родительский элемент <picture>
+                        const picture = img.closest('picture');
+                        if (picture) {
+                            // 2. Удаляем все <source>, чтобы они не мешали плейсхолдеру
+                            const sources = picture.querySelectorAll('source');
+                            sources.forEach(source => source.remove());
+                        }
+                        // 3. Устанавливаем плейсхолдер (лучше в формате .png или .jpg для 100% совместимости)
+                        img.src = '/static/images/placeholder/placeholder.webp';
+                        img.onerror = null; // Предотвращаем бесконечный цикл
+                    }
+                </script>
                 <span class="item-name">{{ item.name }}</span>
+                <div class="item-stats">
+                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
+                </div>
             </div>
             {% endfor %}
         </div>
