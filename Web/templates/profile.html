@@ -97,13 +97,13 @@
 
     <!-- ГЕРОИ -->
     <div class="section" data-aos="fade-up">
-        <h2>Персонажи ({{ heroes_count }})</h2>
+        <h2 class="section-title">Персонажи ({{ heroes_count }})</h2>
         <div class="sort-controls">
-            <button id="sortToggle" class="sort-btn" data-sort="level">
+            <button id="sortToggle" class="sort-btn" data-sort="level" onclick="console.log('Inline click: Sort')">
                 <img id="sortIcon" src="/static/images/Profile/Level.webp" alt="Сортировка по уровню" loading="lazy">
                 <span id="sortText">Сортировка по уровню</span>
             </button>
-            <button id="invertToggle" class="invert-icon-btn">
+            <button id="invertToggle" class="invert-icon-btn" onclick="console.log('Inline click: Invert')">
                 <img id="invertIcon" src="/static/images/Profile/SortLow.webp" alt="↕ По убыванию" loading="lazy">
             </button>
         </div>
@@ -147,7 +147,11 @@
 {% endblock %}
 {% block scripts %}
 <script>
+    console.log('Script tag executed'); // Проверка загрузки скрипта
+
     document.addEventListener('DOMContentLoaded', function () {
+        console.log("Profile page script loaded (DOMContentLoaded)");
+
         const sortBtn = document.getElementById('sortToggle');
         const sortIcon = document.getElementById('sortIcon');
         const sortText = document.getElementById('sortText');
@@ -155,38 +159,70 @@
         const invertIcon = document.getElementById('invertIcon');
         const heroGrid = document.querySelector('.main-heroes-grid');
 
-        let sortByLevel = true;
-        let sortAscending = false;
+        // Принудительно показываем элементы внутри кнопок
+        if (sortIcon) sortIcon.classList.add('loaded');
+        if (sortText) sortText.classList.add('loaded');
+        if (invertIcon) invertIcon.classList.add('loaded');
 
-        sortBtn.addEventListener('click', function () {
+        if (!sortBtn || !invertBtn || !heroGrid) {
+            console.error("Critical elements not found:", {sortBtn, invertBtn, heroGrid});
+            return;
+        }
+
+        let sortByLevel = true;
+        let sortAscending = false; // false = по убыванию (сначала большие)
+
+        function updateIcons() {
+            console.log("Updating icons...", {sortByLevel, sortAscending});
+
+            if (sortIcon && sortText) {
+                const newSortSrc = sortByLevel ? '/static/images/Profile/Level.webp' : '/static/images/Profile/Trophy.webp';
+                // Меняем атрибут напрямую
+                sortIcon.setAttribute('src', newSortSrc);
+                sortText.textContent = sortByLevel ? 'Сортировка по уровню' : 'Сортировка по рейтингу';
+            }
+
+            if (invertIcon) {
+                const newInvertSrc = sortAscending ? '/static/images/Profile/SortHigh.webp' : '/static/images/Profile/SortLow.webp';
+                invertIcon.setAttribute('src', newInvertSrc);
+            }
+        }
+
+        sortBtn.addEventListener('click', function (e) {
+            console.log("Sort button clicked (EventListener)");
+            e.preventDefault(); // На всякий случай
             sortByLevel = !sortByLevel;
-            sortIcon.src = sortByLevel ? '/static/images/Profile/Level.webp' : '/static/images/Profile/Trophy.webp';
-            sortText.textContent = sortByLevel ? 'Сортировка по уровню' : 'Сортировка по рейтингу';
+            updateIcons();
             sortHeroes();
         });
 
-        invertBtn.addEventListener('click', function () {
+        invertBtn.addEventListener('click', function (e) {
+            console.log("Invert button clicked (EventListener)");
+            e.preventDefault();
             sortAscending = !sortAscending;
-            invertIcon.src = sortAscending ? '/static/images/Profile/SortHigh.webp' : '/static/images/Profile/SortLow.webp';
+            updateIcons();
             sortHeroes();
         });
 
         function sortHeroes() {
+            console.log("Sorting heroes...");
             const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
 
             heroCards.sort((a, b) => {
                 let valA, valB;
 
                 if (sortByLevel) {
-                    valA = parseInt(a.dataset.level);
-                    valB = parseInt(b.dataset.level);
+                    valA = parseInt(a.dataset.level) || 0;
+                    valB = parseInt(b.dataset.level) || 0;
                 } else {
-                    valA = parseInt(a.dataset.rating);
-                    valB = parseInt(b.dataset.rating);
+                    valA = parseInt(a.dataset.rating) || 0;
+                    valB = parseInt(b.dataset.rating) || 0;
                 }
 
                 return sortAscending ? valA - valB : valB - valA;
             });
+
+            heroGrid.innerHTML = '';
 
             const fragment = document.createDocumentFragment();
             heroCards.forEach(card => fragment.appendChild(card));
@@ -196,9 +232,9 @@
                 setTimeout(AOS.refresh, 150);
             }
         }
-
-        sortHeroes();
     });
+
+    // Скрипт скачивания
     document.addEventListener('DOMContentLoaded', function () {
         const btn = document.querySelector('.button-download-profile button');
         if (!btn) return;
@@ -232,6 +268,14 @@
                 btn.style.opacity = "1";
             });
         };
+    });
+
+    // Скрипт для принудительного показа заголовка
+    document.addEventListener('DOMContentLoaded', function() {
+        const title = document.querySelector('.section-title');
+        if (title) {
+            title.classList.add('loaded');
+        }
     });
 </script>
 {% endblock %}

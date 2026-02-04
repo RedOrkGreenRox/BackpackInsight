@@ -1,41 +1,53 @@
 .sort-controls {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0;
     position: relative;
 }
 
 .sort-btn {
-    border: none;
-    border-radius: 15px;
-    padding: 12px 20px;
+    // --- Стиль Glass UI ---
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+
+    // --- Геометрия и Типографика ---
+    border-radius: 50px;
+    padding: 10px 25px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease-out;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     color: white;
-    font-size: 0.95em;
-}
+    font-size: 1em;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 
-.sort-btn.primary, .sort-btn.invert {
-    background: linear-gradient(45deg, var(--azure), #0056b3);
-}
+    img {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+    }
 
-.sort-btn.invert {
-    min-width: 60px;
-    justify-content: center;
-}
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 16px rgba(var(--azure-raw), 0.6);
+        background: rgba(0, 0, 0, 0.55);
+        border-color: rgba(var(--azure-raw), 0.4);
 
-.sort-btn img {
-    width: 22px;
-    height: 22px;
-}
+        img {
+            transform: scale(1.1);
+        }
+    }
 
-.sort-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 0 16px rgba(var(--azure-raw), 0.8);
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 0 8px rgba(var(--azure-raw), 0.4);
+    }
 }
 
 .invert-icon-btn {
@@ -43,39 +55,56 @@
     border: none;
     padding: 0;
     margin: 0;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
+    border-radius: 50%;
+
+    // Убрал transition отсюда, так как он задается ниже по ID для всех эффектов сразу
+
+    img {
+        width: 32px;
+        height: 32px;
+        filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
+        transition: transform 0.3s ease;
+        pointer-events: none;
+    }
+
+    &:hover {
+        // Убрал background (невидимое поле)
+        // Добавил подъем вверх
+        transform: translateY(-3px);
+
+        img {
+            transform: scale(1.1);
+        }
+    }
+
+    &:active {
+        transform: translateY(1px);
+
+        img {
+            transform: scale(0.95);
+        }
+    }
 }
 
-.invert-icon-btn img {
-    width: 32px;
-    height: 32px;
-    filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-.invert-icon-btn:hover img {
-    transform: translateY(-3px) scale(1.1);
-}
-
-.invert-icon-btn:active img {
-    transform: scale(0.95);
-}
-
+// --- Взаимодействие кнопок ---
 #sortToggle, #invertToggle {
+    // Единая анимация для сдвигов и подъемов
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+// Когда наводим на левую кнопку -> правая отъезжает
 #sortToggle:hover ~ #invertToggle {
     transform: translateX(30px);
 }
 
-#invertToggle:hover ~ #sortToggle {
+// Когда наводим на правую кнопку -> левая отъезжает
+.sort-controls:has(#invertToggle:hover) #sortToggle {
     transform: translateX(-30px);
 }

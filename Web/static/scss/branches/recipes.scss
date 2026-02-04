@@ -1,3 +1,6 @@
 @use "../roots/roots";
 @use "recipes/layout";
-@use "recipes/grid";
+@use "recipes/items-grid";
+@use "recipes/item-card";
+@use "recipes/item-image";
+@use "recipes/item-name";

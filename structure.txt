@@ -442,6 +442,7 @@ C:.
     |   |   |       warning.webp
     |   |   |       xp.webp
     |   |   |       
+    |   |   +---Recipes
     |   |   \---Templates
     |   |           leaderboards.webp
     |   |           main.webp
@@ -455,7 +456,6 @@ C:.
     |   \---scss
     |       +---branches
     |       |   |   404.scss
-    |       |   |   items.scss
     |       |   |   main.scss
     |       |   |   profile.scss
     |       |   |   recipes.scss
@@ -468,10 +468,6 @@ C:.
     |       |   |       _overlay.scss
     |       |   |       _text.scss
     |       |   |       _title.scss
-    |       |   |       
-    |       |   +---items
-    |       |   |       _grid.scss
-    |       |   |       _layout.scss
     |       |   |       
     |       |   +---main
     |       |   |   |   _animations.scss
@@ -491,6 +487,7 @@ C:.
     |       |   |       _header.scss
     |       |   |       _main-heroes-grid.scss
     |       |   |       _nickname.scss
+    |       |   |       _section-title.scss
     |       |   |       _stat-hero-card.scss
     |       |   |       _stat-items-grid.scss
     |       |   |       _stat-player-card.scss
@@ -499,7 +496,10 @@ C:.
     |       |   |       _stats-player-grid.scss
     |       |   |       
     |       |   \---recipes
-    |       |           _grid.scss
+    |       |           _item-card.scss
+    |       |           _item-image.scss
+    |       |           _item-name.scss
+    |       |           _items-grid.scss
     |       |           _layout.scss
     |       |           
     |       \---roots

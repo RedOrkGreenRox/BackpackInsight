@@ -1,0 +1,15 @@
+.section-title {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+
+    // Принудительно делаем видимым, так как глобальный сброс скрывает h2
+    opacity: 1;
+
+    // Если используется класс .loaded для анимации
+    &.loaded {
+        opacity: 1;
+    }
+}
