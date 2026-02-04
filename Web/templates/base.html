@@ -121,29 +121,37 @@
 
 <div class="controls-wrapper">
     <button class="menu-toggle" onclick="toggleSidebar()">
-        <img src="/static/images/menu.avif" alt="Menu" class="toggle-icon">
+        <picture>
+            <source srcset="/static/images/const/avif/menu.avif" type="image/avif">
+            <source srcset="/static/images/const/webp/menu.webp" type="image/webp">
+            <img src="/static/images/const/webp/menu.webp" alt="Menu" class="toggle-icon">
+        </picture>
     </button>
     <button class="button-logo" onclick="goTo('/')">
-        <img src="/static/images/logo.avif" alt="Home" class="logo-icon">
+        <picture>
+            <source srcset="/static/images/const/avif/logo.avif" type="image/avif">
+            <source srcset="/static/images/const/webp/logo.webp" type="image/webp">
+            <img src="/static/images/const/webp/logo.webp" alt="Home" class="logo-icon">
+        </picture>
     </button>
 </div>
 
 <nav class="sidebar" id="sidebar">
     <div class="nav-tabs">
         <div class="nav-tab {{ 'active' if request.url.path in ['/', ''] }}" onclick="goTo('/')">
-            <img data-src="/static/images/Templates/main.webp" alt="Главная">
+            <img src="/static/images/Templates/main.webp" alt="Главная">
             <span class="page-title">Главная</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/recipes' }}" onclick="goTo('/recipes')">
-            <img data-src="/static/images/Templates/recipes.webp" alt="Рецепты">
+            <img src="/static/images/Templates/recipes.webp" alt="Рецепты">
             <span class="page-title">Рецепты</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/leaderboards' }}" onclick="goTo('/leaderboards')">
-            <img data-src="/static/images/Templates/leaderboards.webp" alt="Лидеры">
+            <img src="/static/images/Templates/leaderboards.webp" alt="Лидеры">
             <span class="page-title">Таблицы лидеров</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/profiles' }}" onclick="goTo('/profiles')">
-            <img data-src="/static/images/Templates/profiles.webp" alt="Профили">
+            <img src="/static/images/Templates/profiles.webp" alt="Профили">
             <span class="page-title">Профили</span>
         </div>
     </div>

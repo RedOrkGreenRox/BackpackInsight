@@ -22,6 +22,15 @@
     animation: none;
 }
 
+/* Добавляем стили для picture, чтобы он не ломал верстку */
+.button-logo picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 .button-logo .logo-icon {
     width: 100%;
     height: 100%;

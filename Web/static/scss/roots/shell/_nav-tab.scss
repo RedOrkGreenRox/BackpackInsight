@@ -17,7 +17,8 @@
     border-left: 4px solid transparent;
     transition: all 0.2s ease;
     position: relative;
-    overflow: hidden;
+    /* Убрал overflow: hidden, чтобы текст не обрезался */
+    /* overflow: hidden; */
     background: transparent;
     font-size: clamp(1rem, 2vmin, 1.3rem);
 }
@@ -32,9 +33,12 @@
 }
 
 .nav-tab .page-title {
-    /* Убираем nowrap, чтобы текст мог переноситься */
+    /* Разрешаем перенос, если уперлись в max-width родителя */
     white-space: normal;
-    word-break: break-word; /* Добавляем перенос для очень длинных слов */
+
+    /* Перенос по словам */
+    word-wrap: break-word;
+    word-break: normal;
 }
 
 .nav-tab::before {

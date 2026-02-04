@@ -20,26 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const instantElements = document.querySelectorAll('span, h4, button, .button-view-profile, .main-title');
     instantElements.forEach(el => el.classList.add('loaded'));
 
-    // 2. УМНАЯ ЗАГРУЗКА ИКОНОК САЙДБАРА
-    // Если интернет ХОРОШИЙ, грузим иконки меню сразу, не дожидаясь клика
-    if (!window.isSlowConnection) {
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar) {
-            const lazyIcons = sidebar.querySelectorAll('img[data-src]');
-            lazyIcons.forEach(img => {
-                img.src = img.getAttribute('data-src');
-                img.removeAttribute('data-src');
-                img.classList.add('loaded'); // Показываем сразу
-            });
-        }
-    }
-
-    // 3. Обработка остальных изображений
+    // 2. Обработка изображений
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        // Пропускаем иконки сайдбара, если у них все еще есть data-src (значит, мы на 3G и загрузим их позже)
-        if (img.closest('#sidebar') && img.hasAttribute('data-src')) return;
-
         // ОПТИМИЗАЦИЯ: Не ставим lazy на критически важные картинки (лого и фон)
         const isCritical = img.id === 'bgImg' || img.classList.contains('logo-icon');
 
@@ -181,28 +164,10 @@ document.addEventListener('mousemove', throttle(handleParallax, 20));
 /**
  * Сайдбар
  */
-/**
- * Сайдбар
- */
 function toggleSidebar() {
     const body = document.body;
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-
-    if (sidebar) {
-        const pendingIcons = sidebar.querySelectorAll('img[data-src]');
-        if (pendingIcons.length > 0) {
-            pendingIcons.forEach(img => {
-                img.src = img.getAttribute('data-src');
-                img.removeAttribute('data-src');
-                if (img.complete) {
-                    img.classList.add('loaded');
-                } else {
-                    img.onload = () => img.classList.add('loaded');
-                }
-            });
-        }
-    }
 
     body.classList.toggle('sidebar-open');
     if (sidebar) sidebar.classList.toggle('open');
