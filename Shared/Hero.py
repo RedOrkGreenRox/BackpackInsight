@@ -22,8 +22,13 @@ class Hero:
             """
 
     def get_xp_required(self):
-        if self.level <= 20:
-            return HERO_LEVELING_EXP.get(self.level, 0)
+        # Берем опыт для следующего уровня (self.level + 1)
+        next_level = self.level + 1
+        
+        if next_level <= 20:
+            return HERO_LEVELING_EXP.get(next_level, 0)
         else:
-            calculated_xp = 1000 + 100 * (self.level - 21)
+            # Для уровней выше 20 (престиж) логика может отличаться,
+            # но если формула линейная, то используем next_level
+            calculated_xp = 1000 + 100 * (next_level - 21)
             return min(calculated_xp, 3000)

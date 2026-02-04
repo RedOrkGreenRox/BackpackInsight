@@ -1,6 +1,7 @@
 import uvicorn
 import json
 import sys
+import os
 from typing import Optional, Union
 from random import randint, choices
 from pathlib import Path
@@ -136,6 +137,9 @@ async def profile(
         # Сортировка: уровень + престиж (престиж дает +20 очков веса)
         heroes_data.sort(key=lambda h: (h['level'] + (20 if h['prestige'] else 0)), reverse=True)
 
+        # Получаем скины из профиля
+        profile_skins = profile_obj.game_information.get("Skins", {})
+
         context = {
             "request": request,
             "nickname": profile_obj.game_information.get("Nickname", "Герой"),
@@ -157,6 +161,7 @@ async def profile(
             "items_count": len(profile_obj.game_information.get("Item", [])),
             "actual_version": profile_obj.technical_information.get("AV", "1.0"),
             "install_version": profile_obj.technical_information.get("IV", "1.0"),
+            "profile_skins": profile_skins, # Передаем скины из профиля
         }
         return templates.TemplateResponse("profile.html", context)
 

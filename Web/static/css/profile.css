@@ -220,7 +220,7 @@ body.leaving .controls-wrapper > * {
   align-items: center;
   overflow: hidden;
   padding: 0;
-  background: none;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   border: var(--border);
   /* Общая плавность для всех состояний */
@@ -818,6 +818,10 @@ body.sidebar-open .sidebar-overlay {
   min-height: 50px;
   justify-content: center;
 }
+.profile-header .stat-hero-card.changing-skin {
+  opacity: 0;
+  transform: scale(0.95);
+}
 
 .stat-hero-card .hero-header-row {
   display: flex;
@@ -835,6 +839,8 @@ body.sidebar-open .sidebar-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* Для псевдоэлемента */
+  overflow: hidden;
 }
 
 .stat-hero-card .stat-hero-icon {
@@ -847,15 +853,16 @@ body.sidebar-open .sidebar-overlay {
 .stat-hero-card picture .stat-hero-icon {
   width: 64px;
   height: 64px;
+  /* Удаляем маску */
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .stat-hero-card .stat-hero-level-container,
 .stat-hero-card .stat-hero-rating-container {
   position: relative;
-  /* Указываем желаемый размер */
   width: 64px;
   height: 64px;
-  /* ГЛАВНОЕ: ставим минимальный предел, ниже которого нельзя падать */
   min-width: 36px;
   min-height: 36px;
   display: flex;
@@ -863,8 +870,6 @@ body.sidebar-open .sidebar-overlay {
   justify-content: center;
 }
 
-/* Рамки и иконки лиг внутри должны всегда заполнять контейнер */
-/* Теперь это picture или img */
 .stat-hero-card .stat-hero-level-frame,
 .stat-hero-card .stat-hero-league {
   position: absolute;
@@ -874,16 +879,13 @@ body.sidebar-open .sidebar-overlay {
   height: 100%;
   object-fit: contain;
   z-index: 1;
-  /* Добавляем, чтобы картинка внутри не схлопнулась */
   min-width: 100%;
   min-height: 100%;
-  /* Если это picture, он должен быть flex-контейнером */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Картинка внутри picture */
 .stat-hero-card .stat-hero-level-frame img,
 .stat-hero-card .stat-hero-league img {
   width: 100%;
@@ -891,28 +893,24 @@ body.sidebar-open .sidebar-overlay {
   object-fit: contain;
 }
 
-/* Текст: чтобы на мобилках он не вылезал за границы маленькой рамки */
 .stat-hero-card .stat-hero-level-text,
 .stat-hero-card .stat-hero-rating {
   position: relative;
   z-index: 2;
-  /* Используй clamp, чтобы на ПК было 15px, а на мобилках не меньше 12px */
   font-size: clamp(12px, 2vw, 15px);
   font-weight: 800;
   color: #fff;
   text-shadow: 0 1px 3px #000;
-  white-space: nowrap; /* Чтобы цифры не переносились */
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-  /* Уменьшаем карточку героя */
   .profile-header .stat-hero-card {
     transform: scale(0.9);
     transform-origin: center center;
-    /* Убираем жесткую высоту, чтобы scale не обрезал контент */
     height: auto !important;
     min-height: 0 !important;
-    margin: -15px -25px; /* Схлопываем внешние границы, чтобы сетка не разъехалась */
+    margin: -15px -25px;
   }
 }
 /* _button-download.scss */
@@ -1110,22 +1108,47 @@ body.sidebar-open .sidebar-overlay {
 
 .main-heroes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  width: 100%;
+  /* Ровно 3 колонки */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  /* Гарантируем отступы от краев экрана */
+  width: calc(100% - 20px);
+  /* Ограничиваем максимальную ширину сетки, чтобы карточки не были слишком широкими */
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Убрал justify-items: center, чтобы карточки растягивались */
+  /* justify-items: center; */
 }
 
+/* Адаптив для мобильных */
+@media (max-width: 1100px) {
+  .main-heroes-grid {
+    /* На планшетах 2 колонки */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .main-heroes-grid {
+    /* На телефонах 1 колонка */
+    grid-template-columns: 1fr;
+    width: calc(100% - 20px);
+  }
+}
 .main-hero-card {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
-  padding: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  position: relative;
+  position: relative; /* Для позиционирования кнопок */
   overflow: hidden;
+  /* Карточка занимает всю ширину ячейки сетки */
+  width: 100%;
+  /* Убрал max-width, чтобы не было дыр в сетке */
+  /* max-width: 500px; */
 }
 .main-hero-card:hover {
   transform: translateY(-5px);
@@ -1134,23 +1157,136 @@ body.sidebar-open .sidebar-overlay {
   border-color: rgba(var(--azure-raw), 0.4);
 }
 
+/* Кнопки переключения скинов */
+.skin-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+.skin-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.prev-skin {
+  left: 0;
+}
+
+.next-skin {
+  right: 0;
+}
+
+@media (max-width: 600px) {
+  .main-hero-card {
+    flex-direction: row;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+  }
+  .skin-btn {
+    width: 30px;
+  }
+}
 .main-hero-image {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   margin-bottom: 15px;
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
   transition: transform 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .main-hero-image picture, .main-hero-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  opacity: 1;
+  transform: scale(1);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.main-hero-image.changing-skin picture, .main-hero-image.changing-skin img {
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 .main-hero-card:hover .main-hero-image {
   transform: scale(1.05);
 }
 
+/* Кнопки переключения скинов */
+.skin-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5%;
+  /* Всегда видимый, но очень прозрачный фон */
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  /* Добавляем иконки стрелок для наглядности (опционально, но полезно) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 24px;
+}
+
+.skin-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.prev-skin {
+  left: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Добавляем стрелочку через псевдоэлемент */
+.prev-skin::before {
+  content: "‹";
+}
+
+.next-skin {
+  right: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.next-skin::before {
+  content: "›";
+}
+
+@media (max-width: 600px) {
+  .main-hero-image {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0;
+  }
+  /* На мобильных стрелки можно сделать меньше или убрать */
+  .skin-btn {
+    font-size: 18px;
+  }
+}
 .main-hero-header-row {
   display: flex;
   align-items: center;
@@ -1162,6 +1298,12 @@ body.sidebar-open .sidebar-overlay {
   border-radius: 15px;
 }
 
+@media (max-width: 600px) {
+  .main-hero-header-row {
+    background: none;
+    padding: 0;
+  }
+}
 .main-hero-name {
   font-size: 1.3em;
   font-weight: 700;
@@ -1200,25 +1342,25 @@ body.sidebar-open .sidebar-overlay {
   text-shadow: 0 1px 3px black, 0 0 5px black;
 }
 
-/* Адаптив для мобильных */
+.main-hero-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 4px;
+}
+
+.main-hero-exp {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
 @media (max-width: 600px) {
-  .main-heroes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-  }
-  .main-hero-card {
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    gap: 15px;
-  }
-  .main-hero-image {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 0;
-  }
-  .main-hero-header-row {
-    background: none;
-    padding: 0;
+  .main-hero-info {
+    align-items: flex-start; /* На мобильных выравниваем влево */
   }
 }
 .section-title {

@@ -10,6 +10,11 @@
     height: 60px;
     min-height: 50px;
     justify-content: center;
+
+    &.changing-skin {
+        opacity: 0;
+        transform: scale(0.95);
+    }
 }
 
 .stat-hero-card .hero-header-row {
@@ -28,6 +33,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* Для псевдоэлемента */
+    overflow: hidden;
 }
 
 .stat-hero-card .stat-hero-icon {
@@ -40,26 +47,24 @@
 .stat-hero-card picture .stat-hero-icon {
     width: 64px;
     height: 64px;
+
+    /* Удаляем маску */
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 .stat-hero-card .stat-hero-level-container,
 .stat-hero-card .stat-hero-rating-container {
     position: relative;
-    /* Указываем желаемый размер */
     width: 64px;
     height: 64px;
-
-    /* ГЛАВНОЕ: ставим минимальный предел, ниже которого нельзя падать */
     min-width: 36px;
     min-height: 36px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Рамки и иконки лиг внутри должны всегда заполнять контейнер */
-/* Теперь это picture или img */
 .stat-hero-card .stat-hero-level-frame,
 .stat-hero-card .stat-hero-league {
     position: absolute;
@@ -69,17 +74,13 @@
     height: 100%;
     object-fit: contain;
     z-index: 1;
-    /* Добавляем, чтобы картинка внутри не схлопнулась */
     min-width: 100%;
     min-height: 100%;
-
-    /* Если это picture, он должен быть flex-контейнером */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Картинка внутри picture */
 .stat-hero-card .stat-hero-level-frame img,
 .stat-hero-card .stat-hero-league img {
     width: 100%;
@@ -87,27 +88,23 @@
     object-fit: contain;
 }
 
-/* Текст: чтобы на мобилках он не вылезал за границы маленькой рамки */
 .stat-hero-card .stat-hero-level-text,
 .stat-hero-card .stat-hero-rating {
     position: relative;
     z-index: 2;
-    /* Используй clamp, чтобы на ПК было 15px, а на мобилках не меньше 12px */
     font-size: clamp(12px, 2vw, 15px);
     font-weight: 800;
     color: #fff;
     text-shadow: 0 1px 3px #000;
-    white-space: nowrap; /* Чтобы цифры не переносились */
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-    /* Уменьшаем карточку героя */
     .profile-header .stat-hero-card {
         transform: scale(0.9);
         transform-origin: center center;
-        /* Убираем жесткую высоту, чтобы scale не обрезал контент */
         height: auto !important;
         min-height: 0 !important;
-        margin: -15px -25px; /* Схлопываем внешние границы, чтобы сетка не разъехалась */
+        margin: -15px -25px;
     }
 }

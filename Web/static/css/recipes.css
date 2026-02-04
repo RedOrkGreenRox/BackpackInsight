@@ -220,7 +220,7 @@ body.leaving .controls-wrapper > * {
   align-items: center;
   overflow: hidden;
   padding: 0;
-  background: none;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   border: var(--border);
   /* Общая плавность для всех состояний */

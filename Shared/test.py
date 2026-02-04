@@ -1,7 +1,7 @@
 from data import json
 from Profile import Profile
 
-file_path = '../Profiles/Marat.json'
+file_path = '../Profiles/Lotreomon.json'
 with open(file_path, 'r', encoding='utf-8') as f:
 
     file = json.loads(f.read())
@@ -9,7 +9,7 @@ with open(file_path, 'r', encoding='utf-8') as f:
     #     print(key, value)
 
     profile = Profile(file)
-    print(profile)
+    # print(profile)
     # print(profile.technical_information["AV"])
-    # print(profile.game_information["Skins"])
+    print(profile.game_information["Skins"])
     # print(profile.game_information["Banners"])

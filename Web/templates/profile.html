@@ -60,7 +60,7 @@
         <div class="stats-heroes-wrapper">
             <div class="stats-heroes-grid">
                 {% for hero in heroes %}
-                <div class="stat-hero-card">
+                <div class="stat-hero-card" data-hero-name="{{ hero.name }}">
                     <div class="hero-header-row">
                         <picture>
                             <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
@@ -129,7 +129,7 @@
     <div class="section" data-aos="fade-up">
         <h2 class="section-title">Персонажи ({{ heroes_count }})</h2>
         <div class="sort-controls">
-            <button id="sortToggle" class="sort-btn" data-sort="level" onclick="console.log('Inline click: Sort')">
+            <button id="sortToggle" class="sort-btn" data-sort="level">
                 <picture>
                     <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
                     <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
@@ -137,7 +137,7 @@
                 </picture>
                 <span id="sortText">Сортировка по уровню</span>
             </button>
-            <button id="invertToggle" class="invert-icon-btn" onclick="console.log('Inline click: Invert')">
+            <button id="invertToggle" class="invert-icon-btn">
                 <picture>
                     <source srcset="/static/images/profile/avif/SortLow.avif" type="image/avif">
                     <source srcset="/static/images/profile/webp/SortLow.webp" type="image/webp">
@@ -148,13 +148,21 @@
         <div class="main-heroes-grid">
             {% for hero in heroes %}
             <div class="main-hero-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800"
-                 data-level="{{ hero.level }}" data-rating="{{ hero.rating }}">
+                 data-level="{{ hero.level }}"
+                 data-rating="{{ hero.rating }}"
+                 data-prestige="{{ 'true' if hero.prestige else 'false' }}"
+                 data-hero-name="{{ hero.name }}"
+                 data-current-skin="01">
+
+                <button class="skin-btn prev-skin" onclick="changeSkin(this, -1)"></button>
+                <button class="skin-btn next-skin" onclick="changeSkin(this, 1)"></button>
+
                 <div class="main-hero-image">
                     <picture>
                         <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
                         <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
                         <img src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
-                             alt="{{ hero.name }}" loading="lazy">
+                             alt="{{ hero.name }}" loading="lazy" class="hero-img">
                     </picture>
                 </div>
                 <div class="main-hero-header-row">
@@ -169,7 +177,10 @@
                         <span class="main-hero-level-text">{{ hero.level }}</span>
                     </div>
 
-                    <div class="main-hero-name">{{ hero.name }}</div>
+                    <div class="main-hero-info">
+                        <div class="main-hero-name">{{ hero.name }}</div>
+                        <div class="main-hero-exp">{{ "{:,}".format(hero.experience) }} / {{ "{:,}".format(hero.exp_req) }}</div>
+                    </div>
 
                     <div class="main-hero-rating-container">
                         <picture class="main-hero-rating">
@@ -188,37 +199,104 @@
         </div>
     </div>
 </div>
+
+<!-- Передаем данные о скинах в JS -->
+<script id="skins-data" type="application/json">
+    {{ profile_skins | tojson | safe }}
+</script>
+
 {% endblock %}
 {% block scripts %}
 <script>
-    console.log('Script tag executed'); // Проверка загрузки скрипта
+    // Глобальная функция для смены скина
+    window.changeSkin = function(btn, direction) {
+        const card = btn.closest('.main-hero-card');
+        const heroName = card.dataset.heroName;
+        let currentSkin = card.dataset.currentSkin;
+
+        const skinsDataElement = document.getElementById('skins-data');
+        if (!skinsDataElement) return;
+
+        const profileSkins = JSON.parse(skinsDataElement.textContent);
+
+        let heroSkins = ['01'];
+        if (profileSkins[heroName]) {
+            heroSkins = heroSkins.concat(profileSkins[heroName]);
+        }
+        heroSkins = [...new Set(heroSkins)].sort(); // Убираем дубликаты и сортируем
+
+        let currentIndex = heroSkins.indexOf(currentSkin);
+        if (currentIndex === -1) currentIndex = 0;
+
+        let newIndex = currentIndex + direction;
+
+        if (newIndex >= heroSkins.length) {
+            newIndex = 0;
+        } else if (newIndex < 0) {
+            newIndex = heroSkins.length - 1;
+        }
+
+        const newSkin = heroSkins[newIndex];
+        card.dataset.currentSkin = newSkin;
+
+        // Анимация для карточки героя
+        const mainImageContainer = card.querySelector('.main-hero-image');
+        if (mainImageContainer) {
+            mainImageContainer.classList.add('changing-skin');
+            setTimeout(() => {
+                updateHeroImage(mainImageContainer.querySelector('picture'), heroName, newSkin);
+                mainImageContainer.classList.remove('changing-skin');
+            }, 200); // Должно совпадать с transition в CSS
+        }
+
+        // Анимация для шапки профиля
+        const headerCard = document.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
+        if (headerCard) {
+            headerCard.classList.add('changing-skin');
+            setTimeout(() => {
+                updateHeroImage(headerCard.querySelector('picture'), heroName, newSkin);
+                headerCard.classList.remove('changing-skin');
+            }, 200);
+        }
+    };
+
+    function updateHeroImage(picture, heroName, skinNum) {
+        if (!picture) return;
+
+        const sources = picture.querySelectorAll('source');
+        const img = picture.querySelector('img');
+
+        if (sources.length >= 2) {
+            sources[0].srcset = `/static/images/heroes/${heroName}/avif/${heroName}${skinNum}.avif`;
+            sources[1].srcset = `/static/images/heroes/${heroName}/webp/${heroName}${skinNum}.webp`;
+        }
+
+        if (img) {
+            img.src = `/static/images/heroes/${heroName}/webp/${heroName}${skinNum}.webp`;
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
-        console.log("Profile page script loaded (DOMContentLoaded)");
-
         const sortBtn = document.getElementById('sortToggle');
         const sortIcon = document.getElementById('sortIcon');
         const sortText = document.getElementById('sortText');
         const invertBtn = document.getElementById('invertToggle');
         const invertIcon = document.getElementById('invertIcon');
         const heroGrid = document.querySelector('.main-heroes-grid');
+        const statsHeroGrid = document.querySelector('.stats-heroes-grid'); // Сетка в шапке
 
-        // Принудительно показываем элементы внутри кнопок
         if (sortIcon) sortIcon.classList.add('loaded');
         if (sortText) sortText.classList.add('loaded');
         if (invertIcon) invertIcon.classList.add('loaded');
 
         if (!sortBtn || !invertBtn || !heroGrid) {
-            console.error("Critical elements not found:", {sortBtn, invertBtn, heroGrid});
             return;
         }
 
-        let sortByLevel = true;
-        let sortAscending = false; // false = по убыванию (сначала большие)
+        let sortByLevel = localStorage.getItem('sortByLevel') !== 'false';
+        let sortAscending = localStorage.getItem('sortAscending') === 'true';
 
         function updateIcons() {
-            console.log("Updating icons...", {sortByLevel, sortAscending});
-
             if (sortIcon && sortText) {
                 const newSortName = sortByLevel ? 'Level' : 'Trophy';
                 const picture = sortIcon.parentElement;
@@ -246,31 +324,31 @@
         }
 
         sortBtn.addEventListener('click', function (e) {
-            console.log("Sort button clicked (EventListener)");
-            e.preventDefault(); // На всякий случай
             sortByLevel = !sortByLevel;
+            localStorage.setItem('sortByLevel', sortByLevel);
             updateIcons();
             sortHeroes();
         });
 
         invertBtn.addEventListener('click', function (e) {
-            console.log("Invert button clicked (EventListener)");
-            e.preventDefault();
             sortAscending = !sortAscending;
+            localStorage.setItem('sortAscending', sortAscending);
             updateIcons();
             sortHeroes();
         });
 
         function sortHeroes() {
-            console.log("Sorting heroes...");
             const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
 
+            // Сортируем основную сетку
             heroCards.sort((a, b) => {
                 let valA, valB;
 
                 if (sortByLevel) {
-                    valA = parseInt(a.dataset.level) || 0;
-                    valB = parseInt(b.dataset.level) || 0;
+                    const prestigeA = a.dataset.prestige === 'true' ? 20 : 0;
+                    const prestigeB = b.dataset.prestige === 'true' ? 20 : 0;
+                    valA = (parseInt(a.dataset.level) || 0) + prestigeA;
+                    valB = (parseInt(b.dataset.level) || 0) + prestigeB;
                 } else {
                     valA = parseInt(a.dataset.rating) || 0;
                     valB = parseInt(b.dataset.rating) || 0;
@@ -280,18 +358,41 @@
             });
 
             heroGrid.innerHTML = '';
-
             const fragment = document.createDocumentFragment();
             heroCards.forEach(card => fragment.appendChild(card));
             heroGrid.appendChild(fragment);
+
+            // Сортируем сетку в шапке (синхронизируем порядок)
+            if (statsHeroGrid) {
+                const statsCards = Array.from(statsHeroGrid.querySelectorAll('.stat-hero-card'));
+                // Создаем карту для быстрого поиска: имя героя -> элемент карточки в шапке
+                const statsMap = new Map();
+                statsCards.forEach(card => statsMap.set(card.dataset.heroName, card));
+
+                const statsFragment = document.createDocumentFragment();
+
+                // Проходимся по отсортированным карточкам основной сетки и берем соответствующие из шапки
+                heroCards.forEach(mainCard => {
+                    const heroName = mainCard.dataset.heroName;
+                    const statCard = statsMap.get(heroName);
+                    if (statCard) {
+                        statsFragment.appendChild(statCard);
+                    }
+                });
+
+                statsHeroGrid.innerHTML = '';
+                statsHeroGrid.appendChild(statsFragment);
+            }
 
             if (typeof AOS !== 'undefined') {
                 setTimeout(AOS.refresh, 150);
             }
         }
+
+        updateIcons();
+        sortHeroes();
     });
 
-    // Скрипт скачивания
     document.addEventListener('DOMContentLoaded', function () {
         const btn = document.querySelector('.button-download-profile button');
         if (!btn) return;
@@ -327,7 +428,6 @@
         };
     });
 
-    // Скрипт для принудительного показа заголовка
     document.addEventListener('DOMContentLoaded', function() {
         const title = document.querySelector('.section-title');
         if (title) {

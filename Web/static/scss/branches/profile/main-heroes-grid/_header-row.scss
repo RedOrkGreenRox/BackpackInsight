@@ -1,0 +1,17 @@
+.main-hero-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    .main-hero-header-row {
+        background: none;
+        padding: 0;
+    }
+}
