@@ -27,10 +27,35 @@
     font-weight: 600;
     text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 
+    /* Центровка текста */
+    line-height: 1;
+
+    /* Поддержка picture */
+    picture {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+    }
+
     img {
         width: 24px;
         height: 24px;
         transition: transform 0.3s ease;
+        object-fit: contain;
+    }
+
+    /* Если img внутри picture */
+    picture img {
+        width: 100%;
+        height: 100%;
+    }
+
+    span {
+        /* Дополнительная страховка для текста */
+        display: block;
+        margin-top: 1px; /* Микро-коррекция */
     }
 
     &:hover {
@@ -64,7 +89,14 @@
     position: relative;
     border-radius: 50%;
 
-    // Убрал transition отсюда, так как он задается ниже по ID для всех эффектов сразу
+    /* Поддержка picture */
+    picture {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
 
     img {
         width: 32px;
@@ -72,11 +104,10 @@
         filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
         transition: transform 0.3s ease;
         pointer-events: none;
+        object-fit: contain;
     }
 
     &:hover {
-        // Убрал background (невидимое поле)
-        // Добавил подъем вверх
         transform: translateY(-3px);
 
         img {
@@ -95,7 +126,6 @@
 
 // --- Взаимодействие кнопок ---
 #sortToggle, #invertToggle {
-    // Единая анимация для сдвигов и подъемов
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 

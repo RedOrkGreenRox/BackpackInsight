@@ -26,10 +26,23 @@
     flex-shrink: 0;
 }
 
+/* Поддержка picture */
+.rarity-item picture,
 .rarity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     // Ширина от 18px до 24px
     width: clamp(18px, 4vw, 24px);
     height: auto; // Высота подстроится пропорционально
+}
+
+/* Картинка внутри picture */
+.rarity-item picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .rarity-count {

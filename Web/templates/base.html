@@ -142,19 +142,35 @@
 
     <div class="nav-tabs">
         <div class="nav-tab {{ 'active' if request.url.path in ['/', ''] }}" onclick="goTo('/')">
-            <img src="/static/images/Templates/main.webp" alt="Главная">
+            <picture>
+                <source srcset="/static/images/templates/avif/main.avif" type="image/avif">
+                <source srcset="/static/images/templates/webp/main.webp" type="image/webp">
+                <img src="/static/images/templates/webp/main.webp" alt="Главная">
+            </picture>
             <span class="page-title">Главная</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/recipes' }}" onclick="goTo('/recipes')">
-            <img src="/static/images/Templates/recipes.webp" alt="Рецепты">
+            <picture>
+                <source srcset="/static/images/templates/avif/recipes.avif" type="image/avif">
+                <source srcset="/static/images/templates/webp/recipes.webp" type="image/webp">
+                <img src="/static/images/templates/webp/recipes.webp" alt="Рецепты">
+            </picture>
             <span class="page-title">Рецепты</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/leaderboards' }}" onclick="goTo('/leaderboards')">
-            <img src="/static/images/Templates/leaderboards.webp" alt="Лидеры">
+            <picture>
+                <source srcset="/static/images/templates/avif/leaderboards.avif" type="image/avif">
+                <source srcset="/static/images/templates/webp/leaderboards.webp" type="image/webp">
+                <img src="/static/images/templates/webp/leaderboards.webp" alt="Лидеры">
+            </picture>
             <span class="page-title">Таблицы лидеров</span>
         </div>
         <div class="nav-tab {{ 'active' if request.url.path == '/profiles' }}" onclick="goTo('/profiles')">
-            <img src="/static/images/Templates/profiles.webp" alt="Профили">
+            <picture>
+                <source srcset="/static/images/templates/avif/profiles.avif" type="image/avif">
+                <source srcset="/static/images/templates/webp/profiles.webp" type="image/webp">
+                <img src="/static/images/templates/webp/profiles.webp" alt="Профили">
+            </picture>
             <span class="page-title">Профили</span>
         </div>
     </div>
@@ -164,9 +180,9 @@
 
 <div class="background-image" id="bgImage">
     <picture>
-        <source srcset="/static/images/Area/avif/Area{{ background_image }}.avif" type="image/avif">
-        <source srcset="/static/images/Area/webp/Area{{ background_image }}.webp" type="image/webp">
-        <img src="/static/images/Area/webp/Area{{ background_image }}.webp"
+        <source srcset="/static/images/area/avif/Area{{ background_image }}.avif" type="image/avif">
+        <source srcset="/static/images/area/webp/Area{{ background_image }}.webp" type="image/webp">
+        <img src="/static/images/area/webp/Area{{ background_image }}.webp"
              id="bgImg"
              alt="Background"
              fetchpriority="high"

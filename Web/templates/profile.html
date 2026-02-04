@@ -9,31 +9,51 @@
 <div class="profile-header" data-aos="zoom-in">
     <picture class="header-bg">
         <!-- Для случайного фона, заменить area на background_image -->
-        <source srcset="/static/images/Area/avif/Area{{ area }}.avif" type="image/avif">
-        <source srcset="/static/images/Area/webp/Area{{ area }}.webp" type="image/webp">
-        <img src="/static/images/Area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
+        <source srcset="/static/images/area/avif/Area{{ area }}.avif" type="image/avif">
+        <source srcset="/static/images/area/webp/Area{{ area }}.webp" type="image/webp">
+        <img src="/static/images/area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
     </picture>
 
     <h4>{{ nickname }}</h4>
         <div class="stats-grid">
             <div class="stat-player-card">
-                <img src="/static/images/Profile/Level.webp" alt="Lvl" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Level.webp" alt="Lvl" loading="lazy">
+                </picture>
                 <span class="stat-value">{{ level }}</span>
             </div>
             <div class="stat-player-card">
-                <img src="/static/images/Profile/xp.webp" alt="XP" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/xp.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/xp.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/xp.webp" alt="XP" loading="lazy">
+                </picture>
                 <span class="stat-value">{{ "{:,}".format(xp_current) }} / {{ "{:,}".format(xp_need) }}</span>
             </div>
             <div class="stat-player-card">
-                <img src="/static/images/Profile/Trophy.webp" alt="Trophy" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Trophy.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Trophy.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Trophy.webp" alt="Trophy" loading="lazy">
+                </picture>
                 <span class="stat-value">{{ trophy + bonus_trophy }}</span>
             </div>
             <div class="stat-player-card">
-                <img src="/static/images/Profile/Gems.webp" alt="Gems" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Gems.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Gems.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Gems.webp" alt="Gems" loading="lazy">
+                </picture>
                 <span class="stat-value">{{ gems }}</span>
             </div>
             <div class="stat-player-card">
-                <img src="/static/images/Profile/Coins.webp" alt="Gems" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Coins.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Coins.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Coins.webp" alt="Gems" loading="lazy">
+                </picture>
                 <span class="stat-value">{{ coins }}</span>
             </div>
         </div>
@@ -43,25 +63,31 @@
                 <div class="stat-hero-card">
                     <div class="hero-header-row">
                         <picture>
-                            <source srcset="/static/images/Heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
-                            <source srcset="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                            <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
+                            <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
                             <img class="stat-hero-icon"
-                                 src="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                 src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
                                  alt="{{ hero.name }}"
                                  loading="lazy">
                         </picture>
                         <div class="stat-hero-level-container">
-                            <img class="stat-hero-level-frame"
-                                 src="/static/images/Profile/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
-                                 alt="rank"
-                                 loading="lazy">
+                            <picture class="stat-hero-level-frame">
+                                <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif" type="image/avif">
+                                <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp" type="image/webp">
+                                <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                     alt="rank"
+                                     loading="lazy">
+                            </picture>
                             <span class="stat-hero-level-text">{{ hero.level }}</span>
                         </div>
                         <div class="stat-hero-rating-container">
-                            <img class="stat-hero-league"
-                                 src="/static/images/Profile/Rank{{ hero.league }}.webp"
-                                 alt="rank"
-                                 loading="lazy">
+                            <picture class="stat-hero-league">
+                                <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif" type="image/avif">
+                                <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp" type="image/webp">
+                                <img src="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                     alt="rank"
+                                     loading="lazy">
+                            </picture>
                             <span class="stat-hero-rating">{{ hero.rating }}</span>
                         </div>
                     </div>
@@ -74,10 +100,14 @@
             {% for rarity in priority_order %}
             {% if rarity in item_stats %}
             <div class="rarity-item">
-                <img class="rarity-icon"
-                     src="/static/images/Profile/Card{{ rarity }}.webp"
-                     alt="{{ rarity }}"
-                     loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Card{{ rarity }}.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Card{{ rarity }}.webp" type="image/webp">
+                    <img class="rarity-icon"
+                         src="/static/images/profile/webp/Card{{ rarity }}.webp"
+                         alt="{{ rarity }}"
+                         loading="lazy">
+                </picture>
                 <span class="rarity-count">{{ item_stats[rarity] }}</span>
             </div>
             {% endif %}
@@ -100,11 +130,19 @@
         <h2 class="section-title">Персонажи ({{ heroes_count }})</h2>
         <div class="sort-controls">
             <button id="sortToggle" class="sort-btn" data-sort="level" onclick="console.log('Inline click: Sort')">
-                <img id="sortIcon" src="/static/images/Profile/Level.webp" alt="Сортировка по уровню" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
+                    <img id="sortIcon" src="/static/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy">
+                </picture>
                 <span id="sortText">Сортировка по уровню</span>
             </button>
             <button id="invertToggle" class="invert-icon-btn" onclick="console.log('Inline click: Invert')">
-                <img id="invertIcon" src="/static/images/Profile/SortLow.webp" alt="↕ По убыванию" loading="lazy">
+                <picture>
+                    <source srcset="/static/images/profile/avif/SortLow.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/SortLow.webp" type="image/webp">
+                    <img id="invertIcon" src="/static/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy">
+                </picture>
             </button>
         </div>
         <div class="main-heroes-grid">
@@ -113,28 +151,34 @@
                  data-level="{{ hero.level }}" data-rating="{{ hero.rating }}">
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/static/images/Heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
-                        <source srcset="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
-                        <img src="/static/images/Heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                        <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
+                        <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                        <img src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
                              alt="{{ hero.name }}" loading="lazy">
                     </picture>
                 </div>
                 <div class="main-hero-header-row">
                     <div class="main-hero-level-container">
-                        <img class="main-hero-level-frame"
-                             src="/static/images/Profile/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
-                             alt="level frame"
-                             loading="lazy">
+                        <picture class="main-hero-level-frame">
+                            <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif" type="image/avif">
+                            <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp" type="image/webp">
+                            <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                 alt="level frame"
+                                 loading="lazy">
+                        </picture>
                         <span class="main-hero-level-text">{{ hero.level }}</span>
                     </div>
 
                     <div class="main-hero-name">{{ hero.name }}</div>
 
                     <div class="main-hero-rating-container">
-                        <img class="main-hero-rating"
-                             src="/static/images/Profile/Rank{{ hero.league }}.webp"
-                             alt="rank"
-                             loading="lazy">
+                        <picture class="main-hero-rating">
+                            <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif" type="image/avif">
+                            <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp" type="image/webp">
+                            <img src="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                 alt="rank"
+                                 loading="lazy">
+                        </picture>
                         <span class="main-hero-rating">{{ hero.rating }}</span>
                     </div>
                 </div>
@@ -176,15 +220,28 @@
             console.log("Updating icons...", {sortByLevel, sortAscending});
 
             if (sortIcon && sortText) {
-                const newSortSrc = sortByLevel ? '/static/images/Profile/Level.webp' : '/static/images/Profile/Trophy.webp';
-                // Меняем атрибут напрямую
-                sortIcon.setAttribute('src', newSortSrc);
+                const newSortName = sortByLevel ? 'Level' : 'Trophy';
+                const picture = sortIcon.parentElement;
+                const sources = picture.querySelectorAll('source');
+
+                sources[0].srcset = `/static/images/profile/avif/${newSortName}.avif`;
+                sources[1].srcset = `/static/images/profile/webp/${newSortName}.webp`;
+                sortIcon.src = `/static/images/profile/webp/${newSortName}.webp`;
+
+                sortIcon.classList.add('loaded');
                 sortText.textContent = sortByLevel ? 'Сортировка по уровню' : 'Сортировка по рейтингу';
             }
 
             if (invertIcon) {
-                const newInvertSrc = sortAscending ? '/static/images/Profile/SortHigh.webp' : '/static/images/Profile/SortLow.webp';
-                invertIcon.setAttribute('src', newInvertSrc);
+                const newInvertName = sortAscending ? 'SortHigh' : 'SortLow';
+                const picture = invertIcon.parentElement;
+                const sources = picture.querySelectorAll('source');
+
+                sources[0].srcset = `/static/images/profile/avif/${newInvertName}.avif`;
+                sources[1].srcset = `/static/images/profile/webp/${newInvertName}.webp`;
+                invertIcon.src = `/static/images/profile/webp/${newInvertName}.webp`;
+
+                invertIcon.classList.add('loaded');
             }
         }
 

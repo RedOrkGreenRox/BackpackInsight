@@ -338,45 +338,56 @@ body.sidebar-open .sidebar-overlay {
 .nav-tabs {
   display: flex;
   flex-direction: column;
-  /* Убрал большой отступ сверху, так как теперь там логотип */
   padding: 10px 0 0 0;
   margin: 0;
   width: 100%;
-  /* Оставляем скролл только для списка табов, если он длинный */
   overflow-y: auto;
-  flex-grow: 1; /* Занимает все оставшееся место */
+  flex-grow: 1;
 }
 
 .nav-tab {
   display: flex;
-  align-items: center;
+  align-items: center; /* Центрирование по вертикали */
   padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
   gap: clamp(10px, 1.5vw, 20px);
   cursor: pointer;
   border-left: 4px solid transparent;
   transition: all 0.2s ease;
   position: relative;
-  /* Убрал overflow: hidden, чтобы текст не обрезался */
-  /* overflow: hidden; */
   background: transparent;
   font-size: clamp(1rem, 2vmin, 1.3rem);
 }
 
+/* Поддержка picture */
+.nav-tab picture,
 .nav-tab img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* Иконки теперь масштабируются от 32px до 40px */
   width: clamp(32px, 5vmin, 40px);
   height: clamp(32px, 5vmin, 40px);
-  object-fit: contain;
-  transition: transform 0.2s;
   flex-shrink: 0; /* Иконка не сжимается */
 }
 
+/* Картинка внутри picture */
+.nav-tab picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
+
 .nav-tab .page-title {
-  /* Разрешаем перенос, если уперлись в max-width родителя */
   white-space: normal;
-  /* Перенос по словам */
   word-wrap: break-word;
   word-break: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  /* Улучшаем центровку текста */
+  line-height: 1.2;
+  margin-top: 2px; /* Микро-коррекция, если шрифт визуально выше центра */
 }
 
 .nav-tab::before {
@@ -613,11 +624,23 @@ body.sidebar-open .sidebar-overlay {
 }
 
 /* Иконки валюты */
+/* Добавляем поддержку picture */
+.profile-header .stats-grid picture,
 .profile-header .stats-grid img {
+  display: flex; /* Чтобы picture вел себя как контейнер */
+  align-items: center;
+  justify-content: center;
   /* CLAMP: На телефоне 20px, на ПК максимум 32px. */
   width: clamp(20px, 4vmin, 32px);
   height: clamp(20px, 4vmin, 32px);
   margin-right: 6px;
+}
+
+/* Если img внутри picture, он должен заполнять его */
+.profile-header .stats-grid picture img {
+  width: 100%;
+  height: 100%;
+  margin-right: 0; /* Отступ уже у picture */
   object-fit: contain; /* Сохраняет пропорции */
 }
 
@@ -705,9 +728,21 @@ body.sidebar-open .sidebar-overlay {
   flex-shrink: 0;
 }
 
+/* Поддержка picture */
+.rarity-item picture,
 .rarity-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: clamp(18px, 4vw, 24px);
   height: auto;
+}
+
+/* Картинка внутри picture */
+.rarity-item picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .rarity-count {
@@ -795,10 +830,23 @@ body.sidebar-open .sidebar-overlay {
   box-sizing: border-box;
 }
 
+/* Иконка героя */
+.stat-hero-card picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .stat-hero-card .stat-hero-icon {
   width: 64px;
   height: 64px;
   object-fit: cover;
+}
+
+/* Если иконка внутри picture */
+.stat-hero-card picture .stat-hero-icon {
+  width: 64px;
+  height: 64px;
 }
 
 .stat-hero-card .stat-hero-level-container,
@@ -808,7 +856,6 @@ body.sidebar-open .sidebar-overlay {
   width: 64px;
   height: 64px;
   /* ГЛАВНОЕ: ставим минимальный предел, ниже которого нельзя падать */
-  /* Если хочешь, чтобы они ВООБЩЕ не уменьшались — ставь тоже 64px */
   min-width: 36px;
   min-height: 36px;
   display: flex;
@@ -817,9 +864,12 @@ body.sidebar-open .sidebar-overlay {
 }
 
 /* Рамки и иконки лиг внутри должны всегда заполнять контейнер */
+/* Теперь это picture или img */
 .stat-hero-card .stat-hero-level-frame,
 .stat-hero-card .stat-hero-league {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -827,6 +877,18 @@ body.sidebar-open .sidebar-overlay {
   /* Добавляем, чтобы картинка внутри не схлопнулась */
   min-width: 100%;
   min-height: 100%;
+  /* Если это picture, он должен быть flex-контейнером */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Картинка внутри picture */
+.stat-hero-card .stat-hero-level-frame img,
+.stat-hero-card .stat-hero-league img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* Текст: чтобы на мобилках он не вылезал за границы маленькой рамки */
@@ -943,11 +1005,34 @@ body.sidebar-open .sidebar-overlay {
   font-size: 1em;
   font-weight: 600;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  /* Центровка текста */
+  line-height: 1;
+  /* Поддержка picture */
+}
+.sort-btn picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 .sort-btn img {
   width: 24px;
   height: 24px;
   transition: transform 0.3s ease;
+  object-fit: contain;
+}
+.sort-btn {
+  /* Если img внутри picture */
+}
+.sort-btn picture img {
+  width: 100%;
+  height: 100%;
+}
+.sort-btn span {
+  /* Дополнительная страховка для текста */
+  display: block;
+  margin-top: 1px; /* Микро-коррекция */
 }
 .sort-btn:hover {
   transform: translateY(-3px);
@@ -976,6 +1061,14 @@ body.sidebar-open .sidebar-overlay {
   cursor: pointer;
   position: relative;
   border-radius: 50%;
+  /* Поддержка picture */
+}
+.invert-icon-btn picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 .invert-icon-btn img {
   width: 32px;
@@ -983,6 +1076,7 @@ body.sidebar-open .sidebar-overlay {
   filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
   transition: transform 0.3s ease;
   pointer-events: none;
+  object-fit: contain;
 }
 .invert-icon-btn:hover {
   transform: translateY(-3px);
@@ -1047,7 +1141,7 @@ body.sidebar-open .sidebar-overlay {
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
   transition: transform 0.3s ease;
 }
-.main-hero-image img {
+.main-hero-image picture, .main-hero-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1087,7 +1181,8 @@ body.sidebar-open .sidebar-overlay {
   justify-content: center;
   flex-shrink: 0;
 }
-.main-hero-level-container img,
+.main-hero-level-container picture, .main-hero-level-container img,
+.main-hero-rating-container picture,
 .main-hero-rating-container img {
   position: absolute;
   width: 100%;

@@ -37,7 +37,7 @@
     filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
     transition: transform 0.3s ease;
 
-    img {
+    picture, img {
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -78,7 +78,7 @@
     justify-content: center;
     flex-shrink: 0;
 
-    img {
+    picture, img {
         position: absolute;
         width: 100%;
         height: 100%;

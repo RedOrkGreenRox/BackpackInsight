@@ -338,45 +338,56 @@ body.sidebar-open .sidebar-overlay {
 .nav-tabs {
   display: flex;
   flex-direction: column;
-  /* Убрал большой отступ сверху, так как теперь там логотип */
   padding: 10px 0 0 0;
   margin: 0;
   width: 100%;
-  /* Оставляем скролл только для списка табов, если он длинный */
   overflow-y: auto;
-  flex-grow: 1; /* Занимает все оставшееся место */
+  flex-grow: 1;
 }
 
 .nav-tab {
   display: flex;
-  align-items: center;
+  align-items: center; /* Центрирование по вертикали */
   padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
   gap: clamp(10px, 1.5vw, 20px);
   cursor: pointer;
   border-left: 4px solid transparent;
   transition: all 0.2s ease;
   position: relative;
-  /* Убрал overflow: hidden, чтобы текст не обрезался */
-  /* overflow: hidden; */
   background: transparent;
   font-size: clamp(1rem, 2vmin, 1.3rem);
 }
 
+/* Поддержка picture */
+.nav-tab picture,
 .nav-tab img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* Иконки теперь масштабируются от 32px до 40px */
   width: clamp(32px, 5vmin, 40px);
   height: clamp(32px, 5vmin, 40px);
-  object-fit: contain;
-  transition: transform 0.2s;
   flex-shrink: 0; /* Иконка не сжимается */
 }
 
+/* Картинка внутри picture */
+.nav-tab picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
+
 .nav-tab .page-title {
-  /* Разрешаем перенос, если уперлись в max-width родителя */
   white-space: normal;
-  /* Перенос по словам */
   word-wrap: break-word;
   word-break: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  /* Улучшаем центровку текста */
+  line-height: 1.2;
+  margin-top: 2px; /* Микро-коррекция, если шрифт визуально выше центра */
 }
 
 .nav-tab::before {
@@ -533,6 +544,15 @@ body.sidebar-open .sidebar-overlay {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+/* Поддержка picture */
+.item-image-wrapper picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .item-icon {

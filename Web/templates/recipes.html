@@ -18,12 +18,14 @@
                  data-aos="fade-up"
                  data-aos-delay="{{ (loop.index0 % 20) * 30 }}">
                 <div class="item-image-wrapper">
-                    <!-- Предполагаем, что картинки лежат в /static/images/Items/ -->
-                    <!-- Если формат webp, используем его -->
-                    <img src="/static/images/Items/{{ item.name }}.webp"
-                         alt="{{ item.name }}"
-                         loading="lazy"
-                         class="item-icon">
+                    <picture>
+                        <source srcset="/static/images/recipes/avif/{{ item.name }}.avif" type="image/avif">
+                        <source srcset="/static/images/recipes/webp/{{ item.name }}.webp" type="image/webp">
+                        <img src="/static/images/recipes/webp/{{ item.name }}.webp"
+                             alt="{{ item.name }}"
+                             loading="lazy"
+                             class="item-icon">
+                    </picture>
                 </div>
                 <span class="item-name">{{ item.name }}</span>
             </div>
