@@ -503,30 +503,6 @@ body.sidebar-open .sidebar-overlay {
     gap: 10px;
   }
 }
-.wiki-section {
-  padding: clamp(80px, 15vh, 120px) 20px 40px;
-  min-height: 100vh;
-}
-
-.wiki-header {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.main-title {
-  font-size: 3rem;
-  color: white;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  opacity: 1;
-  margin-bottom: 10px;
-}
-
-.wiki-subtitle {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2rem;
-  margin-top: 10px;
-}
-
 .item-card {
   background: rgba(30, 30, 30, 0.8);
   border-radius: 16px;
@@ -536,10 +512,17 @@ body.sidebar-open .sidebar-overlay {
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.6s ease-out;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+}
+.item-card.hidden {
+  display: none !important;
+}
+.item-card.preparing {
+  opacity: 0 !important;
+  transform: translateY(20px) scale(0.95);
 }
 .item-card:hover {
   transform: translateY(-5px);
@@ -593,7 +576,6 @@ body.sidebar-open .sidebar-overlay {
   /* Обрезаем длинные названия */
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -603,4 +585,61 @@ body.sidebar-open .sidebar-overlay {
   .item-name {
     font-size: 0.8rem;
   }
+}
+.rarity-common {
+  color: gray;
+}
+
+.rarity-rare {
+  color: lightskyblue;
+}
+
+.rarity-epic {
+  color: mediumpurple;
+}
+
+.rarity-legendary {
+  color: orangered;
+}
+
+.rarity-mythic {
+  color: yellow;
+}
+
+.rarity-unique {
+  color: green;
+}
+
+.rarity-relic {
+  color: hotpink;
+}
+
+.item-level {
+  font-size: small;
+  font-weight: 300;
+  color: white;
+}
+
+.wiki-section {
+  padding: clamp(80px, 15vh, 120px) 20px 40px;
+  min-height: 100vh;
+}
+
+.wiki-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
+.wiki-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  margin-top: 10px;
 }

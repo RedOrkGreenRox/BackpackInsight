@@ -1,20 +1,6 @@
 @use "../roots/roots";
-@use "../roots/items-grid"; /* Теперь берем из корней */
 @use "profile/header";
-@use "profile/nickname";
-@use "profile/stats-player-grid";
-@use "profile/stats-heroes-wrapper";
-@use "profile/stats-heroes-grid";
-@use "profile/stat-items-grid";
-@use "profile/actual-version";
-@use "profile/stat-player-card";
-@use "profile/stat-hero-card";
 @use "profile/button-download";
 @use "profile/buttons-sort";
 @use "profile/main-heroes-grid";
 @use "profile/section-title";
-
-/* Импортируем стили карточки предмета из recipes (пока они там) */
-@use "items/item-card";
-@use "items/item-image";
-@use "items/item-name";

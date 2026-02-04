@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block page_styles %}
-    <link rel="stylesheet" href="/static/css/profile.css">
+<link rel="stylesheet" href="/static/css/profile.css">
 {% endblock %}
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
 <div class="container">
-<div class="profile-header" data-aos="zoom-in">
-    <picture class="header-bg">
-        <!-- Для случайного фона, заменить area на background_image -->
-        <source srcset="/static/images/area/avif/Area{{ area }}.avif" type="image/avif">
-        <source srcset="/static/images/area/webp/Area{{ area }}.webp" type="image/webp">
-        <img src="/static/images/area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
-    </picture>
+    <div class="profile-header" data-aos="zoom-in">
+        <picture class="header-bg">
+            <!-- Для случайного фона, заменить area на background_image -->
+            <source srcset="/static/images/area/avif/Area{{ area }}.avif" type="image/avif">
+            <source srcset="/static/images/area/webp/Area{{ area }}.webp" type="image/webp">
+            <img src="/static/images/area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
+        </picture>
 
-    <h4>{{ nickname }}</h4>
+        <h4>{{ nickname }}</h4>
         <div class="stats-grid">
             <div class="stat-player-card">
                 <picture>
@@ -63,8 +63,10 @@
                 <div class="stat-hero-card" data-hero-name="{{ hero.name }}">
                     <div class="hero-header-row">
                         <picture>
-                            <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
-                            <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                            <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif"
+                                    type="image/avif">
+                            <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                    type="image/webp">
                             <img class="stat-hero-icon"
                                  src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
                                  alt="{{ hero.name }}"
@@ -72,8 +74,10 @@
                         </picture>
                         <div class="stat-hero-level-container">
                             <picture class="stat-hero-level-frame">
-                                <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif" type="image/avif">
-                                <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp" type="image/webp">
+                                <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif"
+                                        type="image/avif">
+                                <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                        type="image/webp">
                                 <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
                                      alt="rank"
                                      loading="lazy">
@@ -82,8 +86,10 @@
                         </div>
                         <div class="stat-hero-rating-container">
                             <picture class="stat-hero-league">
-                                <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif" type="image/avif">
-                                <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp" type="image/webp">
+                                <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif"
+                                        type="image/avif">
+                                <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                        type="image/webp">
                                 <img src="/static/images/profile/webp/Rank{{ hero.league }}.webp"
                                      alt="rank"
                                      loading="lazy">
@@ -133,7 +139,8 @@
                 <picture>
                     <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
                     <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
-                    <img id="sortIcon" src="/static/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy">
+                    <img id="sortIcon" src="/static/images/profile/webp/Level.webp" alt="Сортировка по уровню"
+                         loading="lazy">
                 </picture>
                 <span id="sortText">Сортировка по уровню</span>
             </button>
@@ -141,7 +148,8 @@
                 <picture>
                     <source srcset="/static/images/profile/avif/SortLow.avif" type="image/avif">
                     <source srcset="/static/images/profile/webp/SortLow.webp" type="image/webp">
-                    <img id="invertIcon" src="/static/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy">
+                    <img id="invertIcon" src="/static/images/profile/webp/SortLow.webp" alt="↕ По убыванию"
+                         loading="lazy">
                 </picture>
             </button>
         </div>
@@ -159,8 +167,10 @@
 
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif" type="image/avif">
-                        <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp" type="image/webp">
+                        <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif"
+                                type="image/avif">
+                        <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                type="image/webp">
                         <img src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
                              alt="{{ hero.name }}" loading="lazy" class="hero-img">
                     </picture>
@@ -168,8 +178,10 @@
                 <div class="main-hero-header-row">
                     <div class="main-hero-level-container">
                         <picture class="main-hero-level-frame">
-                            <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp" type="image/webp">
+                            <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif"
+                                    type="image/avif">
+                            <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                    type="image/webp">
                             <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
                                  alt="level frame"
                                  loading="lazy">
@@ -179,7 +191,9 @@
 
                     <div class="main-hero-info">
                         <div class="main-hero-name">{{ hero.name }}</div>
-                        <div class="main-hero-exp">{{ "{:,}".format(hero.experience) }} / {{ "{:,}".format(hero.exp_req) }}</div>
+                        <div class="main-hero-exp">{{ "{:,}".format(hero.experience) }} / {{ "{:,}".format(hero.exp_req)
+                            }}
+                        </div>
                     </div>
 
                     <div class="main-hero-rating-container">
@@ -209,18 +223,19 @@
                  data-aos-delay="{{ (loop.index0 % 5) * 50 }}">
                 <div class="item-image-wrapper">
                     <picture>
-                        <source srcset="/static/images/items/avif/{{ item.name }}.avif" type="image/avif">
-                        <source srcset="/static/images/items/webp/{{ item.name }}.webp" type="image/webp">
-                        <img src="/static/images/items/webp/{{ item.name }}.webp"
+                        <source srcset="/static/images/items/avif/{{ item.name | urlencode  }}.avif" type="image/avif">
+                        <source srcset="/static/images/items/webp/{{ item.name | urlencode  }}.webp" type="image/webp">
+                        <img src="/static/images/items/webp/{{ item.name | urlencode  }}.webp"
                              alt="{{ item.name }}"
                              loading="lazy"
-                             class="item-icon">
+                             class="item-icon"
+                             onerror="handleImageError(this)">
                     </picture>
                 </div>
                 <span class="item-name">{{ item.name }}</span>
                 <div class="item-stats">
                     <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
-                    <span>Lvl {{ item.level }}</span>
+                    <span class="item-level">lvl {{ item.level }} ({{ item.cards if item.cards_need != -1 else "-" }} / {{ item.cards_need if item.cards_need != -1 else "-"}})</span>
                 </div>
             </div>
             {% endfor %}
@@ -232,17 +247,32 @@
         {% endif %}
     </div>
 </div>
-
+<script>
+    function handleImageError(img) {
+        // 1. Находим родительский элемент <picture>
+        const picture = img.closest('picture');
+        if (picture) {
+            // 2. Удаляем все <source>, чтобы они не мешали плейсхолдеру
+            const sources = picture.querySelectorAll('source');
+            sources.forEach(source => source.remove());
+        }
+        // 3. Устанавливаем плейсхолдер (лучше в формате .png или .jpg для 100% совместимости)
+        img.src = '/static/images/placeholder/placeholder.webp';
+        img.onerror = null; // Предотвращаем бесконечный цикл
+    }
+</script>
 <!-- Передаем данные о скинах в JS -->
+<!--suppress JsonStandardCompliance -->
 <script id="skins-data" type="application/json">
-    {{ profile_skins | tojson | safe }}
+    {{profile_skins | tojson | safe}}
 </script>
 
 {% endblock %}
 {% block scripts %}
 <script>
+
     // Глобальная функция для смены скина
-    window.changeSkin = function(btn, direction) {
+    window.changeSkin = function (btn, direction) {
         const card = btn.closest('.main-hero-card');
         const heroName = card.dataset.heroName;
         let currentSkin = card.dataset.currentSkin;
@@ -370,81 +400,99 @@
         });
 
         function sortHeroes() {
-    const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
-    const headerHeroGrid = document.querySelector('.stats-heroes-grid'); // Контейнер в шапке
+            const heroCards = Array.from(document.querySelectorAll('.main-hero-card'));
+            const headerHeroGrid = document.querySelector('.stats-heroes-grid'); // Контейнер в шапке
 
-    // 1. Сортируем массив основных карточек
-    heroCards.sort((a, b) => {
-        let valA, valB;
+            // 1. Сортируем массив основных карточек
+            heroCards.sort((a, b) => {
+                let valA, valB;
 
-        if (sortByLevel) {
-            // Учитываем престиж для корректной сортировки уровней
-            const prestigeA = a.dataset.prestige === 'true' ? 100 : 0;
-            const prestigeB = b.dataset.prestige === 'true' ? 100 : 0;
-            valA = (parseInt(a.dataset.level) || 0) + prestigeA;
-            valB = (parseInt(b.dataset.level) || 0) + prestigeB;
-        } else {
-            valA = parseInt(a.dataset.rating) || 0;
-            valB = parseInt(b.dataset.rating) || 0;
-        }
+                if (sortByLevel) {
+                    // Учитываем престиж для корректной сортировки уровней
+                    const prestigeA = a.dataset.prestige === 'true' ? 100 : 0;
+                    const prestigeB = b.dataset.prestige === 'true' ? 100 : 0;
+                    valA = (parseInt(a.dataset.level) || 0) + prestigeA;
+                    valB = (parseInt(b.dataset.level) || 0) + prestigeB;
+                } else {
+                    valA = parseInt(a.dataset.rating) || 0;
+                    valB = parseInt(b.dataset.rating) || 0;
+                }
 
-        return sortAscending ? valA - valB : valB - valA;
-    });
+                return sortAscending ? valA - valB : valB - valA;
+            });
 
-    // 2. Перемещаем карточки в основной сетке (внизу)
-    const mainFragment = document.createDocumentFragment();
-    heroCards.forEach(card => mainFragment.appendChild(card));
-    heroGrid.appendChild(mainFragment);
+            // 2. Перемещаем карточки в основной сетке (внизу)
+            const mainFragment = document.createDocumentFragment();
+            heroCards.forEach(card => mainFragment.appendChild(card));
+            heroGrid.appendChild(mainFragment);
 
-    // 3. Синхронизируем порядок в шапке (в карточке профиля)
-    if (headerHeroGrid) {
-        const headerFragment = document.createDocumentFragment();
-        heroCards.forEach(card => {
-            const heroName = card.dataset.heroName;
-            // Находим соответствующую маленькую карточку по имени героя
-            const headerCard = headerHeroGrid.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
-            if (headerCard) {
-                headerFragment.appendChild(headerCard);
+            // 3. Синхронизируем порядок в шапке (в карточке профиля)
+            if (headerHeroGrid) {
+                const headerFragment = document.createDocumentFragment();
+                heroCards.forEach(card => {
+                    const heroName = card.dataset.heroName;
+                    // Находим соответствующую маленькую карточку по имени героя
+                    const headerCard = headerHeroGrid.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
+                    if (headerCard) {
+                        headerFragment.appendChild(headerCard);
+                    }
+                });
+                headerHeroGrid.appendChild(headerFragment);
             }
-        });
-        headerHeroGrid.appendChild(headerFragment);
-    }
 
-    if (typeof AOS !== 'undefined') {
-        setTimeout(AOS.refresh, 150);
-    }
-}
+            if (typeof AOS !== 'undefined') {
+                setTimeout(AOS.refresh, 150);
+            }
+        }
 
         updateIcons();
         sortHeroes();
     });
 
     // Логика "Показать еще" для предметов
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const loadMoreBtn = document.getElementById('loadMoreItemsBtn');
         if (!loadMoreBtn) return;
 
-        loadMoreBtn.addEventListener('click', function() {
-            const hiddenItems = document.querySelectorAll('.items-grid .item-card.hidden');
-            const itemsToShow = 10; // Показываем по 10 штук
+        loadMoreBtn.addEventListener('click', function () {
+            const grid = document.getElementById('profileItemsGrid');
+            const hiddenItems = grid.querySelectorAll('.item-card.hidden');
+            const itemsToShow = 120; // Сколько предметов открываем за раз
 
-            for (let i = 0; i < itemsToShow && i < hiddenItems.length; i++) {
-                const item = hiddenItems[i];
-                item.classList.remove('hidden');
-                // Сбрасываем класс анимации, чтобы AOS мог его снова добавить
-                item.classList.remove('aos-animate');
+            hiddenItems.forEach((item, index) => {
+                if (index < itemsToShow) {
+                    // 1. Ставим "подготовительный" класс (прозрачность 0)
+                    item.classList.add('preparing');
+
+                    // 2. Убираем display: none
+                    item.classList.remove('hidden');
+
+                    // 3. Запускаем анимацию с задержкой для каждого следующего элемента
+                    setTimeout(() => {
+                        item.classList.remove('preparing');
+
+                        // Активируем AOS, если он используется
+                        item.classList.add('aos-animate');
+
+                        // Принудительно ставим финальные стили на случай конфликтов
+                        item.style.opacity = "1";
+                        item.style.transform = "translateY(0) scale(1)";
+                    }, index * 80); // Шаг "лесенки" — 80мс
+                }
+            });
+
+            // Прячем кнопку, если скрытых карточек больше не осталось
+            const remainingHidden = grid.querySelectorAll('.item-card.hidden').length;
+            if (remainingHidden === 0) {
+                loadMoreBtn.parentElement.style.display = 'none';
             }
 
-            // Если скрытых больше нет, прячем кнопку
-            if (document.querySelectorAll('.items-grid .item-card.hidden').length === 0) {
-                loadMoreBtn.style.display = 'none';
-            }
-
-            // Обновляем AOS
-            if (typeof AOS !== 'undefined') {
-                // refreshHard может быть надежнее для новых элементов
-                setTimeout(AOS.refresh, 100);
-            }
+            // Обновляем позиции AOS после завершения всех анимаций
+            setTimeout(() => {
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+            }, itemsToShow * 80 + 600);
         });
     });
 
@@ -483,7 +531,7 @@
         };
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const title = document.querySelector('.section-title');
         if (title) {
             title.classList.add('loaded');

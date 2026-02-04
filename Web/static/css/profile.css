@@ -503,96 +503,121 @@ body.sidebar-open .sidebar-overlay {
     gap: 10px;
   }
 }
-/* Теперь берем из корней */
-.container .profile-header {
-  position: relative;
+.item-card {
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 16px;
+  padding: 15px;
   display: flex;
-  /* Десктоп: в ряд */
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  /* ГИБКОСТЬ: gap зависит от vmin. Если высота экрана упадет — отступы тоже */
-  gap: clamp(10px, 3vmin, 20px);
-  padding: clamp(15px, 4vmin, 30px);
-  /* ШИРИНА И ОТСТУПЫ */
-  width: calc(100% - 30px);
-  max-width: 1100px;
-  /* Безопасный отступ сверху/снизу, зависящий от высоты экрана (vh) */
-  margin: clamp(40px, 12vh, 150px) auto 40px auto;
-  /* ВЫСОТА */
-  /* Используем min(), чтобы на очень низких экранах (нетбуки) блок не был огромным */
-  min-height: min(400px, 80vh);
-  /* ОФОРМЛЕНИЕ */
-  border-radius: 25px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.6s ease-out;
+  cursor: pointer;
+  position: relative;
   overflow: hidden;
-  /* ФОН И ЗУМ: */
-  /* cover — гарантирует, что картинка не уменьшится меньше блока */
-  /* center — держит фокус по центру */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  text-align: left;
-  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
+}
+.item-card.hidden {
+  display: none !important;
+}
+.item-card.preparing {
+  opacity: 0 !important;
+  transform: translateY(20px) scale(0.95);
+}
+.item-card:hover {
+  transform: translateY(-5px);
+  background: rgba(50, 50, 50, 0.9);
+  border-color: rgba(var(--azure-raw), 0.5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--azure-raw), 0.2);
 }
 
-/* === АДАПТАЦИЯ === */
-.profile-header {
-  /* 1. ПЛАНШЕТЫ И ТЕЛЕФОНЫ (Вертикально) */
-}
-@media (max-width: 1100px) {
-  .profile-header {
-    flex-direction: column;
-    align-items: center;
-    /* ГАРАНТИЯ ОТСТУПОВ ПО БОКАМ */
-    /* 100% минус 30px = по 15px "фона" слева и справа всегда видно */
-    width: calc(100% - 30px);
-    /* Высота авто, так как элементы стоят столбиком */
-    height: auto;
-    min-height: auto; /* Сбрасываем жесткую высоту, пусть контент решает */
-    padding-top: 20px;
-    padding-bottom: 30px;
-    /* Отступ сверху тоже резиновый от высоты */
-    margin: clamp(20px, 8vh, 80px) auto 20px auto;
-  }
-  .profile-header h4 {
-    margin: 10px auto;
-    /* Шрифт чуть меньше, если экран тесный */
-    font-size: clamp(1.5rem, 5vmin, 2rem);
-  }
-}
-.profile-header {
-  /* 2. ЛАНДШАФТНЫЙ РЕЖИМ (Повернутый телефон / Низкий экран) */
-  /* Сработает, если высота < 500px (даже если ширина большая) */
-}
-@media (max-height: 500px) and (orientation: landscape) {
-  .profile-header {
-    /* Принудительно возвращаем СТРОКУ, чтобы сэкономить высоту */
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    /* Ужимаем отступы до минимума */
-    margin-top: 10px;
-    margin-bottom: 10px;
+/* Адаптив */
+@media (max-width: 480px) {
+  .item-card {
     padding: 10px;
-    gap: 10px;
-    /* Ширина всё еще с отступами */
-    width: calc(100% - 40px);
-    min-height: auto;
-    /* Уменьшаем никнейм, чтобы влез в одну строку с героями */
-  }
-  .profile-header h4 {
-    margin: 0;
-    font-size: 1.2rem;
   }
 }
-.profile-header {
-  /* Совсем мелкие телефоны */
+.item-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1; /* Квадратный контейнер */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }
-@media (max-width: 400px) {
-  .profile-header {
-    width: calc(100% - 20px); /* Чуть меньше отступы (по 10px), но они есть */
+
+/* Поддержка picture */
+.item-image-wrapper picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.item-icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.item-card:hover .item-icon {
+  transform: scale(1.1);
+}
+
+.item-name {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 500;
+  /* Обрезаем длинные названия */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Адаптив */
+@media (max-width: 480px) {
+  .item-name {
+    font-size: 0.8rem;
   }
+}
+.rarity-common {
+  color: gray;
+}
+
+.rarity-rare {
+  color: lightskyblue;
+}
+
+.rarity-epic {
+  color: mediumpurple;
+}
+
+.rarity-legendary {
+  color: orangered;
+}
+
+.rarity-mythic {
+  color: yellow;
+}
+
+.rarity-unique {
+  color: green;
+}
+
+.rarity-relic {
+  color: hotpink;
+}
+
+.item-level {
+  font-size: small;
+  font-weight: 300;
+  color: white;
 }
 
 .profile-header h4 {
@@ -686,6 +711,36 @@ body.sidebar-open .sidebar-overlay {
   white-space: nowrap;
 }
 
+.profile-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  border-radius: 15px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Картинка теперь просто растягивается на весь зарезервированный блок */
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.header-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.6);
+}
+
 .profile-header .stats-heroes-wrapper {
   position: relative;
   z-index: 2;
@@ -730,6 +785,114 @@ body.sidebar-open .sidebar-overlay {
     padding: 10px;
     gap: 12px;
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+.profile-header .stat-hero-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  height: 60px;
+  min-height: 50px;
+  justify-content: center;
+}
+.profile-header .stat-hero-card.changing-skin {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.stat-hero-card .hero-header-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Иконка героя */
+.stat-hero-card picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Для псевдоэлемента */
+  overflow: hidden;
+}
+
+.stat-hero-card .stat-hero-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+/* Если иконка внутри picture */
+.stat-hero-card picture .stat-hero-icon {
+  width: 64px;
+  height: 64px;
+  /* Удаляем маску */
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.stat-hero-card .stat-hero-level-container,
+.stat-hero-card .stat-hero-rating-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-hero-card .stat-hero-level-frame,
+.stat-hero-card .stat-hero-league {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-hero-card .stat-hero-level-frame img,
+.stat-hero-card .stat-hero-league img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.stat-hero-card .stat-hero-level-text,
+.stat-hero-card .stat-hero-rating {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(12px, 2vw, 15px);
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .profile-header .stat-hero-card {
+    transform: scale(0.9);
+    transform-origin: center center;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: -15px -25px;
   }
 }
 .profile-header .stats-items-grid {
@@ -839,144 +1002,67 @@ body.sidebar-open .sidebar-overlay {
   white-space: nowrap;
 }
 
-.profile-header {
+.container .profile-header {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  border-radius: 15px;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* Картинка теперь просто растягивается на весь зарезервированный блок */
-.header-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.header-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: brightness(0.6);
-}
-
-.profile-header .stat-hero-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: transparent;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  height: 60px;
-  min-height: 50px;
-  justify-content: center;
-}
-.profile-header .stat-hero-card.changing-skin {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-.stat-hero-card .hero-header-row {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Иконка героя */
-.stat-hero-card picture {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative; /* Для псевдоэлемента */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(10px, 3vmin, 20px);
+  padding: clamp(15px, 4vmin, 30px);
+  width: calc(100% - 30px);
+  max-width: 1100px;
+  margin: clamp(40px, 12vh, 150px) auto 40px auto;
+  min-height: min(400px, 80vh);
+  border-radius: 25px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: left;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
 }
 
-.stat-hero-card .stat-hero-icon {
-  width: 64px;
-  height: 64px;
-  object-fit: cover;
-}
-
-/* Если иконка внутри picture */
-.stat-hero-card picture .stat-hero-icon {
-  width: 64px;
-  height: 64px;
-  /* Удаляем маску */
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-.stat-hero-card .stat-hero-level-container,
-.stat-hero-card .stat-hero-rating-container {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  min-width: 36px;
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-hero-card .stat-hero-level-frame,
-.stat-hero-card .stat-hero-league {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 1;
-  min-width: 100%;
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-hero-card .stat-hero-level-frame img,
-.stat-hero-card .stat-hero-league img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.stat-hero-card .stat-hero-level-text,
-.stat-hero-card .stat-hero-rating {
-  position: relative;
-  z-index: 2;
-  font-size: clamp(12px, 2vw, 15px);
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 1px 3px #000;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-  .profile-header .stat-hero-card {
-    transform: scale(0.9);
-    transform-origin: center center;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: -15px -25px;
+@media (max-width: 1100px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 30px);
+    height: auto;
+    min-height: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin: clamp(20px, 8vh, 80px) auto 20px auto;
+  }
+  .profile-header h4 {
+    margin: 10px auto;
+    font-size: clamp(1.5rem, 5vmin, 2rem);
   }
 }
+@media (max-height: 500px) and (orientation: landscape) {
+  .profile-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    gap: 10px;
+    width: calc(100% - 40px);
+    min-height: auto;
+  }
+  .profile-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 400px) {
+  .profile-header {
+    width: calc(100% - 20px);
+  }
+}
+
 /* _button-download.scss */
 .container .button-download-profile {
   display: flex;
@@ -1437,83 +1523,4 @@ body.sidebar-open .sidebar-overlay {
 }
 .section-title.loaded {
   opacity: 1;
-}
-
-/* Импортируем стили карточки предмета из recipes (пока они там) */
-.item-card {
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 16px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.item-card:hover {
-  transform: translateY(-5px);
-  background: rgba(50, 50, 50, 0.9);
-  border-color: rgba(var(--azure-raw), 0.5);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--azure-raw), 0.2);
-}
-
-/* Адаптив */
-@media (max-width: 480px) {
-  .item-card {
-    padding: 10px;
-  }
-}
-.item-image-wrapper {
-  width: 100%;
-  aspect-ratio: 1; /* Квадратный контейнер */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-/* Поддержка picture */
-.item-image-wrapper picture {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.item-icon {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
-}
-
-.item-card:hover .item-icon {
-  transform: scale(1.1);
-}
-
-.item-name {
-  font-size: 0.9rem;
-  color: #e0e0e0;
-  text-align: center;
-  line-height: 1.2;
-  font-weight: 500;
-  /* Обрезаем длинные названия */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Адаптив */
-@media (max-width: 480px) {
-  .item-name {
-    font-size: 0.8rem;
-  }
 }
