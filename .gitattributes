@@ -4,3 +4,4 @@
 *.jpeg binary
 *.webp binary
 *.avif binary
+*.bat linguist-vendored
