@@ -5,3 +5,5 @@
 *.webp binary
 *.avif binary
 *.bat linguist-vendored
+*.dockerfile linguist-vendored
+Dockerfile linguist-vendored
