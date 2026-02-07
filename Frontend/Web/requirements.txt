@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlmodel
+jinja2
+python-multipart
+psycopg2-binary
+aiofiles
+requests
+deep-translator

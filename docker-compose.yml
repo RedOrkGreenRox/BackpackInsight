@@ -1,0 +1,73 @@
+services:
+  # 1. Database
+  db:
+    image: postgres:15-alpine
+    container_name: backpack_insight_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
+    ports:
+      # БД доступна только локально. Никто из интернета не подключится к 5432.
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Mount init script to enable pg_trgm extension automatically
+      - ./Backend/DB/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-backpack_insight}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Backend API (PlayerData) + Будущая Админка
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/PlayerData/Dockerfile
+    container_name: backpack_insight_backend
+    restart: always
+    ports:
+      # API доступно ТОЛЬКО тебе. Зайти на http://localhost:8000 сможешь только ты.
+      # Если сервер стоит в облаке, боты не увидят этот порт.
+      - "127.0.0.1:8000:8000"
+    environment:
+      POSTGRES_SERVER: db
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./Backend:/app/Backend
+
+  # 3. Web Frontend
+  web:
+    build:
+      context: .
+      dockerfile: Frontend/Web/Dockerfile
+    container_name: backpack_insight_web
+    restart: always
+    ports:
+      # Публичный порт. Оставляем доступным для всех (0.0.0.0 по умолчанию).
+      - "5080:5080"
+    environment:
+      POSTGRES_SERVER: db
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
+      USE_SQLITE: "False"
+      BACKEND_API_URL: http://backend:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    volumes:
+      - ./Frontend:/app/Frontend
+      - ./Backend:/app/Backend
+
+volumes:
+  postgres_data:

@@ -1,26 +1,41 @@
-# --- Python ---
+# --- Python & Tests ---
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+scripts/pytest.ini
+# Если используешь виртуальное окружение локально
 venv/
+.venv/
 env/
+
+# --- Environment & Secrets ---
+# Никогда не пушим секреты и конфиги БД
 .env
 
-# --- PyCharm (JetBrains) ---
-# Игнорируем настройки IDE, чтобы не мешать другим (или себе на другом ПК)
+# --- Frontend & SCSS ---
+# Игнорируем карты стилей (нужны только для отладки локально)
+*.css.map
+# Если хочешь, чтобы в Git были только исходники SCSS, раскомментируй строку ниже:
+# Frontend/Web/static/css/*.css
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- IDE (PyCharm / VS Code) ---
 .idea/
 *.iml
+.vscode/
 
-# --- Web & Node.js (Gulp) ---
-# Самое важное: не коммитим библиотеки node
-node_modules/
-src/node_modules/
-npm-debug.log
-
-# --- System ---
+# --- System Files ---
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# --- Project Specific ---
-# Игнорируем сгенерированную структуру и временные файлы
+# --- Project Specific Artifacts ---
+# Файлы, генерируемые твоими батниками
+structure.txt
 *.log

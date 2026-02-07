@@ -1,0 +1,16 @@
+# Test Framework
+pytest
+httpx
+
+# Project Dependencies (Required to import app modules)
+fastapi
+uvicorn
+sqlmodel
+jinja2
+python-multipart
+aiofiles
+requests
+deep-translator
+
+# Database drivers (Optional for SQLite tests, but good to have)
+# psycopg2-binary
