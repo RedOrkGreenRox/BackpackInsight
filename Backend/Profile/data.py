@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-import itertools
 
 PROFILE_EXP_NEED = (
     40, 280, 300, 400, 500, 650, 650, 800, 950, 1000,
@@ -15,10 +14,7 @@ PROFILE_EXP_NEED = (
     100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000
 )
 
-PROFILE_EXP_CUMULATIVE = tuple(itertools.accumulate(PROFILE_EXP_NEED))
-PROFILE_EXP_MAX_TABLE = PROFILE_EXP_CUMULATIVE[-1]
-
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parent
 ITEMS_PATH = BASE_DIR / "jsons" / "items.json"
 
 
@@ -73,12 +69,6 @@ ITEM_LEVELING_EXP = {
     "Unique": (0, 80, 160, 240, 320, 400, 480, 560, 640, 720, 800, 1000, 1200, 1400, 1600),
     "Relic": (0, 100, 200, 300, 400, 500, 600, 700, 800, 1000)
 }
-
-DEFAULT_ITEM_TYPES = {k: None for k in [
-    "Bag", "Tool", "Skull", "Potion", "Plant", "Rat", "Mineral",
-    "Ingredient", "Fish", "Food", "Charm", "Armor", "Accessory",
-    "Pet", "Ranged", "Melee"
-]}
 
 HERO_LEVELING_EXP = {
     1: 0, 2: 100, 3: 200, 4: 350, 5: 500, 6: 650, 7: 800, 8: 1000,
