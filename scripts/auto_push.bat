@@ -29,7 +29,7 @@ git add -A
 
 echo Создаю коммит...
 :: Используем переменную окружения для даты и времени
-git commit -m "Backend refactored, DB 3/4. Automated push: %DATE% %TIME%"
+git commit -m "Read-me fix. Automated push: %DATE% %TIME%"
 
 echo Отправляю в удаленный репозиторий...
 git push origin HEAD
