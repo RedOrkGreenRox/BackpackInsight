@@ -1,33 +1,23 @@
-# --- Python (Backend & Scripts) ---
+# --- Python & Environment ---
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
 venv/
 .venv/
+.env
+.env.*
 
-# Если база данных генерируется локально
+# --- База данных ---
 Backend/DB/*.db
 Backend/DB/*.sqlite3
 
 # --- Frontend & Vite ---
-# Папка со сборкой — главный источник мусора в Git и предупреждений в консоли
-dist/
 node_modules/
+dist/
 
-# Игнорируем скомпилированные CSS и Map файлы, так как работаешь с SCSS
-Frontend/Web/static/**/*.css.map
-
-# --- Environment & Secrets ---
-.env
-.env.local
-.env.*.local
-
-# --- Scripts & Docs ---
-# Игнорируем текстовые слепки структуры, которые плодят скрипты
-docs/structure.txt
-scripts/structure.txt
-structure.txt
+# Оставляем .css, но игнорируем тяжелые .map файлы
+**/*.css.map
 
 # --- IDE & System ---
 .vscode/
