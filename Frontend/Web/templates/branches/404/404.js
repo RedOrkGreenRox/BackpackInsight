@@ -1,3 +1,5 @@
+import './404.scss';
+
 document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.querySelector('.btn-404');
     if (backButton) {

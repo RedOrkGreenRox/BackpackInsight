@@ -2,11 +2,7 @@
 {% block title %}Википедия предметов - Backpack Insight{% endblock %}
 
 {% block page_styles %}
-<style>
-    /* @formatter:off */
-    {{ get_css('items.css') | safe }}
-    /* @formatter:on */
-</style>
+<link rel="stylesheet" href="/dist/css/items.css">
 {% endblock %}
 
 {% block content %}
@@ -45,5 +41,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/js/items/items.js" type="module" defer></script>
+<script src="/dist/js/items.js" type="module" defer></script>
 {% endblock %}

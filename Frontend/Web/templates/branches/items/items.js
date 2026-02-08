@@ -1,3 +1,2 @@
-import './_items/layout/image_loader.js';
-
+import './items.scss';
 console.log('Items module loaded');

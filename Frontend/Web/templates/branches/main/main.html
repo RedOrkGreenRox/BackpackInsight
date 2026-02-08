@@ -1,10 +1,6 @@
 {% extends "roots/base.html" %}
 {% block page_styles %}
-<style>
-    /* @formatter:off */
-    {{ get_css('main.css') | safe }}
-    /* @formatter:on */
-</style>
+<link rel="stylesheet" href="/dist/css/main.css">
 {% endblock %}
 {% block title %}Главная{% endblock %}
 
@@ -33,5 +29,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/js/main/main.js" type="module" defer></script>
+<script src="/dist/js/main.js" type="module" defer></script>
 {% endblock %}

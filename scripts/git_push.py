@@ -29,7 +29,7 @@ def main():
     run_git(["add", "-A"])
     
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "JS structuring"
+    upd = "Bun (Vite) reintegration, solid refactoring"
     message = f"{upd} | Automated push: {timestamp}"
     
     print(f"💾 Committing: '{message}'")

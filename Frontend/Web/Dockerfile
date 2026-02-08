@@ -1,48 +1,41 @@
-# Use an official Python runtime as a parent image
+# --- ЭТАП 1: Сборка через Bun ---
+FROM oven/bun:1.1-slim AS builder
+WORKDIR /build
+
+# Копируем только файлы зависимостей
+COPY Frontend/Web/package*.json ./
+RUN bun install
+
+# Копируем остальной код для сборки
+COPY Frontend/Web/ ./
+RUN bun x vite build --outDir dist_build
+
+# --- ЭТАП 2: Финальный образ ---
 FROM python:3.13-slim
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-# Add project root AND Backend/PlayerData to PYTHONPATH
-# This allows imports like 'from Backend.PlayerData...' AND 'import Hero' (legacy)
-ENV PYTHONPATH=/app:/app/Backend/PlayerData
-
-# Install system dependencies and Node.js (for Sass)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Sass globally
-RUN npm install -g sass
-
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy requirements file from Frontend/Web (relative to project root)
-COPY Frontend/Web/requirements.txt /app/
+# Устанавливаем Bun в финальный образ для работы --watch
+RUN apt-get update && apt-get install -y curl unzip && \
+    curl -fsSL https://bun.sh/install | bash && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/bun
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Настройки Python
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Copy the entire project
-COPY . /app/
+# Ставим Python-зависимости (с защитой от сетевых ошибок)
+COPY Frontend/Web/requirements.txt ./
+RUN pip install --no-cache-dir --retries 10 --timeout 60 -r requirements.txt
 
-# Expose the port
-EXPOSE 5080
+# Копируем node_modules и собранный фронт ВНЕ папки Frontend/Web
+COPY --from=builder /build/node_modules /app/node_modules
+COPY --from=builder /build/dist_build /app/dist_build
 
-# Set working directory to Web root for execution
+# Копируем сам код проекта
+COPY Frontend/Web /app/Frontend/Web
+
 WORKDIR /app/Frontend/Web
 
-# Command to run the application:
-# 1. Compile SCSS (Runtime, so it works with mounted volumes)
-# 2. Start Python Server
-# UPDATED: Paths now point to templates/branches where SCSS files live
-CMD sh -c "echo 'Compiling SCSS...' && \
-    sass templates/branches/main/main.scss templates/branches/main/main.css -q --no-source-map && \
-    sass templates/branches/profile/profile.scss templates/branches/profile/profile.css -q --no-source-map && \
-    sass templates/branches/items/items.scss templates/branches/items/items.css -q --no-source-map && \
-    sass templates/branches/404/404.scss templates/branches/404/404.css -q --no-source-map && \
-    echo 'Starting Server...' && \
-    python web.py"
+# Добавляем флаг --config, чтобы Vite точно знал, где лежат инструкции,
+# и исправляем пути для работы из текущей директории.
+CMD sh -c "bun x vite build --watch --config vite.config.js --outDir /app/dist_build & python web.py"
