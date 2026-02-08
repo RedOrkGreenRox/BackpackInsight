@@ -1,4 +1,4 @@
-﻿# Настройки окончаний строк
+﻿# --- Базовые настройки ---
 * text=auto eol=lf
 *.png binary
 *.jpg binary
@@ -6,14 +6,17 @@
 *.webp binary
 *.avif binary
 
-# Исключаем системные файлы
+# --- Удаление JSON из статистики кода (PlayerData) ---
+# Считаем все JSON сгенерированными данными, а не JS-кодом
+*.json linguist-generated=true
+
+# --- Исключение сторонних библиотек (самый большой вес) ---
+# Это пометит JS и CSS в папке libs как "внешние", убрав их из процентов
+Frontend/Web/templates/roots/libs/* linguist-vendored
+
+# --- Системное и конфиги ---
 *.bat linguist-vendored
 *.dockerfile linguist-vendored
 Dockerfile linguist-vendored
-
-# Считаем JSON данными, чтобы они не суммировались с JavaScript
-*.json linguist-generated=true
-
-# Сторонние библиотеки — это не твой код, вычитаем их вес
-Frontend/Web/templates/roots/libs/*.js linguist-vendored
-Frontend/Web/templates/roots/libs/*.css linguist-vendored
+.gitignore linguist-vendored
+.gitattributes linguist-vendored
