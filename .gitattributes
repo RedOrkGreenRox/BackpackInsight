@@ -1,9 +1,19 @@
-﻿* text=auto
+﻿# Настройки окончаний строк
+* text=auto eol=lf
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.webp binary
 *.avif binary
+
+# Исключаем системные файлы
 *.bat linguist-vendored
 *.dockerfile linguist-vendored
 Dockerfile linguist-vendored
+
+# Считаем JSON данными, чтобы они не суммировались с JavaScript
+*.json linguist-generated=true
+
+# Сторонние библиотеки — это не твой код, вычитаем их вес
+Frontend/Web/templates/roots/libs/*.js linguist-vendored
+Frontend/Web/templates/roots/libs/*.css linguist-vendored
