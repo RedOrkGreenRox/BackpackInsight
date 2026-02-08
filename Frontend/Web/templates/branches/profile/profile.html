@@ -1,0 +1,265 @@
+{% extends "roots/base.html" %}
+{% block page_styles %}
+<style>
+    /* @formatter:off */
+    {{ get_css('profile.css') | safe }}
+    /* @formatter:on */
+</style>
+{% endblock %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="profile-header" data-aos="zoom-in">
+        <picture class="header-bg">
+            <!-- Для случайного фона, заменить area на background_image -->
+            <source srcset="/static/images/area/avif/Area{{ area }}.avif" type="image/avif">
+            <source srcset="/static/images/area/webp/Area{{ area }}.webp" type="image/webp">
+            <img src="/static/images/area/webp/Area{{ area }}.webp" alt="Background" fetchpriority="high">
+        </picture>
+
+        <h4>{{ nickname }}</h4>
+        <div class="stats-grid">
+            <div class="stat-player-card">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Level.webp" alt="Lvl" loading="lazy">
+                </picture>
+                <span class="stat-value">{{ level }}</span>
+            </div>
+            <div class="stat-player-card">
+                <picture>
+                    <source srcset="/static/images/profile/avif/xp.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/xp.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/xp.webp" alt="XP" loading="lazy">
+                </picture>
+                <span class="stat-value">{{ "{:,}".format(xp_current) }} / {{ "{:,}".format(xp_need) }}</span>
+            </div>
+            <div class="stat-player-card">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Trophy.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Trophy.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Trophy.webp" alt="Trophy" loading="lazy">
+                </picture>
+                <span class="stat-value">{{ trophy + bonus_trophy }}</span>
+            </div>
+            <div class="stat-player-card">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Gems.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Gems.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Gems.webp" alt="Gems" loading="lazy">
+                </picture>
+                <span class="stat-value">{{ gems }}</span>
+            </div>
+            <div class="stat-player-card">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Coins.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Coins.webp" type="image/webp">
+                    <img src="/static/images/profile/webp/Coins.webp" alt="Gems" loading="lazy">
+                </picture>
+                <span class="stat-value">{{ coins }}</span>
+            </div>
+        </div>
+        <div class="stats-heroes-wrapper">
+            <div class="stats-heroes-grid">
+                {% for hero in heroes %}
+                <div class="stat-hero-card" data-hero-name="{{ hero.name }}">
+                    <div class="hero-header-row">
+                        <picture>
+                            <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif"
+                                    type="image/avif">
+                            <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                    type="image/webp">
+                            <img class="stat-hero-icon"
+                                 src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                 alt="{{ hero.name }}"
+                                 loading="lazy">
+                        </picture>
+                        <div class="stat-hero-level-container">
+                            <picture class="stat-hero-level-frame">
+                                <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif"
+                                        type="image/avif">
+                                <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                        type="image/webp">
+                                <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                     alt="level frame"
+                                     loading="lazy">
+                            </picture>
+                            <span class="stat-hero-level-text">{{ hero.level }}</span>
+                        </div>
+                        <div class="stat-hero-rating-container">
+                            <picture class="stat-hero-league">
+                                <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif"
+                                        type="image/avif">
+                                <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                        type="image/webp">
+                                <img src="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                     alt="rank"
+                                     loading="lazy">
+                            </picture>
+                            <span class="stat-hero-rating">{{ hero.rating }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="stats-items-grid">
+            {% set priority_order = ["Common", "Rare", "Epic", "Legendary", "Mythic", "Relic", "Boon"] %}
+            {% for rarity in priority_order %}
+            {% if rarity in item_stats %}
+            <div class="rarity-item">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Card{{ rarity }}.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Card{{ rarity }}.webp" type="image/webp">
+                    <img class="rarity-icon"
+                         src="/static/images/profile/webp/Card{{ rarity }}.webp"
+                         alt="{{ rarity }}"
+                         loading="lazy">
+                </picture>
+                <span class="rarity-count">{{ item_stats[rarity] }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="actual-version-container">
+            <span class="actual-version">
+                {{ actual_version }}    {{ install_version }}
+            </span>
+        </div>
+    </div>
+    <div class="button-download-profile">
+        <button>
+            СОХРАНИТЬ КАРТОЧКУ
+        </button>
+    </div>
+
+    <!-- ГЕРОИ -->
+    <div class="section" data-aos="fade-up">
+        <h2 class="section-title">Персонажи ({{ heroes_count }})</h2>
+        <div class="sort-controls">
+            <button id="sortToggle" class="sort-btn" data-sort="level">
+                <picture>
+                    <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
+                    <img id="sortIcon" src="/static/images/profile/webp/Level.webp" alt="Сортировка по уровню"
+                         loading="lazy">
+                </picture>
+                <span id="sortText">Сортировка по уровню</span>
+            </button>
+            <button id="invertToggle" class="invert-icon-btn">
+                <picture>
+                    <source srcset="/static/images/profile/avif/SortLow.avif" type="image/avif">
+                    <source srcset="/static/images/profile/webp/SortLow.webp" type="image/webp">
+                    <img id="invertIcon" src="/static/images/profile/webp/SortLow.webp" alt="↕ По убыванию"
+                         loading="lazy">
+                </picture>
+            </button>
+        </div>
+        <div class="main-heroes-grid">
+            {% for hero in heroes %}
+            <div class="main-hero-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="800"
+                 data-level="{{ hero.level }}"
+                 data-rating="{{ hero.rating }}"
+                 data-prestige="{{ 'true' if hero.prestige else 'false' }}"
+                 data-hero-name="{{ hero.name }}"
+                 data-current-skin="01">
+
+                <button class="skin-btn prev-skin"></button>
+                <button class="skin-btn next-skin"></button>
+
+                <div class="main-hero-image">
+                    <picture>
+                        <source srcset="/static/images/heroes/{{ hero.name }}/avif/{{ hero.name }}{{ hero.skin_num }}.avif"
+                                type="image/avif">
+                        <source srcset="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                                type="image/webp">
+                        <img src="/static/images/heroes/{{ hero.name }}/webp/{{ hero.name }}{{ hero.skin_num }}.webp"
+                             alt="{{ hero.name }}" loading="lazy" class="hero-img">
+                    </picture>
+                </div>
+                <div class="main-hero-header-row">
+                    <div class="main-hero-level-container">
+                        <picture class="main-hero-level-frame">
+                            <source srcset="/static/images/profile/avif/frame_{{ 'prestige' if hero.prestige else 'common' }}.avif"
+                                    type="image/avif">
+                            <source srcset="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                    type="image/webp">
+                            <img src="/static/images/profile/webp/frame_{{ 'prestige' if hero.prestige else 'common' }}.webp"
+                                 alt="level frame"
+                                 loading="lazy">
+                        </picture>
+                        <span class="main-hero-level-text">{{ hero.level }}</span>
+                    </div>
+
+                    <div class="main-hero-info">
+                        <div class="main-hero-name">{{ hero.name }}</div>
+                        <div class="main-hero-exp">{{ "{:,}".format(hero.experience) }} / {{ "{:,}".format(hero.exp_req)
+                            }}
+                        </div>
+                    </div>
+
+                    <div class="main-hero-rating-container">
+                        <picture class="main-hero-rating">
+                            <source srcset="/static/images/profile/avif/Rank{{ hero.league }}.avif" type="image/avif">
+                            <source srcset="/static/images/profile/webp/Rank{{ hero.league }}.webp" type="image/webp">
+                            <img src="/static/images/profile/webp/Rank{{ hero.league }}.webp"
+                                 alt="rank"
+                                 loading="lazy">
+                        </picture>
+                        <span class="main-hero-rating">{{ hero.rating }}</span>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- ПРЕДМЕТЫ -->
+    <div class="section" data-aos="fade-up">
+        <h2 class="section-title">Предметы ({{ items_count }})</h2>
+        <div class="items-grid" id="profileItemsGrid">
+            {% for item in items %}
+            <div class="item-card {{ 'hidden' if loop.index > 5 else '' }}"
+                 data-aos="fade-up"
+                 data-aos-delay="{{ (loop.index0 % 5) * 50 }}">
+                <div class="item-image-wrapper">
+                    <picture>
+                        <source srcset="/static/images/items/avif/{{ item.name | urlencode  }}.avif" type="image/avif">
+                        <source srcset="/static/images/items/webp/{{ item.name | urlencode  }}.webp" type="image/webp">
+                        <img src="/static/images/items/webp/{{ item.name | urlencode  }}.webp"
+                             alt="{{ item.name }}"
+                             loading="lazy"
+                             class="item-icon"
+                             onerror="handleImageError(this)">
+                    </picture>
+                </div>
+                <span class="item-name">{{ item.name }}</span>
+                <div class="item-stats">
+                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
+                    <span class="item-level">lvl {{ item.level }} ({{ item.cards if item.cards_need != -1 else "-" }} / {{ item.cards_need if item.cards_need != -1 else "-"}})</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if items_count > 5 %}
+        <div class="load-more-container">
+            <button id="loadMoreItemsBtn" class="load-more-btn">Показать еще</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Передаем данные о скинах в JS -->
+<!--suppress JsonStandardCompliance -->
+<script id="skins-data" type="application/json">
+    {{profile_skins | tojson | safe}}
+</script>
+
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/libs/html2canvas.js"></script>
+<script src="/static/js/profile/profile.js" type="module" defer></script>
+{% endblock %}

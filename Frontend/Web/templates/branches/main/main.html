@@ -1,0 +1,37 @@
+{% extends "roots/base.html" %}
+{% block page_styles %}
+<style>
+    /* @formatter:off */
+    {{ get_css('main.css') | safe }}
+    /* @formatter:on */
+</style>
+{% endblock %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if error %}
+    <div class="error" data-aos="zoom-in">{{ error }}</div>
+    {% endif %}
+
+    <h1 class="main-title" data-aos="fade-down">Витрина профилей</h1>
+
+    <form method="POST" action="/profile" enctype="multipart/form-data" class="upload-zone">
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="fileInput" accept=".json" style="display: none;">
+            <label for="jsonInput" class="visually-hidden" style="opacity: 0">Данные профиля (JSON)</label>
+            <textarea name="json_text" id="jsonInput" placeholder=""></textarea>
+            <div class="upload-hint" id="uploadHint">
+                <span>Нажмите для выбора</span>
+                <span class="pc-only">Перетащите экспорт сюда</span>
+                <span>Вставьте экспорт</span>
+            </div>
+        </div>
+        <button class="button-view-profile" type="submit" id="submitBtn">Посмотреть профиль</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/main/main.js" type="module" defer></script>
+{% endblock %}

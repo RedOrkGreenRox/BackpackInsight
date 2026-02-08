@@ -38,10 +38,11 @@ WORKDIR /app/Frontend/Web
 # Command to run the application:
 # 1. Compile SCSS (Runtime, so it works with mounted volumes)
 # 2. Start Python Server
+# UPDATED: Paths now point to templates/branches where SCSS files live
 CMD sh -c "echo 'Compiling SCSS...' && \
-    sass static/scss/branches/main.scss static/css/main.css -q --no-source-map && \
-    sass static/scss/branches/profile.scss static/css/profile.css -q --no-source-map && \
-    sass static/scss/branches/items.scss static/css/items.css -q --no-source-map && \
-    sass static/scss/branches/404.scss static/css/404.css -q --no-source-map && \
+    sass templates/branches/main/main.scss templates/branches/main/main.css -q --no-source-map && \
+    sass templates/branches/profile/profile.scss templates/branches/profile/profile.css -q --no-source-map && \
+    sass templates/branches/items/items.scss templates/branches/items/items.css -q --no-source-map && \
+    sass templates/branches/404/404.scss templates/branches/404/404.css -q --no-source-map && \
     echo 'Starting Server...' && \
     python web.py"

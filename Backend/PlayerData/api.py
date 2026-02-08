@@ -1,30 +1,14 @@
-import os
 from typing import List
 
 from fastapi import Depends, FastAPI
-from sqlmodel import Session, create_engine, select, text
+from sqlmodel import Session, select, text
 
 # Import models
 from Backend.PlayerData.models.Item import ItemDefinition
 from Backend.PlayerData.services.ProfileFactory import ProfileFactory
+from Backend.DB.database import engine, get_session
 
 app = FastAPI(title="Backpack Insight API")
-
-# DB Setup (Shared logic)
-POSTGRES_USER = os.getenv("POSTGRES_USER", "admin")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "secret")
-POSTGRES_SERVER = os.getenv("POSTGRES_SERVER", "db")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
-POSTGRES_DB = os.getenv("POSTGRES_DB", "backpack_insight")
-
-DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
-engine = create_engine(DATABASE_URL)
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
 
 def create_indexes(engine):
     """Creates GIN indexes for trigram search if using PostgreSQL."""

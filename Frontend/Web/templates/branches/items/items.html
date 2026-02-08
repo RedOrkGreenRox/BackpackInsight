@@ -1,0 +1,49 @@
+{% extends "roots/base.html" %}
+{% block title %}Википедия предметов - Backpack Insight{% endblock %}
+
+{% block page_styles %}
+<style>
+    /* @formatter:off */
+    {{ get_css('items.css') | safe }}
+    /* @formatter:on */
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="wiki-section">
+    <div class="container">
+        <div class="wiki-header">
+            <h1 class="main-title" data-aos="fade-down">Предметы</h1>
+            <p class="wiki-subtitle">Все предметы из Backpack Brawl</p>
+        </div>
+        <div class="items-grid">
+            {% for item in items if item.rarity != "Boon" and item.rarity != "Special" %}
+            <div class="item-card"
+                 data-aos="fade-up"
+                 data-aos-delay="{{ (loop.index0 % 20) * 30 }}">
+                <div class="item-image-wrapper">
+                    <picture>
+                        <source srcset="/static/images/items/avif/{{ item.name | urlencode }}.avif" type="image/avif">
+                        <source srcset="/static/images/items/webp/{{ item.name | urlencode }}.webp" type="image/webp">
+                        <img src="/static/images/items/webp/{{ item.name | urlencode }}.webp"
+                             alt="{{ item.name }}"
+                             loading="lazy"
+                             class="item-icon"
+                             onerror="handleImageError(this)">
+                    </picture>
+                </div>
+
+                <span class="item-name">{{ item.name }}</span>
+                <div class="item-stats">
+                    <span class="rarity-{{ item.rarity | lower }}">{{ item.rarity }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/items/items.js" type="module" defer></script>
+{% endblock %}
