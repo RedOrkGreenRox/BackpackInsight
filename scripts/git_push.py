@@ -52,7 +52,7 @@ def main():
 
     # 7. Коммит
     print(f"💾 Committing: '{message}'")
-    run_git(["commit", "-M", message])
+    run_git(["commit", "-m", message])
 
     # 8. Пуш
     print("🚀 Pushing to origin...")
