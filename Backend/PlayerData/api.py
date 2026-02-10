@@ -11,7 +11,6 @@ from Backend.PlayerData.services.ProfileFactory import ProfileFactory
 from Backend.DB.database import engine, get_session
 
 # 2. Инициализация приложения и роутера
-# api_router ДОЛЖЕН быть определен до использования в декораторах
 app = FastAPI(title="Backpack Insight API")
 api_router = APIRouter(prefix="/api")
 
@@ -23,23 +22,31 @@ def create_indexes(engine):
         return
 
     print("--- API: Checking/Creating Indexes ---")
-    with engine.connect() as conn:
-        conn.commit()
-        try:
-            conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+    try:
+        with engine.connect() as conn:
             conn.commit()
+            # Попытка создать расширение (требует superuser)
+            try:
+                conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+                conn.commit()
+            except Exception as e:
+                print(f"--- API WARNING: Could not create extension pg_trgm (might need superuser): {e}")
+                # Продолжаем, так как расширение может быть уже создано администратором
 
-            conn.execute(text(
-                "CREATE INDEX IF NOT EXISTS idx_itemdefinition_name_trgm ON itemdefinition USING gin (name gin_trgm_ops);"
-            ))
-            conn.execute(text(
-                "CREATE INDEX IF NOT EXISTS idx_itemdefinition_id_trgm ON itemdefinition USING gin (item_id gin_trgm_ops);"
-            ))
-            conn.commit()
-            print("--- API: Indexes created successfully ---")
-        except Exception as e:
-            print(f"--- API WARNING: Could not create indexes: {e}")
-            traceback.print_exc()
+            # Создание индексов
+            try:
+                conn.execute(text(
+                    "CREATE INDEX IF NOT EXISTS idx_itemdefinition_name_trgm ON itemdefinition USING gin (name gin_trgm_ops);"
+                ))
+                conn.execute(text(
+                    "CREATE INDEX IF NOT EXISTS idx_itemdefinition_id_trgm ON itemdefinition USING gin (item_id gin_trgm_ops);"
+                ))
+                conn.commit()
+                print("--- API: Indexes created successfully ---")
+            except Exception as e:
+                print(f"--- API WARNING: Could not create indexes: {e}")
+    except Exception as e:
+        print(f"--- API WARNING: DB Connection failed during index creation: {e}")
 
 
 @app.on_event("startup")
@@ -72,6 +79,11 @@ async def process_profile(profile_data: Dict[str, Any], session: Session = Depen
     """
     Обрабатывает JSON профиля и возвращает данные, готовые для Jinja2.
     """
+    # 1. Security & DoS Protection
+    # Ограничение размера (грубая оценка)
+    if len(str(profile_data)) > 1024 * 1024:  # 2 MB limit
+        raise HTTPException(status_code=413, detail="Payload too large")
+
     try:
         # Создаем профиль через фабрику
         profile_obj = Profile.from_json(profile_data)

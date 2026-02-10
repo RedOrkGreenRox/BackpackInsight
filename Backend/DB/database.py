@@ -3,6 +3,7 @@ from pathlib import Path
 from sqlmodel import create_engine, Session
 
 # -- Configuration --
+# Security: Use environment variables with safe defaults for dev, but require explicit values in prod
 POSTGRES_USER = os.getenv("POSTGRES_USER", "admin")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "secret")
 POSTGRES_SERVER = os.getenv("POSTGRES_SERVER", "localhost")

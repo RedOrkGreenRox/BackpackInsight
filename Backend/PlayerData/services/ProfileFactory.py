@@ -1,4 +1,5 @@
 from typing import Dict, Any, List, Optional
+import re
 from sqlmodel import Session, select
 from Backend.PlayerData.models.Profile import Profile
 from Backend.PlayerData.models.Hero import Hero
@@ -91,20 +92,33 @@ class ProfileFactory:
         Аналог методов get_skins и get_banners из оригинального Profile.py.
         Парсит список UL для извлечения косметики.
         """
+        # Регулярное выражение для безопасного парсинга скинов
+        # Ожидает формат: HeroName + "Skin" + SkinName
+        # Пример: BarbarianSkin01
+        skin_pattern = re.compile(r"^(.+)Skin(.+)$")
+
         for unlock in ul_list:
-            # Парсинг скинов (формат: HeroNameSkinSkinName)
+            if not isinstance(unlock, str):
+                continue
+
+            # Парсинг скинов
             if "Skin" in unlock:
-                parts = unlock.split("Skin")
-                if len(parts) == 2:
-                    character, skin = parts
-                    if character not in game_data["Skins"]:
-                        game_data["Skins"][character] = []
-                    game_data["Skins"][character].append(skin)
+                match = skin_pattern.match(unlock)
+                if match:
+                    character, skin = match.groups()
+                    # Санитайзинг: разрешаем только буквы и цифры
+                    if character.isalnum() and skin.isalnum():
+                        if character not in game_data["Skins"]:
+                            game_data["Skins"][character] = []
+                        game_data["Skins"][character].append(skin)
 
             # Парсинг баннеров (формат: BannerNameBanner)
             if "Banner" in unlock:
-                banner_name = unlock.split("Banner")[0]
-                game_data["Banners"].append(banner_name)
+                parts = unlock.split("Banner")
+                if len(parts) > 0:
+                    banner_name = parts[0]
+                    if banner_name.isalnum(): # Санитайзинг
+                        game_data["Banners"].append(banner_name)
 
     @staticmethod
     def _parse_game_info_base(json_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -125,8 +139,6 @@ class ProfileFactory:
             "Area": None
         }
 
-    # Остальные методы (_validate_json, _create_item, _calculate_stats и т.д.)
-    # остаются без изменений, как в вашем исходном файле.
     @classmethod
     def _validate_json(cls, json_data: Dict[str, Any]):
         if not isinstance(json_data, dict):
@@ -165,8 +177,12 @@ class ProfileFactory:
     def _create_item(cls, name: str, info: str) -> Optional[Item]:
         parts = info.split(':')
         if len(parts) < 2: return None
-        level = int(parts[0]) + 1
-        cards = int(parts[1])
+        try:
+            level = int(parts[0]) + 1
+            cards = int(parts[1])
+        except ValueError:
+            return None
+
         definition = cls._definition_cache.get(name)
         if not definition:
             for d in cls._definition_cache.values():

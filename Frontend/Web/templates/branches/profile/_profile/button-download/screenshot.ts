@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.querySelector('.button-download-profile button');
+    const btn = document.querySelector('.button-download-profile button') as HTMLElement;
     if (!btn) return;
 
     btn.onclick = async function () {
-        const target = document.querySelector('.profile-header');
+        const target = document.querySelector('.profile-header') as HTMLElement;
         if (!target) return;
 
         // Находим все иконки персонажей
-        const icons = target.querySelectorAll('.main-heroes-grid__image img');
+        const icons = target.querySelectorAll('.main-heroes-grid__image img') as NodeListOf<HTMLElement>;
         const originalText = btn.innerText;
         btn.innerText = "⌛ СОХРАНЕНИЕ...";
         btn.style.opacity = "0.7";
 
         try {
             // Фиксируем размеры в px, чтобы избежать сужения
-            const originalStyles = [];
+            const originalStyles: { el: HTMLElement, width: string, height: string }[] = [];
             icons.forEach(img => {
                 originalStyles.push({
                     el: img,
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const link = document.createElement('a');
             link.href = canvas.toDataURL("image/png");
-            const nickname = target.querySelector('h4')?.innerText.trim() || 'Player';
+            const nickname = (target.querySelector('h4') as HTMLElement)?.innerText.trim() || 'Player';
             link.download = `Profile_${nickname}.png`;
             link.click();
 

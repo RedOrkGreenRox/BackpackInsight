@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loadMoreBtn.addEventListener('click', function () {
         const grid = document.getElementById('profileItemsGrid');
-        const hiddenItems = grid.querySelectorAll('.item-card.hidden');
+        if (!grid) return;
+        
+        const hiddenItems = grid.querySelectorAll('.item-card.hidden') as NodeListOf<HTMLElement>;
         const itemsToShow = 120; // Сколько предметов открываем за раз
 
         // Используем requestAnimationFrame для группировки изменений DOM
@@ -38,13 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // Прячем кнопку, если скрытых карточек больше не осталось
         const remainingHidden = grid.querySelectorAll('.item-card.hidden').length;
         if (remainingHidden === 0) {
-            loadMoreBtn.parentElement.style.display = 'none';
+            const parent = loadMoreBtn.parentElement;
+            if (parent) parent.style.display = 'none';
         }
 
         // Обновляем позиции AOS после завершения всех анимаций
         setTimeout(() => {
-            if (typeof AOS !== 'undefined') {
-                AOS.refresh();
+            if (typeof window.AOS !== 'undefined') {
+                window.AOS.refresh();
             }
         }, itemsToShow * 30 + 300);
     });

@@ -1,4 +1,10 @@
 services:
+#  tunnel:
+#    image: cloudflare/cloudflared:latest
+#    restart: always
+#    # Убираем --token и добавляем --url
+#    command: tunnel --protocol http2 --url http://backpack_insight_web:5080
+
   db:
     image: postgres:15-alpine
     container_name: backpack_insight_db
@@ -43,6 +49,7 @@ services:
       dockerfile: Frontend/Web/Dockerfile
     container_name: backpack_insight_web
     restart: always
+
     ports:
       - "5080:5080"
     environment:

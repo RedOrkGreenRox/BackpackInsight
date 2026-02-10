@@ -1,13 +1,16 @@
 # --- ЭТАП 1: Сборка через Bun ---
+
 FROM oven/bun:1.1-slim AS builder
 WORKDIR /build
 
 # Копируем только файлы зависимостей
 COPY Frontend/Web/package*.json ./
-RUN bun install
+# Очищаем кэш bun перед установкой, чтобы гарантировать свежие версии
+RUN bun pm cache rm && bun install
 
 # Копируем остальной код для сборки
 COPY Frontend/Web/ ./
+# Используем TS конфиг
 RUN bun x vite build --outDir dist_build
 
 # --- ЭТАП 2: Финальный образ ---
@@ -38,4 +41,5 @@ WORKDIR /app/Frontend/Web
 
 # Добавляем флаг --config, чтобы Vite точно знал, где лежат инструкции,
 # и исправляем пути для работы из текущей директории.
-CMD sh -c "bun x vite build --watch --config vite.config.js --outDir /app/dist_build & python web.py"
+# ИСПРАВЛЕНО: vite.config.js -> vite.config.ts
+CMD sh -c "bun x vite build --watch --config vite.config.ts --outDir /app/dist_build & python web.py"

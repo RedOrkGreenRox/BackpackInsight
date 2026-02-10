@@ -10,7 +10,7 @@ DOCKER_COMPOSE_FILE = PROJECT_ROOT / "docker-compose.yml"
 
 # --- UI & Performance Settings ---
 VERBOSE = True  # True — выводит всё (pip, npm, шаги Vite)
-PARANOID_MODE = False  # False — быстрый запуск (кэш). True — чистит всё и пересобирает с нуля.
+PARANOID_MODE = True  # False — быстрый запуск (кэш). True — чистит всё и пересобирает с нуля.
 
 
 def run_command(command, cwd=PROJECT_ROOT, capture_output=False, silent=False):
