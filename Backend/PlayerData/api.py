@@ -89,7 +89,7 @@ def on_startup():
 
 @api_router.get("/items", response_model=List[ItemDefinition])
 def get_items(session: Session = Depends(get_session)):
-    """Возвращает все определения предметов."""
+    response.headers["Cache-Control"] = "public, max-age=3600"
     return session.exec(select(ItemDefinition)).all()
 
 
