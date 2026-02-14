@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.style.height = img.offsetHeight + 'px';
             });
 
+            // @ts-ignore
             const { default: html2canvas } = await import('html2canvas');
 
             // Определяем масштаб в зависимости от устройства

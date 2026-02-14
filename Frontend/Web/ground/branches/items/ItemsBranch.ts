@@ -1,8 +1,10 @@
 import { Branch } from '../../roots/Branch';
 import { t } from '../../localization/i18n';
 import './items.scss';
+// @ts-ignore
 import AOS from 'aos';
-import Fuse from 'fuse.js'; // Импортируем Fuse.js
+// @ts-ignore
+import Fuse from 'fuse.js';
 
 // --- Точные типы на основе items.json ---
 
@@ -105,7 +107,7 @@ export class ItemsBranch extends Branch {
     }
 
     protected init(): void {
-        this.loadItems();
+        this.loadItems().catch(console.error);
 
         const searchInput = this.container?.querySelector('#itemSearch') as HTMLInputElement;
         if (searchInput) {
@@ -190,7 +192,7 @@ export class ItemsBranch extends Branch {
         } else {
             if (this.fuse) {
                 const result = this.fuse.search(query);
-                this.filteredItems = result.map(res => res.item);
+                this.filteredItems = result.map((res: Fuse.FuseResult<ItemDefinition>) => res.item);
             } else {
                 // Фоллбэк на простой поиск, если Fuse не инициализирован
                 this.filteredItems = this.items.filter(item => 
