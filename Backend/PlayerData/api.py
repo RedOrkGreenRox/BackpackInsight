@@ -91,21 +91,13 @@ def on_startup():
 @api_router.get("/items", response_model=List[ItemDefinition])
 def get_items(request: Request, response: Response, session: Session = Depends(get_session)):
     """Возвращает определения предметов с поддержкой ETag (304)."""
-
     items = session.exec(select(ItemDefinition)).all()
-
-    # 1. Сериализуем данные в строку для создания хеша
-    # Используем sort_keys, чтобы порядок полей не менял хеш
     data_str = json.dumps([item.dict() for item in items], sort_keys=True)
     etag = f'W/"{hashlib.md5(data_str.encode()).hexdigest()}"'
-
-    # 2. Проверяем, есть ли у пользователя актуальный кеш
     if request.headers.get("If-None-Match") == etag:
         return Response(status_code=304)
-
-    # 3. Если данные новые, отправляем их и ставим заголовки
     response.headers["ETag"] = etag
-    response.headers["Cache-Control"] = "public, max-age=3600"  # Кеш на час
+    response.headers["Cache-Control"] = "public, max-age=3600"
     return items
 
 

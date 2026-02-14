@@ -5,14 +5,19 @@ export const onRequest: PagesFunction<{ BACKEND: string; API_SECRET: string }> =
   const targetHost = env.BACKEND.replace(/\/$/, '');
   const destination = `${targetHost}${url.pathname}${url.search}`;
   try {
+    // 1. Создаем копию всех входящих заголовков
+    const newHeaders = new Headers(request.headers);
+
+    // 2. Добавляем/перезаписываем нужные нам
+    newHeaders.set("X-Internal-Secret", env.API_SECRET);
+    newHeaders.set("X-Forwarded-For", request.headers.get("CF-Connecting-IP") || "");
+
+    // Принудительно ставим JSON, если это API
+    newHeaders.set("Accept", "application/json");
+
     const proxyRequest = new Request(destination, {
       method: request.method,
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "X-Forwarded-For": request.headers.get("CF-Connecting-IP") || "",
-        "X-Internal-Secret": env.API_SECRET
-      },
+      headers: newHeaders, // Теперь тут есть If-None-Match от браузера!
       body: ["GET", "HEAD"].includes(request.method) ? null : await request.arrayBuffer(),
     });
     return await fetch(proxyRequest);
