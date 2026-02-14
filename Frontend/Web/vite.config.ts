@@ -6,23 +6,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-    root: resolve(__dirname, 'ground'), // Корень теперь в ground
-    base: '/', // Базовый путь для ассетов в проде
+    root: resolve(__dirname, 'ground'), // Корень исходников
+    publicDir: resolve(__dirname, 'static'), // <-- ВАЖНО: Указываем папку статики (аналог public)
+    base: '/', 
 
     resolve: {
         alias: {
             '@roots': resolve(__dirname, 'ground/roots'),
             '@branches': resolve(__dirname, 'ground/branches'),
-            '/static': resolve(__dirname, 'static') // Алиас для статики
+            '/static': '' // Хак: чтобы импорты /static/... работали и в dev, и в prod (Vite будет искать в publicDir)
         }
     },
 
     build: {
         outDir: resolve(__dirname, 'dist'), // Выход в корень Web/dist
-        emptyOutDir: true, // <-- ВАЖНО: Очищать папку перед сборкой
+        emptyOutDir: true,
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'ground/core.html') // Точка входа
+                main: resolve(__dirname, 'ground/core.html')
             },
             output: {
                 entryFileNames: 'assets/[name].js',
@@ -32,7 +33,6 @@ export default defineConfig({
         }
     },
     
-    // Для локальной разработки (dev server)
     server: {
         host: '0.0.0.0',
         port: 5173,
