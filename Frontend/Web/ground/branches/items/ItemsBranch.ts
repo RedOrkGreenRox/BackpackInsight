@@ -192,7 +192,7 @@ export class ItemsBranch extends Branch {
         } else {
             if (this.fuse) {
                 const result = this.fuse.search(query);
-                this.filteredItems = result.map((res: Fuse.FuseResult<ItemDefinition>) => res.item);
+                this.filteredItems = result.map((res: any) => res.item);
             } else {
                 // Фоллбэк на простой поиск, если Fuse не инициализирован
                 this.filteredItems = this.items.filter(item => 

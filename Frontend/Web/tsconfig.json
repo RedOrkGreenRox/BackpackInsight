@@ -26,5 +26,11 @@
       "@branches/*": ["ground/branches/*"]
     }
   },
-  "include": ["ground/**/*.ts", "ground/**/*.d.ts", "ground/**/*.tsx", "ground/**/*.vue"]
+  "include": [
+    "ground/**/*.ts",
+    "ground/**/*.d.ts",
+    "ground/**/*.tsx",
+    "ground/**/*.vue",
+    "ground/types/global.d.ts"
+  ]
 }

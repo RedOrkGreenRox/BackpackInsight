@@ -1,3 +1,5 @@
+/// <reference path="../../../types/global.d.ts" />
+
 // Логика "Показать еще" для предметов
 document.addEventListener('DOMContentLoaded', function () {
     const loadMoreBtn = document.getElementById('loadMoreItemsBtn');
