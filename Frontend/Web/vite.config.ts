@@ -23,7 +23,7 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'ground/index.html')
+                main: resolve(__dirname, 'ground/core.html')
             },
             output: {
                 entryFileNames: 'assets/[name].js',
