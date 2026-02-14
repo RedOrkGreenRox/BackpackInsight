@@ -1,4 +1,4 @@
-/// <reference path="../../../types/global.d.ts" />
+/// <reference path="../../../../types/global.d.ts" />
 
 document.addEventListener('DOMContentLoaded', function () {
     // Use event delegation for better performance and dynamic content support

@@ -1,4 +1,4 @@
-/// <reference path="../../../types/global.d.ts" />
+/// <reference path="../../../../types/global.d.ts" />
 
 document.addEventListener('DOMContentLoaded', function () {
     const sortBtn = document.getElementById('sortToggle');
