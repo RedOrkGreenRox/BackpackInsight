@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    sortBtn.addEventListener('click', function (e) {
+    sortBtn.addEventListener('click', function (_e) {
         sortByLevel = !sortByLevel;
         localStorage.setItem('sortByLevel', String(sortByLevel));
         updateIcons();
         sortHeroes();
     });
 
-    invertBtn.addEventListener('click', function (e) {
+    invertBtn.addEventListener('click', function (_e) {
         sortAscending = !sortAscending;
         localStorage.setItem('sortAscending', String(sortAscending));
         updateIcons();

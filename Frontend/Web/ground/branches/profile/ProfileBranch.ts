@@ -410,7 +410,7 @@ export class ProfileBranch extends Branch {
         }
     }
 
-    protected init(data?: any): void {
+    protected init(_data?: any): void {
         if (!this.container) return;
 
         // 0. Обработка ошибок картинок

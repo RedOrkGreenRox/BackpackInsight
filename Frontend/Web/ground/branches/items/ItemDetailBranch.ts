@@ -105,6 +105,6 @@ export class ItemDetailBranch extends Branch {
         `;
     }
 
-    protected init(data?: any): void {}
+    protected init(_data?: any): void {}
     protected destroy(): void {}
 }

@@ -23,7 +23,7 @@ export abstract class Branch {
      * Возвращает мета-данные для SEO.
      * Если не переопределить, вернутся дефолтные.
      */
-    public getMeta(data?: any): PageMeta {
+    public getMeta(_data?: any): PageMeta {
         return {
             title: "Backpack Insight",
             description: "Аналитика, статистика и вики по игре Backpack Brawl."

@@ -17,7 +17,7 @@ function read(file: File) {
 
 // КЛИК (Мобилки + ПК)
 if (area) {
-    area.addEventListener('click', (e) => {
+    area.addEventListener('click', (_e) => {
         if (input.value.trim() === "") fInput.click();
     });
 }

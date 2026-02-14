@@ -69,7 +69,7 @@ export class MainBranch extends Branch {
         };
 
         if (area) {
-            this.addListener(area, 'click', (e: Event) => {
+            this.addListener(area, 'click', (_e: Event) => {
                 if (!input.value.trim()) {
                     fInput.click();
                     input.blur(); 
