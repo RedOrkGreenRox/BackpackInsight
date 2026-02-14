@@ -1,19 +1,38 @@
 import traceback
+import os
 from typing import List, Dict, Any
 
-from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request
+from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header
+from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select, text
 
-# 1. Импорты моделей и сервисов
 from Backend.PlayerData.models.Item import ItemDefinition
 from Backend.PlayerData.models.Profile import Profile
 from Backend.PlayerData.services.ProfileFactory import ProfileFactory
 from Backend.DB.database import engine, get_session
 
-# 2. Инициализация приложения и роутера
 app = FastAPI(title="Backpack Insight API")
-api_router = APIRouter(prefix="/api")
 
+# --- ЗАЩИТА И CORS ---
+
+# 1. Настройка CORS для Cloudflare Pages
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://backpackinsight.pages.dev"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 2. Проверка секретного ключа (берется из .env сервера)
+API_SECRET = os.getenv("API_SECRET")
+
+async def verify_proxy_secret(x_internal_secret: str = Header(None)):
+    if not API_SECRET or x_internal_secret != API_SECRET:
+        raise HTTPException(status_code=403, detail="Direct access forbidden")
+
+# Добавляем проверку секрета как глобальную зависимость для всех путей в api_router
+api_router = APIRouter(prefix="/api", dependencies=[Depends(verify_proxy_secret)])
 
 def create_indexes(engine):
     """Создает GIN индексы для быстрого поиска в PostgreSQL."""
