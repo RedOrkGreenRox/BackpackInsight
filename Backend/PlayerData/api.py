@@ -1,8 +1,9 @@
 import traceback
+import hashlib
 import os
 from typing import List, Dict, Any
-
-from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header
+import json
+from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select, text
 
@@ -88,9 +89,24 @@ def on_startup():
 # --- МАРШРУТЫ API ---
 
 @api_router.get("/items", response_model=List[ItemDefinition])
-def get_items(session: Session = Depends(get_session)):
-    response.headers["Cache-Control"] = "public, max-age=3600"
-    return session.exec(select(ItemDefinition)).all()
+def get_items(request: Request, response: Response, session: Session = Depends(get_session)):
+    """Возвращает определения предметов с поддержкой ETag (304)."""
+
+    items = session.exec(select(ItemDefinition)).all()
+
+    # 1. Сериализуем данные в строку для создания хеша
+    # Используем sort_keys, чтобы порядок полей не менял хеш
+    data_str = json.dumps([item.dict() for item in items], sort_keys=True)
+    etag = f'W/"{hashlib.md5(data_str.encode()).hexdigest()}"'
+
+    # 2. Проверяем, есть ли у пользователя актуальный кеш
+    if request.headers.get("If-None-Match") == etag:
+        return Response(status_code=304)
+
+    # 3. Если данные новые, отправляем их и ставим заголовки
+    response.headers["ETag"] = etag
+    response.headers["Cache-Control"] = "public, max-age=3600"  # Кеш на час
+    return items
 
 
 @api_router.post("/profile")
@@ -101,7 +117,7 @@ async def process_profile(request: Request, profile_data: Dict[str, Any], sessio
     # 1. Security & DoS Protection
     # Проверка Content-Length вместо конвертации всего JSON в строку
     content_length = request.headers.get('content-length')
-    if content_length and int(content_length) > 1024 * 1024:  # 5 MB limit
+    if content_length and int(content_length) > 1024 * 1024:
         raise HTTPException(status_code=413, detail="Payload too large")
 
     try:
