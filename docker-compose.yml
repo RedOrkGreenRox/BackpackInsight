@@ -1,13 +1,79 @@
-services:
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    restart: always
-    environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
-    command: tunnel run
-    depends_on:
-      - web
+#services:
+#  tunnel:
+#    image: cloudflare/cloudflared:latest
+#    restart: always
+#    # Используем публичные DNS напрямую в контейнере
+#    dns:
+#      - 1.1.1.1
+#      - 8.8.8.8
+#    environment:
+#      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+#    # Пробуем протокол h2mux или grpc, они лучше проходят через фильтры
+#    command: tunnel --protocol h2mux run
+#    depends_on:
+#      - web
+#
+#  db:
+#    image: postgres:15-alpine
+#    container_name: backpack_insight_db
+#    restart: always
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER:-admin}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+#      POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
+#    ports:
+#      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#      - ./Backend/DB/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-backpack_insight}" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+#
+#  backend:
+#    build:
+#      context: .
+#      dockerfile: Backend/PlayerData/Dockerfile
+#    container_name: backpack_insight_backend
+#    restart: always
+#    ports:
+#      - "127.0.0.1:8000:8000"
+#    environment:
+#      POSTGRES_SERVER: db
+#      POSTGRES_USER: ${POSTGRES_USER:-admin}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+#      POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    volumes:
+#      - ./Backend:/app/Backend
 
+#  web:
+#    build:
+#      context: .
+#      dockerfile: Frontend/Web/Dockerfile
+#    container_name: backpack_insight_web
+#    restart: always
+#
+#    ports:
+#      - "5080:5080"
+#    environment:
+#      - BACKEND_API_URL=http://backend:8000
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#      backend:
+#        condition: service_started
+#    volumes:
+#      - ./Frontend/Web:/app/Frontend/Web
+#
+#volumes:
+#  postgres_data:
+
+services:
   db:
     image: postgres:15-alpine
     container_name: backpack_insight_db
@@ -16,11 +82,14 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
       POSTGRES_DB: ${POSTGRES_DB:-backpack_insight}
-    ports:
-      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    # Порт 5432 не открываем наружу для безопасности
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./Backend/DB/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    deploy:
+      resources:
+        limits:
+          memory: 300M # Ограничиваем БД, чтобы оставить место бэкенду
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-backpack_insight}" ]
       interval: 5s
@@ -34,7 +103,7 @@ services:
     container_name: backpack_insight_backend
     restart: always
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     environment:
       POSTGRES_SERVER: db
       POSTGRES_USER: ${POSTGRES_USER:-admin}
@@ -45,25 +114,10 @@ services:
         condition: service_healthy
     volumes:
       - ./Backend:/app/Backend
-
-  web:
-    build:
-      context: .
-      dockerfile: Frontend/Web/Dockerfile
-    container_name: backpack_insight_web
-    restart: always
-
-    ports:
-      - "5080:5080"
-    environment:
-      - BACKEND_API_URL=http://backend:8000
-    depends_on:
-      db:
-        condition: service_healthy
-      backend:
-        condition: service_started
-    volumes:
-      - ./Frontend/Web:/app/Frontend/Web
+    deploy:
+      resources:
+        limits:
+          memory: 400M
 
 volumes:
   postgres_data:
