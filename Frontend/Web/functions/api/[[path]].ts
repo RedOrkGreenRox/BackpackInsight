@@ -2,35 +2,32 @@ export const onRequest: PagesFunction<{ BACKEND: string }> = async (context) => 
   const { request, env } = context;
   const url = new URL(request.url);
 
-  // 1. Формируем чистый путь (убираем /api)
-  const backendPath = url.pathname.replace(/^\/api/, '');
-  const destination = `${env.BACKEND}${backendPath}${url.search}`;
+  // Убираем /api из пути
+  const path = url.pathname.replace(/^\/api/, '');
+  const destination = `${env.BACKEND}${path}${url.search}`;
 
-  // 2. Создаем абсолютно новые заголовки (не копируем старые!)
-  const cleanHeaders = new Headers();
-  cleanHeaders.set("Accept", "application/json");
-  cleanHeaders.set("Content-Type", "application/json");
+  // Создаем НОВЫЙ запрос. НЕ копируем request целиком!
+  const proxyRequest = new Request(destination, {
+    method: request.method,
+    // Передаем только самое важное, без заголовка Host
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "X-Real-IP": request.headers.get("CF-Connecting-IP") || ""
+    },
+    // Тело только для методов с данными
+    body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : null,
+    redirect: "follow"
+  });
 
-  // Передаем IP пользователя бэкенду (опционально)
-  const clientIP = request.headers.get("CF-Connecting-IP");
-  if (clientIP) {
-    cleanHeaders.set("X-Forwarded-For", clientIP);
-  }
-
-  // 3. Выполняем запрос с минимальным набором данных
   try {
-    const response = await fetch(destination, {
-      method: request.method,
-      headers: cleanHeaders,
-      // Тело передаем только если это не GET/HEAD
-      body: ["GET", "HEAD"].includes(request.method) ? null : request.body,
-      redirect: "follow",
-    });
+    const response = await fetch(proxyRequest);
 
-    // Возвращаем ответ как есть
+    // Если бэкенд всё же ответил ошибкой, мы это увидим
     return response;
-  } catch (error) {
-    return new Response(JSON.stringify({ error: "Backend Unreachable", details: error.message }), {
+  } catch (err) {
+    // Если Cloudflare не смог даже "выстрелить" запросом
+    return new Response(JSON.stringify({ error: "Connection Failed", message: err.message }), {
       status: 502,
       headers: { "Content-Type": "application/json" }
     });
