@@ -1,7 +1,7 @@
 import traceback
 from typing import List, Dict, Any
 
-from fastapi import Depends, FastAPI, APIRouter, HTTPException
+from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request
 from sqlmodel import Session, select, text
 
 # 1. Импорты моделей и сервисов
@@ -75,13 +75,14 @@ def get_items(session: Session = Depends(get_session)):
 
 
 @api_router.post("/profile")
-async def process_profile(profile_data: Dict[str, Any], session: Session = Depends(get_session)):
+async def process_profile(request: Request, profile_data: Dict[str, Any], session: Session = Depends(get_session)):
     """
     Обрабатывает JSON профиля и возвращает данные, готовые для Jinja2.
     """
     # 1. Security & DoS Protection
-    # Ограничение размера (грубая оценка)
-    if len(str(profile_data)) > 1024 * 1024:  # 2 MB limit
+    # Проверка Content-Length вместо конвертации всего JSON в строку
+    content_length = request.headers.get('content-length')
+    if content_length and int(content_length) > 1024 * 1024:  # 5 MB limit
         raise HTTPException(status_code=413, detail="Payload too large")
 
     try:
@@ -93,54 +94,11 @@ async def process_profile(profile_data: Dict[str, Any], session: Session = Depen
         session.commit()
         session.refresh(profile_obj)
 
-        # Извлекаем рассчитанные данные
-        game_data = profile_obj.game_info_data
+        # Возвращаем сериализованные данные через метод модели
+        return profile_obj.to_frontend_view()
 
-        # Формируем плоский словарь специально для profile.html
-        return {
-            "nickname": profile_obj.nickname,
-            "level": profile_obj.level,
-            "trophy": game_data.get("Trophy", 0),
-            "bonus_trophy": game_data.get("BonusTrophy", 0),
-            "gems": profile_obj.gems,
-            "coins": profile_obj.coins,
-            "xp_current": game_data.get("PlayerExperienceCurrent", 0),
-            "xp_need": game_data.get("PlayerExperienceNeed", 0),
-            "area": game_data.get("Area", "01"),
-            "item_stats": game_data.get("ItemStats", {}),
-
-            # Сериализация героев для фронтенда
-            "heroes": [
-                {
-                    "name": h.name,
-                    "level": h.level,
-                    "rating": h.rating,
-                    "experience": h.experience,
-                    "exp_req": h.exp_req,
-                    "prestige": h.prestige,
-                    "league": h.league,
-                    "skin_num": "01"  # Стандартный скин
-                } for h in profile_obj.heroes
-            ],
-            "heroes_count": len(profile_obj.heroes),
-
-            # Сериализация предметов
-            "items": [
-                {
-                    "name": i.name,
-                    "rarity": i.rarity,
-                    "level": i.level,
-                    "cards": i.cards,
-                    "cards_need": i.cards_need
-                } for i in profile_obj.items
-            ],
-            "items_count": len(profile_obj.items),
-
-            "actual_version": profile_obj.app_version,
-            "install_version": profile_obj.app_version,
-            "profile_skins": game_data.get("Skins", {})
-        }
     except Exception as e:
+        session.rollback()  # Важно: откат транзакции при ошибке
         print(f"--- API Error processing profile: {e}")
         traceback.print_exc()
         raise HTTPException(status_code=400, detail=f"Failed to process profile: {str(e)}")

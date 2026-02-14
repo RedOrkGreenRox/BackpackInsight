@@ -1,4 +1,4 @@
-from typing import Optional, List, TYPE_CHECKING
+from typing import Optional, List, Dict, Any, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
 from Backend.PlayerData.data import HERO_LEVELING_EXP, HERO_LEAGUES, VALUES
 
@@ -74,6 +74,21 @@ class Hero(SQLModel, table=True):
             # Linear progression after level 20
             calculated_xp = 1000 + 100 * (next_level - 21)
             return min(calculated_xp, 3000)
+
+    def to_frontend_view(self) -> Dict[str, Any]:
+        """
+        Returns a dictionary representation of the Hero for the frontend.
+        """
+        return {
+            "name": self.name,
+            "level": self.level,
+            "rating": self.rating,
+            "experience": self.experience,
+            "exp_req": self.exp_req,
+            "prestige": self.prestige,
+            "league": self.league,
+            "skin_num": "01"  # Default skin, logic can be expanded later
+        }
 
     def __str__(self):
         prestige_icon = "✨" if self.prestige else ""

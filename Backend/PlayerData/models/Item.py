@@ -126,7 +126,7 @@ class Item(SQLModel, table=True):
     def cards_need(self) -> int:
         # Use self.rarity property which now handles fallback
         rarity = self.rarity
-        if (self.level >= 14) or (rarity == "Relic" and self.level >= 10): return -1
+        if (self.level >= 15) or (rarity == "Relic" and self.level >= 10): return -1
         if rarity == "Boon": return -1
         
         try:
@@ -172,6 +172,18 @@ class Item(SQLModel, table=True):
 
     @property
     def stats(self) -> Dict[str, Any]: return self.all_stats
+
+    def to_frontend_view(self) -> Dict[str, Any]:
+        """
+        Returns a dictionary representation of the Item for the frontend.
+        """
+        return {
+            "name": self.name,
+            "rarity": self.rarity,
+            "level": self.level,
+            "cards": self.cards,
+            "cards_need": self.cards_need
+        }
 
     def __str__(self):
         def fmt_dict(d, indent=6):

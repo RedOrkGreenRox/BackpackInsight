@@ -1,0 +1,5632 @@
+[
+  {
+    "id": "A Hug in a Mug",
+    "tooltips": [
+      "When chosen:\n• Get 1 Hot Choconut\n\nEvery 4 shops entered:\n• Get 1 Filled Chocolate\n\nShops entered: 0/4"
+    ]
+  },
+  {
+    "id": "Abyssal Embrace",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 40 MaxHealth per Star item\n• Reduce Damage taken by 18%\n\nEvery 4.6 seconds:\n• Gain 4 MaxHealth and 4 Resist  per Star item\n• Inflict 1 Insanity on both players\n• Inflict 2 Chill\n\nResist on this ignores Insanity"
+    ]
+  },
+  {
+    "id": "Adamantite Axepick",
+    "tooltips": [
+      "On hit:\n• Remove 12 Armor and 3 Buff\n• Gain 1 Haste\n\nOn critical hit:\n• Inflict 2 Bleed\n\nOn shop entered:\n• 60% chance to Go Mining (Underground)"
+    ]
+  },
+  {
+    "id": "Adamantite Bar",
+    "tooltips": [
+      "When Star item activates:\n• 30% chance to gain 20 Armor"
+    ]
+  },
+  {
+    "id": "Adamantite Forge Hammer",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana and 8 Armor\n\nOn critical hit:\n• Star MeleeWeapon gains +2 Damage\n• Inflict 2 Burn\n\nOn shop entered:\n• Break 1 Star Rock to find an Ore\n• Break 1 Star Ore to find a Gem"
+    ]
+  },
+  {
+    "id": "Adamantite Ore",
+    "tooltips": [
+      "On hit:\n• Gain 20 Armor\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Admiralty Anchor",
+    "tooltips": [
+      "On hit:\n• Gain 3 Haste per Star Reef Knot\n• Inflict 3 Chill and 3 Bleed\n\nOn shop entered:\n• 50% chance to Go Fishing (Abyssal)"
+    ]
+  },
+  {
+    "id": "Aged Grape Juice",
+    "tooltips": [
+      "Every 6 seconds:\n• Have a drink\n\nWhen consumed:\n• Gain 2 Buff per second for 5 seconds\n• Cleanse 2 Debuff per second for 5 seconds\n• Reduce Cooldown by 1 second"
+    ]
+  },
+  {
+    "id": "All-Seeing Bat",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul\n• Gain 2 Luck\n\nOn critical hit:\n• Trap 1 Soul\n• Inflict 2 Blind\n\nEvery 8 Soul trapped:\n• Gain +15% CritChance\n\nPer Blind on opponent:\n• Gain +5% CritDamage"
+    ]
+  },
+  {
+    "id": "Amethyst",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 1 Regeneration"
+    ]
+  },
+  {
+    "id": "Amethyst Blade",
+    "tooltips": [
+      "On hit: \n• Gain +2 Damage and 1 Mana\n• Use 3 Mana to:\n   • Gain 3 Lifesteal\n   • Remove 3 Empower"
+    ]
+  },
+  {
+    "id": "Amethyst Dancer",
+    "tooltips": [
+      "On hit: \n• Use 4 Mana to cleanse 8 Debuff"
+    ]
+  },
+  {
+    "id": "Amethyst Pendant",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 2 Lifesteal\n\nOn Star MeleeWeaponRangedWeapon hit:\n• Gain 1 Mana"
+    ]
+  },
+  {
+    "id": "Ancestral Spirit",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Star MeleeWeaponRangedWeaponPet gains +2 Damage\n• Gain 2 Regeneration\n• Inflict 3 Chill"
+    ]
+  },
+  {
+    "id": "Ancient Grog",
+    "tooltips": [
+      "Every 7.2 seconds:\n• Gain 2 Empower\n\nOn Star TypePotion use:\n• Gain 6 Regeneration\n• Activate Regeneration",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Ancient Soul",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul\n• Inflict 2 Curse\n\nOn critical hit:\n• Trap 1 Soul\n\nEvery 6 Soul trapped:\n• Steal 10 MaxHealth\n• Gain +3 Damage, +5% CritChance, +20% CritDamage"
+    ]
+  },
+  {
+    "id": "Ancient Relic",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Steal 9 Health per Star TypePlant\n• Cleanse 3 Bleed per Star TypePlant\n• Inflict 1 Bleed per Star TypePlant"
+    ]
+  },
+  {
+    "id": "Antivenom",
+    "tooltips": [
+      "Health below 75% or 15 Poison on you:\n• Cleanse 15Poison\n• Heal for 14 Health"
+    ]
+  },
+  {
+    "id": "Apple",
+    "tooltips": [
+      "Every 4 seconds:\n• Heal for 3 Health\n• Gain 0.5 Stamina",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Arcane Bolt Blaster",
+    "tooltips": [
+      "When this shoots a Bolt or Dart:\n• That shot gets +15 Damage and +15% CritChance\n• Use 4 Mana to double that bonus\n\nOn hit:\n• Inflict 3 Burn\n• Shoot 1 Star Bolt or Dart\n\nOn critical hit:\n• Shoot 1 Star Bolt or Dart"
+    ]
+  },
+  {
+    "id": "Arcane Core",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Gain 1 Mana per Star MeleeWeaponRangedWeaponPet\n• Star MeleeWeaponRangedWeaponPet gains +5% faster attacks\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 25% chance to gain 2 Mana"
+    ]
+  },
+  {
+    "id": "Arcane Crystal",
+    "tooltips": [
+      "Every 3 seconds:\n• Gain 1 Mana and 5 Armor per Star TypeAccessory\n\nPer 10 Mana gained by this:\n• Gain 3 Buff\n\nWhile equipped:\n• Increased chance of Essences in the shop"
+    ]
+  },
+  {
+    "id": "Arcane Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1-2 Mana per Star RangedWeaponPet\n\nAfter 15 seconds:\n• Gain 7 Buff per Star RangedWeaponPet\n\nAfter 25 seconds:\n• Steal 1 Buff per 10 Mana gained"
+    ]
+  },
+  {
+    "id": "Arcane Starcharter",
+    "tooltips": [
+      "Every 7 seconds:\n• Gain 16 Armor per Star TypeArmor\n• Gain 8 MaxHealth per Star TypeFood\n• Gain 4 Mana per Star TypeFish\n• Gain 2 Haste per Star Pet\n• Gain 1 Stamina per Star MeleeWeaponRangedWeapon"
+    ]
+  },
+  {
+    "id": "Arcanefly",
+    "tooltips": [
+      "On hit:\n• 40% chance to inflict 1 Poison"
+    ]
+  },
+  {
+    "id": "Arctic Core",
+    "tooltips": [
+      "On Star TypeToolPet hit:\n• Inflict 1 Chill\n\nEvery 20 Chill inflicted by this:\n• Inflict Stun for 1 second\n• Gain 20 Armor"
+    ]
+  },
+  {
+    "id": "Aristorat",
+    "tooltips": [
+      "On hit:\n• Gain 1 Luck per Star TypeRat\n• Weaken 2 random opponent Pet\n\nWeaken:\n• Remove -1 Damage from target\n\nOn shop entered:\n• 50% to get 1 Cheese"
+    ]
+  },
+  {
+    "id": "Armor Kit",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 22 Armor"
+    ]
+  },
+  {
+    "id": "Armor Pack",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 6 Armor"
+    ]
+  },
+  {
+    "id": "Arrow Sheath",
+    "tooltips": [
+      "Every 4 seconds:\n• Star RangedWeapon gains +5% faster attacks\n• Gain 2 Haste"
+    ]
+  },
+  {
+    "id": "Astral Gloves",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n• Star Bolts gain 1 quantity\n• Star Katana require 1 less hit to trigger\n• Star MeleeWeaponRangedWeapon gain +10% CritChance"
+    ]
+  },
+  {
+    "id": "Astral Reaver",
+    "tooltips": [
+      "When hit 8 times (MeleeWeaponRangedWeapon):\n• Trigger an attack\n• Reduce hits required by 1 (minimum 1)\n\nEvery 15 Mana gained by opponent:\n• Trigger an attack\n\nOn hit:\n• Inflict 6 Bleed and 6 Poison\n• Gain +5% CritChance and +10% CritDamage"
+    ]
+  },
+  {
+    "id": "Autotrigger",
+    "tooltips": [
+      "Start of Dawn:\n• Star RangedWeapon gain +20% faster attacks"
+    ]
+  },
+  {
+    "id": "Axe of Abraxas",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed per Star TypeFood\n\nOn critical hit:\n• Activate Bleed\n\nPer Regeneration on opponent:\n• Gain +1 Damage and +1% CritChance"
+    ]
+  },
+  {
+    "id": "Axe-shaped Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Resist and 16 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Baby Core Creeper",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeaponPet):\n• 40% chance to:\n   • Inflict 1 Burn\n   • Star Molten Core Creeper gain +10% faster attacks\n\nOn shop entered:\n• Get 1 Rock\n• Turn 1 Star Rock into 1 Lava Rock\n• Turn 1 Star Lava Boulder into 1 Molten Core Creeper"
+    ]
+  },
+  {
+    "id": "Bag of Flour",
+    "tooltips": [
+      "Every 5.6 seconds:\n• Inflict 1 Blind or heal for 5 Health"
+    ]
+  },
+  {
+    "id": "Bag of Lost Souls",
+    "tooltips": [
+      "When item inside activates:\n• Gain 2 MaxHealth"
+    ]
+  },
+  {
+    "id": "Bag of Maggots",
+    "tooltips": [
+      "On Star Fly hit:\n • 40% chance to trigger an extra attack\n\nOn shop entered:\n• Per Star empty bag slot:\n   • 50% chance to gain 1 Arcanefly"
+    ]
+  },
+  {
+    "id": "Ball of Thread",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Luck or 1 Resist"
+    ]
+  },
+  {
+    "id": "Banana",
+    "tooltips": [
+      "Every 5.6 seconds:\n• Heal for 3 Health\n• Gain 1 Stamina",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Banana-shaped Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Resist and 9 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Barbed Spring",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Haste\n• Gain 1 Thorns per Star TypeAccessory"
+    ]
+  },
+  {
+    "id": "Bargain Hunter",
+    "tooltips": [
+      "When chosen:\n• +4% chance to get items on sale"
+    ]
+  },
+  {
+    "id": "Bat",
+    "tooltips": [
+      "On hit:\n• Steal 6 Health\n• Cleanse 2 Bleed"
+    ]
+  },
+  {
+    "id": "Bat Visor",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 32 Armor per Star Pet\n\nOn Star Pet hit:\n• 33% chance Star Pet gains +1 Damage and +1% CritChance\n\nWhile equipped:\n• Increased chance of Bat appearing in the shop"
+    ]
+  },
+  {
+    "id": "Bear Visage",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 90 Armor\n• Reduce Stun duration by 25%\n• Reduce CritDamage taken by 30%\n\nEvery 4.8 seconds:\n• Gain 4 Regeneration and 2 Empower\n• 25% chance for Star MeleeWeaponRangedWeapon to trigger a free attack\n\nHealth below 50%:\n• Reduce Damage taken by 25% for 5 seconds"
+    ]
+  },
+  {
+    "id": "Belt of Firethrowing",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Mana and 3 Luck\n• Star TypePotion gains +1 more use\n\nOn Star TypePotion use:\n• Inflict 3 Burn"
+    ]
+  },
+  {
+    "id": "Berserker Helmet",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n• Reduce Stun duration by 30%\n• Reduce CritDamage taken by 20%\n\nHealth below 30%:\n• Gain 6 Empower and 14 Regeneration"
+    ]
+  },
+  {
+    "id": "Berserker Potion",
+    "tooltips": [
+      "Health below 50%:\n• Gain 3 Empower for 5 seconds\n• Increase StaminaRecovery by 1 for 3 seconds"
+    ]
+  },
+  {
+    "id": "Berserker Sack",
+    "tooltips": [
+      "Health below 20%:\n• Become invulnerable for 0.3 seconds per item inside\n\nOn shop entered:\n• If there is a Fury Fungus inside:\n   • Get 1 Fury Fungus"
+    ]
+  },
+  {
+    "id": "Big Chocolate Gift Box",
+    "tooltips": [
+      "Every 3.6 seconds:\n• Heal for 2 Health per empty slot\n• Heal for 4 Health per filled slot\n   Activate absorbed items:\n • No Filled Chocolate absorbed yet\n\nOn shop entered:\n• Absorb 1 Star Filled Chocolate (0/4)"
+    ]
+  },
+  {
+    "id": "Big Clockwork Bomb",
+    "tooltips": [
+      "Start of Dawn:\n• Reduce Cooldown by 0.5 seconds per Star Bomb\n\nEvery 12 seconds:\n• Inflict 10 Burn\n• Use 2 Mana to inflict 8 Burn\n• Use 3 Mana to inflict 6 Burn\n• Use 4 Mana to inflict Stun for 1 second"
+    ]
+  },
+  {
+    "id": "Big Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Resist and 16 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Bite Trap",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeapon):\n• 10% chance to Stun attacking MeleeWeaponRangedWeapon for 1 second\n\nWhen hit (Pet):\n• 30% chance to Stun attacking Pet for 2 seconds"
+    ]
+  },
+  {
+    "id": "Black Cat",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Poison\n• Steal 1 Buff\n\nAfter 13 seconds:\n• Inflict 6 Poison\n• Steal 6 Buff and 6 MaxHealth"
+    ]
+  },
+  {
+    "id": "Blast Furnace Bellows",
+    "tooltips": [
+      "Every 5.6 seconds:\n• Inflict 6 Burn\n• Inflict 1 Burn per Star Lumps of Coal\n• Inflict 2 Burn per Star Lava Rock\n\nPer Burn on opponent:\n• Gain +1% faster activations"
+    ]
+  },
+  {
+    "id": "Blasted Gull",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +10% faster attacks per Star TypeFish\n\nOn hit:\n• Stun 1 opponent TypeFood for 2 seconds"
+    ]
+  },
+  {
+    "id": "Blazegaze",
+    "tooltips": [
+      "On hit:\n• Inflict 5 Blind for 3 seconds\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 2 Burn\n\nPer Blind and Burn on opponent:\n• This gains +5% faster attacks"
+    ]
+  },
+  {
+    "id": "Blazing Berry",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 2 Burn\n\nOn shop entered:\n• Destroy this"
+    ]
+  },
+  {
+    "id": "Blazing Rod",
+    "tooltips": [
+      "On hit:\n• Use 5 Mana to inflict 3 Burn\n\nPer Burn on opponent:\n• Gain +0.3 Damage"
+    ]
+  },
+  {
+    "id": "Blind Bake Pie",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 10 MaxHealth or inflict 2 Blind\n   Activate absorbed items:\n   • No TypeIngredient absorbed yet\n\nOn shop entered:\n• If there are 2 Star TypeIngredient:\n   • Absorb both (0/2)"
+    ]
+  },
+  {
+    "id": "Blood Moon Berry",
+    "tooltips": [
+      "Every 3 seconds:\n• Inflict 1 Bleed per Star empty bag slot\n\nStart of Dusk:\n• Bleed on your opponent triggers every 2 seconds\n\nStart of Night:\n• Bleed on your opponent triggers every second",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Bloodletter",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n\nPer Bleed on opponent:\n• Gain +5% faster attacks"
+    ]
+  },
+  {
+    "id": "Bloodrage Axe",
+    "tooltips": [
+      "On hit:\n• Inflict 1Bleed and 1Insanity on yourself\n\nOn critical hit:\n• Heal for 35 Health\n\nPer Bleed on you:\n• Gain +2% CritChance\n\nPer Insanity on you:\n• Gain +5% faster attacks"
+    ]
+  },
+  {
+    "id": "Bloodsucker's Visage",
+    "tooltips": [
+      "On Star MeleeWeaponPet hit:\n• 50% chance to gain 1 Lifesteal\n\nOn Star MeleeWeaponPet critical hit:\n• Steal 5 MaxHealth\n\nHealth below 30%:\n• Reduce Damage taken by 50% for 4 seconds"
+    ]
+  },
+  {
+    "id": "Bloodthorn",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Thorns and 2 Luck\n• Steal 20 MaxHealth"
+    ]
+  },
+  {
+    "id": "Blossoming Friendship",
+    "tooltips": [
+      "When chosen and on every 4 shops entered:\n• Get 1 Wild Rose\n\nOn shop entered:\n• If your last opponent also had this boon:\n   • Get 1 Wild Rose\n\nShops entered: 0/4"
+    ]
+  },
+  {
+    "id": "Blue Chilly Cheese",
+    "tooltips": [
+      "Every 4.6 seconds:\n• Cleanse 2 Debuff\n• Star TypeRat gain +2 Damage\n• Inflict 1 Chill per Star TypeRat\n\nOn shop entered:\n• 50% chance to catch a TypeRat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Blueberry Bliss",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• Inflict 1 Chill\n\nOn shop entered:\n• Destroy this"
+    ]
+  },
+  {
+    "id": "Bolstered Helmet",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 55 Armor, 5 Thorns\n• Reduce Stun duration by 50%\n• Reduce CritDamage taken by 20%\n\nEvery 4.2 seconds:\n• Gain 15 Armor"
+    ]
+  },
+  {
+    "id": "Bolstering Bag",
+    "tooltips": [
+      "Reduces Stun duration by 50% on items inside"
+    ]
+  },
+  {
+    "id": "Bolt Cutter",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n• Sabotage 1 enemy MeleeWeaponRangedWeapon\n\nSabotage:\n• Remove -1 min Damage and -10% CritDamage from target"
+    ]
+  },
+  {
+    "id": "Bolt Quiver",
+    "tooltips": [
+      "Start of DawnDayDuskNight:\n• Star Bolts and Darts gain +1 quantity"
+    ]
+  },
+  {
+    "id": "Bolts",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Regeneration"
+    ]
+  },
+  {
+    "id": "Bombus",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +10% Accuracy per Star Bee\n\nOn hit:\n• Gain +2 Damage per Star TypePlant"
+    ]
+  },
+  {
+    "id": "Bonecrusher",
+    "tooltips": [
+      "On hit if opponent has Armor:\n• Gain +1 Damage and +7% CritChance"
+    ]
+  },
+  {
+    "id": "Bonesaw",
+    "tooltips": [
+      "On hit if opponent has no Armor:\n• Gain 1 Lifesteal"
+    ]
+  },
+  {
+    "id": "Boo Bar",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Steal 1 Lifesteal and 1 Empower",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Book of Everlasting Flame",
+    "tooltips": [
+      "When time of day changes:\n• Gain 2 Regeneration\n• Inflict 1 Burn\n\nPer 8 Burn inflicted on opponent:\n• Gain 16 MaxHealth\n\nYour Burn on opponent: \n• No longer removes 1 Burn every second \n\nOn shop entered:\n• Gain 1 free reroll"
+    ]
+  },
+  {
+    "id": "Boom Barrel",
+    "tooltips": [
+      "After 12 seconds:\n• Inflict Stun for 2 seconds\n• Inflict 8 Burn and 3 Blind\n\nOn shop entered:\n• Go Mining (Underground)"
+    ]
+  },
+  {
+    "id": "Boomer",
+    "tooltips": [
+      "After 12 seconds: \n• Deal 30 Damage \n• Inflict 12 Burn"
+    ]
+  },
+  {
+    "id": "Boomslang",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 20% chance to trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Bosun's Monocular",
+    "tooltips": [
+      "When time of day changes:\n• Star MeleeWeapon gains +20% Accuracy and +20% CritDamage\n• Star RangedWeapon gains +20% Accuracy and +10% CritChance\n• Star Pet gains +20% Accuracy and +2 Damage"
+    ]
+  },
+  {
+    "id": "Bottom Trawl",
+    "tooltips": [
+      "Start of Dawn:\n• TypeFish, crabs, and lobsters inside this are +30% faster\n\nTypeFish inside activates:\n• 20% chance to gain 1 Haste, 1 Luck, 1 Regeneration, 1 Mana, or 1 Insanity\n\nOn shop entered:\n• 20% chance per empty slot to Go Fishing (Abyssal)"
+    ]
+  },
+  {
+    "id": "Bottomless Stocking",
+    "tooltips": [
+      "When chosen and on every 5 shops entered:\n• Get 1 random (non-fancy) Present\n\nShops entered: 0/5"
+    ]
+  },
+  {
+    "id": "Boulder",
+    "tooltips": [
+      "On hit:\n• Remove 30 Armor\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Bouquet of Roses",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Regeneration\n• Inflict 1 Bleed on both players\n\nWhen time of day changes:\n• Gain 3 Luck per Star Filled Chocolate\n• Inflict 3 Bleed per Star Pet\n\nOn shop entered:\n• Get 1 Insect or 1 Filled Chocolate"
+    ]
+  },
+  {
+    "id": "Box of Chocolates",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 18 MaxHealth\n\nOn shop entered:\n• Open this and get 3 random Filled Chocolates"
+    ]
+  },
+  {
+    "id": "Brainsquasher",
+    "tooltips": [
+      "On hit:\n• Remove 15 Armor and 3 Thorns\n• 33% chance to inflict Stun for 1 second"
+    ]
+  },
+  {
+    "id": "Bramblebat",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Thorns\n\nOn hit:\n• Deal 1 Damage per 2 Thorns\n• 50% chance to gain 1 Thorns\n\nOn shop entered:\n• 25% chance to catch 1 Arcanefly"
+    ]
+  },
+  {
+    "id": "Brambleheart",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Thorns per Star TypePlant"
+    ]
+  },
+  {
+    "id": "Briarthorn",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeapon):\n• 20% chance to inflict 2 Poison"
+    ]
+  },
+  {
+    "id": "Bright Vision Goggles",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 10 Luck and 10 Resist\n\nStart of Day:\n• Gain 20 Luck and 20 Resist\n\nStart of Dusk:\n• Inflict 5 Blind on yourself\n\nStart of Night:\n• Inflict 10 Blind on yourself\n\nAll day long:\n• Look cool!"
+    ]
+  },
+  {
+    "id": "Brimstone Powder",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 1 Burn and 1 Poison per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Briny Fish Basket",
+    "tooltips": [
+      "On TypeFish inside activating:\n• 50% chance to gain 3 MaxHealth\n\nOn shop entered:\n• If there is a TypeTool inside:\n   • Get 1 Guppy"
+    ]
+  },
+  {
+    "id": "Broken Oar",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Chill"
+    ]
+  },
+  {
+    "id": "Bronze Bar",
+    "tooltips": [
+      "On shop entered:\n• Gain 2 Gold"
+    ]
+  },
+  {
+    "id": "Broom",
+    "tooltips": [
+      "On hit:\n• 40% chance to inflict 1 Blind"
+    ]
+  },
+  {
+    "id": "Rat",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage per Star TypeRat"
+    ]
+  },
+  {
+    "id": "Bucket of Nightmares",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 4 Curse\n\nEvery 2.6 seconds:\n• Steal 2 Buff\n• Inflict 2 Debuff\n\nWhen opponent overheals for 4+ Health\n• Inflict 1 Blind\n\nOn shop entered:\n• Get 1-3 Treats"
+    ]
+  },
+  {
+    "id": "Bullseye Bamboozles I",
+    "tooltips": [
+      "Nymphedora Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 2 Dragonleaf\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Bullseye Bamboozles II",
+    "tooltips": [
+      "Nymphedora Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Wilderness Potion\n   • 1 Bolt Cutter\n      • Get 1 Eagle Eye Amulet\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Bullseye Bamboozles III",
+    "tooltips": [
+      "Nymphedora Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Eagle Eye Amulet\n   • 1 Noxious Red Mush\n   • 1 Unsafe Safe Cracker\n      • Get 1 Hunter's Bow and 1 Dragonleaf\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Bullseye Bamboozles IV",
+    "tooltips": [
+      "Nymphedora Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Silverbark Bow\n   • 1 Subtle Distractor Shield\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Dragonleaf Acorn and 1 Dragonleaf\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Bumblerat",
+    "tooltips": [
+      "On hit:\n• Star TypeRat and Bees gain +5% CritChance"
+    ]
+  },
+  {
+    "id": "Burning Water",
+    "tooltips": [
+      "Every 4.3 seconds:\n• Gain 2 Regeneration or inflict 2 Burn\n\nWhen time of day changes:\n• Use 4 Regeneration to:\n   • Gain 40 MaxHealth\n   • Inflict 4 Burn"
+    ]
+  },
+  {
+    "id": "Butter",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Gain 5 MaxHealth",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Buzzing Bungalow",
+    "tooltips": [
+      "Every 3.8 seconds:\n• Star Pet gains +10% CritChance and +20% CritDamage\n\nOn shop entered:\n• Get 1-3 Insects"
+    ]
+  },
+  {
+    "id": "Cactrio",
+    "tooltips": [
+      "When time of day changes:\n• Gain 3 Thorns\n\nThis counts as 3 Cactus"
+    ]
+  },
+  {
+    "id": "Cactus",
+    "tooltips": [
+      "When time of day changes:\n• Gain 1 Thorns"
+    ]
+  },
+  {
+    "id": "Caged Songbird",
+    "tooltips": [
+      "On hit:\n• Gain 1 Luck\n\nHealth below 50%:\n• Cleanse 1 Debuff per Luck on you\n• Gain 6 MaxHealth per Luck on you"
+    ]
+  },
+  {
+    "id": "Campfire Skillet",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage per Star TypeFood\n\nOn hit:\n• Gain 5 Armor\n• Gain 1 Buff per Star TypeFood"
+    ]
+  },
+  {
+    "id": "Candy Corn",
+    "tooltips": [
+      "Every 5.3 seconds:\n• Inflict 1 Curse or 1 Chill",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Candy Swirl",
+    "tooltips": [
+      "Every 6.2 seconds:\n• Star items get +4% faster",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Captain's Cap",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 65 MaxHealth\n\nEvery 4 seconds:\n• Gain 0.5 Stamina, 1 Haste, 1 Luck, and 6 MaxHealth\n• Inflict Call of the Void on yourself\n\nCall of the Void:\n• Suffer 5 Insanity for 5 seconds"
+    ]
+  },
+  {
+    "id": "Carnage Saw",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +10% faster attacks per Star Part\n\nOn hit:\n• Remove 2 Buff\n• 60% chance to inflict 4 Bleed\n\nOn shop entered:\n• 60% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Fish",
+    "tooltips": [
+      "Every 3.8 seconds:\n• Gain 1 Mana\n   If you have 10+ Mana:\n   • Gain 1 Luck",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Carrot",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 3 MaxHealth and 1 Luck",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Cash Flow Catering",
+    "tooltips": [
+      "Every 4 TypeFood items crafted:\n• Gain 1 Gold\n\nItems crafted: 0/4"
+    ]
+  },
+  {
+    "id": "Cast Iron Anchor",
+    "tooltips": [
+      "On hit: \n• Gain 2 Haste per Star Reef Knot\n• Inflict 3 Chill"
+    ]
+  },
+  {
+    "id": "Cast Net",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Luck per TypeFish inside\n• TypeFish inside this are +5% faster\n\nOn shop entered:\n• 20% chance per empty slot to Go Fishing (Shallow)"
+    ]
+  },
+  {
+    "id": "Cat Whisker Whisk",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1 Haste per Star TypeIngredient\n• Inflict 1 Chill per Star TypeIngredient"
+    ]
+  },
+  {
+    "id": "Cataclysm",
+    "tooltips": [
+      "On hit:\n• Use 1 Stamina to do a Charged Strike (+50% Damage)\n• 50% chance to:\n   • Trigger a free attack\n   • Inflict Stun for 1 seconds\n• If opponent has Armor:\n   • Gain +3 Damage and +10% CritChance\n• If opponent has no Armor:\n   • Gain 3 Lifesteal and inflict 4 Bleed"
+    ]
+  },
+  {
+    "id": "Caterpillar",
+    "tooltips": [
+      "On hit: \n• Gain 1 Mana per Star TypePlantTypeFood\n\nOn shop entered:\n• Transforms into Cocoonling"
+    ]
+  },
+  {
+    "id": "Cat-o-Lantern",
+    "tooltips": [
+      "Every 3.1 seconds:\n   During Dawn:\n   • Steal 9 MaxHealth and 3 Buff\n   During Dusk:\n   • Inflict 6 Poison and 4 Curse\n   During Night:\n   • Steal 9 MaxHealth and 3 Buff"
+    ]
+  },
+  {
+    "id": "Cauldron",
+    "tooltips": [
+      "On shop entered:\n• Get 1 Water Potion"
+    ]
+  },
+  {
+    "id": "Celestial Teapot",
+    "tooltips": [
+      "Every 3.2 seconds:\n• Gain 2 Mana\n• Use 5 Mana to gain 5 Luck\n• This and Star items gain 2 Static\n\nDischarge (10Static):\n• Cleanse 15 Blind"
+    ]
+  },
+  {
+    "id": "Chain Lightning Codex",
+    "tooltips": [
+      "Every 4.9 seconds:\n• This and Star items gain 3 Static\n• Use 3 Mana to Stun 3 enemy items for 1 second\n\nDischarge (24Static):\n• Stun 3 enemy items for 2 seconds\n\nOn shop entered:\n• Gain 1 free reroll"
+    ]
+  },
+  {
+    "id": "Champion Bee",
+    "tooltips": [
+      "On hit:\n• 20% chance to Stun an enemy item for 1.5 seconds\n\nOn shop entered:\n• 10% chance per Star TypePlant to get 1 Champion's Syrup"
+    ]
+  },
+  {
+    "id": "Champion's Ripper",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n\nOn critical hit:\n• Steal 2 Buff"
+    ]
+  },
+  {
+    "id": "Champion's Syrup",
+    "tooltips": [
+      "Every 4 seconds:\n• Star Bees gain +15% CritDamage",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Changing of the Gourd I",
+    "tooltips": [
+      "Enoch Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Lantern and 1 Wooden Stick\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Changing of the Gourd II",
+    "tooltips": [
+      "Enoch Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lantern\n   • 1 Tactical Blowgun\n      • Get 2 Harvest Pumpkin and 1 Wooden Stick\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Changing of the Gourd III",
+    "tooltips": [
+      "Enoch Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Scarecrow\n   • 1 Gobnoxious Dart\n   • 1 Bronze Bar\n      • Get 1 Jack-o-Lantern\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Changing of the Gourd IV",
+    "tooltips": [
+      "Enoch Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Jack-o-Lantern\n   • 1 Gobliterator Dart\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Black Cat\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Charcuterie Shield",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 16 Armor and 4 Buff\n• Inflict 2 Burn and 2 Debuff\n   Activate absorbed items:\n • No TypeIngredient absorbed yet\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to block 16 Damage\n• 15% chance to activate absorbed items\n\nOn shop entered:\n• Absorb 1 Star TypeIngredient (0/2)"
+    ]
+  },
+  {
+    "id": "Charged Girdle",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Luck, 3 Empower, 3 Mana\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 2 Empower and 4 Mana"
+    ]
+  },
+  {
+    "id": "Charged Tesseract",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Gain 1 Empower and 2 Mana\n• Star items gain 4 Static"
+    ]
+  },
+  {
+    "id": "Cheese",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Star TypeRat gain +1 Damage\n\nOn shop entered:\n• 25% chance to catch 1 Brown Rat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Cheese Board Buckler",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 8 Armor, 2 Mana, 1 Regeneration\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 50% chance to block 8 Damage"
+    ]
+  },
+  {
+    "id": "Cheese Wheel of Fortune",
+    "tooltips": [
+      "Every 8 seconds:\n• Gain 1 Luck per Star TypeRat\n\nOn Star TypeRat hit:\n• 50% chance for all Star TypeRat to gain +1 Damage\n\nOn shop entered:\n• Get 1 Cheese or catch 1 Brown Rat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Chef's Hat",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 20 MaxHealth and 2 Resist\n\nEvery 5 seconds:\n• Gain 3 Resist"
+    ]
+  },
+  {
+    "id": "Chef's Knife",
+    "tooltips": [
+      "On hit:\n• Gain +3% faster attacks per Star TypeIngredient\n• Inflict 1 Bleed\n\nOn critical hit:\n• Star TypeIngredient gains +5% faster activations\n• Inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Chillbane",
+    "tooltips": [
+      "On hit:\n• Use 3 Mana to inflict 4 Chill"
+    ]
+  },
+  {
+    "id": "Chum Bucket",
+    "tooltips": [
+      "Start of Dawn:\n• Star Pet gains +10% faster attacks\n\nOn Star Pet hit:\n• 50% chance to inflict 1 Bleed\n\nOn Star Pet critical hit:\n• Inflict 1 Bleed\n\nPer Bleed on opponent:\n• Star Pet gains +0.5% CritChance"
+    ]
+  },
+  {
+    "id": "Cinderstaff",
+    "tooltips": [
+      "On hit:\n• Steal 1 Mana from opponent\n• Use 6 Mana to inflict 5 Burn\n\nPer Burn on opponent:\n• Gain +0.35 Damage"
+    ]
+  },
+  {
+    "id": "Cleansing Crown",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Cleanse 5 Debuff\n• Heal for 5 Health\n• Use 10 Mana to cleanse all Debuff (once)"
+    ]
+  },
+  {
+    "id": "Cleansomatic",
+    "tooltips": [
+      "Every 4 seconds:\n• Cleanse 4 Debuff and gain 1 Buff\n   If you have 40+ Debuff:\n   • Use 2 Mana to double this effect"
+    ]
+  },
+  {
+    "id": "Clockwork",
+    "tooltips": [
+      "Start of Dawn:\n• Star items gain +8% faster activations"
+    ]
+  },
+  {
+    "id": "Coconut",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 6 Armor",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Cocoonling",
+    "tooltips": [
+      "On hit: \n• Use 6 Mana to gain 36 Armor\n\nOn shop entered:\n• Transforms into a Butterfly"
+    ]
+  },
+  {
+    "id": "Coldfin Cod",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 0.5Stamina and 2 MaxHealth",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Concentrated Dilution Liquid",
+    "tooltips": [
+      "Every 5.8 seconds:\n• Spend 1 TypePotion use to give all Star TypePotion +1 more use"
+    ]
+  },
+  {
+    "id": "Conflagration Staff",
+    "tooltips": [
+      "On hit:\n• Steal 1 Mana from opponent\n• Use 7 Mana to inflict 7 Burn\n\nOn Star item activation:\n• 30% chance to inflict 1 Burn\n\nPer Burn on opponent:\n• Gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Core Reactor",
+    "tooltips": [
+      "Every 8 seconds:\n• Gain 2 Regeneration and 1 Empower\n\nOn Star TypeTool activation:\n• This goes +5% faster"
+    ]
+  },
+  {
+    "id": "Corny Corn",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Heal for 7 Health\n• Gain Hunter's mark\n\nHunter's mark:\n• Gain 5 Luck for 3 seconds",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Corrupted Shroom",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Activate Regeneration\n\nOn every Regeneration activation:\n• Inflict 1 Poison and 1 Chill per Star TypeAccessory"
+    ]
+  },
+  {
+    "id": "Corruptor's Wisdom",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Curse and 2  Poison\n• Use 4 Mana to transfer 4 Debuff to opponent\n\nOn critical hit:\n• Deal 1 Damage per Debuff on the opponent"
+    ]
+  },
+  {
+    "id": "Cosmos Ward",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 44 Armor\n• Gain 3 Mana and 9 MaxHealth per second for 10 seconds\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to use 1 Mana to:\n   • Block 16 Damage\n   • Inflict 2 Burn or 2 Chill"
+    ]
+  },
+  {
+    "id": "Count Ratula",
+    "tooltips": [
+      "On hit:\n• Inflict 4 Bleed\n• Gain 3 Lifesteal\n\nOn critical hit:\n• Activate Bleed\n\nOn Star TypeRat hit:\n• 50% chance to inflict 2 Bleed\n\nThis benefits from Lifesteal"
+    ]
+  },
+  {
+    "id": "Counterfeit Coin",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 5 MaxHealth per Star item from your hero\n• Steal 5 MaxHealth per Star item from another hero\n\nOn shop entered:\n• Reduce cost of all Reserved items by 1"
+    ]
+  },
+  {
+    "id": "Crab Trap",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 10 Armor\n\nOn shop entered:\n• 30% chance to catch a crab\n• 30% chance per Star TypeFood to catch a crab"
+    ]
+  },
+  {
+    "id": "Creepy Doll",
+    "tooltips": [
+      "Every 2.8 seconds:\n• Remove 1 Luck per Star Pet\n• Inflict 1 Curse per Star Pet"
+    ]
+  },
+  {
+    "id": "Critical Focus",
+    "tooltips": [
+      "Per Burn and Chill combined on opponent:\n• Star MeleeWeaponRangedWeaponPet gains +1% CritChance"
+    ]
+  },
+  {
+    "id": "Critical Sack",
+    "tooltips": [
+      "Items in this bag gain +10% CritChance"
+    ]
+  },
+  {
+    "id": "Croissant",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Gain 9 MaxHealth\n\nEvery 15 MaxHealth gained by Star items:\n• Gain 1 Regeneration",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Croissant Crossbow",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana\n• Use 3 Mana to gain +10% CritChance\n\nOn critical hit:\n• Gain 4 MaxHealth and 1 Regeneration per Star TypeFood\n\nPer 30 MaxHealth gained:\n• This gains +1 Damage",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Croquette",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Gain 5 MaxHealth\n• Star TypeFood gains +5% faster activations",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Crowbane",
+    "tooltips": [
+      "Every 3.1 seconds:\n   During Dawn:\n   • Gain 5 Resist and 5 Regeneration\n   During Day:\n   • Stun 3 enemy Pet for 3 seconds\n   During Dusk:\n   • Inflict 4 Blind, 6 Poison, 8 Curse\n   During Night:\n   • Steal 12 MaxHealth and 4 Buff"
+    ]
+  },
+  {
+    "id": "Crowbar",
+    "tooltips": [
+      "On hit:\n• 60% chance to gain 3 Armor per Star Part\n• 30% chance to inflict Stun for 0.6 seconds\n\nOn shop entered:\n• 45% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Cryoblaze Staff",
+    "tooltips": [
+      "On hit:\n• Use 5 Mana to inflict 8 Chill\n\nEvery 15 Chill inflicted:\n• Inflict 3 Burn\n\nPer Chill on opponent:\n• Gain +0.5% CritChance and +10% CritDamage"
+    ]
+  },
+  {
+    "id": "Crystal Cluster",
+    "tooltips": [
+      "On hit:\n• Remove 3 Buff\n• Gain 3 Resist\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Crystal Golem",
+    "tooltips": [
+      "On hit:\n• Remove 4 Buff\n• Gain 4 Resist\n\nStar TypeMineral can now be thrown multiple times\n\nOn shop entered:\n• Turns up to 2 Star Rock into Crystal Shard"
+    ]
+  },
+  {
+    "id": "Crystal Shard",
+    "tooltips": [
+      "On hit:\n• Remove 1 Buff\n• Gain 1 Resist\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Cursed Candy",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Inflict 3 Debuff on both players",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Cursed Clover",
+    "tooltips": [
+      "Every 3.7 seconds:\n• Inflict 1 Poison and 1 Curse\n\nWhile equipped:\n• +50% chance to make a shop item reroll as Common"
+    ]
+  },
+  {
+    "id": "Cursed Idol",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Curse per second for 60 seconds\n\nPer 3 Curse inflicted on opponent:\n• Remove 7 MaxHealth"
+    ]
+  },
+  {
+    "id": "Cutting Board Bag",
+    "tooltips": [
+      "On MeleeWeaponRangedWeaponTypeRat inside hit:\n• 40% chance to gain 1 MaxHealth per TypeFood inside\n\nOn shop entered:\n• If there is a Potato inside:\n   • Get 1 simple TypeIngredient"
+    ]
+  },
+  {
+    "id": "Cyclone Gem",
+    "tooltips": [
+      "After 7 seconds:\n• Star items gain +15% faster activations\n\nOn Star item activation:\n• 10% chance to:\n   • Gain 1 Haste and 2 Static \n   • Inflict 1 Chill\n\nDischarge (20Static):\n• Gain 3 Haste per second for 5 seconds\n• Inflict 1 Chill per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Dagger",
+    "tooltips": [
+      "On Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Danger Candle",
+    "tooltips": [
+      "After 12 seconds:\n• Inflict Stun for 1 second\n• Inflict 4 Burn and 1 Blind\n\nOn shop entered:\n• 50% chance to Go Mining (Surface)"
+    ]
+  },
+  {
+    "id": "Dark Iron Anvil",
+    "tooltips": [
+      "On Star MeleeWeapon hit:\n• 30% chance for Star MeleeWeapon to gain +2 Damage\n\nOn Star MeleeWeapon critical hit:\n• Gain 10 Armor"
+    ]
+  },
+  {
+    "id": "Dark Omen",
+    "tooltips": [
+      "On hit:\n• 40% chance to trigger a free attack"
+    ]
+  },
+  {
+    "id": "Darkvision Faceguard",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 85 Armor, 3 Luck, 2 Regeneration\n• Reduce Stun duration by 50%\n• Reduce CritDamage taken by 35%\n\nEvery 3.8 seconds:\n• Gain 2 Luck and 2 Regeneration\n• Cleanse 3 Debuff"
+    ]
+  },
+  {
+    "id": "Death Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to inflict 1 Poison\n\nEvery 3 seconds:\n• Use 2 Mana to inflict 2 Curse"
+    ]
+  },
+  {
+    "id": "Deathbringer",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict Stun for 1 second\n• If opponent has Armor:\n   • Gain +2 Damage and +10% CritChance"
+    ]
+  },
+  {
+    "id": "Deathdart Dispenser",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 40 Armor\n\nOn hit:\n• Inflict 1 Burn, 1 Chill, and 1Poison\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 25% chance to use 1 Mana to:\n   • Inflict 1 Burn, 1 Chill, and 1Poison per Star Part"
+    ]
+  },
+  {
+    "id": "Deathhowl",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Poison per Mana on opponent\n• Steal 4 Mana\n• Use 4 Mana to inflict 1 Curse per Star TypeRat\n \nPer Curse on opponent:\n• This and Star TypeRat gain +1% faster attacks"
+    ]
+  },
+  {
+    "id": "Deathshot",
+    "tooltips": [
+      "On hit:\n• Gain 3 Haste \n• Gain Hunter's mark\n\nOn critical hit:\n• Gain +15% faster attacks and +20% CritDamage\n• Gain Hunter's mark\n\nHunter's mark:\n• Gain 5 Luck for 3 seconds"
+    ]
+  },
+  {
+    "id": "Deepsea Candiru",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed per Star Pet\n\nPer Bleed on opponent:\n• Gain +3% CritDamage"
+    ]
+  },
+  {
+    "id": "Defender's Shield",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 75 Armor and 3 Thorns\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 50% chance to block 12 Damage and gain 6 Armor"
+    ]
+  },
+  {
+    "id": "Delicate Matter Converter",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 3 Bleed (once)\n\nOn shop entered:\n• Turn Star Ginseng Root into Sticky Stuff\n• Turn Star Rock into Finely Ground Gravel\n• Turn Star Succulent into Pleasant Green Paste\n• Turn Star Fly Agaric into Noxious Red Mush\n• Turn Star Lava Rock into Brimstone Powder\n• Turn Star Golden Tail into 3 Ball of Thread\n   If this converted any items:\n   • Destroy this"
+    ]
+  },
+  {
+    "id": "Diamond",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Diamond Covered Toecaps",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 40 Armor and 2 Haste\n\nEvery 4 seconds:\n• Gain 6 Armor and 1 Stamina\n• Inflict 2 Chill per Star MeleeWeaponRangedWeapon"
+    ]
+  },
+  {
+    "id": "Harp",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Gain 3 Buff or heal for 18 Health\n\nOn Star MeleeWeaponRangedWeaponPet attack:\n• 50% chance to inflict 2 Bleed"
+    ]
+  },
+  {
+    "id": "Donut",
+    "tooltips": [
+      "Every 6.2 seconds:\n• Star TypeFood are +10% faster",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Doombringer",
+    "tooltips": [
+      "On hit:\n• 50% chance to trigger a free attack\n• If opponent has no Armor:\n   • Gain 2 Lifesteal\n   • Inflict 3 Bleed"
+    ]
+  },
+  {
+    "id": "Doomsday Oarfish",
+    "tooltips": [
+      "Start of Dawn:\n• Hits now steal 20 MaxHealth\n\nStart of Day:\n• Hits now inflict 10 Curse\n\nStart of Dusk:\n• Hits now steal 10 Buff\n\nStart of Night:\n• Hits now gain +25 Damage"
+    ]
+  },
+  {
+    "id": "Double-ender",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +15% faster attacks per Star MeleeWeapon"
+    ]
+  },
+  {
+    "id": "Dragonbreath Chili",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Inflict 2 Burn\n• Inflict 1 Burn on yourself",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Dragonfang",
+    "tooltips": [
+      "Start of Dawn:\n• Gain  +10% CritChance and +20% CritDamage per Star Dragonleaf\n\nOn hit:\n• Cleanse 2 Debuff and gain 2 Haste\n• Inflict 1 Bleed per Star Dragonleaf\n\nThis is not affected by Chill\n\nThis counts as 2 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Dragonflower",
+    "tooltips": [
+      "Every 4.6 seconds:\n• Cleanse 3  Debuff\n\nThis is not affected by Chill\n\nThis counts as 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Dragonleaf",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Haste per Star MeleeWeaponRangedWeaponPet"
+    ]
+  },
+  {
+    "id": "Dragonleaf Acorn",
+    "tooltips": [
+      "Every 4.3 seconds:\n• Gain 1 Haste per Star Dragonleaf\n\nThis counts as 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Dragonleaf Sapling",
+    "tooltips": [
+      "Every 3.6 seconds:\n• Gain 1 Haste per Star Dragonleaf\n• Heal for 1 Health per 3 Bleed on you\n\nOn shop entered:\n• Get 1 Dragonleaf\n\nThis counts as 2 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Dragon's Tail Jelly",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Burn and 1 Poison\n• Gain +3% CritChance\n\nOn critical hit:\n• Inflict 1 Burn and 2 Poison\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 33% chance to trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Drakefly",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison\n• Gain 3 Armor per Star PetTypePlant"
+    ]
+  },
+  {
+    "id": "Dreadleaf",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Blind per Star Dragonleaf\n\nEvery 6 seconds:\n• Inflict 1 Blind per Star TypePlant\n• Reduce Cooldown by 0.3 seconds"
+    ]
+  },
+  {
+    "id": "Drift Net",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 MaxHealth per TypeFish inside\n• TypeFish, crabs, and lobsters inside this are +20% faster\n\nOn shop entered:\n• 20% chance per empty slot to Go Fishing (Deep)"
+    ]
+  },
+  {
+    "id": "Drillbot",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage per Star Part\n\nOn shop entered:\n• Get a Rock or a Part\n• 20% chance to find a Treasure"
+    ]
+  },
+  {
+    "id": "Dull Oyster Shucker",
+    "tooltips": [
+      "On hit:\n• Remove 5 Armor\n\nOn shop entered:\n• Break open Star Tidal Clam and gain 5 Gold"
+    ]
+  },
+  {
+    "id": "Durable Matter Converter",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 3 Bleed\n\nOn shop entered:\n• Turn Star Golden Egg into 9 Gold\n• Turn Star Ginseng Root into Sticky Stuff\n• Turn Star Rock into Finely Ground Gravel\n• Turn Star Succulent into Pleasant Green Paste\n• Turn Star Fly Agaric into Noxious Red Mush\n• Turn Star Lava Rock into Brimstone Powder\n• Turn Star Golden Tail into 3 Ball of Thread"
+    ]
+  },
+  {
+    "id": "Duskreaver",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul \n• Steal 4 MaxHealth\n• Inflict 1 Curse\n\nPer Curse on opponent:\n• Gain +2% CritDamage\n\nPer Soul trapped:\n• Gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Dusty Book",
+    "tooltips": [
+      "On shop entered:\n• Gain 1 free reroll\n• 25% chance to get 1 Essence"
+    ]
+  },
+  {
+    "id": "Eagle Eye Amulet",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeaponPet gains +30% Accuracy\n\nPer Luck on you:\n• Star MeleeWeaponRangedWeaponPet gains +1% CritChance"
+    ]
+  },
+  {
+    "id": "Eat Fresh",
+    "tooltips": [
+      "Now and on every 4 shops entered:\n• Get a Carrot\n\nShops entered: 0/4"
+    ]
+  },
+  {
+    "id": "Edge Calibrator",
+    "tooltips": [
+      "Start of Dawn:\n• Star TypeTool gain +20% CritChance\n\nOn Star TypeTool hit:\n• 40% chance for all Star TypeTool to gain +2 Damage"
+    ]
+  },
+  {
+    "id": "Electric Crown",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeapon):\n• 25% chance to gain 1 Static per Star TypeArmor\n\nDischarge (20Static):\n• Deal 20 Damage\n• Cleanse 5 Debuff\n• Next Discharge deals +20 Damage \n• Next Discharge cleanses +5 Debuff"
+    ]
+  },
+  {
+    "id": "Electric Seasnake",
+    "tooltips": [
+      "On hit:\n• This and Star items gain 1 Static\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 20% chance to trigger an extra attack\n\nDischarge (22Static):\n• Gain +3 max Damage"
+    ]
+  },
+  {
+    "id": "Electrobat",
+    "tooltips": [
+      "On hit:\n• Gain 1 Static per Star item\n• Star items gain 1 Static\n• Cleanse 4 Debuff\n\nDischarge (20Static):\n• Steal 20 Health"
+    ]
+  },
+  {
+    "id": "Electrostatic Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• This and Star items gain 2 Static\n• Stun 1 enemy item for 1 second\n\nDischarge (20Static):\n• Stun 1 enemy item for 2 seconds"
+    ]
+  },
+  {
+    "id": "Elemental Barrier",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 36 Armor\n• Gain 2 Mana per second for 8 seconds\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to use 1 Mana to:\n   • Block 12 Damage\n   • Inflict 1 Burn or 1 Chill"
+    ]
+  },
+  {
+    "id": "Elemental Core",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor\n\nEvery 4.6 seconds:\n• Inflict 1 Burn, 1 Chill, 1Poison\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 60% chance to:\n  • Use 1 Mana to inflict 1 Burn, 1 Chill, 1 Poison"
+    ]
+  },
+  {
+    "id": "Elemental Whetstone",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gain +5 max Damage and +5% CritChance\n\nOn Star MeleeWeaponRangedWeapon hit:\n• 33% chance Star items gain 1 Static"
+    ]
+  },
+  {
+    "id": "Elementium Bulwark",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeaponPet):\n• 40% chance to:\n   • Block 16 Damage\n   • Drain 0.5 Stamina from opponent\n   • Gain 1 Static\n\nDischarge (20Static):\n• Gain 60 Armor\n• Stun 3 enemy items for 1 second"
+    ]
+  },
+  {
+    "id": "Elementium Golem",
+    "tooltips": [
+      "On hit:\n• Gain 1 Static per Star item\n• Remove 40 Armor\n\nOn Star TypeMineral hit:\n• 25% to inflict Stun for 1 second\n\nDischarge (20Static):\n• Gain 60 Armor\n\nStar TypeMineral can now be thrown multiple times"
+    ]
+  },
+  {
+    "id": "Elementium Ore",
+    "tooltips": [
+      "On hit:\n• Stun an enemy item for 6 seconds\n\nDischarge (20Static):\n• Gain 40 Armor\n• This can be thrown 1 more time\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Elixir Express 3000",
+    "tooltips": [
+      "Start of Dawn:\n• This goes +25% faster per Star TypePotion\n\nEvery 6 seconds:\n• Restore 1 use to 1 empty Star TypePotion"
+    ]
+  },
+  {
+    "id": "Elven Blade",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +5% CritChance and +10% CritDamage per Star Dragonleaf\n\nOn hit:\n• Gain 2 Haste\n• Inflict 1 Bleed\n\nThis counts as 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Emerald",
+    "tooltips": [
+      "Every 5.5 seconds:\n• Gain 1 Haste"
+    ]
+  },
+  {
+    "id": "Emerald Scarab",
+    "tooltips": [
+      "On hit:\n• Steal 2 Buff\n\nOn critical hit:\n• Steal 1 Buff\n• Inflict 2 Debuff"
+    ]
+  },
+  {
+    "id": "Endurance Potion",
+    "tooltips": [
+      "Out of stamina:\n• Gain 1 Stamina\n• Increase StaminaRecovery by 1 for 3 seconds"
+    ]
+  },
+  {
+    "id": "Enhanced Drillbot",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +2 Damage per Star Part\n• Gain +15% CritChance per Star TypeTool\n\nOn critical hit:\n• Gain 1 Haste per Star Part\n\nOn shop entered:\n• Get 1 Rock and 1 Part\n• 40% chance to find a Treasure"
+    ]
+  },
+  {
+    "id": "Enhanced Endurance",
+    "tooltips": [
+      "Start of Dawn:\n• Increase StaminaRecovery by 0.15"
+    ]
+  },
+  {
+    "id": "Errant Lance",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +3 Damage and +7% CritChance per Star Cactus\n\nOn hit:\n• 33% chance to inflict Stun for 0.5 seconds"
+    ]
+  },
+  {
+    "id": "Eternal Heart",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Heal for 5 Health per Star TypeFood\n\nHealth below 30%:\n• Heal for 3 Health per Star TypeFood per second for 10 seconds"
+    ]
+  },
+  {
+    "id": "Ethereal Cloak",
+    "tooltips": [
+      "When time of day changes:\n• Become invulnerable for 1 second"
+    ]
+  },
+  {
+    "id": "Everdrift Anchor",
+    "tooltips": [
+      "On hit:\n• Gain 3 Haste per Star Reef Knot\n• Inflict 5 Chill\n• Inflict 3 Insanity on both players\n\nPer Insanity on both players combined:\n• Gain +2% CritChance and +2% CritDamage\n\nOn shop entered:\n• Go Fishing (Abyssal)"
+    ]
+  },
+  {
+    "id": "Evergreen Arc",
+    "tooltips": [
+      "On hit:\n• Gain 3 Luck\n• Inflict 1 Bleed\n\nOn critical hit:\n• Gain +3 Damage\n• Inflict 1 Bleed per Star Dragonleaf\n• Heal for 2 Health per Bleed on opponent\n\nThis counts as 2 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Excalibur",
+    "tooltips": [
+      "On hit:\n• Steal 5 Buff\n\nOn 20 Buff stolen:\n• Reduce Stamina cost and Cooldown to 3\n\nOn 50 Buff stolen:\n• Gain 20 Lifesteal and 20 Empower"
+    ]
+  },
+  {
+    "id": "Exhaustion Stone",
+    "tooltips": [
+      "Start of Dawn:\n• Opponent Fatigue starts 2 seconds earlier per Star RangedWeapon\n\nEvery 3.3 seconds:\n• Gain 7 Armor per Star RangedWeapon"
+    ]
+  },
+  {
+    "id": "Experimental Ice Cream",
+    "tooltips": [
+      "Every 4 seconds:\n• Inflict 2 Chill\n   Activate absorbed items:\n   • No TypeIngredient absorbed yet\n\nOn shop entered:\n• Absorb 1 Star TypeIngredient (0/1)"
+    ]
+  },
+  {
+    "id": "Expiry Discount",
+    "tooltips": [
+      "When a TypeFood item appears in the shop:\n• 40% chance the item will cost 1 Gold less (minimum 1)"
+    ]
+  },
+  {
+    "id": "Extra Long Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Resist and 16 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Eyeball",
+    "tooltips": [
+      "Every 2.9 seconds:\n• Cleanse 2 Blind or gain 1 Luck"
+    ]
+  },
+  {
+    "id": "Eyeball Vessel",
+    "tooltips": [
+      "Health below 50% or 15 Blind on you:\n• Cleanse 15 Blind\n• Gain 18 MaxHealth and 2 Luck"
+    ]
+  },
+  {
+    "id": "EZ-Share Gas Mask",
+    "tooltips": [
+      "Poison on you triggers 2 seconds slower\n\nStart of Dawn:\n• Star Improvised Smokebombs activate +33% faster\n• Star Premeditated Stinkbombs activate +66% faster\n\nEvery 3.8 seconds:\n• Inflict 1 Poison per Star item\n• Inflict 1 Poison per Star Bomb"
+    ]
+  },
+  {
+    "id": "Fancy Big Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Resist and 16 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Fancy Long Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Resist and 9 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Fancy Small Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Resist and 4 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Fancy Tiny Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Resist and 1 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Fang the Rattleslang",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison per Star TypeRat\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 20% chance to:\n   • Trigger an extra attack\n   • Trigger an extra attack for a random Star TypeRat"
+    ]
+  },
+  {
+    "id": "Fanged Axe",
+    "tooltips": [
+      "On hit:\n• Gain 1 Thorns"
+    ]
+  },
+  {
+    "id": "Fanged Blade",
+    "tooltips": [
+      "On hit:\n• Gain 1 Thorns\n• Inflict 1 Bleed per Star Cactus"
+    ]
+  },
+  {
+    "id": "Fanny Pack",
+    "tooltips": [
+      "Items in this bag gain +10% faster activations"
+    ]
+  },
+  {
+    "id": "Faulty Compass",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Gain 2 Haste, 2 Luck, 2 Regeneration, or 2 Mana\n• Gain 12 MaxHealth per Star TypeFood\n• Inflict 2 Insanity on yourself per Star TypeFish"
+    ]
+  },
+  {
+    "id": "Feathered First Mate",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Insanity on both players\n• Stun 2 opponent TypeFood for 2 seconds\n\nOn critical hit:\n• Gain 1 Haste per Star TypeFish\n\nPer Insanity on you:\n• Gain +2% CritChance"
+    ]
+  },
+  {
+    "id": "Feeling the Heat I",
+    "tooltips": [
+      "Chana Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Searing Wand\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Feeling the Heat II",
+    "tooltips": [
+      "Chana Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Searing Wand\n   • 1 Bolt Cutter\n      • Get 1 Wicked Stick\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Feeling the Heat III",
+    "tooltips": [
+      "Chana Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Hungry Wand\n   • 1 Improvised Smokebomb\n   • 1 Unsafe Safe Cracker\n      • Get 1 Blazing Rod\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Feeling the Heat IV",
+    "tooltips": [
+      "Chana Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Cinderstaff\n   • 1 Premeditated Stinkbomb\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Phoenix Feather and 1 Spell Scroll\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Fermented Grape Juice",
+    "tooltips": [
+      "Every 7 seconds:\n• Have a drink\n\nWhen consumed:\n• Gain 2 Buff per second for 4 seconds\n• Cleanse 2 Debuff per second for 4 seconds\n• Reduce Cooldown by 1 second\n\nOn 3 shops entered (3 left):\n• Turn into Aged Grape Juice"
+    ]
+  },
+  {
+    "id": "Fiery Quiver",
+    "tooltips": [
+      "On Star RangedWeapon hit:\n• 50% chance to inflict 4 Burn\n\nEvery 3.2 seconds:\n• Star RangedWeapon gains +1 Damage"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Circle",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Lifesteal or inflict 1 Insanity"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Clover",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Luck or inflict 1 Poison"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Egg",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Buff or inflict 1 Blind"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Heart",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Regeneration or inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Moon",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Mana or drain 1 Stamina"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Shield",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 5 Armor or inflict 1 Debuff"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Square",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Empower or inflict 1 Burn"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Star",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Thorns or inflict 1 Chill"
+    ]
+  },
+  {
+    "id": "Filled Chocolate Triangle",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 1 Haste or inflict 1 Curse"
+    ]
+  },
+  {
+    "id": "Final Blow",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 50% chance this and Star MeleeWeaponRangedWeapon gains +15% CritDamage"
+    ]
+  },
+  {
+    "id": "Fine Sword",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gain +2 Damage, +10% CritChance\n\nOn critical hit:\n• Gain 3 Regeneration"
+    ]
+  },
+  {
+    "id": "Finely Ground Gravel",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 5 Blind for 5 seconds"
+    ]
+  },
+  {
+    "id": "Fingerprintless Gloves",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n• Star MeleeWeaponRangedWeapon gain +15% faster attacks\n• Star MeleeWeaponRangedWeapon from another hero gain +15% faster attacks\n\nOn Star MeleeWeaponRangedWeapon hit:\n• Star MeleeWeaponRangedWeapon gain +1 Damage\n• Star MeleeWeaponRangedWeapon from another hero gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Fire Lord's Brand",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 1-2 Burn"
+    ]
+  },
+  {
+    "id": "Fire Sprite",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Burn\n\nOn critical hit:\n• Inflict 2 Burn\n\nPer Burn on opponent:\n• Gain +1% CritChance and +1% faster attacks"
+    ]
+  },
+  {
+    "id": "Fire Vortex",
+    "tooltips": [
+      "Every 2.6 seconds:\n• Gain 2 Mana\n   If you have gained 60 Mana this fight:\n   • Also inflict 2 Burn per Star RangedWeapon"
+    ]
+  },
+  {
+    "id": "Fisherman's Hook",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed per Star TypeFish\n\nOn shop entered:\n• 20% chance to Go Fishing (Shallow)"
+    ]
+  },
+  {
+    "id": "Fishing Harpoon",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed or 1 Chill\n\nOn shop entered:\n• 50% chance to Go Fishing (Deep)"
+    ]
+  },
+  {
+    "id": "Fishing Rod",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana per Star TypeFish\n• Inflict 1 Bleed\n\nOn shop entered:\n• 50% chance to Go Fishing (Shallow)"
+    ]
+  },
+  {
+    "id": "Fishmonger's Favor",
+    "tooltips": [
+      "Now and every 5 shops entered:\n• Get a TypeFishTypeFood item\n\nShops entered: 0/5"
+    ]
+  },
+  {
+    "id": "Five Leaf Cave Clover",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1 Luck per Star TypeMineral\n\nOn shop entered:\n• Gain 1 Rock\n• Crack open a Star Rock"
+    ]
+  },
+  {
+    "id": "Flame Bolt",
+    "tooltips": [
+      "On hit:\n• Inflict 5 Burn\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Flame Cloak",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 10 Resist\n• Gain 60 MaxHealth\n\nEvery 4.1 seconds:\n• Gain 3 Mana\n• Inflict 2 Burn\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to:\n   • Cleanse 2 Debuff\n   • Inflict 2 Burn"
+    ]
+  },
+  {
+    "id": "Flamescale Seadrake",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Chill, 2 Poison, and 3 Burn\n\nPer Chill on opponent:\n• Gain +1% faster attacks\n\nPer Poison on opponent:\n• Gain +2% CritDamage\n\nPer Burn on opponent:\n• Gain +3% CritChance"
+    ]
+  },
+  {
+    "id": "Flaming Sword",
+    "tooltips": [
+      "On hit:\n• Gain 3 Haste or inflict 3 Burn\n• Activate Burn\n\nOn critical hit: \n• Gain 3 Haste\n• Inflict 3 Burn"
+    ]
+  },
+  {
+    "id": "Flash Freeze",
+    "tooltips": [
+      "Start of Dawn:\n• Both players gain 25 Haste for 10 seconds\n\nStart of Day:\n• Inflict 25 Chill on both players for 10 seconds\n\nStart of Dusk:\n• Both players gain 50 Haste for 10 seconds\n\nStart of Night:\n• Inflict 50 Chill on both players for 10  seconds"
+    ]
+  },
+  {
+    "id": "Flash Potion",
+    "tooltips": [
+      "Out of stamina:\n• Gain 6 Stamina\n• Gain 12 Haste for 6 seconds\n• Star items gains 4 Static"
+    ]
+  },
+  {
+    "id": "Flashbang",
+    "tooltips": [
+      "Health below 50%:\n• Inflict 20 Blind for 6 seconds\n• After 3 seconds:\n   • Inflict Stun for 1 second per Star MeleeWeaponRangedWeapon"
+    ]
+  },
+  {
+    "id": "Flashy Boots",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 50 Armor and 5 Haste\n\nEvery 3.5 seconds:\n• Gain 1Stamina,  2Haste,  3Static \n\nDischarge (22Static):\n• Star MeleeWeaponRangedWeapon gain +50% faster attacks for 5 seconds"
+    ]
+  },
+  {
+    "id": "Flotsam",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 10 Armor"
+    ]
+  },
+  {
+    "id": "Fluttercatcher",
+    "tooltips": [
+      "On hit:\n• Gain 2 Haste\n\nOn shop entered:\n• 25% chance per Star TypePlant to catch 1 Insect"
+    ]
+  },
+  {
+    "id": "Fly Agaric",
+    "tooltips": [
+      "Every 4 seconds:\n• Inflict 1 Poison",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Flying Broom",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana\n• Inflict 1 Blind or 1 Curse\n\nOn critical hit:\n• Use 5 Mana to:\n   • Gain +4 Damage and +10% faster attacks\n   • Gain 5 Resist\n\nPer Mana on you:\n• Gain +2% CritChance"
+    ]
+  },
+  {
+    "id": "Folded Steel",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 15 Armor\n\nOn shop entered:\n• Increase the Armor gained by 5 per equipped TypeArmor"
+    ]
+  },
+  {
+    "id": "Food Festival",
+    "tooltips": [
+      "On shop reroll:\n• +12% chance a shop item will be a TypeFood item"
+    ]
+  },
+  {
+    "id": "Forest Mower",
+    "tooltips": [
+      "On hit:\n• Inflict 3 Bleed\n• Remove 3 Buff\n• Gain +3% CritChance\n\nOn critical hit:\n• Inflict 3 Bleed \n\nPer Bleed on opponent:\n• Gain +1% faster attacks"
+    ]
+  },
+  {
+    "id": "Forest Spirit",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Star MeleeWeaponRangedWeaponPet gains +1 Damage\n• Inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Forgemaster's Tongs",
+    "tooltips": [
+      "Start of Dawn:\n• Star Forge Hammers gain +10% CritChance\n\nOn Star Forge Hammer hit:\n• Inflict 2 Burn\n• Use 1 Mana to gain 20 Armor\n• 10% chance to trigger a free attack"
+    ]
+  },
+  {
+    "id": "Fortress Ring",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeapon):\n• 50% chance to gain 2 Armor per Star TypeArmor\n\nPer 30 Armor gained by you:\n• Reduce Damage taken by 5% for 3 seconds"
+    ]
+  },
+  {
+    "id": "Frost Barrier",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 50 Armor\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to:\n   • Block 16 Damage\n   • Inflict 2 Chill\n\nEvery 3 seconds:\n • Gain 2 Mana\n • Cleanse 4 Burn"
+    ]
+  },
+  {
+    "id": "Frost Bolts",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Regeneration\n\nOn Star MeleeWeaponRangedWeapon hit:\n• 60% chance to inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Frost Cleaver",
+    "tooltips": [
+      "On hit:\n• Inflict 3 Chill\n\nOn critical hit:\n• Inflict 3 Chill\n\nPer Chill on opponent:\n• Gain +5% CritDamage"
+    ]
+  },
+  {
+    "id": "Frost Dagger",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Chill\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Frost Emblem",
+    "tooltips": [
+      "Every 3 seconds:\n• Inflict 1 Chill"
+    ]
+  },
+  {
+    "id": "Frost Quiver",
+    "tooltips": [
+      "On Star RangedWeapon hit:\n• Transfer up to 2 Chill to opponent\n• 50% chance to:\n  • Inflict 1 Chill\n\nEvery 3.6 seconds:\n• Gain 3 Haste\n• Star RangedWeapon gains +20% CritDamage and +14% faster attacks"
+    ]
+  },
+  {
+    "id": "Frost Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• Inflict 1 Chill per Star RangedWeaponPet\n\nAfter 15 seconds:\n• Gain 1 Armor per Chill inflicted\n\nAfter 25 seconds:\n• Gain 2 Armor per Chill inflicted"
+    ]
+  },
+  {
+    "id": "Frost Tome",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 25% chance to inflict 2 Chill\n\nEvery 4 seconds:\n• Use 2 Mana to inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Frostbite Ring",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Inflict 2 Chill per Star MeleeWeaponRangedWeaponPet\n\nHealth below 20%:\n• Inflict 2 Chill per Star MeleeWeaponRangedWeaponPet per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Frostbite Wand",
+    "tooltips": [
+      "On hit: \n• Use 4 Mana to inflict 6 Chill\n\nPer Chill on opponent:\n• Gain +5% CritDamage"
+    ]
+  },
+  {
+    "id": "Magic Orb",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• Use 1 Mana to inflict 1 Burn or 1 Chill"
+    ]
+  },
+  {
+    "id": "Frostwing",
+    "tooltips": [
+      "On hit:\n• 14% chance per Star Pet to inflict 4 Chill\n\nOn Star Bees hit:\n• 30% chance to inflict 2 Chill\n\nOn shop entered:\n• 25% chance to get 1 Frost Emblem"
+    ]
+  },
+  {
+    "id": "Frozen Sprite",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Chill\n\nOn critical hit:\n• Inflict 2 Chill\n\nPer Chill on opponent:\n• Gain +1% CritChance and +1% faster attacks"
+    ]
+  },
+  {
+    "id": "Frozen Stick",
+    "tooltips": [
+      "On hit:\n• Use 1 Mana to inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Full Plate Splatterguard",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 90 Armor and 10 Resist\n• Reduce Damage taken by 30%\n\nEvery 4.6 seconds:\n• Gain 2 Armor and 2 Resist per Star item\n• Cleanse 3 Debuff"
+    ]
+  },
+  {
+    "id": "Fulmination Hammer",
+    "tooltips": [
+      "On hit:\n• Remove 25 Armor\n• Gain 2 Static and +2 max Damage per Star TypeAccessory\n• 33% chance to inflict Stun for 1.5 seconds\n\nOn critical hit:\n• Gain 5 Static and +5 max Damage\n\nDischarge (30Static):\n• Remove 12 Buff"
+    ]
+  },
+  {
+    "id": "Funky Fundue",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Gain 3 Regeneration\n• Cleanse 3 Debuff\n• Star TypeRat gains +3 Damage\n\nOn shop entered:\n• Catch 1 TypeRat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Fur Boots",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor and 2 Empower\n\nEvery 3.7 seconds:\n• Cleanse 4 Chill\n• Gain 1 Empower\n• Gain 1 Stamina\n\nThis and Star MeleeWeaponRangedWeapon are not affected by Chill"
+    ]
+  },
+  {
+    "id": "Fury Edge",
+    "tooltips": [
+      "On hit:\n• Gain 1 Empower"
+    ]
+  },
+  {
+    "id": "Fury Fungus",
+    "tooltips": [
+      "Health below 50%:\n• Gain 1 Empower per Star MeleeWeapon"
+    ]
+  },
+  {
+    "id": "Fuzzy Sous-chef",
+    "tooltips": [
+      "On hit:\n• Gain +1 Damage per Star TypeRat\n• Gain 1 Buff per Star TypeIngredient\n\nOn shop entered:\n• Get 1 TypeIngredient"
+    ]
+  },
+  {
+    "id": "Galvanic Armor",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 50 Armor and 4 Resist\n• Reduce Damage taken by 12%\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 40% chance this and Star items gain 1 Static\n   \nDischarge (20Static):\n• Cleanse 18 Debuff"
+    ]
+  },
+  {
+    "id": "Gambler's Dice",
+    "tooltips": [
+      "Every 6 seconds:\n• Gain 1-6 Luck and 1-6 Luck for 6 seconds\n• Steal 1 Buff per Star TypePlant\n\nWhile equipped:\n• +50% chance to increase the rarity \non a shop item when it rerolls"
+    ]
+  },
+  {
+    "id": "Gambler's Fortitude",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 12 MaxHealth\n\nOn shop reroll\n• 50% chance to increase the MaxHealth gained by 4"
+    ]
+  },
+  {
+    "id": "Game Night Guile",
+    "tooltips": [
+      "When chosen:\n• Gain 3 free rerolls\n\nEvery 4 fights won:\n• Gain 2 free rerolls\n\nEvery 4 fights lost:\n• Gain 3 free rerolls\n\nFights won: 0/4\nFights lost: 0/4"
+    ]
+  },
+  {
+    "id": "Gear",
+    "tooltips": [
+      "Start of Dawn:\n• Star items gain +4% faster activations"
+    ]
+  },
+  {
+    "id": "Gemforged Warpick",
+    "tooltips": [
+      "On hit:\n• Remove 16 Armor and 4 Buff\n• Gain 1 Regeneration, 1 Haste, 1 Empower\n\nOn critical hit:\n• Inflict 3 Bleed\n\nOn shop entered:\n• Go Mining (Core)"
+    ]
+  },
+  {
+    "id": "Gemfused Workboots",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor and 2 Haste\n\nEvery 4.2 seconds:\n• Gain 1 Haste per Star MeleeWeaponRangedWeapon\n• Gain 1 Stamina"
+    ]
+  },
+  {
+    "id": "Gemstone Forge Hammer",
+    "tooltips": [
+      "On hit:\n• Gain 10 Armor, 3 Mana\n\nOn critical hit:\n• Star MeleeWeapon gain +3 Damage\n• Inflict 3 Burn, 3 Chill\n\nOn shop entered:\n• Break 1 Star Rock to find an Ore\n• Break 1 Star Ore to find a Gem\n• Hammer 3 Star Lumps of Coal to make a Diamond"
+    ]
+  },
+  {
+    "id": "Gem-Studded Forgeplate",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 100 Armor and 10 Resist\n• Reduce Damage taken by 30%\n\nEvery 7 seconds:\n• Gain 15 Armor per Star item\n• Gain 3 Empower\n• Use 6 Mana to reduce Damage taken by 10% for 5 seconds"
+    ]
+  },
+  {
+    "id": "Getting Hammered I",
+    "tooltips": [
+      "Harkon Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Sledgehammer\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Getting Hammered II",
+    "tooltips": [
+      "Harkon Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Sledgehammer\n   • 1 Noxious Red Mush\n      • Get 1 Warhammer\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Getting Hammered III",
+    "tooltips": [
+      "Harkon Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Bonecrusher\n   • 1 Rat Burglar\n   • 1 Pleasant Green Paste\n      • Get 1 Skullsmasher\n      • Get a new Harkon Heist"
+    ]
+  },
+  {
+    "id": "Giant Chocolate Gift Box",
+    "tooltips": [
+      "Every 3 seconds:\n• Heal for 4 Health per empty slot\n• Heal for 8 Health per filled slot\n   Activate absorbed items:\n • No Filled Chocolate absorbed yet\n\nOn shop entered:\n• Absorb 1 Star Filled Chocolate (0/9)"
+    ]
+  },
+  {
+    "id": "Giant's Belt",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Luck and 2 Empower\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 1 Empower"
+    ]
+  },
+  {
+    "id": "Ginseng Root",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 15 MaxHealth",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Gladiator's Emblem",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeaponPet):\n• 25% chance to gain 5 MaxHealth per Star MeleeWeaponRangedWeaponPet"
+    ]
+  },
+  {
+    "id": "Glaring Bulb",
+    "tooltips": [
+      "On Star item activation:\n• 50% chance to gain 2 Static\n\nDischarge (20Static):\n• Cleanse 15 Blind\n• Heal for 30 Health\n• Inflict 1 Blind per Star item with Static\n\nOn shop entered:\n• Get 1 Spark"
+    ]
+  },
+  {
+    "id": "Glasshead",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Cleanse 3 Blind\n• Gain 3 Luck"
+    ]
+  },
+  {
+    "id": "Gleaming Kunai",
+    "tooltips": [
+      "When hit 8 times (MeleeWeaponRangedWeapon):\n• Trigger an attack\n• Reduce hits required by 1 (minimum 1)\n\nOn hit:\n• Inflict 2 Bleed\n• Gain +2% CritChance"
+    ]
+  },
+  {
+    "id": "Gloves of Power",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 25 Armor\n• Star MeleeWeaponRangedWeapon gain +3 Damage \n\nOn Star MeleeWeaponRangedWeapon hit:\n• 40% chance Star MeleeWeaponRangedWeapon gains +1 Damage"
+    ]
+  },
+  {
+    "id": "Gobituary Dart",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison per second for 8 seconds\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Goblin Gizmo",
+    "tooltips": [
+      "While equipped:\n• +5% chance to get items on sale"
+    ]
+  },
+  {
+    "id": "Goblin Spice Mix",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Inflict 1 Debuff per Star TypeFood of another type\n• Steal 3 Health per Debuff type on opponent",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Gobliterator Dart",
+    "tooltips": [
+      "On hit:\n• Steal 1 Buff\n• Inflict 1 Chill and 1 Poison per second for 6 seconds\n• Remove 1 Haste or 1 Empower per second for 6 seconds\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Gobnoxious Dart",
+    "tooltips": [
+      "On hit:\n• Steal 1 Buff\n• Inflict 1 Chill and 1 Poison per second for 6 seconds\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Gold Attuned Shovel",
+    "tooltips": [
+      "On hit:\n• Gain 1 Luck\n• Inflict 1 Blind\n\nOn shop entered:\n• Dig for Gold"
+    ]
+  },
+  {
+    "id": "Gold Bar",
+    "tooltips": [
+      "On shop entered:\n• Gain 5 Gold"
+    ]
+  },
+  {
+    "id": "Gold Elixir",
+    "tooltips": [
+      "Every 4 seconds:\n• Star Bees gain +5% CritChance",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Gold Ore",
+    "tooltips": [
+      "On hit:\n• Gain 1 Luck\n\nOn shop entered:\n• 50% chance to gain 1 Gold\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Golden Clover",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Luck\n\nWhile equipped:\n• +40% chance to increase the rarity \non a shop item when it rerolls.\n\nOn shop entered:\n• Gain 0-3 Gold"
+    ]
+  },
+  {
+    "id": "Golden Egg",
+    "tooltips": [
+      "On shop entered:\n• Gain 0-2 Gold"
+    ]
+  },
+  {
+    "id": "Golden Eggnog",
+    "tooltips": [
+      "Health below 50% or 15 Chill on you:\n• Cleanse 15 Chill\n• Gain 15 MaxHealth\n• Gain 2 Resist per absorbed Golden Egg\n\nOn shop entered:\n• Absorb 1 Star Golden Egg (0/3)\n• Gain 1 Gold per absorbed Golden Egg"
+    ]
+  },
+  {
+    "id": "Golden Omelette",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 8 MaxHealth\n\nOn shop entered:\n• Gain 2 Gold",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Golden Skull",
+    "tooltips": [
+      "Every 3.5 seconds:\n• Gain 1 Luck\n• Drain 0.5 Stamina\n• Inflict 1 Curse\n\nWhile equipped:\n• +50% chance to increase the rarity \non a shop item when it rerolls.\n\nOn shop entered:\n• Gain 0-3 Gold"
+    ]
+  },
+  {
+    "id": "Golden Tail",
+    "tooltips": [
+      "When time of day changes:\n• Gain 2 Empower and 2 Luck\n\nEvery 4.2 seconds:\n• Cleanse 4 Chill\n\nThis is not affected by Chill"
+    ]
+  },
+  {
+    "id": "Goliathfly",
+    "tooltips": [
+      "On hit:\n• Gain 6 MaxHealth per Star PetTypePlant\n• Inflict 3 Poison per Star PetTypePlant\n\nOn critical hit:\n• Activate Poison"
+    ]
+  },
+  {
+    "id": "Gothic Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 60 Armor\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to:\n    • Block 20 Damage\n    • Drain 0.5 Stamina from opponent\n\nOn shop entered:\n• Gain 5 Gold"
+    ]
+  },
+  {
+    "id": "Gourd Grimace",
+    "tooltips": [
+      "Every 4.3 seconds:\n• Star MeleeWeaponRangedWeaponPet gains +1% CritChance  and +5% CritDamage per Star Pumpkin\n\nStart of Dusk:\n• Gain 8 Regeneration per Star Pumpkin"
+    ]
+  },
+  {
+    "id": "Grab Bag",
+    "tooltips": [
+      "On MeleeWeaponRangedWeaponPet inside hit:\n• 20% chance to steal 1 Health\n\nOn shop entered:\n• If there is an item from another hero inside:\n   • Get 1 common item from last opponent's hero"
+    ]
+  },
+  {
+    "id": "Grandma's Dusty Blast Box",
+    "tooltips": [
+      "Start of Dawn:\n• 1 Star Danger Candle gains +33% faster activations\n• 1 Star Boom Barrel gains +20% faster activations\n\nOn Star Danger Candle inflicting Stun:\n• Inflict 4 Burn and 1 Blind\n\nOn Star Boom Barrel inflicting Stun:\n• Inflict 8 Burn and 3 Blind\n\nOn shop entered:\n• Get 1 Wax Candle"
+    ]
+  },
+  {
+    "id": "Grandpaw's Cookbook",
+    "tooltips": [
+      "Every 7.8 seconds:\n• Activate all absorbed TypeIngredient on Star items\n\nOn shop entered:\n• Get 2 TypeIngredient"
+    ]
+  },
+  {
+    "id": "Grandpaw's Pepper Mill",
+    "tooltips": [
+      "Every 3.6 seconds:\n• Gain 1 Buff per Star TypeFoodTypeIngredient\n• Heal for 4 Health per Star TypeFoodTypeIngredient"
+    ]
+  },
+  {
+    "id": "Grape Burst",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 1 Blind\n\nOn shop entered:\n• Destroy this"
+    ]
+  },
+  {
+    "id": "Grape Juice Cask",
+    "tooltips": [
+      "When time of day changes:\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 1 Buff\n• Cleanse 2 Debuff\n\nOn shop entered:\n• Get 1 Grapes"
+    ]
+  },
+  {
+    "id": "Grapes",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Gain 2 Mana or 1 Regeneration",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Grapeshot Slinger",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana\n• Use 3 Mana to gain +5% CritChance\n\nOn critical hit:\n• Gain 1 Regeneration\n• Gain +3% faster attacks per Star Grapes"
+    ]
+  },
+  {
+    "id": "Graveyard Skullduggery I",
+    "tooltips": [
+      "Enoch Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Simple Sickle\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Graveyard Skullduggery II",
+    "tooltips": [
+      "Enoch Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Simple Sickle\n   • 1 Stunbreaker Shield\n      • Get 1 Simple Sickle and 1 Graveyard Soil\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Graveyard Skullduggery III",
+    "tooltips": [
+      "Enoch Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Soulharvester\n   • 1 Ingobnito Mask\n   • 1 Subtle Distractor Shield\n      • Get 1 Trick-or-Treat Bucket\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Graveyard Skullduggery IV",
+    "tooltips": [
+      "Enoch Step IV\r\nOn shop entered:\r\n• If Star items are exactly:\r\n   • 1 Soulharvester\r\n   • 1 Candy Corn\r\n   • 1 Hypnodisc Deflector\r\n      • Get 1 Spiderweb\r\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Graveyard Soil",
+    "tooltips": [
+      "When Star items trap a Soul:\n• 40% chance for it to trap another Soul"
+    ]
+  },
+  {
+    "id": "Green Snapper",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 MaxHealth and 30 Armor\n\nOn hit:\n• Gain 2 Regeneration and 3 Mana"
+    ]
+  },
+  {
+    "id": "Green Thumb Prickery I",
+    "tooltips": [
+      "Buzz Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Brambleheart\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Green Thumb Prickery II",
+    "tooltips": [
+      "Buzz Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Bramblebat\n   • 1 Inconspicuous Fedora\n      • Get 1 Wildflower Seeds\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Green Thumb Prickery III",
+    "tooltips": [
+      "Buzz Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Bramblebat\n   • 1 Wildflower Seeds\n   • 1 Ingobnito Mask\n      • Get 1 Brambleheart and 1 Wild Rose\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Green Thumb Prickery IV",
+    "tooltips": [
+      "Buzz Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Bloodthorn\n   • 1 Spiked Shield\n   • 1 Partial Invisibility Cloak\n      • Get 1 Brambleheart and 1 Briarthorn\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Grilled Cheese",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Gain 2 Regeneration\n• Star TypeRat gains +2 Damage\n\nOn shop entered:\n• 25% chance to catch 1 TypeRat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Grim Scythe",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul \n• Steal 3 MaxHealth\n\nPer Soul trapped:\n• Gain +0.5 Damage"
+    ]
+  },
+  {
+    "id": "Guppy",
+    "tooltips": [
+      "Every 4.6 seconds:\n• Gain 3 MaxHealth",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Hag's Cauldron",
+    "tooltips": [
+      "Every 4 seconds:\n• Remove 4 Buff and 12 MaxHealth\n   Activate absorbed items:\n   • No TypeCharm absorbed yet\n\nOn shop entered:\n• Absorb 1 Star TypeCharm (0/5)"
+    ]
+  },
+  {
+    "id": "Hag's Hat",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Mana and 3 Resist\n\nEvery 3.5 seconds:\n• Gain 2 Mana\n• Cleanse 3 Debuff"
+    ]
+  },
+  {
+    "id": "Hag's Hatred",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +7% faster activations per Star TypeSkull\n\nEvery 4.5 seconds:\n• Gain 1 Mana and inflict 1 Curse per Star PetTypeAccessory\n• Use 3 Mana to steal 1 Health per Curse on opponent"
+    ]
+  },
+  {
+    "id": "Hailstorm Scepter",
+    "tooltips": [
+      "On hit:\n• Gain 4 Static\n• Gain 1 Mana per Star TypeAccessory\n• Use 4 Mana to inflict 4 Chill\n\nDischarge (22Static):\n• Gain 4 Haste and +9 max Damage \n• Inflict 2 Chill per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Hammer-shaped Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Resist and 25 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Hand Crossbow",
+    "tooltips": [
+      "When this shoots a Bolt or Dart:\n• That shot gets +4 Damage\n\nOn hit:\n• Shoot 1 Star Bolt or Dart"
+    ]
+  },
+  {
+    "id": "Hand File",
+    "tooltips": [
+      "On hit:\n• 50% chance to Sabotage 1 enemy MeleeWeaponRangedWeapon\n\nSabotage:\n• Remove -1 min Damage and -10% CritDamage from target"
+    ]
+  },
+  {
+    "id": "Harper-Sonic Dart Sling",
+    "tooltips": [
+      "On hit:\n• Gain 2 Buff or 12 Armor\n• Use 1 Star Dart or Bolt\n• Star Darts and Bolts gain +2 Damage\n\nOn Star Dart or Bolt hit:\n• Inflict 1 Poison"
+    ]
+  },
+  {
+    "id": "Pumpkin",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Gain 2 MaxHealth\n• 50% chance to inflict 1 Curse",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Harvest Skull",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Drain 0.5 Stamina\n• Gain 2 Regeneration\n• Inflict 1 Curse"
+    ]
+  },
+  {
+    "id": "Haunted Bat",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul\n• Gain 1 Regeneration\n\nOn critical hit:\n• Gain 2 Regeneration\n• Steal 1 Stamina and 12 MaxHealth\n\nEvery 4 Soul trapped:\n• Inflict 4 Curse\n• Gain +10% CritChance"
+    ]
+  },
+  {
+    "id": "Having It Bolt Ways I",
+    "tooltips": [
+      "Sage Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 2 Iron Bolt\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Having It Bolt Ways II",
+    "tooltips": [
+      "Sage Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Razor Bolt\n   • 1 Tactical Blowgun\n      • Get 1 Autotrigger and 1 Iron Bolt\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Having It Bolt Ways III",
+    "tooltips": [
+      "Sage Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Autotrigger\n   • 1 Bronze Bar\n   • 1 Improvised Smokebomb\n      • Get 1 Oil and 1 Iron Bolt\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Having It Bolt Ways IV",
+    "tooltips": [
+      "Sage Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Autotrigger\n   • 1 Premeditated Stinkbomb\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Midori Toxin and 1 Razor Bolt\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Head Chef's Skewer",
+    "tooltips": [
+      "On hit:\n• 33% chance to trigger a free attack\n• Gain 3 Buff\n• Inflict 3 Bleed\n   Activate absorbed items:\n   • No TypeIngredient absorbed yet\n\nOn shop entered:\n• Absorb 1 Star TypeIngredient (0/3)"
+    ]
+  },
+  {
+    "id": "Healing Seed",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Regeneration\n\nOn Star TypeFood activation:\n• 8% chance to trigger Regeneration\n\nOn every Regeneration activation:\n• Heal for 2 Health per Star TypeFood",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Health Potion",
+    "tooltips": [
+      "Health below 75%:\n• Heal for 32 Health"
+    ]
+  },
+  {
+    "id": "Heart of the Mountain",
+    "tooltips": [
+      "Every 5.5 seconds:\n• Gain 4 Mana, 3 Regeneration, 2 Haste, 1 Empower\n\nOn Star Quartz Sprite hit:\n• Inflict 1 Chill\n\nOn Star Quartz Sprite critical hit:\n• Star Quartz Sprite gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Hearts Ablaze",
+    "tooltips": [
+      "Per 7 Chill inflicted on you:\n• Cleanse 1 Chill\n• Heal for 2 Health"
+    ]
+  },
+  {
+    "id": "Heater Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 25 Armor\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 40% chance to:\n    • Block 8 Damage"
+    ]
+  },
+  {
+    "id": "Heavenly Skull",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Regeneration\n\nEvery 3.5 seconds:\n• Gain 1 Regeneration\n• Gain 1.5 Stamina\n• Cleanse 1 Poison and 1 Curse"
+    ]
+  },
+  {
+    "id": "Holy Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to cleanse 1 Debuff\n\nEvery 3 seconds:\n• Use 2 Mana to gain 2 Resist"
+    ]
+  },
+  {
+    "id": "Holy Libram",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 24 Mana\n\nEvery 5 seconds:\n• Use 8 Mana to:\n   • Cleanse 3 Debuff\n   • Heal for 48 Health\n\nOn shop entered:\n• Gain 1 free reroll\n• 33% chance to get 1 Essence"
+    ]
+  },
+  {
+    "id": "Honey Bee",
+    "tooltips": [
+      "On hit:\n• 10% chance to Stun an enemy item for 1.5 seconds\n\nOn shop entered:\n• 10% chance per Star TypePlant to get 1 Manuka Honey"
+    ]
+  },
+  {
+    "id": "Hooked Blade",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Hooked Dagger",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Hot Choconut",
+    "tooltips": [
+      "Health below 50% or 20 Chill on you:\n• Cleanse 20 Chill\n• Gain 10 Armor per absorbed Filled Chocolate\n   Activate absorbed items:\n   • No Filled Chocolate absorbed yet\n\nOn shop entered:\n• Absorb 1 Star Filled Chocolate (0/3)"
+    ]
+  },
+  {
+    "id": "Huddle Up",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 12 MaxHealth\n\nOn shop entered:\n• Increase the MaxHealth gained by 2 per different equipped Pet"
+    ]
+  },
+  {
+    "id": "Huge Chocolate Gift Box",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Heal for 3 Health per empty slot\n• Heal for 6 Health per filled slot\n   Activate absorbed items:\n • No Filled Chocolate absorbed yet\n\nOn shop entered:\n• Absorb 1 Star Filled Chocolate (0/6)"
+    ]
+  },
+  {
+    "id": "Hungering Ward",
+    "tooltips": [
+      "When time of day changes:\n• Stun an enemy item for 10 seconds\n• Gain 40 Armor per Star TypeArmor\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 30% chance to block 1 Damage \n\nWhen critically hit (MeleeWeaponRangedWeaponPet):\n• Increase Damage blocking by 1\n• Steal 3 Health per Star TypeArmor"
+    ]
+  },
+  {
+    "id": "Hungry Wand",
+    "tooltips": [
+      "On hit: \n• Steal 1 Mana from opponent\n• Use 5 Mana to inflict 3 Burn"
+    ]
+  },
+  {
+    "id": "Hunter's Bow",
+    "tooltips": [
+      "On hit:\n• Use 1 Haste to gain +1 Damage\n• 60% chance to gain Hunter's mark\n\nHunter's mark:\n• Gain 5 Luck for 3 seconds"
+    ]
+  },
+  {
+    "id": "Hunting Knife",
+    "tooltips": [
+      "On hit:\n• Gain 2 Haste\n\nOn critical hit:\n•  Inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Hurricane Focus",
+    "tooltips": [
+      "On hit:\n• Gain 5 Static\n• Gain 1 Mana per Star TypeAccessory\n• Use 5 Mana to inflict 6 Chill\n\nDischarge (22Static):\n• Remove 2 Buff per Star TypeAccessory\n• Gain 5 Haste and +12 max Damage \n• Inflict 3 Chill per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Hypnodisc Deflector",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 60 Armor, 30 MaxHealth, 3 Lifesteal\n• Reduce Stun duration by 50%\n• Increase block by 3 Damage per Star item from another hero\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to: \n   • Block 12 Damage\n   • Inflict 2 Poison, 2 Chill, or 2 Curse"
+    ]
+  },
+  {
+    "id": "I Saw What You Did I",
+    "tooltips": [
+      "Tink Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Superior Spring\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "I Saw What You Did II",
+    "tooltips": [
+      "Tink Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Superior Spring\n   • 1 Inconspicuous Fedora\n      • Get 1 Pliers\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "I Saw What You Did III",
+    "tooltips": [
+      "Tink Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Pliers\n   • 1 Barbed Spring\n   • 1 Ingobnito Mask\n      • Get 1 Screwsmacker and 1 Scrap Metal\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "I Saw What You Did IV",
+    "tooltips": [
+      "Tink Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Carnage Saw\n   • 1 Barbed Spring\n   • 1 Rat Burglar\n      • Get 1 Elemental Core\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Ice Age Boomer",
+    "tooltips": [
+      "After 12 seconds: \n• Deal 64 Damage \n• Inflict 46 Chill and 19 Burn"
+    ]
+  },
+  {
+    "id": "Iceburn Scepter",
+    "tooltips": [
+      "On hit: \n• Inflict 2 Chill and 2 Burn\n\nWhile opponent has 40+ Burn:\n• This and Star MeleeWeaponRangedWeapon gain +100% CritDamage\n\nWhile opponent has 40+ Chill:\n• This and Star MeleeWeaponRangedWeapon gain +10 Damage"
+    ]
+  },
+  {
+    "id": "Icicle Shard",
+    "tooltips": [
+      "Per Chill on opponent:\n• Star MeleeWeaponRangedWeaponPet gains +2.5% CritDamage"
+    ]
+  },
+  {
+    "id": "Impossible Bottle",
+    "tooltips": [
+      "Health below 75%:\n• Gain 3 Haste\n• Inflict 4 Chill\n\nHealth below 60%:\n• Gain +3 more uses\n\nHealth below 40%:\n• Gain +5 more uses"
+    ]
+  },
+  {
+    "id": "Improvised Smokebomb",
+    "tooltips": [
+      "After 12 seconds:\n• Inflict 1 Blind per second for 10 seconds\n• Inflict 2 Burn per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Inconspicuous Fedora",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Luck and 2 Resist\n\nEvery 4.2 seconds:\n• Gain 1 Resist per Star item"
+    ]
+  },
+  {
+    "id": "Indomitable Snowman",
+    "tooltips": [
+      "On hit:\n• Inflict 15 Chill for 6 seconds\n• Inflict 2 Chill per absorbed Snowball\n\nOn Star MeleeWeaponRangedWeapon hit:\n• 50% chance to inflict 1 Chill\n\nOn shop entered:\n• Absorb 1 Star Snowball (0/8)"
+    ]
+  },
+  {
+    "id": "Infernal Ashes",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• Inflict 1 Burn\n\nAfter 12 seconds:\n• Star MeleeWeaponRangedWeapon gains +1 Damage per 5 Burn on opponent"
+    ]
+  },
+  {
+    "id": "Infernal Cog",
+    "tooltips": [
+      "Start of Dawn:\n• Star items gain +10% faster activations\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 60% chance to use 1 Mana to inflict 2 Burn"
+    ]
+  },
+  {
+    "id": "Infernal Tide",
+    "tooltips": [
+      "On hit:\n• Use 5 Mana to gain 3 Regeneration and inflict 3 Burn\n\nOn critical hit:\n• Gain 1 Mana per Burn on opponent\n• Heal for 3 Health per Regeneration on you\n\nPer Regeneration on you:\r\n• Gain +1% CritChance"
+    ]
+  },
+  {
+    "id": "Infinity Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to:\n   • Gain 4 Buff\n   • Inflict 2 Debuff\n\nEvery 3.3 seconds:\n• Use 4 Mana to:\n   • Gain 8 Buff \n   • Inflict 4 Debuff"
+    ]
+  },
+  {
+    "id": "Infinity Sight",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 50% chance to gain Hunter's mark\n\nOn Star MeleeWeaponRangedWeapon critical hit:\n• Star MeleeWeaponRangedWeapon gains +5% CritDamage \n\nHunter's mark:\n• Gain 5 Luck for 3 seconds"
+    ]
+  },
+  {
+    "id": "Ingobnito Mask",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Luck and 3 Resist\n\nEvery 3.8 seconds:\n• Gain 1 Resist per Star item\n• Steal 1 Buff per Star item from another hero"
+    ]
+  },
+  {
+    "id": "Iron Bar",
+    "tooltips": [
+      "When Star item activates:\n• 30% chance to gain 5 Armor"
+    ]
+  },
+  {
+    "id": "Iron Bolt",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed\n• Remove 1 Regeneration\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Iron Chisel",
+    "tooltips": [
+      "On Star MeleeWeapon hit:\n• Remove 4 Armor\n\nOn shop entered:\n• 20% chance to Go Mining (Surface)"
+    ]
+  },
+  {
+    "id": "Iron Forge Hammer",
+    "tooltips": [
+      "On hit:\n• Gain 4 Armor\n\nOn critical hit:\n• Star MeleeWeapon gains +2 Damage"
+    ]
+  },
+  {
+    "id": "Iron Ore",
+    "tooltips": [
+      "On hit:\n• Gain 5 Armor\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Iron Sword",
+    "tooltips": []
+  },
+  {
+    "id": "Ironhowl",
+    "tooltips": [
+      "On hit:\n• Gain 1 Regeneration\n\nOn critical hit:\n• Gain 1 Regeneration\n\nHealth below 50%:\n• Cleanse 8 Debuff"
+    ]
+  },
+  {
+    "id": "Ironwill Banner",
+    "tooltips": [
+      "Every 2.9 seconds:\n• Gain 12 Armor per Star TypeArmor\n\nOn every Fatigue activation:\n• Gain 6 Armor per Star TypeArmor"
+    ]
+  },
+  {
+    "id": "Ironwood Boltcaster",
+    "tooltips": [
+      "When this shoots a Bolt or Dart:\n• That shot gets +6 Damage\n• Use 2 Mana to double that bonus \n\nOn hit:\n• Shoot 1 Star Bolt or Dart"
+    ]
+  },
+  {
+    "id": "It Fell Off A Sleigh",
+    "tooltips": [
+      "Every 5 shops entered:\n• Get an item from the hero of your last opponent\n\nShops entered: 0/5"
+    ]
+  },
+  {
+    "id": "Jack-o-Lantern",
+    "tooltips": [
+      "Every 3.1 seconds:\n   During Dawn:\n   • Gain 2 Resist and 2 Regeneration\n   During Dusk:\n   • Inflict 2 Blind and 2 Curse"
+    ]
+  },
+  {
+    "id": "Jade Dagger",
+    "tooltips": [
+      "On hit:\n• Gain +5% CritChance\n\nOn critical hit:\n• Inflict 4 Poison \n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Jade Stone",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +10% Accuracy and +5% CritChance\n\nOn shop entered:\n• Polishes into a Refined Jade"
+    ]
+  },
+  {
+    "id": "Jagged Blade",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 2 Bleed"
+    ]
+  },
+  {
+    "id": "Jelly Jar",
+    "tooltips": [
+      "After 6 seconds:\n• Gain 2 Buff per Star Jelly Bean\n\nOn shop entered:\n• Get 1 Jelly Bean"
+    ]
+  },
+  {
+    "id": "Jetsam",
+    "tooltips": [
+      "On shop entered:\n• Break open and get 1-2 Cargo items"
+    ]
+  },
+  {
+    "id": "Just Desserts",
+    "tooltips": [
+      "Now and every 5 shops entered:\n• Get an Experimental Ice Cream\n\nShops entered: 0/5"
+    ]
+  },
+  {
+    "id": "Keen Edges",
+    "tooltips": [
+      "When time of day changes:\n• All equipped MeleeWeaponRangedWeapon gain +16% CritDamage"
+    ]
+  },
+  {
+    "id": "Kelvin's Tome",
+    "tooltips": [
+      "Every 4.6 seconds:\n• Inflict 2 Burn and 2 Chill\n• Gain 1 Mana\n\nOn shop entered:\n• Turn Star Rock into Lava Rock, Frost Emblem, or 2 Rock"
+    ]
+  },
+  {
+    "id": "Kill Command",
+    "tooltips": [
+      "Opponent health below 50%:\n• All equipped Pet gain +20% CritChance and +20% CritDamage"
+    ]
+  },
+  {
+    "id": "Kitchen Aides",
+    "tooltips": [
+      "When time of day changes:\n• All equipped TypeRat gain +8% faster attacks"
+    ]
+  },
+  {
+    "id": "Kitsune Spirit Mask",
+    "tooltips": [
+      "Start of Dawn:\n• Reduce Stun duration by 30%\n\nEvery 4.2 seconds:\n• Star MeleeWeaponRangedWeapon gains +2 Damage and +10% CritChance"
+    ]
+  },
+  {
+    "id": "Kitten's Oven Mittens",
+    "tooltips": [
+      "Burn on you triggers 1 second slower\n\nOn every Burn activation on you:\n• Gain 2 Haste\n• Cleanse 1 Burn\n\nPer Burn on opponent:\n• Star TypeFood gains +1% faster activations\n\nOn shop entered:\n• Use 4 Gold to get 1 Spicy Sausage or 1 Dragonbreath Chili"
+    ]
+  },
+  {
+    "id": "Kiwi Dewdrop",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Buff per Star Jelly Bean\n\nOn shop entered:\n• Get 1 Jelly Bean"
+    ]
+  },
+  {
+    "id": "Knights Aegis",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 35 Armor\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 50% chance to block 6 Damage\n• 20% chance to gain 1 Empower, 1 Thorns, or 1 Regeneration"
+    ]
+  },
+  {
+    "id": "Knights Blessing",
+    "tooltips": [
+      "Every 3.7 seconds:\n• Gain 1 Buff per Star TypeArmor\n• Cleanse 2 Debuff per Star TypeArmor"
+    ]
+  },
+  {
+    "id": "Knights Razor",
+    "tooltips": [
+      "On hit:\n• Remove 2 Buff\n\nOn critical hit:\n• Inflict 2 Bleed"
+    ]
+  },
+  {
+    "id": "Knights Sigil",
+    "tooltips": [
+      "Every 150 Armor lost:\n• Gain 1 Empower per Star TypeArmor"
+    ]
+  },
+  {
+    "id": "Knighttime Break-in I",
+    "tooltips": [
+      "Ronan Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Training Blade\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Knighttime Break-in II",
+    "tooltips": [
+      "Ronan Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Muck Rat\n   • 1 Inconspicuous Fedora\n      • Get 1 Jagged Blade\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Knighttime Break-in III",
+    "tooltips": [
+      "Ronan Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Knight's Razor\n   • 1 Ingobnito Mask\n   • 1 Stunbreaker Shield\n      • Get 1 Hooked Blade\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Knighttime Break-in IV",
+    "tooltips": [
+      "Ronan Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Rat Burglar\n   • 1 Champion's Ripper\n   • 1 Subtle Distractor Shield\n      • Get 1 Knight's Sigil\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Koneko Steel Knife",
+    "tooltips": [
+      "On hit:\n• Gain +3% faster attacks per Star TypeIngredient\n• Inflict 2 Bleed\n\nOn critical hit:\n• Star TypeIngredient gains +5% faster activations\n• Inflict 2 Bleed"
+    ]
+  },
+  {
+    "id": "Lantern",
+    "tooltips": [
+      "Every 3.1 seconds:\n   During Dawn:\n   • Gain 2 Resist\n   During Dusk:\n   • Inflict 2 Blind"
+    ]
+  },
+  {
+    "id": "Large Water Potion",
+    "tooltips": [
+      "Health below 50% or 15 Burn on you:\n• Cleanse 15 Burn\n• Heal for 25 Health"
+    ]
+  },
+  {
+    "id": "Lava Boulder",
+    "tooltips": [
+      "On hit:\n• Inflict 6 Burn\n\n• Can only be thrown once per battle\n\nOn shop entered:\n• Turn 1 Star Rock into a Lava Rock"
+    ]
+  },
+  {
+    "id": "Lava Dagger",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Burn\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Lava Golem",
+    "tooltips": [
+      "On hit:\n• Inflict 6 Burn\n\nStar TypeMineral can now be thrown multiple times\n\nOn shop entered:\n• Turn up to 2 Star Rock into Lava Rock"
+    ]
+  },
+  {
+    "id": "Lava Rock",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Burn\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "LB-7 Gobstacle Skippers",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 55 Armor\n• Gain +10% faster activations per Star MeleeWeaponRangedWeaponTypePotion\n\nEvery 7 seconds:\n• Gain 3 Stamina\n• Gain 33 Haste for 3 seconds"
+    ]
+  },
+  {
+    "id": "Leafbound Striders",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 30 Armor and 5 Haste\n\nEvery 3.6 seconds:\n• Gain 1 Stamina\n• Star MeleeWeaponRangedWeapon gains +25% CritDamage\n\nThis counts as 2 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Leafing In A Hurry I",
+    "tooltips": [
+      "Nymphedora Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Wilderness Potion\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Leafing In A Hurry II",
+    "tooltips": [
+      "Nymphedora Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Wilderness Potion\n   • 1 Inconspicuous Fedora\n      • Get 1 Hunting Knife and 1 Dragonleaf\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Leafing In A Hurry III",
+    "tooltips": [
+      "Nymphedora Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Elven Blade\n   • 1 Improvised Smokebomb\n   • 1 Ingobnito Mask\n      • Get 1 Truefire Bracers\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Leafing In A Hurry IV",
+    "tooltips": [
+      "Nymphedora Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Stalker's Shiv\n   • 1 Premeditated Stinkbomb\n   • 1 Partial Invisibility Cloak\n      • Get 1 Dragonflower and 1 Dragonleaf\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Leaky Prototype",
+    "tooltips": [
+      "Start of Dawn:\n• Reduce Stun duration by 90%\n\nEvery 3.2 seconds:\n• Inflict 1 Insanity on yourself\n• Gain 15 Armor per Star TypeArmor\n\nPer Insanity on you:\n• Reduce Damage taken by 1%"
+    ]
+  },
+  {
+    "id": "Leather Armor",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 60 Armor and 3 Resist\n\nEvery 5.6 seconds:\n• Gain 5 Armor per Star item"
+    ]
+  },
+  {
+    "id": "Leather Belt",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Luck\n• Star TypePotion gain +1 more use"
+    ]
+  },
+  {
+    "id": "Leather Boots",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 20 Armor\n\nEvery 4.1 seconds:\n• Gain 1 Stamina"
+    ]
+  },
+  {
+    "id": "Leather Cloak",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor and 2 Resist"
+    ]
+  },
+  {
+    "id": "Length of Rope",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +4% faster attacks"
+    ]
+  },
+  {
+    "id": "Leviathan",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Blind and 5 Bleed\n• 25% chance to gain +5 max Damage\n\nPer Blind on opponent:\n• Gain +3% CritChance\n\nPer Bleed on opponent:\n• Gain +5% CritDamage"
+    ]
+  },
+  {
+    "id": "Life Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to gain 1 Regeneration\n\nEvery 3 seconds:\n• Use 2 Mana to gain 1 Lifesteal"
+    ]
+  },
+  {
+    "id": "Light Bow",
+    "tooltips": [
+      "On hit:\n• 30% chance to gain Hunter's mark\n\nHunter's mark:\n• Gain 5 Luck for 3 seconds"
+    ]
+  },
+  {
+    "id": "Lightning in a Bottle",
+    "tooltips": [
+      "Out of stamina:\n• Gain 4 Stamina\n• Star items gains 4 Static"
+    ]
+  },
+  {
+    "id": "Lightning Rod",
+    "tooltips": [
+      "On hit:\n• Gain 2 Static and 1 Mana\n• Use 2 Mana to gain 2 Static\n\nDischarge (20Static):\n• Gain 2 Haste and +3 max Damage"
+    ]
+  },
+  {
+    "id": "Lightning Sprite",
+    "tooltips": [
+      "On Hit:\n• Gain 5 Static and 3 Mana\n\nDischarge (15Static):\n• Gain +3 max Damage and +15% faster attacks"
+    ]
+  },
+  {
+    "id": "Lily Pad Prince",
+    "tooltips": [
+      "When time of day changes:\n• Gain 2 Empower per Star Pet\n\nOn hit:\n• Stun a random enemy Pet for 6 seconds\n\nThis and Star Pet are affected by Empower"
+    ]
+  },
+  {
+    "id": "Line Cook's Apron",
+    "tooltips": [
+      "Start of Dawn\n• Gain 70 Armor and 4 Resist\n• Reduce Damage taken by 9%\n\nEvery 4.8 seconds:\n• Gain 4 Resist per Star item"
+    ]
+  },
+  {
+    "id": "Liquid Electricity",
+    "tooltips": [
+      "On Star TypePotion use:\n• Gain 4 Static  and 2 Buff\n\nDischarge (20Static):\n• Star TypePotion gains +1 more use\n• Next Discharge requires +10 Static \n\nOn shop entered:\n• Get 1 TypePotion"
+    ]
+  },
+  {
+    "id": "Loaf of Bread",
+    "tooltips": [
+      "Every 5.2 seconds:\n• Heal for 8 Health\n\nEvery 30 MaxHealth gained by Star items:\n• Gain 1 Regeneration",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Lobster Pot",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 20 Armor\n\nOn shop entered:\n• 30% chance to catch a crab or lobster\n• 30% chance  per Star TypeFood to catch a crab or lobster"
+    ]
+  },
+  {
+    "id": "Lockpick Dart",
+    "tooltips": [
+      "On hit:\n• Steal 1 Buff\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Long Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Resist and 9 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Longing Begonia",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 20 MaxHealth\n\nStart of Day and Dusk:\n• Cleanse 5  Debuff"
+    ]
+  },
+  {
+    "id": "Lost Runeword",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 15 MaxHealth per second for 20 seconds\n\nWhen time of day changes:\n• Gain 4 Regeneration and 2 Empower per Star Rune\n\nOn shop entered:\n• Turn 1 Star Rock into a Lost Symbol"
+    ]
+  },
+  {
+    "id": "Lost Symbol",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 20% chance to gain 1 Regeneration"
+    ]
+  },
+  {
+    "id": "Love is in the Air",
+    "tooltips": [
+      "When chosen and on shop entered:\n• Get 1 Love Letter"
+    ]
+  },
+  {
+    "id": "Love Letter",
+    "tooltips": [
+      "On shop entered:\n• If last opponent had any Roses:\n   • Get 1 Wild Rose\n• If last opponent had a Gift Box or Filled Chocolate:\n   • Get 1 Filled Chocolate\n• If last opponent had a Love Letter:\n   • Get 1 Love Letter\n\n• If you got a Wild Rose, Filled Chocolate, or Love Letter:\n   • Destroy this"
+    ]
+  },
+  {
+    "id": "Lucky Clover",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Luck\n\nWhile equipped:\n• +30% chance to increase the rarity \non a shop item when it rerolls"
+    ]
+  },
+  {
+    "id": "Lucky Ratomelon",
+    "tooltips": [
+      "On hit:\n• Gain 1 Mana, 1 Luck, 1 Resist per Star TypeFood\n\nOn shop entered:\n• 50% chance to gain 1 Gold per Star TypeRat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Lucky Tuna",
+    "tooltips": [
+      "Every 3 seconds:\n• Gain 2 Mana and 1 Luck\n• Heal for 5 Health",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Lumps of Coal",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 1 Blind\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Magic Belt",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Mana and 3 Luck\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 1 of each Buff"
+    ]
+  },
+  {
+    "id": "Magic Dagger",
+    "tooltips": [
+      "On hit: \n• Gain 3Mana \n\nOn Stun: \n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Magic Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to gain 2 Mana\n\nEvery 3 seconds:\n• Use 2 Mana to gain 2 Buff"
+    ]
+  },
+  {
+    "id": "Magic Wrapping Paper",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Resist\n\nOn shop entered:\n• Turn Star Apple into a Fancy Tiny Present\n• Turn Star Coconut into a Fancy Small Present\n• Turn Star Cauldron into a Fancy Big Present\n• Turn Star Broom into a Fancy Long Present\n   If you wrapped something:\n   • Destroy this"
+    ]
+  },
+  {
+    "id": "Magnetronic Retrieval Rod",
+    "tooltips": [
+      "Every 1.6 seconds:\n• Steal 16 Armor\n\nOn shop entered:\n• Get 1 magnetic item from last opponent's hero"
+    ]
+  },
+  {
+    "id": "Makeshift Oar",
+    "tooltips": [
+      "On hit:\n• Gain 1 Haste or inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Mallet",
+    "tooltips": [
+      "On hit:\n• Remove 5 Armor and 1 Thorns\n• 20% chance to inflict Stun for 0.5 seconds"
+    ]
+  },
+  {
+    "id": "Mana Crystal",
+    "tooltips": [
+      "Every 2 seconds:\n• 50% chance to gain 1 Mana \n• Gain 1 Mana per Star Starbloom"
+    ]
+  },
+  {
+    "id": "Mana Potion",
+    "tooltips": [
+      "Health below 50% or insufficient Mana:\n• Gain 10 Mana\n• Heal for 25 Health"
+    ]
+  },
+  {
+    "id": "Mana Recycler",
+    "tooltips": [
+      "On hit:\n• Gain 6 Mana\n   If you have 15+ Mana:\n   • Gain 4 Regeneration and 4 Buff\n   If you have 30+ Mana:\n   • Gain +4 Damage"
+    ]
+  },
+  {
+    "id": "Mana Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor and 2 Mana\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to use 1 Mana to block 8 Damage"
+    ]
+  },
+  {
+    "id": "Mana Stew",
+    "tooltips": [
+      "Every 5.5 seconds:\n• Gain 1 Mana and 8 Health per Star TypeFood\n\nEvery 10 Mana gained by this and Star items:\n• Gain 1 Regeneration\n• Cleanse 1  Debuff",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Mana Strudel",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Gain 1 Mana and 1 Regeneration",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Mango Delight",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeaponPet gains +25% CritChance and +50% CritDamage\n\nOn shop entered:\n• Destroy this"
+    ]
+  },
+  {
+    "id": "Man-o-lorian Helmet",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 55 Armor\n• Reduce Stun duration by 50%\n• Reduce CritDamage taken by 30%\n• Gain 1 Empower per Star MeleeWeaponRangedWeapon for 10 seconds"
+    ]
+  },
+  {
+    "id": "Manuka Honey",
+    "tooltips": [
+      "Every 4 seconds:\n• Star Bees gain +1 Damage",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Mars Flytrap",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeaponPet):\n• 20% chance to inflict 1 Bleed per Star TypePlant"
+    ]
+  },
+  {
+    "id": "Marshmellow",
+    "tooltips": [
+      "Every 4.1 seconds:\n• Heal for 1 Health per Burn on opponent",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Mealtime Metabolism",
+    "tooltips": [
+      "Per 8 Stamina gained by you:\n• Gain 1 Regeneration"
+    ]
+  },
+  {
+    "id": "Meat Cleaver",
+    "tooltips": [
+      "Health below 50%:\n• Gain 2 Regeneration"
+    ]
+  },
+  {
+    "id": "Mechanized Armor",
+    "tooltips": [
+      "Start of Dawn:\n• Reduce Damage taken by 4% per Star Part\n\nEvery 3.6 seconds:\n• Gain 4 Armor per Star Part\n\nOn Star TypeTool hit:\n • 25% chance to gain 12 Armor"
+    ]
+  },
+  {
+    "id": "Medium Bag",
+    "tooltips": []
+  },
+  {
+    "id": "Mega Strike Jewel",
+    "tooltips": [
+      "Start of Dawn: \n• Star MeleeWeapon gains +25% CritChance"
+    ]
+  },
+  {
+    "id": "Merman's Delight",
+    "tooltips": [
+      "Every 6.2 seconds:\n• Star TypeFish gain +10% faster activations\n\nOn Star TypeFish activation:\n• 40% chance to gain 2 Buff\n\nOn shop entered:\n• 40% chance to Go Fishing (Shallow)",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Midori Bolt",
+    "tooltips": [
+      "On hit:\n• Use 2 Mana to remove up to 4 Regeneration\n• Inflict 4 Poison\n   • Double this if you removed Regeneration\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Midori Quiver",
+    "tooltips": [
+      "Start of DawnDayDuskNight:\n• Star Bolts and Darts gain +1 quantity\n\nOn Star Bolt or Dart hit:\r\n• 50% chance to:\n   • Use 1 Mana to remove 1 Regeneration\r\n   • Inflict 2 Poison\n      • Double this if you removed Regeneration"
+    ]
+  },
+  {
+    "id": "Midori Smokebomb",
+    "tooltips": [
+      "After 12 seconds:\n• Remove 1 Regeneration per second for 10 seconds\n• Inflict 2 Poison and 1 Blind per second for 10 seconds\n   • Double this each time you removed Regeneration"
+    ]
+  },
+  {
+    "id": "Midori Toxin",
+    "tooltips": [
+      "When you critically hit:\n• Use 2 Mana to remove up to 4 Regeneration\n• Inflict 4 Poison\n\r   • Double this if you removed Regeneration"
+    ]
+  },
+  {
+    "id": "Mimic",
+    "tooltips": [
+      "On hit:\n• Inflict 3 Bleed\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 10% chance to Stun attacking MeleeWeaponRangedWeapon for 1 second\n\nWhen hit (Pet):\n• 30% chance to Stun attacking Pet for 3 seconds\n\nOn shop entered:\n• Gain 2 Gold\n• Get 1 Treasure"
+    ]
+  },
+  {
+    "id": "Mining Helmet",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 55 Armor\n• Reduce Stun duration by 40%\n• Reduce CritDamage taken by 20%\n\nEvery 4 seconds:\n• Gain 1 Luck\n• Inflict 1 Burn"
+    ]
+  },
+  {
+    "id": "Mining Pick",
+    "tooltips": [
+      "On hit:\n• Remove 4 Armor and 1 Buff\n\nOn shop entered:\n• 40% chance to Go Mining (Surface)"
+    ]
+  },
+  {
+    "id": "Moldemort",
+    "tooltips": [
+      "Start of Dawn:\r\n• This gains +10% CritChance per Star TypeRat\r\n\r\nOn hit:\r\n• Stun Star TypeRat for 1 second\n• Gain 6Damage per Star TypeRat\r\n\r\nOn shop entered:\n• 50% chance to catch 1 TypeRat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Molten Core Creeper",
+    "tooltips": [
+      "On hit:\n• Inflict 4 Burn\n• Inflict 2 Burn per Star Lava Rock\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 20% chance to inflict 2 Burn\n\nOn shop entered:\n• Turn all Star Rock into Lava Rock"
+    ]
+  },
+  {
+    "id": "Moonlit Blade",
+    "tooltips": [
+      "When hit 8 times (MeleeWeaponRangedWeapon):\n• Trigger Attack\n• Reduce hits required by 1 (minimum 1)\n\nOn hit:\n• Inflict 2 Bleed\n• Gain +3% CritChance\n\nOn critical hit:\n• Inflict 2 Bleed"
+    ]
+  },
+  {
+    "id": "Muck Rat",
+    "tooltips": [
+      "On Hit:\n• Gain +1 Damage per Star TypeRat"
+    ]
+  },
+  {
+    "id": "Mystery Stew",
+    "tooltips": [
+      "Every 4.9 seconds:\n• Gain 3 Buff or inflict 3 Debuff\n   Activate absorbed items:\n   • No TypeIngredient absorbed yet\n\nOn shop entered:\n• Absorb 1 Star TypeIngredient (0/3)"
+    ]
+  },
+  {
+    "id": "Mystic Rat",
+    "tooltips": [
+      "On hit:\n• Use 2 Mana to:\n   • Gain 1 Buff\n   • This and Star TypeRat gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Naughty or Nice",
+    "tooltips": [
+      "Every 5 shops entered:\n• If you lost any of the last 5 fights:\n   • Get 1 Lumps of Coal\n• If you didn't lose any of those fights:\n   • Get 1 Fancy Tiny Present\n\nShops entered: 0/5"
+    ]
+  },
+  {
+    "id": "Nebula Jelly",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Blind per Star Pet\n\nPer Blind on opponent:\n•  Reduce Damage taken by 1%"
+    ]
+  },
+  {
+    "id": "Neptune's Wrath",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 3 Blind, 3 Bleed and 3 Chill\n\nOn critical hit:\n• Gain +30% CritDamage\n\nWhen this has inflicted 9 Bleed:\n• Gain +30% CritChance\n\nOn shop entered:\n• Go Fishing (Abyssal)"
+    ]
+  },
+  {
+    "id": "Nice Spice Rack",
+    "tooltips": [
+      "Every 5.7 seconds:\n• Gain 1 Buff per Star TypeFood\n• Inflict 1 Debuff per Star TypeFood\n• Heal for 2 Health per Star TypeFood"
+    ]
+  },
+  {
+    "id": "Night Angler",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Inflict 1 Blind\n\nPer Blind on opponent:\n• Gain +2% CritChance , +5% CritDamage, and +1 Damage"
+    ]
+  },
+  {
+    "id": "Night Dahlia",
+    "tooltips": [
+      "Start of Dawn, Day, Dusk:\n• Gain 2 Regeneration and 2 Mana"
+    ]
+  },
+  {
+    "id": "Nightshade",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 2 Poison"
+    ]
+  },
+  {
+    "id": "Nor'easter Hat",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 MaxHealth\n\nEvery 4 seconds:\n• Gain 0.5 Stamina and 3 Resist\n\nResist on this ignores Insanity"
+    ]
+  },
+  {
+    "id": "Noxious Lantern",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 5 Poison\n\nEvery 2.2 seconds:\n• Inflict 2 Poison\n• Poison on your opponent triggers 0.1 seconds faster"
+    ]
+  },
+  {
+    "id": "Noxious Red Mush",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 1 Poison per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Octorius",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Chill per Star TypeFish\n\nOn critical hit:\n• Stun an enemy item for 4 seconds\n\nWhen hit (Pet):\n• Inflict 2 Chill"
+    ]
+  },
+  {
+    "id": "Odd Cod",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 0.5Stamina and 3 MaxHealth\n• Inflict 1 Insanity on both players",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Oddly-shaped Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Resist and 25 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Oil",
+    "tooltips": [
+      "Inflict Burn on opponent:\n• Inflict 5 Burn"
+    ]
+  },
+  {
+    "id": "Oil of Vitriol",
+    "tooltips": [
+      "Opponent health below 40%:\n• Inflict 2 Burn and 2 Poison per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Oilskin Slicker",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 MaxHealth per Star item\n• Reduce Damage taken by 12%\n\nEvery 4.8 seconds:\n• Gain 3 Resist per Star item\n\nResist on this ignores Insanity"
+    ]
+  },
+  {
+    "id": "Operation Crustacean I",
+    "tooltips": [
+      "Morrow Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 2 Flotsam\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Operation Crustacean II",
+    "tooltips": [
+      "Morrow Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Crab Trap\n   • 1 Tactical Blowgun\n      • Get 1 Seafoam Pipe\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Operation Crustacean III",
+    "tooltips": [
+      "Morrow Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Nor'easter Hat\n   • 1 Trangoblizer Dart\n   • 1 Perfectly Normal Crab\n      • Get 1 Faulty Compass\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Operation Crustacean IV",
+    "tooltips": [
+      "Morrow Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Crab Trap\n   • 1 Faulty Compass\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Writhing Tentacle\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Operation Fermentation I",
+    "tooltips": [
+      "Pepper Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Grapes\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Operation Fermentation II",
+    "tooltips": [
+      "Pepper Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Torch\n   • 1 Bolt Cutter\n      • Get 1 Grapes and 1 Butter\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Operation Fermentation III",
+    "tooltips": [
+      "Pepper Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Spicy Sausage\n   • 1 Leather Belt\n   • 1 Unsafe Safe Cracker\n      • Get 1 Cheese Board Buckler\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Operation Fermentation IV",
+    "tooltips": [
+      "Pepper Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Cheese Board Buckler\n   • 1 Magic Belt\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Fermented Grape Juice and Bag of Flour\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Pantry Power",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 18 MaxHealth\n\nWhen buying TypeFood items:\n• Increase the MaxHealth gained by 6"
+    ]
+  },
+  {
+    "id": "Paring Knife",
+    "tooltips": [
+      "On hit:\n• Gain +3% faster attacks per Star TypeIngredient"
+    ]
+  },
+  {
+    "id": "Partial Invisibility Cloak",
+    "tooltips": [
+      "Start of Dawn:\n• Steal 10 MaxHealth per Star item from another hero\n• Reduce Damage taken by 18%\n\nWhen hit 5 times (MeleeWeaponRangedWeaponPet):\n• Gain 2 Resist per Star item from another hero\n• Cleanse 5 Debuff\n\nWhen time of day changes:\n• Steal 1 Buff per Star item from another hero\n• Become invulnerable for 1 seconds"
+    ]
+  },
+  {
+    "id": "Parts Satchel",
+    "tooltips": [
+      "On TypeTool inside hit:\n• 20% chance to gain 2 Armor per Part inside\n\nOn shop entered:\n• If there is a Part inside:\n   • Get 1 Part"
+    ]
+  },
+  {
+    "id": "Pebbles the Golem Lord",
+    "tooltips": [
+      "On hit:\n• Trigger an extra attack for a random Star Golem\n\nStar TypeMineral can now be thrown multiple times\n\nOn shop entered:\n• Find a special rock!"
+    ]
+  },
+  {
+    "id": "Perfectly Normal Crab",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 2 MaxHealth and 2 Armor",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Perpetual Stew",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Gain 5 Buff and 10 MaxHealth\n   Activate absorbed items:\n   • No TypeIngredient absorbed yet\n\nOn shop entered:\n• Absorb 1 Star TypeIngredient"
+    ]
+  },
+  {
+    "id": "Pet Collar",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Star Pet gains +2 Damage and +5% faster attacks\n\nOn Star Pet hit:\n• Every Star Pet gains +1% CritChance"
+    ]
+  },
+  {
+    "id": "Pet Rock",
+    "tooltips": [
+      "On hit:\n• Gain 1 Luck per Star MeleeWeaponTypeMineral\n\nOn critical hit:\n• Stun an enemy item for 4 seconds\n\nOn shop entered:\n• Get a Rock, Boulder, or Pet Rock"
+    ]
+  },
+  {
+    "id": "Pet Trainer's Whistle",
+    "tooltips": [
+      "When time of day changes:\n• Gain 1 Luck per Star Pet\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 20% chance all Star Pet gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Phoenix Feather",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Inflict 1 Burn\n• Cleanse 3 Debuff"
+    ]
+  },
+  {
+    "id": "Phoenix Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• Inflict 1 Burn per Star RangedWeaponPet\n\nAfter 15 seconds:\n• Cleanse 4 Debuff per Star RangedWeaponPet\n\nAfter 25 seconds:\n• Deal 1 Damage per Burn inflicted"
+    ]
+  },
+  {
+    "id": "Photosynthesis",
+    "tooltips": [
+      "When time of day changes:\n• Gain 6 MaxHealth per equipped TypePlant"
+    ]
+  },
+  {
+    "id": "Piercing Lance",
+    "tooltips": [
+      "Per 12 Armor removed from opponent:\n• This and Star MeleeWeaponRangedWeapon gains +1 Damage"
+    ]
+  },
+  {
+    "id": "Pinktail",
+    "tooltips": [
+      "Every 3.8 seconds:\n• Gain 1 Regeneration\n• Cleanse 2 Bleed\n• Heal for 6 Health",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Pitahaya",
+    "tooltips": [
+      "Every 3.2 seconds:\n• Gain 1 Haste\n• Cleanse 1 Debuff",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Placebo Potion",
+    "tooltips": [
+      "Health below 50%:\n• Heal for 18 Health"
+    ]
+  },
+  {
+    "id": "Plague Ichor",
+    "tooltips": [
+      "Every 3 seconds:\n• Inflict 3 Poison per Star TypeFood\n• Inflict 1 Chill per Star Plague Ichor\n• Increase Cooldown by 0.3 seconds\n\nOn shop entered:\n• Destroy this if there is no Star TypeFood\n• Star TypeFood turn into Plague Ichor"
+    ]
+  },
+  {
+    "id": "Plague Rat",
+    "tooltips": [
+      "On Hit:\n• Inflict 2 Poison per Star TypeRat"
+    ]
+  },
+  {
+    "id": "Plaguebringer's Pendant",
+    "tooltips": [
+      "Every 5 Poison inflicted by Star items:\n• Gain 3 Mana\n\nEvery 4 seconds:\n• Use 6 Mana to activate Poison on opponent"
+    ]
+  },
+  {
+    "id": "Planner's Pack",
+    "tooltips": [
+      "When time of day changes:\n   If there is a Heist inside:\n   • TypePotion inside gain +1 more use\n\nOn shop entered:\n  If you don't have a Heist:\n  • Get a Heist"
+    ]
+  },
+  {
+    "id": "Pleasant Green Paste",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Cleanse 1 Debuff per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Pliers",
+    "tooltips": [
+      "On hit:\n• Remove 1 Thorns\n• 50% chance to inflict 1 Bleed per Star Part\n\nOn shop entered:\n• 20% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Plunder and Lightning I",
+    "tooltips": [
+      "Celeste Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Thunderfork\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Plunder and Lightning II",
+    "tooltips": [
+      "Celeste Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Thunderfork\n   • 1 Inconspicuous Fedora\n      • Get 3 Spark\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Plunder and Lightning III",
+    "tooltips": [
+      "Celeste Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Power Cluster\n   • 1 Ingobnito Mask\n   • 1 Trusty Trench Coat\n      • Get 1 Elemental Whetstone and 1 Spark\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Plunder and Lightning IV",
+    "tooltips": [
+      "Celeste Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Power Cluster\n   • 1 Thunder Sword\n   • 1 Partial Invisibility Cloak\n      • Get 1 Stormcloud Staff\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Poison Apple",
+    "tooltips": [
+      "When hit (Pet):\n• 50% chance to slow attacking Pet by 10%"
+    ]
+  },
+  {
+    "id": "Poison Arrows",
+    "tooltips": [
+      "On Star RangedWeapon hit:\n• Inflict 3 Poison"
+    ]
+  },
+  {
+    "id": "Poison Dagger",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Poison Potion",
+    "tooltips": [
+      "When opponent heals:\n• Inflict 5 Poison"
+    ]
+  },
+  {
+    "id": "Pollen Palace",
+    "tooltips": [
+      "When time of day changes:\nStar Bees gain +5 Damage per Star Honey\n\nOn shop entered:\n• Star Bees have a second chance to make Honey"
+    ]
+  },
+  {
+    "id": "Polyphemus' Bane",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Blind\n• Use 20 Blind from opponent (once):\n  • Inflict Stun for 5 seconds\n  • Gain +30% CritChance\n\nOn critical hit:\n• Inflict 2 Blind"
+    ]
+  },
+  {
+    "id": "Poppy",
+    "tooltips": [
+      "When time of day changes:\n• Gain 2 Buff\n\nOn shop entered:\n• 20% chance to get 1 Insect"
+    ]
+  },
+  {
+    "id": "Portable Siege Engine",
+    "tooltips": [
+      "Every 4 seconds:\n• Star TypeMineral gains +4 Damage\n• Star TypeMineral triggers an extra attack\n• Inflict 2 Bleed per Star Part"
+    ]
+  },
+  {
+    "id": "Potato",
+    "tooltips": [
+      "Every 4 seconds:\n• Gain 2 MaxHealth",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Potion Mixer",
+    "tooltips": [
+      "On Star TypePotion use:\n• 30% chance to restore 1 use to that Star TypePotion\n\nOn shop entered:\n• Get 1 TypePotion"
+    ]
+  },
+  {
+    "id": "Potion of Botulinum",
+    "tooltips": [
+      "When opponent heals:\n• Inflict 2 Poison per second for 5 seconds\n• Drain 1 Stamina per second for 3 seconds"
+    ]
+  },
+  {
+    "id": "Power Cluster",
+    "tooltips": [
+      "Every 3.6 seconds:\n• Star items gain 1 Static"
+    ]
+  },
+  {
+    "id": "Power Stone",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 40% chance for that Star MeleeWeaponRangedWeaponPet to gain +2 Damage"
+    ]
+  },
+  {
+    "id": "Power Vacuum",
+    "tooltips": [
+      "Every 2.9 seconds:\n• Gain 4 Mana, 2 Luck, and 1 Haste\n• Use 20 Mana to steal 10 Buff\n   • This has 1% chance per Luck to steal another 10 Buff"
+    ]
+  },
+  {
+    "id": "Powersurge Mask",
+    "tooltips": [
+      "On Star TypePotion use:\n• Gain 1 Empower \n• Inflict 3 Debuff\n\nPer 30 Curse inflicted on opponent:\n• Star TypePotion gains +1 more use\n\nOn shop entered:\n• Get 1 TypePotion"
+    ]
+  },
+  {
+    "id": "Predator Scales",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 110 Armor and 10 Resist\n• Reduce Damage taken by 30%\n\nEvery 6.2 seconds:\n• Gain 14 Armor and 1 Haste per Star Dragonleaf"
+    ]
+  },
+  {
+    "id": "Predator Teeth",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Thorns\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Premeditated Stinkbomb",
+    "tooltips": [
+      "After 12 seconds:\n• Inflict 2 Burn and 1 Blind per second for 10 seconds\n• Inflict 2 Poison per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Prickly Potion",
+    "tooltips": [
+      "When critically hit MeleeWeaponRangedWeaponPet or health below 50%:\n• Gain 15 Armor\n• Gain 5 Thorns for 10 seconds\n\nThis counts as 2 Cactus"
+    ]
+  },
+  {
+    "id": "Proto-Golem",
+    "tooltips": [
+      "On hit:\n• Star TypeMineral gains +1 Damage\n\nOn Star Golem hit:\n• This gains +2 Damage and +2% CritDamage \n\nStar TypeMineral can now be thrown multiple times"
+    ]
+  },
+  {
+    "id": "Pumpkin Patch",
+    "tooltips": [
+      "On MeleeWeaponRangedWeaponPet inside hit:\n• 20% chance to gain 1 Regeneration\n\nOn shop entered:\n• If there is a Harvest Pumpkin inside:\n   • Get 1 Harvest Pumpkin"
+    ]
+  },
+  {
+    "id": "Purrfect Mask",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Gain 1 Luck per Star Cat\n\nPer Luck on you:\r\n• Star Pet gains +5% CritDamage\r\n\nOn shop entered:\r\n• Transform 1 Star Brown Rat into a Black Cat"
+    ]
+  },
+  {
+    "id": "Pyrefly",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Poison\n• Inflict 1 Poison per Star PetTypePlant"
+    ]
+  },
+  {
+    "id": "Quartz Sprite",
+    "tooltips": [
+      "On hit:\n• Cleanse 2 Debuff \n\nOn critical hit:\n• Steal 2 Buff\n\nPer Debuff on you:\n• Gain +1% faster attacks\n\nPer Buff on opponent:\n• Gain +1% CritChance"
+    ]
+  },
+  {
+    "id": "Queen Bee",
+    "tooltips": [
+      "On hit:\n• Star Bees gain +1 Damage and +5% CritChance \n• 25% chance to Stun an enemy item for 1.5 seconds\n\nOn shop entered:\n• 10% chance per Star TypePlant to get 1 Royal Nectar"
+    ]
+  },
+  {
+    "id": "Quiver of Speed",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Gain 3 Haste\n• Star RangedWeapon gains +20% CritDamage and +6% faster attacks"
+    ]
+  },
+  {
+    "id": "Radiance Satchel",
+    "tooltips": [
+      "Katana inside require 1 less hit to trigger\n\nOn shop entered:\n• If there is a MeleeWeaponRangedWeapon inside:\n   • Get 1 Iron Bolt"
+    ]
+  },
+  {
+    "id": "Ragnarok",
+    "tooltips": [
+      "On hit:\n• Use 1 Stamina to do a Charged Strike (+50% Damage)\n• Gain 4 Regeneration and 2 Empower\n• 50% chance to inflict Stun for 1 second\n• If opponent has Armor:\n   • Gain +4 Damage and +12% CritChance \n\nHealth below 50%:\n• Inflict Stun for 1.5 seconds\n• Cleanse 28 Debuff"
+    ]
+  },
+  {
+    "id": "Ranger's Satchel",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Blind per Dragonleaf inside\n\nOn MeleeWeaponRangedWeaponPet inside hit:\n• 60% chance to gain 1 Haste\n\nOn shop entered:\n• If there is a Dragonleaf inside:\n   • Get 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Rat Burglar",
+    "tooltips": [
+      "On hit:\n• Gain +1 Damage per Star TypeSkull\n• Steal 1 Buff per Star TypeRat \n• Steal 0.25 Stamina per Star item from another hero"
+    ]
+  },
+  {
+    "id": "Rat King's Crown",
+    "tooltips": [
+      "On Star TypeRat hit:\n• Star TypeRat gain +1% CritChance\n\nOn Star TypeRat critical hit:\n• Inflict 3 Bleed\n• Heal for 5 Health per Star TypeRat\n\nOn shop entered:\n• Catch 1 Brown Rat"
+    ]
+  },
+  {
+    "id": "Rat Lich",
+    "tooltips": [
+      "On hit:\r\n• Inflict 2 Curse\r\n• Use 2 Mana to:\r\n   • Drain 0.5 Stamina\r\n   • This and Star TypeRat gain +2 Damage"
+    ]
+  },
+  {
+    "id": "Rat Romancer",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Luck per Star Pet\n\nOn hit:\n• Weaken 1 random enemy Pet\n\nWeaken:\n• Remove -1 Damage from target"
+    ]
+  },
+  {
+    "id": "Ratbone",
+    "tooltips": [
+      "On hit:\n• Drain 0.2 Stamina per Star TypeRat\n• Inflict 1 Curse"
+    ]
+  },
+  {
+    "id": "Ratnaros",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Mana per Star TypeRat\n\nOn hit:\n• Gain 2 Mana per Star TypeRat\n• Inflict 4 Burn\n\nAfter attack:\n• Use 12 Mana to inflict 2 Burn per Star TypeRat"
+    ]
+  },
+  {
+    "id": "Ratomelon",
+    "tooltips": [
+      "On hit:\n• Cleanse 1 Debuff per Star TypeRat\n• Gain 1 Mana per Star TypeFood",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Ratuman the White",
+    "tooltips": [
+      "On hit:\n• Gain 4 Mana\n• Use 6 Mana to make 3 random Star TypeRat attack\n\nOn Star TypeRat hit:\n• Gain 1 Buff or inflict 1 Debuff"
+    ]
+  },
+  {
+    "id": "Ratymandias",
+    "tooltips": [
+      "On hit:\n• Gain 1 Mana, 1 Luck, 1 Resist per Star TypeRat\n• If you have 35 or more Luck:\n   • This and Star TypeRat gain +20% CritDamage\n\nOn shop entered:\n• 50% chance to get 1 Cheese\n• Gain 1 Gold per Star Cheese"
+    ]
+  },
+  {
+    "id": "Razor Bolt",
+    "tooltips": [
+      "On hit:\n• Inflict 3 Bleed\n• Remove 2 Regeneration\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Razorvine",
+    "tooltips": [
+      "Your Thorns also activate on enemy Pet attacks\n\nEvery 3.3 seconds:\n• Gain 2 Thorns and 1 Luck\n\nOn Star Pet critical hit:\n• Deal 1 Damage per Thorns on you"
+    ]
+  },
+  {
+    "id": "Reaper's Judgement",
+    "tooltips": [
+      "On hit:\r\n• Trap 1 Soul \r\n• Steal 16 MaxHealth\r\n• Inflict 3 Curse and 2 Chill\r\n\r\nOn critical hit:\r\n• Trap 1 Soul \r\n\r\nPer Curse on opponent:\r\n• Gain +5% CritDamage\r\n\r\nPer Soul trapped:\r\n• Gain +2 Damage"
+    ]
+  },
+  {
+    "id": "Rebirth Mask",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeaponPet):\n• 25% chance to gain 1 Regeneration\n\nHealth below 25%:\n• Inflict Stun for 0.3 seconds per Star TypeFood\n• Cleanse all Curse\n• Activate Regeneration twice per Star TypeFood\n• Remove all Regeneration"
+    ]
+  },
+  {
+    "id": "Recharge Rucksack",
+    "tooltips": [
+      "On item inside activating:\n• 20% chance all items inside gain 1 Static\n\nPer 10 Static gained by items inside:\n• Heal for 7 Health\n\nOn shop entered:\n• If there is a Spark or Power Cluster inside:\n   • Get 1 Spark"
+    ]
+  },
+  {
+    "id": "Red Widow",
+    "tooltips": [
+      "On hit:\n• Gain 1 Lifesteal\n• Inflict 3 Poison"
+    ]
+  },
+  {
+    "id": "Reef Knot",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +10% faster attacks"
+    ]
+  },
+  {
+    "id": "Reefspike",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +25% CritDamage per Star TypeFish\n\nOn hit:\n• 50% chance to inflict 2 Bleed per Star TypeFish\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Refined Jade",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +15% Accuracy and +10% CritChance"
+    ]
+  },
+  {
+    "id": "Regenerating Shield",
+    "tooltips": [
+      "Every 2.8 seconds:\n• Gain 9 Armor\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 40% chance to block 4 Damage"
+    ]
+  },
+  {
+    "id": "Regular Old Lobster",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Gain 4 MaxHealth and 4 Armor",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Reinforced Mining Bag",
+    "tooltips": [
+      "On TypeMineral inside critical hit:\n• That TypeMineral gains +1 Damage\n\nOn shop entered:\n• If there is a TypeTool inside:\n   • Go Mining (Surface)\n\nTypeMineral inside this bag can be thrown +1 more time"
+    ]
+  },
+  {
+    "id": "Reinforced Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 50% chance to:\n    • Block 12 Damage\n    • Drain 0.4 Stamina from opponent"
+    ]
+  },
+  {
+    "id": "Relative Safety Goggles",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Luck and 2 Regeneration\n\nEvery 4.2 seconds:\n• Gain 1 Luck and 1 Regeneration\n• Cleanse 2 Debuff"
+    ]
+  },
+  {
+    "id": "Reptile Stalker",
+    "tooltips": [
+      "On hit:\n• Gain 1 Haste per 2 Star Dragonleaf\n\nOn critical hit:\n• Gain 1 Haste per Star Dragonleaf"
+    ]
+  },
+  {
+    "id": "Ribbon Ripper",
+    "tooltips": [
+      "Every 4 presents opened:\n• Get 3 free rerolls\n\nPresents opened: 0/4"
+    ]
+  },
+  {
+    "id": "Rich Flavour",
+    "tooltips": [
+      "When chosen:\n• Get 1 Golden Eggnog\n\nEvery 6 shops entered:\n• Get 1 Golden Egg\n\nShops entered: 0/6"
+    ]
+  },
+  {
+    "id": "Rickety Mining Cart",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1 Haste\n• Gain 1 Haste per Star TypeMineral\n\nOn shop entered:\n• Go Mining (Surface)\n• Go Mining (Underground)\n• Go Mining (Core)"
+    ]
+  },
+  {
+    "id": "River Rat",
+    "tooltips": [
+      "On hit:\n• Gain 3 MaxHealth per Star TypeRatTypeFish"
+    ]
+  },
+  {
+    "id": "Robo Rat 2.0",
+    "tooltips": [
+      "On hit:\n• Gain 1 Haste, 1 Regeneration, or 5 Armor per Star TypeTool"
+    ]
+  },
+  {
+    "id": "Rock",
+    "tooltips": [
+      "On hit:\n• Remove 5 Armor\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Rolling Pin Nunchucks",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Blind per Star Bag of Flour or Blind Bake Pie\n• Gain +5% faster attacks\n\nOn critical hit:\n• Inflict Stun for 1 second\n\nPer Blind on opponent:\n• Gain +1% CritChance"
+    ]
+  },
+  {
+    "id": "Rolling Thunder Tablet",
+    "tooltips": [
+      "Every 4.8 seconds:\n• This and Star items gain 5 Static\n• Use 5 Mana to:\n   • Deal 1-99 Damage\n   • Inflict Stun for 0.5 seconds\n   • Stun 1 enemy item for 3 seconds\n\nDischarge (28Static):\n• Stun 3 enemy items for 3 seconds"
+    ]
+  },
+  {
+    "id": "Royal Nectar",
+    "tooltips": [
+      "Every 4 seconds:\n• Star Bees gain +15% faster attacks",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Royal Seax",
+    "tooltips": [
+      "On hit:\n• Gain 1 Lifesteal\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Ruby",
+    "tooltips": [
+      "Every 7.7 seconds:\n• Gain 1 Empower"
+    ]
+  },
+  {
+    "id": "Ruby Admiral",
+    "tooltips": [
+      "On hit: \n• Use 5 Mana to gain 26 MaxHealth and 3 Buff"
+    ]
+  },
+  {
+    "id": "Rune of R'lyeh",
+    "tooltips": [
+      "When time of day changes:\n• Star MeleeWeaponRangedWeaponPet gains +5 Damage, +25% CritChance , or +100% CritDamage\n• Inflict Call of the Void on both players\n\nCall of the Void:\n• Suffer 5 Insanity for 5 seconds"
+    ]
+  },
+  {
+    "id": "Runesmith Goniometer",
+    "tooltips": [
+      "On hit:\n• Gain 3 Armor per Star Part\n• Use 3 Mana to gain 1 Empower, 1 Regeneration, 1 Luck\n\nOn shop entered:\n• 75% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Rustjaw Shredder",
+    "tooltips": [
+      "Every 3.2 seconds:\n• Star TypeTool gains +5% CritChance and +5% faster attacks\n\nOn shop entered:\n• Destroy2 random Star Parts\n• Get 2 common Parts for each Part destroyed"
+    ]
+  },
+  {
+    "id": "Rusty Forge Hammer",
+    "tooltips": [
+      "On hit:\n• Gain 2 Armor"
+    ]
+  },
+  {
+    "id": "Rusty Sword",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Sapphire",
+    "tooltips": [
+      "Every 6.6 seconds:\n• Gain 3 Mana"
+    ]
+  },
+  {
+    "id": "Sapphire Morpho",
+    "tooltips": [
+      "On hit: \n• Use 4 Mana to heal for 40 Health"
+    ]
+  },
+  {
+    "id": "Sash",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Luck"
+    ]
+  },
+  {
+    "id": "Sawfin Shark",
+    "tooltips": [
+      "Per Bleed on you:\n• Gain +1% faster attacks\n\nPer Bleed on opponent:\n• Gain +1% CritChance and +1% CritDamage"
+    ]
+  },
+  {
+    "id": "Scalemail",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 80 Armor and 8 Resist\n• Reduce Damage taken by 20%\n\nEvery 5.8 seconds:\n• Gain 5 Armor per Star item"
+    ]
+  },
+  {
+    "id": "Scarecrow",
+    "tooltips": [
+      "Every 3.1 seconds:\n   During Dawn:\n   • Gain 4 Resist and 4 Regeneration\n   During Day:\n   • Stun an enemy Pet for 3 seconds\n   During Dusk:\n   • Inflict 4 Blind and 4 Curse"
+    ]
+  },
+  {
+    "id": "Scorpionfly",
+    "tooltips": [
+      "On hit:\n• Inflict 4 Poison\n• Remove 1 Buff per Star PetTypePlant"
+    ]
+  },
+  {
+    "id": "Scrap Metal",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Armor"
+    ]
+  },
+  {
+    "id": "Screwsmacker",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +10% faster attacks per Star Part\n\nOn hit:\n• Remove 1 Buff\n\nOn shop entered:\n• 20% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Scroll of Binding",
+    "tooltips": [
+      "Every 5 seconds:\n• Stun 1 enemy item per Star MeleeWeaponRangedWeaponPet for 2 seconds\n\nAfter 10 seconds:\n• Stun 1 enemy MeleeWeaponRangedWeapon per Star MeleeWeaponRangedWeaponPet for 3 seconds\n\nAfter 15 seconds:\n• Inflict Stun for 2 seconds\n\nAfter 20 seconds:\n• Inflict 10 Chill per Star MeleeWeaponRangedWeaponPet"
+    ]
+  },
+  {
+    "id": "Scroll of Blood",
+    "tooltips": [
+      "Every 5 seconds:\n• Inflict 1 Bleed per Star MeleeWeaponRangedWeaponPet\n\nAfter 15 seconds:\n• Double Bleed on opponent\n\nAfter 25 seconds:\n• Activate Bleed once per Star MeleeWeaponRangedWeaponPet"
+    ]
+  },
+  {
+    "id": "Scroll of Replenishment",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1 Regeneration per Star TypeFoodPet\n\nAfter 15 seconds:\n• Activate Regeneration 2 times"
+    ]
+  },
+  {
+    "id": "Scroll of Sharp Edges",
+    "tooltips": [
+      "Every 5 seconds:\n• Star MeleeWeaponRangedWeaponPet gains +50% CritDamage\n\nAfter 10 seconds:\n• Star MeleeWeaponRangedWeaponPet gains +50% CritChance\n\nAfter 15  seconds:\n• Star MeleeWeaponRangedWeaponPet triggers 1 free attack\n\nAfter 20 seconds:\n• Star MeleeWeaponRangedWeaponPet triggers 2 free attacks"
+    ]
+  },
+  {
+    "id": "Seafarer's Telescope",
+    "tooltips": [
+      "When time of day changes:\n• Star MeleeWeapon gains +30% Accuracy and +30% CritDamage\n• Star RangedWeapon gains +30% Accuracy and +15% CritChance\n• Star Pet gains +30% Accuracy and +3 Damage\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 30% chance Star MeleeWeaponRangedWeaponPet gains +1 Damage"
+    ]
+  },
+  {
+    "id": "Seafoam Pipe",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Gain 0.5 Stamina and 2 Resist\n• Lose 1 MaxHealth\n\nResist on this ignores Insanity"
+    ]
+  },
+  {
+    "id": "Searing Wand",
+    "tooltips": [
+      "On hit:\n• Use 3 Mana to inflict 2 Burn"
+    ]
+  },
+  {
+    "id": "Seeds",
+    "tooltips": [
+      "On shop entered:\n• Get 1 TypePlant"
+    ]
+  },
+  {
+    "id": "Serpent Deathbolt",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Poison\n\nOn Star Pet inflicts Poison:\n• The next hit with this inflicts +2 Poison \n\nOn shop entered:\n• Use 6 Gold to get 1 Boomslang or 1 Red Widow\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Serpent's Tongue",
+    "tooltips": [
+      "On hit:\n• 60% chance to inflict 3 Poison\n• Use 10 Mana from opponent to:\n   • Inflict 5 Poison\n   • Heal for 24 Health\n\nPer Poison on opponent:\n• Gain +0.5% CritChance"
+    ]
+  },
+  {
+    "id": "Shadow Armor",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 70 Armor and 4 Resist\n• Reduce Damage taken by 12%\n\nEvery 6.3 seconds:\n• Gain 7 Armor and 1 Haste per Star Dragonleaf"
+    ]
+  },
+  {
+    "id": "Shadow Cloak",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Blind per Star MeleeWeaponRangedWeaponPet\n\nEvery 4.6 seconds:\n• Gain 1 Dodge\n\nDodge:\n• The next attack against you will miss"
+    ]
+  },
+  {
+    "id": "Shadow Satchel",
+    "tooltips": [
+      "Start of Dawn:\n• Add 1 quantity to Bolts, Darts and TypePotion inside\n\nEvery 3 Debuff inflicted by MeleeWeaponRangedWeaponPet inside:\n• Gain 1 Mana"
+    ]
+  },
+  {
+    "id": "Shaman's Talisman",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeaponPet gains +20% effect from Empower"
+    ]
+  },
+  {
+    "id": "Shellfish Attitude",
+    "tooltips": [
+      "When time of day changes:\n• Gain 6 Armor per equipped TypeFish"
+    ]
+  },
+  {
+    "id": "Shield Spikes",
+    "tooltips": [
+      "Per 20 Armor gained by Star items:\n• Star MeleeWeaponRangedWeapon gains +1 Damage\n• Gain 2 Thorns"
+    ]
+  },
+  {
+    "id": "Shock and Ore I",
+    "tooltips": [
+      "Celeste Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Lightning in a Bottle\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Shock and Ore II",
+    "tooltips": [
+      "Celeste Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lightning in a Bottle\n   • 1 Tactical Blowgun\n      • Get 1 Electrostatic Scroll\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Shock and Ore III",
+    "tooltips": [
+      "Celeste Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Electrostatic Scroll\n   • 1 Reinforced Shield\n   • 1 Trangoblizer Dart\n      • Get 1 Elementium Ore\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Shock and Ore IV",
+    "tooltips": [
+      "Celeste Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Elementium Bulwark\n   • 1 Gobliterator Dart\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Thunderbolt\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Shock Gloves",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n• Star MeleeWeaponRangedWeapon gains +25% CritChance\n\nOn Star MeleeWeaponRangedWeapon critical hit:\n• Gain 1 Static\n\nDischarge (20Static):\n• Star MeleeWeaponRangedWeapon gains +15 max Damage"
+    ]
+  },
+  {
+    "id": "Shoddy Handline",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n\nOn shop entered:\n• 50% chance per Star TypeFood to Go Fishing (Deep) \n   If you catch something:\n   • Destroy Star TypeFood"
+    ]
+  },
+  {
+    "id": "Shovel",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 1 Blind\n\nOn shop entered: \n• Dig for Treasure"
+    ]
+  },
+  {
+    "id": "Sigil of Eternal Frost",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Inflict 1 Chill per Star MeleeWeaponRangedWeaponPet\n\nPer 4 Chill inflicted by this and Star items:\n• Gain 20 Armor"
+    ]
+  },
+  {
+    "id": "Silverbark Bow",
+    "tooltips": [
+      "On hit:\n• Use 1 Haste to gain +2 Damage\n• Gain Hunter's mark\n\nOn critical hit:\n• Gain 2 Haste\n\nHunter's mark:\n• Gain 5 Luck for 3 seconds"
+    ]
+  },
+  {
+    "id": "Simple Blowgun",
+    "tooltips": [
+      "On hit:\n• Use 1 Star Dart or Bolt"
+    ]
+  },
+  {
+    "id": "Simple Quiver",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Star RangedWeapon gains +6% faster attacks"
+    ]
+  },
+  {
+    "id": "Simple Scythe",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul\n\nPer Soul trapped:\n• Gain +0.25 Damage"
+    ]
+  },
+  {
+    "id": "Siphoning Chalice",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to steal 4 MaxHealth"
+    ]
+  },
+  {
+    "id": "Six-Spoke Ship's Wheel",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 25% chance to inflict 2 Chill per Star Pet\n\nOn Star Pet hit:\n• 25% chance to gain 2 Haste per Star MeleeWeaponRangedWeapon"
+    ]
+  },
+  {
+    "id": "Skull Cap",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 40 Armor\n• Reduce Stun duration by 30%\n• Reduce CritDamage taken by 20%"
+    ]
+  },
+  {
+    "id": "Skullsmasher",
+    "tooltips": [
+      "On hit:\n• 33% chance to inflict Stun for 1 second"
+    ]
+  },
+  {
+    "id": "Sledgehammer",
+    "tooltips": [
+      "On hit if opponent has Armor:\n• Gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Slithering Lobster",
+    "tooltips": [
+      "On hit:\n• Gain 6 MaxHealth and 6 Armor \n• Use 3 Mana to:\n   • Inflict 3 Chill\n   • Inflict 3 Insanity on both players"
+    ]
+  },
+  {
+    "id": "Small Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Resist and 4 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Smokeweaver",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Gain 1 Haste per Star Pet\n• Gain 1 Mana per Star Butterfly\n• Inflict 1 Chill per Star Bee\n• Inflict 1 Poison per Star Fly"
+    ]
+  },
+  {
+    "id": "Snake Oil",
+    "tooltips": [
+      "When you critically hit:\n• Gain 3 Haste and 1 Empower"
+    ]
+  },
+  {
+    "id": "Snapdragon",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Gain 4 Mana\n\nWhen time of day changes:\n• Reduce Mana gained by 1\n\nOn shop entered:\n• 30% chance to get 1 Insect"
+    ]
+  },
+  {
+    "id": "Sniper Scope",
+    "tooltips": [
+      "Start of Dawn:\n• Star RangedWeapon gains +10% CritChance\n\nEvery 4.4 seconds:\n• Use 4 Mana to give Star RangedWeapon +40% CritDamage"
+    ]
+  },
+  {
+    "id": "Snipers Monocle",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeaponPet gain +15% CritChance\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 1 Bleed\n\nOn Star MeleeWeaponRangedWeaponPet critical hit:\n• 50% chance to inflict 1 Blind"
+    ]
+  },
+  {
+    "id": "Snow Boulder",
+    "tooltips": [
+      "On hit:\n• Inflict 15 Chill for 6 seconds\n• Inflict 1 Chill per absorbed Snowball\n\n• Can only be thrown once per battle\n• Can be thrown once more per absorbed Snowball\n\nOn shop entered:\n• Absorb 1 Star Snowball (0/4)"
+    ]
+  },
+  {
+    "id": "Snow Pear",
+    "tooltips": [
+      "Every 4.2 seconds:\n• 20% chance per Star MeleeWeaponTypeFood to:\n   • Gain 1.5 Stamina \n   • Inflict 2 Chill",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Snowball",
+    "tooltips": [
+      "On hit:\n• Inflict 5 Chill for 6 seconds\n\n• Can only be thrown once per battle"
+    ]
+  },
+  {
+    "id": "Snowballer",
+    "tooltips": [
+      "When chosen and on shop entered:\n• Get 1 Snowball"
+    ]
+  },
+  {
+    "id": "Sorcerat",
+    "tooltips": [
+      "On hit:\n• Gain 2 Mana\n• Gain 1 Buff per Star TypeRat"
+    ]
+  },
+  {
+    "id": "Soulharvester",
+    "tooltips": [
+      "On hit:\r\n• Trap 1 Soul \r\n• Steal 10 MaxHealth\r\n• Inflict 2 Curse\r\n\r\nPer Curse on opponent:\r\n• Gain +3% CritDamage\r\n\r\nPer Soul trapped:\r\n• Gain +1.5 Damage"
+    ]
+  },
+  {
+    "id": "Soulpiercer",
+    "tooltips": [
+      "On hit:\n• Inflict 6 Debuff\n• Drain 1 Stamina\n• Remove 3 Regeneration\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Soulstealer",
+    "tooltips": [
+      "On hit:\n• Trap 1 Soul\n• Inflict 2 Bleed and 1 Curse\n\nOn Star MeleeWeaponRangedWeapon hit:\n• Trap 1 Soul\n• Gain 1 Lifesteal\n\nEvery 10 Soul trapped:\n• Activate Bleed"
+    ]
+  },
+  {
+    "id": "Soup Ladle",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage per Star TypeFood\n\nOn hit:\n• Gain 1 Buff per Star TypeFood"
+    ]
+  },
+  {
+    "id": "Spanner",
+    "tooltips": [
+      "On hit:\n• 50% chance to gain 2 Armor per Star Part\n\nOn shop entered:\n• 10% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Spark",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Star items gain 1 Static"
+    ]
+  },
+  {
+    "id": "Spectral Sweet",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Cleanse 1 Debuff\n• Heal for 4 Health",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Speed Essence",
+    "tooltips": [
+      "When Star item activates:\n• 20% chance to gain 1 Haste\n\nEvery 3 seconds:\n• Use 2 Mana to inflict 2 Burn"
+    ]
+  },
+  {
+    "id": "Spell Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• Deal 5 Damage per Star RangedWeaponPet\n\nAfter 15 seconds:\n• Gain 12 MaxHealth per Star RangedWeaponPet"
+    ]
+  },
+  {
+    "id": "Spice",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Gain 1 Buff per Star TypeFood of another type\n• Heal for 3 Health per Buff type on you",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Spicy Sausage",
+    "tooltips": [
+      "Every 5 seconds:\n• Heal for 5 Health\n• Inflict 2 Burn \n• Cleanse 2 Chill",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Spiderweb",
+    "tooltips": [
+      "When hit (MeleeWeaponRangedWeapon):\n• 35% chance to inflict 2 Chill\n• 10% chance for Star Pet to trigger an extra attack\n\nOn shop entered:\n• Check the spiderweb"
+    ]
+  },
+  {
+    "id": "Spiked Shield",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 15 Armor and 5 Thorns\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 30% chance to block 5 Damage"
+    ]
+  },
+  {
+    "id": "Spiked Sickle",
+    "tooltips": [
+      "On hit:\n• Gain 1 Thorns\n\nOn Stun:\n• Trigger an extra attack"
+    ]
+  },
+  {
+    "id": "Spiked Whip",
+    "tooltips": [
+      "On hit:\n• Gain 1 Thorns per Star Bramble\n• Inflict 1 Poison per Thorns"
+    ]
+  },
+  {
+    "id": "Spinegrowth Signet",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 1 Thorns per Star TypeArmorTypePlant\n\nPer 5 Thorns gained by you:\n• Gain 15 MaxHealth"
+    ]
+  },
+  {
+    "id": "Spirit Biscuit",
+    "tooltips": [
+      "Every 3.6 seconds:\n• Trap 1 Soul\n\nEvery 3 Soul trapped:\n• Gain 3 Empower",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Spring",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Haste"
+    ]
+  },
+  {
+    "id": "Sprint Bot",
+    "tooltips": [
+      "Start of Dawn:\n• Reduce Damage taken by 3% per Star Part\n\nOn hit:\n• Gain 3 Haste"
+    ]
+  },
+  {
+    "id": "Squirming Bicorne",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 115 MaxHealth\n\nEvery 3.7 seconds:\n• Gain 0.5 Stamina, 2 Haste, 2 Luck, and  10 MaxHealth\n• Inflict Call of the Void on both players\n\nCall of the Void:\n• Suffer 5 Insanity for 5 seconds"
+    ]
+  },
+  {
+    "id": "Staff of Wisdom",
+    "tooltips": [
+      "On hit:\n• Gain 4 Mana\n• Use 6 Mana to gain 8 Buff"
+    ]
+  },
+  {
+    "id": "Stalker's Shiv",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +10% CritChance and +15% CritDamage per Star Dragonleaf\n\nOn hit:\n• Gain 2 Haste\n• Inflict 3 Bleed\n\nThis counts as 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Stamina Sack",
+    "tooltips": [
+      "Increase your maximum Stamina by 1"
+    ]
+  },
+  {
+    "id": "Starbloom",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Mana\n\nOn Star item activation:\n• 35% chance to gain 1 Mana"
+    ]
+  },
+  {
+    "id": "Starlight Potion",
+    "tooltips": [
+      "Health below 50% or insufficient Mana:\n• Gain 4 Mana and heal for 4 Health per second for 5 seconds\n\nThis counts as a Starbloom"
+    ]
+  },
+  {
+    "id": "Starwing",
+    "tooltips": [
+      "On hit:\n• Use 4 Mana to gain 49 MaxHealth\n• Use 4 Mana to gain 7 Buff\n• Use 4 Mana to gain 8 Resist\n\nWhen this has used 35 Mana:\n• Gain +50% faster attacks\n\nWhen this has used 60 Mana:\n• This benefits from Empower and Lifesteal"
+    ]
+  },
+  {
+    "id": "Steadfast Boots",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor\n• Gain 2 Empower per Star MeleeWeaponRangedWeapon\n\nEvery 4 seconds:\n• Gain 1 Stamina\n• Gain 12 Armor"
+    ]
+  },
+  {
+    "id": "Steel Bar",
+    "tooltips": [
+      "When Star item activates:\n• 30% chance to gain 10 Armor"
+    ]
+  },
+  {
+    "id": "Steel Forge Hammer",
+    "tooltips": [
+      "On hit:\n• Gain 6 Armor\n\nOn critical hit:\n• Star MeleeWeapon gains +2 Damage\n• Inflict 1 Burn\n\nOn shop entered:\n• Break 1 Star Rock to find an Ore"
+    ]
+  },
+  {
+    "id": "Steel Pickaxe",
+    "tooltips": [
+      "On hit:\n• Remove 8 Armor and 2 Buff\n\nOn critical hit:\n• Inflict 1 Bleed\n\nOn shop entered:\n• 40% chance to Go Mining (Underground)"
+    ]
+  },
+  {
+    "id": "Sticky Dart",
+    "tooltips": [
+      "On hit:\n• Steal 1 Buff\n• Inflict 1 Chill per second for 6 seconds\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Sticky Fingers",
+    "tooltips": [
+      "When buying items:\n•  20% chance to steal 1 Gold (Max 3 times per shop)\n\nGold stolen this shop: 0/3"
+    ]
+  },
+  {
+    "id": "Sticky Stuff",
+    "tooltips": [
+      "When hit 5 times (MeleeWeaponRangedWeaponPet):\n• Inflict 5 Chill for 5 seconds"
+    ]
+  },
+  {
+    "id": "Stinger Collector",
+    "tooltips": [
+      "On item inside activating:\n• 25% chance to inflict 1 Poison\n\nOn shop entered:\n• If there is a Sunflower inside:\n   • Get 1 Sunflower"
+    ]
+  },
+  {
+    "id": "Stingtrap",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 5 Thorns\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 40% chance to inflict 1 Poison per 5 Thorns on you"
+    ]
+  },
+  {
+    "id": "Stone Golem",
+    "tooltips": [
+      "On hit:\n• Remove 30 Armor\n\nStar TypeMineral can now be thrown multiple times"
+    ]
+  },
+  {
+    "id": "Stoneheart Brew",
+    "tooltips": [
+      "Start of Dawn:\n• Star Golem benefits from Empower\n\nPer 250 Damage dealt by Star TypeMineral\n• Gain 1 use\n\nHealth below 20%:\n• Gain 4 Armor per Empower on you\n• Gain 14 Armor per Star TypeMineral\n\nOn shop entered:\n• Get a Rock or Lava Rock"
+    ]
+  },
+  {
+    "id": "Stonehide Mask",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 65 Armor\n• Reduce Stun duration by 25%\n• Reduce CritDamage taken by 25%\n\nAfter 12 seconds:\n• Transfer all Burn, Bleed, and Poison to opponent"
+    ]
+  },
+  {
+    "id": "Storm Lute",
+    "tooltips": [
+      "On hit:\n• Gain 5 Static\n\nWhen Star items discharge:\n• Gain 4 Buff\n\nDischarge (16Static):\n• Gain 3 Haste\n• Star items gain 2 Static"
+    ]
+  },
+  {
+    "id": "Stormbound Tranquility",
+    "tooltips": [
+      "Every 4.2 seconds:\n• Gain 1 Empower and 3 Mana\n• Star items gain 4 Static\n\nWhen time of day changes:\n• Gain 1 Empower and 3 Mana\n• Star items gain 4 Static\n\nOn shop entered:\n• Gain 2 Gold"
+    ]
+  },
+  {
+    "id": "Stormbreaker Armor",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 80 Armor and 10 Resist\n• Reduce Damage taken by 30%\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 40% chance this and Star items gain 1 Static\n\nDischarge (22Static):\n• Cleanse 24 Debuff\n• Inflict Stun for 0.5 seconds"
+    ]
+  },
+  {
+    "id": "Stormcloud Staff",
+    "tooltips": [
+      "On hit:\n• Gain 3 Static\n• Gain 1 Mana per Star TypeAccessory\n• Use 3 Mana to gain 3 Static\n\nDischarge (24Static):\n• Gain 3 Haste and +6 max Damage\n• Inflict 1 Chill per second for 5 seconds"
+    ]
+  },
+  {
+    "id": "Stormstrike Gavel",
+    "tooltips": [
+      "On hit:\n• Remove 15 Armor\n• Gain 2 Static and +1 max Damage per Star TypeAccessory\n• 20% chance to inflict Stun for 1 seconds\n\nDischarge (20Static):\n• Remove 6 Buff"
+    ]
+  },
+  {
+    "id": "Strong Antivenom",
+    "tooltips": [
+      "Health below 75% or 30 Poison on you:\n• Cleanse 30 Poison\n• Heal for 48 Health"
+    ]
+  },
+  {
+    "id": "Strong Health Potion",
+    "tooltips": [
+      "Health below 75%:\n• Cleanse 8 Debuff\n• Heal for 54 Health"
+    ]
+  },
+  {
+    "id": "Struggling Marlin",
+    "tooltips": [
+      "Every 4.8 seconds:\n• Gain 2 Empower and 2 Haste\n• Star Pet gains +2 Damage\n   \nOn shop entered:\n• 100% chance for this to escape!\n• 15% less chance to escape per Star TypeFoodPetMeleeWeaponRangedWeapon",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Stunbreaker Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 35 Armor\n• Reduce Stun duration by 40%\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 50% chance to block 8 Damage\n\nWhen you get Stun:\n• Reduce Damage taken by 40% for 3 seconds"
+    ]
+  },
+  {
+    "id": "Sturdy Fly Gaff",
+    "tooltips": [
+      "On hit:\n• Gain 1 Haste per Star TypeFish\n• Inflict 2 Bleed\n\nOn shop entered:\n• 50% chance to Go Fishing (Deep)"
+    ]
+  },
+  {
+    "id": "Subtle Distractor Shield",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 45 Armor\n• Reduce Stun duration by 45% \n• Increase block by 2 Damage per Star item from another hero\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to: \n   • Block 8 Damage\n   • Inflict 1 Poison or 1 Chill"
+    ]
+  },
+  {
+    "id": "Succulent",
+    "tooltips": [
+      "Every 4 seconds:\n• Cleanse 2  Debuff"
+    ]
+  },
+  {
+    "id": "Succulent Cheese",
+    "tooltips": [
+      "Every 4.4 seconds:\n• Cleanse 2 Debuff\n• Star TypeRat gains +2 Damage\n\nOn shop entered:\n• 50% chance to catch 1 Brown Rat",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Sundancer",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Burn\n• Gain +5% Accuracy"
+    ]
+  },
+  {
+    "id": "Sunflower",
+    "tooltips": [
+      "Every 3.1 seconds during Day:\n• Heal for 6 Health\n\nOn shop entered:\n• 20% chance to get 1 Insect"
+    ]
+  },
+  {
+    "id": "Superfoodie",
+    "tooltips": [
+      "When time of day changes:\n• Heal for 4 Health per equipped TypeFood"
+    ]
+  },
+  {
+    "id": "Superior Bolts",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Regeneration"
+    ]
+  },
+  {
+    "id": "Superior Gear",
+    "tooltips": [
+      "Start of Dawn:\n• Star items gain +6% faster activations"
+    ]
+  },
+  {
+    "id": "Superior Spring",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Haste"
+    ]
+  },
+  {
+    "id": "Tactical Blowgun",
+    "tooltips": [
+      "On hit:\n• Gain 6 Armor\n• Use 1 Star Dart or Bolt\n• Star Darts and Bolts gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Tactical Knapsack",
+    "tooltips": [
+      "Start of Dawn:\n• Add 1 quantity to Darts and Bolts inside\n\nWhen TypeArmor inside activates:\n• Steal 1 Armor"
+    ]
+  },
+  {
+    "id": "Tainted Soulstone",
+    "tooltips": [
+      "Every 3.8 seconds:\n• Both players gain 2 Mana\n\nEvery 8 Mana gained by either player:\n• Inflict 1 Poison and 1 Curse to that player"
+    ]
+  },
+  {
+    "id": "Temporal Stone",
+    "tooltips": [
+      "Start of Dawn:\n• Both players gain 1 Haste per second for 60 seconds\n\nPer 3 Haste gained by opponent:\n• Inflict 1 Chill\n• Star MeleeWeaponRangedWeaponPet gains +3% faster attacks"
+    ]
+  },
+  {
+    "id": "Tenacity Potion",
+    "tooltips": [
+      "Out of stamina:\n• Gain 2 Stamina\n• Increase StaminaRecovery by 1 for 4 seconds"
+    ]
+  },
+  {
+    "id": "Tender Sausage",
+    "tooltips": [
+      "Every 5 seconds:\n• Gain 3 MaxHealth\n• 50% chance to gain 1 Empower",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "The Butterfly Deflect I",
+    "tooltips": [
+      "Buzz Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Caterpillar\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Butterfly Deflect II",
+    "tooltips": [
+      "Buzz Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Night Dahlia\n   • 1 Tactical Blowgun\n      • Get 1 Sapphire Morpho\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Butterfly Deflect III",
+    "tooltips": [
+      "Buzz Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Mana Potion\n   • 1 Trangoblizer Dart\n   • 1 Sapphire Morpho\n      • Get 1 Ruby Admiral\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Butterfly Deflect IV",
+    "tooltips": [
+      "Buzz Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Ruby Admiral\n   • 1 Amethyst Pendant\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Amethyst Dancer and 1 Snapdragon\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Calamari Caper I",
+    "tooltips": [
+      "Morrow Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Dull Oyster Shucker\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Calamari Caper II",
+    "tooltips": [
+      "Morrow Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Dull Oyster Shucker\n   • 1 Stunbreaker Shield\n      • Get 1 Broken Oar and 1 Length of Rope\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Calamari Caper III",
+    "tooltips": [
+      "Morrow Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Cast Iron Anchor\n   • 1 Shoddy Handline\n   • 1 Subtle Distractor Shield\n      • Get 1 Flotsam and 1 Reef Knot\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Calamari Caper IV",
+    "tooltips": [
+      "Morrow Step IV\r\nOn shop entered:\r\n• If Star items are exactly:\r\n   • 1 Reef Knot\r\n   • 1 Admiralty Anchor\r\n   • 1 Hypnodisc Deflector\r\n      • Get 1 Writhing Tentacle\r\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Cookout Break-in I",
+    "tooltips": [
+      "Pepper Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Cheese and 1 Bag of Flour\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Cookout Break-in II",
+    "tooltips": [
+      "Pepper Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Cheese\n   • 1 Inconspicuous Fedora\n      • Get 1 Soup Ladle\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Cookout Break-in III",
+    "tooltips": [
+      "Pepper Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Campfire Skillet\n   • 1 Hooked Dagger\n   • 1 Ingobnito Mask\n      • Get 1 Chef's Knife and 1 Butter\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Cookout Break-in IV",
+    "tooltips": [
+      "Pepper Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Head Chef's Skewer\n   • 1 Succulent Cheese\n   • 1 Rat Burglar\n      • Get 1 Chef's Hat and 1 Wooden Spoon\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Cool Hand Fluke I",
+    "tooltips": [
+      "Chana Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Frozen Stick\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Cool Hand Fluke II",
+    "tooltips": [
+      "Chana Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Frozen Stick\n   • 1 Sticky Dart\n      • Get 1 Frost Tome\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Cool Hand Fluke III",
+    "tooltips": [
+      "Chana Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Chillbane\n   • 1 Gobnoxious Dart\n   • 1 Tactical Blowgun\n      • Get 1 Icicle Shard\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Cool Hand Fluke IV",
+    "tooltips": [
+      "Chana Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Frostbite Wand\n   • 1 Gobliterator Dart\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Critical Focus and 1 Spell Scroll\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Moonlit Drill Bit I",
+    "tooltips": [
+      "Sage Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Gleaming Kunai\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Moonlit Drill Bit II",
+    "tooltips": [
+      "Sage Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Moonlit Blade\n   • 1 Bolt Cutter\n      • Get 1 Refined Jade\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Moonlit Drill Bit III",
+    "tooltips": [
+      "Sage Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Moonlit Blade\n   • 1 Subtle Distractor Shield\n   • 1 Unsafe Safe Cracker\n      • Get 1 Jade Stone and 1 Gleaming Kunai\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Moonlit Drill Bit IV",
+    "tooltips": [
+      "Sage Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Zephyr's Edge\n   • 1 Hypnodisc Deflector\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Magic Essence\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Porphyry Forgery I",
+    "tooltips": [
+      "Dorf Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Rusty Forge Hammer\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Porphyry Forgery II",
+    "tooltips": [
+      "Dorf Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Iron Forge Hammer\n   • 1 Bolt Cutter\n      • Get 1 Iron Ore and 1 Lumps of Coal\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Porphyry Forgery III",
+    "tooltips": [
+      "Dorf Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Steel Forge Hammer\n   • 1 Improvised Smokebomb\n   • 1 Unsafe Safe Cracker\n      • Get 1 Adamantite Ore and 1 Sapphire\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Porphyry Forgery IV",
+    "tooltips": [
+      "Dorf Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Adamantite Forge Hammer\n   • 1 Premeditated Stinkbomb\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Diamond and 1 Crystal Shard\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Price of Love",
+    "tooltips": [
+      "When chosen:\n• Get 1 Big Chocolate Gift Box\n• Increased chance of Filled Chocolates in the shop\n\nWhen a Filled Chocolate appears in the shop:\n• 40% chance it will cost 1 Gold less"
+    ]
+  },
+  {
+    "id": "The Rusty Surgeon I",
+    "tooltips": [
+      "Harkon Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Rusty Sword\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Rusty Surgeon II",
+    "tooltips": [
+      "Harkon Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Rusty Sword\n   • 1 Noxious Red Mush\n      • Get 1 Bonesaw\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Rusty Surgeon III",
+    "tooltips": [
+      "Harkon Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Wolfstrike\n   • 1 Rat Burglar\n   • 1 Brimstone Powder\n      • Get 1 Dark Omen\n      • Get a new Harkon Heist"
+    ]
+  },
+  {
+    "id": "The Scrapyard Scam I",
+    "tooltips": [
+      "Tink Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Superior Bolts\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Scrapyard Scam II",
+    "tooltips": [
+      "Tink Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Superior Bolts\n   • 1 Bolt Cutter\n      • Get 1 Crowbar\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Scrapyard Scam III",
+    "tooltips": [
+      "Tink Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Torch\n   • 1 Runesmith Goniometer\n   • 1 Unsafe Safe Cracker\n      • Get 1 Superior Gear\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Scrapyard Scam IV",
+    "tooltips": [
+      "Tink Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Welding Torch\n   • 1 Premeditated Stinkbomb\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Arcane Core\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Spirit of Heistmas",
+    "tooltips": [
+      "Per 8 Buff gained by opponent:\n• Steal 1 Buff"
+    ]
+  },
+  {
+    "id": "The Tenderizer",
+    "tooltips": [
+      "On hit:\n• Gain +8% CritChance  per Star TypeFood\n• Remove 15% MaxHealth\n\nOn critical hit:\n• Gain +6% faster attacks per Star TypeFood \n• Activate Bleed"
+    ]
+  },
+  {
+    "id": "The Vault Assault I",
+    "tooltips": [
+      "Ronan Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Armor Kit\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "The Vault Assault II",
+    "tooltips": [
+      "Ronan Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Armor Kit\n   • 1 Bolt Cutter\n      • Get 1 Cactrio\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "The Vault Assault III",
+    "tooltips": [
+      "Ronan Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Cactrio\n   • 1 Improvised Smokebomb\n   • 1 Unsafe Safe Cracker\n      • Get 1 Knight's Aegis\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "The Vault Assault IV",
+    "tooltips": [
+      "Ronan Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Knight's Aegis\n   • 1 Premeditated Stinkbomb\n   • 1 Vitri-Oil Vault Drill\n      • Get 1 Defender's Shield\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "The Voidcaller",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Insanity on both players every second\n\nOn hit:\n• Gain 15 MaxHealth\n• Inflict Call of the Void on both players\n\nPer Insanity on both players combined:\n• Gain +1% CritChance, +1% CritDamage, +1% faster attacks\n\nCall of the Void:\n• Suffer 5 Insanity for 5 seconds"
+    ]
+  },
+  {
+    "id": "Thorned Crown",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Thorns\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 30% chance to inflict 3 Poison\n\nWhen time of day changes:\n• Gain 4 Thorns"
+    ]
+  },
+  {
+    "id": "Thornwall",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 30 Armor and 5 Thorns\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 30% chance to:\n    • Block 14 Damage\n    • Gain 1 Thorns\n\nThis counts as 2 Cactus"
+    ]
+  },
+  {
+    "id": "Thoughtful Thrifts",
+    "tooltips": [
+      "When a Present appears in the shop:\n• 40% chance the item will cost 1 Gold less (minimum 1)"
+    ]
+  },
+  {
+    "id": "Three Eyed Crab",
+    "tooltips": [
+      "On hit:\n• Gain 3 MaxHealth and 3 Armor\n• Use 1 Mana to inflict 2 Insanity on both players"
+    ]
+  },
+  {
+    "id": "Throwing Hatchet",
+    "tooltips": [
+      "On hit:\n• Inflict 2 Bleed\n\nOn critical hit:\n• Activate Bleed"
+    ]
+  },
+  {
+    "id": "Thunder Rat",
+    "tooltips": [
+      "Start of Dawn:\nDischarge requires 2 less Static per different Star Pet\n\nOn hit:\n• Stun 1 enemy item for 1 second\n• This and Star Pet gains +2 max Damage\n\nDischarge (16Static):\n• Trigger an extra attack\n\nOn shop entered:\n• Attract a Brown Rat"
+    ]
+  },
+  {
+    "id": "Thunder Sword",
+    "tooltips": [
+      "On hit:\n• Gain 3 Static and +3 max Damage \n\nDischarge (20Static):\n• Gain +20% CritChance and +20% CritDamage"
+    ]
+  },
+  {
+    "id": "Thunderbolt",
+    "tooltips": [
+      "Every 4.1 seconds:\n• Deal 1-33 Damage\n• Star items gain 4 Static\n• 10% chance to Stun for 0.5 seconds"
+    ]
+  },
+  {
+    "id": "Thunderfork",
+    "tooltips": [
+      "On hit:\n• Gain 2 Static\n\nDischarge (13Static):\n• Gain +10% CritChance"
+    ]
+  },
+  {
+    "id": "Thunderstorm Spear",
+    "tooltips": [
+      "On hit:\n• Gain 4 Static and +4 max Damage\n• Gain 1 Static per Star TypeAccessory\n\nDischarge (24Static):\n• Gain +20% CritChance and +40% CritDamage"
+    ]
+  },
+  {
+    "id": "Thunderstrike Ring",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• Gain 2 Static\n\nOn Star MeleeWeaponRangedWeapon critical hit:\n• Gain 2 Static\n\nDischarge (30Static):\n• Star MeleeWeaponRangedWeapon gains +5% CritChance and +10% CritDamage\n• 2 random Star MeleeWeaponRangedWeapon trigger a free attack"
+    ]
+  },
+  {
+    "id": "Tidal Clam",
+    "tooltips": [
+      "Start of Day:\n• 40% chance to inflict Stun for 1 second\n\nStart of Night:\n• 40% chance to inflict Stun for 1 second\n\nOn shop entered:\n• 20% chance to break open and gain 5 Gold"
+    ]
+  },
+  {
+    "id": "Tidal Staff",
+    "tooltips": [
+      "Start of Dawn: \n• Inflict 2 Chill per Star TypeFish\n\nEvery 7.4 seconds:\n• Heal for 24 Health per Star TypeFish\n• Use 8 Chill from opponent to gain 8 Haste\n\nOn shop entered:\n• 50% chance to Go Fishing (Deep)"
+    ]
+  },
+  {
+    "id": "Tidepiercer",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +3 Damage per Star MeleeWeaponRangedWeapon\n• Gain +10% CritChance per Star TypeFish\n\nOn hit:\n• Inflict 3 Bleed\n\nOn critical hit: \n• Activate Bleed"
+    ]
+  },
+  {
+    "id": "Timeless Hourglass",
+    "tooltips": [
+      "Every 1.0 seconds:\n• Star MeleeWeaponRangedWeapon gains +2% CritDamage \n\nHealth below 20%:\n• Both players cleanse all Debuff\n• Both players heal for 1000 Health\n• Restore 1 use on Star TypePotion\n• Restore 2 quantity on Star Bolts and Darts"
+    ]
+  },
+  {
+    "id": "Tiny Kraken Tooth",
+    "tooltips": [
+      "On hit:\n• Stun this and opponent for 1 second\n• Inflict 5 Chill and 5 Bleed\n\nPer Bleed on opponent:\n• Gain +1% CritChance\n\nPer Chill on opponent:\n• Gain +1% CritDamage"
+    ]
+  },
+  {
+    "id": "Tiny Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Resist and 1 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Titanwood Repeater",
+    "tooltips": [
+      "When this shoots a Bolt or Dart:\n• That shot gets +10 Damage\n• Use 3 Mana to double that bonus\n\nOn hit:\n• Shoot 1 Star Bolt or Dart\n\nOn critical hit:\n• Shoot 1 Star Bolt or Dart"
+    ]
+  },
+  {
+    "id": "Tomahawk",
+    "tooltips": [
+      "Health below 50%:\n• Cleanse 4 Debuff"
+    ]
+  },
+  {
+    "id": "Toolbox",
+    "tooltips": [
+      "On shop entered:\n• Get 1 Part\n• 20% chance per TypeTool inside to:\n   • Get 1 TypeTool"
+    ]
+  },
+  {
+    "id": "Torch",
+    "tooltips": [
+      "On hit:\n• 33% chance to inflict 3 Burn"
+    ]
+  },
+  {
+    "id": "Tournament Lance",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage and +5% CritChance per Star Cactus\n\nOn hit:\n• 25% chance to inflict Stun for 0.5 seconds"
+    ]
+  },
+  {
+    "id": "Toxic Bolt",
+    "tooltips": [
+      "On hit:\n• Inflict 3 Poison\n\nQuantity: 2/2"
+    ]
+  },
+  {
+    "id": "Training Blade",
+    "tooltips": [
+      "On hit:\n• 50% chance to remove 1 Buff"
+    ]
+  },
+  {
+    "id": "Trangoblizer Dart",
+    "tooltips": [
+      "On hit:\n• Steal 1 Buff\n• Remove 1 Haste or 1 Empower per second for 6 seconds\n\nQuantity: 3/3"
+    ]
+  },
+  {
+    "id": "Transmutation",
+    "tooltips": [
+      "When time of day changes:\n• Heal for 4 Health per 6 Debuff on you"
+    ]
+  },
+  {
+    "id": "Traveler's Hat",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Gain 1 Resist\n• Gain 1 Mana per Star item"
+    ]
+  },
+  {
+    "id": "Treasure Chest",
+    "tooltips": [
+      "On shop entered:\n• Gain 2 Gold\n• 50% chance to get 1 Treasure"
+    ]
+  },
+  {
+    "id": "Trick-or-Treat Bucket",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 3 Poison or gain 16 MaxHealth\n\nOn shop entered:\n• Get 1-3 Treats"
+    ]
+  },
+  {
+    "id": "Truefire Bracers",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +15% CritChance and +25% CritDamage"
+    ]
+  },
+  {
+    "id": "Trusty Trench Coat",
+    "tooltips": [
+      "Start of Dawn:\n• Steal 9 MaxHealth per Star item from another hero\n• Reduce Damage taken by 9%\n\nWhen hit 5 times (MeleeWeaponRangedWeaponPet):\n• Gain 1 Resist per Star item from another hero\n• Cleanse 4 Debuff"
+    ]
+  },
+  {
+    "id": "Tulip",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Resist\n\nWhen time of day changes:\n• Gain 4 Resist\n\nOn shop entered:\n• 25% chance to get 1 Insect"
+    ]
+  },
+  {
+    "id": "Tusk",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Thorns"
+    ]
+  },
+  {
+    "id": "Twinmaw",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +25% faster attacks per Star MeleeWeapon\n\nOn hit:\n• Gain 1 Thorns per Star MeleeWeapon\n• Inflict 1 Bleed per Star Cactus"
+    ]
+  },
+  {
+    "id": "Two is Better than One",
+    "tooltips": [
+      "When chosen:\n• Get 2 Filled Chocolates\n\nWhen buying a Filled Chocolate:\n• 60% chance to get another Filled Chocolate"
+    ]
+  },
+  {
+    "id": "Unblinking Overwatch",
+    "tooltips": [
+      "Every 3.9 seconds:\n• Cleanse 3 Debuff per Star Eyeball\n• Gain 1Luck,  1Haste, 1 Regeneration per Star MeleeWeaponPet"
+    ]
+  },
+  {
+    "id": "Unbreakable Wall",
+    "tooltips": [
+      "Start of Dawn: \n• Gain 100 Armor and 5 Thorns\n\nWhen hit (MeleeWeaponRangedWeaponPet):\n• 50% chance to block 24 Damage and gain 10 Armor\n• 20% chance to gain 2 Empower, 2 Thorns, or 2 Regeneration"
+    ]
+  },
+  {
+    "id": "Underground Ore Deals I",
+    "tooltips": [
+      "Dorf Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Iron Chisel\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Underground Ore Deals II",
+    "tooltips": [
+      "Dorf Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Mining Pick\n   • 1 Tactical Blowgun\n      • Get 1 Iron Ore and 1 Lumps of Coal\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Underground Ore Deals III",
+    "tooltips": [
+      "Dorf Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Steel Pickaxe\n   • 1 Gobnoxious Dart\n   • 1 Bronze Bar\n      • Get 1 Adamantite Ore and 1 Emerald\n      • Begin Step IV"
+    ]
+  },
+  {
+    "id": "Underground Ore Deals IV",
+    "tooltips": [
+      "Dorf Step IV\nOn shop entered:\n• If Star items are exactly:\n   • 1 Adamantite Axepick\n   • 1 Gobliterator Dart\n   • 1 Harper-Sonic Dart Sling\n      • Get 1 Ruby and 1 Amethyst\n      • Get a new Heist"
+    ]
+  },
+  {
+    "id": "Unfortunate Axidents I",
+    "tooltips": [
+      "Harkon Step I\nOn shop entered:\n• If Star items are exactly:\n   • 1 Lockpick Dart\n      • Get 1 Meat Cleaver\n      • Begin Step II"
+    ]
+  },
+  {
+    "id": "Unfortunate Axidents II",
+    "tooltips": [
+      "Harkon Step II\nOn shop entered:\n• If Star items are exactly:\n   • 1 Meat Cleaver\n   • 1 Pleasant Green Paste\n      • Get 1 Tomahawk\n      • Begin Step III"
+    ]
+  },
+  {
+    "id": "Unfortunate Axidents III",
+    "tooltips": [
+      "Harkon Step III\nOn shop entered:\n• If Star items are exactly:\n   • 1 Ironhowl\n   • 1 Rat Burglar\n   • 1 Brimstone Powder\n      • Get 1 Fury Edge\n      • Get a new Harkon Heist"
+    ]
+  },
+  {
+    "id": "Unfortunate Tuna",
+    "tooltips": [
+      "Every 3 seconds:\n• Gain 3 Mana and 6 MaxHealth\n• Inflict 1 Insanity on both players",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Unholy Skull",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 3 Lifesteal, 1 Empower, and 30 MaxHealth\n\nEvery 3.5 seconds:\n• Inflict 1 Curse\n• Drain 1 Stamina\n• Inflict 1 Poison on yourself"
+    ]
+  },
+  {
+    "id": "Unholy Sword",
+    "tooltips": [
+      "On hit:\n• Gain 2 Lifesteal and +2 Damage\n• Inflict 1 Curse per Star TypeSkull\n\nOn critical hit:\n• Gain 4 Lifesteal and +4 Damage\n• Inflict 2 Curse per Star TypeSkull"
+    ]
+  },
+  {
+    "id": "Unsafe Safe Cracker",
+    "tooltips": [
+      "On hit:\n• Steal 0.25 Stamina\n• Inflict 3 Bleed\n• Sabotage 3 enemy MeleeWeaponRangedWeapon\n\nEvery 3 hits:\n• Gain +15% faster attacks \n• Inflict 1 Bleed on yourself\n\nSabotage:\n• Remove -1 min Damage and -10% CritDamage from target"
+    ]
+  },
+  {
+    "id": "Upcycling",
+    "tooltips": [
+      "When chosen:\n• Gain 3 free rerolls\n\nEvery 4 items crafted:\n• Gain 1 free reroll\n\nItems crafted: 0/4"
+    ]
+  },
+  {
+    "id": "Vampire Bat",
+    "tooltips": [
+      "On hit:\n• Gain 2 Lifesteal\n• Cleanse 4 Bleed\n• Steal 10 Health"
+    ]
+  },
+  {
+    "id": "Vampire Worm",
+    "tooltips": [
+      "On hit:\n• Gain 1 Lifesteal \n• Inflict 1 Bleed\n\nOn critical hit:\n• Heal for 1 Health per Bleed on opponent"
+    ]
+  },
+  {
+    "id": "Vampire's Scepter",
+    "tooltips": [
+      "On hit:\n• Gain 4 Mana\n• Steal 8 Health\n\nOn Star MeleeWeaponRangedWeapon hit:\n  • Use 1 Mana to increase Health steal by 4"
+    ]
+  },
+  {
+    "id": "Vanguard Belt",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 28 Armor and 3 Luck\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 22 Armor"
+    ]
+  },
+  {
+    "id": "Vanilla Dream",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• Heal for 5 Health\n\nOn shop entered:\n• Destroy this"
+    ]
+  },
+  {
+    "id": "Velocity Ring",
+    "tooltips": [
+      "Every 3.3 seconds:\n• Star MeleeWeaponRangedWeaponPet gain +5% faster attacks\n\nOn Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance all Star MeleeWeaponRangedWeaponPet gains +3% faster attacks"
+    ]
+  },
+  {
+    "id": "Venomous Pincer",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeaponPet hit:\n• 50% chance to inflict 1 Poison\n\nWhen time of day changes:\n• Activate Poison on opponent"
+    ]
+  },
+  {
+    "id": "Very Big Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 6 Resist and 36 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Viperskin Strap",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 1 Empower\n• Star TypePotion gain +1 more use\n\nOn Star TypePotion use:\n• Gain 5 Haste"
+    ]
+  },
+  {
+    "id": "Vitri-Oil Vault Drill",
+    "tooltips": [
+      "On hit:\n• Steal 0.25 Stamina\n• Inflict 4 Bleed\n• Sabotage 4 enemy MeleeWeaponRangedWeapon\n\nEvery 3 hits:\n• Gain +20% faster attacks \n• Spend 1 TypePotion use to inflict 9 Burn and 9 Poison\n\nSabotage:\n• Remove -1 min Damage and -10% CritDamage from target"
+    ]
+  },
+  {
+    "id": "Voltaic Shiv",
+    "tooltips": [
+      "On hit:\n• Gain 2 Static and +2 max Damage\n\nDischarge (16Static):\n• Gain +20% CritChance"
+    ]
+  },
+  {
+    "id": "Wand of Backdraft",
+    "tooltips": [
+      "On hit: \n• Deal 3 Damage per Burn on opponent\n\nOn this or Star MeleeWeaponRangedWeapon hit:\n• 50% chance to inflict 1 Burn"
+    ]
+  },
+  {
+    "id": "War Drum",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 50% chance for all Star MeleeWeaponRangedWeapon to gain +1 Damage"
+    ]
+  },
+  {
+    "id": "Warbringer",
+    "tooltips": [
+      "On hit:\n• Gain 1 Regeneration and 1 Empower\n\nHealth below 50%:\n• Cleanse 14 Debuff"
+    ]
+  },
+  {
+    "id": "Warhammer",
+    "tooltips": [
+      "On hit if opponent has Armor:\n• Gain +5% CritChance"
+    ]
+  },
+  {
+    "id": "Warrior Backpack",
+    "tooltips": [
+      "On item inside activating:\n• 40% chance to gain 2 Armor\n\nOn shop entered:\n• If there is a Cactus inside:\n   • Get 1 Cactus"
+    ]
+  },
+  {
+    "id": "Water Potion",
+    "tooltips": [
+      "Health below 50% or 3 Burn on you:\n• Cleanse 3 Burn\n• Heal for 6 Health"
+    ]
+  },
+  {
+    "id": "Watermelon",
+    "tooltips": [
+      "Every 3.2 seconds:\n• Gain 2 Mana\n• Cleanse 1 Debuff",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Wax Candle",
+    "tooltips": [
+      "Every 4 seconds:\n• Cleanse 1 Blind\n• 50% chance to inflict 1 Burn"
+    ]
+  },
+  {
+    "id": "Weapons Rack",
+    "tooltips": [
+      "On Star MeleeWeaponRangedWeapon hit:\n• 20% chance another Star MeleeWeaponRangedWeapon triggers a free attack"
+    ]
+  },
+  {
+    "id": "Skull",
+    "tooltips": [
+      "Every 4.5 seconds:\n• Drain 0.5 Stamina\n• Inflict 1 Curse"
+    ]
+  },
+  {
+    "id": "Web-Slinger Cover",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 2 Chill per Star Spiderweb\n\nOn Star Pet hit:\n• 50% chance to inflict 1 Chill per Star Spiderweb\n\nWhile equipped:\n• Increased chance of Spiderweb in the shop"
+    ]
+  },
+  {
+    "id": "Weirdly-shaped Present",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 6 Resist and 36 MaxHealth\n\nOn shop entered:\n• Open this"
+    ]
+  },
+  {
+    "id": "Welding Torch",
+    "tooltips": [
+      "On hit:\n• Inflict 5 Burn\n• Gain 4 Armor per Star Part\n• Use 3 Mana to:\n  • Inflict 2 Burn \n  • Inflict 2 Blind\n\nOn shop entered:\n• 80% chance to get 1 Part"
+    ]
+  },
+  {
+    "id": "Werewolf Paw",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeaponPet gains +15% CritChance\n\nOn Star MeleeWeaponRangedWeaponPet critical hit:\n• Inflict 1 Curse"
+    ]
+  },
+  {
+    "id": "Whetstone",
+    "tooltips": [
+      "Start of Dawn:\n• Star MeleeWeaponRangedWeapon gains +1 Damage and +5% CritChance"
+    ]
+  },
+  {
+    "id": "Whispering Conch",
+    "tooltips": [
+      "Per Insanity on you:\n• Gain +10% faster activations\n\nEvery 3.5 seconds:\n• Gain 8 Armor\n• Inflict Call of the Void on both players\n\nCall of the Void:\n• Suffer 5 Insanity for 5 seconds"
+    ]
+  },
+  {
+    "id": "Wicked Stick",
+    "tooltips": [
+      "On hit: \n• Gain 2 Mana\n• Remove  1 Mana from opponent"
+    ]
+  },
+  {
+    "id": "Wild Magic Scroll",
+    "tooltips": [
+      "Every 5 seconds:\n• Inflict 1-3 Burn and 1-3 Chill per Star RangedWeaponPet\n\nAfter 15 seconds:\n• Gain 4 Armor per Mana gained\n\nAfter 25 seconds:\n• Heal 2 Health and deal 2 Damage per Debuff inflicted\n\nAfter 35 seconds:\n• Cleanse all Debuff\n• Inflict 1 Burn per Chill inflicted\n• Inflict 1 Chill per Burn inflicted"
+    ]
+  },
+  {
+    "id": "Wild Rose",
+    "tooltips": [
+      "Start of Dawn:\n• Inflict 1 Bleed on yourself\n• Gain 4 Luck"
+    ]
+  },
+  {
+    "id": "Wilderness Potion",
+    "tooltips": [
+      "Health below 75%:\n• Heal for 18 Health\n• Gain 10 Haste for 10 seconds\n\nThis counts as 1 Dragonleaf"
+    ]
+  },
+  {
+    "id": "Wildfire Essence",
+    "tooltips": [
+      "Per Burn on opponent:\n• Star items are 1% faster\n\nPer 10 Burn inflicted by Star items:\n• Gain 3 Haste"
+    ]
+  },
+  {
+    "id": "Wildflower Seeds",
+    "tooltips": [
+      "When time of day changes:\n• Gain 5 MaxHealth\n\nOn shop entered:\n• 50% chance to get 1 TypePlant"
+    ]
+  },
+  {
+    "id": "Willow Wand",
+    "tooltips": [
+      "On hit:\n• Gain 1 Buff\n• Use 1 Mana to gain 1 Buff"
+    ]
+  },
+  {
+    "id": "Willowfin",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 2 Resist\n\nEvery 4.6 seconds:\n• Cleanse 2 Debuff",
+      "+10% faster for every Star TypeFood of another type"
+    ]
+  },
+  {
+    "id": "Windchill Factor",
+    "tooltips": [
+      "Per 7 Haste gained by opponent:\n• Inflict 1 Chill"
+    ]
+  },
+  {
+    "id": "Wing Clipper",
+    "tooltips": [
+      "On hit:\n• Inflict 1 Bleed\n• Use 4 Haste from opponent to:\n   • Inflict 1 Bleed\n   • Gain +10% faster attacks"
+    ]
+  },
+  {
+    "id": "Winged Thorns",
+    "tooltips": [
+      "Every 2.8 seconds:\n• Gain 1 Thorns\n• Deal 1 Damage per Thorns on you\n\nWhen Hit (RangedWeapon):\n• This goes +10% faster"
+    ]
+  },
+  {
+    "id": "Wizard Hat",
+    "tooltips": [
+      "Every 13 Mana gained:\n• Gain 1 Resist per Star MeleeWeaponRangedWeaponPet\n• Star MeleeWeaponRangedWeaponPet gains +30% CritDamage"
+    ]
+  },
+  {
+    "id": "Wizard Robe",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 4 Mana, 8 Resist, 30 Armor\n\nEvery 4.1 seconds:\n• Gain 3 Mana and 3 Resist"
+    ]
+  },
+  {
+    "id": "Wizard's Pouch",
+    "tooltips": [
+      "On item inside activating:\n• 35% chance to gain 1 Mana\n\nOn shop entered:\n• If there is a Starbloom inside:\n   • Get 1 Starbloom"
+    ]
+  },
+  {
+    "id": "Wolfstrike",
+    "tooltips": [
+      "On hit if opponent has no Armor:\n• Gain 2 Lifesteal\n• Inflict 1 Bleed"
+    ]
+  },
+  {
+    "id": "Wooden Buckler",
+    "tooltips": [
+      "Start of Dawn:\n• Gain 10 Armor\n\nWhen hit (MeleeWeaponRangedWeapon):\n• 30% chance to block 3 Damage"
+    ]
+  },
+  {
+    "id": "Wooden Club",
+    "tooltips": [
+      "On hit:\n• Remove 1 Thorns"
+    ]
+  },
+  {
+    "id": "Wooden Spoon",
+    "tooltips": [
+      "Start of Dawn:\n• Gain +1 Damage per Star TypeFood"
+    ]
+  },
+  {
+    "id": "Wooden Stick",
+    "tooltips": [
+      "On hit:\n• 40% chance to gain 1 Mana"
+    ]
+  },
+  {
+    "id": "Wooden Sword",
+    "tooltips": []
+  },
+  {
+    "id": "Woodsman's Axe",
+    "tooltips": [
+      "On hit:\n• 50% chance to inflict 3 Bleed\n\nOn critical hit:\n• Inflict 3 Bleed"
+    ]
+  },
+  {
+    "id": "Worker Bee",
+    "tooltips": [
+      "On hit:\n• 15% chance to Stun an enemy item for 1.5 seconds\n\nOn shop entered:\n• 10% chance per Star TypePlant to get 1 Gold Elixir"
+    ]
+  },
+  {
+    "id": "World's End",
+    "tooltips": [
+      "On hit:\n• Use 1 Stamina to do a Charged Strike (+50% Damage)\n• Gain 3 Regeneration and 2 Empower\n• 50% chance to trigger a free attack\n• If opponent has no Armor:\n   • Inflict 6 Bleed\n\nHealth below 50%:\n• Gain 12 Lifesteal\n• Cleanse 24 Debuff"
+    ]
+  },
+  {
+    "id": "Worn-out Lifebuoy",
+    "tooltips": [
+      "Every 3.7 seconds:\n• Cleanse 7 different Debuff\n• Inflict 3 Insanity on yourself \n\nHealth below 40%:\n• Gain 5 MaxHealth and 1 Regeneration per Insanity on you"
+    ]
+  },
+  {
+    "id": "Wrap It Up",
+    "tooltips": [
+      "When chosen and on every 4 shops entered:\n• Get 1 Magic Wrapping Paper\n\nShops entered: 0/4"
+    ]
+  },
+  {
+    "id": "Wrath Potion",
+    "tooltips": [
+      "Out of stamina:\n• Gain 2 Stamina and 1 Empower\n• Increase StaminaRecovery by 1 for 6 seconds"
+    ]
+  },
+  {
+    "id": "Writhing Tentacle",
+    "tooltips": [
+      "On hit:\n• Gain 3 MaxHealth\n• Inflict 1 Chill\n• Inflict 1 Insanity on both players\n\nPer Insanity on you:\n• Gain +1% faster attacks"
+    ]
+  },
+  {
+    "id": "Young Squire",
+    "tooltips": [
+      "On hit:\n• Gain +1 Damage per Star TypeArmor\n\nOn shop entered:\n• Brings you a random TypeArmor \n• 50% chance to get a Cactus"
+    ]
+  },
+  {
+    "id": "Zap Rat",
+    "tooltips": [
+      "On Hit:\n• Gain 1 Static per Star item\n• Star items gain 1 Static\n\nDischarge (18Static):\n• Gain +1 max Damage per Star item"
+    ]
+  },
+  {
+    "id": "Zephyr's Edge",
+    "tooltips": [
+      "When hit 8 times (MeleeWeaponRangedWeapon):\n• Trigger an attack\n• Reduce hits required by 1 (minimum 1)\n\nOn hit:\n• Inflict 3 Bleed\n• Gain +5% CritChance\n\nOn critical hit:\n• Inflict 3 Bleed and 3 Poison"
+    ]
+  }
+]

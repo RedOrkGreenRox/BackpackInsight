@@ -106,6 +106,38 @@ class Profile(SQLModel, table=True):
         # Create on the fly to avoid Pydantic/SQLAlchemy state conflicts
         return GameInfo(**self.game_info_data)
 
+    def to_frontend_view(self) -> Dict[str, Any]:
+        """
+        Returns a dictionary representation of the Profile for the frontend.
+        Aggregates data from nested models and calculated properties.
+        """
+        game_data = self.game_info_data
+        
+        return {
+            "nickname": self.nickname,
+            "level": self.level,
+            "trophy": game_data.get("Trophy", 0),
+            "bonus_trophy": game_data.get("BonusTrophy", 0),
+            "gems": self.gems,
+            "coins": self.coins,
+            "xp_current": game_data.get("PlayerExperienceCurrent", 0),
+            "xp_need": game_data.get("PlayerExperienceNeed", 0),
+            "area": game_data.get("Area", "01"),
+            "item_stats": game_data.get("ItemStats", {}),
+
+            # Serialize heroes using their own method
+            "heroes": [hero.to_frontend_view() for hero in self.heroes],
+            "heroes_count": len(self.heroes),
+
+            # Serialize items using their own method
+            "items": [item.to_frontend_view() for item in self.items],
+            "items_count": len(self.items),
+
+            "actual_version": self.app_version,
+            "install_version": self.app_version,
+            "profile_skins": game_data.get("Skins", {})
+        }
+
     def __str__(self):
         # Use properties to access data
         game_info = self.game_information
