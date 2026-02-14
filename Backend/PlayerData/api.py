@@ -93,8 +93,10 @@ def get_items(request: Request, response: Response, session: Session = Depends(g
     """Возвращает определения предметов с поддержкой ETag (304)."""
     items = session.exec(select(ItemDefinition)).all()
     data_str = json.dumps([item.dict() for item in items], sort_keys=True)
-    etag = f'W/"{hashlib.md5(data_str.encode()).hexdigest()}"'
-    if request.headers.get("If-None-Match") == etag:
+    etag = f'"{hashlib.md5(data_str.encode()).hexdigest()}"'
+
+    client_etag = request.headers.get("if-none-match")
+    if client_etag and (client_etag == etag or client_etag == f'W/{etag}'):
         return Response(status_code=304)
     response.headers["ETag"] = etag
     response.headers["Cache-Control"] = "public, max-age=3600"
