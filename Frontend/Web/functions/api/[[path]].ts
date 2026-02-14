@@ -1,35 +1,22 @@
 export const onRequest: PagesFunction<{ BACKEND: string }> = async (context) => {
-  const { request, env } = context;
-  const url = new URL(request.url);
+  // 1. Проверяем, видит ли функция переменную
+  if (!context.env.BACKEND) {
+    return new Response("Error: BACKEND variable is missing in Cloudflare Settings", { status: 418 });
+  }
 
-  // Убираем /api из пути
+  const url = new URL(context.request.url);
   const path = url.pathname.replace(/^\/api/, '');
-  const destination = `${env.BACKEND}${path}${url.search}`;
-
-  // Создаем НОВЫЙ запрос. НЕ копируем request целиком!
-  const proxyRequest = new Request(destination, {
-    method: request.method,
-    // Передаем только самое важное, без заголовка Host
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "X-Real-IP": request.headers.get("CF-Connecting-IP") || ""
-    },
-    // Тело только для методов с данными
-    body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : null,
-    redirect: "follow"
-  });
+  const destination = `${context.env.BACKEND}${path}${url.search}`;
 
   try {
-    const response = await fetch(proxyRequest);
-
-    // Если бэкенд всё же ответил ошибкой, мы это увидим
-    return response;
-  } catch (err) {
-    // Если Cloudflare не смог даже "выстрелить" запросом
-    return new Response(JSON.stringify({ error: "Connection Failed", message: err.message }), {
-      status: 502,
-      headers: { "Content-Type": "application/json" }
+    // 2. Пробуем сделать максимально простой запрос
+    const response = await fetch(destination, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
     });
+    return response;
+  } catch (e) {
+    // 3. Если fetch упал, выводим причину
+    return new Response(`Fetch failed: ${e.message} | Destination: ${destination}`, { status: 500 });
   }
 };
