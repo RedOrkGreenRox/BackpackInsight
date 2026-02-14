@@ -110,11 +110,11 @@ function updateHeroImage(picture: Element | null, heroName: string, skinNum: str
     const formattedSkinNum = String(skinNum).padStart(2, '0');
 
     if (sources.length >= 2) {
-        sources[0].srcset = `/static/images/heroes/${heroName}/avif/${heroName}${formattedSkinNum}.avif`;
-        sources[1].srcset = `/static/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
+        sources[0].srcset = `/images/heroes/${heroName}/avif/${heroName}${formattedSkinNum}.avif`;
+        sources[1].srcset = `/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
     }
 
     if (img) {
-        img.src = `/static/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
+        img.src = `/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
     }
 }

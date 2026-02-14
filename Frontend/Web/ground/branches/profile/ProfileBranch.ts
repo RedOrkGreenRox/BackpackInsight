@@ -152,9 +152,9 @@ export class ProfileBranch extends Branch {
         return `
             <div class="profile-header" data-aos="zoom-in">
                 <picture class="header-bg">
-                    <source srcset="/static/images/area/avif/Area${d.area}.avif" type="image/avif">
-                    <source srcset="/static/images/area/webp/Area${d.area}.webp" type="image/webp">
-                    <img src="/static/images/area/webp/Area${d.area}.webp" alt="Background" fetchpriority="high">
+                    <source srcset="/images/area/avif/Area${d.area}.avif" type="image/avif">
+                    <source srcset="/images/area/webp/Area${d.area}.webp" type="image/webp">
+                    <img src="/images/area/webp/Area${d.area}.webp" alt="Background" fetchpriority="high">
                 </picture>
 
                 <h4>${d.nickname}</h4>
@@ -162,41 +162,41 @@ export class ProfileBranch extends Branch {
                 <div class="stats-grid">
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/Level.webp" alt="Lvl" loading="lazy">
+                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Level.webp" type="image/webp">
+                            <img src="/images/profile/webp/Level.webp" alt="Lvl" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.level}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/static/images/profile/avif/xp.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/xp.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/xp.webp" alt="XP" loading="lazy">
+                            <source srcset="/images/profile/avif/xp.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/xp.webp" type="image/webp">
+                            <img src="/images/profile/webp/xp.webp" alt="XP" loading="lazy">
                         </picture>
                         <span class="stat-value">${fmt(d.xp_current)} / ${fmt(d.xp_need)}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/static/images/profile/avif/Trophy.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Trophy.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/Trophy.webp" alt="Trophy" loading="lazy">
+                            <source srcset="/images/profile/avif/Trophy.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Trophy.webp" type="image/webp">
+                            <img src="/images/profile/webp/Trophy.webp" alt="Trophy" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.trophy + d.bonus_trophy}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/static/images/profile/avif/Gems.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Gems.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/Gems.webp" alt="Gems" loading="lazy">
+                            <source srcset="/images/profile/avif/Gems.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Gems.webp" type="image/webp">
+                            <img src="/images/profile/webp/Gems.webp" alt="Gems" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.gems}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/static/images/profile/avif/Coins.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Coins.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/Coins.webp" alt="Coins" loading="lazy">
+                            <source srcset="/images/profile/avif/Coins.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Coins.webp" type="image/webp">
+                            <img src="/images/profile/webp/Coins.webp" alt="Coins" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.coins}</span>
                     </div>
@@ -212,23 +212,23 @@ export class ProfileBranch extends Branch {
                                  data-prestige="${hero.prestige}">
                                 <div class="hero-header-row">
                                     <picture class="stat-hero-image-wrapper">
-                                        <source srcset="/static/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
-                                        <source srcset="/static/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
-                                        <img class="stat-hero-icon" src="/static/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
+                                        <source srcset="/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
+                                        <source srcset="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
+                                        <img class="stat-hero-icon" src="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
                                     </picture>
                                     <div class="stat-hero-level-container">
                                         <picture class="stat-hero-level-frame">
-                                            <source srcset="/static/images/profile/avif/frame_${hero.prestige ? 'prestige' : 'common'}.avif" type="image/avif">
-                                            <source srcset="/static/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" type="image/webp">
-                                            <img src="/static/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" alt="level frame" loading="lazy">
+                                            <source srcset="/images/profile/avif/frame_${hero.prestige ? 'prestige' : 'common'}.avif" type="image/avif">
+                                            <source srcset="/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" type="image/webp">
+                                            <img src="/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" alt="level frame" loading="lazy">
                                         </picture>
                                         <span class="stat-hero-level-text">${hero.level}</span>
                                     </div>
                                     <div class="stat-hero-rating-container">
                                         <picture class="stat-hero-league">
-                                            <source srcset="/static/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
-                                            <source srcset="/static/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
-                                            <img src="/static/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
+                                            <source srcset="/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
+                                            <source srcset="/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
+                                            <img src="/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
                                         </picture>
                                         <span class="stat-hero-rating">${hero.rating}</span>
                                     </div>
@@ -244,9 +244,9 @@ export class ProfileBranch extends Branch {
                             return `
                                 <div class="rarity-item">
                                     <picture>
-                                        <source srcset="/static/images/profile/avif/Card${rarity}.avif" type="image/avif">
-                                        <source srcset="/static/images/profile/webp/Card${rarity}.webp" type="image/webp">
-                                        <img class="rarity-icon" src="/static/images/profile/webp/Card${rarity}.webp" alt="${rarity}" loading="lazy">
+                                        <source srcset="/images/profile/avif/Card${rarity}.avif" type="image/avif">
+                                        <source srcset="/images/profile/webp/Card${rarity}.webp" type="image/webp">
+                                        <img class="rarity-icon" src="/images/profile/webp/Card${rarity}.webp" alt="${rarity}" loading="lazy">
                                     </picture>
                                     <span class="rarity-count">${d.item_stats[rarity]}</span>
                                 </div>
@@ -280,17 +280,17 @@ export class ProfileBranch extends Branch {
 
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/static/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
-                        <source srcset="/static/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
-                        <img src="/static/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
+                        <source srcset="/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
+                        <source srcset="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
+                        <img src="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
                     </picture>
                 </div>
                 <div class="main-hero-header-row">
                     <div class="main-hero-level-container">
                         <picture class="main-hero-level-frame">
-                            <source srcset="/static/images/profile/avif/frame_${hero.prestige ? 'prestige' : 'common'}.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" alt="level frame" loading="lazy">
+                            <source srcset="/images/profile/avif/frame_${hero.prestige ? 'prestige' : 'common'}.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" type="image/webp">
+                            <img src="/images/profile/webp/frame_${hero.prestige ? 'prestige' : 'common'}.webp" alt="level frame" loading="lazy">
                         </picture>
                         <span class="main-hero-level-text">${hero.level}</span>
                     </div>
@@ -302,9 +302,9 @@ export class ProfileBranch extends Branch {
 
                     <div class="main-hero-rating-container">
                         <picture class="main-hero-rating">
-                            <source srcset="/static/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
-                            <img src="/static/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
+                            <source srcset="/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
+                            <img src="/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
                         </picture>
                         <span class="main-hero-rating">${hero.rating}</span>
                     </div>
@@ -324,9 +324,9 @@ export class ProfileBranch extends Branch {
                 <div class="item-card">
                     <div class="item-image-wrapper">
                         <picture>
-                            <source srcset="/static/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                            <source srcset="/static/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                            <img src="/static/images/items/webp/${encodeURIComponent(item.name)}.webp" 
+                            <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
+                            <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
+                            <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp" 
                                  alt="${item.name}" 
                                  loading="lazy" 
                                  class="item-icon" 
@@ -353,17 +353,17 @@ export class ProfileBranch extends Branch {
                 <div class="sort-controls">
                     <button id="sortToggle" class="sort-btn" data-sort="level">
                         <picture>
-                            <source srcset="/static/images/profile/avif/Level.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/Level.webp" type="image/webp">
-                            <img id="sortIcon" src="/static/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
+                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/Level.webp" type="image/webp">
+                            <img id="sortIcon" src="/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                         <span id="sortText">${t('profile_sort_level')}</span>
                     </button>
                     <button id="invertToggle" class="invert-icon-btn">
                         <picture>
-                            <source srcset="/static/images/profile/avif/SortLow.avif" type="image/avif">
-                            <source srcset="/static/images/profile/webp/SortLow.webp" type="image/webp">
-                            <img id="invertIcon" src="/static/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
+                            <source srcset="/images/profile/avif/SortLow.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/SortLow.webp" type="image/webp">
+                            <img id="invertIcon" src="/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                     </button>
                 </div>
@@ -421,7 +421,7 @@ export class ProfileBranch extends Branch {
                 const img = target as HTMLImageElement;
                 if (img.getAttribute('data-failed') === 'true') return;
                 img.setAttribute('data-failed', 'true');
-                const placeholder = '/static/images/placeholder/placeholder.webp';
+                const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = img.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
                     const sources = picture.querySelectorAll('source');
@@ -579,7 +579,7 @@ export class ProfileBranch extends Branch {
             
             if (sortIcon) {
                 const iconName = this.currentHeroSort === 'level' ? 'Level' : 'Trophy';
-                this.updatePicture(sortIcon, `/static/images/profile/webp/${iconName}`);
+                this.updatePicture(sortIcon, `/images/profile/webp/${iconName}`);
             }
             
             applyToAll();
@@ -590,7 +590,7 @@ export class ProfileBranch extends Branch {
             
             if (invertIcon) {
                 const iconName = this.sortAsc ? 'SortHigh' : 'SortLow';
-                this.updatePicture(invertIcon, `/static/images/profile/webp/${iconName}`);
+                this.updatePicture(invertIcon, `/images/profile/webp/${iconName}`);
             }
             applyToAll();
         });
@@ -658,7 +658,7 @@ export class ProfileBranch extends Branch {
 
             const updateSkin = () => {
                 const skin = uniqueSkins[currentSkinIdx];
-                const baseSrc = `/static/images/heroes/${heroName}`;
+                const baseSrc = `/images/heroes/${heroName}`;
                 
                 if (img) {
                     const picture = img.parentElement;
@@ -710,8 +710,8 @@ export class ProfileBranch extends Branch {
         const img = imgWrapper?.querySelector('img');
         const sources = imgWrapper?.querySelectorAll('source');
 
-        const webp = `/static/images/heroes/${heroName}/webp/${heroName}${skin}.webp`;
-        const avif = `/static/images/heroes/${heroName}/avif/${heroName}${skin}.avif`;
+        const webp = `/images/heroes/${heroName}/webp/${heroName}${skin}.webp`;
+        const avif = `/images/heroes/${heroName}/avif/${heroName}${skin}.avif`;
 
         if (img) {
             img.src = webp;

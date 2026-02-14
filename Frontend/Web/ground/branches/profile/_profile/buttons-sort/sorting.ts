@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (picture) {
                 const sources = picture.querySelectorAll('source');
                 if (sources.length >= 2) {
-                    sources[0].srcset = `/static/images/profile/avif/${newSortName}.avif`;
-                    sources[1].srcset = `/static/images/profile/webp/${newSortName}.webp`;
+                    sources[0].srcset = `/images/profile/avif/${newSortName}.avif`;
+                    sources[1].srcset = `/images/profile/webp/${newSortName}.webp`;
                 }
             }
-            sortIcon.src = `/static/images/profile/webp/${newSortName}.webp`;
+            sortIcon.src = `/images/profile/webp/${newSortName}.webp`;
 
             sortIcon.classList.add('loaded');
             sortText.textContent = sortByLevel ? 'Сортировка по уровню' : 'Сортировка по рейтингу';
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (picture) {
                 const sources = picture.querySelectorAll('source');
                 if (sources.length >= 2) {
-                    sources[0].srcset = `/static/images/profile/avif/${newInvertName}.avif`;
-                    sources[1].srcset = `/static/images/profile/webp/${newInvertName}.webp`;
+                    sources[0].srcset = `/images/profile/avif/${newInvertName}.avif`;
+                    sources[1].srcset = `/images/profile/webp/${newInvertName}.webp`;
                 }
             }
-            invertIcon.src = `/static/images/profile/webp/${newInvertName}.webp`;
+            invertIcon.src = `/images/profile/webp/${newInvertName}.webp`;
 
             invertIcon.classList.add('loaded');
         }

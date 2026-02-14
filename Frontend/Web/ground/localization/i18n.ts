@@ -44,7 +44,8 @@ class I18n {
     }
 
     private async loadLanguage(lang: string): Promise<void> {
-        const response = await fetch(`/static/lang/${lang}.json`);
+        // Убрали /static префикс, так как Vite копирует содержимое static в корень dist
+        const response = await fetch(`/lang/${lang}.json`);
         if (!response.ok) {
             throw new Error(`Could not fetch language file for ${lang}`);
         }

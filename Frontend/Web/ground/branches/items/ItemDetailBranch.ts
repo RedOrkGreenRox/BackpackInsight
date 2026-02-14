@@ -88,9 +88,9 @@ export class ItemDetailBranch extends Branch {
                     <div class="item-details-visual">
                         <div class="item-image-wrapper" style="width: 128px; height: 128px; margin: 0 auto;">
                             <picture>
-                                <source srcset="/static/images/items/avif/${encodeURIComponent(itemName)}.avif" type="image/avif">
-                                <source srcset="/static/images/items/webp/${encodeURIComponent(itemName)}.webp" type="image/webp">
-                                <img src="/static/images/items/webp/${encodeURIComponent(itemName)}.webp" 
+                                <source srcset="/images/items/avif/${encodeURIComponent(itemName)}.avif" type="image/avif">
+                                <source srcset="/images/items/webp/${encodeURIComponent(itemName)}.webp" type="image/webp">
+                                <img src="/images/items/webp/${encodeURIComponent(itemName)}.webp"
                                      alt="${itemName}" 
                                      style="width: 100%; height: 100%; object-fit: contain;">
                             </picture>

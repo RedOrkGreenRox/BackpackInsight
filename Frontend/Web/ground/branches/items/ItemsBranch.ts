@@ -134,7 +134,7 @@ export class ItemsBranch extends Branch {
             if (target.tagName === 'IMG' && target.hasAttribute('data-fallback')) {
                 if (target.getAttribute('data-failed') === 'true') return;
                 target.setAttribute('data-failed', 'true');
-                const placeholder = '/static/images/placeholder/placeholder.webp';
+                const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = target.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
                     const sources = picture.querySelectorAll('source');
@@ -246,9 +246,9 @@ export class ItemsBranch extends Branch {
             card.innerHTML = `
                 <div class="item-image-wrapper">
                     <picture>
-                        <source srcset="/static/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                        <source srcset="/static/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                        <img src="/static/images/items/webp/${encodeURIComponent(item.name)}.webp" 
+                        <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
+                        <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
+                        <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp"
                              alt="${item.name}" 
                              loading="lazy" 
                              class="item-icon"

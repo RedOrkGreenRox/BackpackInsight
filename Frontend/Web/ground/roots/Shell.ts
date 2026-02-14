@@ -108,15 +108,15 @@ export class Shell {
 
     public setBackground(areaCode: string): void {
         this.updateBgImage(
-            `/static/images/area/webp/Area${areaCode}.webp`,
-            `/static/images/area/avif/Area${areaCode}.avif`
+            `/images/area/webp/Area${areaCode}.webp`,
+            `/images/area/avif/Area${areaCode}.avif`
         );
     }
 
     public set404Background(rarityCode: string): void {
         this.updateBgImage(
-            `/static/images/404/webp/${rarityCode}.webp`,
-            `/static/images/404/avif/${rarityCode}.avif`
+            `/images/404/webp/${rarityCode}.webp`,
+            `/images/404/avif/${rarityCode}.avif`
         );
     }
 
