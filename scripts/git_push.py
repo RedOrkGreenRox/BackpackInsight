@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "Item Detailed Page"
+    upd = "Item Detailed Page Fix"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
