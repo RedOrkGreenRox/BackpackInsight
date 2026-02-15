@@ -5,8 +5,8 @@ import { MainBranch } from './branches/main/MainBranch';
 import { ProfileBranch } from './branches/profile/ProfileBranch';
 import { ItemsBranch } from './branches/items/ItemsBranch';
 import { NotFoundBranch } from './branches/404/NotFoundBranch';
-import { ItemDetailBranch } from './branches/items/ItemDetailBranch';
-import { i18n } from './localization/i18n'; // Импортируем сервис
+import { ItemDetailBranch } from './branches/itemDetail/ItemDetailBranch'; // Обновленный путь
+import { i18n } from './localization/i18n';
 
 // Импорт AOS из npm
 import AOS from 'aos';

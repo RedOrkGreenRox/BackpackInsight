@@ -60823,7 +60823,7 @@
       "criticalDamage": null
     },
     "tooltips": [
-      "Every 3.2 seconds:\n• Star TypeTool gains +5% CritChance and +5% faster attacks\n\nOn shop entered:\n• Destroy2 random Star Parts\n• Get 2 common Parts for each Part destroyed"
+      "Every 3.2 seconds:\n• Star TypeTool gains +5% CritChance and +5% faster attacks\n\nOn shop entered:\n• Destroy 2 random Star Parts\n• Get 2 common Parts for each Part destroyed"
     ],
     "allStats": {
       "Cooldown": 3.2

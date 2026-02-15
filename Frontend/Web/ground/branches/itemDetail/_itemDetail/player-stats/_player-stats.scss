@@ -1,0 +1,31 @@
+.player-stats-block {
+    background: rgba(var(--azure-raw), 0.1);
+    border: 1px solid rgba(var(--azure-raw), 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+
+        &:last-child { margin-bottom: 0; }
+    }
+
+    .stat-label {
+        color: #aaa;
+        font-size: 1rem;
+    }
+
+    .stat-value {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+
+        &.lvl {
+            color: var(--azure);
+        }
+    }
+}

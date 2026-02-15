@@ -1,0 +1,83 @@
+.item-title {
+    font-size: 2.5rem;
+    margin: 0 0 10px;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    font-family: 'Signika', sans-serif;
+}
+
+.item-rarity {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+
+    // Цвета редкости (пример, нужно синхронизировать с глобальными)
+    &.rarity-common { color: #b0b0b0; }
+    &.rarity-rare { color: #55aaff; }
+    &.rarity-epic { color: #aa55ff; }
+    &.rarity-legendary { color: #ffaa00; }
+    &.rarity-mythic { color: #ff5555; }
+    &.rarity-godly { color: #00ffaa; }
+    &.rarity-unique { color: #00ffaa; }
+}
+
+.item-content {
+    width: 100%;
+    text-align: left;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 20px 0;
+    width: 100%;
+}
+
+.info-row {
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 1.1rem;
+
+    strong {
+        color: #eee;
+    }
+}
+
+.item-description {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    border-left: 3px solid var(--azure);
+    color: #ddd;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.combat-stats {
+    margin-top: 20px;
+
+    h4 {
+        color: var(--azure);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 5px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+
+            &:last-child { border-bottom: none; }
+        }
+    }
+}
