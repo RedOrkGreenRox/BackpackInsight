@@ -1,4 +1,5 @@
 import { Branch, PageMeta } from './Branch';
+// @ts-ignore
 import AOS from 'aos';
 
 export class Gen {

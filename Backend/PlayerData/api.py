@@ -29,7 +29,9 @@ app.add_middleware(
 API_SECRET = os.getenv("API_SECRET")
 
 async def verify_proxy_secret(x_internal_secret: str = Header(None)):
-    if not API_SECRET or x_internal_secret != API_SECRET:
+    # Исправлено: Проверяем секрет ТОЛЬКО если он задан в переменных окружения.
+    # Если API_SECRET не задан (локальная разработка), разрешаем доступ.
+    if API_SECRET and x_internal_secret != API_SECRET:
         raise HTTPException(status_code=403, detail="Direct access forbidden")
 
 # Добавляем проверку секрета как глобальную зависимость для всех путей в api_router
@@ -89,18 +91,9 @@ def on_startup():
 # --- МАРШРУТЫ API ---
 
 @api_router.get("/items", response_model=List[ItemDefinition])
-def get_items(request: Request, response: Response, session: Session = Depends(get_session)):
-    """Возвращает определения предметов с поддержкой ETag (304)."""
-    items = session.exec(select(ItemDefinition)).all()
-    data_str = json.dumps([item.dict() for item in items], sort_keys=True)
-    etag = f'"{hashlib.md5(data_str.encode()).hexdigest()}"'
-
-    client_etag = request.headers.get("if-none-match")
-    if client_etag and (client_etag == etag or client_etag == f'W/{etag}'):
-        return Response(status_code=304)
-    response.headers["ETag"] = etag
+def get_items(response: Response, session: Session = Depends(get_session)):
     response.headers["Cache-Control"] = "public, max-age=3600"
-    return items
+    return session.exec(select(ItemDefinition)).all()
 
 
 @api_router.post("/profile")

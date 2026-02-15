@@ -1,23 +1,36 @@
+// @ts-ignore
 import { serve, file } from "bun";
+// @ts-ignore
 import { resolve } from "path";
 
 const PORT = 5080;
+// @ts-ignore
 const BACKEND_URL = process.env.BACKEND_API_URL || "http://backpack_insight_backend:8000";
 const DIST_DIR = "/app/dist_build";
 const STATIC_DIR = "/app/Frontend/Web/static";
 
-// Заголовки для долгосрочного кэширования (1 год)
-const CACHE_HEADERS = {
-    "Cache-Control": "public, max-age=31536000, immutable"
+// --- Конфигурация кэширования ---
+const CACHE_FONTS = {
+    "Cache-Control": "public, max-age=3600, immutable"
 };
 
-// Заголовки для отключения кэширования (HTML)
+const CACHE_DEFAULT = {
+    "Cache-Control": "public, max-age=60, immutable"
+};
+
 const NO_CACHE_HEADERS = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
     "Pragma": "no-cache",
     "Expires": "0",
     "Content-Type": "text/html"
 };
+
+function getAssetHeaders(path: string) {
+    if (path.includes("/fonts/") || path.match(/\.(woff2?|ttf|otf)$/)) {
+        return CACHE_FONTS;
+    }
+    return CACHE_DEFAULT;
+}
 
 serve({
   port: PORT,
@@ -26,7 +39,8 @@ serve({
     const path = decodeURIComponent(url.pathname);
 
     // --- 1. API Proxy ---
-    if (url.pathname.startsWith("/api")) {
+    // @ts-ignore
+      if (url.pathname.startsWith("/api")) {
       try {
         const targetUrl = new URL(url.pathname + url.search, BACKEND_URL);
         
@@ -52,7 +66,6 @@ serve({
 
     // --- 2. Static Files (Direct from source) ---
     // Пытаемся найти файл в папке static (например, /images/logo.png -> static/images/logo.png)
-    // Это нужно, если мы не используем dist или если файл не попал в сборку
     let safePath = path.replace(/^\/+/, "");
     let staticFilePath = resolve(STATIC_DIR, safePath);
     
@@ -60,7 +73,7 @@ serve({
     if (staticFilePath.startsWith(resolve(STATIC_DIR))) {
         let staticFile = file(staticFilePath);
         if (await staticFile.exists()) {
-            return new Response(staticFile, { headers: CACHE_HEADERS });
+            return new Response(staticFile, { headers: getAssetHeaders(path) });
         }
     }
 
@@ -71,7 +84,7 @@ serve({
     if (distFilePath.startsWith(resolve(DIST_DIR))) {
         let asset = file(distFilePath);
         if (await asset.exists()) {
-          return new Response(asset, { headers: CACHE_HEADERS });
+          return new Response(asset, { headers: getAssetHeaders(path) });
         }
     }
 

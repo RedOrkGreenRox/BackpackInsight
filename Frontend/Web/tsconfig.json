@@ -3,7 +3,8 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    /* Добавляем обе библиотеки, чтобы TS знал и про браузер, и про воркер */
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -31,6 +32,7 @@
     "ground/**/*.d.ts",
     "ground/**/*.tsx",
     "ground/**/*.vue",
-    "ground/types/global.d.ts"
+    "ground/types/global.d.ts",
+    "functions/**/*.ts"
   ]
 }
