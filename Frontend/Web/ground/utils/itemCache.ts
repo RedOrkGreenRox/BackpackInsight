@@ -1,4 +1,4 @@
-import { ItemDefinition } from './ItemsBranch';
+import { ItemDefinition } from '../branches/items/ItemsBranch';
 
 class ItemCache {
     private items: Map<string, ItemDefinition> = new Map();
