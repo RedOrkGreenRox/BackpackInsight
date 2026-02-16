@@ -53,14 +53,27 @@ class I18n {
     }
 
     public t(key: string, ...args: any[]): string {
-        let translation = this.translations[key] || key;
-        if (args.length > 0) {
+    let translation = this.translations[key] || key;
+
+    if (args.length > 0) {
+        // Если первый аргумент — объект, используем именованную замену {{key}}
+        if (typeof args[0] === 'object' && args[0] !== null && !Array.isArray(args[0])) {
+            const params = args[0];
+            Object.keys(params).forEach(paramKey => {
+                const value = params[paramKey];
+                // Заменяем все вхождения {{paramKey}} на значение
+                const regex = new RegExp(`{{${paramKey}}}`, 'g');
+                translation = translation.replace(regex, String(value));
+            });
+        } else {
+            // Иначе используем позиционную замену {0}, {1}
             args.forEach((arg, index) => {
-                translation = translation.replace(`{${index}}`, arg);
+                translation = translation.replace(`{${index}}`, String(arg));
             });
         }
-        return translation;
     }
+    return translation;
+}
 }
 
 export const i18n = I18n.getInstance();

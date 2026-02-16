@@ -1,14 +1,25 @@
 /**
  * @file icon-parser.ts
- * @description Финальный рефакторинг: все списки и пути вынесены в начало для удобного редактирования.
+ * @description Исправлено перекрытие заголовков и вложенность тегов для Dragonleaf.
  */
 
-// --- КОНФИГУРАЦИЯ ---
+const DEFAULT_TEXT_CLASS = 'text-default';
 
-/** Базовый путь к иконкам */
-const IMAGE_BASE_PATH = '/images/FontIcon';
+const IMAGE_FORMATS = [
+    {type: 'image/avif', ext: 'avif', path: '/images/FontIcon/avif'},
+    {type: 'image/webp', ext: 'webp', path: '/images/FontIcon/webp'}
+];
 
-/** Список доступных файлов иконок (без расширения) */
+const DEFAULT_IMAGE_FORMAT = IMAGE_FORMATS.find(f => f.ext === 'webp') || IMAGE_FORMATS[0];
+
+const TYPE_GENERATOR_ALIASES: { [key: string]: string } = {
+    'Armor': 'TypeArmor'
+};
+
+const SPECIAL_LOGIC_ICON = "Star";
+const START_LINE_KEYWORDS = ['This'];
+const ITEM_WORD_VARIANTS = 'items?|Items?';
+
 const ICON_FILES = [
     "Day", "Hob", "Pet", "Buff", "Burn", "Buzz", "Coin", "Dawn", "Dorf", "Dusk", "Gold", "Life",
     "Luck", "Mana", "Miss", "Sage", "Soul", "Star", "Stun", "Tink", "Armor", "Bleed", "Blind", "Chana", "Chill",
@@ -20,7 +31,6 @@ const ICON_FILES = [
     "RangedWeapon", "Regeneration", "StaminaUsage", "TypeAccessory", "TypeIngredient", "StaminaRecovery"
 ];
 
-/** Маппинг текстовых названий на названия файлов иконок */
 const ALIAS_MAP: { [key: string]: string } = {
     'Melee Weapon': 'MeleeWeapon', 'Ranged Weapon': 'RangedWeapon', 'Stamina Usage': 'StaminaUsage',
     'Stamina Recovery': 'StaminaRecovery', 'Crit Chance': 'CritChance', 'Crit Damage': 'CritDamage',
@@ -33,50 +43,54 @@ const ALIAS_MAP: { [key: string]: string } = {
     'stat_criticalDamage': 'CritDamage', 'stat_critical': 'CritDamage', 'stat_stamina': 'Stamina'
 };
 
-/** Исключения для триггеров иконок (чтобы не заменяли часть названия предмета) */
 const ICON_TRIGGER_EXCEPTIONS = ['Bag of Flour', 'Pet Rock'];
+const HEADER_EXCEPTIONS_BEFORE_COLON = ['to', 'more', 'less', 'higher', 'lower', 'inside', 'slot', 'Стоимость', 'Cost', 'Hero', 'Герой'];
+const HEADER_EXCEPTIONS_NO_COLON = ['are', 'is', 'can', 'require', 'also', 'rerolls', 'gain', 'inflict', 'steal', 'benefits', 'counts', 'per'];
 
-/** Слова, блокирующие превращение строки в заголовок, если стоят ПЕРЕД двоеточием */
-const HEADER_EXCEPTIONS_BEFORE_COLON = ['to', 'more', 'less', 'higher', 'lower', 'inside']; // Добавлено 'inside'
-
-/** Глаголы, блокирующие превращение строки в заголовок, если в ней НЕТ двоеточия */
-const HEADER_EXCEPTIONS_NO_COLON = ['are', 'is', 'can', 'require', 'also', 'rerolls', 'gain', 'inflict', 'steal', 'benefits', 'counts'];
-
-/** Глаголы и служебные слова, которые НЕ должны окрашиваться как названия предметов */
 const FORBIDDEN_NAMES = [
     'Gain', 'Get', 'Give', 'Turn', 'Shoot', 'When', 'After', 'Every', 'Activate', 'Use', 'Steal',
     'Have', 'Inflict', 'Remove', 'Trap', 'Cleanse', 'Become', 'Per', 'On', 'Increased', 'If',
     'Reduce', 'Heal', 'Look', 'Spend', 'Deal', 'Next', 'Also', 'Increase', 'Transform', 'Your',
     'That', 'The', 'Add', 'Transfer', 'Attract', 'Trigger', 'Both', 'Restore', 'Brings',
     'Opponent', 'Crack', 'Find', 'Catch', 'No', 'Absorb', 'Block', 'Hits', 'Hammer', 'Break',
-    'Drain', 'Suffer', 'Void', 'Sabotage'
+    'Drain', 'Suffer', 'Void', 'Sabotage', "Weaken", "Turns"
 ];
 
-/** Уникальные фразы для окрашивания целиком */
-const KEYWORDS_REGEX = /\b(Discharge|common|magnetic|Sabotage|Lumps\s+of\s+Coal|Hunter['’]s\s+mark|Call\s+of\s+the\s+Void)\b/gi;
-
-/** Приставки перед словом "item/items", которые могут быть окрашены вместе с ним */
+const KEYWORDS_REGEX = /\b(Discharge|common|magnetic|Sabotage|empty|Lumps\s+of\s+Coal|Hunter['’]s\s+mark|Call\s+of\s+the\s+Void)\b/gi;
 const ITEM_PREFIX_KEYWORDS = ['magnetic', 'common'];
+const ITEM_SCALING_PREPOSITIONS = ['per', 'for each'];
+const ITEM_SUFFIX_PREFIX_PATTERN = `(<span class="value-text">[\\d.-]+<\\/span>\\s*(?:(?:${ITEM_PREFIX_KEYWORDS.join('|')})\\s+|<span[^>]*>.*?<\\/span>\\s*)?|${ITEM_SCALING_PREPOSITIONS.join('|')}\\s+)`;
 
-/** Триггеры для окрашивания чисел (слова, идущие ПОСЛЕ числа) */
-const NUMBER_FOLLOW_TRIGGERS = `(%|seconds?|quantity|uses?|less|simple|common|magnetic|random|free|or|items?|more|by|max|min|enemy|\\[\\[ICN|[A-Z]|\\)|$)`;
+const FORCED_HEADER_KEYWORDS = ['Quantity', '• After'];
+const HEADER_BLOCK_KEYWORDS = ['If'];
+const NUMBER_FOLLOW_TRIGGERS = `(%|seconds?|quantity|uses?|less|simple|common|magnetic|random|free|or|${ITEM_WORD_VARIANTS}|more|by|max|min|enemy|\\[\\[ICN|[A-Z]|\\)|$)`;
 
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 
 const ALL_TRIGGER_WORDS = [...new Set([...ICON_FILES, ...Object.keys(ALIAS_MAP)])].sort((a, b) => b.length - a.length);
 
 function createIconHtml(iconName: string, title: string): string {
-    return ` <picture class="text-icon" title="${title}"><source srcset="${IMAGE_BASE_PATH}/avif/${iconName}.avif" type="image/avif"><source srcset="${IMAGE_BASE_PATH}/webp/${iconName}.webp" type="image/webp"><img src="${IMAGE_BASE_PATH}/webp/${iconName}.webp" alt="${title}" loading="lazy"></picture> `;
+    const sources = IMAGE_FORMATS.map(format =>
+        `<source srcset="${format.path}/${iconName}.${format.ext}" type="${format.type}">`
+    ).join('');
+
+    return ` <picture class="text-icon" title="${title}">` +
+        `${sources}` +
+        `<img src="${DEFAULT_IMAGE_FORMAT.path}/${iconName}.${DEFAULT_IMAGE_FORMAT.ext}" alt="${title}" loading="lazy">` +
+        `</picture> `;
 }
 
 function getAlphaId(num: number): string {
     let id = '', n = num;
-    while (n >= 0) { id = String.fromCharCode(65 + (n % 26)) + id; n = Math.floor(n / 26) - 1; }
+    while (n >= 0) {
+        id = String.fromCharCode(65 + (n % 26)) + id;
+        n = Math.floor(n / 26) - 1;
+    }
     return id;
 }
 
 const replaceOutsideSpans = (str: string, regex: RegExp, handler: (...args: string[]) => string) => {
-    const ignoreRegex = /(<span[^>]*>.*?<\/span>|\[\[ICN[A-Z]+]])/g;
+    const ignoreRegex = /(<span[^>]*>.*?<\/span>|\[\[ICN[A-Z]+]]|<picture[^>]*>.*?<\/picture>|<br\s*\/?>)/g;
     const combined = new RegExp(`(${ignoreRegex.source})|${regex.source}`, 'g');
     return str.replace(combined, (match, ignoreGroup, ...rest) => {
         if (ignoreGroup) return match;
@@ -94,7 +108,7 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     const iconsMap = new Map<string, string>();
     let iconCounter = 0;
 
-    // ШАГ 1 & 2: Скрытие иконок в плейсхолдеры
+    // ШАГ 1 & 2: Скрытие иконок
     let i = 0, tempText = '';
     while (i < processedText.length) {
         const remaining = processedText.substring(i);
@@ -103,7 +117,6 @@ export function parseTextWithIcons(text: string | undefined | null): string {
         for (const word of ALL_TRIGGER_WORDS) {
             if (remaining.startsWith(word)) {
                 if (ICON_TRIGGER_EXCEPTIONS.some(ex => remaining.startsWith(ex))) continue;
-
                 const nextChar = processedText[i + word.length];
                 const isConcatenated = ALL_TRIGGER_WORDS.some(w => processedText.substring(i + word.length).startsWith(w));
 
@@ -115,7 +128,9 @@ export function parseTextWithIcons(text: string | undefined | null): string {
                         iconsMap.set(placeholder, createIconHtml(iconName, word));
                         tempText += placeholder;
                     } else tempText += word;
-                    i += word.length; matchFound = true; break;
+                    i += word.length;
+                    matchFound = true;
+                    break;
                 }
             }
         }
@@ -123,18 +138,28 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     }
     processedText = tempText;
 
-    // ШАГ 3: Заголовки
-    const headerPattern = /(^|\n|\\n)(Quantity\s*:[^\n\\]*|[ \t]*• After[^:\n\\]+|(?![ \t]*[•+](?![^:\n\\]*:))(?!\s*•?\s*\d+%)(?!\s*If\b(?![^:\n\\]*:))[^:\n\\]+)(:|(?=\n)|$)/g;
+    // ШАГ 3: Заголовки (ИСПРАВЛЕНО: возвращена проверка исключений без двоеточия)
+    const forcedPart = FORCED_HEADER_KEYWORDS.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+    const blockPart = HEADER_BLOCK_KEYWORDS.join('|');
+
+    // Регулярное выражение теперь снова опционально ищет двоеточие в конце короткой фразы
+    const headerPattern = new RegExp(
+        `(^|\\n|\\\\n)((?:(?:${forcedPart})[^:\\n\\\\•]+|(?![ \\t]*[•+](?![^:\\n\\\\]*:))` +
+        `(?![\\s•]*\\d+%)(?!(?:\\s*${blockPart}\\b)(?![^:\\n\\\\]*:))[^:\\n\\\\•]{1,60}))(:|(?=\\n)|$)`,
+        'g'
+    );
+
     processedText = processedText.replace(headerPattern, (...args) => {
-        const [start, content, end] = [args[1], args[2], args[args.length - 3] || ''];
+        const [start, content, end] = [args[1], args[2], args[3] || ''];
         if (!content.trim()) return args[0];
 
         const trimmed = content.trim();
         const endEx = new RegExp(`\\b(${HEADER_EXCEPTIONS_BEFORE_COLON.join('|')})$`, 'i');
         const noColEx = new RegExp(`\\b(${HEADER_EXCEPTIONS_NO_COLON.join('|')})\\b`, 'i');
 
+        // Проверка исключений (TS6133 теперь решена)
         if (end === ':' && endEx.test(trimmed)) return args[0];
-        if (!end && noColEx.test(content)) return args[0];
+        if (!end && noColEx.test(content)) return args[0]; // Вот здесь используется переменная
 
         return `${start}<span class="value-text">${content}${end}</span>`;
     });
@@ -151,33 +176,70 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     const itemNamesRegex = /(?<!\()\b([A-Z][a-z]+(?:['’]s)?((\s+of)?\s+[A-Z][a-z]+(?:['’]s)?)*)\b/g;
     processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => FORBIDDEN_NAMES.includes(m.split(/\s+/)[0].replace(/['’]s$/, "")) ? m : `<span class="value-text">${m}</span>`);
 
-    // Star + Item/Items logic
+    // ШАГ 6.1: Специальная логика для Star (Placeholder Star + Name)
     iconsMap.forEach((html, placeholder) => {
-        if (html.includes('title="Star"')) {
-            const starWordRegex = new RegExp(`(${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[ \xA0\t]*)(items?|Items?|[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)`, 'g');
-            processedText = replaceOutsideSpans(processedText, starWordRegex, (s, name) => `${s}<span class="value-text">${name}</span>`);
+        if (html.includes(`title="${SPECIAL_LOGIC_ICON}"`)) {
+            const followWordRegex = new RegExp(`(${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[ \\xA0\\t]*)(${ITEM_WORD_VARIANTS}|[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)`, 'g');
+            processedText = processedText.replace(followWordRegex, (_match, s, name) => {
+                return `${s}<span class="value-text">${name}</span>`;
+            });
         }
     });
 
     processedText = replaceOutsideSpans(processedText, KEYWORDS_REGEX, (m) => `<span class="value-text">${m}</span>`);
-    const itemPrefixes = ITEM_PREFIX_KEYWORDS.join('|');
-    const itemSuffixRegex = new RegExp(`(<span class="value-text">[\\d.-]+<\\/span>\\s*(?:(?:${itemPrefixes})\\s+|<span[^>]*>.*?<\\/span>\\s*)?|per\\s+)(items?)\\b`, 'gi');
-    processedText = processedText.replace(itemSuffixRegex, (_, p, i) => `${p}<span class="value-text">${i}</span>`);
-    processedText = replaceOutsideSpans(processedText, /(^|\n|\\n)(This)\b/g, (s, w) => `${s}<span class="value-text">${w}</span>`);
 
-    // ШАГ 7: Возврат иконок
-    iconsMap.forEach((html, placeholder) => processedText = processedText.split(placeholder).join(html));
-    processedText = processedText.replace(/(title="Star".*?<\/picture>\s*)(items?|Items?)\b/g, '$1<span class="value-text">$2</span>');
+    // ШАГ 6.2: Окрашивание слова item/items
+    const itemSuffixRegex = new RegExp(`${ITEM_SUFFIX_PREFIX_PATTERN}(${ITEM_WORD_VARIANTS})\\b`, 'gi');
+    processedText = processedText.replace(itemSuffixRegex, (_match, prefix, itemWord) => `${prefix}<span class="value-text">${itemWord}</span>`);
 
-    return processedText.replace(/\\n/g, '<br>');
+    const startKeywords = START_LINE_KEYWORDS.join('|');
+    processedText = replaceOutsideSpans(processedText, new RegExp(`(^|\\n|\\\\n)(${startKeywords})\\b`, 'g'), (s, w) => `${s}<span class="value-text">${w}</span>`);
+
+    // --- ФИНАЛЬНЫЕ ШАГИ ОБРАБОТКИ ТЕКСТА ---
+
+    // 1. Возвращаем иконки
+    iconsMap.forEach((html, placeholder) => {
+        processedText = processedText.split(placeholder).join(html);
+    });
+
+    // 2. Переносы строк
+    processedText = processedText.replace(/\\n/g, '<br>');
+
+    // 3. ОБЕРТКА ОБЫЧНОГО ТЕКСТА
+    // Исключаем буллиты и уже созданные теги
+    const rawTextRegex = /([^<>\n\r•]+)(?![^<]*>)/g;
+    processedText = replaceOutsideSpans(processedText, rawTextRegex, (match) => {
+        const trimmed = match.trim();
+        if (!trimmed) return match;
+
+        const leadingSpace = match.match(/^\s*/)?.[0] || '';
+        const trailingSpace = match.match(/\s*$/)?.[0] || '';
+
+        return `${leadingSpace}<span class="${DEFAULT_TEXT_CLASS}">${trimmed}</span>${trailingSpace}`;
+    });
+
+    // 4. ФИКС ВЛОЖЕННОСТИ (РЕШАЕТ ПРОБЛЕМУ ЦВЕТА)
+    // Если Шаг 6 или Шаг 3 создали вложенный спан, вычищаем его, оставляя приоритет за value-text
+    processedText = processedText.replace(/<span class="value-text">([\s\S]*?)<span class="text-default">([\s\S]*?)<\/span>([\s\S]*?)<\/span>/g, '<span class="value-text">$1$2$3</span>');
+    processedText = processedText.replace(/<span class="text-default">([\s\S]*?)<span class="value-text">([\s\S]*?)<\/span>([\s\S]*?)<\/span>/g, '<span class="text-default">$1</span><span class="value-text">$2</span><span class="text-default">$3</span>');
+
+    // 5. Пост-клин для Dragonleaf после иконок Star
+    const finalIconCleanup = new RegExp(`(title="${SPECIAL_LOGIC_ICON}".*?<\\/picture>\\s*)(${ITEM_WORD_VARIANTS}|[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)\\b`, 'g');
+    processedText = processedText.replace(finalIconCleanup, (match, icon, name) => {
+        if (name.includes('class="value-text"')) return match;
+        // Если имя оказалось в text-default, вынимаем его
+        const cleanName = name.replace(/<[^>]*>/g, "");
+        return `${icon}<span class="value-text">${cleanName}</span>`;
+    });
+
+    return processedText;
 }
 
 export function generateIconsOrText(words: string[] | undefined): string {
     if (!words || words.length === 0) return '';
-    const TYPE_ALIASES: { [key: string]: string } = {'Armor': 'TypeArmor'};
     return words.map(word => {
         const t = word.trim();
-        const icon = TYPE_ALIASES[t] || ALIAS_MAP[t] || t;
+        const icon = TYPE_GENERATOR_ALIASES[t] || ALIAS_MAP[t] || t;
         return ICON_FILES.includes(icon) ? createIconHtml(icon, t) : `<span class="text-fallback">${t}</span>`;
     }).join(' ');
 }

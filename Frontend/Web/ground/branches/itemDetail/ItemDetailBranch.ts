@@ -1,7 +1,7 @@
-import { Branch, PageMeta } from '../../roots/Branch';
-import { t } from '../../localization/i18n';
-import { ItemDefinition } from '../items/ItemsBranch';
-import { parseTextWithIcons, generateIconsOrText } from '../../utils/icon-parser';
+import {Branch, PageMeta} from '@roots/Branch.ts';
+import {t} from '../../localization/i18n';
+import {ItemDefinition} from '../items/ItemsBranch';
+import {parseTextWithIcons, generateIconsOrText} from '../../utils/icon-parser';
 import './itemDetail.scss';
 
 interface ItemDetailData {
@@ -16,13 +16,38 @@ interface ItemDetailData {
 
 export class ItemDetailBranch extends Branch {
     private data: ItemDetailData = {};
+    private navigation: { prev: string | null, next: string | null } = {prev: null, next: null};
+    private listScrollY: number = 0;
 
     public getMeta(data?: any): PageMeta {
-        const name = data?.name || t('unknown_item');
+        let itemName: string;
+        if (typeof data?.name === 'string') {
+            itemName = data.name;
+        } else if (typeof data?.itemData?.name === 'string') {
+            itemName = data.itemData.name;
+        } else if (typeof data?.name === 'object' && data.name?.name) {
+            itemName = data.name.name;
+        } else {
+            itemName = t('unknown_item');
+        }
+
         return {
-            title: t('item_detail_title', { itemName: name }),
-            description: t('item_detail_description', { itemName: name })
+            title: t('item_detail_title', {itemName: itemName}),
+            description: t('item_detail_description', {itemName: itemName})
         };
+    }
+
+    private calculateNavigation(currentName: string) {
+        const orderRaw = sessionStorage.getItem('filteredItemsOrder');
+        if (!orderRaw) return;
+
+        const order: string[] = JSON.parse(orderRaw);
+        const currentIndex = order.indexOf(currentName);
+
+        if (currentIndex !== -1) {
+            this.navigation.prev = currentIndex > 0 ? order[currentIndex - 1] : null;
+            this.navigation.next = currentIndex < order.length - 1 ? order[currentIndex + 1] : null;
+        }
     }
 
     private renderPlayerInfo(): string {
@@ -45,10 +70,15 @@ export class ItemDetailBranch extends Branch {
                 .join('')
             : '';
 
-        // Исправлено: используем '\n' вместо '\\n' для создания настоящего символа переноса строки
         const descriptionHtml = item.tooltips ? parseTextWithIcons(item.tooltips.join('\\n')) : '';
-        const heroHtml = item.connectedHero ? `<div class="info-row hero-info-row"><strong>${t('wiki_item_hero')}:</strong> ${parseTextWithIcons(item.connectedHero)}</div>` : '';
-        const costHtml = item.coinValue ? `<div class="info-row"><strong>${t('wiki_item_cost')}:</strong> ${item.coinValue} ${parseTextWithIcons("Gold")}</div>` : '';
+
+        const heroHtml = item.connectedHero
+            ? `<div class="info-row">${parseTextWithIcons(`${t('wiki_item_hero')}: ${item.connectedHero}`)}</div>`
+            : '';
+
+        const costHtml = item.coinValue
+            ? `<div class="info-row">${parseTextWithIcons(`${t('wiki_item_cost')}: ${item.coinValue} Gold`)}</div>`
+            : '';
 
         return `
             <div class="wiki-stats-block" data-aos="fade-up" data-aos-delay="100">
@@ -62,19 +92,30 @@ export class ItemDetailBranch extends Branch {
 
     protected getHtml(data?: any): string {
         this.data = data || {};
+
+        // Если в data пришел scrollY (это происходит при первом переходе из ItemsBranch),
+        // сохраняем его. При переходах внутри (вперед-назад) он приходить не будет,
+        // и мы сохраним то самое "первое" значение.
+        if (data?.scrollY !== undefined && this.listScrollY === 0) {
+            this.listScrollY = data.scrollY;
+        }
+
         if (!this.data.itemData) {
             const allItemsRaw = sessionStorage.getItem('allItems');
             if (allItemsRaw) {
                 const allItems: ItemDefinition[] = JSON.parse(allItemsRaw);
-                const foundItem = allItems.find(i => i.name === this.data.name);
+                const itemName = this.data.name || decodeURIComponent(window.location.pathname.split('/').pop() || '');
+                const foundItem = allItems.find(i => i.name === itemName);
                 if (foundItem) this.data.itemData = foundItem;
             }
         }
-        
+
         const item = this.data.itemData;
         if (!item) {
             return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
         }
+
+        this.calculateNavigation(item.name);
 
         const rarity = item.rarity || 'Common';
         const rarityClass = `rarity-${rarity.toLowerCase()}`;
@@ -82,24 +123,41 @@ export class ItemDetailBranch extends Branch {
 
         return `
             <div class="container item-detail-container">
-                <div class="item-card-wrapper" data-aos="zoom-in">
-                    <h1 class="item-title">${item.name}</h1>
-                    <div class="item-header">
-                        <div class="item-rarity ${rarityClass}">${rarity}</div>
-                        ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
-                    </div>
-                    <div class="item-visual">
-                        <div class="item-image-wrapper ${rarityClass}">
-                            <picture>
-                                <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                                <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                                <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp" alt="${item.name}" loading="lazy">
-                            </picture>
+                <div class="navigation-anchor" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 35rem;">
+                    
+                    <div class="item-card-wrapper">
+                        <h1 class="item-title">${item.name}</h1>
+                        <div class="item-header">
+                            <div class="item-rarity ${rarityClass}">${rarity}</div>
+                            ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
+                        </div>
+                        <div class="item-visual">
+                            <div class="item-image-wrapper ${rarityClass}">
+                                <picture>
+                                    <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
+                                    <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
+                                    <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp" alt="${item.name}" loading="lazy">
+                                </picture>
+                            </div>
+                        </div>
+                        <div class="item-content">
+                            ${this.renderPlayerInfo()}
+                            ${this.renderWikiInfo(item)}
                         </div>
                     </div>
-                    <div class="item-content">
-                        ${this.renderPlayerInfo()}
-                        ${this.renderWikiInfo(item)}
+
+                    <div class="item-navigation-bottom"> 
+                        <div class="nav-group">
+                            ${this.navigation.prev 
+                                ? `<a href="/item/${encodeURIComponent(this.navigation.prev)}" class="nav-btn-bottom" data-link>❮</a>` 
+                                : '<div class="nav-btn-bottom disabled">❮</div>'}
+                            <a href="/items" class="nav-btn-bottom back-btn" data-link title="${t('sidebar_items')}">
+                            <span class="icon">☰</span>
+                            </a>
+                            ${this.navigation.next 
+                                ? `<a href="/item/${encodeURIComponent(this.navigation.next)}" class="nav-btn-bottom" data-link>❯</a>` 
+                                : '<div class="nav-btn-bottom disabled">❯</div>'}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
-import { Branch } from '../../roots/Branch';
-import { t } from '../../localization/i18n';
+import {Branch} from '@roots/Branch.ts';
+import {t} from '../../localization/i18n';
 import './items.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -121,7 +121,7 @@ export class ItemsBranch extends Branch {
         if (itemSortBtn) {
             this.addListener(itemSortBtn, 'click', () => {
                 this.currentSort = this.currentSort === 'rarity' ? 'name' : 'rarity';
-                
+
                 const text = this.container?.querySelector('#itemSortText');
                 if (text) text.textContent = this.currentSort === 'rarity' ? t('items_sort_rarity') : t('items_sort_name');
 
@@ -156,25 +156,25 @@ export class ItemsBranch extends Branch {
         try {
             const response = await fetch('/api/items');
             if (!response.ok) throw new Error('Failed to load items');
-            
+
             this.items = await response.json();
             sessionStorage.setItem('allItems', JSON.stringify(this.items));
 
             this.items = this.items.filter(i => i.rarity !== 'Boon' && i.rarity !== 'Special');
-            
+
             // Инициализация Fuse.js
             const options = {
                 includeScore: true,
                 threshold: 0.4, // Насколько "нечетким" должен быть поиск
                 keys: [
-                    { name: 'name', weight: 2 }, // Имени предмета даем больший вес
-                    { name: 'itemTypes', weight: 1.5 },
-                    { name: 'connectedHero', weight: 1 },
-                    { name: 'tooltips', weight: 0.5 } // Описанию даем меньший вес
+                    {name: 'name', weight: 2}, // Имени предмета даем больший вес
+                    {name: 'itemTypes', weight: 1.5},
+                    {name: 'connectedHero', weight: 1},
+                    {name: 'tooltips', weight: 0.5} // Описанию даем меньший вес
                 ]
             };
             this.fuse = new Fuse(this.items, options);
-            
+
             this.filteredItems = [...this.items];
             this.sortAndRender();
         } catch (e) {
@@ -195,7 +195,7 @@ export class ItemsBranch extends Branch {
                 this.filteredItems = result.map((res: any) => res.item);
             } else {
                 // Фоллбэк на простой поиск, если Fuse не инициализирован
-                this.filteredItems = this.items.filter(item => 
+                this.filteredItems = this.items.filter(item =>
                     item.name.toLowerCase().includes(query.toLowerCase())
                 );
             }
@@ -204,7 +204,6 @@ export class ItemsBranch extends Branch {
     }
 
     private sortAndRender() {
-        // Если поиск не дал результатов, сортировать нечего
         if (this.filteredItems.length > 0) {
             this.filteredItems.sort((a, b) => {
                 if (this.currentSort === 'rarity') {
@@ -215,6 +214,12 @@ export class ItemsBranch extends Branch {
                 return a.name.localeCompare(b.name);
             });
         }
+
+        // СОХРАНЯЕМ ПОРЯДОК:
+        // Записываем массив имен (или ID) отфильтрованных предметов
+        const currentOrder = this.filteredItems.map(item => item.name);
+        sessionStorage.setItem('filteredItemsOrder', JSON.stringify(currentOrder));
+
         this.renderGrid();
     }
 
@@ -229,20 +234,20 @@ export class ItemsBranch extends Branch {
             const link = document.createElement('a');
             link.href = `/item/${encodeURIComponent(item.name)}`;
             link.setAttribute('data-link', '');
-            link.className = 'item-card-link'; 
+            link.className = 'item-card-link';
             link.style.textDecoration = 'none';
             link.style.color = 'inherit';
             link.style.display = 'block';
 
-            (link as any)._stateData = { itemData: item };
+            (link as any)._stateData = {itemData: item};
 
             link.setAttribute('data-aos', 'fade-up');
-            const delay = Math.min((index % 10) * 30, 300); 
+            const delay = Math.min((index % 10) * 30, 300);
             link.setAttribute('data-aos-delay', `${delay}`);
 
             const card = document.createElement('div');
             card.className = 'item-card';
-            
+
             card.innerHTML = `
                 <div class="item-image-wrapper">
                     <picture>
@@ -260,9 +265,15 @@ export class ItemsBranch extends Branch {
                     <span class="rarity-${item.rarity.toLowerCase()}">${item.rarity}</span>
                 </div>
             `;
-            
+
             link.appendChild(card);
             fragment.appendChild(link);
+            link.addEventListener('click', () => {
+                (link as any)._stateData = {
+                    itemData: item,
+                    scrollY: window.scrollY // ЗАПОМИНАЕМ ТЕКУЩУЮ ПОЗИЦИЮ
+                };
+            });
         });
 
         grid.appendChild(fragment);

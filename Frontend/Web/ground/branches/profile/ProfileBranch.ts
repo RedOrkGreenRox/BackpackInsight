@@ -1,7 +1,8 @@
-import { Branch, PageMeta } from '../../roots/Branch';
-import { Gen } from '../../roots/Gen';
+import { Branch, PageMeta } from '@roots/Branch.ts';
+import { Gen } from '@roots/Gen.ts';
 import { t } from '../../localization/i18n';
 import './profile.scss';
+// @ts-ignore
 import AOS from 'aos';
 
 interface Hero {
@@ -734,6 +735,7 @@ export class ProfileBranch extends Branch {
 
         try {
             // Динамический импорт
+            // @ts-ignore
             const { default: html2canvas } = await import('html2canvas');
 
             const canvas = await html2canvas(element, {

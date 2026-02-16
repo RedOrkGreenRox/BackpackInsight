@@ -1,31 +1,62 @@
-.player-stats-block {
-    background: rgba(var(--azure-raw), 0.1);
-    border: 1px solid rgba(var(--azure-raw), 0.3);
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
+.player-stats-block, .wiki-stats-block {
+    width: 100%;
+}
 
-    .stat-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-
-        &:last-child { margin-bottom: 0; }
-    }
-
-    .stat-label {
-        color: #aaa;
+.wiki-stats-block {
+    .info-row {
+        color: var(--text-default-color);
         font-size: 1rem;
+        padding: 0.25rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        flex-wrap: wrap; // Чтобы длинные строки не ломали верстку на мобилках
     }
 
-    .stat-value {
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
+    .item-description {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
+        border-left: 0.2rem solid var(--azure);
+        color: var(--text-default-color);
+        font-style: normal;
+        font-size: 1rem;
+        white-space: pre-wrap;
+        text-align: left; // Описание лучше читать по левому краю
 
-        &.lvl {
-            color: var(--azure);
+        .header-text, .value-text {
+            color: var(--text-header-color);
+            font-weight: bold;
+        }
+    }
+
+    .combat-stats {
+        margin-top: 1.25rem;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            // Автоматическая сетка: минимум 120px на колонку, иначе перенос
+            grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+            gap: 0.6rem;
+
+            li {
+                background: rgba(0, 0, 0, 0.15);
+                padding: 0.6rem;
+                border-radius: 0.4rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 0.9rem;
+                border: 1px solid rgba(var(--azure-raw), 0.1);
+
+                span:first-child {
+                    display: flex;
+                    align-items: center;
+                }
+            }
         }
     }
 }
