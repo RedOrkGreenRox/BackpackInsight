@@ -18,9 +18,14 @@ export class UploadHandler {
 
     private init() {
         const area = this.container.querySelector('#uploadArea') as HTMLElement;
-        const input = this.container.querySelector('#jsonInput') as HTMLInputElement;
+        const input = this.container.querySelector('#jsonInput') as HTMLTextAreaElement;
         const fInput = this.container.querySelector('#fileInput') as HTMLInputElement;
         const hint = this.container.querySelector('#uploadHint') as HTMLElement;
+
+        const updateUI = () => {
+            if (hint) hint.style.display = input.value.trim() ? 'none' : 'flex';
+            this.onHideError();
+        };
 
         const read = (file: File) => {
             if (!file) return;
@@ -28,71 +33,91 @@ export class UploadHandler {
             r.onload = (e) => {
                 if (e.target && typeof e.target.result === 'string') {
                     input.value = e.target.result;
-                    if (hint) hint.style.display = 'none';
-                    this.onHideError();
+                    updateUI();
                 }
             };
             r.readAsText(file);
         };
 
-        if (area) {
-            this.addListener(area, 'click', async () => {
-                if (input.value.trim()) return;
+        if (area && input && fInput) {
+            // 2. При клике пыталась вставить из буфера обмена.
+            this.addListener(area, 'click', async (e: Event) => {
+                if (e.target === fInput) return;
+                if (e.target === input && input.value.trim()) return;
 
                 try {
-                    const clipboardText = await navigator.clipboard.readText();
-
-                    if (clipboardText && clipboardText.trim()) {
-                        input.value = clipboardText;
-                        if (hint) hint.style.display = 'none';
-                        this.onHideError();
-                    } else {
-                        fInput.click();
+                    const text = await navigator.clipboard.readText();
+                    const trimmed = text.trim();
+                    // Проверяем, похоже ли это на JSON.
+                    // Если скопирован файл (путь), это не будет JSON.
+                    if (trimmed && (trimmed.startsWith('{') || trimmed.startsWith('['))) {
+                        input.value = trimmed;
+                        updateUI();
+                        return;
                     }
-                } catch (error) {
-                    fInput.click();
+                } catch (err) {
+                    // Clipboard access denied or empty
                 }
-            });
-        }
 
-        if (input) {
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(n => {
-                this.addListener(input, n, (e: Event) => {
+                // Если в буфере нет JSON, открываем выбор файла
+                fInput.click();
+            });
+
+            // 1. При drag&drop принимала содержимое файла
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                this.addListener(area, eventName, (e: Event) => {
                     e.preventDefault();
                     e.stopPropagation();
                 });
             });
 
-            this.addListener(input, 'dragover', () => area?.classList.add('drag-over'));
-            this.addListener(input, 'dragleave', () => area?.classList.remove('drag-over'));
+            this.addListener(area, 'dragover', () => area.classList.add('drag-over'));
+            this.addListener(area, 'dragleave', () => area.classList.remove('drag-over'));
 
-            this.addListener(input, 'drop', (e: Event) => {
-                area?.classList.remove('drag-over');
+            this.addListener(area, 'drop', (e: Event) => {
+                area.classList.remove('drag-over');
                 const dragEvent = e as DragEvent;
                 if (dragEvent.dataTransfer && dragEvent.dataTransfer.files.length > 0) {
                     read(dragEvent.dataTransfer.files[0]);
                 }
             });
 
+            // 3. Если скопирован файл целиком, принимала его содержимое а не название.
             this.addListener(input, 'paste', (e: Event) => {
                 const clipboardEvent = e as ClipboardEvent;
-                if (clipboardEvent.clipboardData && clipboardEvent.clipboardData.files && clipboardEvent.clipboardData.files.length > 0) {
-                    e.preventDefault();
-                    read(clipboardEvent.clipboardData.files[0]);
+                const data = clipboardEvent.clipboardData;
+                
+                if (data) {
+                    // Проверяем файлы
+                    if (data.files && data.files.length > 0) {
+                        e.preventDefault();
+                        read(data.files[0]);
+                        return;
+                    }
+                    
+                    // Проверяем items (для совместимости)
+                    const items = data.items;
+                    if (items) {
+                        for (let i = 0; i < items.length; i++) {
+                            if (items[i].kind === 'file') {
+                                const file = items[i].getAsFile();
+                                if (file) {
+                                    e.preventDefault();
+                                    read(file);
+                                    return;
+                                }
+                            }
+                        }
+                    }
                 }
             });
 
-            this.addListener(input, 'input', () => {
-                if (hint) hint.style.display = input.value ? 'none' : 'flex';
-                this.onHideError();
-            });
-        }
-
-        if (fInput) {
-            this.addListener(fInput, 'change', (e: Event) => {
-                const target = e.target as HTMLInputElement;
-                if (target.files && target.files.length > 0) {
-                    read(target.files[0]);
+            this.addListener(input, 'input', () => updateUI());
+            
+            this.addListener(fInput, 'change', () => {
+                if (fInput.files && fInput.files.length > 0) {
+                    read(fInput.files[0]);
+                    fInput.value = '';
                 }
             });
         }

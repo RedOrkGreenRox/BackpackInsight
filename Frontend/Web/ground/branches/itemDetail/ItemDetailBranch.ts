@@ -93,9 +93,6 @@ export class ItemDetailBranch extends Branch {
     protected getHtml(data?: any): string {
         this.data = data || {};
 
-        // Если в data пришел scrollY (это происходит при первом переходе из ItemsBranch),
-        // сохраняем его. При переходах внутри (вперед-назад) он приходить не будет,
-        // и мы сохраним то самое "первое" значение.
         if (data?.scrollY !== undefined && this.listScrollY === 0) {
             this.listScrollY = data.scrollY;
         }
@@ -115,7 +112,10 @@ export class ItemDetailBranch extends Branch {
             return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
         }
 
-        this.calculateNavigation(item.name);
+        // РАССЧИТЫВАЕМ НАВИГАЦИЮ ТОЛЬКО ЕСЛИ НЕТ ДАННЫХ ИГРОКА (ДЛЯ ВИКИ)
+        if (!this.data.playerItem) {
+            this.calculateNavigation(item.name);
+        }
 
         const rarity = item.rarity || 'Common';
         const rarityClass = `rarity-${rarity.toLowerCase()}`;
@@ -145,20 +145,24 @@ export class ItemDetailBranch extends Branch {
                             ${this.renderWikiInfo(item)}
                         </div>
                     </div>
-
+                    
+                    ${!this.data.playerItem ? `
                     <div class="item-navigation-bottom"> 
                         <div class="nav-group">
-                            ${this.navigation.prev 
-                                ? `<a href="/item/${encodeURIComponent(this.navigation.prev)}" class="nav-btn-bottom" data-link>❮</a>` 
+                            ${this.navigation.prev
+                                ? `<a href="/item/${encodeURIComponent(this.navigation.prev)}" class="nav-btn-bottom" data-link>❮</a>`
                                 : '<div class="nav-btn-bottom disabled">❮</div>'}
+                            
                             <a href="/items" class="nav-btn-bottom back-btn" data-link title="${t('sidebar_items')}">
-                            <span class="icon">☰</span>
+                                <span class="icon">☰</span>
                             </a>
-                            ${this.navigation.next 
-                                ? `<a href="/item/${encodeURIComponent(this.navigation.next)}" class="nav-btn-bottom" data-link>❯</a>` 
+                    
+                            ${this.navigation.next
+                                ? `<a href="/item/${encodeURIComponent(this.navigation.next)}" class="nav-btn-bottom" data-link>❯</a>`
                                 : '<div class="nav-btn-bottom disabled">❯</div>'}
                         </div>
                     </div>
+                    ` : ''}
                 </div>
             </div>
         `;

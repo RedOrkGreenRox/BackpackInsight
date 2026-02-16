@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "pre main page fix"
+    upd = "upload zone fix"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

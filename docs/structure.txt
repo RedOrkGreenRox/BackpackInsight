@@ -91,7 +91,6 @@ BackpackInsight/
 │       │   │   │   ├── _items
 │       │   │   │   │   └── layout
 │       │   │   │   │       └── _layout.scss
-│       │   │   │   ├── itemCache.ts
 │       │   │   │   ├── items.scss
 │       │   │   │   └── ItemsBranch.ts
 │       │   │   ├── main
@@ -195,7 +194,12 @@ BackpackInsight/
 │       │   ├── types
 │       │   │   └── global.d.ts
 │       │   ├── utils
-│       │   │   └── icon-parser.ts
+│       │   │   ├── ApiService.ts
+│       │   │   ├── icon-parser.ts
+│       │   │   ├── itemCache.ts
+│       │   │   ├── PaginationController.ts
+│       │   │   ├── screenshotUtils.ts
+│       │   │   └── SortController.ts
 │       │   ├── core.html
 │       │   └── core.ts
 │       ├── static
