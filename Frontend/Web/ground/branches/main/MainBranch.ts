@@ -1,11 +1,13 @@
-import { Branch, PageMeta } from '../../roots/Branch';
-import { Gen } from '../../roots/Gen';
-import { t } from '../../localization/i18n'; // Импортируем функцию перевода
+import { Branch, PageMeta } from '@roots/Branch.ts';
+import { Gen } from '@roots/Gen.ts';
+import { t } from '../../localization/i18n';
+import { UploadHandler } from './_main/upload-zone/upload'; // Импортируем наш вынесенный модуль
 import './main.scss';
 
 export class MainBranch extends Branch {
     private errorElement: HTMLElement | null = null;
     private cleanupFns: (() => void)[] = [];
+    private uploadHandler: UploadHandler | null = null; // Переменная для хранения экземпляра обработчика
 
     public getMeta(): PageMeta {
         return {
@@ -48,76 +50,16 @@ export class MainBranch extends Branch {
     protected init(): void {
         if (!this.container) return;
 
-        const area = this.container.querySelector('#uploadArea') as HTMLElement;
-        const input = this.container.querySelector('#jsonInput') as HTMLInputElement;
-        const fInput = this.container.querySelector('#fileInput') as HTMLInputElement;
-        const hint = this.container.querySelector('#uploadHint') as HTMLElement;
-        const form = this.container.querySelector('#uploadForm') as HTMLFormElement;
         this.errorElement = this.container.querySelector('#errorContainer') as HTMLElement;
+        const form = this.container.querySelector('#uploadForm') as HTMLFormElement;
+        const input = this.container.querySelector('#jsonInput') as HTMLInputElement;
 
-        const read = (file: File) => {
-            if (!file) return;
-            const r = new FileReader();
-            r.onload = (e) => {
-                if (e.target && typeof e.target.result === 'string') {
-                    input.value = e.target.result;
-                    if (hint) hint.style.display = 'none';
-                    this.hideError();
-                }
-            };
-            r.readAsText(file);
-        };
+        // Инициализируем обработчик зоны загрузки
+        // Он сам навесит все события на drag&drop и буфер обмена
+        this.uploadHandler = new UploadHandler(this.container, () => this.hideError());
 
-        if (area) {
-            this.addListener(area, 'click', (_e: Event) => {
-                if (!input.value.trim()) {
-                    fInput.click();
-                    input.blur(); 
-                }
-            });
-        }
-
-        if (input) {
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(n => {
-                this.addListener(input, n, (e: Event) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                });
-            });
-
-            this.addListener(input, 'dragover', () => area?.classList.add('drag-over'));
-            this.addListener(input, 'dragleave', () => area?.classList.remove('drag-over'));
-            this.addListener(input, 'drop', (e: any) => {
-                area?.classList.remove('drag-over');
-                if (e.dataTransfer && e.dataTransfer.files.length > 0) {
-                    read(e.dataTransfer.files[0]);
-                }
-            });
-
-            this.addListener(input, 'paste', (e: any) => {
-                const clipboardEvent = e as ClipboardEvent;
-                if (clipboardEvent.clipboardData && clipboardEvent.clipboardData.files && clipboardEvent.clipboardData.files.length > 0) {
-                    e.preventDefault();
-                    read(clipboardEvent.clipboardData.files[0]);
-                }
-            });
-
-            this.addListener(input, 'input', () => {
-                if (hint) hint.style.display = input.value ? 'none' : 'flex';
-                this.hideError();
-            });
-        }
-
-        if (fInput) {
-            this.addListener(fInput, 'change', (e: Event) => {
-                const target = e.target as HTMLInputElement;
-                if (target.files && target.files.length > 0) {
-                    read(target.files[0]);
-                }
-            });
-        }
-
-        if (form) {
+        // Оставляем здесь только логику отправки формы на сервер
+        if (form && input) {
             this.addListener(form, 'submit', async (e: Event) => {
                 e.preventDefault();
                 await this.handleSubmit(input.value);
@@ -148,20 +90,20 @@ export class MainBranch extends Branch {
         try {
             const response = await fetch('/api/profile', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(jsonData)
             });
 
             if (!response.ok) {
-                throw new Error(`Server error: ${response.status}`);
+                this.showError(t('error_server_unavailable'));
+                return; // Прерываем выполнение без генерации исключения
             }
 
             const data = await response.json();
             Gen.getInstance().navigate('/profile', data);
 
         } catch (e) {
+            // Сюда попадут только реальные сетевые ошибки (например, обрыв соединения)
             console.error(e);
             this.showError(t('error_server_unavailable'));
         } finally {
@@ -186,7 +128,14 @@ export class MainBranch extends Branch {
     }
 
     protected destroy(): void {
+        // Очищаем слушатели (кнопку сабмита)
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
+
+        // Корректно уничтожаем слушатели UploadHandler при смене страницы
+        if (this.uploadHandler) {
+            this.uploadHandler.destroy();
+            this.uploadHandler = null;
+        }
     }
 }
