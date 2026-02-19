@@ -2,7 +2,7 @@ name: CD (Continuous Deployment)
 
 on:
   push:
-    branches: [ "main" ] # Убедись, что твоя ветка называется main
+    branches: [ "main" ]
 
 jobs:
   deploy:
