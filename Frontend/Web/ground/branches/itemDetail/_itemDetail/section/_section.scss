@@ -17,23 +17,15 @@
 }
 
 .item-rarity {
-    font-size: 1rem;
+    /* Убраны стили плашки (фон, рамка, паддинги) */
+    font-size: 1.2rem; /* Чуть крупнее, как заголовок */
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    color: var(--text-default-color);
-    background-color: var(--rarity-bg-color, #333);
-    border: 1px solid var(--rarity-border-color, #555);
-    flex-shrink: 0;
 
-    &.rarity-common    { --rarity-glow-color: #b0b0b0; --rarity-bg-color: #4a4a4a; --rarity-border-color: #6b6b6b; }
-    &.rarity-rare      { --rarity-glow-color: #55aaff; --rarity-bg-color: #2c4c6b; --rarity-border-color: #4a7ab3; }
-    &.rarity-epic      { --rarity-glow-color: #aa55ff; --rarity-bg-color: #4d326b; --rarity-border-color: #7b59a8; }
-    &.rarity-legendary { --rarity-glow-color: #ffaa00; --rarity-bg-color: #6b5021; --rarity-border-color: #a8823b; }
-    &.rarity-mythic    { --rarity-glow-color: #ff5555; --rarity-bg-color: #6b2d2d; --rarity-border-color: #a85050; }
-    &.rarity-unique    { --rarity-glow-color: #00ffaa; --rarity-bg-color: #1a6b52; --rarity-border-color: #31a882; }
+    /* Цвет текста задается через классы rarity-* из _item-rarities.scss */
+    /* Свечение текста для красоты (опционально, как в поиске) */
+    text-shadow: 0 0 10px currentColor;
 }
 
 .item-types-block {

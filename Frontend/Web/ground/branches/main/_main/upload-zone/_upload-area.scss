@@ -40,7 +40,7 @@
     height: 100%;
     background: transparent;
     border: none;
-    color: white; /* Белый текст на темном фоне */
+    color: var(--text-default-color); /* Белый текст на темном фоне */
     padding: 25px; /* Чуть больше отступа */
 
     font-family: 'Courier New', monospace;

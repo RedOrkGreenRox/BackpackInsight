@@ -48,7 +48,7 @@
 .rarity-count {
     font-size: 14px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-default-color);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -72,18 +72,18 @@
 }
 
 .load-more-btn {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7); /* Увеличенная непрозрачность */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    color: var(--text-default-color);
     padding: 12px 30px;
     border-radius: 25px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
+    /* УБРАН БЛЮР */
 
     &:hover {
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.9);
         border-color: rgba(var(--azure-raw), 0.5);
         box-shadow: 0 0 15px rgba(var(--azure-raw), 0.3);
         transform: translateY(-2px);

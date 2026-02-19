@@ -160,7 +160,8 @@ export class ItemsBranch extends Branch {
             this.items = await response.json();
             sessionStorage.setItem('allItems', JSON.stringify(this.items));
 
-            this.items = this.items.filter(i => i.rarity !== 'Boon' && i.rarity !== 'Special');
+            // ИСПРАВЛЕНО: Убрана фильтрация Special
+            // this.items = this.items.filter(i => i.rarity !== 'Special');
 
             // Инициализация Fuse.js
             const options = {
@@ -231,8 +232,11 @@ export class ItemsBranch extends Branch {
         const fragment = document.createDocumentFragment();
 
         this.filteredItems.forEach((item, index) => {
+            // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
+            const slug = item.name.toLowerCase().split(' ').join('-');
+
             const link = document.createElement('a');
-            link.href = `/item/${encodeURIComponent(item.name)}`;
+            link.href = `/item/${slug}`;
             link.setAttribute('data-link', '');
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';
@@ -247,13 +251,13 @@ export class ItemsBranch extends Branch {
 
             const card = document.createElement('div');
             card.className = 'item-card';
-
+            
             card.innerHTML = `
                 <div class="item-image-wrapper">
                     <picture>
-                        <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                        <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                        <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp"
+                        <source srcset="/images/items/avif/${slug}.avif" type="image/avif">
+                        <source srcset="/images/items/webp/${slug}.webp" type="image/webp">
+                        <img src="/images/items/webp/${slug}.webp"
                              alt="${item.name}" 
                              loading="lazy" 
                              class="item-icon"

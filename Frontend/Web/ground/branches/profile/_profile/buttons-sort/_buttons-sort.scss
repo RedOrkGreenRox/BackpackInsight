@@ -9,10 +9,10 @@
 
 .sort-btn {
     // --- Стиль Glass UI ---
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.7); /* Увеличенная непрозрачность */
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(5px);
+    /* УБРАН БЛЮР */
 
     // --- Геометрия и Типографика ---
     border-radius: 50px;
@@ -61,7 +61,7 @@
     &:hover {
         transform: translateY(-3px);
         box-shadow: 0 0 16px rgba(var(--azure-raw), 0.6);
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0, 0, 0, 0.8);
         border-color: rgba(var(--azure-raw), 0.4);
 
         img {
@@ -80,14 +80,13 @@
     border: none;
     padding: 0;
     margin: 0;
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
-    border-radius: 50%;
 
     /* Поддержка picture */
     picture {
@@ -99,8 +98,8 @@
     }
 
     img {
-        width: 32px;
-        height: 32px;
+        width: 100%;
+        height: 100%;
         filter: brightness(1.4) drop-shadow(0 4px 12px rgba(var(--azure-raw), 0.6));
         transition: transform 0.3s ease;
         pointer-events: none;

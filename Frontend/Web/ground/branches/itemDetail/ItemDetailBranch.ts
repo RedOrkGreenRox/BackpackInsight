@@ -7,6 +7,7 @@ import './itemDetail.scss';
 interface ItemDetailData {
     name?: string;
     playerItem?: {
+        name: string; // Добавлено для типизации
         level: number;
         cards: number;
         cards_need: number;
@@ -38,10 +39,35 @@ export class ItemDetailBranch extends Branch {
     }
 
     private calculateNavigation(currentName: string) {
-        const orderRaw = sessionStorage.getItem('filteredItemsOrder');
+        let orderRaw: string | null;
+        let isProfileContext = false;
+
+        // Определяем контекст: Профиль или Вики
+        if (this.data.playerItem) {
+            orderRaw = sessionStorage.getItem('profileItemsList');
+            isProfileContext = true;
+        } else {
+            orderRaw = sessionStorage.getItem('filteredItemsOrder');
+        }
+
         if (!orderRaw) return;
 
-        const order: string[] = JSON.parse(orderRaw);
+        let order: string[] = [];
+        
+        if (isProfileContext) {
+            // В профиле хранится массив объектов, нам нужны имена
+            try {
+                const itemsList = JSON.parse(orderRaw);
+                order = itemsList.map((i: any) => i.name);
+            } catch (e) {
+                console.error("Error parsing profile items list", e);
+                return;
+            }
+        } else {
+            // В вики хранится массив строк
+            order = JSON.parse(orderRaw);
+        }
+
         const currentIndex = order.indexOf(currentName);
 
         if (currentIndex !== -1) {
@@ -90,6 +116,11 @@ export class ItemDetailBranch extends Branch {
         `;
     }
 
+    // Хелпер для нормализации имен (slugify)
+    private toSlug(name: string): string {
+        return name.toLowerCase().split(' ').join('-');
+    }
+
     protected getHtml(data?: any): string {
         this.data = data || {};
 
@@ -97,13 +128,55 @@ export class ItemDetailBranch extends Branch {
             this.listScrollY = data.scrollY;
         }
 
+        // 1. Определяем "сырое" имя из URL или данных
+        // Это может быть как "Bag of Stones" (из данных), так и "bag-of-stones" (из URL)
+        let rawName = this.data.name;
+        if (!rawName && this.data.playerItem) {
+            rawName = this.data.playerItem.name;
+        }
+        if (!rawName) {
+            rawName = decodeURIComponent(window.location.pathname.split('/').pop() || '');
+        }
+        
+        // Нормализуем для поиска (slug)
+        const searchSlug = this.toSlug(rawName || '');
+
+        // 2. Проверяем контекст URL
+        const isProfileUrl = window.location.pathname.startsWith('/profile/item/');
+        
+        // Если мы в контексте профиля, но нет playerItem, пытаемся найти его в кэше
+        if (isProfileUrl && !this.data.playerItem) {
+            const profileListRaw = sessionStorage.getItem('profileItemsList');
+            if (profileListRaw) {
+                try {
+                    const profileList = JSON.parse(profileListRaw);
+                    // Ищем по slug, так как в URL slug
+                    const foundPlayerItem = profileList.find((i: any) => this.toSlug(i.name) === searchSlug);
+                    if (foundPlayerItem) {
+                        this.data.playerItem = foundPlayerItem;
+                        // Обновляем имя на "красивое" из данных игрока
+                        this.data.name = foundPlayerItem.name;
+                    }
+                } catch (e) {
+                    console.error("Error restoring player item from cache", e);
+                }
+            }
+        }
+
+        // 3. Пытаемся найти статические данные предмета
         if (!this.data.itemData) {
             const allItemsRaw = sessionStorage.getItem('allItems');
             if (allItemsRaw) {
                 const allItems: ItemDefinition[] = JSON.parse(allItemsRaw);
-                const itemName = this.data.name || decodeURIComponent(window.location.pathname.split('/').pop() || '');
-                const foundItem = allItems.find(i => i.name === itemName);
-                if (foundItem) this.data.itemData = foundItem;
+                // Ищем по slug
+                const foundItem = allItems.find(i => this.toSlug(i.name) === searchSlug);
+                if (foundItem) {
+                    this.data.itemData = foundItem;
+                    // Если имя еще не установлено (пришли из URL), берем красивое имя из статики
+                    if (!this.data.name || this.data.name === rawName) {
+                        this.data.name = foundItem.name;
+                    }
+                }
             }
         }
 
@@ -112,14 +185,29 @@ export class ItemDetailBranch extends Branch {
             return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
         }
 
-        // РАССЧИТЫВАЕМ НАВИГАЦИЮ ТОЛЬКО ЕСЛИ НЕТ ДАННЫХ ИГРОКА (ДЛЯ ВИКИ)
-        if (!this.data.playerItem) {
-            this.calculateNavigation(item.name);
-        }
+        // Рассчитываем навигацию
+        this.calculateNavigation(item.name);
 
         const rarity = item.rarity || 'Common';
         const rarityClass = `rarity-${rarity.toLowerCase()}`;
         const itemTypesHtml = generateIconsOrText(item.itemTypes);
+        
+        // Определяем базовый URL для ссылок (профиль или вики)
+        const isProfile = !!this.data.playerItem;
+        const baseUrl = isProfile ? '/profile/item' : '/item';
+        const backUrl = isProfile ? '/profile' : '/items';
+        const backTitle = isProfile ? t('sidebar_main') : t('sidebar_items');
+
+        // Функция для генерации ссылки навигации
+        const getNavLink = (targetName: string, direction: 'prev' | 'next') => {
+            const slug = this.toSlug(targetName);
+            const url = `${baseUrl}/${slug}`;
+            // data-target-name хранит оригинальное имя для поиска в массиве
+            return `<a href="${url}" class="nav-btn-bottom nav-${direction}" data-link data-target-name="${targetName}">${direction === 'prev' ? '❮' : '❯'}</a>`;
+        };
+        
+        // Форматирование имени файла (тот же slug)
+        const imageName = this.toSlug(item.name);
 
         return `
             <div class="container item-detail-container">
@@ -134,9 +222,9 @@ export class ItemDetailBranch extends Branch {
                         <div class="item-visual">
                             <div class="item-image-wrapper ${rarityClass}">
                                 <picture>
-                                    <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                                    <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                                    <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp" alt="${item.name}" loading="lazy">
+                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
+                                    <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
+                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
                                 </picture>
                             </div>
                         </div>
@@ -146,28 +234,57 @@ export class ItemDetailBranch extends Branch {
                         </div>
                     </div>
                     
-                    ${!this.data.playerItem ? `
                     <div class="item-navigation-bottom"> 
                         <div class="nav-group">
                             ${this.navigation.prev
-                                ? `<a href="/item/${encodeURIComponent(this.navigation.prev)}" class="nav-btn-bottom" data-link>❮</a>`
+                                ? getNavLink(this.navigation.prev, 'prev')
                                 : '<div class="nav-btn-bottom disabled">❮</div>'}
                             
-                            <a href="/items" class="nav-btn-bottom back-btn" data-link title="${t('sidebar_items')}">
+                            <a href="${backUrl}" class="nav-btn-bottom back-btn" data-link title="${backTitle}">
                                 <span class="icon">☰</span>
                             </a>
                     
                             ${this.navigation.next
-                                ? `<a href="/item/${encodeURIComponent(this.navigation.next)}" class="nav-btn-bottom" data-link>❯</a>`
+                                ? getNavLink(this.navigation.next, 'next')
                                 : '<div class="nav-btn-bottom disabled">❯</div>'}
                         </div>
                     </div>
-                    ` : ''}
                 </div>
             </div>
         `;
     }
 
-    protected init(_data?: any): void {}
+    protected init(_data?: any): void {
+        // Добавляем логику для передачи данных игрока при навигации "Вперед/Назад" в режиме профиля
+        if (this.data.playerItem) {
+            const navLinks = this.container?.querySelectorAll('.nav-btn-bottom.nav-prev, .nav-btn-bottom.nav-next');
+            navLinks?.forEach(link => {
+                link.addEventListener('click', (_e) => {
+                    const targetName = (link as HTMLElement).dataset.targetName;
+                    if (!targetName) return;
+
+                    // Ищем данные предмета в сохраненном списке профиля
+                    const profileListRaw = sessionStorage.getItem('profileItemsList');
+                    if (profileListRaw) {
+                        try {
+                            const profileList = JSON.parse(profileListRaw);
+                            const nextItem = profileList.find((i: any) => i.name === targetName);
+                            
+                            if (nextItem) {
+                                // Прикрепляем данные к элементу ссылки, чтобы Gen.ts их подхватил
+                                (link as any)._stateData = {
+                                    playerItem: nextItem,
+                                    name: targetName
+                                };
+                            }
+                        } catch (err) {
+                            console.error("Error parsing profile list for navigation", err);
+                        }
+                    }
+                });
+            });
+        }
+    }
+
     protected destroy(): void {}
 }

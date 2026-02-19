@@ -11,8 +11,8 @@ window.handleImageError = function(img: HTMLImageElement) {
         const sources = picture.querySelectorAll('source');
         sources.forEach(source => source.remove());
     }
-    // 3. Устанавливаем плейсхолдер (лучше в формате .png или .jpg для 100% совместимости)
-    img.src = '/static/images/placeholder/placeholder.webp';
+    // 3. Устанавливаем плейсхолдер (исправлен путь: убран префикс /static)
+    img.src = '/images/placeholder/placeholder.webp';
     img.onerror = null; // Предотвращаем бесконечный цикл
 };
 

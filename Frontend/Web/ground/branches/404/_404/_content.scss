@@ -1,9 +1,7 @@
 .content-404 {
     /* Темная подложка (Dark Glass) */
-    background: rgba(0, 0, 0, 0.4);
-    /* Размытие фона под блоком (если браузер поддерживает) */
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.7); /* Увеличенная непрозрачность */
+    /* УБРАН БЛЮР */
 
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая рамка */

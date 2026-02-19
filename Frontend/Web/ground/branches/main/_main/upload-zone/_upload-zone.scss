@@ -4,12 +4,12 @@
 /* Добавляем глобальную видимость текста для всей зоны загрузки */
 .upload-zone {
     /* Принудительно делаем весь текст внутри белым и с тенью */
-    color: #fff;
+    color: var(--text-default-color);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 
     /* Если там есть заголовки или параграфы */
     h2, h3, h4, p, span, i {
-        color: #fff;
+        color: var(--text-default-color);
         text-shadow: 0 2px 5px rgba(0, 0, 0, 1); /* Еще более глубокая тень */
     }
 

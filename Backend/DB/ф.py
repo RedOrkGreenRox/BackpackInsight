@@ -103,6 +103,14 @@ def print_report():
     for t, items in sorted_types[:5]:
         print(f"{t}: {len(items)}")
 
+    print("\n--- BOON ITEMS ---")
+    boon_items = stats["items_by_rarity"].get("Boon", [])
+    if boon_items:
+        for item_name in sorted(boon_items):
+            print(f"- {item_name}")
+    else:
+        print("No items with rarity 'Boon' found.")
+
 def main():
     if not os.path.exists(ITEMS_FILE_PATH):
         print(f"Error: {ITEMS_FILE_PATH} not found.")

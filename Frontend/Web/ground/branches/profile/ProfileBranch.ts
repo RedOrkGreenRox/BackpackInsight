@@ -70,10 +70,19 @@ export class ProfileBranch extends Branch {
 
     public getMeta(data?: any): PageMeta {
         const d = data as ProfileData;
-        if (d) {
+        // Если данных нет в аргументах, попробуем достать из кэша для мета-тегов
+        let metaData = d;
+        if (!metaData) {
+            try {
+                const cached = sessionStorage.getItem('currentProfileData');
+                if (cached) metaData = JSON.parse(cached);
+            } catch (e) {}
+        }
+
+        if (metaData) {
             return {
-                title: `${d.nickname} — Профиль игрока | Backpack Insight`,
-                description: `Статистика игрока ${d.nickname}: Уровень ${d.level}, Трофеи ${d.trophy + d.bonus_trophy}, Героев ${d.heroes_count}.`
+                title: `${metaData.nickname} — Профиль игрока | Backpack Insight`,
+                description: `Статистика игрока ${metaData.nickname}: Уровень ${metaData.level}, Трофеи ${metaData.trophy + metaData.bonus_trophy}, Героев ${metaData.heroes_count}.`
             };
         }
         return {
@@ -83,7 +92,28 @@ export class ProfileBranch extends Branch {
     }
 
     protected getHtml(data?: any): string {
-        this.data = data as ProfileData;
+        // 1. Пытаемся получить данные из аргументов
+        let incomingData = data as ProfileData;
+
+        // 2. Если данных нет (например, переход по кнопке "Назад"), ищем в кэше
+        if (!incomingData || !incomingData.nickname) {
+            const cached = sessionStorage.getItem('currentProfileData');
+            if (cached) {
+                try {
+                    incomingData = JSON.parse(cached);
+                } catch (e) {
+                    console.error("Failed to parse cached profile data", e);
+                }
+            }
+        }
+
+        // 3. Если данные есть, обновляем кэш (чтобы продлить сессию или обновить данные)
+        if (incomingData && incomingData.nickname) {
+            sessionStorage.setItem('currentProfileData', JSON.stringify(incomingData));
+            this.data = incomingData;
+        } else {
+            this.data = null;
+        }
 
         if (!this.data) {
             return `<div class="container"><h1 class="error">Нет данных профиля</h1></div>`;
@@ -141,6 +171,9 @@ export class ProfileBranch extends Branch {
 
             return a.name.localeCompare(b.name); // В конце всегда по алфавиту
         });
+
+        // --- ВАЖНО: Сохраняем отсортированный список для навигации в ItemDetail ---
+        sessionStorage.setItem('profileItemsList', JSON.stringify(this.data.items));
     }
 
     private _renderHeader(): string {
@@ -317,17 +350,20 @@ export class ProfileBranch extends Branch {
     private _renderItemCard(item: Item, index: number): string {
         const isHidden = this.data?.itemsExpanded ? false : index > 5;
         const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
+        
+        // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
+        const slug = item.name.toLowerCase().split(' ').join('-');
 
         return `
-            <a href="/profile/item/${encodeURIComponent(item.name)}" class="item-card-link ${isHidden ? 'hidden' : ''}" data-link style="text-decoration: none; color: inherit; display: block;"
+            <a href="/profile/item/${slug}" class="item-card-link ${isHidden ? 'hidden' : ''}" data-link style="text-decoration: none; color: inherit; display: block;"
                data-aos="fade-up"
                data-aos-delay="${(index % 5) * 50}">
                 <div class="item-card">
                     <div class="item-image-wrapper">
                         <picture>
-                            <source srcset="/images/items/avif/${encodeURIComponent(item.name)}.avif" type="image/avif">
-                            <source srcset="/images/items/webp/${encodeURIComponent(item.name)}.webp" type="image/webp">
-                            <img src="/images/items/webp/${encodeURIComponent(item.name)}.webp" 
+                            <source srcset="/images/items/avif/${slug}.avif" type="image/avif">
+                            <source srcset="/images/items/webp/${slug}.webp" type="image/webp">
+                            <img src="/images/items/webp/${slug}.webp" 
                                  alt="${item.name}" 
                                  loading="lazy" 
                                  class="item-icon" 
@@ -354,16 +390,16 @@ export class ProfileBranch extends Branch {
                 <div class="sort-controls">
                     <button id="sortToggle" class="sort-btn" data-sort="level">
                         <picture>
-                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
                             <source srcset="/images/profile/webp/Level.webp" type="image/webp">
+                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
                             <img id="sortIcon" src="/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                         <span id="sortText">${t('profile_sort_level')}</span>
                     </button>
                     <button id="invertToggle" class="invert-icon-btn">
                         <picture>
-                            <source srcset="/images/profile/avif/SortLow.avif" type="image/avif">
                             <source srcset="/images/profile/webp/SortLow.webp" type="image/webp">
+                            <source srcset="/images/profile/avif/SortLow.avif" type="image/avif">
                             <img id="invertIcon" src="/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                     </button>
@@ -742,7 +778,14 @@ export class ProfileBranch extends Branch {
                 backgroundColor: null,
                 useCORS: true,
                 scale: 2,
-                logging: false
+                logging: false,
+                // ФИКСЫ ДЛЯ СКРОЛЛА И ШИРИНЫ
+                scrollX: 0,
+                scrollY: 0,
+                x: 0,
+                y: 0,
+                windowWidth: 1920, // Эмулируем десктоп
+                windowHeight: 1080
             });
 
             const link = document.createElement('a');

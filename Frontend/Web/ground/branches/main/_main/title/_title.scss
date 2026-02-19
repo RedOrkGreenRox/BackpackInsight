@@ -4,7 +4,7 @@
     margin-bottom: 30px;
 
     /* Улучшаем видимость текста */
-    color: #fff;
+    color: var(--text-default-color);
     font-weight: 800; /* Делаем жирнее */
     text-shadow:
         0 4px 4px rgba(0, 0, 0, 0.8),   /* Жесткая тень вниз */

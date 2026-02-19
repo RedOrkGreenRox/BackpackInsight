@@ -13,7 +13,7 @@
 }
 
 .wiki-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-default-color);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
     font-size: 1.2rem;
     margin-bottom: 20px;
@@ -31,11 +31,11 @@
     width: 100%;
     padding: 15px 25px;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--text-default-color);
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50px;
-    // backdrop-filter: blur(10px); // Отключаем блюр
+    /* УБРАН БЛЮР */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     outline: none;
     text-align: center;
@@ -55,7 +55,7 @@
 }
 
 .loading-spinner {
-    color: white;
+    color: var(--text-default-color);
     font-size: 1.2rem;
     text-align: center;
     margin-top: 50px;

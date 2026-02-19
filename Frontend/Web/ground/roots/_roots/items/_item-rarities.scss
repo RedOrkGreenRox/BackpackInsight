@@ -1,28 +1,49 @@
+/*
+   Этот файл применяет цвета к классам .rarity-*
+   и настраивает переменную --rarity-glow-color для дочерних элементов/самого элемента
+*/
+
 .rarity-common {
-  color: gray;
+  color: var(--rarity-common-text);
+  --rarity-glow-color: var(--rarity-common-glow);
 }
 
 .rarity-rare {
-  color: lightskyblue;
+  color: var(--rarity-rare-text);
+  --rarity-glow-color: var(--rarity-rare-glow);
 }
 
 .rarity-epic {
-  color: mediumpurple;
+  color: var(--rarity-epic-text);
+  --rarity-glow-color: var(--rarity-epic-glow);
 }
 
 .rarity-legendary {
-  color: orangered;
+  color: var(--rarity-legendary-text);
+  --rarity-glow-color: var(--rarity-legendary-glow);
 }
 
 .rarity-mythic {
-  color: yellow;
+  color: var(--rarity-mythic-text);
+  --rarity-glow-color: var(--rarity-mythic-glow);
 }
 
 .rarity-unique {
-  color: green;
+  color: var(--rarity-unique-text);
+  --rarity-glow-color: var(--rarity-unique-glow);
 }
 
 .rarity-relic {
-  color: hotpink;
+  color: var(--rarity-relic-text);
+  --rarity-glow-color: var(--rarity-relic-glow);
 }
 
+.rarity-boon {
+  color: var(--rarity-boon-text);
+  --rarity-glow-color: var(--rarity-boon-glow);
+}
+
+.rarity-special {
+  color: var(--rarity-special-text);
+  --rarity-glow-color: var(--rarity-special-glow);
+}

@@ -19,9 +19,9 @@
     height: 110%;
     transform: translate(-50%, -50%) scale(1.1) translate(0.01%, 0.01%);
     object-fit: cover;
-    transition: transform 0.12s ease-out, filter 0.3s ease;
-    will-change: transform, filter;
-    filter: blur(4px); /* Добавляем размытие */
+    transition: transform 0.12s ease-out;
+    will-change: transform;
+    /* УБРАН БЛЮР */
 }
 
 /* Отключаем размытие в режиме низкого качества */
