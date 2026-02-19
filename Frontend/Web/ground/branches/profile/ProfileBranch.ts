@@ -627,7 +627,7 @@ export class ProfileBranch extends Branch {
             this.sortAsc = !this.sortAsc;
 
             if (invertIcon) {
-                const iconName = this.sortAsc ? 'SortHigh' : 'SortLow';
+                const iconName = this.sortAsc ? 'sorthigh' : 'sortlow';
                 this.updatePicture(invertIcon, `/images/profile/webp/${iconName}`);
             }
             applyToAll();
