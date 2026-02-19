@@ -616,7 +616,7 @@ export class ProfileBranch extends Branch {
             }
 
             if (sortIcon) {
-                const iconName = this.currentHeroSort === 'level' ? 'Level' : 'Trophy';
+                const iconName = this.currentHeroSort === 'level' ? 'level' : 'trophy';
                 this.updatePicture(sortIcon, `/images/profile/webp/${iconName}`);
             }
 
