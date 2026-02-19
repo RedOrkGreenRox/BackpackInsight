@@ -6,7 +6,8 @@
 const DEFAULT_TEXT_CLASS = 'text-default';
 
 const IMAGE_FORMATS = [
-    {type: 'image/webp', ext: 'webp', path: '/images/FontIcon/webp'},
+    {type: 'image/webp', ext: 'webp', path: '/images/fonticon/webp'},
+    // {type: 'image/avif', ext: 'avif', path: '/images/FontIcon/avif'},
 ];
 
 const DEFAULT_IMAGE_FORMAT = IMAGE_FORMATS.find(f => f.ext === 'webp') || IMAGE_FORMATS[0];
@@ -75,7 +76,7 @@ function createIconHtml(iconName: string, title: string): string {
 
     return ` <picture class="text-icon" title="${title}">` +
         `${sources}` +
-        `<img src="${DEFAULT_IMAGE_FORMAT.path}/${iconName}.${DEFAULT_IMAGE_FORMAT.ext}" alt="${title}" loading="lazy">` +
+        `<img src="${DEFAULT_IMAGE_FORMAT.path}/${iconName.toLowerCase()}.${DEFAULT_IMAGE_FORMAT.ext}" alt="${title}" loading="lazy">` +
         `</picture> `;
 }
 
