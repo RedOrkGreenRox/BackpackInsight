@@ -7,6 +7,7 @@ venv/
 .venv/
 .env
 .env.*
+.continue
 
 # --- База данных ---
 Backend/DB/*.db
