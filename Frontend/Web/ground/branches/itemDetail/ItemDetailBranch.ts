@@ -222,8 +222,8 @@ export class ItemDetailBranch extends Branch {
                         <div class="item-visual">
                             <div class="item-image-wrapper ${rarityClass}">
                                 <picture>
-                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
                                     <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
+                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
                                     <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
                                 </picture>
                             </div>
