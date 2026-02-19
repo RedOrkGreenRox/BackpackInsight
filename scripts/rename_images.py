@@ -1,13 +1,11 @@
 import os
 
-
 def rename_logic(name):
-    """Преобразует имя: нижний регистр и замена пробелов на дефис."""
+    """Приводит к нижнему регистру и меняет пробелы на дефисы."""
     return name.lower().replace(" ", "-")
 
-
 def run_rename():
-    # 1. Пытаемся найти папку images, перебирая возможные пути
+    # 1. Поиск папки images
     possible_paths = [
         os.path.join('Frontend', 'Web', 'static', 'images'),
         os.path.join('..', 'Frontend', 'Web', 'static', 'images'),
@@ -21,7 +19,7 @@ def run_rename():
             break
 
     if not target_dir:
-        print("Ошибка: Папка 'images' не найдена. Убедитесь, что запускаете скрипт из BackpackInsight.")
+        print("Ошибка: Папка 'images' не найдена.")
         return
 
     print(f"Работаем в директории: {os.path.abspath(target_dir)}")
@@ -34,17 +32,28 @@ def run_rename():
             new_path = os.path.join(root, new_name)
 
             if old_path != new_path:
-                # Если файл с новым именем уже существует (например, был 'Icon.png' и 'icon.png')
                 if os.path.exists(new_path):
-                    print(f"Пропущено (уже существует): {new_name}")
-                    continue
-
-                try:
-                    os.rename(old_path, new_path)
-                    print(f"OK: {name} -> {new_name}")
-                except Exception as e:
-                    print(f"Ошибка при переименовании {name}: {e}")
-
+                    if old_path.lower() == new_path.lower():
+                        try:
+                            # Трюк с временным файлом
+                            temp_path = old_path + ".tmp_rename"
+                            os.rename(old_path, temp_path)
+                            os.rename(temp_path, new_path)
+                            print(f"OK (case change): {name} -> {new_name}")
+                        except PermissionError:
+                            print(f"ПРОПУЩЕНО (занято системой): {name}")
+                        except Exception as e:
+                            print(f"Ошибка на {name}: {e}")
+                    else:
+                        print(f"Пропущено (конфликт): {new_name}")
+                else:
+                    try:
+                        os.rename(old_path, new_path)
+                        print(f"OK: {name} -> {new_name}")
+                    except PermissionError:
+                        print(f"ПРОПУЩЕНО (нет доступа): {name}")
+                    except Exception as e:
+                        print(f"Ошибка: {e}")
 
 if __name__ == "__main__":
     run_rename()

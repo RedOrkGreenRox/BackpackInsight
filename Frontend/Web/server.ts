@@ -26,6 +26,7 @@ const NO_CACHE_HEADERS = {
 };
 
 function getAssetHeaders(path: string) {
+    // @ts-ignore
     if (path.includes("/fonts/") || path.match(/\.(woff2?|ttf|otf)$/)) {
         return CACHE_FONTS;
     }

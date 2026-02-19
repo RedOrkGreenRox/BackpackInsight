@@ -9,6 +9,7 @@ import { ItemDetailBranch } from './branches/itemDetail/ItemDetailBranch'; // О
 import { i18n } from './localization/i18n';
 
 // Импорт AOS из npm
+// @ts-ignore
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "profile items fix, rarities fix"
+    upd = "lowercase paths"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
