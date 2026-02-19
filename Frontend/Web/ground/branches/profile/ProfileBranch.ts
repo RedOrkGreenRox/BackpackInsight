@@ -247,8 +247,8 @@ export class ProfileBranch extends Branch {
                                  data-prestige="${hero.prestige}">
                                 <div class="hero-header-row">
                                     <picture class="stat-hero-image-wrapper">
-                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
                                         <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
+                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
                                         <img class="stat-hero-icon" src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
                                     </picture>
                                     <div class="stat-hero-level-container">
@@ -315,8 +315,8 @@ export class ProfileBranch extends Branch {
 
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
                         <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
+                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
                         <img src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" alt="${hero.name.toLowerCase()}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
                     </picture>
                 </div>
@@ -714,8 +714,8 @@ export class ProfileBranch extends Branch {
                         if (picture) {
                             const sources = picture.querySelectorAll('source');
                             sources.forEach(s => {
-                                if (s.type === 'image/avif') s.srcset = avif;
                                 if (s.type === 'image/webp') s.srcset = webp;
+                                if (s.type === 'image/avif') s.srcset = avif;
                             });
                         }
                         requestAnimationFrame(() => {
