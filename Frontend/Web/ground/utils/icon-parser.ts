@@ -7,7 +7,7 @@ const DEFAULT_TEXT_CLASS = 'text-default';
 
 const IMAGE_FORMATS = [
     {type: 'image/webp', ext: 'webp', path: '/images/fonticon/webp'},
-    // {type: 'image/avif', ext: 'avif', path: '/images/FontIcon/avif'},
+    {type: 'image/avif', ext: 'avif', path: '/images/FontIcon/avif'},
 ];
 
 const DEFAULT_IMAGE_FORMAT = IMAGE_FORMATS.find(f => f.ext === 'webp') || IMAGE_FORMATS[0];
@@ -71,7 +71,7 @@ const ALL_TRIGGER_WORDS = [...new Set([...ICON_FILES, ...Object.keys(ALIAS_MAP)]
 
 function createIconHtml(iconName: string, title: string): string {
     const sources = IMAGE_FORMATS.map(format =>
-        `<source srcset="${format.path}/${iconName}.${format.ext}" type="${format.type}">`
+        `<source srcset="${format.path}/${iconName.toLowerCase()}.${format.ext}" type="${format.type}">`
     ).join('');
 
     return ` <picture class="text-icon" title="${title}">` +
