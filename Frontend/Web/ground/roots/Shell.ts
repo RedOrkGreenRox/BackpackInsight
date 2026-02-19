@@ -108,8 +108,8 @@ export class Shell {
 
     public setBackground(areaCode: string): void {
         this.updateBgImage(
-            `/images/area/webp/Area${areaCode}.webp`,
-            `/images/area/avif/Area${areaCode}.avif`
+            `/images/area/webp/area${areaCode}.webp`,
+            `/images/area/avif/area${areaCode}.avif`
         );
     }
 

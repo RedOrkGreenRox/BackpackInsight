@@ -186,9 +186,9 @@ export class ProfileBranch extends Branch {
         return `
             <div class="profile-header" data-aos="zoom-in">
                 <picture class="header-bg">
-                    <source srcset="/images/area/avif/Area${d.area}.avif" type="image/avif">
-                    <source srcset="/images/area/webp/Area${d.area}.webp" type="image/webp">
-                    <img src="/images/area/webp/Area${d.area}.webp" alt="Background" fetchpriority="high">
+                    <source srcset="/images/area/avif/area${d.area}.avif" type="image/avif">
+                    <source srcset="/images/area/webp/area${d.area}.webp" type="image/webp">
+                    <img src="/images/area/webp/area${d.area}.webp" alt="Background" fetchpriority="high">
                 </picture>
 
                 <h4>${d.nickname}</h4>
