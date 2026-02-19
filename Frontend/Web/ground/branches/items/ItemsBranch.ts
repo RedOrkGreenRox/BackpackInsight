@@ -134,6 +134,7 @@ export class ItemsBranch extends Branch {
             if (target.tagName === 'IMG' && target.hasAttribute('data-fallback')) {
                 if (target.getAttribute('data-failed') === 'true') return;
                 target.setAttribute('data-failed', 'true');
+                console.warn(`[ItemsBranch] Image not found for item: "${target.alt}". Using placeholder.`);
                 const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = target.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {

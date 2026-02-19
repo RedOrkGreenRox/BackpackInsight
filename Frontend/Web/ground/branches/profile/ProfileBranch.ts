@@ -1,6 +1,6 @@
-import { Branch, PageMeta } from '@roots/Branch.ts';
-import { Gen } from '@roots/Gen.ts';
-import { t } from '../../localization/i18n';
+import {Branch, PageMeta} from '@roots/Branch.ts';
+import {Gen} from '@roots/Gen.ts';
+import {t} from '../../localization/i18n';
 import './profile.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -42,7 +42,7 @@ interface ProfileData {
     actual_version: string;
     install_version: string;
     profile_skins: Record<string, string[]>;
-    
+
     // Состояние UI
     itemsExpanded?: boolean;
     itemsSort?: 'rarity' | 'level'; // Текущая сортировка предметов
@@ -76,7 +76,8 @@ export class ProfileBranch extends Branch {
             try {
                 const cached = sessionStorage.getItem('currentProfileData');
                 if (cached) metaData = JSON.parse(cached);
-            } catch (e) {}
+            } catch (e) {
+            }
         }
 
         if (metaData) {
@@ -153,7 +154,7 @@ export class ProfileBranch extends Branch {
                 const weightB = this.rarityWeights[b.rarity] || 0;
                 if (weightA !== weightB) return weightB - weightA; // Сначала редкие
             }
-            
+
             // Сортировка по уровню (используется как основной или вторичный критерий)
             if (a.level !== b.level) return b.level - a.level;
 
@@ -196,9 +197,9 @@ export class ProfileBranch extends Branch {
                 <div class="stats-grid">
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
-                            <source srcset="/images/profile/webp/Level.webp" type="image/webp">
-                            <img src="/images/profile/webp/Level.webp" alt="Lvl" loading="lazy">
+                            <source srcset="/images/profile/avif/level.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/level.webp" type="image/webp">
+                            <img src="/images/profile/webp/level.webp" alt="Lvl" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.level}</span>
                     </div>
@@ -212,25 +213,25 @@ export class ProfileBranch extends Branch {
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/images/profile/avif/Trophy.avif" type="image/avif">
-                            <source srcset="/images/profile/webp/Trophy.webp" type="image/webp">
-                            <img src="/images/profile/webp/Trophy.webp" alt="Trophy" loading="lazy">
+                            <source srcset="/images/profile/avif/trophy.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/trophy.webp" type="image/webp">
+                            <img src="/images/profile/webp/trophy.webp" alt="Trophy" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.trophy + d.bonus_trophy}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/images/profile/avif/Gems.avif" type="image/avif">
-                            <source srcset="/images/profile/webp/Gems.webp" type="image/webp">
-                            <img src="/images/profile/webp/Gems.webp" alt="Gems" loading="lazy">
+                            <source srcset="/images/profile/avif/gems.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/gems.webp" type="image/webp">
+                            <img src="/images/profile/webp/gems.webp" alt="Gems" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.gems}</span>
                     </div>
                     <div class="stat-player-card">
                         <picture>
-                            <source srcset="/images/profile/avif/Coins.avif" type="image/avif">
-                            <source srcset="/images/profile/webp/Coins.webp" type="image/webp">
-                            <img src="/images/profile/webp/Coins.webp" alt="Coins" loading="lazy">
+                            <source srcset="/images/profile/avif/coins.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/coins.webp" type="image/webp">
+                            <img src="/images/profile/webp/coins.webp" alt="Coins" loading="lazy">
                         </picture>
                         <span class="stat-value">${d.coins}</span>
                     </div>
@@ -240,15 +241,15 @@ export class ProfileBranch extends Branch {
                     <div class="stats-heroes-grid" id="statsHeroesGrid">
                         ${d.heroes.map(hero => `
                             <div class="stat-hero-card" 
-                                 data-hero-name="${hero.name}"
+                                 data-hero-name="${hero.name.toLowerCase()}"
                                  data-level="${hero.level}"
                                  data-rating="${hero.rating}"
                                  data-prestige="${hero.prestige}">
                                 <div class="hero-header-row">
                                     <picture class="stat-hero-image-wrapper">
-                                        <source srcset="/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
-                                        <source srcset="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
-                                        <img class="stat-hero-icon" src="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
+                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
+                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
+                                        <img class="stat-hero-icon" src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
                                     </picture>
                                     <div class="stat-hero-level-container">
                                         <picture class="stat-hero-level-frame">
@@ -260,9 +261,9 @@ export class ProfileBranch extends Branch {
                                     </div>
                                     <div class="stat-hero-rating-container">
                                         <picture class="stat-hero-league">
-                                            <source srcset="/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
-                                            <source srcset="/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
-                                            <img src="/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
+                                            <source srcset="/images/profile/avif/rank${hero.league.toLowerCase()}.avif" type="image/avif">
+                                            <source srcset="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" type="image/webp">
+                                            <img src="/images/profile/webp/Rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
                                         </picture>
                                         <span class="stat-hero-rating">${hero.rating}</span>
                                     </div>
@@ -274,20 +275,20 @@ export class ProfileBranch extends Branch {
 
                 <div class="stats-items-grid">
                     ${rarityOrder.map(rarity => {
-                        if (d.item_stats[rarity]) {
-                            return `
+            if (d.item_stats[rarity]) {
+                return `
                                 <div class="rarity-item">
                                     <picture>
-                                        <source srcset="/images/profile/avif/Card${rarity}.avif" type="image/avif">
-                                        <source srcset="/images/profile/webp/Card${rarity}.webp" type="image/webp">
-                                        <img class="rarity-icon" src="/images/profile/webp/Card${rarity}.webp" alt="${rarity}" loading="lazy">
+                                        <source srcset="/images/profile/avif/card${rarity.toLowerCase()}.avif" type="image/avif">
+                                        <source srcset="/images/profile/webp/card${rarity.toLowerCase()}.webp" type="image/webp">
+                                        <img class="rarity-icon" src="/images/profile/webp/card${rarity.toLowerCase()}.webp" alt="${rarity.toLowerCase()}" loading="lazy">
                                     </picture>
                                     <span class="rarity-count">${d.item_stats[rarity]}</span>
                                 </div>
                             `;
-                        }
-                        return '';
-                    }).join('')}
+            }
+            return '';
+        }).join('')}
                 </div>
 
                 <div class="actual-version-container">
@@ -306,7 +307,7 @@ export class ProfileBranch extends Branch {
                  data-level="${hero.level}"
                  data-rating="${hero.rating}"
                  data-prestige="${hero.prestige}"
-                 data-hero-name="${hero.name}"
+                 data-hero-name="${hero.name.toLowerCase()}"
                  data-current-skin="01">
 
                 <button class="skin-btn prev-skin"></button>
@@ -314,9 +315,9 @@ export class ProfileBranch extends Branch {
 
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/images/heroes/${hero.name}/avif/${hero.name}${hero.skin_num}.avif" type="image/avif">
-                        <source srcset="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" type="image/webp">
-                        <img src="/images/heroes/${hero.name}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
+                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
+                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
+                        <img src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" alt="${hero.name.toLowerCase()}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
                     </picture>
                 </div>
                 <div class="main-hero-header-row">
@@ -336,9 +337,9 @@ export class ProfileBranch extends Branch {
 
                     <div class="main-hero-rating-container">
                         <picture class="main-hero-rating">
-                            <source srcset="/images/profile/avif/Rank${hero.league}.avif" type="image/avif">
-                            <source srcset="/images/profile/webp/Rank${hero.league}.webp" type="image/webp">
-                            <img src="/images/profile/webp/Rank${hero.league}.webp" alt="rank" loading="lazy">
+                            <source srcset="/images/profile/avif/rank${hero.league.toLowerCase()}.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" type="image/webp">
+                            <img src="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
                         </picture>
                         <span class="main-hero-rating">${hero.rating}</span>
                     </div>
@@ -350,7 +351,7 @@ export class ProfileBranch extends Branch {
     private _renderItemCard(item: Item, index: number): string {
         const isHidden = this.data?.itemsExpanded ? false : index > 5;
         const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
-        
+
         // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
         const slug = item.name.toLowerCase().split(' ').join('-');
 
@@ -390,17 +391,17 @@ export class ProfileBranch extends Branch {
                 <div class="sort-controls">
                     <button id="sortToggle" class="sort-btn" data-sort="level">
                         <picture>
-                            <source srcset="/images/profile/webp/Level.webp" type="image/webp">
-                            <source srcset="/images/profile/avif/Level.avif" type="image/avif">
-                            <img id="sortIcon" src="/images/profile/webp/Level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
+                            <source srcset="/images/profile/webp/level.webp" type="image/webp">
+                            <source srcset="/images/profile/avif/level.avif" type="image/avif">
+                            <img id="sortIcon" src="/images/profile/webp/level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                         <span id="sortText">${t('profile_sort_level')}</span>
                     </button>
                     <button id="invertToggle" class="invert-icon-btn">
                         <picture>
-                            <source srcset="/images/profile/webp/SortLow.webp" type="image/webp">
-                            <source srcset="/images/profile/avif/SortLow.avif" type="image/avif">
-                            <img id="invertIcon" src="/images/profile/webp/SortLow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
+                            <source srcset="/images/profile/webp/sortlow.webp" type="image/webp">
+                            <source srcset="/images/profile/avif/sortlow.avif" type="image/avif">
+                            <img id="invertIcon" src="/images/profile/webp/sortlow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                     </button>
                 </div>
@@ -480,14 +481,14 @@ export class ProfileBranch extends Branch {
                 hiddenLinks?.forEach(link => {
                     link.classList.remove('hidden');
                     link.classList.remove('aos-animate');
-                    void (link as HTMLElement).offsetWidth; 
+                    void (link as HTMLElement).offsetWidth;
                 });
-                
+
                 loadMoreBtn.remove();
-                
+
                 // Сохраняем состояние
-                Gen.getInstance().updateCurrentState({ itemsExpanded: true });
-                
+                Gen.getInstance().updateCurrentState({itemsExpanded: true});
+
                 if (typeof AOS !== 'undefined') {
                     setTimeout(() => {
                         AOS.refresh();
@@ -503,16 +504,16 @@ export class ProfileBranch extends Branch {
 
         // 2. Сортировка Героев
         this.initSorting();
-        
+
         // 3. Сортировка Предметов
         const itemSortBtn = this.container.querySelector('#itemSortToggle');
         if (itemSortBtn) {
             this.addListener(itemSortBtn, 'click', () => {
                 this.currentItemSort = this.currentItemSort === 'rarity' ? 'level' : 'rarity';
-                
+
                 // Сохраняем состояние
-                Gen.getInstance().updateCurrentState({ itemsSort: this.currentItemSort });
-                
+                Gen.getInstance().updateCurrentState({itemsSort: this.currentItemSort});
+
                 // Перерисовываем (простой способ - перезагрузить ветвь с новыми данными)
                 // Но лучше просто обновить HTML грида
                 this.sortItems();
@@ -522,12 +523,12 @@ export class ProfileBranch extends Branch {
                     // Обновляем текст кнопки
                     const text = this.container?.querySelector('#itemSortText');
                     if (text) text.textContent = this.currentItemSort === 'rarity' ? t('items_sort_rarity') : t('items_sort_level');
-                    
+
                     setTimeout(() => AOS.refresh(), 100);
                 }
             });
         }
-        
+
         const grids = [
             this.container?.querySelector('#mainHeroesGrid'),
             this.container?.querySelector('#statsHeroesGrid')
@@ -564,7 +565,7 @@ export class ProfileBranch extends Branch {
     private updatePicture(img: HTMLImageElement, newSrcBase: string) {
         if (!img) return;
         const picture = img.parentElement;
-        
+
         img.style.opacity = '0';
         setTimeout(() => {
             img.src = `${newSrcBase}.webp`;
@@ -596,7 +597,7 @@ export class ProfileBranch extends Branch {
         if (!sortBtn || !invertBtn) return;
 
         const sortModes = ['level', 'rating'];
-        
+
         const applyToAll = () => {
             requestAnimationFrame(() => {
                 grids.forEach(grid => {
@@ -608,23 +609,23 @@ export class ProfileBranch extends Branch {
         this.addListener(sortBtn, 'click', () => {
             const currentIdx = sortModes.indexOf(this.currentHeroSort);
             this.currentHeroSort = sortModes[(currentIdx + 1) % sortModes.length] as any;
-            
+
             if (sortText) {
-                const labels = { level: t('profile_sort_level'), rating: t('profile_sort_rating') };
+                const labels = {level: t('profile_sort_level'), rating: t('profile_sort_rating')};
                 sortText.textContent = labels[this.currentHeroSort];
             }
-            
+
             if (sortIcon) {
                 const iconName = this.currentHeroSort === 'level' ? 'Level' : 'Trophy';
                 this.updatePicture(sortIcon, `/images/profile/webp/${iconName}`);
             }
-            
+
             applyToAll();
         });
 
         this.addListener(invertBtn, 'click', () => {
             this.sortAsc = !this.sortAsc;
-            
+
             if (invertIcon) {
                 const iconName = this.sortAsc ? 'SortHigh' : 'SortLow';
                 this.updatePicture(invertIcon, `/images/profile/webp/${iconName}`);
@@ -635,10 +636,10 @@ export class ProfileBranch extends Branch {
 
     private applySort(grid: Element): void {
         const cards = Array.from(grid.children) as HTMLElement[];
-        
+
         cards.sort((a, b) => {
             let valA: any, valB: any;
-            
+
             if (this.currentHeroSort === 'level') {
                 valA = parseInt(a.dataset.level || '0');
                 valB = parseInt(b.dataset.level || '0');
@@ -660,30 +661,35 @@ export class ProfileBranch extends Branch {
         const fragment = document.createDocumentFragment();
         cards.forEach(card => fragment.appendChild(card));
         grid.appendChild(fragment);
-        
+
         if (typeof AOS !== 'undefined') AOS.refresh();
     }
 
     private initSkins(): void {
         const skinsDataEl = document.getElementById('skins-data');
         if (!skinsDataEl || !skinsDataEl.textContent) return;
-        
-        let skinsMap: Record<string, string[]> = {};
+
+        let rawSkinsMap: Record<string, string[]> = {};
         try {
-            skinsMap = JSON.parse(skinsDataEl.textContent);
+            rawSkinsMap = JSON.parse(skinsDataEl.textContent);
         } catch (e) {
             console.error("Error parsing skins", e);
             return;
         }
 
+        // Приводим все ключи карты скинов к нижнему регистру для надежного сопоставления
+        const skinsMap: Record<string, string[]> = {};
+        for (const key in rawSkinsMap) {
+            skinsMap[key.toLowerCase()] = rawSkinsMap[key];
+        }
+
         const cards = this.container?.querySelectorAll('.main-hero-card');
         cards?.forEach(card => {
-            const heroName = (card as HTMLElement).dataset.heroName;
+            const heroName = (card as HTMLElement).dataset.heroName?.toLowerCase();
             if (!heroName) return;
-
             const availableSkins = ['01', ...(skinsMap[heroName] || [])];
             const uniqueSkins = Array.from(new Set(availableSkins)).sort();
-            
+
             if (uniqueSkins.length <= 1) {
                 card.querySelectorAll('.skin-btn').forEach(b => (b as HTMLElement).style.display = 'none');
                 return;
@@ -696,14 +702,14 @@ export class ProfileBranch extends Branch {
             const updateSkin = () => {
                 const skin = uniqueSkins[currentSkinIdx];
                 const baseSrc = `/images/heroes/${heroName}`;
-                
+
                 if (img) {
                     const picture = img.parentElement;
                     img.style.opacity = '0';
                     setTimeout(() => {
                         const webp = `${baseSrc}/webp/${heroName}${skin}.webp`;
                         const avif = `${baseSrc}/avif/${heroName}${skin}.avif`;
-                        
+
                         img.src = webp;
                         if (picture) {
                             const sources = picture.querySelectorAll('source');
@@ -740,15 +746,21 @@ export class ProfileBranch extends Branch {
     }
 
     private updateHeaderSkin(heroName: string, skin: string): void {
-        const headerCard = this.container?.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
+        // Приводим к нижнему регистру для использования в путях и селекторах
+        const lowerHero = heroName.toLowerCase();
+        const lowerSkin = skin.toLowerCase();
+
+        // Используем lowerHero в селекторе, так как в HTML data-атрибуты обычно в нижнем регистре
+        const headerCard = this.container?.querySelector(`.stat-hero-card[data-hero-name="${lowerHero}"]`);
         if (!headerCard) return;
 
         const imgWrapper = headerCard.querySelector('.stat-hero-image-wrapper');
         const img = imgWrapper?.querySelector('img');
         const sources = imgWrapper?.querySelectorAll('source');
 
-        const webp = `/images/heroes/${heroName}/webp/${heroName}${skin}.webp`;
-        const avif = `/images/heroes/${heroName}/avif/${heroName}${skin}.avif`;
+        // Формируем пути с использованием приведенных к нижнему регистру строк
+        const webp = `/images/heroes/${lowerHero}/webp/${lowerHero}${lowerSkin}.webp`;
+        const avif = `/images/heroes/${lowerHero}/avif/${lowerHero}${lowerSkin}.avif`;
 
         if (img) {
             img.src = webp;
@@ -772,7 +784,7 @@ export class ProfileBranch extends Branch {
         try {
             // Динамический импорт
             // @ts-ignore
-            const { default: html2canvas } = await import('html2canvas');
+            const {default: html2canvas} = await import('html2canvas');
 
             const canvas = await html2canvas(element, {
                 backgroundColor: null,
@@ -803,7 +815,8 @@ export class ProfileBranch extends Branch {
         }
     }
 
-    protected destroy(): void {
+    protected destroy():
+        void {
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
     }
