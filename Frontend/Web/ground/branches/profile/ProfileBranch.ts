@@ -1,6 +1,9 @@
 import {Branch, PageMeta} from '@roots/Branch.ts';
 import {Gen} from '@roots/Gen.ts';
 import {t} from '../../localization/i18n';
+import {downloadProfileScreenshot} from '../../utils/screenshotUtils';
+import {SortController} from '../../utils/SortController';
+import {PaginationController} from '../../utils/PaginationController';
 import './profile.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -50,10 +53,10 @@ interface ProfileData {
 
 export class ProfileBranch extends Branch {
     private data: ProfileData | null = null;
-    private currentHeroSort: 'level' | 'rating' = 'level';
     private currentItemSort: 'rarity' | 'level' = 'rarity'; // По умолчанию по редкости
-    private sortAsc: boolean = false;
     private cleanupFns: (() => void)[] = [];
+    private sortController: SortController | null = null;
+    private paginationController: PaginationController | null = null;
 
     // Веса редкости для сортировки
     private rarityWeights: Record<string, number> = {
@@ -177,6 +180,14 @@ export class ProfileBranch extends Branch {
         sessionStorage.setItem('profileItemsList', JSON.stringify(this.data.items));
     }
 
+    private formatRating(rating: number): number {
+        if (rating < 5000) {
+            return rating % 500;
+        } else {
+            return rating - 5000;
+        }
+    }
+
     private _renderHeader(): string {
         if (!this.data) return '';
         const d = this.data;
@@ -247,8 +258,8 @@ export class ProfileBranch extends Branch {
                                  data-prestige="${hero.prestige}">
                                 <div class="hero-header-row">
                                     <picture class="stat-hero-image-wrapper">
-                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
                                         <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
+                                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
                                         <img class="stat-hero-icon" src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
                                     </picture>
                                     <div class="stat-hero-level-container">
@@ -265,7 +276,7 @@ export class ProfileBranch extends Branch {
                                             <source srcset="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" type="image/webp">
                                             <img src="/images/profile/webp/Rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
                                         </picture>
-                                        <span class="stat-hero-rating">${hero.rating}</span>
+                                        <span class="stat-hero-rating">${this.formatRating(hero.rating)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -315,8 +326,8 @@ export class ProfileBranch extends Branch {
 
                 <div class="main-hero-image">
                     <picture>
-                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
                         <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
+                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
                         <img src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" alt="${hero.name.toLowerCase()}" loading="lazy" class="hero-img" style="transition: opacity 0.2s ease;">
                     </picture>
                 </div>
@@ -341,7 +352,7 @@ export class ProfileBranch extends Branch {
                             <source srcset="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" type="image/webp">
                             <img src="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
                         </picture>
-                        <span class="main-hero-rating">${hero.rating}</span>
+                        <span class="main-hero-rating">${this.formatRating(hero.rating)}</span>
                     </div>
                 </div>
             </div>
@@ -391,16 +402,16 @@ export class ProfileBranch extends Branch {
                 <div class="sort-controls">
                     <button id="sortToggle" class="sort-btn" data-sort="level">
                         <picture>
-                            <source srcset="/images/profile/webp/level.webp" type="image/webp">
                             <source srcset="/images/profile/avif/level.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/level.webp" type="image/webp">
                             <img id="sortIcon" src="/images/profile/webp/level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                         <span id="sortText">${t('profile_sort_level')}</span>
                     </button>
                     <button id="invertToggle" class="invert-icon-btn">
                         <picture>
-                            <source srcset="/images/profile/webp/sortlow.webp" type="image/webp">
                             <source srcset="/images/profile/avif/sortlow.avif" type="image/avif">
+                            <source srcset="/images/profile/webp/sortlow.webp" type="image/webp">
                             <img id="invertIcon" src="/images/profile/webp/sortlow.webp" alt="↕ По убыванию" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
                     </button>
@@ -473,37 +484,29 @@ export class ProfileBranch extends Branch {
             }
         }, true);
 
-        // 1. Показать еще
-        const loadMoreBtn = this.container.querySelector('#loadMoreItemsBtn');
-        if (loadMoreBtn) {
-            this.addListener(loadMoreBtn, 'click', () => {
-                const hiddenLinks = this.container?.querySelectorAll('.item-card-link.hidden');
-                hiddenLinks?.forEach(link => {
-                    link.classList.remove('hidden');
-                    link.classList.remove('aos-animate');
-                    void (link as HTMLElement).offsetWidth;
-                });
-
-                loadMoreBtn.remove();
-
-                // Сохраняем состояние
-                Gen.getInstance().updateCurrentState({itemsExpanded: true});
-
-                if (typeof AOS !== 'undefined') {
-                    setTimeout(() => {
-                        AOS.refresh();
-                        hiddenLinks?.forEach(link => {
-                            if (!link.classList.contains('aos-animate')) {
-                                link.classList.add('aos-animate');
-                            }
-                        });
-                    }, 100);
+        // 1. Показать еще (используем PaginationController)
+        if (this.container) {
+            this.paginationController = new PaginationController(this.container, () => {
+                // Callback для обновления состояния после раскрытия
+            });
+            this.cleanupFns.push(() => {
+                if (this.paginationController) {
+                    this.paginationController.destroy();
+                    this.paginationController = null;
                 }
             });
         }
 
         // 2. Сортировка Героев
-        this.initSorting();
+        if (this.container) {
+            this.sortController = new SortController(this.container);
+            this.cleanupFns.push(() => {
+                if (this.sortController) {
+                    this.sortController.destroy();
+                    this.sortController = null;
+                }
+            });
+        }
 
         // 3. Сортировка Предметов
         const itemSortBtn = this.container.querySelector('#itemSortToggle');
@@ -529,13 +532,7 @@ export class ProfileBranch extends Branch {
             });
         }
 
-        const grids = [
-            this.container?.querySelector('#mainHeroesGrid'),
-            this.container?.querySelector('#statsHeroesGrid')
-        ];
-        grids.forEach(grid => {
-            if (grid) this.applySort(grid);
-        });
+        // Сортировка теперь обрабатывается SortController
 
         // 3. Скины
         this.initSkins();
@@ -562,108 +559,6 @@ export class ProfileBranch extends Branch {
         });
     }
 
-    private updatePicture(img: HTMLImageElement, newSrcBase: string) {
-        if (!img) return;
-        const picture = img.parentElement;
-
-        img.style.opacity = '0';
-        setTimeout(() => {
-            img.src = `${newSrcBase}.webp`;
-            if (picture) {
-                const sources = picture.querySelectorAll('source');
-                sources.forEach(s => {
-                    if (s.type === 'image/avif') s.srcset = `${newSrcBase}.avif`;
-                    if (s.type === 'image/webp') s.srcset = `${newSrcBase}.webp`;
-                });
-            }
-            requestAnimationFrame(() => {
-                img.style.opacity = '1';
-            });
-        }, 200);
-    }
-
-    private initSorting(): void {
-        const sortBtn = this.container?.querySelector('#sortToggle');
-        const invertBtn = this.container?.querySelector('#invertToggle');
-        const sortText = this.container?.querySelector('#sortText');
-        const sortIcon = this.container?.querySelector('#sortIcon') as HTMLImageElement;
-        const invertIcon = this.container?.querySelector('#invertIcon') as HTMLImageElement;
-
-        const grids = [
-            this.container?.querySelector('#mainHeroesGrid'),
-            this.container?.querySelector('#statsHeroesGrid')
-        ];
-
-        if (!sortBtn || !invertBtn) return;
-
-        const sortModes = ['level', 'rating'];
-
-        const applyToAll = () => {
-            requestAnimationFrame(() => {
-                grids.forEach(grid => {
-                    if (grid) this.applySort(grid);
-                });
-            });
-        };
-
-        this.addListener(sortBtn, 'click', () => {
-            const currentIdx = sortModes.indexOf(this.currentHeroSort);
-            this.currentHeroSort = sortModes[(currentIdx + 1) % sortModes.length] as any;
-
-            if (sortText) {
-                const labels = {level: t('profile_sort_level'), rating: t('profile_sort_rating')};
-                sortText.textContent = labels[this.currentHeroSort];
-            }
-
-            if (sortIcon) {
-                const iconName = this.currentHeroSort === 'level' ? 'level' : 'trophy';
-                this.updatePicture(sortIcon, `/images/profile/webp/${iconName}`);
-            }
-
-            applyToAll();
-        });
-
-        this.addListener(invertBtn, 'click', () => {
-            this.sortAsc = !this.sortAsc;
-
-            if (invertIcon) {
-                const iconName = this.sortAsc ? 'sorthigh' : 'sortlow';
-                this.updatePicture(invertIcon, `/images/profile/webp/${iconName}`);
-            }
-            applyToAll();
-        });
-    }
-
-    private applySort(grid: Element): void {
-        const cards = Array.from(grid.children) as HTMLElement[];
-
-        cards.sort((a, b) => {
-            let valA: any, valB: any;
-
-            if (this.currentHeroSort === 'level') {
-                valA = parseInt(a.dataset.level || '0');
-                valB = parseInt(b.dataset.level || '0');
-
-                // FIX: Учитываем престиж (+20 уровней)
-                if (a.dataset.prestige === 'true') valA += 20;
-                if (b.dataset.prestige === 'true') valB += 20;
-
-            } else if (this.currentHeroSort === 'rating') {
-                valA = parseInt(a.dataset.rating || '0');
-                valB = parseInt(b.dataset.rating || '0');
-            }
-
-            if (valA < valB) return this.sortAsc ? -1 : 1;
-            if (valA > valB) return this.sortAsc ? 1 : -1;
-            return 0;
-        });
-
-        const fragment = document.createDocumentFragment();
-        cards.forEach(card => fragment.appendChild(card));
-        grid.appendChild(fragment);
-
-        if (typeof AOS !== 'undefined') AOS.refresh();
-    }
 
     private initSkins(): void {
         const skinsDataEl = document.getElementById('skins-data');
@@ -776,43 +671,9 @@ export class ProfileBranch extends Branch {
         if (!element) return;
 
         const btn = this.container?.querySelector('#saveProfileBtn') as HTMLButtonElement;
-        if (btn) {
-            btn.textContent = t('profile_creating_card');
-            btn.disabled = true;
-        }
+        if (!btn) return;
 
-        try {
-            // Динамический импорт
-            // @ts-ignore
-            const {default: html2canvas} = await import('html2canvas');
-
-            const canvas = await html2canvas(element, {
-                backgroundColor: null,
-                useCORS: true,
-                scale: 2,
-                logging: false,
-                // ФИКСЫ ДЛЯ СКРОЛЛА И ШИРИНЫ
-                scrollX: 0,
-                scrollY: 0,
-                x: 0,
-                y: 0,
-                windowWidth: 1920, // Эмулируем десктоп
-                windowHeight: 1080
-            });
-
-            const link = document.createElement('a');
-            link.download = `Profile_${this.data?.nickname || 'Player'}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        } catch (e) {
-            console.error("Screenshot failed", e);
-            alert("Не удалось создать скриншот.");
-        } finally {
-            if (btn) {
-                btn.textContent = t('profile_save_card');
-                btn.disabled = false;
-            }
-        }
+        await downloadProfileScreenshot(element, btn, this.data?.nickname || 'Player');
     }
 
     protected destroy():

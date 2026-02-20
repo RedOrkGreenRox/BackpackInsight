@@ -3,6 +3,33 @@
     display: flex;
     justify-content: center;
     min-height: 100vh;
+    
+    // Разрешаем выделение текста
+    * {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+    
+    // Исключаем навигационные элементы из выделения
+    .item-navigation-top,
+    .item-navigation-top *,
+    .item-navigation-bottom,
+    .item-navigation-bottom * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 80px 15px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 60px 10px;
+    }
 }
 
 .item-card-wrapper {
@@ -31,6 +58,16 @@
         background: linear-gradient(90deg, transparent, var(--azure), transparent);
         opacity: 0.6;
         box-shadow: 0 0 15px 5px var(--azure);
+    }
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 15px;
+        border-radius: 12px;
     }
 }
 

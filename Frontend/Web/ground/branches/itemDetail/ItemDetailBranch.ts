@@ -19,6 +19,7 @@ export class ItemDetailBranch extends Branch {
     private data: ItemDetailData = {};
     private navigation: { prev: string | null, next: string | null } = {prev: null, next: null};
     private listScrollY: number = 0;
+    private cleanupFns: (() => void)[] = [];
 
     public getMeta(data?: any): PageMeta {
         let itemName: string;
@@ -85,6 +86,19 @@ export class ItemDetailBranch extends Branch {
         return `<div class="player-stats-block" data-aos="fade-up"><div class="stat-row"><span class="stat-label">${t('player_item_level')}:</span> <span class="stat-value lvl">Lvl ${playerItem.level}</span></div>${cardsInfo}</div>`;
     }
 
+    private renderHeroIcon(heroName: string): string {
+        return parseTextWithIcons(heroName);
+    }
+
+    private renderCostIcon(cost: number): string {
+        return `
+            <div class="cost-icon-wrapper">
+                ${parseTextWithIcons('Gold')}
+                <span class="cost-value">${cost}</span>
+            </div>
+        `;
+    }
+
     private renderWikiInfo(item: ItemDefinition): string {
         const combatStatsHtml = item.combatStats
             ? Object.entries(item.combatStats)
@@ -98,19 +112,9 @@ export class ItemDetailBranch extends Branch {
 
         const descriptionHtml = item.tooltips ? parseTextWithIcons(item.tooltips.join('\\n')) : '';
 
-        const heroHtml = item.connectedHero
-            ? `<div class="info-row">${parseTextWithIcons(`${t('wiki_item_hero')}: ${item.connectedHero}`)}</div>`
-            : '';
-
-        const costHtml = item.coinValue
-            ? `<div class="info-row">${parseTextWithIcons(`${t('wiki_item_cost')}: ${item.coinValue} Gold`)}</div>`
-            : '';
-
         return `
             <div class="wiki-stats-block" data-aos="fade-up" data-aos-delay="100">
                 ${descriptionHtml ? `<div class="item-description">${descriptionHtml}</div>` : ''}
-                ${heroHtml}
-                ${costHtml}
                 ${combatStatsHtml ? `<div class="combat-stats"><ul>${combatStatsHtml}</ul></div>` : ''}
             </div>
         `;
@@ -203,7 +207,7 @@ export class ItemDetailBranch extends Branch {
             const slug = this.toSlug(targetName);
             const url = `${baseUrl}/${slug}`;
             // data-target-name хранит оригинальное имя для поиска в массиве
-            return `<a href="${url}" class="nav-btn-bottom nav-${direction}" data-link data-target-name="${targetName}">${direction === 'prev' ? '❮' : '❯'}</a>`;
+            return `<a href="${url}" class="nav-btn-top nav-${direction}" data-link data-target-name="${targetName}">${direction === 'prev' ? '❮' : '❯'}</a>`;
         };
         
         // Форматирование имени файла (тот же slug)
@@ -213,11 +217,33 @@ export class ItemDetailBranch extends Branch {
             <div class="container item-detail-container">
                 <div class="navigation-anchor" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 35rem;">
                     
+                    <div class="item-navigation-top"> 
+                        <div class="nav-group">
+                            ${this.navigation.prev
+                                ? getNavLink(this.navigation.prev, 'prev')
+                                : '<div class="nav-btn-top disabled">❮</div>'}
+                            
+                            <a href="${backUrl}" class="nav-btn-top back-btn" data-link title="${backTitle}">
+                                <span class="icon">☰</span>
+                            </a>
+                    
+                            ${this.navigation.next
+                                ? getNavLink(this.navigation.next, 'next')
+                                : '<div class="nav-btn-top disabled">❯</div>'}
+                        </div>
+                    </div>
+                    
                     <div class="item-card-wrapper">
                         <h1 class="item-title">${item.name}</h1>
                         <div class="item-header">
+                            <div class="item-header-left">
+                                ${item.connectedHero ? `<div class="item-hero-icon">${this.renderHeroIcon(item.connectedHero)}</div>` : ''}
+                                ${item.coinValue ? this.renderCostIcon(item.coinValue) : ''}
+                            </div>
                             <div class="item-rarity ${rarityClass}">${rarity}</div>
-                            ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
+                            <div class="item-header-right">
+                                ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
+                            </div>
                         </div>
                         <div class="item-visual">
                             <div class="item-image-wrapper ${rarityClass}">
@@ -233,31 +259,21 @@ export class ItemDetailBranch extends Branch {
                             ${this.renderWikiInfo(item)}
                         </div>
                     </div>
-                    
-                    <div class="item-navigation-bottom"> 
-                        <div class="nav-group">
-                            ${this.navigation.prev
-                                ? getNavLink(this.navigation.prev, 'prev')
-                                : '<div class="nav-btn-bottom disabled">❮</div>'}
-                            
-                            <a href="${backUrl}" class="nav-btn-bottom back-btn" data-link title="${backTitle}">
-                                <span class="icon">☰</span>
-                            </a>
-                    
-                            ${this.navigation.next
-                                ? getNavLink(this.navigation.next, 'next')
-                                : '<div class="nav-btn-bottom disabled">❯</div>'}
-                        </div>
-                    </div>
                 </div>
             </div>
         `;
     }
 
     protected init(_data?: any): void {
+        // Логирование всех данных о предмете в консоль
+        this.logItemDetails();
+
+        // Обработчик копирования для замены изображений на их alt-текст
+        this.setupCopyHandler();
+
         // Добавляем логику для передачи данных игрока при навигации "Вперед/Назад" в режиме профиля
         if (this.data.playerItem) {
-            const navLinks = this.container?.querySelectorAll('.nav-btn-bottom.nav-prev, .nav-btn-bottom.nav-next');
+                            const navLinks = this.container?.querySelectorAll('.nav-btn-top.nav-prev, .nav-btn-top.nav-next');
             navLinks?.forEach(link => {
                 link.addEventListener('click', (_e) => {
                     const targetName = (link as HTMLElement).dataset.targetName;
@@ -286,5 +302,158 @@ export class ItemDetailBranch extends Branch {
         }
     }
 
-    protected destroy(): void {}
+    private logItemDetails(): void {
+        const item = this.data.itemData;
+        const playerItem = this.data.playerItem;
+
+        console.group('📦 Детальная информация о предмете');
+        
+        if (!item) {
+            console.warn('❌ ItemDefinition не найдено');
+            console.groupEnd();
+            return;
+        }
+
+        // Основная информация
+        console.group('📋 Основная информация');
+        console.log('ID:', item.id);
+        console.log('Название:', item.name);
+        console.log('Редкость:', item.rarity);
+        console.log('Стоимость:', item.coinValue ?? 'не указана');
+        console.log('Покупаемый:', item.purchasable);
+        console.groupEnd();
+
+        // Классификация
+        console.group('🏷️ Классификация');
+        console.log('Типы предмета:', item.itemTypes);
+        console.log('Связанный герой:', item.connectedHero || 'нет');
+        console.log('Источник разблокировки:', item.unlockSource || 'не указан');
+        console.groupEnd();
+
+        // Геометрия
+        console.group('📐 Геометрия');
+        console.log('Форма предмета:', item.itemShape);
+        console.log('Звезды предмета:', item.itemStars);
+        console.groupEnd();
+
+        // Крафт
+        console.group('🔨 Крафт');
+        console.log('Рецепты:', item.recipes);
+        console.groupEnd();
+
+        // Боевая статистика
+        console.group('⚔️ Боевая статистика');
+        if (item.combatStats) {
+            console.log('Минимальный урон:', item.combatStats.damageMin ?? 'нет');
+            console.log('Максимальный урон:', item.combatStats.damageMax ?? 'нет');
+            console.log('Точность:', item.combatStats.accuracy ?? 'нет');
+            console.log('Стоимость выносливости:', item.combatStats.staminaCost ?? 'нет');
+            console.log('Перезарядка:', item.combatStats.cooldown ?? 'нет');
+            console.log('Шанс крита:', item.combatStats.criticalChance ?? 'нет');
+            console.log('Урон крита:', item.combatStats.criticalDamage ?? 'нет');
+        } else {
+            console.log('Боевая статистика отсутствует');
+        }
+        console.groupEnd();
+
+        // Описание
+        console.group('📝 Описание');
+        console.log('Подсказки:', item.tooltips);
+        console.groupEnd();
+
+        // Дополнительная статистика
+        console.group('📊 Дополнительная статистика');
+        console.log('Все статистики:', item.allStats);
+        console.groupEnd();
+
+        // Информация об уровнях
+        console.group('📈 Информация об уровнях');
+        if (item.levels) {
+            console.log('Максимальный уровень:', item.levels.maxLevel);
+            console.log('Шанс за уровень:', item.levels.chancePerLevel ?? 'нет');
+            console.log('Базовый шанс:', item.levels.baseChance ?? 'нет');
+            console.log('Бонус за брейкпоинт:', item.levels.chanceBreakpointBonus ?? 'нет');
+            console.log('Описание способности:', item.levels.abilityDescription ?? 'нет');
+            console.log('Изменения по уровням:', item.levels.changes);
+        } else {
+            console.log('Информация об уровнях отсутствует');
+        }
+        console.groupEnd();
+
+        // Данные игрока (если есть)
+        if (playerItem) {
+            console.group('🎮 Данные игрока');
+            console.log('Название:', playerItem.name);
+            console.log('Уровень:', playerItem.level);
+            console.log('Карты:', playerItem.cards);
+            console.log('Карт нужно:', playerItem.cards_need === -1 ? 'максимальный уровень' : playerItem.cards_need);
+            console.groupEnd();
+        } else {
+            console.log('ℹ️ Данные игрока отсутствуют (просмотр из вики)');
+        }
+
+        // Полный объект для детального изучения
+        console.group('🔍 Полные объекты данных');
+        console.log('ItemDefinition (полный объект):', item);
+        if (playerItem) {
+            console.log('PlayerItem (полный объект):', playerItem);
+        }
+        console.groupEnd();
+
+        console.groupEnd();
+    }
+
+    private setupCopyHandler(): void {
+        if (!this.container) return;
+
+        const handleCopy = (e: ClipboardEvent) => {
+            const selection = window.getSelection();
+            if (!selection || selection.rangeCount === 0) return;
+
+            const range = selection.getRangeAt(0);
+            const clonedContents = range.cloneContents();
+            const tempDiv = document.createElement('div');
+            tempDiv.appendChild(clonedContents);
+
+            // Находим все изображения в выделенном фрагменте
+            const images = tempDiv.querySelectorAll('img');
+            images.forEach((img) => {
+                const altText = img.getAttribute('alt') || img.getAttribute('title') || '';
+                if (altText) {
+                    // Заменяем изображение на текстовый узел с alt-текстом
+                    const textNode = document.createTextNode(`[${altText}]`);
+                    img.parentNode?.replaceChild(textNode, img);
+                }
+            });
+
+            // Также обрабатываем picture элементы
+            const pictures = tempDiv.querySelectorAll('picture');
+            pictures.forEach((picture) => {
+                const img = picture.querySelector('img');
+                const altText = img?.getAttribute('alt') || img?.getAttribute('title') || '';
+                if (altText) {
+                    const textNode = document.createTextNode(`[${altText}]`);
+                    picture.parentNode?.replaceChild(textNode, picture);
+                }
+            });
+
+            // Устанавливаем измененный контент в буфер обмена
+            const plainText = tempDiv.textContent || '';
+            const htmlText = tempDiv.innerHTML || '';
+            
+            e.clipboardData?.setData('text/plain', plainText);
+            e.clipboardData?.setData('text/html', htmlText);
+            e.preventDefault();
+        };
+
+        this.container.addEventListener('copy', handleCopy);
+        this.cleanupFns.push(() => {
+            this.container?.removeEventListener('copy', handleCopy);
+        });
+    }
+
+    protected destroy(): void {
+        this.cleanupFns.forEach(fn => fn());
+        this.cleanupFns = [];
+    }
 }

@@ -50,8 +50,21 @@
 }
 
 /* Адаптив */
+@media (max-width: 768px) {
+    .item-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+}
+
 @media (max-width: 480px) {
     .item-card {
         padding: 10px;
+        border-radius: 10px;
+    }
+
+    .item-stats {
+        gap: 3px;
+        margin-top: 6px;
     }
 }

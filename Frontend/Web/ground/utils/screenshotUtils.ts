@@ -7,50 +7,85 @@ export async function downloadProfileScreenshot(target: HTMLElement, btn: HTMLBu
     btn.style.opacity = "0.7";
     btn.disabled = true;
 
-    try {
-        const icons = target.querySelectorAll('.main-heroes-grid__image img') as NodeListOf<HTMLElement>;
-        const originalStyles: { el: HTMLElement, width: string, height: string }[] = [];
+    const DESKTOP_WIDTH = 1200;
 
-        icons.forEach(img => {
-            originalStyles.push({
-                el: img,
-                width: img.style.width,
-                height: img.style.height
-            });
-            img.style.width = img.offsetWidth + 'px';
-            img.style.height = img.offsetHeight + 'px';
+    try {
+        // 1. Сначала фиксируем размеры на ОРИГИНАЛЕ (на мгновение)
+        const originalIcons = target.querySelectorAll('.main-heroes-grid__image img') as NodeListOf<HTMLImageElement>;
+        const sizeMap = new Map<number, { w: number, h: number }>();
+        
+        originalIcons.forEach((img, index) => {
+            const rect = img.getBoundingClientRect();
+            sizeMap.set(index, { w: rect.width, h: rect.height });
         });
 
-        const isMobile = window.innerWidth < 768;
-        const scaleFactor = isMobile ? 2 : 3;
+        // 2. Создаем клон
+        const clone = target.cloneNode(true) as HTMLElement;
+        
+        Object.assign(clone.style, {
+            position: 'fixed',
+            left: '0',
+            top: '-10000px', // Уводим далеко вверх
+            width: `${DESKTOP_WIDTH}px`,
+            minWidth: `${DESKTOP_WIDTH}px`,
+            zIndex: '-9999',
+            display: 'block'
+        });
 
-        const canvas = await html2canvas(target, {
+        // 3. Применяем зафиксированные размеры к иконкам в клоне
+        const clonedIcons = clone.querySelectorAll('.main-heroes-grid__image img') as NodeListOf<HTMLImageElement>;
+        clonedIcons.forEach((img, index) => {
+            const size = sizeMap.get(index);
+            if (size && size.w > 0) {
+                img.style.setProperty('width', `${size.w}px`, 'important');
+                img.style.setProperty('height', `${size.h}px`, 'important');
+                img.style.setProperty('min-width', `${size.w}px`, 'important');
+                img.style.setProperty('flex', 'none', 'important');
+                img.style.objectFit = 'contain';
+            }
+        });
+
+        document.body.appendChild(clone);
+
+        // Ждем загрузки картинок
+        const imagePromises = Array.from(clone.querySelectorAll('img')).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => {
+                img.onload = resolve;
+                img.onerror = resolve;
+            });
+        });
+        await Promise.all(imagePromises);
+        
+        // Небольшая пауза для рендеринга стилей в DOM
+        await new Promise(r => setTimeout(r, 150));
+
+        // 4. Скриншот
+        const canvas = await html2canvas(clone, {
             useCORS: true,
             allowTaint: true,
-            scale: scaleFactor,
-            backgroundColor: null,
-            logging: false,
-            scrollY: -window.scrollY,
-            windowWidth: document.documentElement.offsetWidth,
-            windowHeight: document.documentElement.offsetHeight
-        });
-
-        originalStyles.forEach(style => {
-            style.el.style.width = style.width;
-            style.el.style.height = style.height;
+            scale: 2,
+            backgroundColor: "#11121d",
+            width: DESKTOP_WIDTH,
+            windowWidth: DESKTOP_WIDTH,
+            onclone: (clonedDoc) => {
+                // Дополнительная проверка внутри процесса html2canvas
+                const el = clonedDoc.body.querySelector('[style*="left: -9999px"]') as HTMLElement;
+                if (el) el.style.left = '0';
+            }
         });
 
         const link = document.createElement('a');
-        link.href = canvas.toDataURL("image/png");
+        link.href = canvas.toDataURL("image/png", 1.0);
         link.download = `Profile_${nickname}.png`;
         link.click();
+
+        document.body.removeChild(clone);
 
     } catch (err) {
         console.error("Screenshot Error:", err);
         btn.innerText = "❌ ОШИБКА";
-        setTimeout(() => {
-            btn.innerText = originalText;
-        }, 3000);
+        setTimeout(() => { btn.innerText = originalText; }, 3000);
     } finally {
         btn.innerText = originalText;
         btn.style.opacity = "1";

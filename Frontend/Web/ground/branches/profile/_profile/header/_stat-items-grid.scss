@@ -58,6 +58,24 @@
         flex-wrap: wrap;
         gap: 8px;
     }
+
+    @media (max-width: 768px) {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 6px;
+        gap: 4px;
+
+        .rarity-item {
+            gap: 4px;
+        }
+
+        .rarity-count {
+            font-size: 12px;
+        }
+    }
 }
 
 /* Стили для секции предметов в профиле */

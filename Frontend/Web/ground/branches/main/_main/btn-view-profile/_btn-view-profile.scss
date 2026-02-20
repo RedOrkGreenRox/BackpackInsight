@@ -53,3 +53,20 @@
     50% { box-shadow: 0 0 20px rgba(var(--azure-raw), 0.6); }
     100% { box-shadow: 0 0 5px rgba(var(--azure-raw), 0.2); }
 }
+
+@media (max-width: 768px) {
+    .button-view-profile {
+        padding: 18px;
+        font-size: 1.2em;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-view-profile {
+        padding: 15px;
+        font-size: 1em;
+        gap: 10px;
+        letter-spacing: 0.5px;
+    }
+}

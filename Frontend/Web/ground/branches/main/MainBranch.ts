@@ -2,6 +2,7 @@ import { Branch, PageMeta } from '@roots/Branch.ts';
 import { Gen } from '@roots/Gen.ts';
 import { t } from '../../localization/i18n';
 import { UploadHandler } from './_main/upload-zone/upload'; // Импортируем наш вынесенный модуль
+import { ApiService } from '../../utils/ApiService';
 import './main.scss';
 
 export class MainBranch extends Branch {
@@ -88,18 +89,7 @@ export class MainBranch extends Branch {
         }
 
         try {
-            const response = await fetch('/api/profile', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(jsonData)
-            });
-
-            if (!response.ok) {
-                this.showError(t('error_server_unavailable'));
-                return; // Прерываем выполнение без генерации исключения
-            }
-
-            const data = await response.json();
+            const data = await ApiService.getProfile(jsonData);
             Gen.getInstance().navigate('/profile', data);
 
         } catch (e) {

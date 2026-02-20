@@ -51,6 +51,12 @@
     right: 0;
 }
 
+@media (max-width: 768px) {
+    .main-hero-card {
+        padding: 20px;
+    }
+}
+
 @media (max-width: 600px) {
     .main-hero-card {
         flex-direction: row;
@@ -61,5 +67,17 @@
 
     .skin-btn {
         width: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-hero-card {
+        padding: 12px;
+        gap: 12px;
+        border-radius: 15px;
+    }
+
+    .skin-btn {
+        width: 25px;
     }
 }
