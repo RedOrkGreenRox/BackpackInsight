@@ -1,0 +1,137 @@
+// JSON Validation styles
+.json-validation-error {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 50, 50, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    overflow-x: auto;
+    display: flex;
+    gap: 12px;
+}
+
+.validation-error-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.error-dismiss-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.error-dismiss-btn:hover {
+    background: rgba(255, 50, 50, 0.3);
+    color: white;
+}
+
+.error-line-numbers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    margin-right: 12px;
+    user-select: none;
+    min-width: 40px;
+}
+
+.line-number {
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    min-width: 30px;
+    text-align: right;
+}
+
+.line-number.error-line {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.json-code {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-line {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.code-line.error-line {
+    background: rgba(255, 50, 50, 0.1);
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: 2px 0;
+}
+
+.error-char {
+    background: rgba(255, 50, 50, 0.8);
+    color: white;
+    border-radius: 2px;
+    padding: 1px 2px;
+    font-weight: bold;
+}
+
+.validation-error-footer {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(255, 50, 50, 0.2);
+    border-left: 3px solid #ff6b6b;
+    color: #ff6b6b;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .json-validation-error {
+        font-size: 12px;
+        padding: 12px;
+        flex-direction: column;
+    }
+    
+    .error-line-numbers {
+        min-width: 30px;
+        margin-right: 8px;
+        padding-right: 8px;
+    }
+    
+    .line-number {
+        min-width: 25px;
+        font-size: 12px;
+    }
+    
+    .validation-error-footer {
+        font-size: 12px;
+    }
+}
+
+// Low-res mode optimizations
+.low-res-mode {
+    .json-validation-error {
+        background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .code-line.error-line {
+        background: rgba(255, 50, 50, 0.15);
+    }
+    
+    .error-char {
+        background: rgba(255, 50, 50, 0.6);
+    }
+}

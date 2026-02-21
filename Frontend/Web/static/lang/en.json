@@ -10,6 +10,9 @@
   "error_json_invalid": "Error: Invalid JSON format.",
   "error_json_empty": "Please paste data or select a file.",
   "error_server_unavailable": "Error: Data server is unavailable or data is corrupted.",
+  "error_file_too_large": "Error: File too large. Maximum size is 1MB.",
+  "error_too_many_requests": "Error: Too many requests. Please try again later.",
+  "error_connection_failed": "Error: Failed to connect to server.",
   "items_title": "Items",
   "items_subtitle": "All items from Backpack Brawl",
   "items_search_placeholder": "Search items...",
@@ -49,5 +52,15 @@
   "profile_creating_card": "Creating...",
   "not_found_title": "404",
   "not_found_text": "You've wandered into the wrong location, hero.",
-  "not_found_button": "Go Back"
+  "not_found_button": "Go Back",
+  "lang_switch_button": "Switch to {{lang}}",
+  "json_validation_error": "Error in line {{line}}, column {{column}}",
+  "json_empty": "JSON is empty",
+  "json_unexpected_token": "Unexpected token: {{token}}",
+  "json_property_error": "Property name error",
+  "json_incomplete": "Incomplete JSON",
+  "screenshot_saving": "⌛ SAVING...",
+  "screenshot_error": "❌ ERROR",
+  "loading_text": "Loading...",
+  "error_dismiss": "×"
 }

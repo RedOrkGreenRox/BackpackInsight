@@ -1,3 +1,5 @@
+import { t } from '../localization/i18n';
+
 /**
  * Утилиты для состояний загрузки
  */
@@ -76,7 +78,7 @@ export class LoadingStates {
         container.innerHTML = `
             <div class="page-loading">
                 ${this.createSpinner('large')}
-                <div class="loading-text">Загрузка...</div>
+                <div class="loading-text">${t('loading_text')}</div>
             </div>
         `;
     }

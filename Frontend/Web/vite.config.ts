@@ -16,7 +16,7 @@ export default defineConfig({
     // Папка со статикой
     publicDir: 'static',
     
-    base: '/', 
+    base: '/',
 
     resolve: {
         alias: {
@@ -35,11 +35,26 @@ export default defineConfig({
                 main: resolve(__dirname, 'index.html')
             },
             output: {
-                entryFileNames: 'assets/[name].js',
+                entryFileNames: 'assets/[name].[hash].js',
                 chunkFileNames: 'assets/chunks/[name]-[hash].js',
-                assetFileNames: 'assets/[name][extname]'
+                assetFileNames: (assetInfo) => {
+                    // Разные сроки кеширования для разных типов файлов
+                    if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+                        return 'assets/css/[name].[hash][extname]';
+                    }
+                    if (assetInfo.name && assetInfo.name.match(/\.(png|jpg|jpeg|gif|webp|avif|svg)$/)) {
+                        return 'assets/images/[name].[hash][extname]';
+                    }
+                    if (assetInfo.name && assetInfo.name.match(/\.(woff2|woff|ttf|eot)$/)) {
+                        return 'assets/fonts/[name].[hash][extname]';
+                    }
+                    return 'assets/[name].[hash][extname]';
+                }
             }
-        }
+        },
+        // Добавляем хеши к именам файлов для долгого кеширования
+        assetsInlineLimit: 4096,
+        sourcemap: false
     },
     
     server: {
@@ -48,6 +63,15 @@ export default defineConfig({
         strictPort: true,
         hmr: {
             clientPort: 5173
+        },
+        headers: {
+            // Правильные заголовки кеширования для разработки
+            'Cache-Control': 'no-cache'
         }
+    },
+
+    // Оптимизация для продакшена
+    optimizeDeps: {
+        include: ['aos', 'fuse.js']
     }
 });

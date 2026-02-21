@@ -1,17 +1,27 @@
-const CACHE_NAME = 'backpack-insight-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const CACHE_NAME = 'backpack-insight-v2';
+const STATIC_CACHE = 'static-v2';
+const DYNAMIC_CACHE = 'dynamic-v2';
 
-// Статичные ресурсы для кэширования
+// Статичные ресурсы для кэширования с версионированием
 const STATIC_ASSETS = [
     '/',
     '/index.html',
-    '/ground/core.ts',
-    '/static/lang/ru.json',
-    '/static/lang/en.json',
+    '/assets/main.js',
+    '/assets/main.css',
+    '/lang/ru.json',
+    '/lang/en.json',
     '/images/const/webp/logo.webp',
-    '/images/const/webp/menu.webp'
+    '/images/const/webp/menu.webp',
+    '/fonts/NotoSans.woff2',
+    '/fonts/NotoSans-Bold.woff2'
 ];
+
+// Время кеширования для разных типов ресурсов
+const CACHE_TIMES = {
+    static: 24 * 60 * 60 * 1000, // 24 часа
+    dynamic: 60 * 60 * 1000,     // 1 час
+    api: 5 * 60 * 1000          // 5 минут
+};
 
 // Установка Service Worker
 self.addEventListener('install', (event) => {
@@ -54,6 +64,11 @@ self.addEventListener('fetch', (event) => {
 
     // Пропускаем Chrome Extension и другие не-http запросы
     if (!url.protocol.startsWith('http')) {
+        return;
+    }
+
+    // Пропускаем POST запросы (нельзя кэшировать)
+    if (request.method === 'POST') {
         return;
     }
 

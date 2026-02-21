@@ -1,0 +1,37 @@
+# Файл конфигурации для Netlify (можно адаптировать для других хостингов)
+
+# JS и CSS файлы с хешами - кешируем на 1 год
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/css/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Шрифты - кешируем на 1 год
+/assets/fonts/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# Изображения - кешируем на 1 месяц
+/assets/images/*.webp
+  Cache-Control: public, max-age=2592000
+
+/assets/images/*.avif
+  Cache-Control: public, max-age=2592000
+
+/assets/images/*.png
+  Cache-Control: public, max-age=2592000
+
+# HTML файлы - не кешируем или кешируем на короткое время
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# JSON файлы локализации - кешируем на 1 час
+/lang/*.json
+  Cache-Control: public, max-age=3600
+
+# API запросы - не кешируем
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate

@@ -1,11 +1,13 @@
 export class UploadHandler {
     private container: HTMLElement;
     private onHideError: () => void;
+    private onContentChange: (value: string) => void;
     private cleanupFns: (() => void)[] = [];
 
-    constructor(container: HTMLElement, onHideError: () => void) {
+    constructor(container: HTMLElement, onHideError: () => void, onContentChange?: (value: string) => void) {
         this.container = container;
         this.onHideError = onHideError;
+        this.onContentChange = onContentChange || (() => {});
         this.init();
     }
 
@@ -25,6 +27,7 @@ export class UploadHandler {
         const updateUI = () => {
             if (hint) hint.style.display = input.value.trim() ? 'none' : 'flex';
             this.onHideError();
+            this.onContentChange(input.value);
         };
 
         const read = (file: File) => {

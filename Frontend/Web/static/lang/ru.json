@@ -10,6 +10,9 @@
   "error_json_invalid": "Ошибка: Некорректный формат JSON.",
   "error_json_empty": "Пожалуйста, вставьте данные или выберите файл.",
   "error_server_unavailable": "Ошибка: Сервер данных недоступен или данные повреждены.",
+  "error_file_too_large": "Ошибка: Файл слишком большой. Максимальный размер 10MB.",
+  "error_too_many_requests": "Ошибка: Слишком много запросов. Попробуйте позже.",
+  "error_connection_failed": "Ошибка: Не удалось подключиться к серверу.",
   "items_title": "Предметы",
   "items_subtitle": "Все предметы из Backpack Brawl",
   "items_search_placeholder": "Поиск предметов...",
@@ -48,5 +51,15 @@
   "profile_creating_card": "Создание...",
   "not_found_title": "404",
   "not_found_text": "Ты забрел не в ту локацию, герой.",
-  "not_found_button": "Вернуться"
+  "not_found_button": "Вернуться",
+  "lang_switch_button": "Switch to {{lang}}",
+  "json_validation_error": "Ошибка в строке {{line}}, колонка {{column}}",
+  "json_empty": "JSON пуст",
+  "json_unexpected_token": "Неожиданный символ: {{token}}",
+  "json_property_error": "Ошибка в имени свойства",
+  "json_incomplete": "Незавершенный JSON",
+  "screenshot_saving": "⌛ СОХРАНЕНИЕ...",
+  "screenshot_error": "❌ ОШИБКА",
+  "loading_text": "Загрузка...",
+  "error_dismiss": "×"
 }

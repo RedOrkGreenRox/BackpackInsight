@@ -1,5 +1,6 @@
 // @ts-ignore
 import html2canvas from 'html2canvas';
+import { t } from '../localization/i18n';
 
 /**
  * Утилита для создания скриншота профиля
@@ -11,7 +12,7 @@ export async function downloadProfileScreenshot(target: HTMLElement, btn: HTMLBu
     if (!target || !btn) return;
 
     const originalText = btn.innerText;
-    btn.innerText = "⌛ СОХРАНЕНИЕ...";
+    btn.innerText = t('screenshot_saving');
     btn.style.opacity = "0.7";
     btn.disabled = true;
 
@@ -23,8 +24,8 @@ export async function downloadProfileScreenshot(target: HTMLElement, btn: HTMLBu
             backgroundColor: null,
             width: 1200,  // Фиксированная ширина как на ноутбуках
             height: 800,  // Фиксированная высота как на ноутбуках
-            windowWidth: 1200,
-            windowHeight: 800
+            windowWidth: 1800,
+            windowHeight: 1100
         });
 
         const link = document.createElement('a');
@@ -39,7 +40,7 @@ export async function downloadProfileScreenshot(target: HTMLElement, btn: HTMLBu
         btn.disabled = false;
     } catch (err) {
         console.error("Ошибка захвата:", err);
-        btn.innerText = "❌ ОШИБКА";
+        btn.innerText = t('screenshot_error');
         btn.style.opacity = "1";
         btn.disabled = false;
     }

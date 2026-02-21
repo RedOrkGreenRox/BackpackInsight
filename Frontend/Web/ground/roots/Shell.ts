@@ -41,7 +41,7 @@ export class Shell {
 
         const switcher = document.createElement('button');
         switcher.id = 'lang-switcher';
-        switcher.textContent = `Switch to ${i18n.currentLang === 'ru' ? 'EN' : 'RU'}`;
+        switcher.textContent = t('lang_switch_button', { lang: i18n.currentLang === 'ru' ? 'EN' : 'RU' });
         switcher.style.cssText = `
             position: absolute;
             bottom: 20px;
@@ -67,7 +67,7 @@ export class Shell {
             Gen.getInstance().reRenderCurrentBranch();
             
             // Обновляем текст на самой кнопке
-            switcher.textContent = `Switch to ${i18n.currentLang === 'ru' ? 'EN' : 'RU'}`;
+            switcher.textContent = t('lang_switch_button', { lang: i18n.currentLang === 'ru' ? 'EN' : 'RU' });
         });
 
         this.sidebar.appendChild(switcher);
