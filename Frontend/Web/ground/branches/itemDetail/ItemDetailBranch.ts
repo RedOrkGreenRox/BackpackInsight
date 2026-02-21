@@ -285,12 +285,133 @@ export class ItemDetailBranch extends Branch {
         return ''; // Возвращаем пустую строку, так как контент рендерится асинхронно
     }
 
+    private updateSEO(item: ItemDefinition): void {
+        const itemName = item.name;
+        const itemDescription = item.tooltips ? item.tooltips.join(' ').substring(0, 160) : `${itemName} - предмет из игры Backpack Brawl`;
+        const itemImage = `/images/items/webp/${this.toSlug(item.name)}.webp`;
+        const currentUrl = window.location.href;
+        const isProfile = !!this.data.playerItem;
+        
+        // Обновляем базовые мета-теги
+        document.title = `${itemName} - Backpack Insight | ${isProfile ? 'Профиль' : 'Предметы'} Backpack Brawl`;
+        
+        // Обновляем description
+        const descMeta = document.querySelector('meta[name="description"]');
+        if (descMeta) {
+            descMeta.setAttribute('content', itemDescription);
+        }
+        
+        // Обновляем keywords
+        const keywordsMeta = document.querySelector('meta[name="keywords"]');
+        if (keywordsMeta) {
+            const keywords = `${itemName}, Backpack Brawl, ${isProfile ? 'профиль, предмет игрока' : 'предмет, вики'}, ${item.rarity}, ${item.itemTypes?.join(', ') || ''}, игра, аналитика`;
+            keywordsMeta.setAttribute('content', keywords);
+        }
+        
+        // Обновляем Open Graph теги
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) {
+            ogTitle.setAttribute('content', `${itemName} - Backpack Insight`);
+        }
+        
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) {
+            ogDesc.setAttribute('content', itemDescription);
+        }
+        
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        if (ogImage) {
+            ogImage.setAttribute('content', `https://backpackinsight.pages.dev${itemImage}`);
+        }
+        
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+            ogUrl.setAttribute('content', currentUrl);
+        }
+        
+        // Обновляем canonical URL
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            canonical.setAttribute('href', currentUrl);
+        }
+        
+        // Обновляем hreflang
+        const hreflangRu = document.querySelector('link[rel="alternate"][hreflang="ru"]');
+        if (hreflangRu) {
+            hreflangRu.setAttribute('href', currentUrl);
+        }
+        
+        const hreflangEn = document.querySelector('link[rel="alternate"][hreflang="en"]');
+        if (hreflangEn) {
+            const englishUrl = currentUrl.replace('/item/', '/en/item/').replace('/profile/item/', '/profile/en/item/');
+            hreflangEn.setAttribute('href', englishUrl);
+        }
+        
+        // Обновляем JSON-LD структурированные данные
+        this.updateStructuredData(item, currentUrl);
+    }
+    
+    private updateStructuredData(item: ItemDefinition, currentUrl: string): void {
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "Thing",
+            "name": item.name,
+            "description": item.tooltips ? item.tooltips.join(' ') : `${item.name} - предмет из игры Backpack Brawl`,
+            "image": `https://backpackinsight.pages.dev/images/items/webp/${this.toSlug(item.name)}.webp`,
+            "identifier": item.id,
+            "category": item.itemTypes?.join(', ') || 'Предмет',
+            "brand": {
+                "@type": "Organization",
+                "name": "Backpack Brawl"
+            },
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "Редкость",
+                    "value": item.rarity
+                },
+                {
+                    "@type": "PropertyValue", 
+                    "name": "Стоимость в игре",
+                    "value": item.coinValue ? `${item.coinValue} золота` : "Недоступно"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "Тип предмета",
+                    "value": item.itemTypes?.join(', ') || 'Неизвестно'
+                }
+            ],
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": currentUrl,
+                "name": `${item.name} - Backpack Insight`,
+                "description": item.tooltips ? item.tooltips.join(' ') : `Подробная информация о предмете ${item.name} из игры Backpack Brawl`,
+                "url": currentUrl
+            }
+        };
+        
+        // Находим или создаем JSON-LD скрипт
+        let jsonLdScript = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
+        if (!jsonLdScript) {
+            jsonLdScript = document.createElement('script') as HTMLScriptElement;
+            jsonLdScript.type = 'application/ld+json';
+            document.head.appendChild(jsonLdScript);
+        }
+        
+        jsonLdScript.textContent = JSON.stringify(structuredData, null, 2);
+    }
+
     protected init(): void {
         // Логирование всех данных о предмете в консоль
         this.logItemDetails();
 
         // Обработчик копирования для замены изображений на их alt-текст
         this.setupCopyHandler();
+
+        // Обновляем SEO мета-теги
+        if (this.data.itemData) {
+            this.updateSEO(this.data.itemData);
+        }
 
         // Добавляем логику для передачи данных игрока при навигации "Вперед/Назад" в режиме профиля
         if (this.data.playerItem) {
