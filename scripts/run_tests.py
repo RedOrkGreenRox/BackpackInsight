@@ -6,9 +6,8 @@ from pathlib import Path
 if __name__ == "__main__":
     print("--- Running BackpackInsight Tests ---")
     
-    # Ensure we are in the project root (one level up from scripts/)
-    current_dir = Path(__file__).resolve().parent
-    project_root = current_dir.parent
+    # Ensure we are in the project root
+    project_root = Path(__file__).resolve().parent.parent    
     os.chdir(project_root)
     
     # Add project root to sys.path so tests can import modules
@@ -21,8 +20,8 @@ if __name__ == "__main__":
     exit_code = pytest.main(["-v", "tests/"])
     
     if exit_code == 0:
-        print("\n✅ All tests passed!")
+        print("\nAll tests passed!")
     else:
-        print("\n❌ Some tests failed.")
+        print("\nSome tests failed.")
 
     sys.exit(exit_code)

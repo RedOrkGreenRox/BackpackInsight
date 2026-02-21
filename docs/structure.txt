@@ -193,10 +193,13 @@ BackpackInsight/
 │       │   ├── types
 │       │   │   └── global.d.ts
 │       │   ├── utils
+│       │   │   ├── _loading-states
+│       │   │   │   └── loading-states.scss
 │       │   │   ├── ApiService.ts
 │       │   │   ├── eventUtils.ts
 │       │   │   ├── icon-parser.ts
 │       │   │   ├── itemCache.ts
+│       │   │   ├── LoadingStates.ts
 │       │   │   ├── PaginationController.ts
 │       │   │   ├── screenshotUtils.ts
 │       │   │   └── SortController.ts
@@ -2621,7 +2624,10 @@ BackpackInsight/
 │       │   ├── lang
 │       │   │   ├── en.json
 │       │   │   └── ru.json
-│       │   └── _headers
+│       │   ├── _headers
+│       │   ├── browserconfig.xml
+│       │   ├── manifest.json
+│       │   └── sw.js
 │       ├── Dockerfile
 │       ├── index.html
 │       ├── package.json
@@ -2635,21 +2641,19 @@ BackpackInsight/
 │   ├── rename_images.py
 │   ├── run_docker.py
 │   ├── run_tests.py
-│   ├── structure.txt
 │   └── verify_indexes.py
 ├── tests
 │   ├── conftest.py
 │   ├── requirements.txt
 │   ├── test_backend.py
-│   ├── test_profiles_integration.py
-│   └── test_web.py
+│   └── test_profiles_integration.py
 ├── .dockerignore
 ├── .env
 ├── .env.example
 ├── .gitattributes
 ├── .gitignore
+├── docker-compose.server.yml
 ├── docker-compose.yml
-├── GEMINI.MD
-├── output.txt
 ├── package.json
-└── README.md
+├── README.md
+└── SCRIPTS.md

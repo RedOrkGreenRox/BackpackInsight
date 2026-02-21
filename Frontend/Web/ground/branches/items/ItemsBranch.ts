@@ -2,6 +2,7 @@ import {Branch} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
 import {ApiService} from '../../utils/ApiService';
 import {generateIconsOrText} from '../../utils/icon-parser';
+import {LoadingStates} from '../../utils/LoadingStates';
 import './items.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -166,7 +167,7 @@ export class ItemsBranch extends Branch {
                     </div>
                     
                     <div class="items-grid" id="wikiItemsGrid">
-                        <div class="loading-spinner" style="display: none;">${t('profile_loading_button')}</div>
+                        ${LoadingStates.createCardSkeleton(12)}
                     </div>
                 </div>
             </section>
@@ -248,9 +249,6 @@ export class ItemsBranch extends Branch {
     }
 
     private async loadItems() {
-        const spinner = this.container?.querySelector('.loading-spinner') as HTMLElement;
-        if (spinner) spinner.style.display = 'block';
-
         try {
             this.items = await ApiService.getItems();
             sessionStorage.setItem('allItems', JSON.stringify(this.items));
@@ -274,8 +272,6 @@ export class ItemsBranch extends Branch {
             console.error(e);
             const grid = this.container?.querySelector('#wikiItemsGrid');
             if (grid) grid.innerHTML = `<div class="error">${t('error_server_unavailable')}</div>`;
-        } finally {
-            if (spinner) spinner.style.display = 'none';
         }
     }
 
@@ -637,6 +633,7 @@ export class ItemsBranch extends Branch {
         const currentOrder = this.filteredItems.map(item => item.name);
         sessionStorage.setItem('filteredItemsOrder', JSON.stringify(currentOrder));
 
+        // Применяем сортировку сразу при генерации
         this.renderGrid();
     }
 

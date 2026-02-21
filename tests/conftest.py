@@ -19,7 +19,7 @@ sys.path.insert(0, str(WEB_DIR))
 
 # --- 2. Imports ---
 try:
-    from web import app, get_session
+    from Backend.PlayerData.api import app
     from Backend.PlayerData.models.Item import ItemDefinition
     from Backend.PlayerData.services.ProfileFactory import ProfileFactory
 except ImportError as e:
@@ -68,6 +68,8 @@ def client_fixture(session: Session):
     Creates a FastAPI TestClient that uses the in-memory DB session.
     Overrides the 'get_session' dependency in the app.
     """
+    from Backend.DB.database import get_session
+    
     def get_session_override():
         return session
 

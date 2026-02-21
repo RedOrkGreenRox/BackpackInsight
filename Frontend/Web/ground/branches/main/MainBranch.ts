@@ -3,6 +3,7 @@ import { Gen } from '@roots/Gen.ts';
 import { t } from '../../localization/i18n';
 import { UploadHandler } from './_main/upload-zone/upload'; // Импортируем наш вынесенный модуль
 import { ApiService } from '../../utils/ApiService';
+import { LoadingStates } from '../../utils/LoadingStates';
 import './main.scss';
 
 export class MainBranch extends Branch {
@@ -85,7 +86,7 @@ export class MainBranch extends Branch {
         const submitBtn = this.container?.querySelector('#submitBtn') as HTMLButtonElement;
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.textContent = t('profile_loading_button');
+            submitBtn.innerHTML = LoadingStates.createSpinner('small') + ' ' + t('profile_loading_button');
         }
 
         try {

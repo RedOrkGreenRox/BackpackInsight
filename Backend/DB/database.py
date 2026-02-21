@@ -2,6 +2,16 @@ import os
 from pathlib import Path
 from sqlmodel import create_engine, Session
 
+# Load .env file
+env_path = Path(__file__).resolve().parent.parent / ".env"
+if env_path.exists():
+    with open(env_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, value = line.split('=', 1)
+                os.environ[key.strip()] = value.strip()
+
 # -- Configuration --
 # Security: Use environment variables with safe defaults for dev, but require explicit values in prod
 POSTGRES_USER = os.getenv("POSTGRES_USER", "admin")

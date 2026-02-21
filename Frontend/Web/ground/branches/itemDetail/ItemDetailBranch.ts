@@ -2,6 +2,7 @@ import {Branch, PageMeta} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
 import {ItemDefinition} from '../items/ItemsBranch';
 import {parseTextWithIcons, generateIconsOrText} from '../../utils/icon-parser';
+import {LoadingStates} from '../../utils/LoadingStates';
 import './itemDetail.scss';
 
 interface ItemDetailData {
@@ -189,6 +190,18 @@ export class ItemDetailBranch extends Branch {
             return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
         }
 
+        // Показываем skeleton пока загружаются данные
+        if (this.container) {
+            this.container.innerHTML = `
+                <div class="container item-detail-container">
+                    ${LoadingStates.createCardSkeleton(1)}
+                    <div style="margin-top: 24px;">
+                        ${LoadingStates.createCardSkeleton(3)}
+                    </div>
+                </div>
+            `;
+        }
+
         // Рассчитываем навигацию
         this.calculateNavigation(item.name);
 
@@ -213,58 +226,66 @@ export class ItemDetailBranch extends Branch {
         // Форматирование имени файла (тот же slug)
         const imageName = this.toSlug(item.name);
 
-        return `
-            <div class="container item-detail-container">
-                <div class="navigation-anchor" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 35rem;">
-                    
-                    <div class="item-navigation-top"> 
-                        <div class="nav-group">
-                            ${this.navigation.prev
-                                ? getNavLink(this.navigation.prev, 'prev')
-                                : '<div class="nav-btn-top disabled">❮</div>'}
+        // Используем requestAnimationFrame для плавной замены skeleton на реальный контент
+        requestAnimationFrame(() => {
+            if (this.container) {
+                this.container.innerHTML = `
+                    <div class="container item-detail-container">
+                        <div class="navigation-anchor" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 35rem;">
                             
-                            <a href="${backUrl}" class="nav-btn-top back-btn" data-link title="${backTitle}">
-                                <span class="icon">☰</span>
-                            </a>
-                    
-                            ${this.navigation.next
-                                ? getNavLink(this.navigation.next, 'next')
-                                : '<div class="nav-btn-top disabled">❯</div>'}
+                            <div class="item-navigation-top"> 
+                                <div class="nav-group">
+                                    ${this.navigation.prev
+                                        ? getNavLink(this.navigation.prev, 'prev')
+                                        : '<div class="nav-btn-top disabled">❮</div>'}
+                                    
+                                    <a href="${backUrl}" class="nav-btn-top back-btn" data-link title="${backTitle}">
+                                        <span class="icon">☰</span>
+                                    </a>
+                            
+                                    ${this.navigation.next
+                                        ? getNavLink(this.navigation.next, 'next')
+                                        : '<div class="nav-btn-top disabled">❯</div>'}
+                                </div>
+                            </div>
+                            
+                            <div class="item-card-wrapper">
+                                <h1 class="item-title">${item.name}</h1>
+                                <div class="item-header">
+                                    <div class="item-header-left">
+                                        ${item.connectedHero ? `<div class="item-hero-icon">${this.renderHeroIcon(item.connectedHero)}</div>` : ''}
+                                        ${item.coinValue ? this.renderCostIcon(item.coinValue) : ''}
+                                    </div>
+                                    <div class="item-rarity ${rarityClass}">${rarity}</div>
+                                    <div class="item-header-right">
+                                        ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
+                                    </div>
+                                </div>
+                                <div class="item-visual">
+                                    <div class="item-image-wrapper ${rarityClass}">
+                                        <picture>
+                                            <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
+                                            <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
+                                            <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
+                                        </picture>
+                                    </div>
+                                </div>
+                                ${this.renderPlayerInfo()}
+                                ${this.renderWikiInfo(item)}
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="item-card-wrapper">
-                        <h1 class="item-title">${item.name}</h1>
-                        <div class="item-header">
-                            <div class="item-header-left">
-                                ${item.connectedHero ? `<div class="item-hero-icon">${this.renderHeroIcon(item.connectedHero)}</div>` : ''}
-                                ${item.coinValue ? this.renderCostIcon(item.coinValue) : ''}
-                            </div>
-                            <div class="item-rarity ${rarityClass}">${rarity}</div>
-                            <div class="item-header-right">
-                                ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
-                            </div>
-                        </div>
-                        <div class="item-visual">
-                            <div class="item-image-wrapper ${rarityClass}">
-                                <picture>
-                                    <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
-                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
-                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
-                                </picture>
-                            </div>
-                        </div>
-                        <div class="item-content">
-                            ${this.renderPlayerInfo()}
-                            ${this.renderWikiInfo(item)}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+                `;
+                
+                // Инициализируем обработчики событий после рендера
+                this.init();
+            }
+        });
+
+        return ''; // Возвращаем пустую строку, так как контент рендерится асинхронно
     }
 
-    protected init(_data?: any): void {
+    protected init(): void {
         // Логирование всех данных о предмете в консоль
         this.logItemDetails();
 

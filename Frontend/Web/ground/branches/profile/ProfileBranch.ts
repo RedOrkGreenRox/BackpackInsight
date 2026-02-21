@@ -4,6 +4,7 @@ import {t} from '../../localization/i18n';
 import {downloadProfileScreenshot} from '../../utils/screenshotUtils';
 import {SortController} from '../../utils/SortController';
 import {PaginationController} from '../../utils/PaginationController';
+import {LoadingStates} from '../../utils/LoadingStates';
 import './profile.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -123,6 +124,23 @@ export class ProfileBranch extends Branch {
             return `<div class="container"><h1 class="error">Нет данных профиля</h1></div>`;
         }
 
+        // Показываем skeleton экран пока рендерим контент
+        if (this.container) {
+            this.container.innerHTML = `
+                <div class="container">
+                    ${LoadingStates.createProfileSkeleton()}
+                    <div style="margin-top: 24px;">
+                        <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_heroes_title', '0')}</h3>
+                        ${LoadingStates.createCardSkeleton(3)}
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_items_title', '0')}</h3>
+                        ${LoadingStates.createCardSkeleton(6)}
+                    </div>
+                </div>
+            `;
+        }
+
         // Восстанавливаем состояние сортировки, если оно было сохранено
         if (this.data.itemsSort) {
             this.currentItemSort = this.data.itemsSort;
@@ -130,22 +148,32 @@ export class ProfileBranch extends Branch {
 
         this.sortItems();
 
-        return `
-            <div class="container" id="profileContainer">
-                ${this._renderHeader()}
-                
-                <div class="button-download-profile">
-                    <button id="saveProfileBtn">${t('profile_save_card')}</button>
-                </div>
+        // Используем requestAnimationFrame для плавной замены skeleton на реальный контент
+        requestAnimationFrame(() => {
+            if (this.container) {
+                this.container.innerHTML = `
+                    <div class="container" id="profileContainer">
+                        ${this._renderHeader()}
+                        
+                        <div class="button-download-profile">
+                            <button id="saveProfileBtn">${t('profile_save_card')}</button>
+                        </div>
 
-                ${this._renderHeroes()}
-                ${this._renderItems()}
-            </div>
-            
-            <script id="skins-data" type="application/json">
-                ${JSON.stringify(this.data.profile_skins)}
-            </script>
-        `;
+                        ${this._renderHeroes()}
+                        ${this._renderItems()}
+                    </div>
+                    
+                    <script id="skins-data" type="application/json">
+                        ${this.data ? JSON.stringify(this.data.profile_skins) : '{}'}
+                    </script>
+                `;
+                
+                // Инициализируем обработчики событий после рендера
+                this.init();
+            }
+        });
+
+        return ''; // Возвращаем пустую строку, так как контент рендерится асинхронно
     }
 
     private sortItems() {
@@ -396,6 +424,21 @@ export class ProfileBranch extends Branch {
         if (!this.data) return '';
         const d = this.data;
 
+        // Сортируем героев перед рендером
+        const sortedHeroes = [...d.heroes].sort((a, b) => {
+            // Сначала по prestige (true优先)
+            if (a.prestige !== b.prestige) return b.prestige ? 1 : -1;
+            
+            // Затем по уровню (по убыванию)
+            if (a.level !== b.level) return b.level - a.level;
+            
+            // Затем по рейтингу (по убыванию)
+            if (a.rating !== b.rating) return b.rating - a.rating;
+            
+            // В конце по алфавиту
+            return a.name.localeCompare(b.name);
+        });
+
         return `
             <div class="section" data-aos="fade-up">
                 <h2 class="section-title">${t('profile_heroes_title', d.heroes_count)}</h2>
@@ -417,7 +460,7 @@ export class ProfileBranch extends Branch {
                     </button>
                 </div>
                 <div class="main-heroes-grid" id="mainHeroesGrid">
-                    ${d.heroes.map(hero => this._renderHeroCard(hero)).join('')}
+                    ${sortedHeroes.map(hero => this._renderHeroCard(hero)).join('')}
                 </div>
             </div>
         `;

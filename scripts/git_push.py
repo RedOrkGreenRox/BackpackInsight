@@ -20,7 +20,7 @@ def run_git(args, allow_fail=False):
 
 
 def main():
-    print(f"📂 Working in: {PROJECT_ROOT}")
+    print(f"Working in: {PROJECT_ROOT}")
 
     # 1. Проверяем наличие .gitattributes (фундамент доверия)
     if not (PROJECT_ROOT / ".gitattributes").exists():
@@ -29,36 +29,36 @@ def main():
     # 2. Проверка изменений
     status = run_git(["status", "--porcelain"])
     if not status.stdout.strip():
-        print("☕ Nothing to commit, repository is clean.")
+        print("Nothing to commit, repository is clean.")
         return
 
     # 3. Ренормализация (Принудительное исправление окончаний строк)
-    print("🔄 Normalizing line endings (CRLF -> LF)...")
+    print("Normalizing line endings (CRLF -> LF)...")
     run_git(["add", "--renormalize", "."])
 
-    # 4. Очистка индекса (Применение .gitignore к уже отслеженным файлам)
+    # 4. Очистка индекса (Применение .gitignore к уже отслеживаемым файлам)
     # Выкинет .map, логи и прочий мусор, который попал в игнор
-    print("🧹 Cleaning index from ignored files...")
+    print("Cleaning index from ignored files...")
     run_git(["rm", "-r", "--cached", "."], allow_fail=True)
 
     # 5. Добавление изменений (учитывая CSS и PlayerData)
-    print("➕ Adding changes...")
+    print("Adding changes...")
     run_git(["add", "-A"])
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "adv search v1.01"
+    upd = "solid refactoring"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
-    print(f"💾 Committing: '{message}'")
+    print(f"Committing: '{message}'")
     run_git(["commit", "-m", message])
 
     # 8. Пуш
-    print("🚀 Pushing to origin...")
+    print("Pushing to origin...")
     run_git(["push", "origin", "HEAD"])
 
-    print("✅ Done! Everything is normalized and pushed.")
+    print("Done! Everything is normalized and pushed.")
 
 
 if __name__ == "__main__":

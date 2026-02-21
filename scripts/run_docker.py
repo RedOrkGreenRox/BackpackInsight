@@ -7,10 +7,26 @@ from pathlib import Path
 # --- Configuration ---
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCKER_COMPOSE_FILE = PROJECT_ROOT / "docker-compose.yml"
+DOCKER_COMPOSE_SERVER_FILE = PROJECT_ROOT / "docker-compose.server.yml"
 
 # --- UI & Performance Settings ---
 VERBOSE = True  # True — выводит всё (pip, npm, шаги Vite)
 PARANOID_MODE = True  # False — быстрый запуск (кэш). True — чистит всё и пересобирает с нуля.
+SERVER_MODE = False  # True — серверный режим, False — локальный режим
+
+# --- Code Flags (приоритет над аргументами командной строки) ---
+# Измените эти значения для переключения режимов без использования аргументов
+# Установите в None для использования аргументов командной строки
+
+FORCE_SERVER_MODE = None  # True=серверный режим, False=локальный, None=из аргументов
+FORCE_VERBOSE = None      # True=подробный вывод, False=тихий, None=из аргументов  
+FORCE_PARANOID = None     # True=пересобрать с нуля, False=быстрый, None=из аргументов
+FORCE_WEB_ONLY = None     # True=только веб/бэкенд, False=все сервисы, None=из аргументов
+
+# Примеры использования:
+# FORCE_SERVER_MODE = True   # Всегда запускать в серверном режиме
+# FORCE_PARANOID = False    # Всегда быстрый запуск без пересборки
+# FORCE_VERBOSE = True       # Всегда подробный вывод
 
 
 def run_command(command, cwd=PROJECT_ROOT, capture_output=False, silent=False):
@@ -56,6 +72,11 @@ def check_docker():
 def start_services(web_only=False):
     print("[2/3] Starting Services...")
 
+    # Выбор файла конфигурации
+    compose_file = DOCKER_COMPOSE_SERVER_FILE if SERVER_MODE else DOCKER_COMPOSE_FILE
+    mode_text = "SERVER MODE" if SERVER_MODE else "LOCAL MODE"
+    print(f"   - Using {mode_text} configuration: {compose_file.name}")
+
     # 1. Чистка старых контейнеров (Только в режиме паранойи)
     if PARANOID_MODE:
         containers = ["backpack_insight_db", "backpack_insight_web", "backpack_insight_backend"]
@@ -75,7 +96,7 @@ def start_services(web_only=False):
     print(f"   - Initializing Containers (Build & Up)...")
 
     # Теперь команда чистая, без лишних флагов, которые ломали запуск
-    cmd_up = "docker-compose up -d --build"
+    cmd_up = f"docker-compose -f {compose_file} up -d --build"
     if web_only:
         cmd_up += " web"
 
@@ -86,9 +107,14 @@ def start_services(web_only=False):
         sys.exit(1)
     print(f"   - Initializing Containers... DONE")
 
-    print("\n✅ Services Started!")
-    print("   - Web:     http://localhost:5080")
-    if not web_only:
+    print("\nServices Started!")
+    
+    # Разные порты для разных режимов
+    if SERVER_MODE:
+        print("   - API:     http://localhost:8000")
+        print("   - DB Port: 5432 (internal only)")
+    else:
+        print("   - Web:     http://localhost:5080")
         print("   - API:     http://localhost:8000")
         print("   - DB Port: 5432")
     print()
@@ -100,20 +126,43 @@ def show_logs(web_only=False):
     print("Press Ctrl+C to stop watching logs (App continues running)")
     print("-------------------------------------------------------")
 
-    targets = "web" if web_only else "web backend db"
+    # Выбор файла конфигурации
+    compose_file = DOCKER_COMPOSE_SERVER_FILE if SERVER_MODE else DOCKER_COMPOSE_FILE
+    
+    # Разные сервисы для разных режимов
+    if SERVER_MODE:
+        targets = "backend db" if not web_only else "backend"
+    else:
+        targets = "web backend db" if not web_only else "web"
+    
     try:
-        subprocess.run(f"docker-compose logs -f {targets}", cwd=PROJECT_ROOT, shell=True)
+        subprocess.run(f"docker-compose -f {compose_file} logs -f {targets}", cwd=PROJECT_ROOT, shell=True)
     except KeyboardInterrupt:
         print("\n[Logs] Detached. Containers are still running.")
 
 
 if __name__ == "__main__":
+    # Аргументы командной строки
     web_only = "--web-only" in sys.argv
-    if "--verbose" in sys.argv:
-        VERBOSE = True
-    # Также добавил возможность включить паранойю через консоль
-    if "--paranoid" in sys.argv:
-        PARANOID_MODE = True
+    arg_verbose = "--verbose" in sys.argv
+    arg_paranoid = "--paranoid" in sys.argv
+    arg_server = "--server" in sys.argv
+    
+    # Применяем флаги из кода с приоритетом над аргументами
+    if FORCE_WEB_ONLY is not None:
+        web_only = FORCE_WEB_ONLY
+    if FORCE_VERBOSE is not None:
+        VERBOSE = FORCE_VERBOSE
+    else:
+        VERBOSE = arg_verbose
+    if FORCE_PARANOID is not None:
+        PARANOID_MODE = FORCE_PARANOID
+    else:
+        PARANOID_MODE = arg_paranoid
+    if FORCE_SERVER_MODE is not None:
+        SERVER_MODE = FORCE_SERVER_MODE
+    else:
+        SERVER_MODE = arg_server
 
     check_docker()
     start_services(web_only)

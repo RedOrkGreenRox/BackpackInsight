@@ -13,7 +13,7 @@ IGNORE_DIRS = {'.git', '.idea', '__pycache__', '.pytest_cache', 'venv', 'env', '
 
 def clean_cache():
     """Очищает директории кэша перед генерацией структуры."""
-    print(f"🧹 Cleaning cache in: {PROJECT_ROOT}")
+    print(f"Cleaning cache in: {PROJECT_ROOT}")
     count = 0
     for path in PROJECT_ROOT.rglob("*"):
         if path.is_dir() and path.name in TARGETS_TO_CLEAN:
@@ -23,7 +23,7 @@ def clean_cache():
                 count += 1
             except Exception as e:
                 print(f"   Error deleting {path}: {e}")
-    print(f"✅ Removed {count} cache directories.\n")
+    print(f"Removed {count} cache directories.\n")
 
 
 def generate_tree(dir_path: Path, prefix: str = ""):
@@ -57,7 +57,7 @@ def main():
     clean_cache()
 
     # 2. Генерация структуры
-    print(f"🌳 Generating structure for: {PROJECT_ROOT}")
+    print(f"Generating structure for: {PROJECT_ROOT}")
     tree_lines = [f"{PROJECT_ROOT.name}/"] + generate_tree(PROJECT_ROOT)
 
     # Создаем папку docs, если она отсутствует
@@ -66,7 +66,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write("\n".join(tree_lines))
 
-    print(f"✅ Structure saved to: {OUTPUT_FILE.relative_to(PROJECT_ROOT)}")
+    print(f"Structure saved to: {OUTPUT_FILE.relative_to(PROJECT_ROOT)}")
 
 
 if __name__ == "__main__":
