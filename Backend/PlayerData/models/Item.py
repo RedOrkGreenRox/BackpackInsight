@@ -99,19 +99,31 @@ class Item(SQLModel, table=True):
 
     # -- Proxy Properties (Access Definition Data transparently) --
     @definition_proxy_property("name", "Unknown")
-    def name(self) -> str: pass
+    def name(self) -> str: 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @definition_proxy_property("rarity", "Common")
-    def rarity(self) -> str: pass
+    def rarity(self) -> str: 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @property
     def item_id(self) -> str: return self.definition_id
     
     @definition_proxy_property("combat_stats")
-    def combat_stats(self) -> 'CombatStats': pass
+    def combat_stats(self) -> 'CombatStats': 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @definition_proxy_property("all_stats_data", {})
-    def all_stats(self) -> Dict[str, Any]: pass
+    def all_stats(self) -> Dict[str, Any]: 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @property
     def description(self) -> Optional[str]: 
@@ -167,10 +179,16 @@ class Item(SQLModel, table=True):
     def id(self) -> str: return self.definition_id
     
     @definition_proxy_property("connected_hero")
-    def group(self) -> Optional[str]: pass
+    def group(self) -> Optional[str]: 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @definition_proxy_property("item_types", [])
-    def types(self) -> List[str]: pass
+    def types(self) -> List[str]: 
+        # Empty implementation - decorated with @definition_proxy_property
+        # which handles the actual property access via ItemDefinition
+        pass
     
     @property
     def stats(self) -> Dict[str, Any]: return self.all_stats
