@@ -1,10 +1,15 @@
 from typing import Optional, List, Dict, Any, TYPE_CHECKING
+import logging
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column, JSON
-from Backend.PlayerData.data import ITEM_LEVELING_CARDS, ITEM_LEVELING_EXP, ALL_CRAFTABLE_IDS
+from Backend.PlayerData.data import get_all_craftable_ids, ITEM_LEVELING_CARDS, ITEM_LEVELING_EXP
+from Backend.PlayerData.utils import definition_proxy_property, safe_get_nested
 
 if TYPE_CHECKING:
     from Backend.PlayerData.models.Profile import Profile
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # -- Nested Models for Type Safety --
 
@@ -93,28 +98,20 @@ class Item(SQLModel, table=True):
         return ProfileFactory._definition_cache.get(self.definition_id)
 
     # -- Proxy Properties (Access Definition Data transparently) --
-    @property
-    def name(self) -> str: 
-        d = self._get_definition()
-        return d.name if d else "Unknown"
+    @definition_proxy_property("name", "Unknown")
+    def name(self) -> str: pass
     
-    @property
-    def rarity(self) -> str: 
-        d = self._get_definition()
-        return d.rarity if d else "Common"
+    @definition_proxy_property("rarity", "Common")
+    def rarity(self) -> str: pass
     
     @property
     def item_id(self) -> str: return self.definition_id
     
-    @property
-    def combat_stats(self) -> CombatStats: 
-        d = self._get_definition()
-        return d.combat_stats if d else CombatStats()
+    @definition_proxy_property("combat_stats")
+    def combat_stats(self) -> 'CombatStats': pass
     
-    @property
-    def all_stats(self) -> Dict[str, Any]: 
-        d = self._get_definition()
-        return d.all_stats_data if d else {}
+    @definition_proxy_property("all_stats_data", {})
+    def all_stats(self) -> Dict[str, Any]: pass
     
     @property
     def description(self) -> Optional[str]: 
@@ -131,7 +128,11 @@ class Item(SQLModel, table=True):
         
         try:
             return int(ITEM_LEVELING_CARDS[rarity][self.level - 1])
-        except (KeyError, IndexError):
+        except KeyError:
+            logger.warning(f"Unknown rarity '{rarity}' for item '{self.item_id}'")
+            return -1
+        except IndexError:
+            logger.warning(f"Level {self.level} out of range for rarity '{rarity}'")
             return -1
 
     @property
@@ -140,12 +141,16 @@ class Item(SQLModel, table=True):
         if rarity == "Boon": return 0
         try:
             return sum(ITEM_LEVELING_EXP[rarity][:self.level])
-        except (KeyError, TypeError):
+        except KeyError:
+            logger.warning(f"Unknown rarity '{rarity}' for item '{self.item_id}'")
+            return 0
+        except (TypeError, IndexError):
+            logger.warning(f"Invalid level data for item '{self.item_id}' with rarity '{rarity}'")
             return 0
 
     @property
     def tags(self) -> ItemTags:
-        is_craftable = self.definition_id in ALL_CRAFTABLE_IDS
+        is_craftable = self.definition_id in get_all_craftable_ids()
         d = self._get_definition()
         return ItemTags(
             Favourites=None,
@@ -160,16 +165,13 @@ class Item(SQLModel, table=True):
     # -- Compatibility Aliases --
     @property
     def id(self) -> str: return self.definition_id
-    @property
-    def group(self) -> Optional[str]: 
-        d = self._get_definition()
-        return d.connected_hero if d else None
     
-    @property
-    def types(self) -> List[str]: 
-        d = self._get_definition()
-        return d.item_types if d else []
-
+    @definition_proxy_property("connected_hero")
+    def group(self) -> Optional[str]: pass
+    
+    @definition_proxy_property("item_types", [])
+    def types(self) -> List[str]: pass
+    
     @property
     def stats(self) -> Dict[str, Any]: return self.all_stats
 

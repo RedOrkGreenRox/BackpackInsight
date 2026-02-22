@@ -101,7 +101,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Инициализация анимаций
     AOS.init({
         duration: 800,
-        once: true
+        once: true,
+        offset: 50, // Очень маленький offset - почти сразу при появлении
+        throttleDelay: 0, // Без задержек
+        debounceDelay: 0, // Мгновенная реакция
+        mirror: false,
+        anchorPlacement: 'center-center' // Когда центр элемента достигает центра окна
     });
 
     Shell.getInstance();

@@ -1,7 +1,7 @@
 import traceback
 import hashlib
 import os
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Annotated
 import json
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -90,14 +90,71 @@ def on_startup():
 
 # --- МАРШРУТЫ API ---
 
-@api_router.get("/items", response_model=List[ItemDefinition])
-def get_items(response: Response, session: Session = Depends(get_session)):
+@api_router.get("/items", response_model=List[ItemDefinition], responses={
+    200: {
+        "description": "Successfully retrieved list of all item definitions",
+        "content": {
+            "application/json": {
+                "example": [
+                    {
+                        "item_id": "Wooden Sword",
+                        "name": "Wooden Sword",
+                        "rarity": "Common"
+                    }
+                ]
+            }
+        }
+    }
+})
+def get_items(response: Response, session: Annotated[Session, Depends(get_session)]):
     response.headers["Cache-Control"] = "public, max-age=3600"
     return session.exec(select(ItemDefinition)).all()
 
 
-@api_router.post("/profile")
-async def process_profile(request: Request, profile_data: Dict[str, Any], session: Session = Depends(get_session)):
+@api_router.post("/profile", responses={
+    200: {
+        "description": "Successfully processed profile data and returned analytics",
+        "content": {
+            "application/json": {
+                "example": {
+                    "nickname": "PlayerName",
+                    "level": 25,
+                    "trophy": 1500,
+                    "bonus_trophy": 100,
+                    "gems": 500,
+                    "coins": 10000,
+                    "heroes_count": 5,
+                    "items_count": 25
+                }
+            }
+        }
+    },
+    400: {
+        "description": "Bad request - Invalid JSON data or processing failed",
+        "content": {
+            "application/json": {
+                "example": {
+                    "detail": "Failed to process profile: Invalid JSON format"
+                }
+            }
+        }
+    },
+    413: {
+        "description": "Payload too large - Request exceeds 1MB limit",
+        "content": {
+            "application/json": {
+                "example": {
+                    "detail": "Payload too large"
+                }
+            }
+        }
+    }
+})
+async def process_profile(
+    request: Request, 
+    profile_data: Dict[str, Any], 
+    session: Annotated[Session, Depends(get_session)]
+):
     """
     Обрабатывает JSON профиля и возвращает данные, готовые для Jinja2.
     """

@@ -540,10 +540,10 @@ export class ProfileBranch extends Branch {
         this.addListener(this.container, 'error', (e: Event) => {
             const target = e.target as HTMLElement;
             if (target.tagName === 'SOURCE') return;
-            if (target.tagName === 'IMG' && target.hasAttribute('data-fallback')) {
+            if (target.tagName === 'IMG' && target.dataset.fallback) {
                 const img = target as HTMLImageElement;
-                if (img.getAttribute('data-failed') === 'true') return;
-                img.setAttribute('data-failed', 'true');
+                if (img.dataset.failed === 'true') return;
+                img.dataset.failed = 'true';
                 const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = img.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
@@ -675,7 +675,7 @@ export class ProfileBranch extends Branch {
             const heroName = (card as HTMLElement).dataset.heroName?.toLowerCase();
             if (!heroName) return;
             const availableSkins = ['01', ...(skinsMap[heroName] || [])];
-            const uniqueSkins = Array.from(new Set(availableSkins)).sort();
+            const uniqueSkins = Array.from(new Set(availableSkins)).sort((a, b) => a.localeCompare(b));
 
             if (uniqueSkins.length <= 1) {
                 card.querySelectorAll('.skin-btn').forEach(b => (b as HTMLElement).style.display = 'none');
@@ -965,7 +965,7 @@ export class ProfileBranch extends Branch {
                 }
 
                 const availableSkins = ['01', ...(skinsMap[heroName.toLowerCase()] || [])];
-                const uniqueSkins = Array.from(new Set(availableSkins)).sort();
+                const uniqueSkins = Array.from(new Set(availableSkins)).sort((a, b) => a.localeCompare(b));
                 
                 const skinIndex = uniqueSkins.indexOf(skin);
                 if (skinIndex !== -1) {

@@ -1,11 +1,15 @@
 from typing import Dict, Any, List, Optional
 import re
+import logging
 from sqlmodel import Session, select
 from Backend.PlayerData.models.Profile import Profile
 from Backend.PlayerData.models.Hero import Hero
 from Backend.PlayerData.models.Item import Item, ItemDefinition
-from Backend.PlayerData.data import ITEMS, PROFILE_EXP_NEED, PROFILE_AREAS
+from Backend.PlayerData.data import get_items, get_all_craftable_ids, PROFILE_EXP_NEED, PROFILE_AREAS
+from Backend.PlayerData.constants import TECHNICAL_KEYS, GAME_KEYS, DEFAULT_VALUES
 
+# Configure logging
+logger = logging.getLogger(__name__)
 
 class ProfileFactory:
     """
@@ -25,7 +29,8 @@ class ProfileFactory:
 
     @classmethod
     def preload_definitions(cls, session: Optional[Session] = None):
-        for item_id, static_data in ITEMS.items():
+        items_dict = get_items()
+        for item_id, static_data in items_dict.items():
             if item_id not in cls._definition_cache:
                 cls._definition_cache[item_id] = cls._create_definition_from_static(static_data)
 
@@ -48,20 +53,20 @@ class ProfileFactory:
         tech_data = cls._parse_technical_info(json_data)
         profile.technical_info_data = tech_data
 
-        profile.app_version = tech_data.get("AV")
-        profile.device_model = tech_data.get("Device")
-        profile.os_version = tech_data.get("OS")
-        profile.user_id = tech_data.get("UID")
+        profile.app_version = tech_data.get(TECHNICAL_KEYS["APP_VERSION"])
+        profile.device_model = tech_data.get(TECHNICAL_KEYS["DEVICE"])
+        profile.os_version = tech_data.get(TECHNICAL_KEYS["OS"])
+        profile.user_id = tech_data.get(TECHNICAL_KEYS["USER_ID"])
 
         # 2. Heroes
-        if "Hero" in json_data:
-            for name, info in json_data["Hero"].items():
+        if GAME_KEYS["HERO"] in json_data:
+            for name, info in json_data[GAME_KEYS["HERO"]].items():
                 hero = Hero.from_entry([name] + info.split(":"))
                 profile.heroes.append(hero)
 
         # 3. Items
-        if "Item" in json_data:
-            for name, info in json_data["Item"].items():
+        if GAME_KEYS["ITEM"] in json_data:
+            for name, info in json_data[GAME_KEYS["ITEM"]].items():
                 item = cls._create_item(name, info)
                 if item:
                     profile.items.append(item)
@@ -70,17 +75,17 @@ class ProfileFactory:
         game_data = cls._parse_game_info_base(json_data)
 
         # --- ИСПРАВЛЕНИЕ: Добавлен парсинг скинов и баннеров из UL ---
-        cls._parse_unlockables(json_data.get("UL", []), game_data)
+        cls._parse_unlockables(json_data.get(GAME_KEYS["UNLOCK_LIST"], []), game_data)
 
         cls._calculate_stats(game_data, profile.items)
 
         profile.game_info_data = game_data
 
         # Analytics Fields
-        profile.nickname = game_data.get("Nickname")
-        profile.trophies = game_data.get("Trophy", 0) + game_data.get("BonusTrophy", 0)
-        profile.level = game_data.get("PlayerLevel", 1)
-        profile.total_xp = game_data.get("PlayerExperienceTotal", 0)
+        profile.nickname = game_data.get(GAME_KEYS["NAME"])
+        profile.trophies = game_data.get(GAME_KEYS["TROPHY"], 0) + game_data.get(GAME_KEYS["BONUS_TROPHY"], 0)
+        profile.level = game_data.get("PlayerLevel", DEFAULT_VALUES["LEVEL"])
+        profile.total_xp = game_data.get("PlayerExperienceTotal", DEFAULT_VALUES["EXPERIENCE"])
         profile.coins = game_data.get("Currency", {}).get("coins", 0)
         profile.gems = game_data.get("Currency", {}).get("gems", 0)
 
@@ -123,18 +128,18 @@ class ProfileFactory:
     @staticmethod
     def _parse_game_info_base(json_data: Dict[str, Any]) -> Dict[str, Any]:
         return {
-            "Nickname": json_data.get("Name"),
-            "PH": json_data.get("PH", "").split(",") if json_data.get("PH") else [],
-            "Currency": json_data.get("Currency", {}),
-            "UL": json_data.get("UL", []),
-            "Trophy": json_data.get("Trophy", 0),
-            "BonusTrophy": json_data.get("BonusTrophy", 0),
+            GAME_KEYS["NAME"]: json_data.get(GAME_KEYS["NAME"]),
+            GAME_KEYS["PURCHASE_HISTORY"]: json_data.get(GAME_KEYS["PURCHASE_HISTORY"], "").split(",") if json_data.get(GAME_KEYS["PURCHASE_HISTORY"]) else [],
+            GAME_KEYS["CURRENCY"]: json_data.get(GAME_KEYS["CURRENCY"], {}),
+            GAME_KEYS["UNLOCK_LIST"]: json_data.get(GAME_KEYS["UNLOCK_LIST"], []),
+            GAME_KEYS["TROPHY"]: json_data.get(GAME_KEYS["TROPHY"], 0),
+            GAME_KEYS["BONUS_TROPHY"]: json_data.get(GAME_KEYS["BONUS_TROPHY"], 0),
             "ItemStats": {},
             "Skins": {},  # Будет заполнено в _parse_unlockables
             "Banners": [],  # Будет заполнено в _parse_unlockables
-            "PlayerLevel": 1,
-            "PlayerExperienceTotal": 0,
-            "PlayerExperienceCurrent": 0,
+            "PlayerLevel": DEFAULT_VALUES["LEVEL"],
+            "PlayerExperienceTotal": DEFAULT_VALUES["EXPERIENCE"],
+            "PlayerExperienceCurrent": DEFAULT_VALUES["EXPERIENCE"],
             "PlayerExperienceNeed": 0,
             "Area": None
         }
@@ -143,14 +148,14 @@ class ProfileFactory:
     def _validate_json(cls, json_data: Dict[str, Any]):
         if not isinstance(json_data, dict):
             raise ValueError("Invalid JSON format: Root must be an object.")
-        if "Data" not in json_data:
-            raise ValueError("Missing 'Data' section in JSON.")
-        if not ("Hero" in json_data or "Item" in json_data):
-            raise ValueError("JSON does not contain 'Hero' or 'Item' data.")
-        uid = json_data.get("Data", {}).get("UID") or json_data.get("UID")
+        if TECHNICAL_KEYS["DATA"] not in json_data:
+            raise ValueError(f"Missing '{TECHNICAL_KEYS['DATA']}' section in JSON.")
+        if not (GAME_KEYS["HERO"] in json_data or GAME_KEYS["ITEM"] in json_data):
+            raise ValueError(f"JSON does not contain '{GAME_KEYS['HERO']}' or '{GAME_KEYS['ITEM']}' data.")
+        uid = json_data.get(TECHNICAL_KEYS["DATA"], {}).get(TECHNICAL_KEYS["USER_ID"]) or json_data.get(TECHNICAL_KEYS["USER_ID"])
         if not uid:
             raise ValueError("Profile UID not found.")
-        if not json_data.get("Name"):
+        if not json_data.get(GAME_KEYS["NAME"]):
             raise ValueError("Profile Nickname not found.")
 
     @classmethod
@@ -185,57 +190,71 @@ class ProfileFactory:
 
         definition = cls._definition_cache.get(name)
         if not definition:
+            # Оптимизированный поиск по имени
             for d in cls._definition_cache.values():
                 if d.name == name:
                     definition = d
                     break
+        
         if not definition:
-            definition = ItemDefinition(item_id=name, name=name, rarity="Common")
-            cls._definition_cache[name] = definition
+            # Используем безопасное создание
+            from Backend.PlayerData.utils import create_item_definition_safe
+            try:
+                definition = create_item_definition_safe(name, name, "Common")
+                cls._definition_cache[name] = definition
+                logger.info(f"Created fallback definition for item '{name}'")
+            except ValueError as e:
+                logger.error(f"Failed to create definition for item '{name}': {e}")
+                return None
+                
         return Item(level=level, cards=cards, definition_id=definition.item_id)
 
     @staticmethod
     def _parse_technical_info(json_data: Dict[str, Any]) -> Dict[str, Any]:
         return {
-            "Data": json_data.get("Data", {}),
-            "AV": json_data.get("Data", {}).get("AV"),
-            "BN": json_data.get("BN"),
-            "GR": json_data.get("GR"),
-            "BT": json_data.get("BT"),
-            "UID": json_data.get("UID"),
-            "DUID": json_data.get("DUID"),
-            "FBID": json_data.get("FBID"),
-            "SafeArea": json_data.get("SafeArea"),
-            "Screen": json_data.get("Screen"),
-            "Device": json_data.get("Device"),
-            "SMS": json_data.get("SMS"),
-            "SSMS": json_data.get("SSMS"),
-            "Mem": json_data.get("Mem"),
-            "OS": json_data.get("OS"),
-            "NTP1": json_data.get("NTP1"),
-            "NTP2": json_data.get("NTP2"),
-            "NTPA": json_data.get("NTPA"),
-            "DTU": json_data.get("DTU"),
-            "DT": json_data.get("DT"),
-            "AS": json_data.get("AS"),
-            "ELUID": json_data.get("ELUID"),
-            "EPUID": json_data.get("EPUID"),
-            "IV": json_data.get("IV"),
-            "LV": json_data.get("LV"),
-            "VH": json_data.get("VH"),
-            "IBA": json_data.get("IBA"),
-            "AB": json_data.get("AB"),
-            "CS": json_data.get("CS"),
-            "RSM": json_data.get("RSM"),
+            TECHNICAL_KEYS["DATA"]: json_data.get(TECHNICAL_KEYS["DATA"], {}),
+            TECHNICAL_KEYS["APP_VERSION"]: json_data.get(TECHNICAL_KEYS["DATA"], {}).get(TECHNICAL_KEYS["APP_VERSION"]),
+            TECHNICAL_KEYS["BUILD_NUMBER"]: json_data.get(TECHNICAL_KEYS["BUILD_NUMBER"]),
+            TECHNICAL_KEYS["GIT_REVISION"]: json_data.get(TECHNICAL_KEYS["GIT_REVISION"]),
+            TECHNICAL_KEYS["BUILD_TIMESTAMP"]: json_data.get(TECHNICAL_KEYS["BUILD_TIMESTAMP"]),
+            TECHNICAL_KEYS["USER_ID"]: json_data.get(TECHNICAL_KEYS["USER_ID"]),
+            TECHNICAL_KEYS["DEVICE_USER_ID"]: json_data.get(TECHNICAL_KEYS["DEVICE_USER_ID"]),
+            TECHNICAL_KEYS["FIREBASE_ID"]: json_data.get(TECHNICAL_KEYS["FIREBASE_ID"]),
+            TECHNICAL_KEYS["SAFE_AREA"]: json_data.get(TECHNICAL_KEYS["SAFE_AREA"]),
+            TECHNICAL_KEYS["SCREEN"]: json_data.get(TECHNICAL_KEYS["SCREEN"]),
+            TECHNICAL_KEYS["DEVICE"]: json_data.get(TECHNICAL_KEYS["DEVICE"]),
+            TECHNICAL_KEYS["SUBSCRIPTION_MONTH_START"]: json_data.get(TECHNICAL_KEYS["SUBSCRIPTION_MONTH_START"]),
+            TECHNICAL_KEYS["SEASON_SUBSCRIPTION_MONTH_START"]: json_data.get(TECHNICAL_KEYS["SEASON_SUBSCRIPTION_MONTH_START"]),
+            TECHNICAL_KEYS["MEMORY"]: json_data.get(TECHNICAL_KEYS["MEMORY"]),
+            TECHNICAL_KEYS["OS"]: json_data.get(TECHNICAL_KEYS["OS"]),
+            TECHNICAL_KEYS["NTP1"]: json_data.get(TECHNICAL_KEYS["NTP1"]),
+            TECHNICAL_KEYS["NTP2"]: json_data.get(TECHNICAL_KEYS["NTP2"]),
+            TECHNICAL_KEYS["NTP_AVAILABLE"]: json_data.get(TECHNICAL_KEYS["NTP_AVAILABLE"]),
+            TECHNICAL_KEYS["DATE_TIME_UPDATED"]: json_data.get(TECHNICAL_KEYS["DATE_TIME_UPDATED"]),
+            TECHNICAL_KEYS["DATE_TIME"]: json_data.get(TECHNICAL_KEYS["DATE_TIME"]),
+            TECHNICAL_KEYS["APPLICATION_SIGNATURE"]: json_data.get(TECHNICAL_KEYS["APPLICATION_SIGNATURE"]),
+            TECHNICAL_KEYS["ELUID"]: json_data.get(TECHNICAL_KEYS["ELUID"]),
+            TECHNICAL_KEYS["EPUID"]: json_data.get(TECHNICAL_KEYS["EPUID"]),
+            TECHNICAL_KEYS["INSTALL_VERSION"]: json_data.get(TECHNICAL_KEYS["INSTALL_VERSION"]),
+            TECHNICAL_KEYS["LATEST_VERSION"]: json_data.get(TECHNICAL_KEYS["LATEST_VERSION"]),
+            TECHNICAL_KEYS["VERSION_HISTORY"]: json_data.get(TECHNICAL_KEYS["VERSION_HISTORY"]),
+            TECHNICAL_KEYS["INSTANCE_BUILD_ARRAY"]: json_data.get(TECHNICAL_KEYS["INSTANCE_BUILD_ARRAY"]),
+            TECHNICAL_KEYS["AB"]: json_data.get(TECHNICAL_KEYS["AB"]),
+            TECHNICAL_KEYS["CHECK_SUM"]: json_data.get(TECHNICAL_KEYS["CHECK_SUM"]),
+            TECHNICAL_KEYS["RSM"]: json_data.get(TECHNICAL_KEYS["RSM"]),
         }
 
     @staticmethod
     def _calculate_stats(game_data: Dict[str, Any], items: List[Item]):
+        # Оптимизация: группируем по definition_id для batch запросов
+        rarity_map = {}
         for item in items:
-            rarity = "Common"
-            cached_def = ProfileFactory._definition_cache.get(item.definition_id)
-            if cached_def:
-                rarity = cached_def.rarity
+            if item.definition_id not in rarity_map:
+                cached_def = ProfileFactory._definition_cache.get(item.definition_id)
+                rarity_map[item.definition_id] = cached_def.rarity if cached_def else "Common"
+        
+        for item in items:
+            rarity = rarity_map.get(item.definition_id, "Common")
             game_data["ItemStats"][rarity] = game_data["ItemStats"].get(rarity, 0) + 1
 
         total_xp = sum(item.total_xp for item in items)

@@ -307,9 +307,9 @@ export class ItemsBranch extends Branch {
 
         this.container?.addEventListener('error', (e) => {
             const target = e.target as HTMLImageElement;
-            if (target.tagName === 'IMG' && target.hasAttribute('data-fallback')) {
-                if (target.getAttribute('data-failed') === 'true') return;
-                target.setAttribute('data-failed', 'true');
+            if (target.tagName === 'IMG' && target.dataset.fallback) {
+                if (target.dataset.failed === 'true') return;
+                target.dataset.failed = 'true';
                 console.warn(`[ItemsBranch] Image not found for item: "${target.alt}". Using placeholder.`);
                 const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = target.parentElement;
@@ -470,7 +470,7 @@ export class ItemsBranch extends Branch {
             return a.localeCompare(b);
         });
         
-        const sortedUnlockSources = Array.from(allUnlockSources).sort();
+        const sortedUnlockSources = Array.from(allUnlockSources).sort((a, b) => a.localeCompare(b));
         
         // Баффы - Buff всегда первым
         const sortedBuffs = Array.from(allBuffs).sort((a, b) => {
@@ -754,7 +754,15 @@ export class ItemsBranch extends Branch {
         
         // Обновляем AOS после закрытия панели, чтобы анимации применились к видимым элементам
         if (!this.advancedFiltersVisible) {
-            setTimeout(() => AOS.refresh(), 100);
+            setTimeout(() => {
+                AOS.refresh({
+                    offset: 50,
+                    throttleDelay: 0,
+                    debounceDelay: 0,
+                    mirror: false,
+                    anchorPlacement: 'center-center'
+                });
+            }, 100);
         }
     }
 
@@ -783,8 +791,98 @@ export class ItemsBranch extends Branch {
         });
 
         this.saveState();
-        this.setupFilterOptions();
+        // Применяем фильтры для немедленного показа всех предметов
         this.applyFilters();
+        
+        // Обновляем UI фильтров без повторного применения фильтров
+        this.updateFilterOptionsUI();
+    }
+
+    /**
+     * Обновляет UI фильтров без повторного применения фильтров
+     */
+    private updateFilterOptionsUI() {
+        const allTypes = new Set<string>();
+        const allRarities = new Set<string>();
+        const allHeroes = new Set<string>();
+        const allUnlockSources = new Set<string>();
+        const allBuffs = new Set<string>();
+        const allDebuffs = new Set<string>();
+        const allStats = new Set<string>();
+
+        // Определяем баффы и дебаффы
+        const buffKeywords = ['Buff', 'Haste', 'Regeneration', 'Resist', 'Thorns', 'Armor', 'Luck', 'Lifesteal', 'Empower'];
+        const debuffKeywords = ['Burn', 'Bleed', 'Poison', 'Chill', 'Curse', 'Blind', 'Stun', 'Debuff', 'Fatigue', 'Insanity'];
+        
+        // Определяем статистики
+        const statKeywords = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'StaminaRecovery', 'Resist', 'Static', 'Soul'];
+
+        this.items.forEach(item => {
+            item.itemTypes.forEach(type => allTypes.add(type));
+            allRarities.add(item.rarity);
+            // Объединяем "Hob Gang" и "Hob" как одного героя
+            const hero = item.connectedHero || 'Shared';
+            if (hero === 'Hob Gang') allHeroes.add('Hob');
+            else allHeroes.add(hero);
+            allUnlockSources.add(item.unlockSource);
+
+            // Извлекаем баффы и дебаффы из tooltips
+            const tooltipText = item.tooltips.join(' ').toLowerCase();
+            buffKeywords.forEach(buff => {
+                if (tooltipText.includes(buff.toLowerCase())) {
+                    allBuffs.add(buff);
+                }
+            });
+            debuffKeywords.forEach(debuff => {
+                if (tooltipText.includes(debuff.toLowerCase())) {
+                    allDebuffs.add(debuff);
+                }
+            });
+            
+            // Извлекаем статистики из tooltips и allStats
+            statKeywords.forEach(stat => {
+                if (tooltipText.includes(stat.toLowerCase()) || 
+                    (item.allStats && Object.keys(item.allStats).some(key => key.toLowerCase().includes(stat.toLowerCase())))) {
+                    allStats.add(stat);
+                }
+            });
+        });
+
+        // Сортируем опции
+        const sortedTypes = Array.from(allTypes).sort();
+        const sortedRarities = ['Common', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Unique', 'Relic', 'Boon', 'Special'].filter(rarity => allRarities.has(rarity));
+        const sortedHeroes = Array.from(allHeroes).sort((a, b) => {
+            const heroOrder = ['Chana', 'Ronan', 'Harkon', 'Shared', 'Hob'];
+            const indexA = heroOrder.indexOf(a);
+            const indexB = heroOrder.indexOf(b);
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            return a.localeCompare(b);
+        });
+        const sortedUnlockSources = Array.from(allUnlockSources).sort();
+        const sortedBuffs = Array.from(allBuffs).sort();
+        const sortedDebuffs = Array.from(allDebuffs).sort();
+        
+        // Статистики - в заданном порядке
+        const statsOrder = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'StaminaRecovery', 'Resist', 'Static', 'Soul'];
+        const sortedStats = Array.from(allStats).sort((a, b) => {
+            const indexA = statsOrder.indexOf(a);
+            const indexB = statsOrder.indexOf(b);
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            return a.localeCompare(b);
+        });
+
+        // Создаем UI для фильтров (без вызова applyFilters)
+        this.createMultiselectFilter('filterTypes', sortedTypes, this.filters.selectedTypes);
+        this.createMultiselectFilter('filterRarities', sortedRarities, this.filters.selectedRarities);
+        this.createMultiselectFilter('filterHeroes', sortedHeroes, this.filters.selectedHeroes);
+        this.createMultiselectFilter('filterUnlockSources', sortedUnlockSources, this.filters.selectedUnlockSources);
+        this.createMultiselectFilter('filterBuffs', sortedBuffs, this.filters.selectedBuffs);
+        this.createMultiselectFilter('filterDebuffs', sortedDebuffs, this.filters.selectedDebuffs);
+        this.createMultiselectFilter('filterStats', sortedStats, this.filters.selectedStats);
     }
 
     /**
@@ -1041,7 +1139,7 @@ export class ItemsBranch extends Branch {
 
             const link = document.createElement('a');
             link.href = `/item/${item.name.toLowerCase().split(' ').join('-')}`;
-            link.setAttribute('data-link', '');
+            link.dataset.link = '';
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';
             link.style.color = 'inherit';
@@ -1049,9 +1147,9 @@ export class ItemsBranch extends Branch {
 
             (link as any)._stateData = {itemData: item};
 
-            link.setAttribute('data-aos', 'fade-up');
+            link.dataset.aos = 'fade-up';
             const delay = Math.min((index % 10) * 30, 300);
-            link.setAttribute('data-aos-delay', `${delay}`);
+            link.dataset.aosDelay = `${delay}`;
 
             const card = document.createElement('div');
             card.className = 'item-card';
@@ -1086,7 +1184,15 @@ export class ItemsBranch extends Branch {
 
         grid.appendChild(fragment);
 
-        setTimeout(() => AOS.refresh(), 100);
+        setTimeout(() => {
+            AOS.refresh({
+                offset: 50,
+                throttleDelay: 0,
+                debounceDelay: 0,
+                mirror: false,
+                anchorPlacement: 'center-center'
+            });
+        }, 100);
     }
 
     protected destroy(): void {

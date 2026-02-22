@@ -1,5 +1,9 @@
 import json
 from pathlib import Path
+import logging
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 PROFILE_EXP_NEED = (
     40, 280, 300, 400, 500, 650, 650, 800, 950, 1000,
@@ -22,18 +26,39 @@ ITEMS_PATH = BASE_DIR.parent / "DB" / "items.json"
 
 
 def load_items():
-    with open(ITEMS_PATH, "rb") as f:
-        return json.loads(f.read())
+    """Load items with proper error handling"""
+    try:
+        with open(ITEMS_PATH, "rb") as f:
+            return json.loads(f.read())
+    except FileNotFoundError:
+        logger.error(f"Items file not found at {ITEMS_PATH}")
+        return []
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON in items file: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"Error loading items: {e}")
+        return []
 
 
-_items_list = load_items()
+# Lazy loading to avoid blocking import
+_items_list = None
 
-ITEMS = {item["id"]: item for item in _items_list}
-ALL_CRAFTABLE_IDS = {
-    recipe['resultId']
-    for item in _items_list
-    for recipe in item.get("recipes", [])
-}
+def get_items():
+    global _items_list
+    if _items_list is None:
+        _items_list = {item["id"]: item for item in load_items()}
+        logger.info(f"Loaded {len(_items_list)} items")
+    return _items_list
+
+def get_all_craftable_ids():
+    """Get all craftable item IDs"""
+    items_list = load_items()
+    return {
+        recipe['resultId']
+        for item in items_list
+        for recipe in item.get("recipes", [])
+    }
 
 VALUES = {
     "AV": "Actual Version", "BN": "Build Number", "GR": "Git Revision",
