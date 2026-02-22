@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "btn fix, f5 save-data"
+    upd = "btn fixes"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

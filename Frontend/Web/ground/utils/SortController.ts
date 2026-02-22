@@ -78,7 +78,7 @@ export class SortController {
             }
 
             if (sortIcon) {
-                const iconName = this.currentHeroSort === 'level' ? 'Level' : 'Trophy';
+                const iconName = this.currentHeroSort === 'level' ? 'level' : 'trophy';
                 this.updatePicture(sortIcon, iconName);
             }
 
@@ -89,7 +89,7 @@ export class SortController {
             this.sortAsc = !this.sortAsc;
 
             if (invertIcon) {
-                const iconName = this.sortAsc ? 'SortHigh' : 'SortLow';
+                const iconName = this.sortAsc ? 'sorthigh' : 'sortlow';
                 this.updatePicture(invertIcon, iconName);
             }
             applyToAll();
@@ -154,12 +154,12 @@ export class SortController {
         }
 
         if (sortIcon) {
-            const iconName = sortBy === 'level' ? 'Level' : 'Trophy';
+            const iconName = sortBy === 'level' ? 'level' : 'trophy';
             this.updatePicture(sortIcon, iconName);
         }
 
         if (invertIcon) {
-            const iconName = inverted ? 'SortHigh' : 'SortLow';
+            const iconName = inverted ? 'sorthigh' : 'sortlow';
             this.updatePicture(invertIcon, iconName);
         }
 
