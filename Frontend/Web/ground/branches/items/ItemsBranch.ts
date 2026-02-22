@@ -755,13 +755,7 @@ export class ItemsBranch extends Branch {
         // Обновляем AOS после закрытия панели, чтобы анимации применились к видимым элементам
         if (!this.advancedFiltersVisible) {
             setTimeout(() => {
-                AOS.refresh({
-                    offset: 50,
-                    throttleDelay: 0,
-                    debounceDelay: 0,
-                    mirror: false,
-                    anchorPlacement: 'center-center'
-                });
+                AOS.refresh();
             }, 100);
         }
     }
@@ -1185,13 +1179,7 @@ export class ItemsBranch extends Branch {
         grid.appendChild(fragment);
 
         setTimeout(() => {
-            AOS.refresh({
-                offset: 50,
-                throttleDelay: 0,
-                debounceDelay: 0,
-                mirror: false,
-                anchorPlacement: 'center-center'
-            });
+            AOS.refresh();
         }, 100);
     }
 
