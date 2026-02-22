@@ -7,7 +7,7 @@ const DEFAULT_TEXT_CLASS = 'text-default';
 
 const IMAGE_FORMATS = [
     {type: 'image/webp', ext: 'webp', path: '/images/fonticon/webp'},
-    {type: 'image/avif', ext: 'avif', path: '/images/fontIcon/avif'},
+    {type: 'image/avif', ext: 'avif', path: '/images/fonticon/avif'},
 ];
 
 const DEFAULT_IMAGE_FORMAT = IMAGE_FORMATS.find(f => f.ext === 'webp') || IMAGE_FORMATS[0];
