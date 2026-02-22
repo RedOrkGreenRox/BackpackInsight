@@ -43,7 +43,7 @@ const ALIAS_MAP: { [key: string]: string } = {
     'stat_criticalDamage': 'CritDamage', 'stat_critical': 'CritDamage', 'stat_stamina': 'Stamina'
 };
 
-const ICON_TRIGGER_EXCEPTIONS = ['Bag of Flour', 'Pet Rock'];
+const ICON_TRIGGER_EXCEPTIONS = ['Bag of Flour', 'Pet Rock', 'Brown Rat', 'White Rat', 'Giant Rat', 'Rat King', 'Pack Rat', 'Fire Rat', 'Ice Rat', 'Shadow Rat', 'Rat Swarm'];
 const HEADER_EXCEPTIONS_BEFORE_COLON = ['to', 'more', 'less', 'higher', 'lower', 'inside', 'slot', 'Стоимость', 'Cost', 'Hero', 'Герой'];
 const HEADER_EXCEPTIONS_NO_COLON = ['are', 'is', 'can', 'require', 'also', 'rerolls', 'gain', 'inflict', 'steal', 'benefits', 'counts', 'per'];
 

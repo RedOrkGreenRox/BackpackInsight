@@ -50,6 +50,193 @@
     box-shadow: 0 0 15px rgba(var(--azure-raw), 0.3);
 }
 
+// Выпадающие фильтры
+.dropdown-filter {
+    position: relative;
+    margin-bottom: 20px; // Добавляем отступы между фильтрами
+    flex: 1; // Растягиваем для заполнения доступного пространства
+    min-width: 0; // Позволяем сжиматься
+}
+
+.dropdown-toggle {
+    width: 100%;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px 8px 0 0; // Скругляем только верхние углы
+    color: var(--text-default-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    outline: none;
+    text-align: left;
+    font-family: 'Signika', sans-serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    margin: 0; // Убираем все внешние отступы
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.7);
+        border-color: var(--azure);
+    }
+
+    &:focus {
+        border-color: var(--azure);
+    }
+
+    &.open {
+        border-color: var(--azure);
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 8px 8px 0 0; // Только верхние углы
+    }
+
+    span:first-child {
+        flex: 1;
+    }
+
+    .dropdown-arrow {
+        margin-left: 10px;
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+        color: var(--azure);
+    }
+
+    &.open .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+.dropdown-content {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+    border: none; // Убираем все границы
+    border-radius: 8px 8px 0 0; // Скругляем все углы
+    margin-top: 0; // Убираем отступ для слияния
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+    min-height: 0; // Явно указываем минимальную высоту
+    padding: 0; // Убираем padding когда закрыт
+
+    /* Внутренние отступы от краёв списка */
+    &.show {
+        padding: 12px; // Добавляем padding только когда открыт
+    }
+    
+    /* Если список использует Flexbox или Grid (рекомендуется) */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Расстояние между чипами внутри */
+    align-content: flex-start; // Выравниваем по левому краю
+    
+    /* Ограничение ширины или высоты, если нужно */
+    width: 100%; // Растягиваем на всю ширину родителя
+    box-sizing: border-box; // Учитываем padding и border в размерах
+
+    &.show {
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden; // Предотвращаем горизонтальный скролл
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        min-height: auto; // Позволяем контенту определять высоту
+    }
+
+    // Стили для скроллбара
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--azure);
+        border-radius: 4px;
+        
+        &:hover {
+            background: rgba(var(--azure-raw), 0.8);
+        }
+    }
+}
+
+
+.filter-chip {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: var(--text-default-color);
+    font-size: 0.9rem;
+    font-family: 'Signika', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 36px;
+    line-height: 1;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-1px);
+    }
+
+    &.active {
+        background: var(--azure);
+        border-color: var(--azure);
+        color: white;
+        box-shadow: 0 0 10px rgba(var(--azure-raw), 0.5);
+    }
+
+    /* Все иконки внутри чипов - одинакового размера */
+    .filter-icon,
+    .text-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin: 0;
+
+        picture, img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    /* Увеличенные иконки только внутри блока героев */
+    #filterHeroes & .filter-icon,
+    #filterHeroes & .text-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Корректировка отступов, если внутри только иконка */
+    &:has(.filter-icon):not(:has(span)),
+    &:has(.text-icon):not(:has(span)) { 
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
 .loading-spinner {
     color: var(--text-default-color);
     font-size: 1.2rem;
@@ -62,7 +249,7 @@
 // Advanced Filters Styles
 .filter-controls {
     margin: 20px auto 20px;
-    max-width: 1200px;
+    max-width: 1400px; // Увеличена максимальная ширина
 }
 
 .filter-toggle-btn {
@@ -70,7 +257,7 @@
     padding: 12px 20px;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 8px; // Полные скругленные углы когда закрыт
     color: var(--text-default-color);
     font-size: 1rem;
     font-family: 'Signika', sans-serif;
@@ -80,32 +267,65 @@
     align-items: center;
     transition: all 0.3s ease;
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    margin: 0; // Убираем все внешние отступы
+    overflow: hidden; // Убираем переполнение
 
     &:hover {
         background: rgba(0, 0, 0, 0.7);
         border-color: var(--azure);
+        transform: translateY(-1px); // Небольшой подъем при hover
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0); // Возвращаем на место при клике
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    &.open {
+        border-color: var(--azure);
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 8px 8px 0 0; // Только верхние углы когда открыт
+        overflow: visible; // Показываем контент при открытии
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .filter-toggle-icon {
         transition: transform 0.3s ease;
         font-size: 0.8rem;
+        color: var(--azure);
+    }
+
+    &.open .filter-toggle-icon {
+        transform: rotate(180deg);
     }
 }
 
 .advanced-filters-panel {
-    margin-top: 15px;
-    padding: 20px;
     background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border: none; // Убираем все границы
+    border-radius: 0 0 8px 8px; // Только нижние углы
+    margin-top: 0; // Убираем отступ для слияния
+    padding: 0; // Убираем padding когда закрыт
+    display: none; // Скрываем по умолчанию
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.show {
+        display: block;
+        padding: 20px; // Добавляем padding только когда открыт
+        max-height: 2000px; // Достаточно для всего контента
+        overflow: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .filter-group {
-    margin-bottom: 20px;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
+    margin-bottom: 0; // Убираем отступы - теперь управляется через grid gap
 }
 
 .filter-label {
@@ -154,13 +374,14 @@
         box-shadow: 0 0 10px rgba(var(--azure-raw), 0.5);
     }
 
-    .filter-icon {
+    /* Все иконки внутри чипов - одинакового размера */
+    .filter-icon,
+    .text-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        /* Адаптивный размер относительно шрифта (1.4 от размера текста) */
-        width: 1.4em;
-        height: 1.4em;
+        width: 20px;
+        height: 20px;
         flex-shrink: 0;
         margin: 0;
 
@@ -173,13 +394,15 @@
     }
 
     /* Увеличенные иконки только внутри блока героев */
-    #filterHeroes & .filter-icon {
+    #filterHeroes & .filter-icon,
+    #filterHeroes & .text-icon {
         width: 32px;
         height: 32px;
     }
 
     /* Корректировка отступов, если внутри только иконка */
-    &:has(.filter-icon):not(:has(span)) { 
+    &:has(.filter-icon):not(:has(span)),
+    &:has(.text-icon):not(:has(span)) { 
         padding: 8px;
         width: 40px;
         height: 40px;
@@ -254,13 +477,15 @@
         min-height: 32px;
         gap: 4px;
 
-        .filter-icon {
+        .filter-icon,
+        .text-icon {
             width: 18px;
             height: 18px;
         }
     }
 
-    #filterHeroes .filter-chip .filter-icon {
+    #filterHeroes .filter-chip .filter-icon,
+    #filterHeroes .filter-chip .text-icon {
         width: 28px;
         height: 28px;
     }
@@ -295,13 +520,15 @@
         font-size: 0.75rem;
         min-height: 30px;
 
-        .filter-icon {
+        .filter-icon,
+        .text-icon {
             width: 16px;
             height: 16px;
         }
     }
 
-    #filterHeroes .filter-chip .filter-icon {
+    #filterHeroes .filter-chip .filter-icon,
+    #filterHeroes .filter-chip .text-icon {
         width: 24px;
         height: 24px;
     }

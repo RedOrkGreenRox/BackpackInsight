@@ -90,9 +90,23 @@ export class ItemsBranch extends Branch {
     };
     private advancedFiltersVisible: boolean = false;
 
+    // Константы для ключей sessionStorage
+    private readonly STORAGE_KEYS = {
+        SEARCH_QUERY: 'items_search_query',
+        SELECTED_TYPES: 'items_selected_types',
+        SELECTED_RARITIES: 'items_selected_rarities',
+        SELECTED_HEROES: 'items_selected_heroes',
+        SELECTED_UNLOCK_SOURCES: 'items_selected_unlock_sources',
+        SELECTED_BUFFS: 'items_selected_buffs',
+        SELECTED_DEBUFFS: 'items_selected_debuffs',
+        PURCHASABLE_ONLY: 'items_purchasable_only',
+        CURRENT_SORT: 'items_current_sort',
+        ADVANCED_FILTERS_VISIBLE: 'items_advanced_filters_visible'
+    };
+
     private rarityWeights: Record<string, number> = {
-        "Unique": 100, "Boon": 90, "Relic": 80, "Mythic": 70,
-        "Legendary": 60, "Epic": 50, "Rare": 40, "Common": 30, "Special": 20
+        "Unique": 100, "Mythic": 90, "Legendary": 80, "Epic": 70,
+        "Rare": 60, "Common": 50, "Boon": 40, "Relic": 30, "Special": 20
     };
 
     protected getHtml(): string {
@@ -116,34 +130,52 @@ export class ItemsBranch extends Branch {
                             </button>
                             
                             <div id="advancedFiltersPanel" class="advanced-filters-panel" style="display: none;">
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_types')}</label>
-                                    <div id="filterTypes" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterTypes">
+                                        <span>${t('items_filter_types')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterTypes" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_rarity')}</label>
-                                    <div id="filterRarities" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterRarities">
+                                        <span>${t('items_filter_rarity')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterRarities" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_hero')}</label>
-                                    <div id="filterHeroes" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterHeroes">
+                                        <span>${t('items_filter_hero')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterHeroes" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_unlock_source')}</label>
-                                    <div id="filterUnlockSources" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterUnlockSources">
+                                        <span>${t('items_filter_unlock_source')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterUnlockSources" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_buffs')}</label>
-                                    <div id="filterBuffs" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterBuffs">
+                                        <span>${t('items_filter_buffs')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterBuffs" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
-                                <div class="filter-group">
-                                    <label class="filter-label">${t('items_filter_debuffs')}</label>
-                                    <div id="filterDebuffs" class="filter-multiselect"></div>
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterDebuffs">
+                                        <span>${t('items_filter_debuffs')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterDebuffs" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
                                 <div class="filter-group">
@@ -182,12 +214,19 @@ export class ItemsBranch extends Branch {
     }
 
     protected init(): void {
+        // Восстанавливаем состояние из sessionStorage
+        this.restoreState();
+        
         this.loadItems().catch(console.error);
 
         const searchInput = this.container?.querySelector('#itemSearch') as HTMLInputElement;
         if (searchInput) {
+            // Восстанавливаем значение поиска
+            searchInput.value = this.filters.searchQuery;
+            
             this.addListener(searchInput, 'input', (e) => {
                 this.filters.searchQuery = (e.target as HTMLInputElement).value;
+                this.saveState();
                 this.applyFilters();
             });
         }
@@ -199,6 +238,9 @@ export class ItemsBranch extends Branch {
             });
         }
 
+        // Инициализация выпадающих фильтров
+        this.initDropdownFilters();
+
         const itemSortBtn = this.container?.querySelector('#itemSortToggle');
         if (itemSortBtn) {
             this.addListener(itemSortBtn, 'click', () => {
@@ -207,6 +249,7 @@ export class ItemsBranch extends Branch {
                 const text = this.container?.querySelector('#itemSortText');
                 if (text) text.textContent = this.currentSort === 'rarity' ? t('items_sort_rarity') : t('items_sort_name');
 
+                this.saveState();
                 this.sortAndRender();
             });
         }
@@ -220,11 +263,35 @@ export class ItemsBranch extends Branch {
 
         const purchasableCheckbox = this.container?.querySelector('#filterPurchasable') as HTMLInputElement;
         if (purchasableCheckbox) {
+            // Восстанавливаем состояние чекбокса
+            purchasableCheckbox.checked = this.filters.purchasableOnly === true;
+            
             this.addListener(purchasableCheckbox, 'change', (e) => {
                 const checked = (e.target as HTMLInputElement).checked;
                 this.filters.purchasableOnly = checked ? true : null;
+                this.saveState();
                 this.applyFilters();
             });
+        }
+
+        // Восстанавливаем видимость панели фильтров
+        const panel = this.container?.querySelector('#advancedFiltersPanel') as HTMLElement;
+        const icon = this.container?.querySelector('.filter-toggle-icon') as HTMLElement;
+        const toggleBtn = this.container?.querySelector('#advancedFiltersToggle') as HTMLElement;
+        if (panel && icon && toggleBtn) {
+            if (this.advancedFiltersVisible) {
+                panel.style.display = 'block';
+                // Небольшая задержка для применения display перед добавлением класса
+                setTimeout(() => {
+                    panel.classList.add('show');
+                }, 10);
+                toggleBtn.classList.add('open');
+            } else {
+                panel.style.display = 'none';
+                panel.classList.remove('show');
+                toggleBtn.classList.remove('open');
+            }
+            icon.textContent = this.advancedFiltersVisible ? '▲' : '▼';
         }
 
         this.container?.addEventListener('error', (e) => {
@@ -246,6 +313,63 @@ export class ItemsBranch extends Branch {
                 target.parentElement?.classList.add('no-image');
             }
         }, true);
+    }
+
+    private initDropdownFilters(): void {
+        const dropdownToggles = this.container?.querySelectorAll('.dropdown-toggle');
+        
+        dropdownToggles?.forEach(toggle => {
+            this.addListener(toggle, 'click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = (toggle as HTMLElement).dataset.target;
+                if (!targetId) return;
+                
+                const dropdown = this.container?.querySelector(`#${targetId}`) as HTMLElement;
+                const arrow = toggle.querySelector('.dropdown-arrow') as HTMLElement;
+                
+                if (!dropdown) return;
+                
+                // Переключаем текущий дропдаун с плавной анимацией
+                const isOpen = dropdown.classList.contains('show');
+                
+                if (isOpen) {
+                    // Закрываем
+                    dropdown.classList.remove('show');
+                    arrow.textContent = '▼';
+                    toggle.classList.remove('open');
+                } else {
+                    // Открываем
+                    dropdown.classList.add('show');
+                    arrow.textContent = '▲';
+                    toggle.classList.add('open');
+                }
+            });
+        });
+        
+        // Закрытие дропдаунов при клике вне - УДАЛЕНО
+        // Теперь дропдауны не закрываются при клике вне
+    }
+
+    private closeAllDropdowns(excludeId?: string): void {
+        const dropdowns = this.container?.querySelectorAll('.dropdown-content');
+        const toggles = this.container?.querySelectorAll('.dropdown-toggle');
+        
+        dropdowns?.forEach(dropdown => {
+            if (dropdown.id !== excludeId) {
+                dropdown.classList.remove('show');
+            }
+        });
+        
+        toggles?.forEach(toggle => {
+            const targetId = (toggle as HTMLElement).dataset.target;
+            if (targetId !== excludeId) {
+                const arrow = toggle.querySelector('.dropdown-arrow') as HTMLElement;
+                if (arrow) arrow.textContent = '▼';
+                toggle.classList.remove('open');
+            }
+        });
     }
 
     private async loadItems() {
@@ -312,16 +436,52 @@ export class ItemsBranch extends Branch {
         });
 
         // Сортируем для удобства
-        const sortedTypes = Array.from(allTypes).sort();
+        // Особый порядок для типов предметов
+        const priorityTypes = ['Bag', 'Melee Weapon', 'Ranged Weapon', 'Pet', 'Food', 'Accessory', 'Armor'];
+        const sortedTypes = Array.from(allTypes).sort((a, b) => {
+            const priorityA = priorityTypes.indexOf(a);
+            const priorityB = priorityTypes.indexOf(b);
+            
+            // Если оба в приоритете - сортируем по приоритету
+            if (priorityA !== -1 && priorityB !== -1) {
+                return priorityA - priorityB;
+            }
+            // Если только один в приоритете - он идет первым
+            if (priorityA !== -1) return -1;
+            if (priorityB !== -1) return 1;
+            // Остальные - алфавитно
+            return a.localeCompare(b);
+        });
+        
+        // Редкости - в порядке понижения веса (уже реализовано)
         const sortedRarities = Array.from(allRarities).sort((a, b) => {
             const weightA = this.rarityWeights[a] || 0;
             const weightB = this.rarityWeights[b] || 0;
             return weightB - weightA;
         });
-        const sortedHeroes = Array.from(allHeroes).sort();
+        
+        // Герои - Shared всегда первым
+        const sortedHeroes = Array.from(allHeroes).sort((a, b) => {
+            if (a === 'Shared') return -1;
+            if (b === 'Shared') return 1;
+            return a.localeCompare(b);
+        });
+        
         const sortedUnlockSources = Array.from(allUnlockSources).sort();
-        const sortedBuffs = Array.from(allBuffs).sort();
-        const sortedDebuffs = Array.from(allDebuffs).sort();
+        
+        // Баффы - Buff всегда первым
+        const sortedBuffs = Array.from(allBuffs).sort((a, b) => {
+            if (a === 'Buff') return -1;
+            if (b === 'Buff') return 1;
+            return a.localeCompare(b);
+        });
+        
+        // Дебаффы - Debuff всегда первым
+        const sortedDebuffs = Array.from(allDebuffs).sort((a, b) => {
+            if (a === 'Debuff') return -1;
+            if (b === 'Debuff') return 1;
+            return a.localeCompare(b);
+        });
 
         // Создаем UI для фильтров
         this.createMultiselectFilter('filterTypes', sortedTypes, this.filters.selectedTypes);
@@ -341,8 +501,21 @@ export class ItemsBranch extends Branch {
 
         container.innerHTML = '';
 
-        // Генерируем кнопки
+        // Разделяем опции на те что с иконками и те что без
+        const optionsWithIcons: string[] = [];
+        const optionsWithoutIcons: string[] = [];
+        
         options.forEach(option => {
+            const iconHtml = this.getIconForFilter(option, containerId);
+            if (iconHtml) {
+                optionsWithIcons.push(option);
+            } else {
+                optionsWithoutIcons.push(option);
+            }
+        });
+
+        // Генерируем кнопки: сначала с иконками, потом без
+        [...optionsWithIcons, ...optionsWithoutIcons].forEach(option => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'filter-chip';
@@ -351,6 +524,7 @@ export class ItemsBranch extends Branch {
             const iconHtml = this.getIconForFilter(option, containerId);
             button.innerHTML = iconHtml ? iconHtml : `<span>${option}</span>`;
 
+            // Восстанавливаем визуальное состояние из сохраненных данных
             if (selectedSet.has(option)) button.classList.add('active');
             container.appendChild(button);
         });
@@ -361,6 +535,11 @@ export class ItemsBranch extends Branch {
             const button = (e.target as HTMLElement).closest('.filter-chip') as HTMLButtonElement;
             if (!button) return;
 
+            // Проверяем, открыт ли текущий dropdown (container - это dropdown-content)
+            if (!container.classList.contains('show')) {
+                return; // Не обрабатываем клик, если dropdown закрыт
+            }
+
             const option = button.dataset.value!;
             if (selectedSet.has(option)) {
                 selectedSet.delete(option);
@@ -369,6 +548,9 @@ export class ItemsBranch extends Branch {
                 selectedSet.add(option);
                 button.classList.add('active');
             }
+            
+            // Сохраняем состояние при изменении фильтров
+            this.saveState();
             this.applyFilters();
         });
     }
@@ -406,7 +588,8 @@ export class ItemsBranch extends Branch {
             'Ranged Weapon': 'RangedWeapon',
             'Pet': 'Pet',
             'Mana': 'Mana',
-            'Gold': 'Gold'
+            'Gold': 'Gold',
+            'Rat': 'TypeRat'
         };
 
         // Маппинг для баффов
@@ -502,13 +685,36 @@ export class ItemsBranch extends Branch {
         this.advancedFiltersVisible = !this.advancedFiltersVisible;
         const panel = this.container?.querySelector('#advancedFiltersPanel') as HTMLElement;
         const icon = this.container?.querySelector('.filter-toggle-icon') as HTMLElement;
+        const toggleBtn = this.container?.querySelector('#advancedFiltersToggle') as HTMLElement;
 
-        if (panel) {
-            panel.style.display = this.advancedFiltersVisible ? 'block' : 'none';
+        if (panel && toggleBtn) {
+            if (this.advancedFiltersVisible) {
+                // Открываем с плавной анимацией
+                panel.style.display = 'block';
+                // Небольшая задержка для применения display перед добавлением класса
+                setTimeout(() => {
+                    panel.classList.add('show');
+                }, 10);
+                toggleBtn.classList.add('open');
+            } else {
+                // Закрываем с плавной анимацией
+                panel.classList.remove('show');
+                // Ждем окончания анимации перед скрытием
+                setTimeout(() => {
+                    if (!panel.classList.contains('show')) {
+                        panel.style.display = 'none';
+                    }
+                }, 400); // Соответствует времени transition в CSS
+                toggleBtn.classList.remove('open');
+            }
         }
+        
         if (icon) {
             icon.textContent = this.advancedFiltersVisible ? '▲' : '▼';
         }
+        
+        // Сохраняем состояние видимости панели
+        this.saveState();
         
         // Обновляем AOS после закрытия панели, чтобы анимации применились к видимым элементам
         if (!this.advancedFiltersVisible) {
@@ -539,8 +745,104 @@ export class ItemsBranch extends Branch {
             chip.classList.remove('active');
         });
 
+        this.saveState();
         this.setupFilterOptions();
         this.applyFilters();
+    }
+
+    /**
+     * Сохранение состояния в sessionStorage
+     */
+    private saveState(): void {
+        try {
+            sessionStorage.setItem(this.STORAGE_KEYS.SEARCH_QUERY, this.filters.searchQuery);
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_TYPES, JSON.stringify([...this.filters.selectedTypes]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_RARITIES, JSON.stringify([...this.filters.selectedRarities]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_HEROES, JSON.stringify([...this.filters.selectedHeroes]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_UNLOCK_SOURCES, JSON.stringify([...this.filters.selectedUnlockSources]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_BUFFS, JSON.stringify([...this.filters.selectedBuffs]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_DEBUFFS, JSON.stringify([...this.filters.selectedDebuffs]));
+            sessionStorage.setItem(this.STORAGE_KEYS.PURCHASABLE_ONLY, JSON.stringify(this.filters.purchasableOnly));
+            sessionStorage.setItem(this.STORAGE_KEYS.CURRENT_SORT, this.currentSort);
+            sessionStorage.setItem(this.STORAGE_KEYS.ADVANCED_FILTERS_VISIBLE, JSON.stringify(this.advancedFiltersVisible));
+        } catch (e) {
+            console.warn('[ItemsBranch] Failed to save state to sessionStorage:', e);
+        }
+    }
+
+    /**
+     * Восстановление состояния из sessionStorage
+     */
+    private restoreState(): void {
+        try {
+            // Восстанавливаем поисковый запрос
+            const savedSearch = sessionStorage.getItem(this.STORAGE_KEYS.SEARCH_QUERY);
+            if (savedSearch !== null) {
+                this.filters.searchQuery = savedSearch;
+            }
+
+            // Восстанавливаем выбранные типы
+            const savedTypes = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_TYPES);
+            if (savedTypes) {
+                const typesArray = JSON.parse(savedTypes);
+                this.filters.selectedTypes = new Set(typesArray);
+            }
+
+            // Восстанавливаем выбранные редкости
+            const savedRarities = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_RARITIES);
+            if (savedRarities) {
+                const raritiesArray = JSON.parse(savedRarities);
+                this.filters.selectedRarities = new Set(raritiesArray);
+            }
+
+            // Восстанавливаем выбранных героев
+            const savedHeroes = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_HEROES);
+            if (savedHeroes) {
+                const heroesArray = JSON.parse(savedHeroes);
+                this.filters.selectedHeroes = new Set(heroesArray);
+            }
+
+            // Восстанавливаем источники разблокировки
+            const savedUnlockSources = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_UNLOCK_SOURCES);
+            if (savedUnlockSources) {
+                const unlockSourcesArray = JSON.parse(savedUnlockSources);
+                this.filters.selectedUnlockSources = new Set(unlockSourcesArray);
+            }
+
+            // Восстанавливаем баффы
+            const savedBuffs = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_BUFFS);
+            if (savedBuffs) {
+                const buffsArray = JSON.parse(savedBuffs);
+                this.filters.selectedBuffs = new Set(buffsArray);
+            }
+
+            // Восстанавливаем дебаффы
+            const savedDebuffs = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_DEBUFFS);
+            if (savedDebuffs) {
+                const debuffsArray = JSON.parse(savedDebuffs);
+                this.filters.selectedDebuffs = new Set(debuffsArray);
+            }
+
+            // Восстанавливаем фильтр покупаемости
+            const savedPurchasable = sessionStorage.getItem(this.STORAGE_KEYS.PURCHASABLE_ONLY);
+            if (savedPurchasable !== null) {
+                this.filters.purchasableOnly = JSON.parse(savedPurchasable);
+            }
+
+            // Восстанавливаем сортировку
+            const savedSort = sessionStorage.getItem(this.STORAGE_KEYS.CURRENT_SORT);
+            if (savedSort === 'rarity' || savedSort === 'name') {
+                this.currentSort = savedSort;
+            }
+
+            // Восстанавливаем видимость панели фильтров
+            const savedAdvancedVisible = sessionStorage.getItem(this.STORAGE_KEYS.ADVANCED_FILTERS_VISIBLE);
+            if (savedAdvancedVisible !== null) {
+                this.advancedFiltersVisible = JSON.parse(savedAdvancedVisible);
+            }
+        } catch (e) {
+            console.warn('[ItemsBranch] Failed to restore state from sessionStorage:', e);
+        }
     }
 
     private applyFilters() {
@@ -732,6 +1034,9 @@ export class ItemsBranch extends Branch {
     }
 
     protected destroy(): void {
+        // Сохраняем состояние перед уничтожением компонента
+        this.saveState();
+        
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
     }
