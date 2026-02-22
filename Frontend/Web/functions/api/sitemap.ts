@@ -17,7 +17,7 @@ export async function GET() {
                 url: `${BASE_URL}/`,
                 lastmod: new Date().toISOString(),
                 changefreq: 'daily',
-                priority: 1.0
+                priority: 1
             },
             {
                 url: `${BASE_URL}/items`,

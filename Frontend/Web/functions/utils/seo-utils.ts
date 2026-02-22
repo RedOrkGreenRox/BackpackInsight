@@ -20,7 +20,7 @@ export async function onRequestGet(context: any) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backpack Insight</title>
-    <meta name="description" content="${lang === 'ru' ? 'Backpack Brawl Analytics & Wiki' : 'Backpack Brawl Analytics & Wiki'}">
+    <meta name="description" content="${lang === 'ru' ? 'Полная база знаний и аналитика по Backpack Brawl' : 'Complete Backpack Brawl knowledge base and analytics'}">
     <meta name="keywords" content="${getKeywords(lang)}">
     
     <!-- Остальные мета-теги... -->
