@@ -623,7 +623,35 @@ export class ItemDetailBranch extends Branch {
     }
 
     protected destroy(): void {
+        // При уходе со страницы предмета восстанавливаем скролл в профиле
+        this.restoreProfileScroll();
+        
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
+    }
+
+    /**
+     * Восстановление скролла в профиле при возврате
+     */
+    private restoreProfileScroll(): void {
+        try {
+            // Сначала пробуем sessionStorage, затем localStorage
+            let savedState = sessionStorage.getItem('profileDynamicState');
+            if (!savedState) {
+                savedState = localStorage.getItem('profileDynamicState');
+            }
+            
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                if (state.scrollY && state.scrollY > 0) {
+                    // Небольшая задержка для гарантии перехода
+                    setTimeout(() => {
+                        window.scrollTo(0, state.scrollY);
+                    }, 50);
+                }
+            }
+        } catch (e) {
+            console.error('Error restoring profile scroll:', e);
+        }
     }
 }

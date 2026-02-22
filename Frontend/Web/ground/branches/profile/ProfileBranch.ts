@@ -58,6 +58,27 @@ export class ProfileBranch extends Branch {
     private cleanupFns: (() => void)[] = [];
     private sortController: SortController | null = null;
     private paginationController: PaginationController | null = null;
+    
+    // Сохранение состояния для восстановления при возврате
+    private savedState: {
+        scrollY: number;
+        itemsExpanded: boolean;
+        itemSort: 'rarity' | 'level';
+        heroSort: {
+            sortBy: 'level' | 'rating';
+            inverted: boolean;
+        };
+        currentSkins: Record<string, string>;
+    } = {
+        scrollY: 0,
+        itemsExpanded: false,
+        itemSort: 'rarity',
+        heroSort: {
+            sortBy: 'level',
+            inverted: false
+        },
+        currentSkins: {}
+    };
 
     // Веса редкости для сортировки
     private rarityWeights: Record<string, number> = {
@@ -116,6 +137,9 @@ export class ProfileBranch extends Branch {
         if (incomingData && incomingData.nickname) {
             sessionStorage.setItem('currentProfileData', JSON.stringify(incomingData));
             this.data = incomingData;
+            
+            // Восстанавливаем сохраненное состояние
+            this.restoreSavedState();
         } else {
             this.data = null;
         }
@@ -144,6 +168,8 @@ export class ProfileBranch extends Branch {
         // Восстанавливаем состояние сортировки, если оно было сохранено
         if (this.data.itemsSort) {
             this.currentItemSort = this.data.itemsSort;
+        } else if (this.savedState.itemSort) {
+            this.currentItemSort = this.savedState.itemSort;
         }
 
         this.sortItems();
@@ -170,6 +196,11 @@ export class ProfileBranch extends Branch {
                 
                 // Инициализируем обработчики событий после рендера
                 this.init();
+                
+                // Восстанавливаем скролл и другие состояния после инициализации
+                setTimeout(() => {
+                    this.restoreDynamicState();
+                }, 100);
             }
         });
 
@@ -575,7 +606,20 @@ export class ProfileBranch extends Branch {
             });
         }
 
-        // Сортировка теперь обрабатывается SortController
+        // 6. Сохранение состояния при перезагрузке страницы
+        window.addEventListener('beforeunload', () => {
+            this.saveCurrentState();
+        });
+        this.cleanupFns.push(() => {
+            window.removeEventListener('beforeunload', () => {
+                this.saveCurrentState();
+            });
+        });
+
+        // 7. Восстановление из localStorage если sessionStorage пуст (для перезагрузки)
+        if (!sessionStorage.getItem('profileDynamicState')) {
+            this.restoreFromLocalStorage();
+        }
 
         // 3. Скины
         this.initSkins();
@@ -599,6 +643,11 @@ export class ProfileBranch extends Branch {
                     };
                 }
             }
+            
+            // Добавляем сохранение состояния при клике на предмет
+            this.addListener(link, 'click', () => {
+                this.saveCurrentState();
+            });
         });
     }
 
@@ -716,12 +765,256 @@ export class ProfileBranch extends Branch {
         const btn = this.container?.querySelector('#saveProfileBtn') as HTMLButtonElement;
         if (!btn) return;
 
+        // Сохраняем состояние перед переходом
+        this.saveCurrentState();
+        
         await downloadProfileScreenshot(element, btn, this.data?.nickname || 'Player');
     }
 
-    protected destroy():
-        void {
+    /**
+     * Сохранение текущего динамического состояния
+     */
+    private saveCurrentState(): void {
+        if (!this.container) return;
+
+        // Сохраняем позицию скролла
+        this.savedState.scrollY = window.scrollY;
+
+        // Сохраняем состояние предметов
+        this.savedState.itemsExpanded = this.data?.itemsExpanded || false;
+        this.savedState.itemSort = this.currentItemSort;
+
+        // Сохраняем состояние сортировки героев
+        if (this.sortController) {
+            this.savedState.heroSort = {
+                sortBy: this.sortController.getCurrentSort(),
+                inverted: this.sortController.isInverted()
+            };
+        }
+
+        // Сохраняем текущие скины героев
+        this.savedState.currentSkins = {};
+        const heroCards = this.container.querySelectorAll('.main-hero-card');
+        heroCards.forEach(card => {
+            const heroName = (card as HTMLElement).dataset.heroName;
+            const currentSkin = (card as HTMLElement).dataset.currentSkin;
+            if (heroName && currentSkin) {
+                this.savedState.currentSkins[heroName] = currentSkin;
+            }
+        });
+
+        // Сохраняем в оба хранилища
+        const stateJson = JSON.stringify(this.savedState);
+        sessionStorage.setItem('profileDynamicState', stateJson);
+        localStorage.setItem('profileDynamicState', stateJson);
+    }
+
+    /**
+     * Восстановление сохраненного состояния из sessionStorage
+     */
+    private restoreSavedState(): void {
+        try {
+            const saved = sessionStorage.getItem('profileDynamicState');
+            if (saved) {
+                this.savedState = JSON.parse(saved);
+            }
+        } catch (e) {
+            console.error('Error restoring saved state:', e);
+            // Используем значения по умолчанию
+            this.savedState = {
+                scrollY: 0,
+                itemsExpanded: false,
+                itemSort: 'rarity',
+                heroSort: {
+                    sortBy: 'level',
+                    inverted: false
+                },
+                currentSkins: {}
+            };
+        }
+    }
+
+    /**
+     * Восстановление состояния из localStorage (для перезагрузки страницы)
+     */
+    private restoreFromLocalStorage(): void {
+        try {
+            const saved = localStorage.getItem('profileDynamicState');
+            if (saved) {
+                this.savedState = JSON.parse(saved);
+                // Копируем в sessionStorage для дальнейшего использования
+                sessionStorage.setItem('profileDynamicState', saved);
+                console.log('State restored from localStorage after page reload');
+            }
+        } catch (e) {
+            console.error('Error restoring state from localStorage:', e);
+            // Используем значения по умолчанию
+            this.savedState = {
+                scrollY: 0,
+                itemsExpanded: false,
+                itemSort: 'rarity',
+                heroSort: {
+                    sortBy: 'level',
+                    inverted: false
+                },
+                currentSkins: {}
+            };
+        }
+    }
+
+    /**
+     * Восстановление динамического состояния после рендера
+     */
+    private restoreDynamicState(): void {
+        if (!this.container) return;
+
+        // Восстанавливаем скролл
+        if (this.savedState.scrollY > 0) {
+            window.scrollTo(0, this.savedState.scrollY);
+        }
+
+        // Восстанавливаем состояние предметов
+        if (this.savedState.itemsExpanded && this.data) {
+            this.data.itemsExpanded = true;
+            // Показываем все предметы
+            const hiddenItems = this.container.querySelectorAll('.item-card-link.hidden');
+            hiddenItems.forEach(item => {
+                item.classList.remove('hidden');
+            });
+            // Скрываем кнопку "Show more"
+            const loadMoreBtn = this.container.querySelector('#loadMoreItemsBtn');
+            if (loadMoreBtn) {
+                (loadMoreBtn as HTMLElement).style.display = 'none';
+            }
+        }
+
+        // Восстанавливаем сортировку предметов
+        if (this.savedState.itemSort !== this.currentItemSort) {
+            this.currentItemSort = this.savedState.itemSort;
+            this.sortItems();
+            const grid = this.container.querySelector('#profileItemsGrid');
+            if (grid && this.data) {
+                grid.innerHTML = this.data.items.map((item, index) => this._renderItemCard(item, index)).join('');
+                const text = this.container.querySelector('#itemSortText');
+                if (text) {
+                    text.textContent = this.currentItemSort === 'rarity' ? t('items_sort_rarity') : t('items_sort_level');
+                }
+            }
+        }
+
+        // Восстанавливаем сортировку героев
+        if (this.sortController && this.savedState.heroSort.sortBy) {
+            // Применяем сохраненную сортировку
+            const sortBtn = this.container.querySelector('#sortToggle') as HTMLButtonElement;
+            const invertBtn = this.container.querySelector('#invertToggle') as HTMLButtonElement;
+            
+            if (sortBtn) {
+                sortBtn.dataset.sort = this.savedState.heroSort.sortBy;
+                const icon = sortBtn.querySelector('#sortIcon') as HTMLImageElement;
+                const text = sortBtn.querySelector('#sortText') as HTMLSpanElement;
+                
+                if (icon && text) {
+                    if (this.savedState.heroSort.sortBy === 'rating') {
+                        icon.src = '/images/profile/webp/rating.webp';
+                        text.textContent = t('profile_sort_rating');
+                    } else {
+                        icon.src = '/images/profile/webp/level.webp';
+                        text.textContent = t('profile_sort_level');
+                    }
+                }
+            }
+
+            if (invertBtn && this.savedState.heroSort.inverted) {
+                invertBtn.classList.add('inverted');
+                const icon = invertBtn.querySelector('#invertIcon') as HTMLImageElement;
+                if (icon) {
+                    icon.src = '/images/profile/webp/sortup.webp';
+                }
+            }
+
+            // Пересортировываем героев
+            this.sortController.applySortWithParams(this.savedState.heroSort.sortBy, this.savedState.heroSort.inverted);
+        }
+
+        // Восстанавливаем скины героев
+        setTimeout(() => {
+            this.restoreSkins();
+        }, 200);
+    }
+
+    /**
+     * Восстановление скинов героев
+     */
+    private restoreSkins(): void {
+        if (!this.container) return;
+
+        Object.entries(this.savedState.currentSkins).forEach(([heroName, skin]) => {
+            // Находим карточку героя
+            const heroCard = this.container?.querySelector(`.main-hero-card[data-hero-name="${heroName}"]`);
+            if (!heroCard) return;
+
+            // Находим все доступные скины для этого героя
+            const skinsDataEl = document.getElementById('skins-data');
+            if (!skinsDataEl?.textContent) return;
+
+            try {
+                const rawSkinsMap = JSON.parse(skinsDataEl.textContent);
+                const skinsMap: Record<string, string[]> = {};
+                for (const key in rawSkinsMap) {
+                    skinsMap[key.toLowerCase()] = rawSkinsMap[key];
+                }
+
+                const availableSkins = ['01', ...(skinsMap[heroName.toLowerCase()] || [])];
+                const uniqueSkins = Array.from(new Set(availableSkins)).sort();
+                
+                const skinIndex = uniqueSkins.indexOf(skin);
+                if (skinIndex !== -1) {
+                    // Устанавливаем нужный скин
+                    const imgContainer = heroCard.querySelector('.main-hero-image');
+                    const img = imgContainer?.querySelector('img') as HTMLImageElement;
+                    
+                    if (img) {
+                        const lowerHero = heroName.toLowerCase();
+                        const webp = `/images/heroes/${lowerHero}/webp/${lowerHero}${skin}.webp`;
+                        const avif = `/images/heroes/${lowerHero}/avif/${lowerHero}${skin}.avif`;
+                        const picture = img.parentElement;
+
+                        img.src = webp;
+                        if (picture) {
+                            const sources = picture.querySelectorAll('source');
+                            sources.forEach(s => {
+                                if (s.type === 'image/webp') s.srcset = webp;
+                                if (s.type === 'image/avif') s.srcset = avif;
+                            });
+                        }
+                        
+                        (heroCard as HTMLElement).dataset.currentSkin = skin;
+                        this.updateHeaderSkin(heroName, skin);
+                    }
+                }
+            } catch (e) {
+                console.error('Error restoring skin for hero:', heroName, e);
+            }
+        });
+    }
+
+    /**
+     * Переопределение метода destroy для сохранения состояния
+     */
+    public destroy(): void {
+        // Сохраняем состояние перед уничтожением
+        this.saveCurrentState();
+        
+        // Очищаем ресурсы
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
+    }
+
+    /**
+     * Очистка состояния при явном выходе из профиля
+     */
+    public clearState(): void {
+        localStorage.removeItem('profileDynamicState');
+        sessionStorage.removeItem('profileDynamicState');
     }
 }

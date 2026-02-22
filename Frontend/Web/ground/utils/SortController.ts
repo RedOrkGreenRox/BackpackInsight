@@ -128,4 +128,51 @@ export class SortController {
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
     }
+
+    // Добавляем методы для получения состояния
+    public getCurrentSort(): 'level' | 'rating' {
+        return this.currentHeroSort;
+    }
+
+    public isInverted(): boolean {
+        return this.sortAsc;
+    }
+
+    // Публичный метод для применения сортировки с параметрами
+    public applySortWithParams(sortBy: 'level' | 'rating', inverted: boolean): void {
+        this.currentHeroSort = sortBy;
+        this.sortAsc = inverted;
+        
+        // Обновляем UI
+        const sortText = this.container.querySelector('#sortText');
+        const sortIcon = this.container.querySelector('#sortIcon') as HTMLImageElement;
+        const invertIcon = this.container.querySelector('#invertIcon') as HTMLImageElement;
+
+        if (sortText) {
+            const labels = { level: t('profile_sort_level'), rating: t('profile_sort_rating') };
+            sortText.textContent = labels[sortBy];
+        }
+
+        if (sortIcon) {
+            const iconName = sortBy === 'level' ? 'Level' : 'Trophy';
+            this.updatePicture(sortIcon, iconName);
+        }
+
+        if (invertIcon) {
+            const iconName = inverted ? 'SortHigh' : 'SortLow';
+            this.updatePicture(invertIcon, iconName);
+        }
+
+        // Применяем сортировку ко всем сеткам
+        const grids = [
+            this.container.querySelector('#mainHeroesGrid'),
+            this.container.querySelector('#statsHeroesGrid')
+        ];
+
+        requestAnimationFrame(() => {
+            grids.forEach(grid => {
+                if (grid) this.applySort(grid);
+            });
+        });
+    }
 }
