@@ -537,8 +537,8 @@ export class ItemsBranch extends Branch {
 
     private createIconHtml(iconName: string, title: string): string {
         const imageFormats = [
-            {type: 'image/webp', ext: 'webp', path: '/images/fonticon/webp'},
             {type: 'image/avif', ext: 'avif', path: '/images/fontIcon/avif'},
+            {type: 'image/webp', ext: 'webp', path: '/images/fonticon/webp'},
         ];
         const defaultFormat = imageFormats.find(f => f.ext === 'webp') || imageFormats[0];
 
