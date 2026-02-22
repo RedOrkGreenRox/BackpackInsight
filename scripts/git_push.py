@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "items adv-search images improve 2"
+    upd = "items adv-search images fix"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
