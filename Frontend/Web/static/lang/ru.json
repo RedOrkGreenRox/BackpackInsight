@@ -26,6 +26,7 @@
   "items_filter_unlock_source": "Источник разблокировки",
   "items_filter_buffs": "Баффы",
   "items_filter_debuffs": "Дебаффы",
+  "items_filter_stats": "Статистики",
   "items_filter_purchasable": "Только покупаемые",
   "items_clear_filters": "Очистить фильтры",
   "item_detail_title": "{{itemName}} | Backpack Insight",

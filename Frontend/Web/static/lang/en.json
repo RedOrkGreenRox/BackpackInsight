@@ -26,6 +26,7 @@
   "items_filter_unlock_source": "Unlock Source",
   "items_filter_buffs": "Buffs",
   "items_filter_debuffs": "Debuffs",
+  "items_filter_stats": "Stats",
   "items_filter_purchasable": "Purchasable Only",
   "items_clear_filters": "Clear All Filters",
   "item_detail_title": "{{itemName}} | Backpack Insight",

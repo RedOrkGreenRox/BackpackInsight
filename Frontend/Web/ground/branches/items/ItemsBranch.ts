@@ -69,6 +69,7 @@ interface FilterState {
     selectedUnlockSources: Set<string>;
     selectedBuffs: Set<string>;
     selectedDebuffs: Set<string>;
+    selectedStats: Set<string>;
     purchasableOnly: boolean | null; // null = all, true = only purchasable, false = only non-purchasable
 }
 
@@ -86,6 +87,7 @@ export class ItemsBranch extends Branch {
         selectedUnlockSources: new Set(),
         selectedBuffs: new Set(),
         selectedDebuffs: new Set(),
+        selectedStats: new Set(),
         purchasableOnly: null
     };
     private advancedFiltersVisible: boolean = false;
@@ -99,6 +101,7 @@ export class ItemsBranch extends Branch {
         SELECTED_UNLOCK_SOURCES: 'items_selected_unlock_sources',
         SELECTED_BUFFS: 'items_selected_buffs',
         SELECTED_DEBUFFS: 'items_selected_debuffs',
+        SELECTED_STATS: 'items_selected_stats',
         PURCHASABLE_ONLY: 'items_purchasable_only',
         CURRENT_SORT: 'items_current_sort',
         ADVANCED_FILTERS_VISIBLE: 'items_advanced_filters_visible'
@@ -176,6 +179,14 @@ export class ItemsBranch extends Branch {
                                         <span class="dropdown-arrow">▼</span>
                                     </button>
                                     <div id="filterDebuffs" class="dropdown-content filter-multiselect"></div>
+                                </div>
+                                
+                                <div class="dropdown-filter">
+                                    <button class="dropdown-toggle" data-target="filterStats">
+                                        <span>${t('items_filter_stats')}</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div id="filterStats" class="dropdown-content filter-multiselect"></div>
                                 </div>
                                 
                                 <div class="filter-group">
@@ -387,10 +398,14 @@ export class ItemsBranch extends Branch {
         const allUnlockSources = new Set<string>();
         const allBuffs = new Set<string>();
         const allDebuffs = new Set<string>();
+        const allStats = new Set<string>();
 
         // Определяем баффы и дебаффы
-        const buffKeywords = ['Buff', 'Haste', 'Regeneration', 'Resist', 'Thorns', 'Armor', 'Luck', 'Health', 'MaxHealth', 'Lifesteal', 'Empower', 'Static', 'Stamina', 'StaminaRecovery'];
+        const buffKeywords = ['Buff', 'Haste', 'Regeneration', 'Resist', 'Thorns', 'Armor', 'Luck', 'Lifesteal', 'Empower'];
         const debuffKeywords = ['Burn', 'Bleed', 'Poison', 'Chill', 'Curse', 'Blind', 'Stun', 'Debuff', 'Fatigue', 'Insanity'];
+        
+        // Определяем статистики
+        const statKeywords = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'StaminaRecovery', 'Resist', 'Static', 'Soul'];
 
         this.items.forEach(item => {
             item.itemTypes.forEach(type => allTypes.add(type));
@@ -411,6 +426,14 @@ export class ItemsBranch extends Branch {
             debuffKeywords.forEach(debuff => {
                 if (tooltipText.includes(debuff.toLowerCase())) {
                     allDebuffs.add(debuff);
+                }
+            });
+            
+            // Извлекаем статистики из tooltips и allStats
+            statKeywords.forEach(stat => {
+                if (tooltipText.includes(stat.toLowerCase()) || 
+                    (item.allStats && Object.keys(item.allStats).some(key => key.toLowerCase().includes(stat.toLowerCase())))) {
+                    allStats.add(stat);
                 }
             });
         });
@@ -462,6 +485,17 @@ export class ItemsBranch extends Branch {
             if (b === 'Debuff') return 1;
             return a.localeCompare(b);
         });
+        
+        // Статистики - в заданном порядке
+        const statsOrder = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'Resist', 'Static', 'Soul'];
+        const sortedStats = Array.from(allStats).sort((a, b) => {
+            const indexA = statsOrder.indexOf(a);
+            const indexB = statsOrder.indexOf(b);
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            return a.localeCompare(b);
+        });
 
         // Создаем UI для фильтров
         this.createMultiselectFilter('filterTypes', sortedTypes, this.filters.selectedTypes);
@@ -470,6 +504,7 @@ export class ItemsBranch extends Branch {
         this.createMultiselectFilter('filterUnlockSources', sortedUnlockSources, this.filters.selectedUnlockSources);
         this.createMultiselectFilter('filterBuffs', sortedBuffs, this.filters.selectedBuffs);
         this.createMultiselectFilter('filterDebuffs', sortedDebuffs, this.filters.selectedDebuffs);
+        this.createMultiselectFilter('filterStats', sortedStats, this.filters.selectedStats);
 
         // Применяем фильтры после настройки опций
         this.applyFilters();
@@ -499,6 +534,13 @@ export class ItemsBranch extends Branch {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'filter-chip';
+            
+            // Добавляем CSS класс для редкостей если это фильтр редкостей
+            if (containerId === 'filterRarities') {
+                const rarityClass = `rarity-${option.toLowerCase()}`;
+                button.classList.add(rarityClass);
+            }
+            
             button.dataset.value = option;
 
             const iconHtml = this.getIconForFilter(option, containerId);
@@ -581,12 +623,8 @@ export class ItemsBranch extends Branch {
             'Thorns': 'Thorns',
             'Armor': 'Armor',
             'Luck': 'Luck',
-            'Health': 'Health',
-            'MaxHealth': 'MaxHealth',
             'Lifesteal': 'Lifesteal',
             'Empower': 'Empower',
-            'Static': 'Static',
-            'Stamina': 'Stamina',
             'StaminaRecovery': 'StaminaRecovery'
         };
 
@@ -602,6 +640,22 @@ export class ItemsBranch extends Branch {
             'Debuff': 'Debuff',
             'Fatigue': 'Fatigue',
             'Insanity': 'Insanity'
+        };
+
+        // Маппинг для статистик
+        const statsMapping: Record<string, string> = {
+            'Health': 'Health',
+            'MaxHealth': 'MaxHealth',
+            'Armor': 'Armor', // НЕ TypeArmor, а просто Armor
+            'Damage': 'Damage',
+            'Accuracy': 'Accuracy',
+            'CritChance': 'CritChance',
+            'CritDamage': 'CritDamage',
+            'Stamina': 'Stamina',
+            'StaminaRecovery': 'StaminaRecovery',
+            'Resist': 'Resist',
+            'Static': 'Static',
+            'Soul': 'Soul'
         };
 
         // Маппинг для героев
@@ -651,6 +705,8 @@ export class ItemsBranch extends Branch {
             iconName = buffMapping[value] || null;
         } else if (filterType === 'filterDebuffs') {
             iconName = debuffMapping[value] || null;
+        } else if (filterType === 'filterStats') {
+            iconName = statsMapping[value] || null;
         }
         // Для редкости и unlock sources оставляем текст (редкость имеет цветовую индикацию через классы)
 
@@ -711,6 +767,7 @@ export class ItemsBranch extends Branch {
             selectedUnlockSources: new Set(),
             selectedBuffs: new Set(),
             selectedDebuffs: new Set(),
+            selectedStats: new Set(),
             purchasableOnly: null
         };
 
@@ -742,6 +799,7 @@ export class ItemsBranch extends Branch {
             sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_UNLOCK_SOURCES, JSON.stringify([...this.filters.selectedUnlockSources]));
             sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_BUFFS, JSON.stringify([...this.filters.selectedBuffs]));
             sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_DEBUFFS, JSON.stringify([...this.filters.selectedDebuffs]));
+            sessionStorage.setItem(this.STORAGE_KEYS.SELECTED_STATS, JSON.stringify([...this.filters.selectedStats]));
             sessionStorage.setItem(this.STORAGE_KEYS.PURCHASABLE_ONLY, JSON.stringify(this.filters.purchasableOnly));
             sessionStorage.setItem(this.STORAGE_KEYS.CURRENT_SORT, this.currentSort);
             sessionStorage.setItem(this.STORAGE_KEYS.ADVANCED_FILTERS_VISIBLE, JSON.stringify(this.advancedFiltersVisible));
@@ -801,6 +859,13 @@ export class ItemsBranch extends Branch {
             if (savedDebuffs) {
                 const debuffsArray = JSON.parse(savedDebuffs);
                 this.filters.selectedDebuffs = new Set(debuffsArray);
+            }
+
+            // Восстанавливаем статистики
+            const savedStats = sessionStorage.getItem(this.STORAGE_KEYS.SELECTED_STATS);
+            if (savedStats) {
+                const statsArray = JSON.parse(savedStats);
+                this.filters.selectedStats = new Set(statsArray);
             }
 
             // Восстанавливаем фильтр покупаемости
@@ -894,6 +959,17 @@ export class ItemsBranch extends Branch {
                 const tooltipText = item.tooltips.join(' ').toLowerCase();
                 return Array.from(this.filters.selectedDebuffs).some(debuff =>
                     tooltipText.includes(debuff.toLowerCase())
+                );
+            });
+        }
+
+        // Фильтр по статистикам
+        if (this.filters.selectedStats.size > 0) {
+            filtered = filtered.filter(item => {
+                const tooltipText = item.tooltips.join(' ').toLowerCase();
+                return Array.from(this.filters.selectedStats).some(stat =>
+                    tooltipText.includes(stat.toLowerCase()) ||
+                    (item.allStats && Object.keys(item.allStats).some(key => key.toLowerCase().includes(stat.toLowerCase())))
                 );
             });
         }
