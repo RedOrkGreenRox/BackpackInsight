@@ -126,6 +126,34 @@ export class ItemDetailBranch extends Branch {
         return name.toLowerCase().split(' ').join('-');
     }
 
+    private getItemImagePath(item: ItemDefinition): string {
+        // Проверяем условие для Special предметов с тултипом "Step {римское число}"
+        if (item.rarity === 'Special' && item.tooltips.length > 0) {
+            const firstTooltip = item.tooltips[0];
+            const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
+            
+            if (stepMatch) {
+                const romanNumeral = stepMatch[1];
+                // Конвертируем римское число в арабское
+                const arabicNumber = this.romanToArabic(romanNumeral);
+                return `heist-plan-${arabicNumber}`;
+            }
+        }
+        
+        // Стандартная логика для остальных предметов
+        return this.toSlug(item.name);
+    }
+
+    private romanToArabic(roman: string): number {
+        const romanNumerals: Record<string, number> = {
+            'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+            'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10,
+            'XI': 11, 'XII': 12, 'XIII': 13, 'XIV': 14, 'XV': 15,
+            'XVI': 16, 'XVII': 17, 'XVIII': 18, 'XIX': 19, 'XX': 20
+        };
+        return romanNumerals[roman] || 1;
+    }
+
     protected getHtml(data?: any): string {
         this.data = data || {};
 
@@ -224,7 +252,7 @@ export class ItemDetailBranch extends Branch {
         };
         
         // Форматирование имени файла (тот же slug)
-        const imageName = this.toSlug(item.name);
+        const imageName = this.getItemImagePath(item);
 
         // Используем requestAnimationFrame для плавной замены skeleton на реальный контент
         requestAnimationFrame(() => {
@@ -288,7 +316,7 @@ export class ItemDetailBranch extends Branch {
     private updateSEO(item: ItemDefinition): void {
         const itemName = item.name;
         const itemDescription = item.tooltips ? item.tooltips.join(' ').substring(0, 160) : `${itemName} - предмет из игры Backpack Brawl`;
-        const itemImage = `/images/items/webp/${this.toSlug(item.name)}.webp`;
+        const itemImage = `/images/items/webp/${this.getItemImagePath(item)}.webp`;
         const currentUrl = window.location.href;
         const isProfile = !!this.data.playerItem;
         
@@ -357,7 +385,7 @@ export class ItemDetailBranch extends Branch {
             "@type": "Thing",
             "name": item.name,
             "description": item.tooltips ? item.tooltips.join(' ') : `${item.name} - предмет из игры Backpack Brawl`,
-            "image": `https://backpackinsight.pages.dev/images/items/webp/${this.toSlug(item.name)}.webp`,
+            "image": `https://backpackinsight.pages.dev/images/items/webp/${this.getItemImagePath(item)}.webp`,
             "identifier": item.id,
             "category": item.itemTypes?.join(', ') || 'Предмет',
             "brand": {

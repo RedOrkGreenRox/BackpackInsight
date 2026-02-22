@@ -637,6 +637,34 @@ export class ItemsBranch extends Branch {
         this.renderGrid();
     }
 
+    private getItemImagePath(item: ItemDefinition): string {
+        // Проверяем условие для Special предметов с тултипом "Step {римское число}"
+        if (item.rarity === 'Special' && item.tooltips.length > 0) {
+            const firstTooltip = item.tooltips[0];
+            const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
+            
+            if (stepMatch) {
+                const romanNumeral = stepMatch[1];
+                // Конвертируем римское число в арабское
+                const arabicNumber = this.romanToArabic(romanNumeral);
+                return `heist-plan-${arabicNumber}`;
+            }
+        }
+        
+        // Стандартная логика для остальных предметов
+        return item.name.toLowerCase().split(' ').join('-');
+    }
+
+    private romanToArabic(roman: string): number {
+        const romanNumerals: Record<string, number> = {
+            'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+            'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10,
+            'XI': 11, 'XII': 12, 'XIII': 13, 'XIV': 14, 'XV': 15,
+            'XVI': 16, 'XVII': 17, 'XVIII': 18, 'XIX': 19, 'XX': 20
+        };
+        return romanNumerals[roman] || 1;
+    }
+
     private renderGrid() {
         const grid = this.container?.querySelector('#wikiItemsGrid');
         if (!grid) return;
@@ -645,11 +673,11 @@ export class ItemsBranch extends Branch {
         const fragment = document.createDocumentFragment();
 
         this.filteredItems.forEach((item, index) => {
-            // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
-            const slug = item.name.toLowerCase().split(' ').join('-');
+            // Определяем путь к картинке
+            const imagePath = this.getItemImagePath(item);
 
             const link = document.createElement('a');
-            link.href = `/item/${slug}`;
+            link.href = `/item/${item.name.toLowerCase().split(' ').join('-')}`;
             link.setAttribute('data-link', '');
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';
@@ -668,9 +696,9 @@ export class ItemsBranch extends Branch {
             card.innerHTML = `
                 <div class="item-image-wrapper">
                     <picture>
-                        <source srcset="/images/items/avif/${slug}.avif" type="image/avif">
-                        <source srcset="/images/items/webp/${slug}.webp" type="image/webp">
-                        <img src="/images/items/webp/${slug}.webp"
+                        <source srcset="/images/items/avif/${imagePath}.avif" type="image/avif">
+                        <source srcset="/images/items/webp/${imagePath}.webp" type="image/webp">
+                        <img src="/images/items/webp/${imagePath}.webp"
                              alt="${item.name}" 
                              loading="lazy" 
                              class="item-icon"
