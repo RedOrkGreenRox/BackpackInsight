@@ -352,26 +352,6 @@ export class ItemsBranch extends Branch {
         // Теперь дропдауны не закрываются при клике вне
     }
 
-    private closeAllDropdowns(excludeId?: string): void {
-        const dropdowns = this.container?.querySelectorAll('.dropdown-content');
-        const toggles = this.container?.querySelectorAll('.dropdown-toggle');
-        
-        dropdowns?.forEach(dropdown => {
-            if (dropdown.id !== excludeId) {
-                dropdown.classList.remove('show');
-            }
-        });
-        
-        toggles?.forEach(toggle => {
-            const targetId = (toggle as HTMLElement).dataset.target;
-            if (targetId !== excludeId) {
-                const arrow = toggle.querySelector('.dropdown-arrow') as HTMLElement;
-                if (arrow) arrow.textContent = '▼';
-                toggle.classList.remove('open');
-            }
-        });
-    }
-
     private async loadItems() {
         try {
             this.items = await ApiService.getItems();
