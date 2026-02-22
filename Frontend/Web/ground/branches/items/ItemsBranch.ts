@@ -509,6 +509,11 @@ export class ItemsBranch extends Branch {
         if (icon) {
             icon.textContent = this.advancedFiltersVisible ? '▲' : '▼';
         }
+        
+        // Обновляем AOS после закрытия панели, чтобы анимации применились к видимым элементам
+        if (!this.advancedFiltersVisible) {
+            setTimeout(() => AOS.refresh(), 100);
+        }
     }
 
     private clearFilters() {
