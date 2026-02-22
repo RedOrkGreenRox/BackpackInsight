@@ -65,6 +65,9 @@ export class SortController {
             });
         };
 
+        // Применяем сортировку по умолчанию при инициализации
+        applyToAll();
+
         this.addListener(sortBtn, 'click', () => {
             const currentIdx = sortModes.indexOf(this.currentHeroSort);
             this.currentHeroSort = sortModes[(currentIdx + 1) % sortModes.length] as any;
