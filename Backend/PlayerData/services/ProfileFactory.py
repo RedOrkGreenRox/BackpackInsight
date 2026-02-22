@@ -92,38 +92,55 @@ class ProfileFactory:
         return profile
 
     @staticmethod
+    def _parse_skins(ul_list: List[str], game_data: Dict[str, Any]) -> None:
+        """
+        Парсит список UL для извлечения скинов.
+        """
+        skin_pattern = re.compile(r"^(.+)Skin(.+)$")
+        
+        for unlock in ul_list:
+            if not isinstance(unlock, str) or "Skin" not in unlock:
+                continue
+                
+            match = skin_pattern.match(unlock)
+            if not match:
+                continue
+                
+            character, skin = match.groups()
+            if not (character.isalnum() and skin.isalnum()):
+                continue
+                
+            if character not in game_data["Skins"]:
+                game_data["Skins"][character] = []
+            game_data["Skins"][character].append(skin)
+    
+    @staticmethod
+    def _parse_banners(ul_list: List[str], game_data: Dict[str, Any]) -> None:
+        """
+        Парсит список UL для извлечения баннеров.
+        """
+        for unlock in ul_list:
+            if not isinstance(unlock, str) or "Banner" not in unlock:
+                continue
+                
+            parts = unlock.split("Banner")
+            if len(parts) == 0:
+                continue
+                
+            banner_name = parts[0]
+            if not banner_name.isalnum():
+                continue
+                
+            game_data["Banners"].append(banner_name)
+    
+    @staticmethod
     def _parse_unlockables(ul_list: List[str], game_data: Dict[str, Any]):
         """
         Аналог методов get_skins и get_banners из оригинального Profile.py.
         Парсит список UL для извлечения косметики.
         """
-        # Регулярное выражение для безопасного парсинга скинов
-        # Ожидает формат: HeroName + "Skin" + SkinName
-        # Пример: BarbarianSkin01
-        skin_pattern = re.compile(r"^(.+)Skin(.+)$")
-
-        for unlock in ul_list:
-            if not isinstance(unlock, str):
-                continue
-
-            # Парсинг скинов
-            if "Skin" in unlock:
-                match = skin_pattern.match(unlock)
-                if match:
-                    character, skin = match.groups()
-                    # Санитайзинг: разрешаем только буквы и цифры
-                    if character.isalnum() and skin.isalnum():
-                        if character not in game_data["Skins"]:
-                            game_data["Skins"][character] = []
-                        game_data["Skins"][character].append(skin)
-
-            # Парсинг баннеров (формат: BannerNameBanner)
-            if "Banner" in unlock:
-                parts = unlock.split("Banner")
-                if len(parts) > 0:
-                    banner_name = parts[0]
-                    if banner_name.isalnum(): # Санитайзинг
-                        game_data["Banners"].append(banner_name)
+        ProfileFactory._parse_skins(ul_list, game_data)
+        ProfileFactory._parse_banners(ul_list, game_data)
 
     @staticmethod
     def _parse_game_info_base(json_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -245,47 +262,70 @@ class ProfileFactory:
         }
 
     @staticmethod
-    def _calculate_stats(game_data: Dict[str, Any], items: List[Item]):
-        # Оптимизация: группируем по definition_id для batch запросов
+    def _calculate_item_stats(items: List[Item]) -> Dict[str, int]:
+        """
+        Calculate item statistics by rarity.
+        """
         rarity_map = {}
         for item in items:
             if item.definition_id not in rarity_map:
                 cached_def = ProfileFactory._definition_cache.get(item.definition_id)
                 rarity_map[item.definition_id] = cached_def.rarity if cached_def else "Common"
         
+        item_stats = {}
         for item in items:
             rarity = rarity_map.get(item.definition_id, "Common")
-            game_data["ItemStats"][rarity] = game_data["ItemStats"].get(rarity, 0) + 1
-
-        total_xp = sum(item.total_xp for item in items)
-        game_data["PlayerExperienceTotal"] = total_xp
-
+            item_stats[rarity] = item_stats.get(rarity, 0) + 1
+        
+        return item_stats
+    
+    @staticmethod
+    def _calculate_level(total_xp: int) -> tuple[int, int, int]:
+        """
+        Calculate player level and experience from total XP.
+        Returns: (level, current_xp, xp_needed)
+        """
         xp = total_xp
         lvl = 1
+        
         for level_req in PROFILE_EXP_NEED:
             if xp >= level_req:
                 lvl += 1
                 xp -= level_req
             else:
-                game_data["PlayerExperienceCurrent"] = xp
-                game_data["PlayerLevel"] = lvl
-                break
-        else:
-            lvl += xp // 100000
-            xp %= 100000
-            game_data["PlayerExperienceCurrent"] = xp
-            game_data["PlayerLevel"] = lvl
-
-        if game_data["PlayerLevel"] >= 100:
-            game_data["PlayerExperienceNeed"] = 100_000
-        else:
-            idx = game_data["PlayerLevel"] - 1
-            game_data["PlayerExperienceNeed"] = PROFILE_EXP_NEED[idx] if idx < len(PROFILE_EXP_NEED) else 100_000
-
-        trophy = game_data["Trophy"] + game_data["BonusTrophy"]
-        area = "20"
+                return lvl, xp, PROFILE_EXP_NEED[lvl - 1] if lvl - 1 < len(PROFILE_EXP_NEED) else 100_000
+        
+        # Handle levels beyond the defined array
+        lvl += xp // 100_000
+        xp %= 100_000
+        return lvl, xp, 100_000
+    
+    @staticmethod
+    def _calculate_area(trophy: int) -> str:
+        """
+        Calculate player area based on trophy count.
+        """
         for i, area_req in enumerate(PROFILE_AREAS):
             if trophy < area_req:
-                area = f"{i:02d}"
-                break
-        game_data["Area"] = area
+                return f"{i:02d}"
+        return "20"
+    
+    @staticmethod
+    def _calculate_stats(game_data: Dict[str, Any], items: List[Item]):
+        # Calculate item statistics
+        item_stats = ProfileFactory._calculate_item_stats(items)
+        game_data["ItemStats"] = item_stats
+
+        # Calculate total XP
+        total_xp = sum(item.total_xp for item in items)
+        game_data["PlayerExperienceTotal"] = total_xp
+
+        # Calculate level and experience
+        level, current_xp, xp_needed = ProfileFactory._calculate_level(total_xp)
+        game_data["PlayerExperienceCurrent"] = current_xp
+        game_data["PlayerLevel"] = level
+        game_data["PlayerExperienceNeed"] = xp_needed
+
+        # Calculate area from trophies
+        trophy = game_data["Trophy"] + game_data["BonusTrophy"]
+        game_data["Area"] = ProfileFactory._calculate_area(trophy)

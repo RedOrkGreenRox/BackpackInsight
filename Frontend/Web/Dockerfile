@@ -18,6 +18,5 @@ RUN mkdir -p /app/dist_build
 WORKDIR /app/Frontend/Web
 
 # Запускаем сборку в фоне (watch) и сервер
-# Используем concurrently или просто & (в sh)
-# Bun образ имеет sh
-CMD sh -c "bun x vite build --watch --config vite.config.ts --outDir /app/dist_build --emptyOutDir & bun run server.ts"
+# Используем exec form для безопасности
+CMD ["bun", "run", "server.ts"]

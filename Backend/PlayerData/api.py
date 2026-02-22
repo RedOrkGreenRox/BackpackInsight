@@ -28,7 +28,7 @@ app.add_middleware(
 # 2. Проверка секретного ключа (берется из .env сервера)
 API_SECRET = os.getenv("API_SECRET")
 
-async def verify_proxy_secret(x_internal_secret: str = Header(None)):
+def verify_proxy_secret(x_internal_secret: str = Header(None)):
     # Исправлено: Проверяем секрет ТОЛЬКО если он задан в переменных окружения.
     # Если API_SECRET не задан (локальная разработка), разрешаем доступ.
     if API_SECRET and x_internal_secret != API_SECRET:
