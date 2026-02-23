@@ -5,9 +5,7 @@ export { UploadZoneRenderer } from './upload-zone/upload-zone';
 export { ErrorRenderer } from './error/error';
 
 // Менеджеры
-export { FormManager } from './managers/FormManager';
-export { DraftManager } from './managers/DraftManager';
-export { ValidationManager } from './managers/ValidationManager';
+export { FormManager, DraftManager, MainManager, ValidationManager, SubmitManager } from './managers';
 
 // Существующий UploadHandler
 export { UploadHandler } from './upload-zone/upload';

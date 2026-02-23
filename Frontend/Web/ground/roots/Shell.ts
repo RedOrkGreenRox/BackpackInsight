@@ -45,6 +45,13 @@ export class Shell {
 
         switcher.addEventListener('click', async () => {
             const newLang = i18n.currentLang === 'ru' ? 'en' : 'ru';
+            
+            // Сохраняем текущую редкость перед сменой языка, если на 404
+            if (document.body.classList.contains('error-404')) {
+                const { BackgroundManager } = await import('../branches/404/_404/background/background');
+                BackgroundManager.setLanguageChanging(true);
+            }
+            
             await i18n.setLanguage(newLang);
             
             // Перерисовываем статический контент и текущую страницу
@@ -53,12 +60,6 @@ export class Shell {
             
             // Обновляем текст на самой кнопке
             switcher.textContent = t('lang_switch_button', { lang: i18n.currentLang === 'ru' ? 'EN' : 'RU' });
-            
-            // Если на 404 странице, обновляем фон без смены редкости
-            if (document.body.classList.contains('error-404')) {
-                const { BackgroundManager } = await import('../branches/404/_404/background/background');
-                BackgroundManager.refresh404Background();
-            }
         });
 
         this.sidebar.appendChild(switcher);

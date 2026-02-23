@@ -1,6 +1,36 @@
 .container-404 {
-    text-align: center;
-    padding-top: 20vh;
-    position: relative;
+    /* Абсолютное позиционирование для точного центрирования */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Темная подложка (Dark Glass) */
+    background: rgba(0, 0, 0, 0.7); /* Увеличенная непрозрачность */
+    /* УБРАН БЛЮР */
+
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая рамка */
+
+    padding: clamp(20px, 5vw, 60px);
     z-index: 10;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+
+    /* Тень блока, чтобы отделить его от фона */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* Мобильная адаптация для высокого контента */
+@media (max-height: 600px) {
+    .container-404 {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 20px auto;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
 }

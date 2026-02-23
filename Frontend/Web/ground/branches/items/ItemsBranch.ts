@@ -730,6 +730,12 @@ export class ItemsBranch extends Branch {
                 // Небольшая задержка для применения display перед добавлением класса
                 setTimeout(() => {
                     panel.classList.add('show');
+                    // Обновляем AOS после открытия меню фильтров
+                    setTimeout(() => {
+                        if (typeof AOS !== 'undefined') {
+                            AOS.refresh();
+                        }
+                    }, 50);
                 }, 10);
                 toggleBtn.classList.add('open');
             } else {
@@ -739,6 +745,10 @@ export class ItemsBranch extends Branch {
                 setTimeout(() => {
                     if (!panel.classList.contains('show')) {
                         panel.style.display = 'none';
+                    }
+                    // Обновляем AOS после закрытия меню фильтров
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
                     }
                 }, 400); // Соответствует времени transition в CSS
                 toggleBtn.classList.remove('open');
@@ -1137,6 +1147,7 @@ export class ItemsBranch extends Branch {
             (link as any)._stateData = {itemData: item};
 
             link.dataset['aos'] = 'fade-up';
+            link.dataset['aosOffset'] = '-400px';
             const delay = Math.min((index % 10) * 30, 300);
             link.dataset['aosDelay'] = `${delay}`;
 

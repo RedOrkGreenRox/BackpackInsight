@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     AOS.init({
         duration: 800,
         once: false, // Разрешаем повторные анимации
-        offset: -1000, // Запускать за 100px до появления в viewport
+        offset: -400, // Запускать за 400px до появления в viewport
         throttleDelay: 0, // Без задержек
         debounceDelay: 0, // Мгновенная реакция
         mirror: false,

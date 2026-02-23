@@ -1,5 +1,7 @@
+// Стили главной страницы
+@use "../../roots/_roots";
+
 // Импортируем модульные SCSS компоненты
-@use "../../roots/roots";
 @use "_main/container/container";
 @use "_main/title/title";
 @use "_main/upload-zone/upload-zone";
