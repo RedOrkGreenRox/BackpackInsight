@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "lang switch btn fix"
+    upd = "main page refactoring"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
