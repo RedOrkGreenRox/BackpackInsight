@@ -42,21 +42,6 @@ export class Shell {
         const switcher = document.createElement('button');
         switcher.id = 'lang-switcher';
         switcher.textContent = t('lang_switch_button', { lang: i18n.currentLang === 'ru' ? 'EN' : 'RU' });
-        switcher.style.cssText = `
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.3s;
-        `;
-        switcher.onmouseover = () => switcher.style.background = 'rgba(255,255,255,0.2)';
-        switcher.onmouseout = () => switcher.style.background = 'rgba(255,255,255,0.1)';
 
         switcher.addEventListener('click', async () => {
             const newLang = i18n.currentLang === 'ru' ? 'en' : 'ru';

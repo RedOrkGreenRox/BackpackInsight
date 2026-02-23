@@ -14,12 +14,15 @@ BackpackInsight/
 │   ├── PlayerData
 │   │   ├── builds
 │   │   │   ├── __init__.py
-│   │   │   ├── descriptions.py
 │   │   │   ├── German_build_1.json
 │   │   │   ├── German_log_1.json
+│   │   │   ├── icon_parser.py
 │   │   │   ├── itemdefinition_202602081521.csv
-│   │   │   ├── Sky_Dorf_1.json
-│   │   │   └── test_parsing.py
+│   │   │   ├── README_icon_parser.md
+│   │   │   └── Sky_Dorf_1.json
+│   │   ├── di
+│   │   ├── interfaces
+│   │   ├── middleware
 │   │   ├── models
 │   │   │   ├── Hero.py
 │   │   │   ├── Item.py
@@ -38,35 +41,60 @@ BackpackInsight/
 │   │   │   ├── Sky_of_BFG.json
 │   │   │   ├── Teger.json
 │   │   │   └── xr1stos422.json
+│   │   ├── schemas
 │   │   ├── services
-│   │   │   ├── ProfileFactory.py
-│   │   │   └── Search.py
-│   │   ├── __init__.py
+│   │   │   └── ProfileFactory.py
 │   │   ├── api.py
+│   │   ├── constants.py
 │   │   ├── data.py
 │   │   ├── Dockerfile
 │   │   ├── pytest.ini
-│   │   └── requirements.txt
+│   │   ├── requirements.txt
+│   │   └── utils.py
 │   └── __init__.py
 ├── docs
+│   ├── profile_cache_management.md
 │   ├── structure.txt
-│   └── ToDO.txt
+│   ├── ToDO.txt
+│   └── utils_integration_report.md
 ├── Frontend
 │   └── Web
 │       ├── functions
-│       │   └── api
-│       │       └── [[path]].ts
+│       │   ├── api
+│       │   │   ├── item
+│       │   │   │   └── [id].ts
+│       │   │   ├── [[path]].ts
+│       │   │   └── sitemap.ts
+│       │   └── utils
+│       │       └── seo-utils.ts
 │       ├── ground
 │       │   ├── branches
 │       │   │   ├── 404
 │       │   │   │   ├── _404
-│       │   │   │   │   ├── _bg.scss
-│       │   │   │   │   ├── _body.scss
-│       │   │   │   │   ├── _btn.scss
-│       │   │   │   │   ├── _content.scss
-│       │   │   │   │   ├── _overlay.scss
-│       │   │   │   │   ├── _text.scss
-│       │   │   │   │   └── _title.scss
+│       │   │   │   │   ├── background
+│       │   │   │   │   │   ├── background.scss
+│       │   │   │   │   │   └── background.ts
+│       │   │   │   │   ├── body
+│       │   │   │   │   │   └── body.scss
+│       │   │   │   │   ├── button
+│       │   │   │   │   │   ├── button.scss
+│       │   │   │   │   │   └── button.ts
+│       │   │   │   │   ├── container
+│       │   │   │   │   │   ├── container.scss
+│       │   │   │   │   │   └── container.ts
+│       │   │   │   │   ├── content
+│       │   │   │   │   │   └── content.scss
+│       │   │   │   │   ├── navigation
+│       │   │   │   │   │   └── navigation.ts
+│       │   │   │   │   ├── overlay
+│       │   │   │   │   │   └── overlay.scss
+│       │   │   │   │   ├── text
+│       │   │   │   │   │   ├── text.scss
+│       │   │   │   │   │   └── text.ts
+│       │   │   │   │   ├── title
+│       │   │   │   │   │   ├── title.scss
+│       │   │   │   │   │   └── title.ts
+│       │   │   │   │   └── index.ts
 │       │   │   │   ├── 404.scss
 │       │   │   │   └── NotFoundBranch.ts
 │       │   │   ├── itemDetail
@@ -101,6 +129,7 @@ BackpackInsight/
 │       │   │   │   │   │   └── _btn-view-profile.scss
 │       │   │   │   │   ├── container
 │       │   │   │   │   │   └── _container.scss
+│       │   │   │   │   ├── profile-navigation
 │       │   │   │   │   ├── title
 │       │   │   │   │   │   └── _title.scss
 │       │   │   │   │   └── upload-zone
@@ -111,41 +140,42 @@ BackpackInsight/
 │       │   │   │   ├── main.scss
 │       │   │   │   ├── MainBranch.ts
 │       │   │   │   └── style.scss
-│       │   │   └── profile
-│       │   │       ├── _profile
-│       │   │       │   ├── button-download
-│       │   │       │   │   └── _button-download.scss
-│       │   │       │   ├── buttons-sort
-│       │   │       │   │   └── _buttons-sort.scss
-│       │   │       │   ├── header
-│       │   │       │   │   ├── _actual-version.scss
-│       │   │       │   │   ├── _header.scss
-│       │   │       │   │   ├── _nickname.scss
-│       │   │       │   │   ├── _stat-hero-card.scss
-│       │   │       │   │   ├── _stat-items-grid.scss
-│       │   │       │   │   ├── _stat-player-card.scss
-│       │   │       │   │   ├── _stats-heroes-grid.scss
-│       │   │       │   │   ├── _stats-heroes-wrapper.scss
-│       │   │       │   │   └── _stats-player-grid.scss
-│       │   │       │   ├── items
-│       │   │       │   │   ├── _load-more.scss
-│       │   │       │   │   └── items_loader.ts
-│       │   │       │   ├── main-heroes-grid
-│       │   │       │   │   ├── _card.scss
-│       │   │       │   │   ├── _grid.scss
-│       │   │       │   │   ├── _header-row.scss
-│       │   │       │   │   ├── _image.scss
-│       │   │       │   │   ├── _info.scss
-│       │   │       │   │   ├── _level-rating.scss
-│       │   │       │   │   ├── _main-heroes-grid.scss
-│       │   │       │   │   ├── _name.scss
-│       │   │       │   │   └── skins.ts
-│       │   │       │   ├── section-title
-│       │   │       │   │   └── _section-title.scss
-│       │   │       │   └── utils
-│       │   │       │       └── utils.ts
-│       │   │       ├── profile.scss
-│       │   │       └── ProfileBranch.ts
+│       │   │   ├── profile
+│       │   │   │   ├── _profile
+│       │   │   │   │   ├── button-download
+│       │   │   │   │   │   └── _button-download.scss
+│       │   │   │   │   ├── buttons-sort
+│       │   │   │   │   │   └── _buttons-sort.scss
+│       │   │   │   │   ├── header
+│       │   │   │   │   │   ├── _actual-version.scss
+│       │   │   │   │   │   ├── _header.scss
+│       │   │   │   │   │   ├── _nickname.scss
+│       │   │   │   │   │   ├── _stat-hero-card.scss
+│       │   │   │   │   │   ├── _stat-items-grid.scss
+│       │   │   │   │   │   ├── _stat-player-card.scss
+│       │   │   │   │   │   ├── _stats-heroes-grid.scss
+│       │   │   │   │   │   ├── _stats-heroes-wrapper.scss
+│       │   │   │   │   │   └── _stats-player-grid.scss
+│       │   │   │   │   ├── items
+│       │   │   │   │   │   ├── _load-more.scss
+│       │   │   │   │   │   └── items_loader.ts
+│       │   │   │   │   ├── main-heroes-grid
+│       │   │   │   │   │   ├── _card.scss
+│       │   │   │   │   │   ├── _grid.scss
+│       │   │   │   │   │   ├── _header-row.scss
+│       │   │   │   │   │   ├── _image.scss
+│       │   │   │   │   │   ├── _info.scss
+│       │   │   │   │   │   ├── _level-rating.scss
+│       │   │   │   │   │   ├── _main-heroes-grid.scss
+│       │   │   │   │   │   ├── _name.scss
+│       │   │   │   │   │   └── skins.ts
+│       │   │   │   │   ├── section-title
+│       │   │   │   │   │   └── _section-title.scss
+│       │   │   │   │   └── utils
+│       │   │   │   │       └── utils.ts
+│       │   │   │   ├── profile.scss
+│       │   │   │   └── ProfileBranch.ts
+│       │   │   └── BaseBranch.ts
 │       │   ├── localization
 │       │   │   └── i18n.ts
 │       │   ├── roots
@@ -193,18 +223,24 @@ BackpackInsight/
 │       │   ├── types
 │       │   │   └── global.d.ts
 │       │   ├── utils
+│       │   │   ├── _json-validation
+│       │   │   │   └── json-validation.scss
 │       │   │   ├── _loading-states
 │       │   │   │   └── loading-states.scss
 │       │   │   ├── ApiService.ts
 │       │   │   ├── eventUtils.ts
 │       │   │   ├── icon-parser.ts
 │       │   │   ├── itemCache.ts
+│       │   │   ├── JsonValidator.ts
 │       │   │   ├── LoadingStates.ts
 │       │   │   ├── PaginationController.ts
+│       │   │   ├── profileCacheUtils.ts
 │       │   │   ├── screenshotUtils.ts
 │       │   │   └── SortController.ts
 │       │   ├── core.html
 │       │   └── core.ts
+│       ├── scripts
+│       │   └── optimize-images.js
 │       ├── static
 │       │   ├── fonts
 │       │   │   ├── NotoSans-Bold.woff2
@@ -283,6 +319,7 @@ BackpackInsight/
 │       │   │   │   │   ├── armor.avif
 │       │   │   │   │   ├── bleed.avif
 │       │   │   │   │   ├── blind.avif
+│       │   │   │   │   ├── bolt.avif
 │       │   │   │   │   ├── buff.avif
 │       │   │   │   │   ├── burn.avif
 │       │   │   │   │   ├── buzz.avif
@@ -356,84 +393,161 @@ BackpackInsight/
 │       │   │   │   │   ├── typerat.avif
 │       │   │   │   │   ├── typeskull.avif
 │       │   │   │   │   └── typetool.avif
-│       │   │   │   └── webp
-│       │   │   │       ├── accuracy.webp
-│       │   │   │       ├── armor.webp
-│       │   │   │       ├── bleed.webp
-│       │   │   │       ├── blind.webp
-│       │   │   │       ├── buff.webp
-│       │   │   │       ├── burn.webp
-│       │   │   │       ├── buzz.webp
-│       │   │   │       ├── celeste.webp
-│       │   │   │       ├── chana.webp
-│       │   │   │       ├── chill.webp
-│       │   │   │       ├── coin.webp
-│       │   │   │       ├── cooldown.webp
-│       │   │   │       ├── critchance.webp
-│       │   │   │       ├── critdamage.webp
-│       │   │   │       ├── curse.webp
-│       │   │   │       ├── damage.webp
-│       │   │   │       ├── dawn.webp
-│       │   │   │       ├── day.webp
-│       │   │   │       ├── debuff.webp
-│       │   │   │       ├── dodge.webp
-│       │   │   │       ├── dorf.webp
-│       │   │   │       ├── dusk.webp
-│       │   │   │       ├── empower.webp
-│       │   │   │       ├── enoch.webp
-│       │   │   │       ├── fatigue.webp
-│       │   │   │       ├── gem.webp
-│       │   │   │       ├── gold.webp
-│       │   │   │       ├── harkon.webp
-│       │   │   │       ├── haste.webp
-│       │   │   │       ├── health.webp
-│       │   │   │       ├── hob.webp
-│       │   │   │       ├── insanity.webp
-│       │   │   │       ├── life.webp
-│       │   │   │       ├── lifesteal.webp
-│       │   │   │       ├── luck.webp
-│       │   │   │       ├── mana.webp
-│       │   │   │       ├── maxhealth.webp
-│       │   │   │       ├── meleeweapon.webp
-│       │   │   │       ├── miss.webp
-│       │   │   │       ├── morrow.webp
-│       │   │   │       ├── night.webp
-│       │   │   │       ├── nymphedora.webp
-│       │   │   │       ├── pepper.webp
-│       │   │   │       ├── pet.webp
-│       │   │   │       ├── poison.webp
-│       │   │   │       ├── potion.webp
-│       │   │   │       ├── rangedweapon.webp
-│       │   │   │       ├── regeneration.webp
-│       │   │   │       ├── resist.webp
-│       │   │   │       ├── resisted.webp
-│       │   │   │       ├── ronan.webp
-│       │   │   │       ├── sage.webp
-│       │   │   │       ├── shared.webp
-│       │   │   │       ├── snowballs.webp
-│       │   │   │       ├── soul.webp
-│       │   │   │       ├── stamina.webp
-│       │   │   │       ├── staminarecovery.webp
-│       │   │   │       ├── staminausage.webp
-│       │   │   │       ├── star.webp
-│       │   │   │       ├── static.webp
-│       │   │   │       ├── stopwatch.webp
-│       │   │   │       ├── stun.webp
-│       │   │   │       ├── thorns.webp
-│       │   │   │       ├── tink.webp
-│       │   │   │       ├── typeaccessory.webp
-│       │   │   │       ├── typearmor.webp
-│       │   │   │       ├── typebag.webp
-│       │   │   │       ├── typecharm.webp
-│       │   │   │       ├── typefish.webp
-│       │   │   │       ├── typefood.webp
-│       │   │   │       ├── typeingredient.webp
-│       │   │   │       ├── typemineral.webp
-│       │   │   │       ├── typeplant.webp
-│       │   │   │       ├── typepotion.webp
-│       │   │   │       ├── typerat.webp
-│       │   │   │       ├── typeskull.webp
-│       │   │   │       └── typetool.webp
+│       │   │   │   ├── webp
+│       │   │   │   │   ├── accuracy.webp
+│       │   │   │   │   ├── armor.webp
+│       │   │   │   │   ├── bleed.webp
+│       │   │   │   │   ├── blind.webp
+│       │   │   │   │   ├── bolt.webp
+│       │   │   │   │   ├── buff.webp
+│       │   │   │   │   ├── burn.webp
+│       │   │   │   │   ├── buzz.webp
+│       │   │   │   │   ├── celeste.webp
+│       │   │   │   │   ├── chana.webp
+│       │   │   │   │   ├── chill.webp
+│       │   │   │   │   ├── coin.webp
+│       │   │   │   │   ├── cooldown.webp
+│       │   │   │   │   ├── critchance.webp
+│       │   │   │   │   ├── critdamage.webp
+│       │   │   │   │   ├── curse.webp
+│       │   │   │   │   ├── damage.webp
+│       │   │   │   │   ├── dawn.webp
+│       │   │   │   │   ├── day.webp
+│       │   │   │   │   ├── debuff.webp
+│       │   │   │   │   ├── dodge.webp
+│       │   │   │   │   ├── dorf.webp
+│       │   │   │   │   ├── dusk.webp
+│       │   │   │   │   ├── empower.webp
+│       │   │   │   │   ├── enoch.webp
+│       │   │   │   │   ├── fatigue.webp
+│       │   │   │   │   ├── gem.webp
+│       │   │   │   │   ├── gold.webp
+│       │   │   │   │   ├── harkon.webp
+│       │   │   │   │   ├── haste.webp
+│       │   │   │   │   ├── health.webp
+│       │   │   │   │   ├── hob.webp
+│       │   │   │   │   ├── insanity.webp
+│       │   │   │   │   ├── life.webp
+│       │   │   │   │   ├── lifesteal.webp
+│       │   │   │   │   ├── luck.webp
+│       │   │   │   │   ├── mana.webp
+│       │   │   │   │   ├── maxhealth.webp
+│       │   │   │   │   ├── meleeweapon.webp
+│       │   │   │   │   ├── miss.webp
+│       │   │   │   │   ├── morrow.webp
+│       │   │   │   │   ├── night.webp
+│       │   │   │   │   ├── nymphedora.webp
+│       │   │   │   │   ├── pepper.webp
+│       │   │   │   │   ├── pet.webp
+│       │   │   │   │   ├── poison.webp
+│       │   │   │   │   ├── potion.webp
+│       │   │   │   │   ├── rangedweapon.webp
+│       │   │   │   │   ├── regeneration.webp
+│       │   │   │   │   ├── resist.webp
+│       │   │   │   │   ├── resisted.webp
+│       │   │   │   │   ├── ronan.webp
+│       │   │   │   │   ├── sage.webp
+│       │   │   │   │   ├── shared.webp
+│       │   │   │   │   ├── snowballs.webp
+│       │   │   │   │   ├── soul.webp
+│       │   │   │   │   ├── stamina.webp
+│       │   │   │   │   ├── staminarecovery.webp
+│       │   │   │   │   ├── staminausage.webp
+│       │   │   │   │   ├── star.webp
+│       │   │   │   │   ├── static.webp
+│       │   │   │   │   ├── stopwatch.webp
+│       │   │   │   │   ├── stun.webp
+│       │   │   │   │   ├── thorns.webp
+│       │   │   │   │   ├── tink.webp
+│       │   │   │   │   ├── typeaccessory.webp
+│       │   │   │   │   ├── typearmor.webp
+│       │   │   │   │   ├── typebag.webp
+│       │   │   │   │   ├── typecharm.webp
+│       │   │   │   │   ├── typefish.webp
+│       │   │   │   │   ├── typefood.webp
+│       │   │   │   │   ├── typeingredient.webp
+│       │   │   │   │   ├── typemineral.webp
+│       │   │   │   │   ├── typeplant.webp
+│       │   │   │   │   ├── typepotion.webp
+│       │   │   │   │   ├── typerat.webp
+│       │   │   │   │   ├── typeskull.webp
+│       │   │   │   │   └── typetool.webp
+│       │   │   │   ├── Accuracy.png
+│       │   │   │   ├── Armor.png
+│       │   │   │   ├── Bleed.png
+│       │   │   │   ├── Blind.png
+│       │   │   │   ├── Bolt.png
+│       │   │   │   ├── Buff.png
+│       │   │   │   ├── Burn.png
+│       │   │   │   ├── Buzz.png
+│       │   │   │   ├── Celeste.png
+│       │   │   │   ├── Chana.png
+│       │   │   │   ├── Chill.png
+│       │   │   │   ├── Cooldown.png
+│       │   │   │   ├── CritChance.png
+│       │   │   │   ├── CritDamage.png
+│       │   │   │   ├── Curse.png
+│       │   │   │   ├── Damage.png
+│       │   │   │   ├── Dawn.png
+│       │   │   │   ├── Day.png
+│       │   │   │   ├── Debuff.png
+│       │   │   │   ├── Dodge.png
+│       │   │   │   ├── Dorf.png
+│       │   │   │   ├── Dusk.png
+│       │   │   │   ├── Empower.png
+│       │   │   │   ├── Enoch.png
+│       │   │   │   ├── Fatigue.png
+│       │   │   │   ├── Gold.png
+│       │   │   │   ├── Harkon.png
+│       │   │   │   ├── Haste.png
+│       │   │   │   ├── Health.png
+│       │   │   │   ├── Hob.png
+│       │   │   │   ├── Insanity.png
+│       │   │   │   ├── Life.png
+│       │   │   │   ├── Lifesteal.png
+│       │   │   │   ├── Luck.png
+│       │   │   │   ├── Mana.png
+│       │   │   │   ├── MaxHealth.png
+│       │   │   │   ├── MeleeWeapon.png
+│       │   │   │   ├── Miss.png
+│       │   │   │   ├── Morrow.png
+│       │   │   │   ├── Night.png
+│       │   │   │   ├── Nymphedora.png
+│       │   │   │   ├── Pepper.png
+│       │   │   │   ├── Pet.png
+│       │   │   │   ├── Poison.png
+│       │   │   │   ├── Potion.png
+│       │   │   │   ├── RangedWeapon.png
+│       │   │   │   ├── Regeneration.png
+│       │   │   │   ├── Resist.png
+│       │   │   │   ├── Resisted.png
+│       │   │   │   ├── Ronan.png
+│       │   │   │   ├── Sage.png
+│       │   │   │   ├── Shared.png
+│       │   │   │   ├── Snowballs.png
+│       │   │   │   ├── Soul.png
+│       │   │   │   ├── Stamina.png
+│       │   │   │   ├── StaminaRecovery.png
+│       │   │   │   ├── StaminaUsage.png
+│       │   │   │   ├── Star.png
+│       │   │   │   ├── Static.png
+│       │   │   │   ├── Stopwatch.png
+│       │   │   │   ├── Stun.png
+│       │   │   │   ├── Thorns.png
+│       │   │   │   ├── Tink.png
+│       │   │   │   ├── TypeAccessory.png
+│       │   │   │   ├── TypeArmor.png
+│       │   │   │   ├── TypeBag.png
+│       │   │   │   ├── TypeCharm.png
+│       │   │   │   ├── TypeFish.png
+│       │   │   │   ├── TypeFood.png
+│       │   │   │   ├── TypeIngredient.png
+│       │   │   │   ├── TypeMineral.png
+│       │   │   │   ├── TypePlant.png
+│       │   │   │   ├── TypePotion.png
+│       │   │   │   ├── TypeRat.png
+│       │   │   │   ├── TypeSkull.png
+│       │   │   │   └── TypeTool.png
 │       │   │   ├── heroes
 │       │   │   │   ├── buzz
 │       │   │   │   │   ├── avif
@@ -829,6 +943,7 @@ BackpackInsight/
 │       │   │   │   │   ├── evergreen-arc.avif
 │       │   │   │   │   ├── excalibur.avif
 │       │   │   │   │   ├── exhaustion-stone.avif
+│       │   │   │   │   ├── experimental-ice-cream.avif
 │       │   │   │   │   ├── expiry-discount.avif
 │       │   │   │   │   ├── extra-long-present.avif
 │       │   │   │   │   ├── eyeball-vessel-empty.avif
@@ -984,31 +1099,6 @@ BackpackInsight/
 │       │   │   │   │   ├── hearts-ablaze.avif
 │       │   │   │   │   ├── heater-shield.avif
 │       │   │   │   │   ├── heavenly-skull.avif
-│       │   │   │   │   ├── heist-plan---anchor.avif
-│       │   │   │   │   ├── heist-plan---axe.avif
-│       │   │   │   │   ├── heist-plan---blacksmith-hammer.avif
-│       │   │   │   │   ├── heist-plan---bolt.avif
-│       │   │   │   │   ├── heist-plan---bottle.avif
-│       │   │   │   │   ├── heist-plan---bow.avif
-│       │   │   │   │   ├── heist-plan---butterfly.avif
-│       │   │   │   │   ├── heist-plan---chefs-hat.avif
-│       │   │   │   │   ├── heist-plan---crab.avif
-│       │   │   │   │   ├── heist-plan---dagger.avif
-│       │   │   │   │   ├── heist-plan---flame.avif
-│       │   │   │   │   ├── heist-plan---hammer.avif
-│       │   │   │   │   ├── heist-plan---kunai.avif
-│       │   │   │   │   ├── heist-plan---lightning-spear.avif
-│       │   │   │   │   ├── heist-plan---pickaxe.avif
-│       │   │   │   │   ├── heist-plan---pumpkin.avif
-│       │   │   │   │   ├── heist-plan---saw.avif
-│       │   │   │   │   ├── heist-plan---scythe.avif
-│       │   │   │   │   ├── heist-plan---shield.avif
-│       │   │   │   │   ├── heist-plan---snowflake.avif
-│       │   │   │   │   ├── heist-plan---sword.avif
-│       │   │   │   │   ├── heist-plan---thorns.avif
-│       │   │   │   │   ├── heist-plan---thundercloud.avif
-│       │   │   │   │   ├── heist-plan---torch.avif
-│       │   │   │   │   ├── heist-plan---viking-sword.avif
 │       │   │   │   │   ├── heist-plan-1.avif
 │       │   │   │   │   ├── heist-plan-2.avif
 │       │   │   │   │   ├── heist-plan-3.avif
@@ -1779,6 +1869,7 @@ BackpackInsight/
 │       │   │   │       ├── evergreen-arc.webp
 │       │   │   │       ├── excalibur.webp
 │       │   │   │       ├── exhaustion-stone.webp
+│       │   │   │       ├── experimental-ice-cream.webp
 │       │   │   │       ├── expiry-discount.webp
 │       │   │   │       ├── extra-long-present.webp
 │       │   │   │       ├── eyeball-vessel-empty.webp
@@ -1934,31 +2025,6 @@ BackpackInsight/
 │       │   │   │       ├── hearts-ablaze.webp
 │       │   │   │       ├── heater-shield.webp
 │       │   │   │       ├── heavenly-skull.webp
-│       │   │   │       ├── heist-plan---anchor.webp
-│       │   │   │       ├── heist-plan---axe.webp
-│       │   │   │       ├── heist-plan---blacksmith-hammer.webp
-│       │   │   │       ├── heist-plan---bolt.webp
-│       │   │   │       ├── heist-plan---bottle.webp
-│       │   │   │       ├── heist-plan---bow.webp
-│       │   │   │       ├── heist-plan---butterfly.webp
-│       │   │   │       ├── heist-plan---chefs-hat.webp
-│       │   │   │       ├── heist-plan---crab.webp
-│       │   │   │       ├── heist-plan---dagger.webp
-│       │   │   │       ├── heist-plan---flame.webp
-│       │   │   │       ├── heist-plan---hammer.webp
-│       │   │   │       ├── heist-plan---kunai.webp
-│       │   │   │       ├── heist-plan---lightning-spear.webp
-│       │   │   │       ├── heist-plan---pickaxe.webp
-│       │   │   │       ├── heist-plan---pumpkin.webp
-│       │   │   │       ├── heist-plan---saw.webp
-│       │   │   │       ├── heist-plan---scythe.webp
-│       │   │   │       ├── heist-plan---shield.webp
-│       │   │   │       ├── heist-plan---snowflake.webp
-│       │   │   │       ├── heist-plan---sword.webp
-│       │   │   │       ├── heist-plan---thorns.webp
-│       │   │   │       ├── heist-plan---thundercloud.webp
-│       │   │   │       ├── heist-plan---torch.webp
-│       │   │   │       ├── heist-plan---viking-sword.webp
 │       │   │   │       ├── heist-plan-1.webp
 │       │   │   │       ├── heist-plan-2.webp
 │       │   │   │       ├── heist-plan-3.webp
@@ -2627,7 +2693,9 @@ BackpackInsight/
 │       │   ├── _headers
 │       │   ├── browserconfig.xml
 │       │   ├── manifest.json
+│       │   ├── robots.txt
 │       │   └── sw.js
+│       ├── _headers
 │       ├── Dockerfile
 │       ├── index.html
 │       ├── package.json
@@ -2655,5 +2723,4 @@ BackpackInsight/
 ├── docker-compose.server.yml
 ├── docker-compose.yml
 ├── package.json
-├── README.md
-└── SCRIPTS.md
+└── README.md
