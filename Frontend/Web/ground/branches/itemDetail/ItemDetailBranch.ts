@@ -22,7 +22,7 @@ export class ItemDetailBranch extends Branch {
     private listScrollY: number = 0;
     private cleanupFns: (() => void)[] = [];
 
-    public getMeta(data?: any): PageMeta {
+    public override getMeta(data?: any): PageMeta {
         let itemName: string;
         if (typeof data?.name === 'string') {
             itemName = data.name;
@@ -73,8 +73,8 @@ export class ItemDetailBranch extends Branch {
         const currentIndex = order.indexOf(currentName);
 
         if (currentIndex !== -1) {
-            this.navigation.prev = currentIndex > 0 ? order[currentIndex - 1] : null;
-            this.navigation.next = currentIndex < order.length - 1 ? order[currentIndex + 1] : null;
+            this.navigation.prev = currentIndex > 0 ? (order[currentIndex - 1] ?? null) : null;
+            this.navigation.next = currentIndex < order.length - 1 ? (order[currentIndex + 1] ?? null) : null;
         }
     }
 
@@ -130,9 +130,11 @@ export class ItemDetailBranch extends Branch {
         // Проверяем условие для Special предметов с тултипом "Step {римское число}"
         if (item.rarity === 'Special' && item.tooltips.length > 0) {
             const firstTooltip = item.tooltips[0];
+            if (!firstTooltip) return this.toSlug(item.name);
+            
             const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
             
-            if (stepMatch) {
+            if (stepMatch && stepMatch[1]) {
                 const romanNumeral = stepMatch[1];
                 // Конвертируем римское число в арабское
                 const arabicNumber = this.romanToArabic(romanNumeral);
@@ -446,7 +448,7 @@ export class ItemDetailBranch extends Branch {
                             const navLinks = this.container?.querySelectorAll('.nav-btn-top.nav-prev, .nav-btn-top.nav-next');
             navLinks?.forEach(link => {
                 link.addEventListener('click', (_e) => {
-                    const targetName = (link as HTMLElement).dataset.targetName;
+                    const targetName = (link as HTMLElement).dataset['targetName'];
                     if (!targetName) return;
 
                     // Ищем данные предмета в сохраненном списке профиля

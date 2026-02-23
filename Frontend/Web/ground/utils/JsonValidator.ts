@@ -86,9 +86,10 @@ export class JsonValidator {
      */
     private static getLineAndColumn(text: string, position: number): { line: number; column: number } {
         const lines = text.substring(0, position).split('\n');
+        const lastLine = lines[lines.length - 1];
         return {
             line: lines.length,
-            column: lines[lines.length - 1].length + 1
+            column: (lastLine ? lastLine.length : 0) + 1
         };
     }
 
@@ -104,7 +105,8 @@ export class JsonValidator {
      */
     private static getLastLineLength(text: string): number {
         const lines = text.split('\n');
-        return lines[lines.length - 1].length;
+        const lastLine = lines[lines.length - 1];
+        return lastLine ? lastLine.length : 0;
     }
 
     /**
@@ -112,7 +114,7 @@ export class JsonValidator {
      */
     private static extractUnexpectedChar(errorMessage: string): string {
         const match = errorMessage.match(/Unexpected token ([^"]+)/);
-        return match ? match[1].trim() : 'неизвестный символ';
+        return match && match[1] ? match[1].trim() : 'неизвестный символ';
     }
 
     /**

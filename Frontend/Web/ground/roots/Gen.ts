@@ -109,10 +109,11 @@ export class Gen {
                         const tempParams: Record<string, string> = {};
 
                         for (let i = 0; i < routeParts.length; i++) {
-                            if (routeParts[i].startsWith(':')) {
-                                const paramName = routeParts[i].slice(1);
-                                tempParams[paramName] = decodeURIComponent(pathParts[i]);
-                            } else if (routeParts[i] !== pathParts[i]) {
+                            const routePart = routeParts[i];
+                            if (routePart && routePart.startsWith(':')) {
+                                const paramName = routePart.slice(1);
+                                tempParams[paramName] = decodeURIComponent(pathParts[i] || '');
+                            } else if (routePart !== pathParts[i]) {
                                 match = false;
                                 break;
                             }

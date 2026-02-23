@@ -13,7 +13,7 @@ export class MainBranch extends Branch {
     private uploadHandler: UploadHandler | null = null;
     private readonly DRAFT_KEY = 'profile_draft_data';
 
-    public getMeta(): PageMeta {
+    public override getMeta(): PageMeta {
         return {
             title: "Backpack Insight — " + t('profile_title'),
             description: "Загрузи свой JSON файл из Backpack Brawl, чтобы увидеть детальную статистику, героев и предметы."

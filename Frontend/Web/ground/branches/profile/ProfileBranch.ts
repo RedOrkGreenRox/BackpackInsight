@@ -93,7 +93,7 @@ export class ProfileBranch extends Branch {
         "Special": 20
     };
 
-    public getMeta(data?: any): PageMeta {
+    public override getMeta(data?: any): PageMeta {
         const d = data as ProfileData;
         // Если данных нет в аргументах, попробуем достать из кэша для мета-тегов
         let metaData = d;
@@ -540,10 +540,10 @@ export class ProfileBranch extends Branch {
         this.addListener(this.container, 'error', (e: Event) => {
             const target = e.target as HTMLElement;
             if (target.tagName === 'SOURCE') return;
-            if (target.tagName === 'IMG' && target.dataset.fallback) {
+            if (target.tagName === 'IMG' && target.dataset['fallback']) {
                 const img = target as HTMLImageElement;
-                if (img.dataset.failed === 'true') return;
-                img.dataset.failed = 'true';
+                if (img.dataset['failed'] === 'true') return;
+                img.dataset['failed'] = 'true';
                 const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = img.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
@@ -672,7 +672,7 @@ export class ProfileBranch extends Branch {
 
         const cards = this.container?.querySelectorAll('.main-hero-card');
         cards?.forEach(card => {
-            const heroName = (card as HTMLElement).dataset.heroName?.toLowerCase();
+            const heroName = (card as HTMLElement).dataset['heroName']?.toLowerCase();
             if (!heroName) return;
             const availableSkins = ['01', ...(skinsMap[heroName] || [])];
             const uniqueSkins = Array.from(new Set(availableSkins)).sort((a, b) => a.localeCompare(b));
@@ -711,8 +711,8 @@ export class ProfileBranch extends Branch {
                     }, 200);
                 }
 
-                (card as HTMLElement).dataset.currentSkin = skin;
-                this.updateHeaderSkin(heroName, skin);
+                (card as HTMLElement).dataset['currentSkin'] = skin;
+                this.updateHeaderSkin(heroName || '', skin);
             };
 
             const prevBtn = card.querySelector('.prev-skin');
@@ -796,8 +796,8 @@ export class ProfileBranch extends Branch {
         this.savedState.currentSkins = {};
         const heroCards = this.container.querySelectorAll('.main-hero-card');
         heroCards.forEach(card => {
-            const heroName = (card as HTMLElement).dataset.heroName;
-            const currentSkin = (card as HTMLElement).dataset.currentSkin;
+            const heroName = (card as HTMLElement).dataset['heroName'];
+            const currentSkin = (card as HTMLElement).dataset['currentSkin'];
             if (heroName && currentSkin) {
                 this.savedState.currentSkins[heroName] = currentSkin;
             }
@@ -909,7 +909,7 @@ export class ProfileBranch extends Branch {
             const invertBtn = this.container.querySelector('#invertToggle') as HTMLButtonElement;
             
             if (sortBtn) {
-                sortBtn.dataset.sort = this.savedState.heroSort.sortBy;
+                sortBtn.dataset['sort'] = this.savedState.heroSort.sortBy;
                 const icon = sortBtn.querySelector('#sortIcon') as HTMLImageElement;
                 const text = sortBtn.querySelector('#sortText') as HTMLSpanElement;
                 
@@ -988,7 +988,7 @@ export class ProfileBranch extends Branch {
                             });
                         }
                         
-                        (heroCard as HTMLElement).dataset.currentSkin = skin;
+                        (heroCard as HTMLElement).dataset['currentSkin'] = skin;
                         this.updateHeaderSkin(heroName, skin);
                     }
                 }

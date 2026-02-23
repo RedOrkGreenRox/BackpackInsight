@@ -103,13 +103,13 @@ export class SortController {
             let valA: number = 0, valB: number = 0;
 
             if (this.currentHeroSort === 'level') {
-                valA = parseInt(a.dataset.level || '0');
-                valB = parseInt(b.dataset.level || '0');
-                if (a.dataset.prestige === 'true') valA += 20;
-                if (b.dataset.prestige === 'true') valB += 20;
+                valA = parseInt(a.dataset['level'] || '0');
+                valB = parseInt(b.dataset['level'] || '0');
+                if (a.dataset['prestige'] === 'true') valA += 20;
+                if (b.dataset['prestige'] === 'true') valB += 20;
             } else if (this.currentHeroSort === 'rating') {
-                valA = parseInt(a.dataset.rating || '0');
-                valB = parseInt(b.dataset.rating || '0');
+                valA = parseInt(a.dataset['rating'] || '0');
+                valB = parseInt(b.dataset['rating'] || '0');
             }
 
             if (valA < valB) return this.sortAsc ? -1 : 1;

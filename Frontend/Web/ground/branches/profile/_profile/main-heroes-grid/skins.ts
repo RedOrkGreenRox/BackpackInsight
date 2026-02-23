@@ -29,8 +29,8 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
     const card = btn.closest('.main-hero-card') as HTMLElement;
     if (!card) return;
 
-    const heroName = card.dataset.heroName;
-    let currentSkin = card.dataset.currentSkin;
+    const heroName = card.dataset['heroName'];
+    let currentSkin = card.dataset['currentSkin'];
 
     if (!heroName) return;
 
@@ -71,14 +71,17 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
     }
 
     const newSkin = heroSkins[newIndex];
-    card.dataset.currentSkin = newSkin;
+    card.dataset['currentSkin'] = newSkin;
 
     // Анимация для карточки героя
     const mainImageContainer = card.querySelector('.main-hero-image');
     if (mainImageContainer) {
         mainImageContainer.classList.add('changing-skin');
         setTimeout(() => {
-            updateHeroImage(mainImageContainer.querySelector('picture'), heroName, newSkin);
+            const picture = mainImageContainer.querySelector('picture');
+            if (picture) {
+                updateHeroImage(picture, heroName!, newSkin);
+            }
             mainImageContainer.classList.remove('changing-skin');
         }, 200); // Должно совпадать с transition в CSS
     }
@@ -88,7 +91,10 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
     if (headerCard) {
         headerCard.classList.add('changing-skin');
         setTimeout(() => {
-            updateHeroImage(headerCard.querySelector('picture'), heroName, newSkin);
+            const picture = headerCard.querySelector('picture');
+            if (picture) {
+                updateHeroImage(picture, heroName!, newSkin);
+            }
             headerCard.classList.remove('changing-skin');
         }, 200);
     }
@@ -109,7 +115,7 @@ function updateHeroImage(picture: Element | null, heroName: string, skinNum: str
     // Убедимся, что skinNum это строка с ведущим нулем (на всякий случай)
     const formattedSkinNum = String(skinNum).padStart(2, '0');
 
-    if (sources.length >= 2) {
+    if (sources.length >= 2 && sources[0] && sources[1]) {
         sources[0].srcset = `/images/heroes/${heroName}/avif/${heroName}${formattedSkinNum}.avif`;
         sources[1].srcset = `/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
     }

@@ -76,7 +76,7 @@ function createIconHtml(iconName: string, title: string): string {
 
     return ` <picture class="text-icon" title="${title}">` +
         `${sources}` +
-        `<img src="${DEFAULT_IMAGE_FORMAT.path}/${iconName.toLowerCase()}.${DEFAULT_IMAGE_FORMAT.ext}" alt="${title}" loading="lazy">` +
+        `<img src="${DEFAULT_IMAGE_FORMAT?.path}/${iconName.toLowerCase()}.${DEFAULT_IMAGE_FORMAT?.ext}" alt="${title}" loading="lazy">` +
         `</picture> `;
 }
 
@@ -174,7 +174,14 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     processedText = processedText.replace(/(^|\n|\\n)([A-Z][a-z]+\s+)([\d.]+(?:-[\d.]+)?)/g, (m, s, w, n) => n.includes('span') ? m : `${s}${w}<span class="value-text">${n}</span>`);
 
     const itemNamesRegex = /(?<!\()\b([A-Z][a-z]+(?:['’]s)?((\s+of)?\s+[A-Z][a-z]+(?:['’]s)?)*)\b/g;
-    processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => FORBIDDEN_NAMES.includes(m.split(/\s+/)[0].replace(/['’]s$/, "")) ? m : `<span class="value-text">${m}</span>`);
+    processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => {
+        const matchResult = m && m[0];
+        if (!matchResult) return m;
+        const nameArray = matchResult.split(/\s+/);
+        const firstName = nameArray[0];
+        if (!firstName) return m;
+        return FORBIDDEN_NAMES.includes(firstName.replace(/['’]s$/, "")) ? m : `<span class="value-text">${matchResult}</span>`;
+    });
 
     // ШАГ 6.1: Специальная логика для Star (Placeholder Star + Name)
     iconsMap.forEach((html, placeholder) => {

@@ -22,7 +22,7 @@ class I18n {
         const savedLang = localStorage.getItem('lang');
         const browserLang = navigator.language.split('-')[0];
         
-        this.currentLang = savedLang || (['ru', 'en'].includes(browserLang) ? browserLang : 'en');
+        this.currentLang = savedLang || (['ru', 'en'].includes(browserLang!) ? browserLang! : 'en');
 
         try {
             await this.loadLanguage(this.currentLang);

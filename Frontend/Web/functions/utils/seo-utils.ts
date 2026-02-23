@@ -4,7 +4,7 @@ function getKeywords(lang: string = 'ru'): string {
         ru: "Backpack Brawl, аналитика, база знаний, предметы, рецепты, профили, игра, стратегия, гайд, тактика",
         en: "Backpack Brawl, analytics, knowledge base, items, recipes, profiles, game, strategy, guide, tactics"
     };
-    return keywords[lang] || keywords.ru;
+    return keywords[lang] || keywords['ru']!;
 }
 
 // Динамическая генерация для Cloudflare Functions

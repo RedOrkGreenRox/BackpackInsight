@@ -307,9 +307,9 @@ export class ItemsBranch extends Branch {
 
         this.container?.addEventListener('error', (e) => {
             const target = e.target as HTMLImageElement;
-            if (target.tagName === 'IMG' && target.dataset.fallback) {
-                if (target.dataset.failed === 'true') return;
-                target.dataset.failed = 'true';
+            if (target.tagName === 'IMG' && target.dataset['fallback']) {
+                if (target.dataset['failed'] === 'true') return;
+                target.dataset['failed'] = 'true';
                 console.warn(`[ItemsBranch] Image not found for item: "${target.alt}". Using placeholder.`);
                 const placeholder = '/images/placeholder/placeholder.webp';
                 const picture = target.parentElement;
@@ -334,7 +334,7 @@ export class ItemsBranch extends Branch {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const targetId = (toggle as HTMLElement).dataset.target;
+                const targetId = (toggle as HTMLElement).dataset['target'];
                 if (!targetId) return;
                 
                 const dropdown = this.container?.querySelector(`#${targetId}`) as HTMLElement;
@@ -541,7 +541,7 @@ export class ItemsBranch extends Branch {
                 button.classList.add(rarityClass);
             }
             
-            button.dataset.value = option;
+            button.dataset['value'] = option;
 
             const iconHtml = this.getIconForFilter(option, containerId);
             button.innerHTML = iconHtml ? iconHtml : `<span>${option}</span>`;
@@ -562,7 +562,7 @@ export class ItemsBranch extends Branch {
                 return; // Не обрабатываем клик, если dropdown закрыт
             }
 
-            const option = button.dataset.value!;
+            const option = button.dataset['value']!;
             if (selectedSet.has(option)) {
                 selectedSet.delete(option);
                 button.classList.remove('active');
@@ -590,7 +590,7 @@ export class ItemsBranch extends Branch {
 
         return `<picture class="filter-icon" title="${title}">` +
             `${sources}` +
-            `<img src="${defaultFormat.path}/${iconName.toLowerCase()}.${defaultFormat.ext}" alt="${title}" loading="lazy">` +
+            `<img src="${defaultFormat?.path}/${iconName.toLowerCase()}.${defaultFormat?.ext}" alt="${title}" loading="lazy">` +
             `</picture>`;
     }
 
@@ -1096,9 +1096,11 @@ export class ItemsBranch extends Branch {
         // Проверяем условие для Special предметов с тултипом "Step {римское число}"
         if (item.rarity === 'Special' && item.tooltips.length > 0) {
             const firstTooltip = item.tooltips[0];
+            if (!firstTooltip) return item.name.toLowerCase().split(' ').join('-');
+            
             const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
             
-            if (stepMatch) {
+            if (stepMatch && stepMatch[1]) {
                 const romanNumeral = stepMatch[1];
                 // Конвертируем римское число в арабское
                 const arabicNumber = this.romanToArabic(romanNumeral);
@@ -1133,7 +1135,7 @@ export class ItemsBranch extends Branch {
 
             const link = document.createElement('a');
             link.href = `/item/${item.name.toLowerCase().split(' ').join('-')}`;
-            link.dataset.link = '';
+            link.dataset['link'] = '';
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';
             link.style.color = 'inherit';
@@ -1141,9 +1143,9 @@ export class ItemsBranch extends Branch {
 
             (link as any)._stateData = {itemData: item};
 
-            link.dataset.aos = 'fade-up';
+            link.dataset['aos'] = 'fade-up';
             const delay = Math.min((index % 10) * 30, 300);
-            link.dataset.aosDelay = `${delay}`;
+            link.dataset['aosDelay'] = `${delay}`;
 
             const card = document.createElement('div');
             card.className = 'item-card';

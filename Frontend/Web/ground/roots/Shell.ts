@@ -29,7 +29,7 @@ export class Shell {
 
     private translateStaticContent() {
         document.querySelectorAll('[data-i18n-key]').forEach(element => {
-            const key = (element as HTMLElement).dataset.i18nKey;
+            const key = (element as HTMLElement).dataset['i18nKey'];
             if (key) {
                 element.textContent = t(key);
             }
