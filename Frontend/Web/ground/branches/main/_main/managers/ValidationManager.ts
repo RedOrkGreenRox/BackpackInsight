@@ -2,14 +2,14 @@ import { ErrorDisplayManager } from './validation';
 import { JsonValidator as GlobalJsonValidator } from '@utils/JsonValidator';
 
 export class ValidationManager {
-    public static validateAndShowError(jsonText: string, errorElement: HTMLElement, tFunction: (key: string) => string): boolean {
+    public static validateAndShowError(jsonText: string, errorElement: HTMLElement, tFunction: (key: string) => string, jsonValidator?: any): boolean {
         if (!jsonText.trim()) {
             ErrorDisplayManager.showError(errorElement, tFunction('error_json_empty'));
             return false;
         }
         
         // Используем JsonValidator если доступен
-        const validatorToUse = GlobalJsonValidator;
+        const validatorToUse = jsonValidator || GlobalJsonValidator;
         if (validatorToUse && validatorToUse.validateJson) {
             const validation = validatorToUse.validateJson(jsonText);
             if (!validation.isValid && validation.error && validation.line && validation.column) {

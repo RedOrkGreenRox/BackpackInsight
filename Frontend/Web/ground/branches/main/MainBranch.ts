@@ -1,5 +1,6 @@
 import { Branch, PageMeta } from '@roots/Branch.ts';
 import { t } from '../../localization/i18n';
+import { JsonValidator } from '@utils/JsonValidator';
 import './main.scss';
 
 // Импортируем все модульные компоненты
@@ -35,7 +36,7 @@ export class MainBranch extends Branch {
         if (!this.container) return;
         
         // Инициализация главного менеджера
-        this.mainManager = new MainManager(this.container, t);
+        this.mainManager = new MainManager(this.container, t, JsonValidator);
         this.mainManager.init();
     }
 

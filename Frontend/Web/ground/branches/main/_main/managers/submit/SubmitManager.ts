@@ -8,10 +8,12 @@ import { ValidationManager } from '../ValidationManager';
 export class SubmitManager {
     private container: HTMLElement;
     private t: (key: string) => string;
+    private jsonValidator: any;
 
-    constructor(container: HTMLElement, t: (key: string) => string) {
+    constructor(container: HTMLElement, t: (key: string) => string, jsonValidator: any) {
         this.container = container;
         this.t = t;
+        this.jsonValidator = jsonValidator;
     }
 
     public async handleSubmit(jsonText: string): Promise<void> {
@@ -19,7 +21,7 @@ export class SubmitManager {
         const submitBtn = this.container?.querySelector('#submitBtn') as HTMLButtonElement;
         
         // Валидация
-        if (!ValidationManager.validateAndShowError(jsonText, errorElement, this.t)) {
+        if (!ValidationManager.validateAndShowError(jsonText, errorElement, this.t, this.jsonValidator)) {
             return;
         }
         
