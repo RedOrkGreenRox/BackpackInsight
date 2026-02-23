@@ -1,6 +1,7 @@
 {
   "sidebar_main": "Home",
   "sidebar_items": "Items",
+  "sidebar_profile": "Profile",
   "profile_title": "Profile Showcase",
   "profile_upload_hint_1": "Click to select",
   "profile_upload_hint_2": "Drag your export here",

@@ -53,7 +53,7 @@ const FORBIDDEN_NAMES = [
     'Reduce', 'Heal', 'Look', 'Spend', 'Deal', 'Next', 'Also', 'Increase', 'Transform', 'Your',
     'That', 'The', 'Add', 'Transfer', 'Attract', 'Trigger', 'Both', 'Restore', 'Brings',
     'Opponent', 'Crack', 'Find', 'Catch', 'No', 'Absorb', 'Block', 'Hits', 'Hammer', 'Break',
-    'Drain', 'Suffer', 'Void', 'Sabotage', "Weaken", "Turns"
+    'Drain', 'Suffer', 'Void', 'Sabotage', "Weaken", "Turns", "Can"
 ];
 
 const KEYWORDS_REGEX = /\b(Discharge|common|magnetic|Sabotage|empty|Lumps\s+of\s+Coal|Hunter['’]s\s+mark|Call\s+of\s+the\s+Void)\b/gi;
@@ -175,12 +175,9 @@ export function parseTextWithIcons(text: string | undefined | null): string {
 
     const itemNamesRegex = /(?<!\()\b([A-Z][a-z]+(?:['’]s)?((\s+of)?\s+[A-Z][a-z]+(?:['’]s)?)*)\b/g;
     processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => {
-        const matchResult = m && m[0];
-        if (!matchResult) return m;
-        const nameArray = matchResult.split(/\s+/);
-        const firstName = nameArray[0];
+        const firstName = m.split(/\s+/)[0];
         if (!firstName) return m;
-        return FORBIDDEN_NAMES.includes(firstName.replace(/['’]s$/, "")) ? m : `<span class="value-text">${matchResult}</span>`;
+        return FORBIDDEN_NAMES.includes(firstName.replace(/['']s$/, "")) ? m : `<span class="value-text">${m}</span>`;
     });
 
     // ШАГ 6.1: Специальная логика для Star (Placeholder Star + Name)

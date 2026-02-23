@@ -19,6 +19,8 @@ export class BackgroundManager {
         else if (rand > 80) rarity = '01';    // 15%
         else rarity = '00';                   // 80%
 
+        // Добавляем класс для блокировки скролла только на 404 странице
+        document.body.classList.add('error-404');
         Shell.getInstance().set404Background(rarity);
     }
 
@@ -26,6 +28,8 @@ export class BackgroundManager {
      * Восстанавливает обычный фон при уходе со страницы
      */
     public static restoreNormalBackground(): void {
+        // Удаляем класс блокировки скролла
+        document.body.classList.remove('error-404');
         Shell.getInstance().setRandomBackground();
     }
 }

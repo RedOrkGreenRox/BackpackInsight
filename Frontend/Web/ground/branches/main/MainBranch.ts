@@ -5,6 +5,7 @@ import { UploadHandler } from './_main/upload-zone/upload';
 import { ApiService } from '../../utils/ApiService';
 import { LoadingStates } from '../../utils/LoadingStates';
 import { JsonValidator } from '../../utils/JsonValidator';
+import { ProfileCacheUtils } from '../../utils/profileCacheUtils';
 import './main.scss';
 
 export class MainBranch extends Branch {
@@ -117,6 +118,10 @@ export class MainBranch extends Branch {
         }
 
         try {
+            // Очищаем кэш профиля перед загрузкой новых данных
+            ProfileCacheUtils.clearAllProfileCache();
+            console.log('[MainBranch] Profile cache cleared before loading new data');
+            
             const data = await ApiService.getProfile(jsonData);
             // Очищаем сохраненные данные после успешной отправки
             this.clearDraft();

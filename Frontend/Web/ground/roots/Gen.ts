@@ -1,6 +1,7 @@
 import { Branch, PageMeta } from './Branch';
 // @ts-ignore
 import AOS from 'aos';
+import { ProfileCacheUtils } from '../utils/profileCacheUtils';
 
 export class Gen {
     private static instance: Gen;
@@ -94,6 +95,11 @@ export class Gen {
         this.isNavigating = true;
 
         const cleanPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+        
+        // Очищаем кэш профиля при переходе на /profile без данных
+        if (cleanPath === '/profile') {
+            ProfileCacheUtils.clearCacheOnNavigation(data);
+        }
         
         let BranchClass = this.routes[cleanPath];
         let routeParams: Record<string, string> = {};
