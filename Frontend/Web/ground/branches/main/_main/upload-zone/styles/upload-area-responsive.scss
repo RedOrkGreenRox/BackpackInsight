@@ -1,0 +1,25 @@
+@media (max-width: 768px) {
+    .upload-area {
+        min-height: 200px;
+        border-radius: 15px;
+    }
+
+    .upload-area textarea {
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-area {
+        min-height: 150px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .upload-area textarea {
+        padding: 12px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}

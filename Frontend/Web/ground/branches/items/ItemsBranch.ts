@@ -751,13 +751,6 @@ export class ItemsBranch extends Branch {
         
         // Сохраняем состояние видимости панели
         this.saveState();
-        
-        // Обновляем AOS после закрытия панели, чтобы анимации применились к видимым элементам
-        if (!this.advancedFiltersVisible) {
-            setTimeout(() => {
-                AOS.refresh();
-            }, 100);
-        }
     }
 
     private clearFilters() {
@@ -1180,9 +1173,26 @@ export class ItemsBranch extends Branch {
 
         grid.appendChild(fragment);
 
-        setTimeout(() => {
+        // Принудительно запускаем анимации для видимых элементов
+        requestAnimationFrame(() => {
             AOS.refresh();
-        }, 100);
+            
+            // Дополнительно принудительно анимируем видимые элементы
+            setTimeout(() => {
+                const elements = grid.querySelectorAll('.item-card-link');
+                elements.forEach((el, index) => {
+                    const rect = el.getBoundingClientRect();
+                    // Если элемент видим на экране
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        // Добавляем анимационные классы вручную
+                        el.classList.add('aos-animate');
+                        // Применяем задержку для последовательного появления
+                        (el as HTMLElement).style.animationDelay = `${Math.min((index % 10) * 30, 300)}ms`;
+                        (el as HTMLElement).style.animation = 'fadeUp 0.6s ease-out forwards';
+                    }
+                });
+            }, 50);
+        });
     }
 
     protected destroy(): void {

@@ -1,8 +1,12 @@
+import { DragDropHandler, FileHandler, ClipboardHandler, UIHandler } from './handlers';
+
 export class UploadHandler {
     private container: HTMLElement;
     private onHideError: () => void;
     private onContentChange: (value: string) => void;
-    private cleanupFns: (() => void)[] = [];
+    private dragDropHandler: DragDropHandler | null = null;
+    private clipboardHandler: ClipboardHandler | null = null;
+    private uiHandler: UIHandler | null = null;
 
     constructor(container: HTMLElement, onHideError: () => void, onContentChange?: (value: string) => void) {
         this.container = container;
@@ -11,132 +15,49 @@ export class UploadHandler {
         this.init();
     }
 
-    private addListener(element: Element | null, event: string, handler: EventListenerOrEventListenerObject) {
-        if (element) {
-            element.addEventListener(event, handler);
-            this.cleanupFns.push(() => element.removeEventListener(event, handler));
-        }
-    }
-
     private init() {
         const area = this.container.querySelector('#uploadArea') as HTMLElement;
         const input = this.container.querySelector('#jsonInput') as HTMLTextAreaElement;
         const fInput = this.container.querySelector('#fileInput') as HTMLInputElement;
         const hint = this.container.querySelector('#uploadHint') as HTMLElement;
 
-        const updateUI = () => {
-            if (hint) hint.style.display = input.value.trim() ? 'none' : 'flex';
-            this.onHideError();
-            this.onContentChange(input.value);
-        };
+        if (!area || !input || !fInput) return;
 
-        const read = (file: File) => {
-            if (!file) return;
-            const r = new FileReader();
-            r.onload = (e) => {
-                if (e.target && typeof e.target.result === 'string') {
-                    input.value = e.target.result;
-                    updateUI();
-                }
-            };
-            r.readAsText(file);
-        };
+        // Инициализация UI Handler
+        this.uiHandler = new UIHandler(input, hint, this.onHideError, this.onContentChange);
 
-        if (area && input && fInput) {
-            // 2. При клике пыталась вставить из буфера обмена.
-            this.addListener(area, 'click', async (e: Event) => {
-                if (e.target === fInput) return;
-                if (e.target === input && input.value.trim()) return;
-
-                try {
-                    const text = await navigator.clipboard.readText();
-                    const trimmed = text.trim();
-                    // Проверяем, похоже ли это на JSON.
-                    // Если скопирован файл (путь), это не будет JSON.
-                    if (trimmed && (trimmed.startsWith('{') || trimmed.startsWith('['))) {
-                        input.value = trimmed;
-                        updateUI();
-                        return;
-                    }
-                } catch (err) {
-                    // Clipboard access denied or empty
-                }
-
-                // Если в буфере нет JSON, открываем выбор файла
-                fInput.click();
+        // Инициализация DragDrop Handler
+        this.dragDropHandler = new DragDropHandler(area, (file: File) => {
+            FileHandler.readAndProcessFile(file, (content: string) => {
+                this.uiHandler?.setValue(content);
             });
+        });
 
-            // 1. При drag&drop принимала содержимое файла
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                this.addListener(area, eventName, (e: Event) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                });
-            });
+        // Инициализация Clipboard Handler
+        this.clipboardHandler = new ClipboardHandler(area, input, fInput, (content: string) => {
+            this.uiHandler?.setValue(content);
+        });
 
-            this.addListener(area, 'dragover', () => area.classList.add('drag-over'));
-            this.addListener(area, 'dragleave', () => area.classList.remove('drag-over'));
-
-            this.addListener(area, 'drop', (e: Event) => {
-                area.classList.remove('drag-over');
-                const dragEvent = e as DragEvent;
-                if (dragEvent.dataTransfer && dragEvent.dataTransfer.files && dragEvent.dataTransfer.files.length > 0) {
-                    const file = dragEvent.dataTransfer.files[0];
-                    if (file) {
-                        read(file);
-                    }
+        // Обработка выбора файла через input
+        fInput.addEventListener('change', () => {
+            if (fInput.files && fInput.files.length > 0) {
+                const file = fInput.files[0];
+                if (file) {
+                    FileHandler.readAndProcessFile(file, (content: string) => {
+                        this.uiHandler?.setValue(content);
+                    });
                 }
-            });
-
-            // 3. Если скопирован файл целиком, принимала его содержимое а не название.
-            this.addListener(input, 'paste', (e: Event) => {
-                const clipboardEvent = e as ClipboardEvent;
-                const data = clipboardEvent.clipboardData;
-                
-                if (data) {
-                    // Проверяем файлы
-                    if (data.files && data.files.length > 0) {
-                        e.preventDefault();
-                        const firstFile = data.files[0];
-                        if (firstFile) {
-                            read(firstFile);
-                        }
-                        return;
-                    }
-                    
-                    // Проверяем items (для совместимости)
-                    const items = data.items;
-                    if (items) {
-                        for (let i = 0; i < items.length; i++) {
-                            const item = items[i];
-                            if (item && item.kind === 'file') {
-                                const file = item.getAsFile();
-                                if (file) {
-                                    e.preventDefault();
-                                    read(file);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            this.addListener(input, 'input', () => updateUI());
-            
-            this.addListener(fInput, 'change', () => {
-                if (fInput.files && fInput.files.length > 0) {
-                    const file = fInput.files[0];
-                    if (file) {
-                        read(file);
-                    }
-                    fInput.value = '';
-                }
-            });
-        }
+                fInput.value = '';
+            }
+        });
     }
 
     public destroy() {
-        this.cleanupFns.forEach(fn => fn());
-        this.cleanupFns = [];
+        this.dragDropHandler?.destroy();
+        this.clipboardHandler?.destroy();
+        this.uiHandler?.destroy();
+        this.dragDropHandler = null;
+        this.clipboardHandler = null;
+        this.uiHandler = null;
     }
 }

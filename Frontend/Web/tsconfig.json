@@ -27,7 +27,8 @@
     "baseUrl": ".",
     "paths": {
       "@roots/*": ["ground/roots/*"],
-      "@branches/*": ["ground/branches/*"]
+      "@branches/*": ["ground/branches/*"],
+      "@utils/*": ["ground/utils/*"]
     }
   },
   "include": [

@@ -22,6 +22,7 @@ export default defineConfig({
         alias: {
             '@roots': resolve(__dirname, 'ground/roots'),
             '@branches': resolve(__dirname, 'ground/branches'),
+            '@utils': resolve(__dirname, 'ground/utils'),
             '/static': '' // Для совместимости путей в коде
         }
     },

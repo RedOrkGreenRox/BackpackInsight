@@ -1,5 +1,8 @@
 @use "upload-area";
 @use "upload-hint";
+@use "button-view-profile";
+@use "../animations/animations";
+@use "zone-styles";
 
 /* Добавляем глобальную видимость текста для всей зоны загрузки */
 .upload-zone {

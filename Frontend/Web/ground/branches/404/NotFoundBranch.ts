@@ -1,4 +1,5 @@
-import { Branch } from '../../roots/Branch';
+import { Branch, PageMeta } from '../../roots/Branch';
+import { t } from '../../localization/i18n';
 import { 
     ContainerRenderer, 
     TitleRenderer, 
@@ -10,6 +11,13 @@ import {
 import './404.scss';
 
 export class NotFoundBranch extends Branch {
+    public override getMeta(): PageMeta {
+        return {
+            title: t('not_found_meta_title'),
+            description: t('not_found_meta_description')
+        };
+    }
+
     protected getHtml(): string {
         const title = TitleRenderer.render();
         const text = TextRenderer.render();

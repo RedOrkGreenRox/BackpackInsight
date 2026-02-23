@@ -1,7 +1,12 @@
-@use "../../roots/roots"; // Вернул
+// Импортируем модульные SCSS компоненты
+@use "../../roots/roots";
 @use "_main/container/container";
 @use "_main/title/title";
 @use "_main/upload-zone/upload-zone";
-@use "_main/btn-view-profile/btn-view-profile";
-@use "_main/animations/animations";
-@use "../../utils/_json-validation/json-validation";
+@use "_main/error/error";
+
+// Основные стили страницы
+.main {
+    min-height: 100vh;
+    padding: 2rem 0;
+}

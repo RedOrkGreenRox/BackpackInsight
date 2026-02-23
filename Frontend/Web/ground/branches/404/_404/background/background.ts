@@ -4,6 +4,8 @@ import { Shell } from '../../../../roots/Shell';
  * Модуль для управления фоном 404 страницы
  */
 export class BackgroundManager {
+    private static currentRarity: string | null = null;
+
     /**
      * Устанавливает случайный фон в зависимости от редкости
      */
@@ -19,6 +21,9 @@ export class BackgroundManager {
         else if (rand > 80) rarity = '01';    // 15%
         else rarity = '00';                   // 80%
 
+        // Сохраняем текущую редкость для проверки
+        this.currentRarity = rarity;
+
         // Добавляем класс для блокировки скролла только на 404 странице
         document.body.classList.add('error-404');
         Shell.getInstance().set404Background(rarity);
@@ -31,5 +36,22 @@ export class BackgroundManager {
         // Удаляем класс блокировки скролла
         document.body.classList.remove('error-404');
         Shell.getInstance().setRandomBackground();
+        this.currentRarity = null;
+    }
+
+    /**
+     * Проверяет, установлен ли 404 фон
+     */
+    public static is404Background(): boolean {
+        return this.currentRarity !== null;
+    }
+
+    /**
+     * Обновляет 404 фон без изменения редкости (для переключения языка)
+     */
+    public static refresh404Background(): void {
+        if (this.currentRarity) {
+            Shell.getInstance().set404Background(this.currentRarity);
+        }
     }
 }

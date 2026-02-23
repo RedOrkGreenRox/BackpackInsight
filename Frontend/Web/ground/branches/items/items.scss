@@ -562,7 +562,6 @@
 
     .wiki-subtitle {
         font-size: 1rem;
-        margin-bottom: 15px;
     }
 }
 
@@ -600,5 +599,17 @@
     .search-input {
         padding: 10px 15px;
         font-size: 0.9rem;
+    }
+}
+
+// Кастомная анимация fadeUp для принудительного запуска
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
