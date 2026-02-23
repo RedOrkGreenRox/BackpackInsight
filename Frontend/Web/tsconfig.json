@@ -3,7 +3,6 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    /* Добавляем обе библиотеки, чтобы TS знал и про браузер, и про воркер */
     "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
     "skipLibCheck": true,
 
@@ -14,11 +13,15 @@
     "isolatedModules": true,
     "noEmit": true,
 
-    /* Linting */
-    "strict": true,
+    /* Максимально строгое Linting */
+    "strict": true,                   // Включает базу: noImplicitAny, strictNullChecks и др.
+    "noImplicitReturns": true,        // Ошибка, если не все пути в функции возвращают значение
+    "noImplicitOverride": true,       // Требует явный 'override' для переопределения методов
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true, // Самая злая настройка: заставляет проверять значение на undefined при обращении по индексу (array[i])
+    "noPropertyAccessFromIndexSignature": true, // Запрещает обращение к полям через точку, если они не описаны явно
 
     /* Paths */
     "baseUrl": ".",

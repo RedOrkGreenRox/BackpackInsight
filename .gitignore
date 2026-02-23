@@ -6,7 +6,8 @@ __pycache__/
 venv/
 .venv/
 .env
-.env.*
+.env.local
+.env.production
 .continue
 
 # --- База данных ---
