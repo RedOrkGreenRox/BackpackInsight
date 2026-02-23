@@ -667,7 +667,10 @@ export class ProfileBranch extends Branch {
         // Приводим все ключи карты скинов к нижнему регистру для надежного сопоставления
         const skinsMap: Record<string, string[]> = {};
         for (const key in rawSkinsMap) {
-            skinsMap[key.toLowerCase()] = rawSkinsMap[key];
+            const value = rawSkinsMap[key];
+            if (value) {
+                skinsMap[key.toLowerCase()] = value;
+            }
         }
 
         const cards = this.container?.querySelectorAll('.main-hero-card');
@@ -712,7 +715,7 @@ export class ProfileBranch extends Branch {
                 }
 
                 (card as HTMLElement).dataset['currentSkin'] = skin;
-                this.updateHeaderSkin(heroName || '', skin);
+                this.updateHeaderSkin(heroName || '', skin || '');
             };
 
             const prevBtn = card.querySelector('.prev-skin');

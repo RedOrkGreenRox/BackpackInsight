@@ -34,6 +34,9 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
 
     if (!heroName) return;
 
+    // Ensure heroName is a string
+    const heroNameStr = heroName || '';
+
     const skinsDataElement = document.getElementById('skins-data');
     if (!skinsDataElement) return;
 
@@ -47,22 +50,26 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
 
     // Формируем массив скинов, приводя все к строкам с ведущим нулем
     let heroSkins = ['01'];
-    if (profileSkins && Array.isArray(profileSkins[heroName])) {
-        const extraSkins = profileSkins[heroName]
+    if (profileSkins && Array.isArray(profileSkins[heroNameStr])) {
+        const extraSkins = profileSkins[heroNameStr]
             .filter(s => s !== null && s !== undefined)
             .map(s => String(s).padStart(2, '0'));
-        heroSkins = heroSkins.concat(extraSkins);
+        heroSkins = ['01', ...extraSkins];
     }
-    heroSkins = [...new Set(heroSkins)].sort(); // Убираем дубликаты и сортируем
+    const uniqueSkins = Array.from(new Set(heroSkins)).sort((a, b) => a.localeCompare(b));
 
-    let currentIndex = heroSkins.indexOf(currentSkin || '');
-    // Если текущий скин не найден (например, из-за формата), пробуем найти "01" или берем первый
-    if (currentIndex === -1) {
-        currentIndex = heroSkins.indexOf('01');
-        if (currentIndex === -1) currentIndex = 0;
+    if (uniqueSkins.length <= 1) {
+        card.querySelectorAll('.skin-btn').forEach(b => (b as HTMLElement).style.display = 'none');
+        return;
     }
 
-    let newIndex = currentIndex + direction;
+    let currentSkinIdx = 0;
+    if (currentSkin) {
+        const index = uniqueSkins.indexOf(currentSkin);
+        if (index !== -1) currentSkinIdx = index;
+    }
+
+    let newIndex = currentSkinIdx + direction;
 
     if (newIndex >= heroSkins.length) {
         newIndex = 0;
@@ -70,8 +77,10 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
         newIndex = heroSkins.length - 1;
     }
 
-    const newSkin = heroSkins[newIndex];
-    card.dataset['currentSkin'] = newSkin;
+    const newSkin = uniqueSkins[newIndex];
+    if (newSkin) {
+        card.dataset['currentSkin'] = newSkin;
+    }
 
     // Анимация для карточки героя
     const mainImageContainer = card.querySelector('.main-hero-image');
@@ -79,21 +88,21 @@ window.changeSkin = function(btn: HTMLElement, direction: number) {
         mainImageContainer.classList.add('changing-skin');
         setTimeout(() => {
             const picture = mainImageContainer.querySelector('picture');
-            if (picture) {
-                updateHeroImage(picture, heroName!, newSkin);
+            if (picture && newSkin) {
+                updateHeroImage(picture, heroNameStr, newSkin);
             }
             mainImageContainer.classList.remove('changing-skin');
         }, 200); // Должно совпадать с transition в CSS
     }
 
     // Анимация для шапки профиля
-    const headerCard = document.querySelector(`.stat-hero-card[data-hero-name="${heroName}"]`);
+    const headerCard = document.querySelector(`.stat-hero-card[data-hero-name="${heroNameStr}"]`);
     if (headerCard) {
         headerCard.classList.add('changing-skin');
         setTimeout(() => {
             const picture = headerCard.querySelector('picture');
-            if (picture) {
-                updateHeroImage(picture, heroName!, newSkin);
+            if (picture && newSkin) {
+                updateHeroImage(picture, heroNameStr, newSkin);
             }
             headerCard.classList.remove('changing-skin');
         }, 200);

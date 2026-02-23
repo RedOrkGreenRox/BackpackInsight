@@ -81,7 +81,10 @@ export class UploadHandler {
                 area.classList.remove('drag-over');
                 const dragEvent = e as DragEvent;
                 if (dragEvent.dataTransfer && dragEvent.dataTransfer.files && dragEvent.dataTransfer.files.length > 0) {
-                    read(dragEvent.dataTransfer.files[0]);
+                    const file = dragEvent.dataTransfer.files[0];
+                    if (file) {
+                        read(file);
+                    }
                 }
             });
 
@@ -122,7 +125,10 @@ export class UploadHandler {
             
             this.addListener(fInput, 'change', () => {
                 if (fInput.files && fInput.files.length > 0) {
-                    read(fInput.files[0]);
+                    const file = fInput.files[0];
+                    if (file) {
+                        read(file);
+                    }
                     fInput.value = '';
                 }
             });
