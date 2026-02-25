@@ -12,7 +12,7 @@ DOCKER_COMPOSE_SERVER_FILE = PROJECT_ROOT / "docker-compose.server.yml"
 # --- UI & Performance Settings ---
 VERBOSE = True  # True — выводит всё (pip, npm, шаги Vite)
 PARANOID_MODE = True  # False — быстрый запуск (кэш). True — чистит всё и пересобирает с нуля.
-SERVER_MODE = False  # True — серверный режим, False — локальный режим
+SERVER_MODE = True  # True — серверный режим, False — локальный режим
 
 # --- Code Flags (приоритет над аргументами командной строки) ---
 # Измените эти значения для переключения режимов без использования аргументов

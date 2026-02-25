@@ -286,7 +286,9 @@ class ProfileFactory:
             # Используем улучшенный fallback
             definition = cls._create_fallback_definition(name, name)
         
-        return Item(level=level, cards=cards, definition_id=definition.item_id)
+        # Используем ID из определения, чтобы избежать DetachedInstanceError
+        definition_id = definition.item_id if hasattr(definition, 'item_id') else definition.id
+        return Item(level=level, cards=cards, definition_id=definition_id)
 
     @staticmethod
     def _parse_technical_info(json_data: Dict[str, Any]) -> Dict[str, Any]:
