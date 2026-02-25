@@ -12,7 +12,7 @@ DOCKER_COMPOSE_SERVER_FILE = PROJECT_ROOT / "docker-compose.server.yml"
 # --- Settings ---
 # Измените эти значения для переключения режимов
 
-SERVER_MODE = False   # True — серверный режим, False — локальный режим
+SERVER_MODE = True   # True — серверный режим, False — локальный режим
 VERBOSE = True       # True — подробный вывод, False — тихий режим
 PARANOID_MODE = True  # True — пересобрать с нуля, False — быстрый запуск
 

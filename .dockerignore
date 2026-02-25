@@ -3,6 +3,5 @@
 **/dist
 **/__pycache__
 .git
-.env
 Frontend/Web/dist
 Frontend/Web/node_modules

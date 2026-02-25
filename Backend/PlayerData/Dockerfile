@@ -12,8 +12,9 @@ ENV PYTHONPATH=/app
 COPY Backend/PlayerData/requirements.txt /app/Backend/PlayerData/requirements.txt
 RUN pip install --no-cache-dir --retries 10 -r Backend/PlayerData/requirements.txt
 
-# 2. Копируем ТОЛЬКО папку Backend и папку DB (если она нужна бэкенду)
-# Это гарантирует, что папка Frontend и корень проекта не попадут в образ
+# 2. Копируем .env файл и папку Backend
+# .env нужен для переменных окружения в контейнере
+COPY .env /app/.env
 COPY Backend /app/Backend
 # Если папка DB находится в корне отдельно от Backend, раскомментируй строку ниже:
 # COPY DB /app/DB

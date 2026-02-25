@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "att 1"
+    upd = "att 2"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
