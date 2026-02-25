@@ -84,7 +84,9 @@ def start_services():
     print(f"   - Initializing Containers (Build & Up)...")
 
     # Теперь команда чистая, без лишних флагов, которые ломали запуск
-    cmd_up = f"docker-compose -f {compose_file} up -d --build"
+    # Используем docker compose (новый синтаксис) или docker-compose (fallback)
+    compose_cmd = "docker compose" if run_command("docker compose version", capture_output=True, silent=True).returncode == 0 else "docker-compose"
+    cmd_up = f"{compose_cmd} -f {compose_file} up -d --build"
 
     # Запускаем. Docker Compose сам подтянет CACHE_BUST из os.environ
     res_up = run_command(cmd_up, silent=False if VERBOSE else True)
@@ -122,7 +124,9 @@ def show_logs():
         targets = "web backend db"
     
     try:
-        subprocess.run(f"docker-compose -f {compose_file} logs -f {targets}", cwd=PROJECT_ROOT, shell=True)
+        # Используем ту же команду что и для запуска
+        compose_cmd = "docker compose" if run_command("docker compose version", capture_output=True, silent=True).returncode == 0 else "docker-compose"
+        subprocess.run(f"{compose_cmd} -f {compose_file} logs -f {targets}", cwd=PROJECT_ROOT, shell=True)
     except KeyboardInterrupt:
         print("\n[Logs] Detached. Containers are still running.")
 
