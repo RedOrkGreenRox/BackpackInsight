@@ -4,7 +4,7 @@
 /assets/*.js
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/css/*.css
+/assets/*.css
   Cache-Control: public, max-age=31536000, immutable
 
 # Шрифты - кешируем на 1 год

@@ -41,7 +41,7 @@ export default defineConfig({
                 assetFileNames: (assetInfo) => {
                     // Разные сроки кеширования для разных типов файлов
                     if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-                        return 'assets/css/[name].[hash][extname]';
+                        return 'assets/[name].[extname]';
                     }
                     if (assetInfo.name && assetInfo.name.match(/\.(png|jpg|jpeg|gif|webp|avif|svg)$/)) {
                         return 'assets/images/[name].[hash][extname]';

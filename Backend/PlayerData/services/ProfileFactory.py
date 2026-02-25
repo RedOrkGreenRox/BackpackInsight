@@ -1,4 +1,5 @@
 from typing import Dict, Any, List, Optional
+import time
 import re
 import logging
 from sqlmodel import Session, select
@@ -18,27 +19,90 @@ class ProfileFactory:
     """
 
     _definition_cache: Dict[str, ItemDefinition] = {}
+    _fallback_count: int = 0
+    _cache_hits: int = 0
+    _cache_misses: int = 0
+    _cache_timestamp: float = 0
+    _cache_ttl: int = 300  # 5 минут
 
     @classmethod
     def get_cached_definitions(cls) -> Dict[str, ItemDefinition]:
         return cls._definition_cache
 
     @classmethod
+    def get_cache_statistics(cls) -> Dict[str, Any]:
+        """Возвращает статистику кэша для мониторинга"""
+        total_requests = cls._cache_hits + cls._cache_misses
+        hit_rate = (cls._cache_hits / total_requests * 100) if total_requests > 0 else 0
+        
+        return {
+            "cache_size": len(cls._definition_cache),
+            "cache_hits": cls._cache_hits,
+            "cache_misses": cls._cache_misses,
+            "hit_rate_percent": round(hit_rate, 2),
+            "fallback_count": cls._fallback_count,
+            "cache_timestamp": cls._cache_timestamp,
+            "cache_ttl_seconds": cls._cache_ttl
+        }
+
+    @classmethod
     def clear_cache(cls):
+        """Очищает кэш и сбрасывает статистику"""
         cls._definition_cache.clear()
+        cls._fallback_count = 0
+        cls._cache_hits = 0
+        cls._cache_misses = 0
+        cls._cache_timestamp = 0
+
+    @classmethod
+    def ensure_cache_fresh(cls, session: Optional[Session] = None):
+        """Проверка и обновление кэша при необходимости"""
+        current_time = time.time()
+        if current_time - cls._cache_timestamp > cls._cache_ttl:
+            if session:
+                cls.refresh_from_database(session)
+            else:
+                cls.preload_definitions()
+            cls._cache_timestamp = current_time
+            logger.info(f"Cache refreshed at {current_time}")
+
+    @classmethod
+    def refresh_from_database(cls, session: Session):
+        """Обновление кэша из БД без полной очистки"""
+        db_items = {def_.item_id: def_ for def_ in session.exec(select(ItemDefinition)).all()}
+        
+        # Обновляем существующие и добавляем новые
+        for item_id, definition in db_items.items():
+            session.expunge(definition)
+            cls._definition_cache[item_id] = definition
+        
+        logger.info(f"Refreshed cache with {len(db_items)} items from database")
+
+    @classmethod
+    def invalidate_cache(cls):
+        """Полная очистка и перезагрузка кэша"""
+        cls.clear_cache()
+        cls.preload_definitions()
+        logger.info("Cache invalidated and reloaded")
 
     @classmethod
     def preload_definitions(cls, session: Optional[Session] = None):
-        items_dict = get_items()
-        for item_id, static_data in items_dict.items():
-            if item_id not in cls._definition_cache:
-                cls._definition_cache[item_id] = cls._create_definition_from_static(static_data)
-
+        """Загружает определения предметов из БД (приоритет) и JSON"""
+        import time
+        cls._cache_timestamp = time.time()
+        
+        # Сначала загружаем из БД (актуальные данные)
         if session:
             existing_defs = session.exec(select(ItemDefinition)).all()
             for definition in existing_defs:
                 session.expunge(definition)
                 cls._definition_cache[definition.item_id] = definition
+        
+        # Затем дополняем из JSON (только недостающие)
+        items_dict = get_items()
+        for item_id, static_data in items_dict.items():
+            if item_id not in cls._definition_cache:
+                cls._definition_cache[item_id] = cls._create_definition_from_static(static_data)
 
     @classmethod
     def create_profile(cls, json_data: Dict[str, Any]) -> Profile:
@@ -205,25 +269,23 @@ class ProfileFactory:
         except ValueError:
             return None
 
+        # Проверяем кэш и считаем статистику
         definition = cls._definition_cache.get(name)
-        if not definition:
+        if definition:
+            cls._cache_hits += 1
+        else:
+            cls._cache_misses += 1
             # Оптимизированный поиск по имени
             for d in cls._definition_cache.values():
                 if d.name == name:
                     definition = d
+                    cls._cache_hits += 1  # Корректируем статистику
                     break
         
         if not definition:
-            # Используем безопасное создание
-            from Backend.PlayerData.utils import create_item_definition_safe
-            try:
-                definition = create_item_definition_safe(name, name, "Common")
-                cls._definition_cache[name] = definition
-                logger.info(f"Created fallback definition for item '{name}'")
-            except ValueError as e:
-                logger.error(f"Failed to create definition for item '{name}': {e}")
-                return None
-                
+            # Используем улучшенный fallback
+            definition = cls._create_fallback_definition(name, name)
+        
         return Item(level=level, cards=cards, definition_id=definition.item_id)
 
     @staticmethod
@@ -261,15 +323,15 @@ class ProfileFactory:
             TECHNICAL_KEYS["RSM"]: json_data.get(TECHNICAL_KEYS["RSM"]),
         }
 
-    @staticmethod
-    def _calculate_item_stats(items: List[Item]) -> Dict[str, int]:
+    @classmethod
+    def _calculate_item_stats(cls, items: List[Item]) -> Dict[str, int]:
         """
         Calculate item statistics by rarity.
         """
         rarity_map = {}
         for item in items:
             if item.definition_id not in rarity_map:
-                cached_def = ProfileFactory._definition_cache.get(item.definition_id)
+                cached_def = cls._definition_cache.get(item.definition_id)
                 rarity_map[item.definition_id] = cached_def.rarity if cached_def else "Common"
         
         item_stats = {}
@@ -279,8 +341,8 @@ class ProfileFactory:
         
         return item_stats
     
-    @staticmethod
-    def _calculate_level(total_xp: int) -> tuple[int, int, int]:
+    @classmethod
+    def _calculate_level(cls, total_xp: int) -> tuple[int, int, int]:
         """
         Calculate player level and experience from total XP.
         Returns: (level, current_xp, xp_needed)
@@ -310,10 +372,10 @@ class ProfileFactory:
                 return f"{i:02d}"
         return "20"
     
-    @staticmethod
-    def _calculate_stats(game_data: Dict[str, Any], items: List[Item]):
+    @classmethod
+    def _calculate_stats(cls, game_data: Dict[str, Any], items: List[Item]):
         # Calculate item statistics
-        item_stats = ProfileFactory._calculate_item_stats(items)
+        item_stats = cls._calculate_item_stats(items)
         game_data["ItemStats"] = item_stats
 
         # Calculate total XP
@@ -321,11 +383,11 @@ class ProfileFactory:
         game_data["PlayerExperienceTotal"] = total_xp
 
         # Calculate level and experience
-        level, current_xp, xp_needed = ProfileFactory._calculate_level(total_xp)
+        level, current_xp, xp_needed = cls._calculate_level(total_xp)
         game_data["PlayerExperienceCurrent"] = current_xp
         game_data["PlayerLevel"] = level
         game_data["PlayerExperienceNeed"] = xp_needed
 
         # Calculate area from trophies
         trophy = game_data["Trophy"] + game_data["BonusTrophy"]
-        game_data["Area"] = ProfileFactory._calculate_area(trophy)
+        game_data["Area"] = cls._calculate_area(trophy)

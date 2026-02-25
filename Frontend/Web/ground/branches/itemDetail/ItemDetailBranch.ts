@@ -1,6 +1,7 @@
 import {Branch, PageMeta} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
 import {ItemDefinition} from '../items/ItemsBranch';
+import {ApiService} from '../../utils/ApiService';
 import {parseTextWithIcons, generateIconsOrText} from '../../utils/icon-parser';
 import {LoadingStates} from '../../utils/LoadingStates';
 import './itemDetail.scss';
@@ -21,6 +22,7 @@ export class ItemDetailBranch extends Branch {
     private navigation: { prev: string | null, next: string | null } = {prev: null, next: null};
     private listScrollY: number = 0;
     private cleanupFns: (() => void)[] = [];
+    private isLoading: boolean = false;
 
     public override getMeta(data?: any): PageMeta {
         let itemName: string;
@@ -156,6 +158,153 @@ export class ItemDetailBranch extends Branch {
         return romanNumerals[roman] || 1;
     }
 
+    /**
+     * Загружает данные всех предметов с API и находит нужный предмет
+     */
+    private async loadItemData(searchSlug: string): Promise<void> {
+        if (this.isLoading) return;
+        
+        this.isLoading = true;
+        
+        try {
+            console.log('[ItemDetailBranch] Loading item data from API...');
+            
+            // Загружаем все предметы с API
+            const allItems = await ApiService.getItems();
+            
+            // Сохраняем в кэш для будущих запросов
+            sessionStorage.setItem('allItems', JSON.stringify(allItems));
+            
+            // Ищем нужный предмет
+            const foundItem = allItems.find((item: ItemDefinition) => this.toSlug(item.name) === searchSlug);
+            
+            if (foundItem) {
+                this.data.itemData = foundItem;
+                
+                // Обновляем имя если нужно
+                if (!this.data.name) {
+                    this.data.name = foundItem.name;
+                }
+                
+                console.log('[ItemDetailBranch] Item data loaded successfully:', foundItem.name);
+                
+                // Перерисовываем страницу с новыми данными
+                this.renderWithLoadedData();
+            } else {
+                console.warn('[ItemDetailBranch] Item not found in API data:', searchSlug);
+                this.renderNotFoundError();
+            }
+        } catch (error) {
+            console.error('[ItemDetailBranch] Error loading item data:', error);
+            this.renderError();
+        } finally {
+            this.isLoading = false;
+        }
+    }
+
+    /**
+     * Перерисовывает страницу после загрузки данных
+     */
+    private renderWithLoadedData(): void {
+        if (!this.container || !this.data.itemData) return;
+        
+        console.log('[ItemDetailBranch] Re-rendering with loaded data...');
+        
+        // Рассчитываем навигацию
+        this.calculateNavigation(this.data.itemData.name);
+        
+        const item = this.data.itemData;
+        const rarity = item.rarity || 'Common';
+        const rarityClass = `rarity-${rarity.toLowerCase()}`;
+        const itemTypesHtml = generateIconsOrText(item.itemTypes);
+        
+        // Определяем базовый URL для ссылок (профиль или вики)
+        const isProfile = !!this.data.playerItem;
+        const baseUrl = isProfile ? '/profile/item' : '/item';
+        const backUrl = isProfile ? '/profile' : '/items';
+        const backTitle = isProfile ? t('sidebar_main') : t('sidebar_items');
+
+        // Функция для генерации ссылки навигации
+        const getNavLink = (targetName: string, direction: 'prev' | 'next') => {
+            const slug = this.toSlug(targetName);
+            const url = `${baseUrl}/${slug}`;
+            return `<a href="${url}" class="nav-btn-top nav-${direction}" data-link data-target-name="${targetName}">${direction === 'prev' ? '❮' : '❯'}</a>`;
+        };
+        
+        // Форматирование имени файла
+        const imageName = this.getItemImagePath(item);
+
+        // Обновляем контент
+        this.container.innerHTML = `
+            <div class="container item-detail-container">
+                <div class="navigation-anchor" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 35rem;">
+                    
+                    <div class="item-navigation-top"> 
+                        <div class="nav-group">
+                            ${this.navigation.prev
+                                ? getNavLink(this.navigation.prev, 'prev')
+                                : '<div class="nav-btn-top disabled">❮</div>'}
+                            
+                            <a href="${backUrl}" class="nav-btn-top back-btn" data-link title="${backTitle}">
+                                <span class="icon">☰</span>
+                            </a>
+                    
+                            ${this.navigation.next
+                                ? getNavLink(this.navigation.next, 'next')
+                                : '<div class="nav-btn-top disabled">❯</div>'}
+                        </div>
+                    </div>
+                    
+                    <div class="item-card-wrapper">
+                        <h1 class="item-title">${item.name}</h1>
+                        <div class="item-header">
+                            <div class="item-header-left">
+                                ${item.connectedHero ? `<div class="item-hero-icon">${this.renderHeroIcon(item.connectedHero)}</div>` : ''}
+                                ${item.coinValue ? this.renderCostIcon(item.coinValue) : ''}
+                            </div>
+                            <div class="item-rarity ${rarityClass}">${rarity}</div>
+                            <div class="item-header-right">
+                                ${itemTypesHtml ? `<div class="item-types-block">${itemTypesHtml}</div>` : ''}
+                            </div>
+                        </div>
+                        <div class="item-visual">
+                            <div class="item-image-wrapper ${rarityClass}">
+                                <picture>
+                                    <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
+                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
+                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
+                                </picture>
+                            </div>
+                        </div>
+                        ${this.renderPlayerInfo()}
+                        ${this.renderWikiInfo(item)}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Инициализируем обработчики событий после рендера
+        this.init();
+    }
+
+    /**
+     * Показывает ошибку "не найдено"
+     */
+    private renderNotFoundError(): void {
+        if (!this.container) return;
+        
+        this.container.innerHTML = `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
+    }
+
+    /**
+     * Показывает ошибку загрузки
+     */
+    private renderError(): void {
+        if (!this.container) return;
+        
+        this.container.innerHTML = `<div class="container"><p>${t('error_server_unavailable')}</p></div>`;
+    }
+
     protected getHtml(data?: any): string {
         this.data = data || {};
 
@@ -216,20 +365,25 @@ export class ItemDetailBranch extends Branch {
         }
 
         const item = this.data.itemData;
-        if (!item) {
-            return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
+        if (!item && !this.isLoading) {
+            // Если данных нет и не загружается, начинаем загрузку
+            this.loadItemData(searchSlug);
+            // Показываем skeleton пока загружаются данные
+            if (this.container) {
+                this.container.innerHTML = `
+                    <div class="container item-detail-container">
+                        ${LoadingStates.createCardSkeleton(1)}
+                        <div style="margin-top: 24px;">
+                            ${LoadingStates.createCardSkeleton(3)}
+                        </div>
+                    </div>
+                `;
+            }
+            return ''; // Возвращаем пустую строку, так как контент рендерится асинхронно
         }
 
-        // Показываем skeleton пока загружаются данные
-        if (this.container) {
-            this.container.innerHTML = `
-                <div class="container item-detail-container">
-                    ${LoadingStates.createCardSkeleton(1)}
-                    <div style="margin-top: 24px;">
-                        ${LoadingStates.createCardSkeleton(3)}
-                    </div>
-                </div>
-            `;
+        if (!item) {
+            return `<div class="container"><p>${t('wiki_item_info_not_found')}</p></div>`;
         }
 
         // Рассчитываем навигацию
@@ -625,6 +779,9 @@ export class ItemDetailBranch extends Branch {
     }
 
     protected destroy(): void {
+        // Сбрасываем флаг загрузки
+        this.isLoading = false;
+        
         // При уходе со страницы предмета восстанавливаем скролл в профиле
         this.restoreProfileScroll();
         

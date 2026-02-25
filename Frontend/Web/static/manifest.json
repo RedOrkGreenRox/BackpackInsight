@@ -12,49 +12,145 @@
   "categories": ["games", "entertainment", "utilities"],
   "icons": [
     {
-      "src": "/images/manifest/icon-72x72.png",
+      "src": "/images/manifest/avif/icon-72x72.avif",
+      "sizes": "72x72",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-72x72.webp",
+      "sizes": "72x72",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-96x96.png",
+      "src": "/images/manifest/avif/icon-96x96.avif",
+      "sizes": "96x96",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-96x96.webp",
+      "sizes": "96x96",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-128x128.png",
+      "src": "/images/manifest/avif/icon-128x128.avif",
+      "sizes": "128x128",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-128x128.webp",
+      "sizes": "128x128",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-144x144.png",
+      "src": "/images/manifest/avif/icon-144x144.avif",
+      "sizes": "144x144",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-144x144.webp",
+      "sizes": "144x144",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-152x152.png",
+      "src": "/images/manifest/avif/icon-152x152.avif",
+      "sizes": "152x152",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-152x152.webp",
+      "sizes": "152x152",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-192x192.png",
+      "src": "/images/manifest/avif/icon-192x192.avif",
+      "sizes": "192x192",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-384x384.png",
+      "src": "/images/manifest/avif/icon-384x384.avif",
+      "sizes": "384x384",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-384x384.webp",
+      "sizes": "384x384",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/icon-512x512.png",
+      "src": "/images/manifest/avif/icon-512x512.avif",
+      "sizes": "512x512",
+      "type": "image/avif",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/webp/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/manifest/png/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"

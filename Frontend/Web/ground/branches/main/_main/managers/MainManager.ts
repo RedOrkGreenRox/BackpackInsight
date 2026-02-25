@@ -2,7 +2,6 @@ import { DraftManager } from './DraftManager';
 import { FormManager } from './FormManager';
 import { SubmitManager } from './submit/SubmitManager';
 import { UploadHandler } from '../upload-zone/upload';
-import { JsonValidator } from '@utils/JsonValidator';
 
 /**
  * Главный менеджер для координации всех компонентов MainBranch
@@ -11,14 +10,12 @@ import { JsonValidator } from '@utils/JsonValidator';
 export class MainManager {
     private container: HTMLElement;
     private t: (key: string) => string;
-    private jsonValidator: any;
     private uploadHandler: UploadHandler | null = null;
     private submitManager: SubmitManager | null = null;
 
-    constructor(container: HTMLElement, t: (key: string) => string, jsonValidator: any) {
+    constructor(container: HTMLElement, t: (key: string) => string) {
         this.container = container;
         this.t = t;
-        this.jsonValidator = jsonValidator;
     }
 
     /**
@@ -60,7 +57,7 @@ export class MainManager {
      * Инициализация менеджера отправки формы
      */
     private initSubmitManager(): void {
-        this.submitManager = new SubmitManager(this.container, this.t, this.jsonValidator);
+        this.submitManager = new SubmitManager(this.container, this.t);
     }
 
     /**

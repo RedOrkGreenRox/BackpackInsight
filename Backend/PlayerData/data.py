@@ -22,14 +22,22 @@ BASE_DIR = Path(__file__).parent
 # Исправленный путь: items.json находится в Backend/DB/items.json
 # BASE_DIR указывает на Backend/PlayerData
 # Нам нужно подняться на уровень выше (в Backend), затем в DB
-ITEMS_PATH = BASE_DIR.parent / "DB" / "items.json"
+ITEMS_PATH = BASE_DIR.parent / "DB" / "items_3_1_0.json"
 
 
 def load_items():
     """Load items with proper error handling"""
     try:
         with open(ITEMS_PATH, "rb") as f:
-            return json.loads(f.read())
+            data = json.loads(f.read())
+            # JSON файл имеет структуру {"items": [...]}
+            if isinstance(data, dict) and "items" in data:
+                return data["items"]
+            elif isinstance(data, list):
+                return data
+            else:
+                logger.error(f"Invalid items file structure: expected dict with 'items' key or list, got {type(data)}")
+                return []
     except FileNotFoundError:
         logger.error(f"Items file not found at {ITEMS_PATH}")
         return []

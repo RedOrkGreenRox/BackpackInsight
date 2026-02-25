@@ -7,7 +7,6 @@ const STATIC_ASSETS = [
     '/',
     '/index.html',
     '/assets/main.js',
-    '/assets/main.css',
     '/lang/ru.json',
     '/lang/en.json',
     '/images/const/webp/logo.webp',
