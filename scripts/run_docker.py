@@ -9,24 +9,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCKER_COMPOSE_FILE = PROJECT_ROOT / "docker-compose.yml"
 DOCKER_COMPOSE_SERVER_FILE = PROJECT_ROOT / "docker-compose.server.yml"
 
-# --- UI & Performance Settings ---
-VERBOSE = True  # True — выводит всё (pip, npm, шаги Vite)
-PARANOID_MODE = True  # False — быстрый запуск (кэш). True — чистит всё и пересобирает с нуля.
-SERVER_MODE = True  # True — серверный режим, False — локальный режим
+# --- Settings ---
+# Измените эти значения для переключения режимов
 
-# --- Code Flags (приоритет над аргументами командной строки) ---
-# Измените эти значения для переключения режимов без использования аргументов
-# Установите в None для использования аргументов командной строки
-
-FORCE_SERVER_MODE = None  # True=серверный режим, False=локальный, None=из аргументов
-FORCE_VERBOSE = None      # True=подробный вывод, False=тихий, None=из аргументов  
-FORCE_PARANOID = True     # True=пересобрать с нуля, False=быстрый, None=из аргументов
-FORCE_WEB_ONLY = None     # True=только веб/бэкенд, False=все сервисы, None=из аргументов
-
-# Примеры использования:
-# FORCE_SERVER_MODE = True   # Всегда запускать в серверном режиме
-# FORCE_PARANOID = False    # Всегда быстрый запуск без пересборки
-# FORCE_VERBOSE = True       # Всегда подробный вывод
+SERVER_MODE = True   # True — серверный режим, False — локальный режим
+VERBOSE = True       # True — подробный вывод, False — тихий режим
+PARANOID_MODE = True  # True — пересобрать с нуля, False — быстрый запуск
 
 
 def run_command(command, cwd=PROJECT_ROOT, capture_output=False, silent=False):
@@ -69,7 +57,7 @@ def check_docker():
     print("[1/3] Checking Docker... OK")
 
 
-def start_services(web_only=False):
+def start_services():
     print("[2/3] Starting Services...")
 
     # Выбор файла конфигурации
@@ -97,8 +85,6 @@ def start_services(web_only=False):
 
     # Теперь команда чистая, без лишних флагов, которые ломали запуск
     cmd_up = f"docker-compose -f {compose_file} up -d --build"
-    if web_only:
-        cmd_up += " web"
 
     # Запускаем. Docker Compose сам подтянет CACHE_BUST из os.environ
     res_up = run_command(cmd_up, silent=False if VERBOSE else True)
@@ -120,7 +106,7 @@ def start_services(web_only=False):
     print()
 
 
-def show_logs(web_only=False):
+def show_logs():
     print("[3/3] Attaching to logs...")
     print("-------------------------------------------------------")
     print("Press Ctrl+C to stop watching logs (App continues running)")
@@ -131,9 +117,9 @@ def show_logs(web_only=False):
     
     # Разные сервисы для разных режимов
     if SERVER_MODE:
-        targets = "backend db" if not web_only else "backend"
+        targets = "backend db"
     else:
-        targets = "web backend db" if not web_only else "web"
+        targets = "web backend db"
     
     try:
         subprocess.run(f"docker-compose -f {compose_file} logs -f {targets}", cwd=PROJECT_ROOT, shell=True)
@@ -142,28 +128,6 @@ def show_logs(web_only=False):
 
 
 if __name__ == "__main__":
-    # Аргументы командной строки
-    web_only = "--web-only" in sys.argv
-    arg_verbose = "--verbose" in sys.argv
-    arg_paranoid = "--paranoid" in sys.argv
-    arg_server = "--server" in sys.argv
-    
-    # Применяем флаги из кода с приоритетом над аргументами
-    if FORCE_WEB_ONLY is not None:
-        web_only = FORCE_WEB_ONLY
-    if FORCE_VERBOSE is not None:
-        VERBOSE = FORCE_VERBOSE
-    else:
-        VERBOSE = arg_verbose
-    if FORCE_PARANOID is not None:
-        PARANOID_MODE = FORCE_PARANOID
-    else:
-        PARANOID_MODE = arg_paranoid
-    if FORCE_SERVER_MODE is not None:
-        SERVER_MODE = FORCE_SERVER_MODE
-    else:
-        SERVER_MODE = arg_server
-
     check_docker()
-    start_services(web_only)
-    show_logs(web_only)
+    start_services()
+    show_logs()

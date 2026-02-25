@@ -283,8 +283,10 @@ class ProfileFactory:
                     break
         
         if not definition:
-            # Используем улучшенный fallback
-            definition = cls._create_fallback_definition(name, name)
+            # Пропускаем неизвестные предметы, чтобы избежать Foreign Key ошибки
+            logger.warning(f"Unknown item '{name}' skipped - not found in definitions")
+            cls._fallback_count += 1
+            return None
         
         # Используем ID из определения, чтобы избежать DetachedInstanceError
         definition_id = definition.item_id if hasattr(definition, 'item_id') else definition.id
