@@ -95,7 +95,7 @@ class ProfileFactory:
         if session:
             existing_defs = session.exec(select(ItemDefinition)).all()
             for definition in existing_defs:
-                session.expunge(definition)
+                # НЕ используем expunge - оставляем объект привязанным к сессии
                 cls._definition_cache[definition.item_id] = definition
         
         # Затем дополняем из JSON (только недостающие)
