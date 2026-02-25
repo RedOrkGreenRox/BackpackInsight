@@ -4,9 +4,28 @@ from dotenv import load_dotenv
 from sqlmodel import create_engine, Session
 
 # Load .env file using python-dotenv
-env_path = Path(__file__).resolve().parent.parent / ".env"
-if env_path.exists():
-    load_dotenv(env_path)
+# Универсальный поиск .env файла - работает везде
+def find_env_file():
+    current_file = Path(__file__).resolve()
+    
+    # Ищем .env в текущей директории и вверх по дереву
+    search_paths = [
+        current_file.parent / ".env",           # Backend/DB/.env
+        current_file.parent.parent / ".env",    # Backend/.env  
+        current_file.parent.parent.parent / ".env"  # Корень проекта
+    ]
+    
+    for env_path in search_paths:
+        if env_path.exists():
+            print(f"--- Found .env at: {env_path}")
+            return env_path
+    
+    print("--- WARNING: .env file not found, using defaults")
+    return None
+
+env_file = find_env_file()
+if env_file:
+    load_dotenv(env_file)
 
 # -- Configuration --
 # Security: Use environment variables with safe defaults for dev, but require explicit values in prod
