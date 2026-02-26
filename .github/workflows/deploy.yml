@@ -17,4 +17,4 @@ jobs:
           script: |
             cd ~/BackpackInsight
             git pull origin main
-            docker compose up -d --build --force-recreate backend
+            python3 scripts/run_docker.py
