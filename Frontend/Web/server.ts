@@ -15,10 +15,16 @@ const CACHE_FONTS = {
 };
 
 const CACHE_DEFAULT = {
-    "Cache-Control": "public, max-age=60, immutable"
+    "Cache-Control": "public, max-age=60, immutable",
+    "Content-Type": "application/javascript"
 };
 
-const NO_CACHE_HEADERS = {
+const CACHE_CSS = {
+    "Cache-Control": "public, max-age=60, immutable",
+    "Content-Type": "text/css"
+};
+
+const CACHE_HTML = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
     "Pragma": "no-cache",
     "Expires": "0",
@@ -30,12 +36,18 @@ function getAssetHeaders(path: string) {
     if (path.includes("/fonts/") || path.match(/\.(woff2?|ttf|otf)$/)) {
         return CACHE_FONTS;
     }
-    return CACHE_DEFAULT;
+    if (path.match(/\.(js|mjs)$/)) {
+        return CACHE_DEFAULT;  // JavaScript с правильным Content-Type
+    }
+    if (path.match(/\.css$/)) {
+        return CACHE_CSS;  // CSS с правильным Content-Type
+    }
+    return CACHE_DEFAULT;  // Fallback
 }
 
 serve({
   port: PORT,
-  async fetch(req) {
+  async fetch(req: Request) {
     const url = new URL(req.url);
     const path = decodeURIComponent(url.pathname);
 
@@ -91,13 +103,13 @@ serve({
 
     // --- 4. SPA Fallback (index.html) ---
     let core = file(DIST_DIR + "/core.html");
-    if (await core.exists()) return new Response(core, { headers: NO_CACHE_HEADERS });
+    if (await core.exists()) return new Response(core, { headers: CACHE_HTML });
     
     let index = file(DIST_DIR + "/index.html");
-    if (await index.exists()) return new Response(index, { headers: NO_CACHE_HEADERS });
+    if (await index.exists()) return new Response(index, { headers: CACHE_HTML });
 
     return new Response("<h1>Building... Please wait.</h1>", {
-        headers: NO_CACHE_HEADERS
+        headers: CACHE_HTML
     });
   },
 });
