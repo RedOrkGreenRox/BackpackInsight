@@ -31,8 +31,16 @@ API_SECRET = os.getenv("API_SECRET")
 def verify_proxy_secret(x_internal_secret: str = Header(None)):
     # Исправлено: Проверяем секрет ТОЛЬКО если он задан в переменных окружения.
     # Если API_SECRET не задан (локальная разработка), разрешаем доступ.
+    print(f"--- DEBUG: API_SECRET length = {len(API_SECRET) if API_SECRET else 'None'}")
+    print(f"--- DEBUG: x_internal_secret length = {len(x_internal_secret) if x_internal_secret else 'None'}")
+    print(f"--- DEBUG: API_SECRET first 5 chars = {API_SECRET[:5] if API_SECRET else 'None'}")
+    print(f"--- DEBUG: x_internal_secret first 5 chars = {x_internal_secret[:5] if x_internal_secret else 'None'}")
+    
     if API_SECRET and x_internal_secret != API_SECRET:
+        print("--- DEBUG: Secret mismatch - returning 403")
         raise HTTPException(status_code=403, detail="Direct access forbidden")
+    
+    print("--- DEBUG: Secret verification passed")
 
 # Добавляем проверку секрета как глобальную зависимость для всех путей в api_router
 api_router = APIRouter(prefix="/api", dependencies=[Depends(verify_proxy_secret)])

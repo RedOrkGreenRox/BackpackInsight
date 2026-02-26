@@ -20,6 +20,11 @@ export const onRequest: PagesFunction<{ BACKEND: string; API_SECRET: string }> =
     const newHeaders = new Headers(request.headers);
     newHeaders.set("X-Internal-Secret", env.API_SECRET);
     newHeaders.delete("if-range"); // Очистка для стабильного кеширования
+    
+    // DEBUG: Добавляем логирование для проверки секрета
+    console.log(`--- DEBUG: Sending secret with length: ${env.API_SECRET?.length || 'None'}`);
+    console.log(`--- DEBUG: Secret first 5 chars: ${env.API_SECRET?.substring(0, 5) || 'None'}`);
+    console.log(`--- DEBUG: Target URL: ${destination}`);
 
     // Безопасная проверка метода без .includes для старых таргетов
     const isStaticMethod = request.method === "GET" || request.method === "HEAD";
