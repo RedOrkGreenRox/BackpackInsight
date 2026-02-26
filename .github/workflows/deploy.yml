@@ -16,5 +16,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/BackpackInsight
-            git pull origin main
-            docker compose -f docker-compose.server.yml up -d --build --force-recreate backend
+
+            git fetch origin main
+            git reset --hard origin/main
+            
+            docker compose -f docker-compose.server.yml up -d --build --force-recreate
+
+            docker image prune -f
+            
