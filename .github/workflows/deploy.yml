@@ -35,6 +35,13 @@ jobs:
                 # Дополнительная проверка на скрытые символы
                 echo "Последние 5 символов API_SECRET:"
                 grep API_SECRET .env | tail -c 5 | od -c
+                
+                # Создать отдельный env файл для API_SECRET без интерполяции
+                echo "Создаем отдельный env файл для API_SECRET..."
+                grep API_SECRET .env > .env.api
+                
+                # Экранировать все символы которые могут интерполироваться
+                sed -i 's/\$/\\$/g' .env.api
             else
                 echo "⚠️ .env файл не найден!"
                 exit 1
@@ -67,11 +74,14 @@ jobs:
             echo "Проверка API_SECRET в контейнере:"
             docker exec backpack_insight_backend env | grep API_SECRET | wc -c
             
+            # Проверить что API_SECRET из .env.api имеет правильный размер
+            echo "Размер API_SECRET в .env.api: $(cat .env.api | wc -c)"
+            
             # Если размер не совпадает, пересобрать еще раз
             ENV_SIZE=$(docker exec backpack_insight_backend env | grep API_SECRET | wc -c)
-            FILE_SIZE=$(grep API_SECRET .env | wc -c)
+            API_FILE_SIZE=$(cat .env.api | wc -c)
             
-            if [ "$ENV_SIZE" != "$FILE_SIZE" ]; then
+            if [ "$ENV_SIZE" != "$API_FILE_SIZE" ]; then
                 echo "❌ Размеры не совпадают! Пересобираем..."
                 docker compose -f docker-compose.server.yml down
                 docker compose -f docker-compose.server.yml up -d --build --force-recreate
