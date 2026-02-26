@@ -36,7 +36,8 @@ services:
       - .env
     environment:
       POSTGRES_SERVER: db
-      # API_SECRET передается через env_file - это достаточно
+      # Явно передаем API_SECRET чтобы избежать проблем с env_file
+      API_SECRET: ${API_SECRET}
     depends_on:
       db:
         condition: service_healthy

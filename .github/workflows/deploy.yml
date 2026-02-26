@@ -42,12 +42,32 @@ jobs:
             
             # Полная пересборка контейнеров
             docker compose -f docker-compose.server.yml down
+            
+            # Проверить что Docker прочитает правильный API_SECRET
+            echo "Проверка конфигурации Docker:"
+            docker compose -f docker-compose.server.yml config | grep -A 3 -B 3 API_SECRET
+            
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
             
             # Подождать запуск и проверить
-            sleep 10
+            sleep 15
             echo "Проверка API_SECRET в контейнере:"
             docker exec backpack_insight_backend env | grep API_SECRET | wc -c
+            
+            # Если размер не совпадает, пересобрать еще раз
+            ENV_SIZE=$(docker exec backpack_insight_backend env | grep API_SECRET | wc -c)
+            FILE_SIZE=$(grep API_SECRET .env | wc -c)
+            
+            if [ "$ENV_SIZE" != "$FILE_SIZE" ]; then
+                echo "❌ Размеры не совпадают! Пересобираем..."
+                docker compose -f docker-compose.server.yml down
+                docker compose -f docker-compose.server.yml up -d --build --force-recreate
+                sleep 15
+                echo "Повторная проверка:"
+                docker exec backpack_insight_backend env | grep API_SECRET | wc -c
+            else
+                echo "✅ Размеры совпадают!"
+            fi
             
             # Тест API
             echo "Тестирование API..."
