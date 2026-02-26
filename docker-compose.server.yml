@@ -36,6 +36,8 @@ services:
       - .env
     environment:
       POSTGRES_SERVER: db
+      # Убедимся что API_SECRET не содержит Windows переносов строк
+      API_SECRET: $${API_SECRET//$'\r'/}
     depends_on:
       db:
         condition: service_healthy

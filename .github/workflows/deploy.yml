@@ -20,6 +20,9 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
+            # Конвертировать .env в Unix формат
+            sed -i 's/\r$//' .env
+            
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
 
             docker image prune -f
