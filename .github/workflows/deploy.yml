@@ -17,4 +17,4 @@ jobs:
           script: |
             cd ~/BackpackInsight
             git pull origin main
-            docker compose up -d --build --force-recreate backend
+            docker compose -f docker-compose.server.yml up -d --build --force-recreate backend
