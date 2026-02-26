@@ -54,7 +54,11 @@ def main():
     print(f"Committing: '{message}'")
     run_git(["commit", "-m", message])
 
-    # 8. Пуш
+    # 8. Синхронизация с удаленным репозиторием
+    print("Syncing with remote...")
+    run_git(["pull", "--rebase", "origin", "main"])
+
+    # 9. Пуш
     print("Pushing to origin...")
     run_git(["push", "origin", "HEAD"])
 
