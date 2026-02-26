@@ -49,8 +49,21 @@ jobs:
             
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
             
-            # Подождать запуск и проверить
-            sleep 15
+            # Ждать пока backend станет доступен
+            echo "Ожидание запуска backend..."
+            for i in {1..30}; do
+                if curl -f http://localhost:8000/ > /dev/null 2>&1; then
+                    echo "✅ Backend запущен за $i попыток"
+                    break
+                fi
+                if [ $i -eq 30 ]; then
+                    echo "❌ Backend не запустился за 30 попыток"
+                    docker compose -f docker-compose.server.yml logs --tail=20 backend
+                    exit 1
+                fi
+                sleep 1
+            done
+            
             echo "Проверка API_SECRET в контейнере:"
             docker exec backpack_insight_backend env | grep API_SECRET | wc -c
             
@@ -62,7 +75,20 @@ jobs:
                 echo "❌ Размеры не совпадают! Пересобираем..."
                 docker compose -f docker-compose.server.yml down
                 docker compose -f docker-compose.server.yml up -d --build --force-recreate
-                sleep 15
+                
+                # Ждать повторного запуска
+                for i in {1..30}; do
+                    if curl -f http://localhost:8000/ > /dev/null 2>&1; then
+                        echo "✅ Backend перезапущен за $i попыток"
+                        break
+                    fi
+                    if [ $i -eq 30 ]; then
+                        echo "❌ Backend не перезапустился за 30 попыток"
+                        exit 1
+                    fi
+                    sleep 1
+                done
+                
                 echo "Повторная проверка:"
                 docker exec backpack_insight_backend env | grep API_SECRET | wc -c
             else
