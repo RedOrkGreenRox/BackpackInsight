@@ -20,10 +20,43 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
-            # Конвертировать .env в Unix формат
-            sed -i 's/\r$//' .env
+            # Проверить и конвертировать .env в Unix формат
+            if [ -f .env ]; then
+                echo "Найден .env, конвертируем в Unix формат..."
+                # Показать размер до конвертации
+                echo "Размер API_SECRET до: $(grep API_SECRET .env | wc -c)"
+                
+                # Конвертировать Windows переносы строк в Unix
+                sed -i 's/\r$//' .env
+                
+                # Показать размер после конвертации
+                echo "Размер API_SECRET после: $(grep API_SECRET .env | wc -c)"
+                
+                # Дополнительная проверка на скрытые символы
+                echo "Последние 5 символов API_SECRET:"
+                grep API_SECRET .env | tail -c 5 | od -c
+            else
+                echo "⚠️ .env файл не найден!"
+                exit 1
+            fi
             
+            # Полная пересборка контейнеров
+            docker compose -f docker-compose.server.yml down
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
+            
+            # Подождать запуск и проверить
+            sleep 10
+            echo "Проверка API_SECRET в контейнере:"
+            docker exec backpack_insight_backend env | grep API_SECRET | wc -c
+            
+            # Тест API
+            echo "Тестирование API..."
+            if curl -f http://localhost:8000/ > /dev/null 2>&1; then
+                echo "✅ Backend доступен"
+            else
+                echo "❌ Backend недоступен"
+                docker compose -f docker-compose.server.yml logs --tail=20 backend
+            fi
 
             docker image prune -f
             
