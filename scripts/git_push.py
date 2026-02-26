@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "main page fix"
+    upd = "404 page fix"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

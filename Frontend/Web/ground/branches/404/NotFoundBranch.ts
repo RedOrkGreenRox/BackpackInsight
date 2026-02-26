@@ -5,10 +5,15 @@ import {
     TitleRenderer, 
     TextRenderer, 
     ButtonRenderer, 
-    BackgroundManager, 
     NavigationManager 
 } from './_404';
 import './404.scss';
+
+// Динамический импорт BackgroundManager для избежания конфликта с Shell.ts
+let BackgroundManager: any;
+import('./_404/background/background').then(module => {
+    BackgroundManager = module.BackgroundManager;
+});
 
 export class NotFoundBranch extends Branch {
     public override getMeta(): PageMeta {
@@ -28,11 +33,16 @@ export class NotFoundBranch extends Branch {
     }
 
     protected init(): void {
-        BackgroundManager.set404Background();
+        // Используем BackgroundManager если уже загружен
+        if (BackgroundManager) {
+            BackgroundManager.set404Background();
+        }
         NavigationManager.initNavigation(this.container);
     }
 
     protected destroy(): void {
-        BackgroundManager.restoreNormalBackground();
+        if (BackgroundManager) {
+            BackgroundManager.restoreNormalBackground();
+        }
     }
 }
