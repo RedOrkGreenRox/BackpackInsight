@@ -1,6 +1,6 @@
 // @ts-ignore
 import html2canvas from 'html2canvas';
-import { t } from '../localization/i18n';
+import { t } from '../../../../localization/i18n';
 
 /**
  * Утилита для создания скриншота профиля

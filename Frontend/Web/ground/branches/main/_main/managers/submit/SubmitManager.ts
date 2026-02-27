@@ -1,6 +1,6 @@
 import { ApiService } from '@utils/ApiService';
 import { LoadingStates } from '@utils/LoadingStates';
-import { ProfileCacheUtils } from '@utils/profileCacheUtils';
+import { ProfileCacheUtils } from '@roots/profileCacheUtils';
 import { Gen } from '@roots/Gen';
 import { DraftManager } from '../DraftManager';
 import { ValidationManager } from '../ValidationManager';

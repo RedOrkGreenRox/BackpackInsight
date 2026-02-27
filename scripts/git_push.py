@@ -47,7 +47,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "fix check 2"
+    upd = "profile refactoring 1"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

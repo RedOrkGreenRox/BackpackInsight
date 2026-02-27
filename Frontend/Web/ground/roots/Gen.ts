@@ -1,7 +1,7 @@
 import { Branch, PageMeta } from './Branch';
 // @ts-ignore
 import AOS from 'aos';
-import { ProfileCacheUtils } from '../utils/profileCacheUtils';
+import { ProfileCacheUtils } from './profileCacheUtils';
 
 export class Gen {
     private static instance: Gen;

@@ -1,4 +1,4 @@
-import { t } from '../localization/i18n';
+import { t } from '../../../../localization/i18n';
 // @ts-ignore
 import AOS from 'aos';
 

@@ -1,5 +1,5 @@
 import { ErrorDisplayManager } from './validation';
-import { JsonValidator as GlobalJsonValidator } from '@utils/JsonValidator';
+import { JsonValidator as GlobalJsonValidator } from './validation/JsonValidator';
 
 export class ValidationManager {
     public static validateAndShowError(jsonText: string, errorElement: HTMLElement, tFunction: (key: string) => string): boolean {

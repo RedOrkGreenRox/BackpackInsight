@@ -1,10 +1,9 @@
 import {Branch, PageMeta} from '@roots/Branch.ts';
 import {Gen} from '@roots/Gen.ts';
 import {t} from '../../localization/i18n';
-import {downloadProfileScreenshot} from '../../utils/screenshotUtils';
-import {SortController} from '../../utils/SortController';
-import {PaginationController} from '../../utils/PaginationController';
+import {SortController} from './_profile/sort/SortController';
 import {LoadingStates} from '../../utils/LoadingStates';
+import { ScreenshotManager } from './_profile/managers/screenshot-manager';
 import './profile.scss';
 // @ts-ignore
 import AOS from 'aos';
@@ -48,7 +47,6 @@ interface ProfileData {
     profile_skins: Record<string, string[]>;
 
     // Состояние UI
-    itemsExpanded?: boolean;
     itemsSort?: 'rarity' | 'level'; // Текущая сортировка предметов
 }
 
@@ -57,12 +55,11 @@ export class ProfileBranch extends Branch {
     private currentItemSort: 'rarity' | 'level' = 'rarity'; // По умолчанию по редкости
     private cleanupFns: (() => void)[] = [];
     private sortController: SortController | null = null;
-    private paginationController: PaginationController | null = null;
+    private screenshotManager: ScreenshotManager | null = null;
     
     // Сохранение состояния для восстановления при возврате
     private savedState: {
         scrollY: number;
-        itemsExpanded: boolean;
         itemSort: 'rarity' | 'level';
         heroSort: {
             sortBy: 'level' | 'rating';
@@ -71,7 +68,6 @@ export class ProfileBranch extends Branch {
         currentSkins: Record<string, string>;
     } = {
         scrollY: 0,
-        itemsExpanded: false,
         itemSort: 'rarity',
         heroSort: {
             sortBy: 'level',
@@ -419,16 +415,15 @@ export class ProfileBranch extends Branch {
     }
 
     private _renderItemCard(item: Item, index: number): string {
-        const isHidden = this.data?.itemsExpanded ? false : index > 5;
         const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
 
         // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
         const slug = item.name.toLowerCase().split(' ').join('-');
 
         return `
-            <a href="/profile/item/${slug}" class="item-card-link ${isHidden ? 'hidden' : ''}" data-link style="text-decoration: none; color: inherit; display: block;"
+            <a href="/profile/item/${slug}" class="item-card-link" data-link style="text-decoration: none; color: inherit; display: block;"
                data-aos="fade-up"
-               data-aos-delay="${(index % 5) * 50}">
+               data-aos-delay="${(index % 10) * 30}">
                 <div class="item-card">
                     <div class="item-image-wrapper">
                         <picture>
@@ -516,12 +511,6 @@ export class ProfileBranch extends Branch {
                 <div class="items-grid" id="profileItemsGrid">
                     ${d.items.map((item, index) => this._renderItemCard(item, index)).join('')}
                 </div>
-                
-                ${!d.itemsExpanded && d.items_count > 5 ? `
-                    <div class="load-more-container">
-                        <button id="loadMoreItemsBtn" class="load-more-btn">${t('profile_show_more')}</button>
-                    </div>
-                ` : ''}
             </div>
         `;
     }
@@ -558,18 +547,9 @@ export class ProfileBranch extends Branch {
             }
         }, true);
 
-        // 1. Показать еще (используем PaginationController)
-        if (this.container) {
-            this.paginationController = new PaginationController(this.container, () => {
-                // Callback для обновления состояния после раскрытия
-            });
-            this.cleanupFns.push(() => {
-                if (this.paginationController) {
-                    this.paginationController.destroy();
-                    this.paginationController = null;
-                }
-            });
-        }
+
+        // 1. Простая логика отображения предметов с lazy loading
+        // Ничего дополнительно не нужно - loading="lazy" в HTML обеспечит подгрузку
 
         // 2. Сортировка Героев
         if (this.container) {
@@ -625,10 +605,8 @@ export class ProfileBranch extends Branch {
         this.initSkins();
 
         // 4. Скриншот
-        const saveBtn = this.container.querySelector('#saveProfileBtn');
-        if (saveBtn) {
-            this.addListener(saveBtn, 'click', () => this.takeScreenshot());
-        }
+        this.screenshotManager = new ScreenshotManager(this.container, t);
+        this.screenshotManager.init();
 
         // 5. Передача данных предмета при клике
         const itemLinks = this.container.querySelectorAll('.item-card-link');
@@ -761,18 +739,8 @@ export class ProfileBranch extends Branch {
         }
     }
 
-    private async takeScreenshot() {
-        const element = this.container?.querySelector('.profile-header') as HTMLElement;
-        if (!element) return;
-
-        const btn = this.container?.querySelector('#saveProfileBtn') as HTMLButtonElement;
-        if (!btn) return;
-
-        // Сохраняем состояние перед переходом
-        this.saveCurrentState();
-        
-        await downloadProfileScreenshot(element, btn, this.data?.nickname || 'Player');
-    }
+    // Старый метод takeScreenshot заменен на ScreenshotManager
+    // private async takeScreenshot() { ... }
 
     /**
      * Сохранение текущего динамического состояния
@@ -784,7 +752,6 @@ export class ProfileBranch extends Branch {
         this.savedState.scrollY = window.scrollY;
 
         // Сохраняем состояние предметов
-        this.savedState.itemsExpanded = this.data?.itemsExpanded || false;
         this.savedState.itemSort = this.currentItemSort;
 
         // Сохраняем состояние сортировки героев
@@ -826,7 +793,6 @@ export class ProfileBranch extends Branch {
             // Используем значения по умолчанию
             this.savedState = {
                 scrollY: 0,
-                itemsExpanded: false,
                 itemSort: 'rarity',
                 heroSort: {
                     sortBy: 'level',
@@ -854,7 +820,6 @@ export class ProfileBranch extends Branch {
             // Используем значения по умолчанию
             this.savedState = {
                 scrollY: 0,
-                itemsExpanded: false,
                 itemSort: 'rarity',
                 heroSort: {
                     sortBy: 'level',
@@ -874,21 +839,6 @@ export class ProfileBranch extends Branch {
         // Восстанавливаем скролл
         if (this.savedState.scrollY > 0) {
             window.scrollTo(0, this.savedState.scrollY);
-        }
-
-        // Восстанавливаем состояние предметов
-        if (this.savedState.itemsExpanded && this.data) {
-            this.data.itemsExpanded = true;
-            // Показываем все предметы
-            const hiddenItems = this.container.querySelectorAll('.item-card-link.hidden');
-            hiddenItems.forEach(item => {
-                item.classList.remove('hidden');
-            });
-            // Скрываем кнопку "Show more"
-            const loadMoreBtn = this.container.querySelector('#loadMoreItemsBtn');
-            if (loadMoreBtn) {
-                (loadMoreBtn as HTMLElement).style.display = 'none';
-            }
         }
 
         // Восстанавливаем сортировку предметов
@@ -1011,6 +961,10 @@ export class ProfileBranch extends Branch {
         // Очищаем ресурсы
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
+        
+        // Очищаем ScreenshotManager
+        this.screenshotManager?.destroy();
+        this.screenshotManager = null;
     }
 
     /**

@@ -1,4 +1,4 @@
-import { t } from '../localization/i18n';
+import { t } from '../../../../../localization/i18n';
 
 /**
  * Утилиты для валидации JSON с подсветкой синтаксических ошибок
