@@ -37,10 +37,10 @@ export class ScreenshotManager {
             // Временно применяем стили для стандартного вида
             const originalStyles = element.style.cssText;
             element.style.cssText = `
-                width: 1200px !important;
-                height: 800px !important;
-                max-width: 1200px !important;
-                max-height: 800px !important;
+                width: 900px !important;
+                height: 600px !important;
+                max-width: 900px !important;
+                max-height: 600px !important;
                 transform: scale(1) !important;
                 position: relative !important;
                 overflow: hidden !important;
@@ -51,8 +51,8 @@ export class ScreenshotManager {
                 allowTaint: true,
                 scale: 2,  // Для качества
                 backgroundColor: null,
-                width: 1200,  // Фиксированная ширина
-                height: 800,  // Фиксированная высота
+                width: 900,  // Фиксированная ширина
+                height: 600,  // Фиксированная высота
                 windowWidth: 1800,
                 windowHeight: 1100
             });
