@@ -1,0 +1,51 @@
+// Rarity colors for filter chips
+#filterRarities {
+    .filter-chip {
+        &[class*="rarity-"] span {
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        &.rarity-common span {
+            color: var(--rarity-common-text);
+        }
+        
+        &.rarity-rare span {
+            color: var(--rarity-rare-text);
+        }
+        
+        &.rarity-epic span {
+            color: var(--rarity-epic-text);
+        }
+        
+        &.rarity-legendary span {
+            color: var(--rarity-legendary-text);
+        }
+        
+        &.rarity-mythic span {
+            color: var(--rarity-mythic-text);
+        }
+        
+        &.rarity-unique span {
+            color: var(--rarity-unique-text);
+        }
+        
+        &.rarity-relic span {
+            color: var(--rarity-relic-text);
+        }
+        
+        &.rarity-boon span {
+            color: var(--rarity-boon-text);
+        }
+        
+        &.rarity-special span {
+            color: var(--rarity-special-text);
+        }
+        
+        // Preserve text color for active states
+        &.active[class*="rarity-"] span {
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+        }
+    }
+}

@@ -1164,7 +1164,8 @@ export class ItemsBranch extends Branch {
                              alt="${item.name}" 
                              loading="lazy" 
                              class="item-icon"
-                             data-fallback>
+                             data-fallback
+                             onerror="window.handleImageError(this)">
                     </picture>
                 </div>
                 <span class="item-name">${item.name}</span>

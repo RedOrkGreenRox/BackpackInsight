@@ -1,6 +1,7 @@
 import { Gen } from './roots/Gen';
 import { Shell } from './roots/Shell';
 import { Parallax } from './roots/Parallax';
+import './roots/_roots/shell/ui_init/ui_init'; // Импорт инициализации UI
 import { MainBranch } from './branches/main/MainBranch';
 import { ProfileBranch } from './branches/profile/ProfileBranch';
 import { ItemsBranch } from './branches/items/ItemsBranch';

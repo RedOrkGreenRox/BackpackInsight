@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 import logging
+import glob
+import re
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -9,7 +11,7 @@ PROFILE_EXP_NEED = (
     40, 280, 300, 400, 500, 650, 650, 800, 950, 1000,
     1050, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900,
     2000, 2150, 2300, 2700, 3000, 4000, 4600, 5400, 6000, 7000,
-    8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000,
+    8000, 9000, 10000, 11000, 12000, 13000, 14000, 1500, 16000, 17000,
     18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000, 25000, 25000,
     25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000,
     25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000,
@@ -19,14 +21,51 @@ PROFILE_EXP_NEED = (
 )
 
 BASE_DIR = Path(__file__).parent
-# Исправленный путь: items.json находится в Backend/DB/items.json
-# BASE_DIR указывает на Backend/PlayerData
-# Нам нужно подняться на уровень выше (в Backend), затем в DB
-ITEMS_PATH = BASE_DIR.parent / "DB" / "items_3_1_0.json"
+
+def get_latest_items_file():
+    """Автоматически находит файл с наибольшим номером версии"""
+    try:
+        # Ищем все файлы items_*.json в папке DB
+        pattern = str(BASE_DIR.parent / "DB" / "items_*.json")
+        files = glob.glob(pattern)
+        
+        # Исключаем файлы с tooltips
+        files = [f for f in files if 'tooltips' not in f]
+        
+        if not files:
+            logger.error("No items JSON files found")
+            return None
+        
+        def extract_version(filename):
+            """Извлекает версию из имени файла"""
+            match = re.search(r'items_(\d+)_(\d+)_(\d+)\.json', filename)
+            if match:
+                major, minor, patch = map(int, match.groups())
+                return (major, minor, patch)
+            return (0, 0, 0)
+        
+        # Находим файл с максимальной версией
+        latest_file = max(files, key=extract_version)
+        version = extract_version(latest_file)
+        
+        logger.info(f"Auto-detected latest items file: {Path(latest_file).name} (version {version[0]}.{version[1]}.{version[2]})")
+        return Path(latest_file)
+        
+    except Exception as e:
+        logger.error(f"Error auto-detecting items file: {e}")
+        # Fallback на старый путь
+        return BASE_DIR.parent / "DB" / "items_3_1_0.json"
+
+# Автоматически определяем путь к файлу с последней версией
+ITEMS_PATH = get_latest_items_file()
 
 
 def load_items():
     """Load items with proper error handling"""
+    if ITEMS_PATH is None:
+        logger.error("No items file available")
+        return []
+        
     try:
         with open(ITEMS_PATH, "rb") as f:
             data = json.loads(f.read())

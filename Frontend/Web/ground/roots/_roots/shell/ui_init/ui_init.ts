@@ -4,6 +4,13 @@
 
 // Глобальная функция для обработки ошибок загрузки изображений
 window.handleImageError = function(img: HTMLImageElement) {
+    // Предотвращаем бесконечный цикл, если плейсхолдер тоже не загрузился
+    if (img.src.includes('/images/placeholder/placeholder.webp')) {
+        console.warn('Placeholder image also failed to load');
+        img.onerror = null;
+        return;
+    }
+    
     // 1. Находим родительский элемент <picture>
     const picture = img.closest('picture');
     if (picture) {
@@ -14,6 +21,7 @@ window.handleImageError = function(img: HTMLImageElement) {
     // 3. Устанавливаем плейсхолдер (исправлен путь: убран префикс /static)
     img.src = '/images/placeholder/placeholder.webp';
     img.onerror = null; // Предотвращаем бесконечный цикл
+    img.alt = 'Item not available'; // Доступность
 };
 
 document.addEventListener('DOMContentLoaded', () => {

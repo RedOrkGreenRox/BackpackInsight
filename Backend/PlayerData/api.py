@@ -81,19 +81,63 @@ def create_indexes(engine):
 
 @app.on_event("startup")
 def on_startup():
-    from sqlmodel import SQLModel
+    from sqlmodel import SQLModel, func
+    from Backend.PlayerData.data import get_items
     SQLModel.metadata.create_all(engine)
     create_indexes(engine)
 
-    # Предзагрузка статических данных предметов
+    # Предзагрузка статических данных предметов с синхронизацией
     with Session(engine) as session:
+        # Проверяем актуальность данных в БД
+        db_count = session.exec(select(func.count(ItemDefinition.item_id))).one()
+        json_items = get_items()
+        json_count = len(json_items)
+        
+        print(f"--- API: Database items: {db_count}, JSON items: {json_count} ---")
+        
+        # Проверяем есть ли вообще данные в БД
         existing = session.exec(select(ItemDefinition)).first()
-        if not existing:
-            print("--- API: Migrating Static Data ---")
-            ProfileFactory.preload_definitions()
-            for def_obj in ProfileFactory.get_cached_definitions().values():
-                session.add(def_obj)
-            session.commit()
+        
+        # Если БД пустая или данные не актуальны - синхронизируем
+        if not existing or db_count != json_count:
+            if not existing:
+                print("--- API: Migrating Static Data ---")
+            else:
+                print("--- API: Syncing Database with JSON ---")
+                
+            # Очищаем старые данные с учетом foreign key constraints
+            if existing:
+                from sqlmodel import delete
+                try:
+                    # Сначала удаляем зависимые записи из таблицы item
+                    session.exec(delete(Item))
+                    session.commit()
+                    print("--- API: Cleared dependent items ---")
+                except Exception as e:
+                    print(f"--- API WARNING: Could not clear items: {e} ---")
+                    session.rollback()
+                
+                try:
+                    # Затем удаляем определения предметов
+                    session.exec(delete(ItemDefinition))
+                    session.commit()
+                    print("--- API: Cleared item definitions ---")
+                except Exception as e:
+                    print(f"--- API WARNING: Could not clear definitions: {e} ---")
+                    session.rollback()
+            
+            # Загружаем актуальные данные
+            try:
+                ProfileFactory.preload_definitions(session)
+                for def_obj in ProfileFactory.get_cached_definitions().values():
+                    session.add(def_obj)
+                session.commit()
+                print(f"--- API: Synced {json_count} items from JSON to Database ---")
+            except Exception as e:
+                print(f"--- API ERROR: Could not load definitions: {e} ---")
+                session.rollback()
+        else:
+            print("--- API: Database is up to date ---")
 
 
 # --- МАРШРУТЫ API ---

@@ -272,7 +272,7 @@ export class ItemDetailBranch extends Branch {
                                 <picture>
                                     <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
                                     <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
-                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
+                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy" onerror="window.handleImageError(this)">
                                 </picture>
                             </div>
                         </div>
@@ -450,7 +450,7 @@ export class ItemDetailBranch extends Branch {
                                         <picture>
                                             <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
                                             <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
-                                            <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy">
+                                            <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy" onerror="window.handleImageError(this)">
                                         </picture>
                                     </div>
                                 </div>
