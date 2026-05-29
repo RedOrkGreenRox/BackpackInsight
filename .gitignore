@@ -29,3 +29,10 @@ dist/
 .DS_Store
 desktop.ini
 Thumbs.db
+
+# --- Secrets & Config (SECURITY) ---
+Frontend/Bot/config/.env
+Frontend/Bot/config/whitelist.json
+Frontend/Bot/config/channels.txt
+Frontend/Bot/logs/*.log
+.tio.tokens.json
