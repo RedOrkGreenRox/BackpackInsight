@@ -49,11 +49,39 @@ jobs:
             
             # Полная пересборка контейнеров
             docker compose -f docker-compose.server.yml down
-            
+
+            # --- ALEMBIC BOOTSTRAP ---
+            # БД могла существовать ДО введения Alembic.
+            # Проверяем: есть таблица alembic_version?
+            #   - есть → миграции идут как обычно при старте контейнера
+            #   - нет, но есть таблица profile → БД с данными, stamp'аем head чтобы не пересоздавать таблицы
+            #   - нет ни того ни другого → пустая БД, Alembic накатит всё с нуля при старте
+            echo "Проверка состояния Alembic..."
+            docker compose -f docker-compose.server.yml up -d db
+            for i in {1..20}; do
+                if docker exec backpack_insight_db pg_isready -U "$(grep ^POSTGRES_USER .env | cut -d= -f2)" >/dev/null 2>&1; then
+                    break
+                fi
+                sleep 1
+            done
+
+            POSTGRES_USER_VAL=$(grep ^POSTGRES_USER .env | cut -d= -f2)
+            POSTGRES_DB_VAL=$(grep ^POSTGRES_DB .env | cut -d= -f2)
+
+            HAS_ALEMBIC=$(docker exec backpack_insight_db psql -U "$POSTGRES_USER_VAL" -d "$POSTGRES_DB_VAL" -tAc "SELECT to_regclass('public.alembic_version');" 2>/dev/null | tr -d '[:space:]')
+            HAS_PROFILE=$(docker exec backpack_insight_db psql -U "$POSTGRES_USER_VAL" -d "$POSTGRES_DB_VAL" -tAc "SELECT to_regclass('public.profile');" 2>/dev/null | tr -d '[:space:]')
+
+            if [ -z "$HAS_ALEMBIC" ] && [ -n "$HAS_PROFILE" ]; then
+                echo "📌 БД существует, но без alembic_version — выполняем stamp head"
+                docker compose -f docker-compose.server.yml run --rm --no-deps backend alembic -c /app/alembic.ini stamp head
+            else
+                echo "✅ Alembic state OK ($HAS_ALEMBIC / profile=$HAS_PROFILE) — миграции применятся при старте"
+            fi
+
             # Проверить что Docker прочитает правильный API_SECRET
             echo "Проверка конфигурации Docker:"
             docker compose -f docker-compose.server.yml config | grep -A 3 -B 3 API_SECRET
-            
+
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
             
             # Ждать пока backend станет доступен

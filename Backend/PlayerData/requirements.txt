@@ -5,6 +5,7 @@ psycopg2-binary>=2.9.9
 requests>=2.32.2
 deep-translator>=1.11.4
 python-dotenv>=1.0.0
+alembic>=1.13.0
 
 # Фикс уязвимостей (прямых и транзитивных)
 anyio>=4.4.0

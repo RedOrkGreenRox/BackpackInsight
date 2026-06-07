@@ -1,79 +1,110 @@
-import sys
+"""
+Общая инфраструктура для тестов.
+
+Каждый тест получает свежую in-memory SQLite БД с предзагруженными
+статическими предметами (ItemDefinition) из items_*.json.
+"""
+from __future__ import annotations
+
 import os
-import pytest
+import sys
 from pathlib import Path
-from sqlmodel import SQLModel, Session, create_engine
+
+import pytest
+from sqlmodel import Session, SQLModel, create_engine, select
 from sqlmodel.pool import StaticPool
-from fastapi.testclient import TestClient
 
-# --- 1. Path Setup ---
-# We still need to add Frontend/Web to sys.path because 'web.py' is not a package
-# But Backend is now imported as a package from root
+# --- Project path setup ----------------------------------------------------
 ROOT_DIR = Path(__file__).resolve().parent.parent
-WEB_DIR = ROOT_DIR / "Frontend" / "Web"
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
-# Add root dir to sys.path to allow 'from Backend...' imports
-sys.path.insert(0, str(ROOT_DIR))
-# Add Web dir to allow 'from web import app'
-sys.path.insert(0, str(WEB_DIR))
+# Не используем production-БД в тестах
+os.environ.setdefault("USE_SQLITE", "True")
+os.environ.pop("API_SECRET", None)  # тесты идут без секрета
 
-# --- 2. Imports ---
-try:
-    from Backend.PlayerData.api import app
-    from Backend.PlayerData.models.Item import ItemDefinition
-    from Backend.PlayerData.services.ProfileFactory import ProfileFactory
-except ImportError as e:
-    raise ImportError(f"Could not import project modules. Check paths: {e}")
+# --- Imports after sys.path ------------------------------------------------
+from fastapi.testclient import TestClient  # noqa: E402
 
-# --- 3. Database Fixtures ---
+from Backend.PlayerData import api as api_module  # noqa: E402
+from Backend.PlayerData.models import Hero, Item, ItemDefinition, Profile  # noqa: E402,F401
+from Backend.PlayerData.services.ProfileFactory import ProfileFactory  # noqa: E402
+from Backend.DB.database import get_session  # noqa: E402
+
+FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
+
+
+# --- Engine / Session ------------------------------------------------------
+
+
+@pytest.fixture(name="engine")
+def engine_fixture():
+    """Свежий in-memory SQLite engine на каждый тест."""
+    eng = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    SQLModel.metadata.create_all(eng)
+    yield eng
+    eng.dispose()
+
 
 @pytest.fixture(name="session")
-def session_fixture():
+def session_fixture(engine):
     """
-    Creates an in-memory SQLite database for testing.
-    Uses StaticPool to share the same in-memory DB across threads.
+    Сессия с подгруженными статическими ItemDefinition из JSON.
+    После теста ProfileFactory кеш сбрасывается, чтобы не было
+    DetachedInstanceError между тестами.
     """
-    # Use StaticPool so the data persists across multiple connections in the same test process
-    engine = create_engine(
-        "sqlite://", 
-        connect_args={"check_same_thread": False}, 
-        poolclass=StaticPool
-    )
-    SQLModel.metadata.create_all(engine)
-    
-    # Clear Factory Cache to prevent DetachedInstanceError from previous tests
     ProfileFactory.clear_cache()
-    
-    # Preload static data (Items)
+
+    with Session(engine) as setup_session:
+        ProfileFactory.preload_definitions(setup_session)
+        for def_obj in list(ProfileFactory.get_cached_definitions().values()):
+            # переподключаем к новой сессии (объекты могли быть detached)
+            if def_obj not in setup_session:
+                setup_session.merge(def_obj)
+        setup_session.commit()
+
+    ProfileFactory.clear_cache()
+
     with Session(engine) as session:
-        ProfileFactory.preload_definitions()
-        # Use public accessor
-        for def_obj in ProfileFactory.get_cached_definitions().values():
-            # We add them to the DB so they exist for queries
-            session.add(def_obj)
-        session.commit()
-        
-        # CRITICAL: Clear cache again or detach objects so subsequent tests 
-        # don't try to use these specific object instances bound to this closed session.
-        # Ideally, ProfileFactory should handle re-attaching, but for tests we force a reload.
-        ProfileFactory.clear_cache()
-    
-    # Return a new session for the test
-    with Session(engine) as session:
+        # перезагружаем кеш из БД, чтобы фабрика работала
+        ProfileFactory.preload_definitions(session)
         yield session
 
-@pytest.fixture(name="client")
-def client_fixture(session: Session):
-    """
-    Creates a FastAPI TestClient that uses the in-memory DB session.
-    Overrides the 'get_session' dependency in the app.
-    """
-    from Backend.DB.database import get_session
-    
-    def get_session_override():
-        return session
+    ProfileFactory.clear_cache()
 
-    app.dependency_overrides[get_session] = get_session_override
-    client = TestClient(app)
-    yield client
-    app.dependency_overrides.clear()
+
+@pytest.fixture(name="client")
+def client_fixture(session):
+    """FastAPI TestClient с подменой зависимости БД."""
+    def _override_get_session():
+        yield session
+
+    api_module.app.dependency_overrides[get_session] = _override_get_session
+    with TestClient(api_module.app) as client:
+        yield client
+    api_module.app.dependency_overrides.clear()
+
+
+# --- Fixture helpers -------------------------------------------------------
+
+
+@pytest.fixture
+def profile_json_minimal() -> dict:
+    """Минимально валидный синтетический JSON профиля."""
+    import json
+
+    with open(FIXTURES_DIR / "synthetic_profile_minimal.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def profile_json_full() -> dict:
+    """Полный синтетический JSON со скинами, баннерами и неизвестным предметом."""
+    import json
+
+    with open(FIXTURES_DIR / "synthetic_profile_full.json", encoding="utf-8") as f:
+        return json.load(f)

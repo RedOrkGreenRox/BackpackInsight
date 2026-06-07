@@ -36,3 +36,8 @@ Frontend/Bot/config/whitelist.json
 Frontend/Bot/config/channels.txt
 Frontend/Bot/logs/*.log
 .tio.tokens.json
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/

@@ -1,27 +1,24 @@
-import pytest
-import sys
+"""
+Запуск тестов из любого места проекта.
+
+Usage:
+    python scripts/run_tests.py            # все тесты
+    python scripts/run_tests.py -k models  # фильтр по имени
+"""
+from __future__ import annotations
+
 import os
+import sys
 from pathlib import Path
 
-if __name__ == "__main__":
-    print("--- Running BackpackInsight Tests ---")
-    
-    # Ensure we are in the project root
-    project_root = Path(__file__).resolve().parent.parent    
-    os.chdir(project_root)
-    
-    # Add project root to sys.path so tests can import modules
-    sys.path.insert(0, str(project_root))
-    
-    # Run pytest programmatically
-    # Arguments:
-    # -v: verbose output
-    # tests/: directory to search for tests
-    exit_code = pytest.main(["-v", "tests/"])
-    
-    if exit_code == 0:
-        print("\nAll tests passed!")
-    else:
-        print("\nSome tests failed.")
+import pytest
 
+
+if __name__ == "__main__":
+    project_root = Path(__file__).resolve().parent.parent
+    os.chdir(project_root)
+    sys.path.insert(0, str(project_root))
+
+    extra = sys.argv[1:]
+    exit_code = pytest.main(["-v", "tests/", *extra])
     sys.exit(exit_code)
