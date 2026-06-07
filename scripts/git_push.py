@@ -42,12 +42,12 @@ def main():
     run_git(["rm", "-r", "--cached", "."], allow_fail=True)
 
     # 5. Добавление изменений (учитывая CSS и PlayerData)
-    print("Adding changes...")
-    run_git(["add", "-A"])
+    print("Adding changes..")
+    run_git(["add", "-A -u"])
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "5.0.0 (without images)"
+    upd = "5.0.0 (частично с картинками)"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

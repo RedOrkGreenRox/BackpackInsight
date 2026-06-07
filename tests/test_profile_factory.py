@@ -34,6 +34,14 @@ class TestValidation:
         # Не должно бросать
         ProfileFactory._validate_json(profile_json_minimal)
 
+<<<<<<< HEAD
+=======
+    def test_rejects_empty_nickname(self):
+        with pytest.raises(ValueError, match="Nickname not found"):
+            ProfileFactory._validate_json({"Data": {"UID": "1"}, "Name": "", "Item": {}})
+
+
+>>>>>>> 6478df2
 
 class TestCreateProfile:
     def test_smoke(self, session, profile_json_minimal):
