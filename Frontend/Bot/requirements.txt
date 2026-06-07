@@ -1,3 +1,0 @@
-twitchio
-pyTelegramBotAPI
-python-dotenv
