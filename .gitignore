@@ -1,0 +1,43 @@
+# --- Python & Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+.venv/
+.env
+.env.local
+.env.production
+.continue
+
+# --- База данных ---
+Backend/DB/*.db
+Backend/DB/*.sqlite3
+
+# --- Frontend & Vite ---
+node_modules/
+dist/
+
+# Оставляем .css, но игнорируем тяжелые .map файлы
+**/*.css.map
+
+# --- IDE & System ---
+.vscode/
+.idea/
+*.swp
+*.iml
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# --- Secrets & Config (SECURITY) ---
+Frontend/Bot/config/.env
+Frontend/Bot/config/whitelist.json
+Frontend/Bot/config/channels.txt
+Frontend/Bot/logs/*.log
+.tio.tokens.json
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/

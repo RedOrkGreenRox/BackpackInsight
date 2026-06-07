@@ -1,0 +1,20 @@
+﻿# --- Базовые настройки ---
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+
+# --- Удаление JSON из статистики кода (PlayerData) ---
+# Считаем все JSON сгенерированными данными, а не JS-кодом
+*.json linguist-generated=true
+
+# --- Исключение сторонних библиотек (самый большой вес) ---
+# Это пометит JS и CSS в папке libs как "внешние", убрав их из процентов
+Frontend/Web/templates/roots/libs/* linguist-vendored
+
+# --- Системное и конфиги ---
+*.bat linguist-vendored
+*.dockerfile linguist-vendored
+Dockerfile linguist-vendored
+.gitignore linguist-vendored
+.gitattributes linguist-vendored

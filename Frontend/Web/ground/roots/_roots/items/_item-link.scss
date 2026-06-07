@@ -1,0 +1,19 @@
+.item-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    height: 100%; /* Растягиваем ссылку на всю высоту ячейки грида */
+
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.hidden {
+        display: none !important;
+    }
+}

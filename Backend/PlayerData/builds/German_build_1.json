@@ -1,0 +1,864 @@
+{
+    "inventoryItems": [
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 4,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 0
+                },
+                {
+                    "x": 4,
+                    "y": 1
+                },
+                {
+                    "x": 5,
+                    "y": 1
+                },
+                {
+                    "x": 5,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 4,
+                "y": 4
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 4
+                },
+                {
+                    "x": 4,
+                    "y": 5
+                },
+                {
+                    "x": 5,
+                    "y": 5
+                },
+                {
+                    "x": 5,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 8,
+                "y": 0
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 0
+                },
+                {
+                    "x": 7,
+                    "y": 0
+                },
+                {
+                    "x": 6,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Critical Sack",
+            "name": "Critical Sack",
+            "position": {
+                "x": 6,
+                "y": 2
+            },
+            "orientation": "Right",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 2
+                },
+                {
+                    "x": 6,
+                    "y": 1
+                },
+                {
+                    "x": 7,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 8,
+                "y": 5
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 5
+                },
+                {
+                    "x": 7,
+                    "y": 5
+                },
+                {
+                    "x": 6,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Critical Sack",
+            "name": "Critical Sack",
+            "position": {
+                "x": 8,
+                "y": 1
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 1
+                },
+                {
+                    "x": 8,
+                    "y": 2
+                },
+                {
+                    "x": 7,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 8,
+                "y": 3
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 3
+                },
+                {
+                    "x": 7,
+                    "y": 3
+                },
+                {
+                    "x": 6,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 6,
+                "y": 4
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 4
+                },
+                {
+                    "x": 7,
+                    "y": 4
+                },
+                {
+                    "x": 8,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Razor Bolt",
+            "name": "Razor Bolt",
+            "position": {
+                "x": 5,
+                "y": 2
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 5,
+                    "y": 2
+                },
+                {
+                    "x": 5,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Arcane Bolt Blaster",
+            "name": "Arcane Bolt Blaster",
+            "position": {
+                "x": 6,
+                "y": 2
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 2
+                },
+                {
+                    "x": 7,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Astral Gloves",
+            "name": "Astral Gloves",
+            "position": {
+                "x": 6,
+                "y": 3
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 3
+                },
+                {
+                    "x": 7,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Toxic Bolt",
+            "name": "Toxic Bolt",
+            "position": {
+                "x": 4,
+                "y": 2
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 2
+                },
+                {
+                    "x": 4,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Toxic Bolt",
+            "name": "Toxic Bolt",
+            "position": {
+                "x": 3,
+                "y": 2
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "x": 3,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Bolt Quiver",
+            "name": "Bolt Quiver",
+            "position": {
+                "x": 4,
+                "y": 4
+            },
+            "orientation": "Right",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 4
+                },
+                {
+                    "x": 5,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Exhaustion Stone",
+            "name": "Exhaustion Stone",
+            "position": {
+                "x": 3,
+                "y": 4
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Rune of R'lyeh",
+            "name": "Rune of R'lyeh",
+            "position": {
+                "x": 4,
+                "y": 1
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 1
+                },
+                {
+                    "x": 5,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Autotrigger",
+            "name": "Autotrigger",
+            "position": {
+                "x": 7,
+                "y": 1
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 7,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Refined Jade",
+            "name": "Refined Jade",
+            "position": {
+                "x": 6,
+                "y": 1
+            },
+            "orientation": "Right",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Hag's Hat",
+            "name": "Hag's Hat",
+            "position": {
+                "x": 0,
+                "y": 5
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 0,
+                    "y": 5
+                },
+                {
+                    "x": 1,
+                    "y": 5
+                },
+                {
+                    "x": 0,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Fish",
+            "name": "Carp",
+            "position": {
+                "x": 0,
+                "y": 3
+            },
+            "orientation": "Right",
+            "slotPositions": [
+                {
+                    "x": 0,
+                    "y": 3
+                },
+                {
+                    "x": 0,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Golden Egg",
+            "name": "Golden Egg",
+            "position": {
+                "x": 6,
+                "y": 4
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 6,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Shadow Satchel",
+            "name": "Shadow Satchel",
+            "position": {
+                "x": 3,
+                "y": 2
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "x": 4,
+                    "y": 2
+                },
+                {
+                    "x": 5,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 3,
+                "y": 3
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 3
+                },
+                {
+                    "x": 4,
+                    "y": 3
+                },
+                {
+                    "x": 5,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 2,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 2,
+                    "y": 0
+                },
+                {
+                    "x": 2,
+                    "y": 1
+                },
+                {
+                    "x": 3,
+                    "y": 1
+                },
+                {
+                    "x": 3,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 0,
+                    "y": 1
+                },
+                {
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "x": 1,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 2,
+                "y": 4
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 2,
+                    "y": 4
+                },
+                {
+                    "x": 2,
+                    "y": 5
+                },
+                {
+                    "x": 3,
+                    "y": 5
+                },
+                {
+                    "x": 3,
+                    "y": 4
+                }
+            ]
+        },
+        {
+            "id": "Medium Bag",
+            "name": "Medium Bag",
+            "position": {
+                "x": 1,
+                "y": 4
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 1,
+                    "y": 4
+                },
+                {
+                    "x": 0,
+                    "y": 4
+                },
+                {
+                    "x": 0,
+                    "y": 5
+                },
+                {
+                    "x": 1,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Stamina Sack",
+            "name": "Stamina Sack",
+            "position": {
+                "x": 0,
+                "y": 2
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 0,
+                    "y": 2
+                },
+                {
+                    "x": 1,
+                    "y": 2
+                },
+                {
+                    "x": 2,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Radiance Satchel",
+            "name": "Radiance Satchel",
+            "position": {
+                "x": 2,
+                "y": 3
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 2,
+                    "y": 3
+                },
+                {
+                    "x": 1,
+                    "y": 3
+                },
+                {
+                    "x": 0,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Autotrigger",
+            "name": "Autotrigger",
+            "position": {
+                "x": 8,
+                "y": 2
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 2
+                }
+            ]
+        },
+        {
+            "id": "Arcane Bolt Blaster",
+            "name": "Arcane Bolt Blaster",
+            "position": {
+                "x": 2,
+                "y": 3
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 2,
+                    "y": 3
+                },
+                {
+                    "x": 1,
+                    "y": 3
+                }
+            ]
+        },
+        {
+            "id": "Scalemail",
+            "name": "Scalemail",
+            "position": {
+                "x": 0,
+                "y": 1
+            },
+            "orientation": "Right",
+            "slotPositions": [
+                {
+                    "x": 0,
+                    "y": 1
+                },
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "x": 2,
+                    "y": 1
+                },
+                {
+                    "x": 1,
+                    "y": 0
+                },
+                {
+                    "x": 2,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Wild Rose",
+            "name": "Wild Rose",
+            "position": {
+                "x": 3,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 0
+                },
+                {
+                    "x": 3,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Mana Potion",
+            "name": "Mana Potion",
+            "position": {
+                "x": 8,
+                "y": 4
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 4
+                },
+                {
+                    "x": 8,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Leather Belt",
+            "name": "Leather Belt",
+            "position": {
+                "x": 7,
+                "y": 5
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 7,
+                    "y": 5
+                },
+                {
+                    "x": 6,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Mana Potion",
+            "name": "Mana Potion",
+            "position": {
+                "x": 5,
+                "y": 5
+            },
+            "orientation": "Left",
+            "slotPositions": [
+                {
+                    "x": 5,
+                    "y": 5
+                },
+                {
+                    "x": 4,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Bronze Bar",
+            "name": "Bronze Bar",
+            "position": {
+                "x": 3,
+                "y": 5
+            },
+            "orientation": "Down",
+            "slotPositions": [
+                {
+                    "x": 3,
+                    "y": 5
+                },
+                {
+                    "x": 2,
+                    "y": 5
+                }
+            ]
+        },
+        {
+            "id": "Wild Rose",
+            "name": "Wild Rose",
+            "position": {
+                "x": 8,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 8,
+                    "y": 0
+                },
+                {
+                    "x": 8,
+                    "y": 1
+                }
+            ]
+        },
+        {
+            "id": "Skull",
+            "name": "Weathered Skull",
+            "position": {
+                "x": 4,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 4,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Cleansing Crown",
+            "name": "Cleansing Crown",
+            "position": {
+                "x": 5,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 5,
+                    "y": 0
+                },
+                {
+                    "x": 6,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Skull",
+            "name": "Weathered Skull",
+            "position": {
+                "x": 7,
+                "y": 0
+            },
+            "orientation": "Up",
+            "slotPositions": [
+                {
+                    "x": 7,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "Golden Clover",
+            "name": "Golden Clover",

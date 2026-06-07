@@ -1,0 +1,135 @@
+/// <reference path="../../../../types/global.d.ts" />
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Use event delegation for better performance and dynamic content support
+    const grid = document.querySelector('.main-heroes-grid');
+    if (grid) {
+        grid.addEventListener('click', function (e) {
+            const target = e.target as HTMLElement;
+            const btn = target.closest('.skin-btn') as HTMLElement;
+            if (!btn) return;
+
+            // Determine direction based on class
+            let direction = 0;
+            if (btn.classList.contains('prev-skin')) {
+                direction = -1;
+            } else if (btn.classList.contains('next-skin')) {
+                direction = 1;
+            }
+
+            if (direction !== 0) {
+                window.changeSkin(btn, direction);
+            }
+        });
+    }
+});
+
+// Make changeSkin globally available
+window.changeSkin = function(btn: HTMLElement, direction: number) {
+    const card = btn.closest('.main-hero-card') as HTMLElement;
+    if (!card) return;
+
+    const heroName = card.dataset['heroName'];
+    let currentSkin = card.dataset['currentSkin'];
+
+    if (!heroName) return;
+
+    // Ensure heroName is a string
+    const heroNameStr = heroName || '';
+
+    const skinsDataElement = document.getElementById('skins-data');
+    if (!skinsDataElement) return;
+
+    let profileSkins: Record<string, any[]> = {};
+    try {
+        profileSkins = JSON.parse(skinsDataElement.textContent || '{}') || {};
+    } catch (e) {
+        console.error("Error parsing skins data", e);
+        profileSkins = {};
+    }
+
+    // Формируем массив скинов, приводя все к строкам с ведущим нулем
+    let heroSkins = ['01'];
+    if (profileSkins && Array.isArray(profileSkins[heroNameStr])) {
+        const extraSkins = profileSkins[heroNameStr]
+            .filter(s => s !== null && s !== undefined)
+            .map(s => String(s).padStart(2, '0'));
+        heroSkins = ['01', ...extraSkins];
+    }
+    const uniqueSkins = Array.from(new Set(heroSkins)).sort((a, b) => a.localeCompare(b));
+
+    if (uniqueSkins.length <= 1) {
+        card.querySelectorAll('.skin-btn').forEach(b => (b as HTMLElement).style.display = 'none');
+        return;
+    }
+
+    let currentSkinIdx = 0;
+    if (currentSkin) {
+        const index = uniqueSkins.indexOf(currentSkin);
+        if (index !== -1) currentSkinIdx = index;
+    }
+
+    let newIndex = currentSkinIdx + direction;
+
+    if (newIndex >= heroSkins.length) {
+        newIndex = 0;
+    } else if (newIndex < 0) {
+        newIndex = heroSkins.length - 1;
+    }
+
+    const newSkin = uniqueSkins[newIndex];
+    if (newSkin) {
+        card.dataset['currentSkin'] = newSkin;
+    }
+
+    // Анимация для карточки героя
+    const mainImageContainer = card.querySelector('.main-hero-image');
+    if (mainImageContainer) {
+        mainImageContainer.classList.add('changing-skin');
+        setTimeout(() => {
+            const picture = mainImageContainer.querySelector('picture');
+            if (picture && newSkin) {
+                updateHeroImage(picture, heroNameStr, newSkin);
+            }
+            mainImageContainer.classList.remove('changing-skin');
+        }, 200); // Должно совпадать с transition в CSS
+    }
+
+    // Анимация для шапки профиля
+    const headerCard = document.querySelector(`.stat-hero-card[data-hero-name="${heroNameStr}"]`);
+    if (headerCard) {
+        headerCard.classList.add('changing-skin');
+        setTimeout(() => {
+            const picture = headerCard.querySelector('picture');
+            if (picture && newSkin) {
+                updateHeroImage(picture, heroNameStr, newSkin);
+            }
+            headerCard.classList.remove('changing-skin');
+        }, 200);
+    }
+}
+
+function updateHeroImage(picture: Element | null, heroName: string, skinNum: string) {
+    if (!picture) return;
+
+    const sources = picture.querySelectorAll('source');
+    const img = picture.querySelector('img');
+
+    // Check for undefined or null skinNum to prevent 404s
+    if (skinNum === undefined || skinNum === null || skinNum === "undefined") {
+        console.error(`Invalid skin number for ${heroName}: ${skinNum}`);
+        return;
+    }
+
+    // Убедимся, что skinNum это строка с ведущим нулем (на всякий случай)
+    const formattedSkinNum = String(skinNum).padStart(2, '0');
+
+    if (sources.length >= 2 && sources[0] && sources[1]) {
+        sources[0].srcset = `/images/heroes/${heroName}/avif/${heroName}${formattedSkinNum}.avif`;
+        sources[1].srcset = `/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
+    }
+
+    if (img) {
+        img.src = `/images/heroes/${heroName}/webp/${heroName}${formattedSkinNum}.webp`;
+    }
+}

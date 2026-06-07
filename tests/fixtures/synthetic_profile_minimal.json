@@ -1,0 +1,27 @@
+{
+    "Data": { "AV": "5.0.0" },
+    "BN": "50000",
+    "GR": "0000000000",
+    "BT": "2026-01-01T00:00:00",
+    "Name": "TestPlayer",
+    "PH": "",
+    "Currency": { "coins": 1000, "gems": 50 },
+    "UL": [],
+    "Trophy": 100,
+    "BonusTrophy": 0,
+    "UID": "00000000-0000-0000-0000-000000000001",
+    "DUID": "test-device-uid-1",
+    "FBID": "",
+    "Device": "Generic Test Device",
+    "OS": "TestOS 1.0",
+    "IV": "1.0.0",
+    "LV": "5.0.0",
+    "Hero": {
+        "Warrior": "0:0:0",
+        "Barbarian": "2:50:500"
+    },
+    "Item": {
+        "Wooden Sword": "0:5",
+        "Apple": "1:10"
+    }
+}

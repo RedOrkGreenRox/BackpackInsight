@@ -1,0 +1,7 @@
+# .dockerignore
+**/node_modules
+**/dist
+**/__pycache__
+.git
+Frontend/Web/dist
+Frontend/Web/node_modules

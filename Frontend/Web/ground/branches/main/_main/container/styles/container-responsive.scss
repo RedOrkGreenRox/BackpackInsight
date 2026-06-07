@@ -1,0 +1,35 @@
+@media (max-width: 768px) {
+    .container {
+        width: 98%;
+        max-width: none;
+
+        padding-top: 15vh;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        font-size: 1.2rem;
+    }
+
+    .container h1, .container h2 {
+        font-size: 2.5rem;
+    }
+
+    .container p, .container div {
+        line-height: 1.6;
+    }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        padding-top: 5vh;
+    }
+}
+
+.container, .upload-zone {
+    @media (max-width: 1100px) {
+        width: 95%;
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

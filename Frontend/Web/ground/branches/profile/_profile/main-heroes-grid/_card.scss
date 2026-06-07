@@ -1,0 +1,83 @@
+.main-hero-card {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative; /* Для позиционирования кнопок */
+    overflow: hidden;
+
+    /* Карточка занимает всю ширину ячейки сетки */
+    width: 100%;
+    /* Убрал max-width, чтобы не было дыр в сетке */
+    /* max-width: 500px; */
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--azure-raw), 0.3);
+        background: rgba(0, 0, 0, 0.7);
+        border-color: rgba(var(--azure-raw), 0.4);
+    }
+}
+
+/* Кнопки переключения скинов */
+.skin-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s ease;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+.skin-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.prev-skin {
+    left: 0;
+}
+
+.next-skin {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .main-hero-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-hero-card {
+        flex-direction: row;
+        align-items: center;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .skin-btn {
+        width: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-hero-card {
+        padding: 12px;
+        gap: 12px;
+        border-radius: 15px;
+    }
+
+    .skin-btn {
+        width: 25px;
+    }
+}

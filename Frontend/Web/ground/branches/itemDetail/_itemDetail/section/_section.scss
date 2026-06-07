@@ -1,0 +1,188 @@
+.item-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 0 0 8px;
+    color: var(--text-default-color);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    font-family: var(--font-family-accent), serif;
+    font-weight: 700;
+}
+
+.item-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.item-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex: 1;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.item-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex: 1;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+
+.item-rarity {
+    /* Убраны стили плашки (фон, рамка, паддинги) */
+    font-size: 1.2rem; /* Чуть крупнее, как заголовок */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    flex-shrink: 0;
+    order: 0;
+
+    /* Цвет текста задается через классы rarity-* из _item-rarities.scss */
+    /* Свечение текста для красоты (опционально, как в поиске) */
+    text-shadow: 0 0 10px currentColor;
+}
+
+.item-hero-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .text-icon {
+        margin: 0;
+        width: 2.8em;
+        height: 2.8em;
+    }
+}
+
+.cost-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .text-icon {
+        margin: 0;
+        position: relative;
+        width: 2.8em;
+        height: 2.8em;
+    }
+
+    .cost-value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(0.85em, 2vw, 1em);
+        font-weight: 900;
+        color: var(--text-default-color);
+        line-height: 1;
+        text-align: center;
+        text-shadow: 
+            0 0 8px rgba(0, 0, 0, 1),
+            0 0 12px rgba(0, 0, 0, 0.9),
+            0 2px 6px rgba(0, 0, 0, 1),
+            -2px -2px 4px rgba(0, 0, 0, 1),
+            2px 2px 4px rgba(0, 0, 0, 1),
+            -1px -1px 2px rgba(0, 0, 0, 0.9),
+            1px 1px 2px rgba(0, 0, 0, 0.9);
+        pointer-events: none;
+        z-index: 2;
+        white-space: nowrap;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        width: auto;
+        height: auto;
+    }
+}
+
+.item-types-block {
+    display: flex;
+    gap: 0.75em;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .text-fallback {
+        background: rgba(255,255,255,0.1);
+        padding: 0.2em 0.6em;
+        border-radius: 6px;
+        font-size: 0.9em;
+        color: var(--text-default-color);
+    }
+}
+
+.item-content {
+    width: 100%;
+    text-align: left;
+    color: var(--text-default-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .item-header {
+        gap: 0.75em;
+        margin-bottom: 15px;
+    }
+
+    .item-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .item-rarity {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .item-hero-icon .text-icon,
+    .cost-icon-wrapper .text-icon {
+        width: 2.2em;
+        height: 2.2em;
+    }
+
+    .item-types-block {
+        gap: 0.5em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .item-content {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .item-header {
+        gap: 0.5em;
+        margin-bottom: 12px;
+    }
+
+    .item-title {
+        font-size: clamp(1.2rem, 7vw, 1.8rem);
+    }
+
+    .item-rarity {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .item-hero-icon .text-icon,
+    .cost-icon-wrapper .text-icon {
+        width: 1.8em;
+        height: 1.8em;
+    }
+
+    .item-content {
+        gap: 12px;
+    }
+}

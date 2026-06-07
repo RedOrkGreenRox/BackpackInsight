@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Максимально строгое Linting */
+    "strict": true,                   // Включает базу: noImplicitAny, strictNullChecks и др.
+    "noImplicitReturns": true,        // Ошибка, если не все пути в функции возвращают значение
+    "noImplicitOverride": true,       // Требует явный 'override' для переопределения методов
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true, // Самая злая настройка: заставляет проверять значение на undefined при обращении по индексу (array[i])
+    "noPropertyAccessFromIndexSignature": true, // Запрещает обращение к полям через точку, если они не описаны явно
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@roots/*": ["ground/roots/*"],
+      "@branches/*": ["ground/branches/*"],
+      "@utils/*": ["ground/utils/*"]
+    }
+  },
+  "include": [
+    "ground/**/*.ts",
+    "ground/**/*.d.ts",
+    "ground/**/*.tsx",
+    "ground/**/*.vue",
+    "ground/types/global.d.ts",
+    "functions/**/*.ts"
+  ]
+}

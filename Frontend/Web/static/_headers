@@ -1,0 +1,26 @@
+# --- Шрифты (1 час, immutable) ---
+/fonts/*
+  Cache-Control: public, max-age=3600, immutable
+/*.woff2
+  Cache-Control: public, max-age=3600, immutable
+
+# --- Остальная статика (1 минута, immutable) ---
+# Cloudflare применяет правила сверху вниз. Более специфичные должны быть выше,
+# но здесь мы используем "все остальное" как дефолт, который CF применит, если нет совпадений выше.
+# Однако синтаксис _headers не поддерживает "все остальное" через `/*` в конце файла так просто,
+# поэтому мы явно перечислим популярные пути.
+
+/images/*
+  Cache-Control: public, max-age=60, immutable
+/assets/*
+  Cache-Control: public, max-age=60, immutable
+/*.js
+  Cache-Control: public, max-age=60, immutable
+/*.css
+  Cache-Control: public, max-age=60, immutable
+/*.json
+  Cache-Control: public, max-age=60, immutable
+
+# --- API (настраивается на бэкенде, но на всякий случай) ---
+/api/*
+  Cache-Control: public, max-age=60, stale-while-revalidate=600

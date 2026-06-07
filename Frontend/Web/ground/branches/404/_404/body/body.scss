@@ -1,0 +1,9 @@
+.body-404 {
+    position: relative; /* Важно для absolute дочерних элементов */
+    min-height: 100dvh;      
+    margin: 0;
+    /* Блокировка прокрутки */
+    overflow: hidden;        
+    text-align: center;
+    background-color: #000;  /* Запасной фон, пока грузится картинка */
+}
