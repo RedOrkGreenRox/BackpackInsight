@@ -1,39 +1,67 @@
+/**
+ * ItemNavigationManager — навигация prev/next между предметами.
+ */
+import { NavigationState } from '../utils/item-detail-types';
+
 export class ItemNavigationManager {
-    public calculateNavigation(currentName: string, playerItem: any = null): { prev: string | null, next: string | null } {
-        let orderRaw: string | null;
-        let isProfileContext = false;
+    private isProfile: boolean;
+    private cleanupFns: (() => void)[] = [];
 
-        if (playerItem) {
-            orderRaw = sessionStorage.getItem('profileItemsList');
-            isProfileContext = true;
-        } else {
-            orderRaw = sessionStorage.getItem('filteredItemsOrder');
-        }
+    constructor(isProfile: boolean) {
+        this.isProfile = isProfile;
+    }
 
-        if (!orderRaw) return { prev: null, next: null };
+    calculate(itemName: string): NavigationState {
+        const nav: NavigationState = { prev: null, next: null };
+        const raw = sessionStorage.getItem(this.isProfile ? 'profileItemsList' : 'filteredItemsOrder');
+        if (!raw) return nav;
 
-        let order: string[] = [];
-        if (isProfileContext) {
-            try {
-                const itemsList = JSON.parse(orderRaw);
-                order = itemsList.map((i: any) => i.name);
-            } catch (e) {
-                return { prev: null, next: null };
+        try {
+            let order: string[];
+            if (this.isProfile) {
+                const list = JSON.parse(raw);
+                order = list.map((i: { name: string }) => i.name);
+            } else {
+                order = JSON.parse(raw);
             }
-        } else {
-            try {
-                order = JSON.parse(orderRaw);
-            } catch (e) {
-                return { prev: null, next: null };
+
+            const idx = order.indexOf(itemName);
+            if (idx !== -1) {
+                nav.prev = idx > 0 ? (order[idx - 1] ?? null) : null;
+                nav.next = idx < order.length - 1 ? (order[idx + 1] ?? null) : null;
             }
-        }
+        } catch { /* ignore */ }
 
-        const currentIndex = order.indexOf(currentName);
-        if (currentIndex === -1) return { prev: null, next: null };
+        return nav;
+    }
 
-        return {
-            prev: currentIndex > 0 ? (order[currentIndex - 1] ?? null) : null,
-            next: currentIndex < order.length - 1 ? (order[currentIndex + 1] ?? null) : null
+    attachProfileNavListeners(container: HTMLElement): void {
+        if (!this.isProfile) return;
+
+        const handler = (e: Event) => {
+            const link = (e.target as HTMLElement).closest('.nav-btn-top');
+            if (!link) return;
+
+            const targetName = (link as HTMLElement).dataset['targetName'];
+            if (!targetName) return;
+
+            try {
+                const raw = sessionStorage.getItem('profileItemsList');
+                if (!raw) return;
+                const list = JSON.parse(raw);
+                const item = list.find((i: { name: string }) => i.name === targetName);
+                if (item) {
+                    (link as any)._stateData = { playerItem: item, name: targetName };
+                }
+            } catch { /* ignore */ }
         };
+
+        container.addEventListener('click', handler);
+        this.cleanupFns.push(() => container.removeEventListener('click', handler));
+    }
+
+    destroy(): void {
+        this.cleanupFns.forEach(fn => fn());
+        this.cleanupFns = [];
     }
 }

@@ -1,73 +1,84 @@
-import { ItemDefinition } from '@branches/items/_items/managers/ItemsStateManager';
+/**
+ * ItemSEOManager — обновление мета-тегов, OG, JSON-LD для страницы предмета.
+ */
+import { ItemIconService, ItemDefinition } from '@utils/ItemIconService';
+import { t } from '../../../../localization/i18n';
 
 export class ItemSEOManager {
-    public updateSEO(item: ItemDefinition, currentUrl: string, isProfile: boolean): void {
-        const itemName = item.name;
-        const itemDescription = item.tooltips ? item.tooltips.join(' ').substring(0, 160) : `${itemName} - предмет из игры Backpack Brawl`;
-        const itemImage = `/images/items/webp/${this.toSlug(itemName)}.webp`;
+    private jsonLdScript: HTMLScriptElement | null = null;
+    private originalTitle: string = document.title;
 
-        document.title = `${itemName} - Backpack Insight | ${isProfile ? 'Профиль' : 'Предметы'} Backpack Brawl`;
-        
-        const descMeta = document.querySelector('meta[name="description"]');
-        if (descMeta) descMeta.setAttribute('content', itemDescription);
+    update(item: ItemDefinition, isProfile: boolean): void {
+        const desc = item.tooltips?.join(' ').substring(0, 160) ?? '';
+        const img = `/images/items/webp/${ItemIconService.getImagePath(item)}.webp`;
+        const url = window.location.href;
 
-        const keywordsMeta = document.querySelector('meta[name="keywords"]');
-        if (keywordsMeta) {
-            const keywords = `${itemName}, Backpack Brawl, ${isProfile ? 'профиль, предмет игрока' : 'предмет, вики'}, ${item.rarity}, ${item.itemTypes?.join(', ') || ''}, игра, аналитика`;
-            keywordsMeta.setAttribute('content', keywords);
-        }
+        document.title = `${item.name} - Backpack Insight | ${isProfile ? t('sidebar_main') : t('sidebar_items')}`;
 
-        const ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) ogTitle.setAttribute('content', `${itemName} - Backpack Insight`);
+        this.setMeta('name', 'description', desc);
+        this.setMeta('name', 'keywords', `${item.name}, Backpack Brawl, ${item.rarity}, ${item.itemTypes?.join(', ') ?? ''}`);
+        this.setMeta('property', 'og:title', `${item.name} - Backpack Insight`);
+        this.setMeta('property', 'og:description', desc);
+        this.setMeta('property', 'og:image', `https://backpackinsight.pages.dev${img}`);
+        this.setMeta('property', 'og:url', url);
+        this.setLink('canonical', url);
+        this.setLink('alternate', url, 'ru');
+        this.setLink('alternate', url.replace('/item/', '/en/item/').replace('/profile/item/', '/profile/en/item/'), 'en');
 
-        const ogDesc = document.querySelector('meta[property="og:description"]');
-        if (ogDesc) ogDesc.setAttribute('content', itemDescription);
-
-        const ogImage = document.querySelector('meta[property="og:image"]');
-        if (ogImage) ogImage.setAttribute('content', `https://backpackinsight.pages.dev${itemImage}`);
-
-        const ogUrl = document.querySelector('meta[property="og:url"]');
-        if (ogUrl) ogUrl.setAttribute('content', currentUrl);
-
-        const canonical = document.querySelector('link[rel="canonical"]');
-        if (canonical) canonical.setAttribute('href', currentUrl);
-
-        this.updateStructuredData(item, currentUrl);
+        this.updateStructuredData(item, url);
     }
 
-    private updateStructuredData(item: ItemDefinition, currentUrl: string): void {
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "Thing",
-            "name": item.name,
-            "description": item.tooltips ? item.tooltips.join(' ') : `${item.name} - предмет из игры Backpack Brawl`,
-            "image": `https://backpackinsight.pages.dev/images/items/webp/${this.toSlug(item.name)}.webp`,
-            "identifier": item.id,
-            "category": item.itemTypes?.join(', ') || 'Предмет',
-            "brand": { "@type": "Organization", "name": "Backpack Brawl" },
-            "additionalProperty": [
-                { "@type": "PropertyValue", "name": "Редкость", "value": item.rarity },
-                { "@type": "PropertyValue", "name": "Стоимость в игре", "value": item.coinValue ? `${item.coinValue} золота` : "Недоступно" },
-                { "@type": "PropertyValue", "name": "Тип предмета", "value": item.itemTypes?.join(', ') || 'Неизвестно' }
+    restore(): void {
+        if (this.originalTitle) document.title = this.originalTitle;
+    }
+
+    cleanup(): void {
+        this.jsonLdScript?.remove();
+        this.jsonLdScript = null;
+    }
+
+    private setMeta(attr: string, name: string, content: string): void {
+        const tag = document.querySelector(`meta[${attr}="${name}"]`);
+        tag?.setAttribute('content', content);
+    }
+
+    private setLink(rel: string, href: string, hreflang?: string): void {
+        const selector = hreflang
+            ? `link[rel="${rel}"][hreflang="${hreflang}"]`
+            : `link[rel="${rel}"]`;
+        const tag = document.querySelector(selector);
+        tag?.setAttribute('href', href);
+    }
+
+    private updateStructuredData(item: ItemDefinition, url: string): void {
+        const data = {
+            '@context': 'https://schema.org',
+            '@type': 'Thing',
+            'name': item.name,
+            'description': item.tooltips?.join(' ') ?? '',
+            'image': `https://backpackinsight.pages.dev/images/items/webp/${ItemIconService.getImagePath(item)}.webp`,
+            'identifier': item.id,
+            'category': item.itemTypes?.join(', ') ?? '',
+            'brand': { '@type': 'Organization', 'name': 'Backpack Brawl' },
+            'additionalProperty': [
+                { '@type': 'PropertyValue', 'name': 'Редкость', 'value': item.rarity },
+                { '@type': 'PropertyValue', 'name': 'Стоимость', 'value': item.coinValue ? `${item.coinValue} золота` : 'N/A' },
+                { '@type': 'PropertyValue', 'name': 'Тип', 'value': item.itemTypes?.join(', ') ?? '' }
             ],
-            "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": currentUrl,
-                "name": `${item.name} - Backpack Insight`,
-                "url": currentUrl
+            'mainEntityOfPage': {
+                '@type': 'WebPage',
+                '@id': url,
+                'name': `${item.name} - Backpack Insight`,
+                'description': item.tooltips?.join(' ') ?? '',
+                'url': url
             }
         };
 
-        let jsonLdScript = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
-        if (!jsonLdScript) {
-            jsonLdScript = document.createElement('script');
-            jsonLdScript.type = 'application/ld+json';
-            document.head.appendChild(jsonLdScript);
+        if (!this.jsonLdScript) {
+            this.jsonLdScript = document.createElement('script');
+            this.jsonLdScript.type = 'application/ld+json';
+            document.head.appendChild(this.jsonLdScript);
         }
-        jsonLdScript.textContent = JSON.stringify(structuredData, null, 2);
-    }
-
-    private toSlug(name: string): string {
-        return name.toLowerCase().split(' ').join('-');
+        this.jsonLdScript.textContent = JSON.stringify(data, null, 2);
     }
 }

@@ -41,6 +41,5 @@
   ],
   "exclude": [
     "ground/branches/items/_items/**/*.ts",
-    "ground/branches/itemDetail/_itemDetail/**/*.ts"
   ]
 }
