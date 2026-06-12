@@ -28,10 +28,12 @@ const ICON_FILES = [
     "Stamina", "TypeBag", "TypeRat", "Accuracy", "Cooldown", "Insanity", "Resisted", "TypeFish", "TypeFood",
     "TypeTool", "Lifesteal", "MaxHealth", "Snowballs", "Stopwatch", "TypeArmor", "TypeCharm", "TypePlant",
     "TypeSkull", "CritChance", "CritDamage", "Nymphedora", "TypePotion", "MeleeWeapon", "TypeMineral",
-    "RangedWeapon", "Regeneration", "StaminaUsage", "TypeAccessory", "TypeIngredient", "StaminaRecovery"
+    "RangedWeapon", "Regeneration", "StaminaUsage", "TypeAccessory", "TypeIngredient", "StaminaRecovery",
+    "Fern", "Zahir", "CrashTestDucky", "Kragg"
 ];
 
 const ALIAS_MAP: { [key: string]: string } = {
+    'Crash Test Ducky': 'CrashTestDucky',
     'Melee Weapon': 'MeleeWeapon', 'Ranged Weapon': 'RangedWeapon', 'Stamina Usage': 'StaminaUsage',
     'Stamina Recovery': 'StaminaRecovery', 'Crit Chance': 'CritChance', 'Crit Damage': 'CritDamage',
     'Max Health': 'MaxHealth', 'Accessory': 'TypeAccessory', 'Ingredient': 'TypeIngredient',

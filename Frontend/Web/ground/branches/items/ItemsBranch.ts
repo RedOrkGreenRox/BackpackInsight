@@ -675,6 +675,9 @@ export class ItemsBranch extends Branch {
             'Pepper': 'Pepper',
             'Sage': 'Sage',
             'Kragg': 'Kragg',
+            'Fern': 'Fern',
+            'Zahir': 'Zahir',
+            'Crash Test Ducky': 'CrashTestDucky',
         };
 
         let iconName: string | null = null;

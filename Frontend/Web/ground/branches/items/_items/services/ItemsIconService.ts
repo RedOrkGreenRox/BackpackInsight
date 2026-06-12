@@ -91,7 +91,7 @@ export class ItemsIconService {
         const heroMapping: Record<string, string> = {
             'Chana': 'Chana', 'Ronan': 'Ronan', 'Harkon': 'Harkon', 'Nymphedora': 'Nymphedora', 'Tink': 'Tink', 'Buzz': 'Buzz',
             'Morrow': 'Morrow', 'Enoch': 'Enoch', 'Celeste': 'Celeste', 'Shared': 'Shared', 'Dorf': 'Dorf', 'Hob': 'Hob',
-            'Pepper': 'Pepper', 'Sage': 'Sage', 'Kragg': 'Kragg',
+            'Pepper': 'Pepper', 'Sage': 'Sage', 'Kragg': 'Kragg', 'Fern': 'Fern', 'Zahir': 'Zahir', 'Crash Test Ducky': 'CrashTestDucky',
         };
 
         let iconName: string | null = null;
