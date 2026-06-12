@@ -49,7 +49,7 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "5.0.0 (с картинками)"
+    upd = "5.0.0 (+ авы персонажей)"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
