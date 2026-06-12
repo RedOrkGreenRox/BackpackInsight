@@ -116,19 +116,8 @@ async function getEffectiveConnectionType() {
         console.log('NetworkInformation API not available');
     }
     
-    // Fallback: определяем по времени отклика
-    const start = performance.now();
-    try {
-        await fetch('/static/lang/ru.json', { method: 'HEAD' });
-        const duration = performance.now() - start;
-        
-        if (duration > 2000) return 'slow-2g';
-        if (duration > 1000) return '2g';
-        if (duration > 500) return '3g';
-        return '4g';
-    } catch (e) {
-        return 'slow-2g'; // Если нет сети, считаем очень медленным
-    }
+    // Fallback: возвращаем 4g по умолчанию, чтобы избежать ошибочного перехода на slow-2g и блокировки загрузки картинок
+    return '4g';
 }
 
 // Cache Only стратегия (для медленных соединений)

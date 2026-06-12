@@ -9,7 +9,7 @@ interface SitemapEntry {
     priority: number;
 }
 
-export async function GET() {
+export async function onRequestGet() {
     try {
         // Базовые страницы
         const staticPages: SitemapEntry[] = [

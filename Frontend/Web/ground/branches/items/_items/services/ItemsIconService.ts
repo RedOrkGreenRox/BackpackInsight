@@ -2,19 +2,43 @@ import { ItemDefinition } from '@branches/items/_items/managers/ItemsStateManage
 
 export class ItemsIconService {
     public static getItemImagePath(item: ItemDefinition): string {
-        if (item.rarity === 'Special' && item.tooltips.length > 0) {
+        const maskedItems: Record<string, string> = {
+            "Suspicious Sausage": "tender-sausage",
+            "Fools Gold": "gold-ore",
+            "Feral Cat": "black-cat",
+            "Cursed Dagger": "poison-dagger",
+            "Book of Dark Secrets": "dusty-book",
+            "Blind Fury Potion": "wrath-potion",
+            "Feather of Icarus": "phoenix-feather"
+        };
+
+        if (maskedItems[item.name]) {
+            return maskedItems[item.name];
+        }
+
+        if (item.rarity === 'Special' && item.tooltips && item.tooltips.length > 0) {
             const firstTooltip = item.tooltips[0];
-            if (!firstTooltip) return this.toSlug(item.name);
-            const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
-            if (stepMatch && stepMatch[1]) {
-                return `heist-plan-${this.romanToArabic(stepMatch[1])}`;
+            if (firstTooltip) {
+                // Сначала пробуем найти арабские цифры: например, "Step 1/4" или "Step 3"
+                const arabicMatch = firstTooltip.match(/Step\s+(\d+)/i);
+                if (arabicMatch && arabicMatch[1]) {
+                    return `heist-plan-${arabicMatch[1]}`;
+                }
+
+                // Если не нашли арабские, пробуем римские: например, "Step IV"
+                const romanMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/i);
+                if (romanMatch && romanMatch[1]) {
+                    const romanNumeral = romanMatch[1];
+                    const arabicNumber = this.romanToArabic(romanNumeral);
+                    return `heist-plan-${arabicNumber}`;
+                }
             }
         }
         return this.toSlug(item.name);
     }
 
     private static toSlug(name: string): string {
-        return name.toLowerCase().split(' ').join('-');
+        return name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-');
     }
 
     private static romanToArabic(roman: string): number {

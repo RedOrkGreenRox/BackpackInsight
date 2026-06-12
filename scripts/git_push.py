@@ -3,7 +3,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-# Определяем корень проекта (BackpackInsight)
+# Определяем корень проекта
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -22,41 +22,44 @@ def run_git(args, allow_fail=False):
 def main():
     print(f"Working in: {PROJECT_ROOT}")
 
-    # 1. Проверяем наличие .gitattributes (фундамент доверия)
+    # 1. Проверяем наличие .gitattributes
     if not (PROJECT_ROOT / ".gitattributes").exists():
         print("[WARNING] .gitattributes not found! Renormalization might be inconsistent.")
 
-    # 2. Проверка изменений
+    # 2. ФИКС ОШИБКИ: Сначала добавляем все текущие изменения, включая УДАЛЕНИЯ и переименования.
+    # Это синхронизирует реальный диск с индексом Git и уберет "фантомные" файлы.
+    print("Staging all changes and deletions...")
+    run_git(["add", "-A"])
+
+    # 3. Очистка индекса (Применение .gitignore к уже отслеживаемым файлам)
+    print("Cleaning index to apply .gitignore rules...")
+    run_git(["rm", "-r", "--cached", "."], allow_fail=True)
+
+    # 4. Финальное добавление
+    # Заново добавляем все файлы. Поскольку они добавляются с нуля, 
+    # Git АВТОМАТИЧЕСКИ применит к ним правила из .gitattributes (CRLF -> LF).
+    print("Re-adding files (auto-normalizing line endings)...")
+    run_git(["add", "-A"])
+
+    # 5. Проверка изменений
     status = run_git(["status", "--porcelain"])
     if not status.stdout.strip():
         print("Nothing to commit, repository is clean.")
         return
 
-    # 3. Ренормализация (Принудительное исправление окончаний строк)
-    print("Normalizing line endings (CRLF -> LF)...")
-    run_git(["add", "--renormalize", "."])
-
-    # 4. Очистка индекса (Применение .gitignore к уже отслеживаемым файлам)
-    # Выкинет .map, логи и прочий мусор, который попал в игнор
-    print("Cleaning index from ignored files...")
-    run_git(["rm", "-r", "--cached", "."], allow_fail=True)
-
-    # 5. Добавление изменений (учитывая CSS и PlayerData)
-    print("Adding changes..")
-    run_git(["add", "-A -u"])
-
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "5.0.0 (частично с картинками)"
+    upd = "5.0.0 (с картинками)"
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит
     print(f"Committing: '{message}'")
     run_git(["commit", "-m", message])
 
-    # 8. Синхронизация с удаленным репозиторием
+    # 8. Синхронизация с удаленным репозиторием 
+    # (allow_fail=True на случай, если ветки еще нет или есть нерешенные конфликты)
     print("Syncing with remote...")
-    run_git(["pull", "--rebase", "origin", "main"])
+    run_git(["pull", "--rebase", "origin", "main"], allow_fail=True)
 
     # 9. Пуш
     print("Pushing to origin...")

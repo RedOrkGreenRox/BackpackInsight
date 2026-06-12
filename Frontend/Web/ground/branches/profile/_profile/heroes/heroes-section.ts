@@ -2,7 +2,7 @@
  * HeroesSectionRenderer - основной рендерер секции героев
  */
 
-import { ProfileData, Hero } from '../utils/profile-types';
+import { ProfileData } from '../utils/profile-types';
 import { HeroCardRenderer } from './hero-card';
 
 export class HeroesSectionRenderer {

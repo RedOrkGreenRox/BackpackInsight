@@ -1097,23 +1097,43 @@ export class ItemsBranch extends Branch {
     }
 
     private getItemImagePath(item: ItemDefinition): string {
-        // Проверяем условие для Special предметов с тултипом "Step {римское число}"
-        if (item.rarity === 'Special' && item.tooltips.length > 0) {
+        const maskedItems: Record<string, string> = {
+            "Suspicious Sausage": "tender-sausage",
+            "Fools Gold": "gold-ore",
+            "Feral Cat": "black-cat",
+            "Cursed Dagger": "poison-dagger",
+            "Book of Dark Secrets": "dusty-book",
+            "Blind Fury Potion": "wrath-potion",
+            "Feather of Icarus": "phoenix-feather"
+        };
+
+        const texture = maskedItems[item.name];
+        if (texture) {
+            return texture;
+        }
+
+        // Проверяем условие для Special предметов с тултипом "Step {число}" (римское или арабское)
+        if (item.rarity === 'Special' && item.tooltips && item.tooltips.length > 0) {
             const firstTooltip = item.tooltips[0];
-            if (!firstTooltip) return item.name.toLowerCase().split(' ').join('-');
-            
-            const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
-            
-            if (stepMatch && stepMatch[1]) {
-                const romanNumeral = stepMatch[1];
-                // Конвертируем римское число в арабское
-                const arabicNumber = this.romanToArabic(romanNumeral);
-                return `heist-plan-${arabicNumber}`;
+            if (firstTooltip) {
+                // Сначала пробуем найти арабские цифры: например, "Step 1/4" или "Step 3"
+                const arabicMatch = firstTooltip.match(/Step\s+(\d+)/i);
+                if (arabicMatch && arabicMatch[1]) {
+                    return `heist-plan-${arabicMatch[1]}`;
+                }
+
+                // Если не нашли арабские, пробуем римские: например, "Step IV"
+                const romanMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/i);
+                if (romanMatch && romanMatch[1]) {
+                    const romanNumeral = romanMatch[1];
+                    const arabicNumber = this.romanToArabic(romanNumeral);
+                    return `heist-plan-${arabicNumber}`;
+                }
             }
         }
         
         // Стандартная логика для остальных предметов
-        return item.name.toLowerCase().split(' ').join('-');
+        return item.name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-');
     }
 
     private romanToArabic(roman: string): number {
@@ -1138,7 +1158,7 @@ export class ItemsBranch extends Branch {
             const imagePath = this.getItemImagePath(item);
 
             const link = document.createElement('a');
-            link.href = `/item/${item.name.toLowerCase().split(' ').join('-')}`;
+            link.href = `/item/${item.name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-')}`;
             link.dataset['link'] = '';
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';

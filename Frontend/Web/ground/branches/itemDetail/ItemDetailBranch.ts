@@ -125,22 +125,42 @@ export class ItemDetailBranch extends Branch {
 
     // Хелпер для нормализации имен (slugify)
     private toSlug(name: string): string {
-        return name.toLowerCase().split(' ').join('-');
+        return name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-');
     }
 
     private getItemImagePath(item: ItemDefinition): string {
-        // Проверяем условие для Special предметов с тултипом "Step {римское число}"
-        if (item.rarity === 'Special' && item.tooltips.length > 0) {
+        const maskedItems: Record<string, string> = {
+            "Suspicious Sausage": "tender-sausage",
+            "Fools Gold": "gold-ore",
+            "Feral Cat": "black-cat",
+            "Cursed Dagger": "poison-dagger",
+            "Book of Dark Secrets": "dusty-book",
+            "Blind Fury Potion": "wrath-potion",
+            "Feather of Icarus": "phoenix-feather"
+        };
+
+        const texture = maskedItems[item.name];
+        if (texture) {
+            return texture;
+        }
+
+        // Проверяем условие для Special предметов с тултипом "Step {число}" (римское или арабское)
+        if (item.rarity === 'Special' && item.tooltips && item.tooltips.length > 0) {
             const firstTooltip = item.tooltips[0];
-            if (!firstTooltip) return this.toSlug(item.name);
-            
-            const stepMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/);
-            
-            if (stepMatch && stepMatch[1]) {
-                const romanNumeral = stepMatch[1];
-                // Конвертируем римское число в арабское
-                const arabicNumber = this.romanToArabic(romanNumeral);
-                return `heist-plan-${arabicNumber}`;
+            if (firstTooltip) {
+                // Сначала пробуем найти арабские цифры: например, "Step 1/4" или "Step 3"
+                const arabicMatch = firstTooltip.match(/Step\s+(\d+)/i);
+                if (arabicMatch && arabicMatch[1]) {
+                    return `heist-plan-${arabicMatch[1]}`;
+                }
+
+                // Если не нашли арабские, пробуем римские: например, "Step IV"
+                const romanMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/i);
+                if (romanMatch && romanMatch[1]) {
+                    const romanNumeral = romanMatch[1];
+                    const arabicNumber = this.romanToArabic(romanNumeral);
+                    return `heist-plan-${arabicNumber}`;
+                }
             }
         }
         
