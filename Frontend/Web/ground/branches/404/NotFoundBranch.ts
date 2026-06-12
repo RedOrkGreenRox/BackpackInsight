@@ -4,13 +4,14 @@ import {
     ContainerRenderer, 
     TitleRenderer, 
     TextRenderer, 
-    ButtonRenderer, 
-    BackgroundManager, 
+    ButtonRenderer,
     NavigationManager 
 } from './_404';
 import './404.scss';
 
 export class NotFoundBranch extends Branch {
+    private isMounted = false;
+
     public override getMeta(): PageMeta {
         return {
             title: t('not_found_meta_title'),
@@ -28,11 +29,22 @@ export class NotFoundBranch extends Branch {
     }
 
     protected init(): void {
-        BackgroundManager.set404Background();
+        this.isMounted = true;
+
+        import('./_404/background/background').then(({ BackgroundManager }) => {
+            if (this.isMounted) {
+                BackgroundManager.set404Background();
+            }
+        });
+
         NavigationManager.initNavigation(this.container);
     }
 
     protected destroy(): void {
-        BackgroundManager.restoreNormalBackground();
+        this.isMounted = false;
+
+        import('./_404/background/background').then(({ BackgroundManager }) => {
+            BackgroundManager.restoreNormalBackground();
+        });
     }
 }

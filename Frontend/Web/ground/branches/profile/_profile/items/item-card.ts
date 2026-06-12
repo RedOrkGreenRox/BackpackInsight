@@ -3,13 +3,13 @@
  */
 
 import { Item } from '../utils/profile-types';
+import { SlugService } from '../../../../utils/SlugService';
 
 export class ItemCardRenderer {
     static render(item: Item, index: number): string {
         const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
 
-        // Форматирование имени для URL и файла: lowercase и замена пробелов на дефисы
-        const slug = item.name.toLowerCase().split(' ').join('-');
+        const slug = SlugService.toSlug(item.name);
 
         return `
             <a href="/profile/item/${slug}" class="item-card-link" data-link style="text-decoration: none; color: inherit; display: block;"

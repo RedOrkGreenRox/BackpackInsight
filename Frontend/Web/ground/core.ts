@@ -2,11 +2,6 @@ import { Gen } from './roots/Gen';
 import { Shell } from './roots/Shell';
 import { Parallax } from './roots/Parallax';
 import './roots/_roots/shell/ui_init/ui_init'; // Импорт инициализации UI
-import { MainBranch } from './branches/main/MainBranch';
-import { ProfileBranch } from './branches/profile/ProfileBranch';
-import { ItemsBranch } from './branches/items/ItemsBranch';
-import { NotFoundBranch } from './branches/404/NotFoundBranch';
-import { ItemDetailBranch } from './branches/itemDetail/ItemDetailBranch'; // Обновленный путь
 import { i18n } from './localization/i18n';
 
 // Импорт AOS из npm
@@ -115,15 +110,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const router = Gen.getInstance();
     
-    // Статические маршруты
-    router.register('/', MainBranch);
-    router.register('/profile', ProfileBranch);
-    router.register('/items', ItemsBranch);
-    router.register('/404', NotFoundBranch);
+    // Статические маршруты — lazy loaded, чтобы не тащить все страницы в initial bundle
+    router.register('/', () => import('./branches/main/MainBranch').then(m => m.MainBranch));
+    router.register('/profile', () => import('./branches/profile/ProfileBranch').then(m => m.ProfileBranch));
+    router.register('/items', () => import('./branches/items/ItemsBranch').then(m => m.ItemsBranch));
+    router.register('/404', () => import('./branches/404/NotFoundBranch').then(m => m.NotFoundBranch));
 
     // Динамические маршруты
-    router.register('/item/:name', ItemDetailBranch);
-    router.register('/profile/item/:name', ItemDetailBranch);
+    router.register('/item/:name', () => import('./branches/itemDetail/ItemDetailBranch').then(m => m.ItemDetailBranch));
+    router.register('/profile/item/:name', () => import('./branches/itemDetail/ItemDetailBranch').then(m => m.ItemDetailBranch));
     
     router.init('app');
 

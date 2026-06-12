@@ -1,5 +1,5 @@
 /**
- * Shared slugification utilities for item names.
+ * Shared slugification utilities for item names and item asset names.
  */
 export class SlugService {
     private static readonly ROMAN_NUMERALS: Record<string, number> = {
@@ -10,7 +10,14 @@ export class SlugService {
     };
 
     static toSlug(name: string): string {
-        return name.toLowerCase().replace(/[''']/g, '-').replace(/ /g, '-').replace(/-+/g, '-');
+        return name
+            .toLowerCase()
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/['’‘`´]/g, '-')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
     }
 
     static romanToArabic(roman: string): number {

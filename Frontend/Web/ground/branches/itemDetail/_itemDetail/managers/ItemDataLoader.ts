@@ -1,9 +1,8 @@
 /**
  * ItemDataLoader — асинхронная загрузка данных предмета с API.
  */
-import { ApiService } from '@utils/ApiService';
-import { SlugService } from '@utils/SlugService';
-import { ItemDefinition } from '@utils/ItemIconService';
+import { ItemsCacheService } from '@utils/ItemsCacheService';
+import type { ItemDefinition } from '@utils/ItemIconService';
 
 type LoadCallback = (item: ItemDefinition) => void;
 type ErrorCallback = () => void;
@@ -28,12 +27,7 @@ export class ItemDataLoader {
         this.isLoading = true;
 
         try {
-            const allItems = await ApiService.getItems();
-            sessionStorage.setItem('allItems', JSON.stringify(allItems));
-
-            const found = allItems.find((item: ItemDefinition) =>
-                SlugService.toSlug(item.name) === this.searchSlug
-            );
+            const found = await ItemsCacheService.getBySlug(this.searchSlug);
 
             if (found) {
                 this.onLoadedCb?.(found);

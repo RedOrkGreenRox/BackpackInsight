@@ -1,12 +1,10 @@
-const CACHE_NAME = 'backpack-insight-v2';
-const STATIC_CACHE = 'static-v2';
-const DYNAMIC_CACHE = 'dynamic-v2';
+const CACHE_NAME = 'backpack-insight-v5';
+const STATIC_CACHE = 'static-v5';
+const DYNAMIC_CACHE = 'dynamic-v5';
 
-// Статичные ресурсы для кэширования с версионированием
+// Кэшируем только стабильные unhashed ресурсы.
+// Vite assets имеют hash в имени и должны подтягиваться из актуального index.html.
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/assets/main.js',
     '/lang/ru.json',
     '/lang/en.json',
     '/images/const/webp/logo.webp',
@@ -14,13 +12,6 @@ const STATIC_ASSETS = [
     '/fonts/NotoSans.woff2',
     '/fonts/NotoSans-Bold.woff2'
 ];
-
-// Время кеширования для разных типов ресурсов
-const CACHE_TIMES = {
-    static: 24 * 60 * 60 * 1000, // 24 часа
-    dynamic: 60 * 60 * 1000,     // 1 час
-    api: 5 * 60 * 1000          // 5 минут
-};
 
 // Установка Service Worker
 self.addEventListener('install', (event) => {
@@ -71,14 +62,22 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Проверяем медленное соединение (3G или хуже)
     event.respondWith(
         (async () => {
             const connection = await getEffectiveConnectionType();
+
+            // HTML-навигация всегда network-first, чтобы F5 после нового деплоя
+            // получал свежий index.html с актуальными hash-чанками.
+            if (request.mode === 'navigate') {
+                return networkFirst(request);
+            }
+
+            if (url.pathname === '/sw.js') {
+                return fetch(request);
+            }
             
             // На медленных соединениях используем более агрессивные стратегии кэширования
             if (connection === 'slow-2g' || connection === '2g') {
-                // На 2G/3G кэшируем всё агрессивно и не делаем фоновых запросов
                 if (request.destination === 'image') {
                     return cacheOnly(request);
                 } else if (request.destination === 'script' || request.destination === 'style') {
@@ -89,13 +88,13 @@ self.addEventListener('fetch', (event) => {
                     return cacheFirst(request);
                 }
             } else {
-                // На быстрых соединениях используем обычные стратегии
-                if (request.destination === 'image') {
+                // JS/CSS имеют hash в имени, поэтому cache-first безопаснее и убирает рывок стилей при F5.
+                if (request.destination === 'script' || request.destination === 'style') {
+                    return cacheFirst(request);
+                } else if (request.destination === 'image') {
                     return cacheFirst(request);
                 } else if (url.pathname.startsWith('/api/')) {
                     return networkFirst(request);
-                } else if (request.destination === 'script' || request.destination === 'style') {
-                    return cacheFirst(request);
                 } else {
                     return staleWhileRevalidate(request);
                 }
@@ -107,7 +106,6 @@ self.addEventListener('fetch', (event) => {
 // Определение типа соединения
 async function getEffectiveConnectionType() {
     try {
-        // Проверяем NetworkInformation API если доступен
         if ('connection' in navigator) {
             const connection = navigator.connection;
             return connection.effectiveType || '4g';
@@ -116,7 +114,6 @@ async function getEffectiveConnectionType() {
         console.log('NetworkInformation API not available');
     }
     
-    // Fallback: возвращаем 4g по умолчанию, чтобы избежать ошибочного перехода на slow-2g и блокировки загрузки картинок
     return '4g';
 }
 
@@ -128,7 +125,6 @@ async function cacheOnly(request) {
         return cachedResponse;
     }
     
-    // Если нет в кэше, пробуем получить из сети (но без сохранения)
     try {
         const networkResponse = await fetch(request);
         return networkResponse;
@@ -146,7 +142,6 @@ async function cacheFirst(request) {
     const cachedResponse = await caches.match(request);
     
     if (cachedResponse) {
-        // Обновляем кэш в фоне
         fetch(request).then((response) => {
             if (response.ok) {
                 const responseClone = response.clone();
@@ -173,8 +168,8 @@ async function cacheFirst(request) {
     } catch (error) {
         console.log('SW: Network failed, serving from cache if available');
         return new Response('Offline', { 
-            status: 503, 
-            statusText: 'Service Unavailable' 
+            status: 503,
+            statusText: 'Service Unavailable'
         });
     }
 }
@@ -200,7 +195,6 @@ async function networkFirst(request) {
             return cachedResponse;
         }
         
-        // Для API запросов возвращаем ошибку
         if (request.url.includes('/api/')) {
             return new Response(JSON.stringify({ 
                 error: 'Offline - no cached data available' 
@@ -210,8 +204,14 @@ async function networkFirst(request) {
             });
         }
         
-        // Для остальных запросов пытаемся найти что-то в кэше
-        return caches.match('/index.html') || new Response('Offline', {
+        if (request.mode === 'navigate') {
+            return caches.match('/index.html') || new Response('Offline', {
+                status: 503,
+                statusText: 'Service Unavailable'
+            });
+        }
+
+        return new Response('Offline', {
             status: 503,
             statusText: 'Service Unavailable'
         });
@@ -221,15 +221,23 @@ async function networkFirst(request) {
 // Stale While Revalidate стратегия
 async function staleWhileRevalidate(request) {
     const cachedResponse = await caches.match(request);
-    const fetchPromise = fetch(request).then((networkResponse) => {
-        if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-                cache.put(request, responseClone);
+
+    const fetchPromise = fetch(request)
+        .then((networkResponse) => {
+            if (networkResponse.ok) {
+                const responseClone = networkResponse.clone();
+                caches.open(DYNAMIC_CACHE).then((cache) => {
+                    cache.put(request, responseClone);
+                });
+            }
+            return networkResponse;
+        })
+        .catch(() => {
+            return cachedResponse || new Response('Offline', {
+                status: 503,
+                statusText: 'Service Unavailable'
             });
-        }
-        return networkResponse;
-    });
+        });
     
     return cachedResponse || fetchPromise;
 }
@@ -238,6 +246,5 @@ async function staleWhileRevalidate(request) {
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'CACHE_UPDATED') {
         console.log('SW: Cache update requested');
-        // Можно добавить логику обновления конкретных файлов
     }
 });

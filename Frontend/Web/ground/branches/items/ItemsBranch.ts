@@ -1,6 +1,7 @@
 import {Branch} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
-import {ApiService} from '../../utils/ApiService';
+import {ItemsCacheService} from '../../utils/ItemsCacheService';
+import {SlugService} from '../../utils/SlugService';
 import {generateIconsOrText} from '../../utils/icon-parser';
 import {LoadingStates} from '../../utils/LoadingStates';
 import './items.scss';
@@ -365,8 +366,7 @@ export class ItemsBranch extends Branch {
 
     private async loadItems() {
         try {
-            this.items = await ApiService.getItems();
-            sessionStorage.setItem('allItems', JSON.stringify(this.items));
+            this.items = await ItemsCacheService.getAllItems() as unknown as ItemDefinition[];
 
             // Инициализация Fuse.js
             const options = {
@@ -1136,7 +1136,7 @@ export class ItemsBranch extends Branch {
         }
         
         // Стандартная логика для остальных предметов
-        return item.name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-');
+        return SlugService.toSlug(item.name);
     }
 
     private romanToArabic(roman: string): number {
@@ -1161,7 +1161,7 @@ export class ItemsBranch extends Branch {
             const imagePath = this.getItemImagePath(item);
 
             const link = document.createElement('a');
-            link.href = `/item/${item.name.toLowerCase().replace(/['’]/g, '-').split(' ').join('-').replace(/-+/g, '-')}`;
+            link.href = `/item/${SlugService.toSlug(item.name)}`;
             link.dataset['link'] = '';
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';

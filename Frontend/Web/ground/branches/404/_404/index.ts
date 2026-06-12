@@ -9,5 +9,4 @@ export { TextRenderer } from './text/text';
 export { ButtonRenderer } from './button/button';
 
 // Менеджеры
-export { BackgroundManager } from './background/background';
 export { NavigationManager } from './navigation/navigation';

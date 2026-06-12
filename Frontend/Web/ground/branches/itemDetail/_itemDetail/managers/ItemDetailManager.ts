@@ -7,6 +7,7 @@ import { ItemDataLoader } from './ItemDataLoader';
 import { ItemNavigationManager } from './ItemNavigationManager';
 import { ItemSEOManager } from './ItemSEOManager';
 import { SlugService } from '@utils/SlugService';
+import { ItemsCacheService } from '@utils/ItemsCacheService';
 import { ItemDetailData } from '../utils/item-detail-types';
 import { ItemDefinition } from '@utils/ItemIconService';
 
@@ -99,12 +100,7 @@ export class ItemDetailManager {
     }
 
     private restoreFromCache(rawName: string): ItemDefinition | undefined {
-        const raw = sessionStorage.getItem('allItems');
-        if (!raw) return undefined;
-        try {
-            const items: ItemDefinition[] = JSON.parse(raw);
-            return items.find(i => SlugService.toSlug(i.name) === SlugService.toSlug(rawName));
-        } catch { return undefined; }
+        return ItemsCacheService.getBySlugFromCache(rawName);
     }
 
     private setupCopyHandler(): void {

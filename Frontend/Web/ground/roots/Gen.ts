@@ -3,13 +3,21 @@ import { Branch, PageMeta } from './Branch';
 import AOS from 'aos';
 import { ProfileCacheUtils } from './profileCacheUtils';
 
+type BranchCtor = new () => Branch;
+type BranchLoader = () => Promise<BranchCtor>;
+
+interface RouteRecord {
+    load: BranchLoader;
+}
+
 export class Gen {
     private static instance: Gen;
-    private routes: Record<string, new () => Branch> = {};
+    private routes: Record<string, RouteRecord> = {};
     private currentBranch: Branch | null = null;
     private appContainer: HTMLElement | null = null;
     private isNavigating: boolean = false;
     private scrollTimeout: any = null;
+    private navigationId = 0;
 
     private constructor() {
         if ('scrollRestoration' in history) {
@@ -17,7 +25,7 @@ export class Gen {
         }
 
         window.addEventListener('popstate', (event) => {
-            this.handleRoute(window.location.pathname, event.state);
+            void this.handleRoute(window.location.pathname, event.state);
         });
 
         window.addEventListener('scroll', () => {
@@ -41,7 +49,7 @@ export class Gen {
             throw new Error(`Gen: Container #${containerId} not found!`);
         }
         
-        this.handleRoute(window.location.pathname, history.state);
+        void this.handleRoute(window.location.pathname, history.state);
         
         document.body.addEventListener('click', (e) => {
             const target = (e.target as HTMLElement).closest('a');
@@ -53,15 +61,15 @@ export class Gen {
         });
     }
 
-    public register(path: string, branchClass: new () => Branch): void {
-        this.routes[path] = branchClass;
+    public register(path: string, loader: BranchLoader): void {
+        this.routes[path] = { load: loader };
     }
 
     public navigate(path: string, data?: any): void {
         if (this.isNavigating) return;
         this.updateCurrentState({ scrollY: window.scrollY });
         history.pushState(data, '', path);
-        this.handleRoute(path, data);
+        void this.handleRoute(path, data);
     }
 
     public updateCurrentState(partialData: any): void {
@@ -74,7 +82,7 @@ export class Gen {
      * Перерисовывает текущую страницу, сохраняя ее состояние.
      */
     public reRenderCurrentBranch(): void {
-        this.handleRoute(window.location.pathname, history.state);
+        void this.handleRoute(window.location.pathname, history.state);
     }
 
     private updateMeta(meta: PageMeta): void {
@@ -89,10 +97,47 @@ export class Gen {
         descTag.setAttribute('content', meta.description);
     }
 
-    private handleRoute(path: string, data?: any): void {
+    private findRoute(cleanPath: string): { record: RouteRecord | null; params: Record<string, string> } {
+        const exact = this.routes[cleanPath];
+        if (exact) return { record: exact, params: {} };
+
+        for (const routePattern in this.routes) {
+            if (!routePattern.includes(':')) continue;
+
+            const routeParts = routePattern.split('/');
+            const pathParts = cleanPath.split('/');
+
+            if (routeParts.length !== pathParts.length) continue;
+
+            let match = true;
+            const params: Record<string, string> = {};
+
+            for (let i = 0; i < routeParts.length; i++) {
+                const routePart = routeParts[i];
+                const pathPart = pathParts[i];
+
+                if (routePart && routePart.startsWith(':')) {
+                    const paramName = routePart.slice(1);
+                    params[paramName] = decodeURIComponent(pathPart || '');
+                } else if (routePart !== pathPart) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                return { record: this.routes[routePattern] || null, params };
+            }
+        }
+
+        return { record: null, params: {} };
+    }
+
+    private async handleRoute(path: string, data?: any): Promise<void> {
         if (!this.appContainer) return;
         
         this.isNavigating = true;
+        const navId = ++this.navigationId;
 
         const cleanPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
         
@@ -101,79 +146,72 @@ export class Gen {
             ProfileCacheUtils.clearCacheOnNavigation(data);
         }
         
-        let BranchClass = this.routes[cleanPath];
-        let routeParams: Record<string, string> = {};
+        let { record, params: routeParams } = this.findRoute(cleanPath);
 
-        if (!BranchClass) {
-            for (const routePattern in this.routes) {
-                if (routePattern.includes(':')) {
-                    const routeParts = routePattern.split('/');
-                    const pathParts = cleanPath.split('/');
-
-                    if (routeParts.length === pathParts.length) {
-                        let match = true;
-                        const tempParams: Record<string, string> = {};
-
-                        for (let i = 0; i < routeParts.length; i++) {
-                            const routePart = routeParts[i];
-                            if (routePart && routePart.startsWith(':')) {
-                                const paramName = routePart.slice(1);
-                                tempParams[paramName] = decodeURIComponent(pathParts[i] || '');
-                            } else if (routePart !== pathParts[i]) {
-                                match = false;
-                                break;
-                            }
-                        }
-
-                        if (match) {
-                            BranchClass = this.routes[routePattern];
-                            routeParams = tempParams;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (!BranchClass) {
-            BranchClass = this.routes['/404'] || this.routes['/'];
+        if (!record) {
+            record = this.routes['/404'] || this.routes['/'] || null;
             console.warn(`Gen: Route ${cleanPath} not found`);
         }
 
+        if (!record) {
+            this.isNavigating = false;
+            return;
+        }
+
+        let BranchClass: BranchCtor;
+        try {
+            BranchClass = await record.load();
+        } catch (e) {
+            console.error(`Gen: Failed to load route ${cleanPath}`, e);
+            const fallback = cleanPath !== '/404' ? this.routes['/404'] : null;
+            if (!fallback) {
+                this.isNavigating = false;
+                return;
+            }
+            BranchClass = await fallback.load();
+            routeParams = {};
+        }
+
+        if (navId !== this.navigationId) return;
+
         const switchBranch = () => {
+            if (navId !== this.navigationId) return;
+
             if (this.currentBranch) {
                 this.currentBranch.unmount();
             }
 
-            if (BranchClass) {
-                const branch = new BranchClass();
-                this.currentBranch = branch;
-                
-                const combinedData = { ...(data || {}), ...routeParams };
+            const branch = new BranchClass();
+            this.currentBranch = branch;
+            
+            const combinedData = { ...(data || {}), ...routeParams };
 
-                this.updateMeta(branch.getMeta(combinedData));
-                branch.mount(this.appContainer!, combinedData);
-                
-                const scrollY = data?.scrollY || 0;
-                
-                setTimeout(() => {
-                    window.scrollTo(0, scrollY);
-                    AOS.refresh();
-                }, 100);
-            }
+            this.updateMeta(branch.getMeta(combinedData));
+            branch.mount(this.appContainer!, combinedData);
+            
+            const scrollY = data?.scrollY || 0;
+            
+            setTimeout(() => {
+                if (navId !== this.navigationId) return;
+                window.scrollTo(0, scrollY);
+                AOS.refresh();
+            }, 100);
         };
 
         if (!this.currentBranch) {
             switchBranch();
-            this.isNavigating = false;
+            if (navId === this.navigationId) this.isNavigating = false;
             return;
         }
 
         this.appContainer.classList.add('fade-out');
 
         setTimeout(() => {
+            if (navId !== this.navigationId) return;
+
             switchBranch();
             requestAnimationFrame(() => {
+                if (navId !== this.navigationId) return;
                 this.appContainer?.classList.remove('fade-out');
                 this.isNavigating = false;
             });

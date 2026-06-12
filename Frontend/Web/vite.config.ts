@@ -41,7 +41,7 @@ export default defineConfig({
                 assetFileNames: (assetInfo) => {
                     // Разные сроки кеширования для разных типов файлов
                     if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-                        return 'assets/[name].[extname]';
+                        return 'assets/[name]-[hash][extname]';
                     }
                     if (assetInfo.name && assetInfo.name.match(/\.(png|jpg|jpeg|gif|webp|avif|svg)$/)) {
                         return 'assets/images/[name].[hash][extname]';
@@ -53,6 +53,8 @@ export default defineConfig({
                 }
             }
         },
+        // CSS держим единым файлом: route-level JS остаётся lazy, но страницы не мигают без стилей при F5.
+        cssCodeSplit: false,
         // Добавляем хеши к именам файлов для долгого кеширования
         assetsInlineLimit: 4096,
         sourcemap: false

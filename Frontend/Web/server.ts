@@ -10,39 +10,79 @@ const DIST_DIR = "/app/dist_build";
 const STATIC_DIR = "/app/Frontend/Web/static";
 
 // --- Конфигурация кэширования ---
-const CACHE_FONTS = {
-    "Cache-Control": "public, max-age=3600, immutable"
-};
+type HeadersMap = Record<string, string>;
 
-const CACHE_DEFAULT = {
-    "Cache-Control": "public, max-age=60, immutable",
-    "Content-Type": "application/javascript"
-};
+const CACHE_SHORT = "public, max-age=60, immutable";
+const CACHE_LONG = "public, max-age=3600, immutable";
 
-const CACHE_CSS = {
-    "Cache-Control": "public, max-age=60, immutable",
-    "Content-Type": "text/css"
+const MIME_TYPES: Record<string, string> = {
+    ".js": "application/javascript; charset=utf-8",
+    ".mjs": "application/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".html": "text/html; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
+    ".xml": "application/xml; charset=utf-8",
+    ".txt": "text/plain; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".avif": "image/avif",
+    ".ico": "image/x-icon",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+    ".ttf": "font/ttf",
+    ".otf": "font/otf",
+    ".webmanifest": "application/manifest+json; charset=utf-8"
 };
 
 const CACHE_HTML = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
     "Pragma": "no-cache",
     "Expires": "0",
-    "Content-Type": "text/html"
+    "Content-Type": "text/html; charset=utf-8"
 };
 
-function getAssetHeaders(path: string) {
-    // @ts-ignore
-    if (path.includes("/fonts/") || path.match(/\.(woff2?|ttf|otf)$/)) {
-        return CACHE_FONTS;
-    }
-    if (path.match(/\.(js|mjs)$/)) {
-        return CACHE_DEFAULT;  // JavaScript с правильным Content-Type
-    }
-    if (path.match(/\.css$/)) {
-        return CACHE_CSS;  // CSS с правильным Content-Type
-    }
-    return CACHE_DEFAULT;  // Fallback
+function getExtension(path: string): string {
+    const cleanPath = path.split("?")[0]?.split("#")[0] || path;
+    const dotIndex = cleanPath.lastIndexOf(".");
+    return dotIndex >= 0 ? cleanPath.slice(dotIndex).toLowerCase() : "";
+}
+
+function getAssetHeaders(path: string): HeadersMap {
+    const ext = getExtension(path);
+    const contentType = MIME_TYPES[ext] || "application/octet-stream";
+    const isFont = path.includes("/fonts/") || /\.(woff2?|ttf|otf)$/i.test(path);
+    const isBuildAsset = path.startsWith("/assets/");
+
+    return {
+        "Cache-Control": (isFont || isBuildAsset) ? CACHE_LONG : CACHE_SHORT,
+        "Content-Type": contentType
+    };
+}
+
+function isAssetRequest(path: string): boolean {
+    return path.startsWith('/assets/')
+        || path.startsWith('/images/')
+        || path.startsWith('/fonts/')
+        || path.startsWith('/lang/')
+        || path === '/manifest.json'
+        || path === '/browserconfig.xml'
+        || path === '/robots.txt'
+        || path === '/sw.js'
+        || getExtension(path) !== '';
+}
+
+function notFound(path: string): Response {
+    return new Response('Not found', {
+        status: 404,
+        headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Content-Type': MIME_TYPES[getExtension(path)] || 'text/plain; charset=utf-8'
+        }
+    });
 }
 
 serve({
@@ -101,7 +141,14 @@ serve({
         }
     }
 
-    // --- 4. SPA Fallback (index.html) ---
+    // --- 4. Missing assets should stay 404 ---
+    // Не отдаём index.html вместо JS/CSS/картинок: браузер воспринимает такой HTML
+    // как module script/style и падает на строгой MIME-проверке после обновлений чанков.
+    if (isAssetRequest(path)) {
+        return notFound(path);
+    }
+
+    // --- 5. SPA Fallback (index.html) только для навигационных URL ---
     let core = file(DIST_DIR + "/core.html");
     if (await core.exists()) return new Response(core, { headers: CACHE_HTML });
     

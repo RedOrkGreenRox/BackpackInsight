@@ -9,7 +9,11 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "ru",
-  "categories": ["games", "entertainment", "utilities"],
+  "categories": [
+    "games",
+    "entertainment",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "/images/manifest/avif/icon-72x72.avif",
@@ -180,7 +184,7 @@
       "url": "/",
       "icons": [
         {
-          "src": "/images/manifest/icon-96x96.png",
+          "src": "/images/manifest/png/icon-96x96.png",
           "sizes": "96x96"
         }
       ]
@@ -192,7 +196,7 @@
       "url": "/items",
       "icons": [
         {
-          "src": "/images/manifest/icon-96x96.png",
+          "src": "/images/manifest/png/icon-96x96.png",
           "sizes": "96x96"
         }
       ]

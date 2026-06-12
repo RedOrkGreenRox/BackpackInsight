@@ -26,6 +26,7 @@
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#4CAF50">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BackpackInsight">
@@ -37,14 +38,14 @@
     <link rel="manifest" href="/manifest.json">
     
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
-    <link rel="apple-touch-icon" sizes="128x128" href="/images/manifest/icon-128x128.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/manifest/icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="384x384" href="/images/manifest/icon-384x384.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="/images/manifest/icon-512x512.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/png/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/png/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/images/manifest/png/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/png/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/manifest/png/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/png/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="/images/manifest/png/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/manifest/png/icon-512x512.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml"
@@ -76,9 +77,9 @@
     <link rel="preload" href="/fonts/NotoSans.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/NotoSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- Preload localization files -->
-    <link rel="preload" href="/lang/en.json" as="fetch" crossorigin>
-    <link rel="preload" href="/lang/ru.json" as="fetch" crossorigin>
+    <!-- Prefetch localization files without blocking load or causing unused-preload warnings -->
+    <link rel="prefetch" href="/lang/en.json" as="fetch" crossorigin>
+    <link rel="prefetch" href="/lang/ru.json" as="fetch" crossorigin>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
