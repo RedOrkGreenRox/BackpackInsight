@@ -13,3 +13,8 @@
 @use "./_items/responsive/mobile";
 @use "./_items/animations/loading-spinner";
 @use "./_items/animations/fade-up";
+
+.items-scroll-sentinel {
+    width: 100%;
+    height: 1px;
+}

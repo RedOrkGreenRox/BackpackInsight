@@ -1,11 +1,14 @@
 /// <reference path="../../../../types/global.d.ts" />
 
+import { ImageFormatService } from '../../../../utils/ImageFormatService';
+
 // 2. Основная инициализация
 
 // Глобальная функция для обработки ошибок загрузки изображений
 window.handleImageError = function(img: HTMLImageElement) {
     // Предотвращаем бесконечный цикл, если плейсхолдер тоже не загрузился
-    if (img.src.includes('/images/placeholder/placeholder.webp')) {
+    const placeholder = ImageFormatService.placeholderSrc();
+    if (img.src.includes('/images/placeholder/placeholder.')) {
         console.warn('Placeholder image also failed to load');
         img.onerror = null;
         return;
@@ -19,7 +22,7 @@ window.handleImageError = function(img: HTMLImageElement) {
         sources.forEach(source => source.remove());
     }
     // 3. Устанавливаем плейсхолдер (исправлен путь: убран префикс /static)
-    img.src = '/images/placeholder/placeholder.webp';
+    img.src = placeholder;
     img.onerror = null; // Предотвращаем бесконечный цикл
     img.alt = 'Item not available'; // Доступность
 };

@@ -18,6 +18,7 @@ export class Gen {
     private isNavigating: boolean = false;
     private scrollTimeout: any = null;
     private navigationId = 0;
+    private prefetchedRoutes = new Set<string>();
 
     private constructor() {
         if ('scrollRestoration' in history) {
@@ -63,6 +64,19 @@ export class Gen {
 
     public register(path: string, loader: BranchLoader): void {
         this.routes[path] = { load: loader };
+    }
+
+    public prefetch(path: string): void {
+        const cleanPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+        if (this.prefetchedRoutes.has(cleanPath)) return;
+
+        const { record } = this.findRoute(cleanPath);
+        if (!record) return;
+
+        this.prefetchedRoutes.add(cleanPath);
+        record.load().catch(() => {
+            this.prefetchedRoutes.delete(cleanPath);
+        });
     }
 
     public navigate(path: string, data?: any): void {

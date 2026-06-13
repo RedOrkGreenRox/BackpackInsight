@@ -3,6 +3,7 @@
  */
 
 import { Item } from '../utils/profile-types';
+import { ImageFormatService } from '../../../../utils/ImageFormatService';
 import { SlugService } from '../../../../utils/SlugService';
 
 export class ItemCardRenderer {
@@ -10,6 +11,7 @@ export class ItemCardRenderer {
         const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
 
         const slug = SlugService.toSlug(item.name);
+        const imageSrc = ImageFormatService.itemSrc(slug);
 
         return `
             <a href="/profile/item/${slug}" class="item-card-link" data-link style="text-decoration: none; color: inherit; display: block;"
@@ -17,16 +19,14 @@ export class ItemCardRenderer {
                data-aos-delay="${(index % 10) * 30}">
                 <div class="item-card">
                     <div class="item-image-wrapper">
-                        <picture>
-                            <source srcset="/images/items/avif/${slug}.avif" type="image/avif">
-                            <source srcset="/images/items/webp/${slug}.webp" type="image/webp">
-                            <img src="/images/items/webp/${slug}.webp" 
-                                 alt="${item.name}" 
-                                 loading="lazy" 
-                                 class="item-icon" 
-                                 data-fallback
-                                 onerror="window.handleImageError(this)">
-                        </picture>
+                        <img src="${imageSrc}" 
+                             alt="${item.name}" 
+                             loading="lazy"
+                             decoding="async"
+                             fetchpriority="low"
+                             class="item-icon" 
+                             data-fallback
+                             onerror="window.handleImageError(this)">
                     </div>
                     <span class="item-name">${item.name}</span>
                     <div class="item-stats">

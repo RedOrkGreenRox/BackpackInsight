@@ -3,6 +3,7 @@ import { Shell } from './roots/Shell';
 import { Parallax } from './roots/Parallax';
 import './roots/_roots/shell/ui_init/ui_init'; // Импорт инициализации UI
 import { i18n } from './localization/i18n';
+import { ImageFormatService } from './utils/ImageFormatService';
 
 // Импорт AOS из npm
 // @ts-ignore
@@ -88,8 +89,11 @@ class PerformanceMonitor {
 (window as any).AOS = AOS;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Сначала инициализируем локализацию
-    await i18n.init();
+    // Сначала инициализируем локализацию и единый формат изображений
+    await Promise.all([
+        i18n.init(),
+        ImageFormatService.init()
+    ]);
 
     // Затем все остальное
     PerformanceMonitor.init();
@@ -119,6 +123,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Динамические маршруты
     router.register('/item/:name', () => import('./branches/itemDetail/ItemDetailBranch').then(m => m.ItemDetailBranch));
     router.register('/profile/item/:name', () => import('./branches/itemDetail/ItemDetailBranch').then(m => m.ItemDetailBranch));
+
+    document.body.addEventListener('pointerover', (event) => {
+        const target = (event.target as HTMLElement).closest('[data-link]');
+        const href = target?.getAttribute('href');
+        if (href) router.prefetch(href);
+    }, { passive: true });
+
+    document.body.addEventListener('focusin', (event) => {
+        const target = (event.target as HTMLElement).closest('[data-link]');
+        const href = target?.getAttribute('href');
+        if (href) router.prefetch(href);
+    });
+
+    const requestIdle = window.requestIdleCallback || ((cb: IdleRequestCallback) => window.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 }), 800));
+    requestIdle(() => {
+        const connection = (navigator as any).connection;
+        const saveData = !!connection?.saveData;
+        const slowConnection = typeof connection?.effectiveType === 'string' && connection.effectiveType.includes('2g');
+        if (!saveData && !slowConnection) {
+            router.prefetch('/items');
+        }
+    });
     
     router.init('app');
 

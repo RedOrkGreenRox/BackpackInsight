@@ -2,6 +2,7 @@ import {Branch, PageMeta} from '@roots/Branch.ts';
 import {Gen} from '@roots/Gen.ts';
 import {t} from '../../localization/i18n';
 import {SortController} from './_profile/sort/SortController';
+import {ImageFormatService} from '../../utils/ImageFormatService';
 import {LoadingStates} from '../../utils/LoadingStates';
 import { ScreenshotManager } from './_profile/managers/screenshot-manager';
 import { ProfileData, SavedState, rarityWeights, HeaderRenderer, HeroesSectionRenderer, ItemsSectionRenderer, ItemCardRenderer } from './_profile';
@@ -212,7 +213,7 @@ export class ProfileBranch extends Branch {
                 const img = target as HTMLImageElement;
                 if (img.dataset['failed'] === 'true') return;
                 img.dataset['failed'] = 'true';
-                const placeholder = '/images/placeholder/placeholder.webp';
+                const placeholder = ImageFormatService.placeholderSrc();
                 const picture = img.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
                     const sources = picture.querySelectorAll('source');

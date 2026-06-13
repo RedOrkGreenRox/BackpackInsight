@@ -4,6 +4,7 @@
  */
 import { PageMeta } from '@roots/Branch.ts';
 import { ItemDetailData, NavigationState, ItemDefinition } from '../utils/item-detail-types';
+import { ImageFormatService } from '@utils/ImageFormatService';
 import { ItemIconService } from '@utils/ItemIconService';
 import { parseTextWithIcons, generateIconsOrText } from '@utils/icon-parser';
 import { LoadingStates } from '@utils/LoadingStates';
@@ -57,6 +58,7 @@ export class ItemDetailRenderer {
         const backUrl = isProfile ? '/profile' : '/items';
         const backTitle = isProfile ? t('sidebar_main') : t('sidebar_items');
         const imageName = ItemIconService.getImagePath(item);
+        const imageSrc = ImageFormatService.itemSrc(imageName);
         const itemTypesHtml = generateIconsOrText(item.itemTypes);
 
         return `
@@ -85,11 +87,7 @@ export class ItemDetailRenderer {
                         </div>
                         <div class="item-visual">
                             <div class="item-image-wrapper ${rarityClass}">
-                                <picture>
-                                    <source srcset="/images/items/avif/${imageName}.avif" type="image/avif">
-                                    <source srcset="/images/items/webp/${imageName}.webp" type="image/webp">
-                                    <img src="/images/items/webp/${imageName}.webp" alt="${item.name}" loading="lazy" onerror="window.handleImageError(this)">
-                                </picture>
+                                <img src="${imageSrc}" alt="${item.name}" loading="lazy" decoding="async" onerror="window.handleImageError(this)">
                             </div>
                         </div>
                         ${this.renderPlayerInfo(data.playerItem)}

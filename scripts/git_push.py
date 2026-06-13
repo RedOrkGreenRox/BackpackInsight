@@ -49,7 +49,24 @@ def main():
 
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    upd = "Оптимизация чанк-загрузки"
+    upd = """
+Оптимизация загрузки и route-level code splitting
+Lazy loading и prefetch SPA-роутов
+Оптимизация страницы «Предметы»
+Infinite scroll для каталога предметов
+Debounce и улучшенная сортировка поиска
+Кеширование /api/items и Fuse index
+Единый сервис выбора формата изображений
+Исправление slug/path для item images
+Исправление dynamic import предупреждения на 404
+Оптимизация CSS-сборки и устранение мигания стилей
+Исправление MIME-типов и SPA fallback в Bun server
+Оптимизация Service Worker и cache strategy
+Исправление PWA manifest/icons
+Удаление debug-логов с API_SECRET
+Пересохранение .gitattributes без BOM
+
+    """
     message = f"{upd} | Automated push: {timestamp}"
 
     # 7. Коммит

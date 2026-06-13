@@ -16,145 +16,145 @@
   ],
   "icons": [
     {
-      "src": "/images/manifest/avif/icon-72x72.avif",
+      "src": "/images/manifest/avif/icon-72x72.avif?v=5",
       "sizes": "72x72",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-72x72.webp",
+      "src": "/images/manifest/webp/icon-72x72.webp?v=5",
       "sizes": "72x72",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-72x72.png",
+      "src": "/images/manifest/png/icon-72x72.png?v=5",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-96x96.avif",
+      "src": "/images/manifest/avif/icon-96x96.avif?v=5",
       "sizes": "96x96",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-96x96.webp",
+      "src": "/images/manifest/webp/icon-96x96.webp?v=5",
       "sizes": "96x96",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-96x96.png",
+      "src": "/images/manifest/png/icon-96x96.png?v=5",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-128x128.avif",
+      "src": "/images/manifest/avif/icon-128x128.avif?v=5",
       "sizes": "128x128",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-128x128.webp",
+      "src": "/images/manifest/webp/icon-128x128.webp?v=5",
       "sizes": "128x128",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-128x128.png",
+      "src": "/images/manifest/png/icon-128x128.png?v=5",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-144x144.avif",
+      "src": "/images/manifest/avif/icon-144x144.avif?v=5",
       "sizes": "144x144",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-144x144.webp",
+      "src": "/images/manifest/webp/icon-144x144.webp?v=5",
       "sizes": "144x144",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-144x144.png",
+      "src": "/images/manifest/png/icon-144x144.png?v=5",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-152x152.avif",
+      "src": "/images/manifest/avif/icon-152x152.avif?v=5",
       "sizes": "152x152",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-152x152.webp",
+      "src": "/images/manifest/webp/icon-152x152.webp?v=5",
       "sizes": "152x152",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-152x152.png",
+      "src": "/images/manifest/png/icon-152x152.png?v=5",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-192x192.avif",
+      "src": "/images/manifest/avif/icon-192x192.avif?v=5",
       "sizes": "192x192",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-192x192.webp",
+      "src": "/images/manifest/webp/icon-192x192.webp?v=5",
       "sizes": "192x192",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-192x192.png",
+      "src": "/images/manifest/png/icon-192x192.png?v=5",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-384x384.avif",
+      "src": "/images/manifest/avif/icon-384x384.avif?v=5",
       "sizes": "384x384",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-384x384.webp",
+      "src": "/images/manifest/webp/icon-384x384.webp?v=5",
       "sizes": "384x384",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-384x384.png",
+      "src": "/images/manifest/png/icon-384x384.png?v=5",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/avif/icon-512x512.avif",
+      "src": "/images/manifest/avif/icon-512x512.avif?v=5",
       "sizes": "512x512",
       "type": "image/avif",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/webp/icon-512x512.webp",
+      "src": "/images/manifest/webp/icon-512x512.webp?v=5",
       "sizes": "512x512",
       "type": "image/webp",
       "purpose": "maskable any"
     },
     {
-      "src": "/images/manifest/png/icon-512x512.png",
+      "src": "/images/manifest/png/icon-512x512.png?v=5",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
@@ -184,7 +184,7 @@
       "url": "/",
       "icons": [
         {
-          "src": "/images/manifest/png/icon-96x96.png",
+          "src": "/images/manifest/png/icon-96x96.png?v=5",
           "sizes": "96x96"
         }
       ]
@@ -196,7 +196,7 @@
       "url": "/items",
       "icons": [
         {
-          "src": "/images/manifest/png/icon-96x96.png",
+          "src": "/images/manifest/png/icon-96x96.png?v=5",
           "sizes": "96x96"
         }
       ]

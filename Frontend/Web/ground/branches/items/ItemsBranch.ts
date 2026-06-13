@@ -1,6 +1,7 @@
 import {Branch} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
 import {ItemsCacheService} from '../../utils/ItemsCacheService';
+import {ImageFormatService} from '../../utils/ImageFormatService';
 import {SlugService} from '../../utils/SlugService';
 import {generateIconsOrText} from '../../utils/icon-parser';
 import {LoadingStates} from '../../utils/LoadingStates';
@@ -62,6 +63,9 @@ export interface ItemDefinition {
 }
 
 
+let cachedFuseItems: ItemDefinition[] | null = null;
+let cachedFuse: Fuse<ItemDefinition> | null = null;
+
 interface FilterState {
     searchQuery: string;
     selectedTypes: Set<string>;
@@ -80,6 +84,11 @@ export class ItemsBranch extends Branch {
     private currentSort: 'rarity' | 'name' = 'rarity';
     private cleanupFns: (() => void)[] = [];
     private fuse: Fuse<ItemDefinition> | null = null; // Экземпляр Fuse.js
+    private searchScores = new Map<string, number>();
+    private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+    private intersectionObserver: IntersectionObserver | null = null;
+    private renderedCount = 0;
+    private readonly renderBatchSize = 80;
     private filters: FilterState = {
         searchQuery: '',
         selectedTypes: new Set(),
@@ -213,6 +222,7 @@ export class ItemsBranch extends Branch {
                     <div class="items-grid" id="wikiItemsGrid">
                         ${LoadingStates.createCardSkeleton(12)}
                     </div>
+                    <div id="itemsScrollSentinel" class="items-scroll-sentinel" aria-hidden="true"></div>
                 </div>
             </section>
         `;
@@ -239,7 +249,13 @@ export class ItemsBranch extends Branch {
             this.addListener(searchInput, 'input', (e) => {
                 this.filters.searchQuery = (e.target as HTMLInputElement).value;
                 this.saveState();
-                this.applyFilters();
+
+                if (this.searchDebounceTimer) {
+                    clearTimeout(this.searchDebounceTimer);
+                }
+                this.searchDebounceTimer = setTimeout(() => {
+                    this.applyFilters();
+                }, 200);
             });
         }
 
@@ -312,7 +328,7 @@ export class ItemsBranch extends Branch {
                 if (target.dataset['failed'] === 'true') return;
                 target.dataset['failed'] = 'true';
                 console.warn(`[ItemsBranch] Image not found for item: "${target.alt}". Using placeholder.`);
-                const placeholder = '/images/placeholder/placeholder.webp';
+                const placeholder = ImageFormatService.placeholderSrc();
                 const picture = target.parentElement;
                 if (picture && picture.tagName === 'PICTURE') {
                     const sources = picture.querySelectorAll('source');
@@ -368,18 +384,7 @@ export class ItemsBranch extends Branch {
         try {
             this.items = await ItemsCacheService.getAllItems() as unknown as ItemDefinition[];
 
-            // Инициализация Fuse.js
-            const options = {
-                includeScore: true,
-                threshold: 0.4,
-                keys: [
-                    {name: 'name', weight: 2},
-                    {name: 'itemTypes', weight: 1.5},
-                    {name: 'connectedHero', weight: 1},
-                    {name: 'tooltips', weight: 0.5}
-                ]
-            };
-            this.fuse = new Fuse(this.items, options);
+            this.fuse = this.getFuse();
 
             // setupFilterOptions вызывает applyFilters, который вызывает sortAndRender
             this.setupFilterOptions();
@@ -388,6 +393,27 @@ export class ItemsBranch extends Branch {
             const grid = this.container?.querySelector('#wikiItemsGrid');
             if (grid) grid.innerHTML = `<div class="error">${t('error_server_unavailable')}</div>`;
         }
+    }
+
+    private getFuse(): Fuse<ItemDefinition> {
+        if (cachedFuse && cachedFuseItems === this.items) {
+            return cachedFuse;
+        }
+
+        const options = {
+            includeScore: true,
+            threshold: 0.4,
+            keys: [
+                {name: 'name', weight: 2},
+                {name: 'itemTypes', weight: 1.5},
+                {name: 'connectedHero', weight: 1},
+                {name: 'tooltips', weight: 0.5}
+            ]
+        };
+
+        cachedFuseItems = this.items;
+        cachedFuse = new Fuse(this.items, options);
+        return cachedFuse;
     }
 
     private setupFilterOptions() {
@@ -991,17 +1017,24 @@ export class ItemsBranch extends Branch {
 
     private applyFilters() {
         let filtered = [...this.items];
+        const searchQuery = this.filters.searchQuery.trim().toLowerCase();
+        this.searchScores.clear();
 
         // Текстовый поиск
-        if (this.filters.searchQuery.trim()) {
+        if (searchQuery) {
             if (this.fuse) {
-                const result = this.fuse.search(this.filters.searchQuery);
+                const result = this.fuse.search(searchQuery);
+                result.forEach((res: any) => {
+                    this.searchScores.set(res.item.id || res.item.name, res.score ?? 1);
+                });
                 filtered = result.map((res: any) => res.item);
             } else {
-                filtered = filtered.filter(item =>
-                    item.name.toLowerCase().includes(this.filters.searchQuery.toLowerCase()) ||
-                    item.tooltips.some(tip => tip.toLowerCase().includes(this.filters.searchQuery.toLowerCase()))
-                );
+                filtered = filtered.filter(item => {
+                    const matches = item.name.toLowerCase().includes(searchQuery) ||
+                        item.tooltips.some(tip => tip.toLowerCase().includes(searchQuery));
+                    if (matches) this.searchScores.set(item.id || item.name, this.getSearchHeuristicScore(item, searchQuery));
+                    return matches;
+                });
             }
         }
 
@@ -1080,7 +1113,12 @@ export class ItemsBranch extends Branch {
 
     private sortAndRender() {
         if (this.filteredItems.length > 0) {
+            const searchQuery = this.filters.searchQuery.trim().toLowerCase();
             this.filteredItems.sort((a, b) => {
+                if (searchQuery) {
+                    return this.compareSearchResults(a, b, searchQuery);
+                }
+
                 if (this.currentSort === 'rarity') {
                     const weightA = this.rarityWeights[a.rarity] || 0;
                     const weightB = this.rarityWeights[b.rarity] || 0;
@@ -1097,6 +1135,37 @@ export class ItemsBranch extends Branch {
 
         // Применяем сортировку сразу при генерации
         this.renderGrid();
+    }
+
+    private compareSearchResults(a: ItemDefinition, b: ItemDefinition, query: string): number {
+        const rankA = this.getSearchRank(a, query);
+        const rankB = this.getSearchRank(b, query);
+        if (rankA !== rankB) return rankA - rankB;
+
+        const scoreA = this.searchScores.get(a.id || a.name) ?? this.getSearchHeuristicScore(a, query);
+        const scoreB = this.searchScores.get(b.id || b.name) ?? this.getSearchHeuristicScore(b, query);
+        if (scoreA !== scoreB) return scoreA - scoreB;
+
+        return a.name.localeCompare(b.name);
+    }
+
+    private getSearchRank(item: ItemDefinition, query: string): number {
+        const name = item.name.toLowerCase();
+        const words = name.split(/\s+/);
+
+        if (name === query) return 0;
+        if (name.startsWith(query)) return 1;
+        if (words.some(word => word.startsWith(query))) return 2;
+        if (name.includes(query)) return 3;
+        return 4;
+    }
+
+    private getSearchHeuristicScore(item: ItemDefinition, query: string): number {
+        const rank = this.getSearchRank(item, query);
+        if (rank < 4) return rank / 10;
+
+        const tooltipText = item.tooltips.join(' ').toLowerCase();
+        return tooltipText.includes(query) ? 0.9 : 1;
     }
 
     private getItemImagePath(item: ItemDefinition): string {
@@ -1153,12 +1222,54 @@ export class ItemsBranch extends Branch {
         const grid = this.container?.querySelector('#wikiItemsGrid');
         if (!grid) return;
 
+        this.disconnectInfiniteScroll();
         grid.innerHTML = '';
+        this.renderedCount = 0;
+        this.appendNextItemsBatch();
+        this.setupInfiniteScroll();
+    }
+
+    private setupInfiniteScroll(): void {
+        const sentinel = this.container?.querySelector('#itemsScrollSentinel');
+        if (!sentinel) return;
+
+        this.intersectionObserver = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (entry?.isIntersecting) {
+                this.appendNextItemsBatch();
+            }
+        }, {
+            root: null,
+            rootMargin: '900px 0px',
+            threshold: 0
+        });
+
+        this.intersectionObserver.observe(sentinel);
+    }
+
+    private disconnectInfiniteScroll(): void {
+        this.intersectionObserver?.disconnect();
+        this.intersectionObserver = null;
+    }
+
+    private appendNextItemsBatch(): void {
+        const grid = this.container?.querySelector('#wikiItemsGrid');
+        if (!grid) return;
+        if (this.renderedCount >= this.filteredItems.length) {
+            this.disconnectInfiniteScroll();
+            return;
+        }
+
+        const start = this.renderedCount;
+        const end = Math.min(start + this.renderBatchSize, this.filteredItems.length);
         const fragment = document.createDocumentFragment();
 
-        this.filteredItems.forEach((item, index) => {
-            // Определяем путь к картинке
+        for (let index = start; index < end; index++) {
+            const item = this.filteredItems[index];
+            if (!item) continue;
+
             const imagePath = this.getItemImagePath(item);
+            const imageSrc = ImageFormatService.itemSrc(imagePath);
 
             const link = document.createElement('a');
             link.href = `/item/${SlugService.toSlug(item.name)}`;
@@ -1180,16 +1291,14 @@ export class ItemsBranch extends Branch {
 
             card.innerHTML = `
                 <div class="item-image-wrapper">
-                    <picture>
-                        <source srcset="/images/items/avif/${imagePath}.avif" type="image/avif">
-                        <source srcset="/images/items/webp/${imagePath}.webp" type="image/webp">
-                        <img src="/images/items/webp/${imagePath}.webp"
-                             alt="${item.name}" 
-                             loading="lazy" 
-                             class="item-icon"
-                             data-fallback
-                             onerror="window.handleImageError(this)">
-                    </picture>
+                    <img src="${imageSrc}"
+                         alt="${item.name}" 
+                         loading="lazy"
+                         decoding="async"
+                         fetchpriority="low"
+                         class="item-icon"
+                         data-fallback
+                         onerror="window.handleImageError(this)">
                 </div>
                 <span class="item-name">${item.name}</span>
                 <div class="item-stats">
@@ -1202,39 +1311,44 @@ export class ItemsBranch extends Branch {
             link.addEventListener('click', () => {
                 (link as any)._stateData = {
                     itemData: item,
-                    scrollY: window.scrollY // ЗАПОМИНАЕМ ТЕКУЩУЮ ПОЗИЦИЮ
+                    scrollY: window.scrollY
                 };
             });
-        });
+        }
 
+        this.renderedCount = end;
         grid.appendChild(fragment);
 
-        // Принудительно запускаем анимации для видимых элементов
         requestAnimationFrame(() => {
             AOS.refresh();
-            
-            // Дополнительно принудительно анимируем видимые элементы
+
             setTimeout(() => {
-                const elements = grid.querySelectorAll('.item-card-link');
-                elements.forEach((el, index) => {
+                const elements = Array.from(grid.querySelectorAll('.item-card-link')).slice(start, end);
+                elements.forEach((el, localIndex) => {
                     const rect = el.getBoundingClientRect();
-                    // Если элемент видим на экране
                     if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        // Добавляем анимационные классы вручную
                         el.classList.add('aos-animate');
-                        // Применяем задержку для последовательного появления
-                        (el as HTMLElement).style.animationDelay = `${Math.min((index % 10) * 30, 300)}ms`;
+                        (el as HTMLElement).style.animationDelay = `${Math.min((localIndex % 10) * 30, 300)}ms`;
                         (el as HTMLElement).style.animation = 'fadeUp 0.6s ease-out forwards';
                     }
                 });
             }, 50);
         });
+
+        if (this.renderedCount >= this.filteredItems.length) {
+            this.disconnectInfiniteScroll();
+        }
     }
 
     protected destroy(): void {
         // Сохраняем состояние перед уничтожением компонента
         this.saveState();
         
+        if (this.searchDebounceTimer) {
+            clearTimeout(this.searchDebounceTimer);
+            this.searchDebounceTimer = null;
+        }
+        this.disconnectInfiniteScroll();
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
     }
