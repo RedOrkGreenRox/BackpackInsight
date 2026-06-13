@@ -50,64 +50,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Route-level code splitting для SPA-страниц
-Async route loaders и race-safe навигация в Gen
-Prefetch роутов при hover/focus/idle
-Уменьшение initial main bundle
-Manual chunks для shared/vendor-кода
-Выделение vendor-aos, vendor-fuse, vendor-html2canvas
-Единый хешированный CSS bundle
-Исправление MIME-типов в Bun server
-Безопасный SPA fallback: 404 для отсутствующих assets
-Удаление debug-логов с API_SECRET
-.gitattributes без BOM
-Оптимизация Service Worker cache strategy
-Navigation preload в Service Worker
-Ограничение размера dynamic cache в Service Worker
-Исправление staleWhileRevalidate fetch rejection
-PWA manifest icons приведены к корректным размерам
-Cache-busting для manifest/apple icons
-Исправление PWA meta/apple-touch icon paths
-Замена preload языковых файлов на prefetch
-Единый ItemsCacheService для справочника предметов
-Единый ImageFormatService для выбора AVIF/WebP
-Единый SlugService для item slugs
-Исправление item image paths с апострофами и спецсимволами
-Build-time audit item images
-verify:images npm script
-Удаление старого экспериментального TS-кода _items
-Infinite scroll на странице «Предметы»
-Browser-level offscreen optimization для item cards
-Debounce поиска предметов
-Кеширование Fuse index
-Prepared item index для фильтров и поиска
-Улучшенное ранжирование поисковых результатов
-Взвешенные alias/query expansion для поиска
-Терминологический слой для русско-английского поиска
-Поддержка русских семантических запросов без API переводчиков
-OR-поиск по расширенным query terms
-Защита от fuzzy-матча алиасов типа poison -> potion
-Взвешивание совпадений по полям: name/type/hero/stats/tooltip/searchText
-Строгие search tags в формате [Tag]
-OR внутри одной группы тегов [A B]
-AND между группами тегов [A] [B C]
-Строгие фильтры без семантики
-Tie-break сортировки по текущему режиму rarity/name
-Исправление сортировки при поиске только по [Tag]
-Smart prefetch item detail при hover на карточку
-Preload item image при hover
-Первые item images грузятся eager/high priority
-Централизация image fallback через delegated listener
-Удаление inline onerror
-Оптимизация ItemDetail image rendering
-ItemDetail SEO cleanup и restore
-MetaService для client-side meta/json-ld
-Удаление мёртвого screenshot utility
-html2canvas остаётся только dynamic import
-Prefetch html2canvas при hover/focus screenshot button
-Памятка по синтаксису search tags
-Скрипт анализа символов и слов предметов
-analyze:item-text npm script
+Забытая методичка по поисковику
     """
     message = f"{upd} | Automated push: {timestamp}"
 
