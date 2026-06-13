@@ -55,13 +55,18 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-SonarCloud Critical — sw.js L260
-Было: addEventListener('message') принимал сообщения от любого origin.
-Стало: проверка event.origin !== self.location.origin — чужие сообщения игнорируются.
-
-SonarCloud Major — отсутствует lock-файл
-Было: корневой package.json (с repomix) без lock-файла.
-Стало: package-lock.json создан через npm install --package-lock-only (168 пакетов, 0 уязвимостей)
+ItemsBranch.ts L1041,1052,1053,1054	.sort() без компаратора — порядок недетерминирован	.sort((a, b) => a.localeCompare(b))
+JsonValidator.ts L46,60,73	parseInt()	Number.parseInt()
+SortController.ts L106,107,112,113,120,121,124,125	parseInt()	Number.parseInt()
+ItemIconService.ts L49	parseInt()	Number.parseInt()
+verify-item-images.js L64	parseInt()	Number.parseInt()
+LoadingStates.ts L11	Array() без new	new Array()
+SearchTermService.ts L37	.replace(/ё/g, 'е')	.replaceAll('ё', 'е')
+icon-parser.ts L88	String.fromCharCode()	String.fromCodePoint()  
+icon-parser.ts L212	.replace(/\\n/g, '<br>')	.replaceAll('\\n', '<br>')
+analyze-item-text.js L80	.replace(/ё/g, 'е')	.replaceAll('ё', 'е')
+sw.js L212	caches.match(…) || … — Promise в boolean (не awaited)	await caches.match(…) || await caches.match('/')
+test_profile_factory.py L79	== 80.0 — float equality	== pytest.approx(80.0)
     """
     message = f"{upd} | Automated push: {timestamp}"
 

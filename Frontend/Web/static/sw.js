@@ -209,7 +209,8 @@ async function networkFirst(request, event) {
         }
         
         if (request.mode === 'navigate') {
-            return caches.match('/index.html') || new Response('Offline', {
+            const cached = await caches.match('/index.html') || await caches.match('/');
+            return cached || new Response('Offline', {
                 status: 503,
                 statusText: 'Service Unavailable'
             });

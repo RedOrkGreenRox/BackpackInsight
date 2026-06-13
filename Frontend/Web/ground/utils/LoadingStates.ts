@@ -8,7 +8,7 @@ export class LoadingStates {
      * Показывает skeleton экран для карточек
      */
     public static createCardSkeleton(count: number = 6): string {
-        return Array(count).fill(0).map(() => `
+        return new Array(count).fill(0).map(() => `
             <div class="skeleton-card" data-aos="fade-up">
                 <div class="skeleton-image"></div>
                 <div class="skeleton-content">

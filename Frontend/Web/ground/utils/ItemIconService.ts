@@ -46,7 +46,7 @@ export class ItemIconService {
                 const token = match[1];
                 const number = SlugService.isRomanNumeral(token)
                     ? SlugService.romanToArabic(token)
-                    : parseInt(token, 10);
+                    : Number.parseInt(token, 10);
                 return `heist-plan-${number}`;
             }
         }

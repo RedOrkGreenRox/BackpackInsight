@@ -76,7 +76,7 @@ class TestCache:
         ProfileFactory._cache_hits = 80
         ProfileFactory._cache_misses = 20
         stats = ProfileFactory.get_cache_statistics()
-        assert stats["hit_rate_percent"] == 80.0
+        assert stats["hit_rate_percent"] == pytest.approx(80.0)
 
     def test_preload_populates_cache(self, session):
         ProfileFactory.clear_cache()

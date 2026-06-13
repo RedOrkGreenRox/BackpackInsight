@@ -1038,7 +1038,7 @@ export class ItemsBranch extends Branch {
         });
 
         // Сортируем опции
-        const sortedTypes = Array.from(allTypes).sort();
+        const sortedTypes = Array.from(allTypes).sort((a, b) => a.localeCompare(b));
         const sortedRarities = ['Common', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Unique', 'Relic', 'Boon', 'Special'].filter(rarity => allRarities.has(rarity));
         const sortedHeroes = Array.from(allHeroes).sort((a, b) => {
             const heroOrder = ['Chana', 'Ronan', 'Harkon', 'Shared', 'Hob'];
@@ -1049,9 +1049,9 @@ export class ItemsBranch extends Branch {
             if (indexB !== -1) return 1;
             return a.localeCompare(b);
         });
-        const sortedUnlockSources = Array.from(allUnlockSources).sort();
-        const sortedBuffs = Array.from(allBuffs).sort();
-        const sortedDebuffs = Array.from(allDebuffs).sort();
+        const sortedUnlockSources = Array.from(allUnlockSources).sort((a, b) => a.localeCompare(b));
+        const sortedBuffs = Array.from(allBuffs).sort((a, b) => a.localeCompare(b));
+        const sortedDebuffs = Array.from(allDebuffs).sort((a, b) => a.localeCompare(b));
         
         // Статистики - в заданном порядке
         const statsOrder = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'StaminaRecovery', 'Resist', 'Static', 'Soul'];

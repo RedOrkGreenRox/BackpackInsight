@@ -85,7 +85,7 @@ function createIconHtml(iconName: string, title: string): string {
 function getAlphaId(num: number): string {
     let id = '', n = num;
     while (n >= 0) {
-        id = String.fromCharCode(65 + (n % 26)) + id;
+        id = String.fromCodePoint(65 + (n % 26)) + id;
         n = Math.floor(n / 26) - 1;
     }
     return id;
@@ -209,7 +209,7 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     });
 
     // 2. Переносы строк
-    processedText = processedText.replace(/\\n/g, '<br>');
+    processedText = processedText.replaceAll('\\n', '<br>');
 
     // 3. ОБЕРТКА ОБЫЧНОГО ТЕКСТА
     // Исключаем буллиты и уже созданные теги

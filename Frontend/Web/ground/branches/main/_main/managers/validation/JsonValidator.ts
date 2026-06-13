@@ -43,7 +43,7 @@ export class JsonValidator {
 
         if (errorMessage.includes('Unexpected token')) {
             const match = errorMessage.match(/position (\d+)/);
-            const position = match ? parseInt(match[1]) : 0;
+            const position = match ? Number.parseInt(match[1]) : 0;
             const { line, column } = this.getLineAndColumn(jsonText, position);
             const token = this.extractUnexpectedChar(errorMessage);
             
@@ -57,7 +57,7 @@ export class JsonValidator {
 
         if (errorMessage.includes('Property name must be')) {
             const match = errorMessage.match(/position (\d+)/);
-            const position = match ? parseInt(match[1]) : 0;
+            const position = match ? Number.parseInt(match[1]) : 0;
             const { line, column } = this.getLineAndColumn(jsonText, position);
             
             return {
@@ -70,7 +70,7 @@ export class JsonValidator {
 
         // Fallback для других ошибок
         const match = errorMessage.match(/position (\d+)/);
-        const position = match ? parseInt(match[1]) : 0;
+        const position = match ? Number.parseInt(match[1]) : 0;
         const { line, column } = this.getLineAndColumn(jsonText, position);
 
         return {

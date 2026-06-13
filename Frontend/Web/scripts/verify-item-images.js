@@ -61,7 +61,7 @@ function getImagePath(item) {
     const match = firstTooltip.match(/^Step\s+(\d+|[IVXLCDM]+)/i);
     if (match?.[1]) {
       const token = match[1].toUpperCase();
-      const number = ROMAN_NUMERALS[token] || parseInt(token, 10);
+      const number = ROMAN_NUMERALS[token] || Number.parseInt(token, 10);
       if (Number.isFinite(number)) return `heist-plan-${number}`;
     }
   }

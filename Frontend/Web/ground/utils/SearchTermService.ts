@@ -34,7 +34,7 @@ export class SearchTermService {
             .replace(/([\p{Ll}])([\p{Lu}])/gu, '$1 $2')
             .replace(/[_/.-]+/g, ' ')
             .toLowerCase()
-            .replace(/ё/g, 'е')
+            .replaceAll('ё', 'е')
             .normalize('NFKD')
             .replace(/[\u0300-\u036f]/g, '')
             .replace(/[^\p{L}\p{N}]+/gu, ' ')
