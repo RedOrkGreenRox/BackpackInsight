@@ -105,6 +105,7 @@ export class SortController {
             if (this.currentHeroSort === 'level') {
                 valA = parseInt(a.dataset['level'] || '0');
                 valB = parseInt(b.dataset['level'] || '0');
+                // Prestige-герои считаются выше максимального уровня (20)
                 if (a.dataset['prestige'] === 'true') valA += 20;
                 if (b.dataset['prestige'] === 'true') valB += 20;
             } else if (this.currentHeroSort === 'rating') {
@@ -112,9 +113,23 @@ export class SortController {
                 valB = parseInt(b.dataset['rating'] || '0');
             }
 
-            if (valA < valB) return this.sortAsc ? -1 : 1;
-            if (valA > valB) return this.sortAsc ? 1 : -1;
-            return 0;
+            if (valA !== valB) return this.sortAsc ? valA - valB : valB - valA;
+
+            // Тайbreaker: вторичная сортировка по противоположному параметру
+            if (this.currentHeroSort === 'level') {
+                const rA = parseInt(a.dataset['rating'] || '0');
+                const rB = parseInt(b.dataset['rating'] || '0');
+                if (rA !== rB) return this.sortAsc ? rA - rB : rB - rA;
+            } else {
+                const lA = parseInt(a.dataset['level'] || '0') + (a.dataset['prestige'] === 'true' ? 20 : 0);
+                const lB = parseInt(b.dataset['level'] || '0') + (b.dataset['prestige'] === 'true' ? 20 : 0);
+                if (lA !== lB) return this.sortAsc ? lA - lB : lB - lA;
+            }
+
+            // Финальный тайbreaker: имя героя — всегда детерминировано
+            const nameA = (a.dataset['heroName'] || '');
+            const nameB = (b.dataset['heroName'] || '');
+            return this.sortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
         });
 
         const fragment = document.createDocumentFragment();
