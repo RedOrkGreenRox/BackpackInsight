@@ -1,25 +1,26 @@
 /**
- * Индексный файл для всех модулей профиля
+ * Barrel-экспорт модулей профиля.
+ * Экспортируется только то, что реально используется снаружи папки.
  */
 
-// Утилиты и типы
+// Типы
 export type { Hero, Item, ProfileData, SavedState, RarityWeights } from './utils/profile-types';
 export { rarityWeights } from './utils/rarity-weights';
 
-// Рендереры Header
-export { HeaderRenderer } from './header/header';
-export { PlayerInfoRenderer } from './header/player-info';
-export { StatsBarRenderer } from './header/stats-bar';
-export { LevelProgressRenderer } from './header/level-progress';
+// Менеджеры (используются в ProfileBranch)
+export { ProfileDataManager } from './managers/ProfileDataManager';
+export { ProfileManager } from './managers/ProfileManager';
+export { ProfileStateManager } from './managers/ProfileStateManager';
+export { ProfileSkinsManager } from './managers/ProfileSkinsManager';
+export { ProfileSortManager } from './managers/ProfileSortManager';
+export { ScreenshotManager } from './managers/screenshot-manager';
 
-// Рендереры Heroes
+// Рендереры (используются в ProfileManager)
+export { HeaderRenderer } from './header/header';
 export { HeroesSectionRenderer } from './heroes/heroes-section';
 export { HeroCardRenderer } from './heroes/hero-card';
-export { HeroGridRenderer } from './heroes/hero-grid';
-export { HeroStatsRenderer } from './heroes/hero-stats';
-
-// Рендереры Items
 export { ItemsSectionRenderer } from './items/items-section';
 export { ItemCardRenderer } from './items/item-card';
-export { ItemGridRenderer } from './items/item-grid';
-export { ItemStatsRenderer } from './items/item-stats';
+
+// Контроллер сортировки
+export { SortController } from './sort/SortController';

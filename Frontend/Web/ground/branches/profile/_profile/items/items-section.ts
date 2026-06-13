@@ -1,3 +1,4 @@
+import { t } from '../../../../localization/i18n';
 /**
  * ItemsSectionRenderer - основной рендерер секции предметов
  */
@@ -27,17 +28,14 @@ export class ItemsSectionRenderer {
     }
 
     private static getItemsTitle(count: number): string {
-        // Импорт t будет добавлен позже
-        return `Предметы (${count})`;
+        return t('profile_items_title', String(count));
     }
 
     private static getItemsSortRarity(): string {
-        // Импорт t будет добавлен позже
-        return 'Сортировка по редкости';
+        return t('items_sort_rarity');
     }
 
     private static getItemsSortLevel(): string {
-        // Импорт t будет добавлен позже
-        return 'Сортировка по уровню';
+        return t('items_sort_level');
     }
 }

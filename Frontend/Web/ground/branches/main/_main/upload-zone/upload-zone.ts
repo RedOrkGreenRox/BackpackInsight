@@ -4,7 +4,7 @@ export class UploadZoneRenderer {
             <form class="upload-zone" id="uploadForm">
                 <div class="upload-area" id="uploadArea">
                     <input type="file" id="fileInput" accept=".json" style="display: none;">
-                    <textarea name="json_text" id="jsonInput" placeholder="" aria-label="Вставьте JSON данные здесь"></textarea>
+                    <textarea name="json_text" id="jsonInput" placeholder="" aria-label="${tFunction('profile_upload_textarea_label')}"></textarea>
                     <div class="upload-hint" id="uploadHint">
                         <span>${tFunction('profile_upload_hint_1')}</span>
                         <span class="pc-only">${tFunction('profile_upload_hint_2')}</span>

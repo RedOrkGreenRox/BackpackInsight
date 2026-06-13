@@ -1,3 +1,4 @@
+import { t } from '../../../../localization/i18n';
 /**
  * HeroesSectionRenderer - основной рендерер секции героев
  */
@@ -26,9 +27,9 @@ export class HeroesSectionRenderer {
                         <picture>
                             <source srcset="/images/profile/avif/level.avif" type="image/avif">
                             <source srcset="/images/profile/webp/level.webp" type="image/webp">
-                            <img id="sortIcon" src="/images/profile/webp/level.webp" alt="Сортировка по уровню" loading="lazy" style="transition: opacity 0.2s ease;">
+                            <img id="sortIcon" src="/images/profile/webp/level.webp" alt="" loading="lazy" style="transition: opacity 0.2s ease;">
                         </picture>
-                        <span id="sortText">${this.getSortLevelText()}</span>
+                        <span id="sortText">${t('profile_sort_level')}</span>
                     </button>
                     <button id="invertToggle" class="invert-icon-btn">
                         <picture>
@@ -46,12 +47,10 @@ export class HeroesSectionRenderer {
     }
 
     private static getHeroesTitle(count: number): string {
-        // Импорт t будет добавлен позже
-        return `Герои (${count})`;
+        return t('profile_heroes_title', String(count));
     }
 
     private static getSortLevelText(): string {
-        // Импорт t будет добавлен позже
-        return 'Сортировка по уровню';
+        return t('profile_sort_level');
     }
 }

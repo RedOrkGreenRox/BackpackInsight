@@ -71,5 +71,8 @@
   "jsonld_cost": "Стоимость",
   "jsonld_cost_gold": "золота",
   "jsonld_cost_na": "N/A",
-  "jsonld_type": "Тип"
+  "jsonld_type": "Тип",
+  "unknown_item": "Неизвестный предмет",
+  "wiki_item_cost_unit": "монет",
+  "profile_upload_textarea_label": "Вставьте JSON данные здесь"
 }

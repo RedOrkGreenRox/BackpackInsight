@@ -72,5 +72,7 @@
   "jsonld_cost": "Cost",
   "jsonld_cost_gold": "gold",
   "jsonld_cost_na": "N/A",
-  "jsonld_type": "Type"
+  "jsonld_type": "Type",
+  "unknown_item": "Unknown item",
+  "profile_upload_textarea_label": "Paste your JSON data here"
 }
