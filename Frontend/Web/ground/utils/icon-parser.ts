@@ -180,7 +180,7 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     processedText = replaceOutsideSpans(processedText, /\b(by\s+)([\d.]+)\b/g, (b, n) => `${b}<span class="value-text">${n}</span>`);
     processedText = processedText.replace(/(^|\n|\\n)([A-Z][a-z]+\s+)([\d.]+(?:-[\d.]+)?)/g, (m, s, w, n) => n.includes('span') ? m : `${s}${w}<span class="value-text">${n}</span>`);
 
-    const itemNamesRegex = /(?<!\()\b([A-Z][a-z]+(?:['’]s)?((\s+of)?\s+[A-Z][a-z]+(?:['’]s)?)*)\b/g;
+    const itemNamesRegex = /(?<!\()\b([A-Z][a-z]+(?:['’]s)?((?:\s+of)?\s+[A-Z][a-z]+(?:['’]s)?){0,3})\b/g;
     processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => {
         const firstName = m.split(/\s+/)[0];
         if (!firstName) return m;

@@ -160,7 +160,8 @@ class ProfileFactory:
         """
         Парсит список UL для извлечения скинов.
         """
-        skin_pattern = re.compile(r"^(.+)Skin(.+)$")
+        # Используем [A-Za-z]+ вместо .+ чтобы исключить ReDoS при вводе типа "SkinSkinSkin"
+        skin_pattern = re.compile(r"^([A-Za-z]+)Skin([A-Za-z]+)$")
         
         for unlock in ul_list:
             if not isinstance(unlock, str) or "Skin" not in unlock:
