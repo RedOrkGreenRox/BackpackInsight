@@ -55,7 +55,33 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-profile page name fix
+ChangeLog
+Нарезка Items на модули
+ItemsBranch.ts 1615 строк → агрегатор 31 строка
+12 модулей: ItemsManager, ItemsDataLoader, ItemsFilterManager, ItemsSortManager, ItemsScrollManager, ItemsStateManager, FilterOptionsBuilder, FilterUIRenderer, SearchParser, ItemsRenderer, типы
+Производительность / SW / Кэш
+_headers: /assets/* max-age=60 → max-age=31536000, immutable
+sw.js: /index.html добавлен в STATIC_ASSETS
+sw.js: SPA-fallback при офлайне — отдаёт index.html из кэша вместо 503
+sw.js: placeholder для картинок при офлайне
+PerformanceMonitor: порог RAM < 4 ГБ → <= 2 ГБ, ядер < 4 → <= 2
+PerformanceMonitor: добавлена проверка conn.saveData
+ItemPreviewPrefetchService: prefetch отключается при saveData/2g
+Доступность
+nav-tab в сайдбаре: <div> → <a role="menuitem">
+#app: <div> → <main aria-live="polite">
+Кнопки скинов: добавлен aria-label
+invertToggle: добавлен aria-pressed, обновляется при клике
+advancedFiltersToggle и dropdown-кнопки: добавлен aria-expanded, обновляется при открытии
+nav-btn-top disabled: <div> → <button disabled aria-disabled="true">
+Декоративные стрелки ▼: aria-hidden="true"
+Иконки лиги: alt="rank" → alt="${hero.league}"
+Хардкод строк — устранён
+HeroesSectionRenderer: "Герои", "Сортировка по уровню" → t()
+ItemsSectionRenderer: "Предметы", "Сортировка по редкости/уровню" → t()
+Баг: рассинхронизация сортировки героев
+SortController.applySort: return 0 при равных значениях → детерминированный тайbreaker вторичный параметр → имя
+HeroesSectionRenderer: начальный порядок приведён к тому же алгоритму
     """
     message = f"{upd} | Automated push: {timestamp}"
 
