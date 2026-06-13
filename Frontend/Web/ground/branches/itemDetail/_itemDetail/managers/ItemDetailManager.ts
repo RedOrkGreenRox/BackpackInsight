@@ -57,16 +57,24 @@ export class ItemDetailManager {
 
     private renderFullPage(): void {
         const isProfile = !!this.data.playerItem;
+        const item = this.data.itemData;
+
+        // Защита: если данных предмета нет — показываем «не найдено»
+        if (!item) {
+            this.container.innerHTML = ItemDetailRenderer.renderNotFound();
+            return;
+        }
+
         this.navManager = new ItemNavigationManager(isProfile);
         this.seoManager = new ItemSEOManager();
 
-        const nav = this.navManager.calculate(this.data.itemData?.name ?? this.data.name ?? '');
+        const nav = this.navManager.calculate(item.name);
         const html = ItemDetailRenderer.renderFullPage(this.data, nav);
 
         requestAnimationFrame(() => {
             if (!this.container) return;
             this.container.innerHTML = html;
-            this.seoManager?.update(this.data.itemData!, isProfile);
+            this.seoManager?.update(item, isProfile);
             this.navManager?.attachProfileNavListeners(this.container);
             (window as any).AOS?.refresh();
         });
@@ -134,6 +142,11 @@ export class ItemDetailManager {
     }
 
     private restoreProfileScroll(): void {
+        // Восстанавливаем скролл только при переходе назад (popstate),
+        // то есть когда пользователь уже был на этой странице.
+        // При первом заходе на ItemDetail скроллить к позиции профиля не нужно.
+        if (window.history.state?.fromBack !== true) return;
+
         try {
             const raw = sessionStorage.getItem('profileDynamicState')
                 ?? localStorage.getItem('profileDynamicState');

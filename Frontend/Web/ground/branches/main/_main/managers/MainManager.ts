@@ -12,81 +12,37 @@ export class MainManager {
     private t: (key: string) => string;
     private uploadHandler: UploadHandler | null = null;
     private submitManager: SubmitManager | null = null;
+    private formManager: FormManager = new FormManager();
+    private draftManager: DraftManager = new DraftManager();
 
     constructor(container: HTMLElement, t: (key: string) => string) {
         this.container = container;
         this.t = t;
     }
 
-    /**
-     * Инициализация всех компонентов
-     */
     public init(): void {
-        this.initDraftManagement();
-        this.initSubmitManager();
-        this.initUploadHandler();
-        this.initFormSubmission();
-    }
-
-    /**
-     * Очистка всех компонентов
-     */
-    public destroy(): void {
-        // Очистка менеджеров
-        FormManager.destroy();
-        DraftManager.destroy();
-        
-        // Очистка UploadHandler
-        if (this.uploadHandler) {
-            this.uploadHandler.destroy();
-            this.uploadHandler = null;
-        }
-        
-        // Очистка SubmitManager
-        this.submitManager = null;
-    }
-
-    /**
-     * Инициализация управления draft
-     */
-    private initDraftManagement(): void {
-        DraftManager.initDraftManagement(this.container);
-    }
-
-    /**
-     * Инициализация менеджера отправки формы
-     */
-    private initSubmitManager(): void {
+        this.draftManager.initDraftManagement(this.container);
         this.submitManager = new SubmitManager(this.container, this.t);
-    }
-
-    /**
-     * Инициализация обработчика загрузки файлов
-     */
-    private initUploadHandler(): void {
         this.uploadHandler = new UploadHandler(
-            this.container, 
-            () => this.hideError(), 
-            (value) => DraftManager.saveDraft(value)
+            this.container,
+            () => this.hideError(),
+            (value) => this.draftManager.saveDraft(value)
         );
-    }
-
-    /**
-     * Инициализация отправки формы
-     */
-    private initFormSubmission(): void {
-        FormManager.initForm(this.container, async (jsonText: string) => {
+        this.formManager.initForm(this.container, async (jsonText: string) => {
             await this.submitManager?.handleSubmit(jsonText);
         });
     }
 
-    /**
-     * Скрытие ошибки
-     */
+    public destroy(): void {
+        this.formManager.destroy();
+        this.draftManager.destroy();
+        this.uploadHandler?.destroy();
+        this.uploadHandler = null;
+        this.submitManager = null;
+    }
+
     private hideError(): void {
         const errorElement = this.container?.querySelector('#errorContainer') as HTMLElement;
-        if (errorElement) {
-            errorElement.style.display = 'none';
-        }
+        if (errorElement) errorElement.style.display = 'none';
     }
 }

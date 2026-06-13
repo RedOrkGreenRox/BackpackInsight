@@ -67,5 +67,10 @@
   "screenshot_saving": "⌛ SAVING...",
   "screenshot_error": "❌ ERROR",
   "loading_text": "Loading...",
-  "error_dismiss": "×"
+  "error_dismiss": "×",
+  "jsonld_rarity": "Rarity",
+  "jsonld_cost": "Cost",
+  "jsonld_cost_gold": "gold",
+  "jsonld_cost_na": "N/A",
+  "jsonld_type": "Type"
 }

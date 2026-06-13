@@ -3,6 +3,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Принудительно UTF-8 для stdout — иначе cp1251 на Windows падает на не-ASCII символах
+if sys.stdout.encoding != 'utf-8':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
 # Определяем корень проекта
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -10,7 +15,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 def run_git(args, allow_fail=False):
     """Выполняет команду git и возвращает результат."""
     cmd = ["git"] + args
-    result = subprocess.run(cmd, cwd=PROJECT_ROOT, text=True, capture_output=True)
+    result = subprocess.run(cmd, cwd=PROJECT_ROOT, text=True, capture_output=True, encoding='utf-8')
     if result.returncode != 0 and not allow_fail:
         print(f"[ERROR] Command failed: {' '.join(cmd)}")
         print(f"[STDOUT] {result.stdout}")
@@ -50,7 +55,31 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Забытая методичка по поисковику
+Баги
+Вкладка «undefined — Профиль игрока»
+«Нет данных профиля» при возврате через ☰
+Crash restoreFromLocalStorage
+Диалог файла не открывался в Safari/Firefox
+Навигация prev/next для предметов со спецсимволами
+Лишняя } в ItemSEOManager
+Merge-конфликт в тестах
+Утечки слушателей
+NotFoundBranch — кнопка «Домой»
+FormManager / DraftManager — статические → инстанс
+UploadHandler — file input
+DraftEventHandler — ссылка на DOM
+Мёртвый код
+ErrorRenderer.renderValidationError
+calculateNavigation
+restoreFromLocalStorage
+Fallback-ветки, пустые таймауты, комментарии-некрологи
+Локализация
+Заголовок кнопки «Назад» на ItemDetail
+JSON-LD в ItemSEOManager
+Хардкод домена → window.location.origin
+Backend
+CORS origin → .env
+Пагинация GET /api/items
     """
     message = f"{upd} | Automated push: {timestamp}"
 

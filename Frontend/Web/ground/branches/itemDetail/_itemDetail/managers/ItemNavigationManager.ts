@@ -2,6 +2,7 @@
  * ItemNavigationManager — навигация prev/next между предметами.
  */
 import { NavigationState } from '../utils/item-detail-types';
+import { SlugService } from '@utils/SlugService';
 
 export class ItemNavigationManager {
     private isProfile: boolean;
@@ -9,10 +10,6 @@ export class ItemNavigationManager {
 
     constructor(isProfile: boolean) {
         this.isProfile = isProfile;
-    }
-
-    calculateNavigation(itemName: string): NavigationState {
-        return this.calculate(itemName);
     }
 
     calculate(itemName: string): NavigationState {
@@ -29,7 +26,13 @@ export class ItemNavigationManager {
                 order = JSON.parse(raw);
             }
 
-            const idx = order.indexOf(itemName);
+            // Сравниваем через SlugService, чтобы предметы с апострофами
+            // и спецсимволами в имени (например "Fool's Gold") находились корректно.
+            const targetSlug = SlugService.toSlug(itemName);
+            const idx = order.findIndex((name: string) =>
+                SlugService.toSlug(name) === targetSlug
+            );
+
             if (idx !== -1) {
                 nav.prev = idx > 0 ? (order[idx - 1] ?? null) : null;
                 nav.next = idx < order.length - 1 ? (order[idx + 1] ?? null) : null;

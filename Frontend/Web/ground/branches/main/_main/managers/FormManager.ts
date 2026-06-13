@@ -1,10 +1,10 @@
 export class FormManager {
-    private static cleanupFns: (() => void)[] = [];
+    private cleanupFns: (() => void)[] = [];
 
-    public static initForm(container: HTMLElement | null, onSubmit: (jsonText: string) => Promise<void>): void {
+    public initForm(container: HTMLElement | null, onSubmit: (jsonText: string) => Promise<void>): void {
         const form = container?.querySelector('#uploadForm') as HTMLFormElement;
         const input = container?.querySelector('#jsonInput') as HTMLTextAreaElement;
-        
+
         if (form && input) {
             const handleSubmit = async (e: Event) => {
                 e.preventDefault();
@@ -16,7 +16,7 @@ export class FormManager {
         }
     }
 
-    public static destroy(): void {
+    public destroy(): void {
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
     }

@@ -28,9 +28,6 @@ export class ProfileBranch extends Branch {
         currentSkins: {}
     };
 
-    // Веса редкости для сортировки (импортированы из utils)
-    // private rarityWeights уже импортирован из модуля
-
     public override getMeta(data?: any): PageMeta {
         const d = data as ProfileData;
         // Если данных нет в аргументах, попробуем достать из кэша для мета-тегов
@@ -59,7 +56,7 @@ export class ProfileBranch extends Branch {
         // 1. Пытаемся получить данные из аргументов
         let incomingData = data as ProfileData;
 
-        // 2. Если данных нет (например, переход по кнопке "Назад"), ищем в кэше
+        // 2. Если данных нет (например, переход по кнопке «Назад»), ищем в кэше
         if (!incomingData || !incomingData.nickname) {
             const cached = sessionStorage.getItem('currentProfileData');
             if (cached) {
@@ -75,7 +72,7 @@ export class ProfileBranch extends Branch {
         if (incomingData && incomingData.nickname) {
             sessionStorage.setItem('currentProfileData', JSON.stringify(incomingData));
             this.data = incomingData;
-            
+
             // Восстанавливаем сохраненное состояние
             this.restoreSavedState();
         } else {
@@ -84,23 +81,6 @@ export class ProfileBranch extends Branch {
 
         if (!this.data) {
             return `<div class="container"><h1 class="error">Нет данных профиля</h1></div>`;
-        }
-
-        // Показываем skeleton экран пока рендерим контент
-        if (this.container) {
-            this.container.innerHTML = `
-                <div class="container">
-                    ${LoadingStates.createProfileSkeleton()}
-                    <div style="margin-top: 24px;">
-                        <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_heroes_title', '0')}</h3>
-                        ${LoadingStates.createCardSkeleton(3)}
-                    </div>
-                    <div style="margin-top: 24px;">
-                        <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_items_title', '0')}</h3>
-                        ${LoadingStates.createCardSkeleton(6)}
-                    </div>
-                </div>
-            `;
         }
 
         // Восстанавливаем состояние сортировки, если оно было сохранено
@@ -112,37 +92,21 @@ export class ProfileBranch extends Branch {
 
         this.sortItems();
 
-        // Используем requestAnimationFrame для плавной замены skeleton на реальный контент
-        requestAnimationFrame(() => {
-            if (this.container) {
-                this.container.innerHTML = `
-                    <div class="container" id="profileContainer">
-                        ${HeaderRenderer.render(this.data!)}
-                        
-                        <div class="button-download-profile">
-                            <button id="saveProfileBtn">${t('profile_save_card')}</button>
-                        </div>
-
-                        ${HeroesSectionRenderer.render(this.data!)}
-                        ${ItemsSectionRenderer.render(this.data!, this.currentItemSort)}
-                    </div>
-                    
-                    <script id="skins-data" type="application/json">
-                        ${this.data ? JSON.stringify(this.data.profile_skins) : '{}'}
-                    </script>
-                `;
-                
-                // Инициализируем обработчики событий после рендера
-                this.init();
-                
-                // Восстанавливаем скролл и другие состояния после инициализации
-                setTimeout(() => {
-                    this.restoreDynamicState();
-                }, 100);
-            }
-        });
-
-        return ''; // Возвращаем пустую строку, так как контент рендерится асинхронно
+        // Возвращаем skeleton — он немедленно попадёт в DOM через mount().
+        // Реальный контент заменит skeleton в init() через requestAnimationFrame.
+        return `
+            <div class="container">
+                ${LoadingStates.createProfileSkeleton()}
+                <div style="margin-top: 24px;">
+                    <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_heroes_title', '0')}</h3>
+                    ${LoadingStates.createCardSkeleton(3)}
+                </div>
+                <div style="margin-top: 24px;">
+                    <h3 style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">${t('profile_items_title', '0')}</h3>
+                    ${LoadingStates.createCardSkeleton(6)}
+                </div>
+            </div>
+        `;
     }
 
     private sortItems() {
@@ -177,24 +141,6 @@ export class ProfileBranch extends Branch {
         sessionStorage.setItem('profileItemsList', JSON.stringify(this.data.items));
     }
 
-    // Метод formatRating перенесен в hero-card.ts и hero-stats.ts
-    // Логика теперь доступна в модулях героев
-
-    // Метод _renderHeader заменен на HeaderRenderer.render()
-    // Логика перенесена в модуль header/header.ts
-
-    // Метод _renderHeroCard заменен на HeroCardRenderer.render()
-    // Логика перенесена в модуль heroes/hero-card.ts
-
-    // Метод _renderItemCard заменен на ItemCardRenderer.render()
-    // Логика перенесена в модуль items/item-card.ts
-
-    // Метод _renderHeroes заменен на HeroesSectionRenderer.render()
-    // Логика перенесена в модуль heroes/heroes-section.ts
-
-    // Метод _renderItems заменен на ItemsSectionRenderer.render()
-    // Логика перенесена в модуль items/items-section.ts
-
     private addListener(element: Element | null, event: string, handler: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
         if (element) {
             element.addEventListener(event, handler, options);
@@ -203,6 +149,38 @@ export class ProfileBranch extends Branch {
     }
 
     protected init(_data?: any): void {
+        if (!this.container) return;
+
+        // Если данных нет — skeleton уже в DOM, делать нечего
+        if (!this.data) return;
+
+        // Заменяем skeleton реальным контентом
+        requestAnimationFrame(() => {
+            if (!this.container || !this.data) return;
+            this.container.innerHTML = `
+                <div class="container" id="profileContainer">
+                    ${HeaderRenderer.render(this.data)}
+
+                    <div class="button-download-profile">
+                        <button id="saveProfileBtn">${t('profile_save_card')}</button>
+                    </div>
+
+                    ${HeroesSectionRenderer.render(this.data)}
+                    ${ItemsSectionRenderer.render(this.data, this.currentItemSort)}
+                </div>
+
+                <script id="skins-data" type="application/json">
+                    ${JSON.stringify(this.data.profile_skins)}
+                </script>
+            `;
+            this.attachListeners();
+            setTimeout(() => this.restoreDynamicState(), 100);
+        });
+    }
+
+    // Вся логика навешивания событий вынесена сюда,
+    // чтобы init() не вызывал сам себя рекурсивно через requestAnimationFrame
+    private attachListeners(): void {
         if (!this.container) return;
 
         // 0. Обработка ошибок картинок
@@ -275,11 +253,6 @@ export class ProfileBranch extends Branch {
                 this.saveCurrentState();
             });
         });
-
-        // 7. Восстановление из localStorage если sessionStorage пуст (для перезагрузки)
-        if (!sessionStorage.getItem('profileDynamicState')) {
-            this.restoreFromLocalStorage();
-        }
 
         // 3. Скины
         this.initSkins();
@@ -419,9 +392,6 @@ export class ProfileBranch extends Branch {
         }
     }
 
-    // Старый метод takeScreenshot заменен на ScreenshotManager
-    // private async takeScreenshot() { ... }
-
     /**
      * Сохранение текущего динамического состояния
      */
@@ -470,32 +440,6 @@ export class ProfileBranch extends Branch {
             }
         } catch (e) {
             console.error('Error restoring saved state:', e);
-            // Используем значения по умолчанию
-            this.savedState = {
-                scrollY: 0,
-                itemSort: 'rarity',
-                heroSort: {
-                    sortBy: 'level',
-                    inverted: false
-                },
-                currentSkins: {}
-            };
-        }
-    }
-
-    /**
-     * Восстановление состояния из localStorage (для перезагрузки страницы)
-     */
-    private restoreFromLocalStorage(): void {
-        try {
-            const saved = localStorage.getItem('profileDynamicState');
-            if (saved) {
-                this.savedState = JSON.parse(saved);
-                // Копируем в sessionStorage для дальнейшего использования
-                sessionStorage.setItem('profileDynamicState', saved);
-            }
-        } catch (e) {
-            console.error('Error restoring state from localStorage:', e);
             // Используем значения по умолчанию
             this.savedState = {
                 scrollY: 0,

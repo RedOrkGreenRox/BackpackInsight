@@ -7,6 +7,7 @@ export class UploadHandler {
     private dragDropHandler: DragDropHandler | null = null;
     private clipboardHandler: ClipboardHandler | null = null;
     private uiHandler: UIHandler | null = null;
+    private _fileInputCleanup: (() => void) | null = null;
 
     constructor(container: HTMLElement, onHideError: () => void, onContentChange?: (value: string) => void) {
         this.container = container;
@@ -39,7 +40,7 @@ export class UploadHandler {
         });
 
         // Обработка выбора файла через input
-        fInput.addEventListener('change', () => {
+        const onFileChange = () => {
             if (fInput.files && fInput.files.length > 0) {
                 const file = fInput.files[0];
                 if (file) {
@@ -49,10 +50,16 @@ export class UploadHandler {
                 }
                 fInput.value = '';
             }
-        });
+        };
+        fInput.addEventListener('change', onFileChange);
+        // Сохраняем деструктор вручную — fInput не входит в handlers,
+        // которые уже имеют свой cleanupFns
+        this._fileInputCleanup = () => fInput.removeEventListener('change', onFileChange);
     }
 
     public destroy() {
+        this._fileInputCleanup?.();
+        this._fileInputCleanup = null;
         this.dragDropHandler?.destroy();
         this.clipboardHandler?.destroy();
         this.uiHandler?.destroy();

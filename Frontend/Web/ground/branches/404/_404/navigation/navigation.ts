@@ -1,16 +1,16 @@
 import { Gen } from '../../../../roots/Gen';
 
 /**
- * Модуль для управления навигацией 404 страницы
+ * Модуль для управления навигацией 404 страницы.
+ * Возвращает функцию-деструктор для удаления слушателя.
  */
 export class NavigationManager {
-    /**
-     * Инициализирует обработчики событий для навигации
-     */
-    public static initNavigation(container: HTMLElement | null): void {
+    public static initNavigation(container: HTMLElement | null): () => void {
         const homeBtn = container?.querySelector('#homeBtn');
-        homeBtn?.addEventListener('click', () => {
-            Gen.getInstance().navigate('/');
-        });
+        if (!homeBtn) return () => {};
+
+        const handler = () => Gen.getInstance().navigate('/');
+        homeBtn.addEventListener('click', handler);
+        return () => homeBtn.removeEventListener('click', handler);
     }
 }

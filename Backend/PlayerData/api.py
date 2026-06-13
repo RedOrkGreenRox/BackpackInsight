@@ -4,7 +4,7 @@ import hmac
 import logging
 import os
 from contextlib import asynccontextmanager
-from typing import List, Dict, Any, Annotated
+from typing import List, Dict, Any, Annotated, Optional
 import json
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -130,10 +130,13 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title="Backpack Insight API", lifespan=lifespan)
 
-# CORS для Cloudflare Pages (оставлен хардкод по запросу пользователя — домен меняться не планируется)
+# CORS: берём разрешённый origin из переменной окружения.
+# Значение по умолчанию — продакшн-домен на Cloudflare Pages.
+CORS_ORIGIN = os.getenv("CORS_ORIGIN", "https://backpackinsight.pages.dev")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://backpackinsight.pages.dev"],
+    allow_origins=[CORS_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -145,6 +148,9 @@ api_router = APIRouter(prefix="/api", dependencies=[Depends(verify_proxy_secret)
 
 # --- МАРШРУТЫ API ---
 
+# limit/offset — опциональные параметры пагинации.
+# Если не переданы (limit=None) — возвращаются все предметы (текущее поведение).
+# Пример: GET /api/items?limit=100&offset=0
 @api_router.get("/items", response_model=List[ItemDefinition], responses={
     200: {
         "description": "Successfully retrieved list of all item definitions",
@@ -161,9 +167,17 @@ api_router = APIRouter(prefix="/api", dependencies=[Depends(verify_proxy_secret)
         }
     }
 })
-def get_items(response: Response, session: Annotated[Session, Depends(get_session)]):
+def get_items(
+    response: Response,
+    session: Annotated[Session, Depends(get_session)],
+    limit: Optional[int] = None,
+    offset: int = 0,
+):
     response.headers["Cache-Control"] = "public, max-age=3600"
-    return session.exec(select(ItemDefinition)).all()
+    query = select(ItemDefinition).offset(offset)
+    if limit is not None:
+        query = query.limit(limit)
+    return session.exec(query).all()
 
 
 @api_router.post("/profile", responses={

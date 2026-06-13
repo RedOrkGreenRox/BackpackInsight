@@ -54,7 +54,7 @@ export class ItemDetailRenderer {
         const isProfile = !!data.playerItem;
         const baseUrl = isProfile ? '/profile/item' : '/item';
         const backUrl = isProfile ? '/profile' : '/items';
-        const backTitle = isProfile ? t('sidebar_main') : t('sidebar_items');
+        const backTitle = isProfile ? t('sidebar_profile') : t('sidebar_items');
         const imageName = ItemIconService.getImagePath(item);
         const imageSrc = ImageFormatService.itemSrc(imageName);
         const itemTypesHtml = generateIconsOrText(item.itemTypes);

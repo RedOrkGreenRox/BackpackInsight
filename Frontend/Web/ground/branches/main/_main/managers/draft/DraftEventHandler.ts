@@ -30,5 +30,6 @@ export class DraftEventHandler {
     public destroy() {
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
+        this.input = null; // освобождаем ссылку на DOM-элемент
     }
 }

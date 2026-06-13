@@ -7,7 +7,12 @@ export class ClipboardHandler {
     private onContent: (content: string) => void;
     private cleanupFns: (() => void)[] = [];
 
-    constructor(area: HTMLElement, input: HTMLTextAreaElement, fileInput: HTMLInputElement, onContent: (content: string) => void) {
+    constructor(
+        area: HTMLElement,
+        input: HTMLTextAreaElement,
+        fileInput: HTMLInputElement,
+        onContent: (content: string) => void
+    ) {
         this.area = area;
         this.input = input;
         this.fileInput = fileInput;
@@ -22,65 +27,45 @@ export class ClipboardHandler {
         }
     }
 
-    private async tryReadClipboard(): Promise<boolean> {
-        try {
-            const text = await navigator.clipboard.readText();
-            const trimmed = text.trim();
-            
-            // Проверяем, похоже ли это на JSON
-            if (trimmed && (trimmed.startsWith('{') || trimmed.startsWith('['))) {
-                this.onContent(trimmed);
-                return true;
-            }
-        } catch (err) {
-            // Clipboard access denied or empty
-        }
-        return false;
-    }
-
     private init() {
-        // Клик по области - пробуем буфер обмена или открываем файл
-        this.addListener(this.area, 'click', async (e: Event) => {
+        // Клик по области.
+        // Проблема: navigator.clipboard.readText() — async, а после await браузер
+        // уже не считает вызов fileInput.click() частью пользовательского жеста
+        // и блокирует открытие диалога (особенно Safari, Firefox).
+        //
+        // Решение: сразу синхронно открываем диалог выбора файла. Если в буфере
+        // есть JSON — clipboard API обработает его через событие paste на textarea
+        // (пользователь сам вставит Ctrl+V). Кнопка «открыть файл» — запасной путь.
+        this.addListener(this.area, 'click', (e: Event) => {
             if (e.target === this.fileInput) return;
+            // Если textarea уже содержит текст и кликнули именно по ней — не мешаем
             if (e.target === this.input && this.input.value.trim()) return;
 
-            const hasClipboard = await this.tryReadClipboard();
-            if (!hasClipboard) {
-                this.fileInput.click();
-            }
+            this.fileInput.click();
         });
 
-        // Вставка в textarea
+        // Вставка в textarea — обрабатываем и файлы и текст.
+        // data.items охватывает оба случая: файл (kind='file') и текст (kind='string'),
+        // поэтому проверяем только items — это надёжнее чем дублирующая проверка files.
         this.addListener(this.input, 'paste', (e: Event) => {
             const clipboardEvent = e as ClipboardEvent;
-            const data = clipboardEvent.clipboardData;
-            
-            if (data) {
-                // Проверяем файлы
-                if (data.files && data.files.length > 0) {
-                    e.preventDefault();
-                    const firstFile = data.files[0];
-                    if (firstFile) {
-                        FileHandler.readAndProcessFile(firstFile, this.onContent);
-                    }
-                    return;
-                }
-                
-                // Проверяем items (для совместимости)
-                const items = data.items;
-                if (items) {
-                    for (let i = 0; i < items.length; i++) {
-                        const item = items[i];
-                        if (item && item.kind === 'file') {
-                            const file = item.getAsFile();
-                            if (file) {
-                                e.preventDefault();
-                                FileHandler.readAndProcessFile(file, this.onContent);
-                            }
-                        }
+            const items = clipboardEvent.clipboardData?.items;
+            if (!items) return;
+
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (!item) continue;
+
+                if (item.kind === 'file') {
+                    const file = item.getAsFile();
+                    if (file) {
+                        e.preventDefault();
+                        FileHandler.readAndProcessFile(file, this.onContent);
+                        return; // файл найден — дальше не смотрим
                     }
                 }
             }
+            // Текстовая вставка — браузер сам вставит в textarea, не перехватываем
         });
     }
 

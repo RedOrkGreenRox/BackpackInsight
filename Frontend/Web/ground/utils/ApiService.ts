@@ -48,7 +48,19 @@ export class ApiService {
                 status
             };
         }
-        
+
+        // 503 — бэкенд временно недоступен (VPS перезагружается, деплой и т.п.).
+        // Cloudflare Edge Function возвращает его когда не может достучаться до VPS.
+        // Делаем retry, но с более длинной паузой — бэкенду нужно время подняться.
+        if (status === 503) {
+            return {
+                type: ErrorType.SERVER,
+                message: 'error_server_unavailable',
+                retryable: true,
+                status
+            };
+        }
+
         if (status >= 500) {
             return {
                 type: ErrorType.SERVER,

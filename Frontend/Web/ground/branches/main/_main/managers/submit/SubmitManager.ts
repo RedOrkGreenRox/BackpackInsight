@@ -2,7 +2,7 @@ import { ApiService } from '@utils/ApiService';
 import { LoadingStates } from '@utils/LoadingStates';
 import { ProfileCacheUtils } from '@roots/profileCacheUtils';
 import { Gen } from '@roots/Gen';
-import { DraftManager } from '../DraftManager';
+import { StorageManager } from '../draft/StorageManager';
 import { ValidationManager } from '../ValidationManager';
 
 export class SubmitManager {
@@ -17,28 +17,19 @@ export class SubmitManager {
     public async handleSubmit(jsonText: string): Promise<void> {
         const errorElement = this.container?.querySelector('#errorContainer') as HTMLElement;
         const submitBtn = this.container?.querySelector('#submitBtn') as HTMLButtonElement;
-        
-        // Валидация
-        if (!ValidationManager.validateAndShowError(jsonText, errorElement, this.t)) {
-            return;
-        }
-        
-        // Показ загрузки
+
+        if (!ValidationManager.validateAndShowError(jsonText, errorElement, this.t)) return;
+
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.innerHTML = LoadingStates.createSpinner('small') + ' ' + this.t('profile_loading_button');
         }
-        
+
         try {
-            // Очистка кэша и отправка
             ProfileCacheUtils.clearAllProfileCache();
-            
             const data = await ApiService.getProfile(JSON.parse(jsonText));
-            
-            // Очистка draft и навигация
-            DraftManager.clearDraft();
+            StorageManager.clear(); // очищаем черновик напрямую через StorageManager
             Gen.getInstance().navigate('/profile', data);
-            
         } catch (e) {
             console.error('Submit error:', e);
             ValidationManager.showError(errorElement, this.t('error_server_unavailable'));

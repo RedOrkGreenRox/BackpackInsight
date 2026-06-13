@@ -44,15 +44,9 @@ export interface ProfileData {
     itemsSort?: 'rarity' | 'level'; // Текущая сортировка предметов
 }
 
-export interface SavedState {
-    scrollY: number;
-    itemSort: 'rarity' | 'level';
-    heroSort: {
-        sortBy: 'level' | 'rating';
-        inverted: boolean;
-    };
-    currentSkins: Record<string, string>;
-}
+// SavedState живёт в ProfileStateManager — единственный источник истины.
+// Реэкспортируем отсюда для обратной совместимости импортов.
+export type { SavedState } from '../managers/ProfileStateManager';
 
 export interface RarityWeights {
     [key: string]: number;

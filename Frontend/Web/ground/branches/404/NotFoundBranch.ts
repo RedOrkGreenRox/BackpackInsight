@@ -11,6 +11,7 @@ import './404.scss';
 
 export class NotFoundBranch extends Branch {
     private isMounted = false;
+    private navCleanup: (() => void) | null = null;
 
     public override getMeta(): PageMeta {
         return {
@@ -23,7 +24,7 @@ export class NotFoundBranch extends Branch {
         const title = TitleRenderer.render();
         const text = TextRenderer.render();
         const button = ButtonRenderer.render();
-        
+
         return ContainerRenderer.render()
             .replace('{{CONTENT}}', `${title}${text}${button}`);
     }
@@ -31,17 +32,20 @@ export class NotFoundBranch extends Branch {
     protected init(): void {
         this.isMounted = true;
 
-        import('./_404/background/background').then(({ BackgroundManager }) => {
-            if (this.isMounted) {
-                BackgroundManager.set404Background();
-            }
-        });
+        // Сначала сохраняем деструктор навигации, затем запускаем фон.
+        // Порядок важен: если destroy() придёт до resolve — навигация уже очищена,
+        // а фон не будет установлен благодаря проверке isMounted.
+        this.navCleanup = NavigationManager.initNavigation(this.container);
 
-        NavigationManager.initNavigation(this.container);
+        import('./_404/background/background').then(({ BackgroundManager }) => {
+            if (this.isMounted) BackgroundManager.set404Background();
+        });
     }
 
     protected destroy(): void {
         this.isMounted = false;
+        this.navCleanup?.();
+        this.navCleanup = null;
 
         import('./_404/background/background').then(({ BackgroundManager }) => {
             BackgroundManager.restoreNormalBackground();

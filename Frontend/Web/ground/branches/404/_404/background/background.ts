@@ -53,7 +53,6 @@ export class BackgroundManager {
             this.currentRarity = null;
             this.preservedRarity = null;
         }
-        setTimeout(() => {}, 0);    
         this.isLanguageChanging = false; // Сбрасываем флаг
     }
 

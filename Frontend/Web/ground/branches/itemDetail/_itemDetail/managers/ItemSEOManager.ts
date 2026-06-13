@@ -14,10 +14,10 @@ export class ItemSEOManager {
         const desc = item.tooltips?.join(' ').substring(0, 160) ?? '';
         const imagePath = ItemIconService.getImagePath(item);
         const imageSrc = ImageFormatService.itemSrc(imagePath);
-        const absoluteImage = `https://backpackinsight.pages.dev${imageSrc}`;
+        const absoluteImage = `${window.location.origin}${imageSrc}`;
         const url = window.location.href;
 
-        document.title = `${item.name} - Backpack Insight | ${isProfile ? t('sidebar_main') : t('sidebar_items')}`;
+        document.title = `${item.name} - Backpack Insight | ${isProfile ? t('sidebar_profile') : t('sidebar_items')}`;
 
         MetaService.setMeta('name', 'description', desc);
         MetaService.setMeta('name', 'keywords', `${item.name}, Backpack Brawl, ${item.rarity}, ${item.itemTypes?.join(', ') ?? ''}`);
@@ -51,9 +51,9 @@ export class ItemSEOManager {
             'category': item.itemTypes?.join(', ') ?? '',
             'brand': { '@type': 'Organization', 'name': 'Backpack Brawl' },
             'additionalProperty': [
-                { '@type': 'PropertyValue', 'name': 'Редкость', 'value': item.rarity },
-                { '@type': 'PropertyValue', 'name': 'Стоимость', 'value': item.coinValue ? `${item.coinValue} золота` : 'N/A' },
-                { '@type': 'PropertyValue', 'name': 'Тип', 'value': item.itemTypes?.join(', ') ?? '' }
+                { '@type': 'PropertyValue', 'name': t('jsonld_rarity'), 'value': item.rarity },
+                { '@type': 'PropertyValue', 'name': t('jsonld_cost'), 'value': item.coinValue ? `${item.coinValue} ${t('jsonld_cost_gold')}` : t('jsonld_cost_na') },
+                { '@type': 'PropertyValue', 'name': t('jsonld_type'), 'value': item.itemTypes?.join(', ') ?? '' }
             ],
             'mainEntityOfPage': {
                 '@type': 'WebPage',

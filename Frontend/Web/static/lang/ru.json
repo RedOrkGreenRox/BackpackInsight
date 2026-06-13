@@ -66,5 +66,10 @@
   "screenshot_saving": "⌛ СОХРАНЕНИЕ...",
   "screenshot_error": "❌ ОШИБКА",
   "loading_text": "Загрузка...",
-  "error_dismiss": "×"
+  "error_dismiss": "×",
+  "jsonld_rarity": "Редкость",
+  "jsonld_cost": "Стоимость",
+  "jsonld_cost_gold": "золота",
+  "jsonld_cost_na": "N/A",
+  "jsonld_type": "Тип"
 }
