@@ -258,6 +258,10 @@ async function trimCache(cacheName, maxEntries) {
 
 // Очистка кэша при сообщении от клиента
 self.addEventListener('message', (event) => {
+    // Проверяем origin отправителя — принимаем только сообщения с нашего домена.
+    // event.origin у SW-сообщений содержит origin клиентской страницы.
+    if (event.origin && event.origin !== self.location.origin) return;
+
     if (event.data && event.data.type === 'CACHE_UPDATED') {
         trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES);
     }

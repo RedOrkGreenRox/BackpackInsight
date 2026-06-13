@@ -55,7 +55,13 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-fix
+SonarCloud Critical — sw.js L260
+Было: addEventListener('message') принимал сообщения от любого origin.
+Стало: проверка event.origin !== self.location.origin — чужие сообщения игнорируются.
+
+SonarCloud Major — отсутствует lock-файл
+Было: корневой package.json (с repomix) без lock-файла.
+Стало: package-lock.json создан через npm install --package-lock-only (168 пакетов, 0 уязвимостей).
     """
     message = f"{upd} | Automated push: {timestamp}"
 
