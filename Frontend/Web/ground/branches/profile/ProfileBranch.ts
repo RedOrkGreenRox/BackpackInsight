@@ -29,18 +29,18 @@ export class ProfileBranch extends Branch {
     };
 
     public override getMeta(data?: any): PageMeta {
+        // data может быть пустым объектом {} при возврате назад — проверяем nickname явно
         const d = data as ProfileData;
-        // Если данных нет в аргументах, попробуем достать из кэша для мета-тегов
-        let metaData = d;
+        let metaData: ProfileData | null = (d?.nickname) ? d : null;
+
         if (!metaData) {
             try {
                 const cached = sessionStorage.getItem('currentProfileData');
                 if (cached) metaData = JSON.parse(cached);
-            } catch (e) {
-            }
+            } catch (e) {}
         }
 
-        if (metaData) {
+        if (metaData?.nickname) {
             return {
                 title: `${metaData.nickname} — Профиль игрока | Backpack Insight`,
                 description: `Статистика игрока ${metaData.nickname}: Уровень ${metaData.level}, Трофеи ${metaData.trophy + metaData.bonus_trophy}, Героев ${metaData.heroes_count}.`

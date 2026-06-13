@@ -55,31 +55,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Баги
-Вкладка «undefined — Профиль игрока»
-«Нет данных профиля» при возврате через ☰
-Crash restoreFromLocalStorage
-Диалог файла не открывался в Safari/Firefox
-Навигация prev/next для предметов со спецсимволами
-Лишняя } в ItemSEOManager
-Merge-конфликт в тестах
-Утечки слушателей
-NotFoundBranch — кнопка «Домой»
-FormManager / DraftManager — статические → инстанс
-UploadHandler — file input
-DraftEventHandler — ссылка на DOM
-Мёртвый код
-ErrorRenderer.renderValidationError
-calculateNavigation
-restoreFromLocalStorage
-Fallback-ветки, пустые таймауты, комментарии-некрологи
-Локализация
-Заголовок кнопки «Назад» на ItemDetail
-JSON-LD в ItemSEOManager
-Хардкод домена → window.location.origin
-Backend
-CORS origin → .env
-Пагинация GET /api/items
+profile page name fix
     """
     message = f"{upd} | Automated push: {timestamp}"
 
