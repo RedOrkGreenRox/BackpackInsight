@@ -10,7 +10,7 @@ export interface ExpandedQueryTerm {
 export class SearchTermService {
     private static initialized = false;
     private static aliases: AliasMap = {};
-    private static tokenToExpansion = new Map<string, Map<string, number>>();
+    private static readonly tokenToExpansion = new Map<string, Map<string, number>>();
     private static readonly MIN_PREFIX_LENGTH = 4;
 
     public static async init(): Promise<void> {

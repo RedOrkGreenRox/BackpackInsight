@@ -1,7 +1,7 @@
 // @ts-ignore
 import { serve, file } from "bun";
 // @ts-ignore
-import { resolve } from "path";
+import { resolve } from "node:path";
 
 const PORT = 5080;
 // @ts-ignore

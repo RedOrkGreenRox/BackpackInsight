@@ -8,14 +8,14 @@ import { t } from '../../../../localization/i18n';
 
 export class ItemSEOManager {
     private readonly jsonLdId = 'item-detail-json-ld';
-    private originalTitle: string = document.title;
+    private readonly originalTitle: string = document.title;
 
     update(item: ItemDefinition, isProfile: boolean): void {
         const desc = item.tooltips?.join(' ').substring(0, 160) ?? '';
         const imagePath = ItemIconService.getImagePath(item);
         const imageSrc = ImageFormatService.itemSrc(imagePath);
-        const absoluteImage = `${window.location.origin}${imageSrc}`;
-        const url = window.location.href;
+        const absoluteImage = `${globalThis.location.origin}${imageSrc}`;
+        const url = globalThis.location.href;
 
         document.title = `${item.name} - Backpack Insight | ${isProfile ? t('sidebar_profile') : t('sidebar_items')}`;
 

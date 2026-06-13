@@ -23,16 +23,3 @@ export { ItemsSectionRenderer } from './items/items-section';
 export { ItemCardRenderer } from './items/item-card';
 export { ItemGridRenderer } from './items/item-grid';
 export { ItemStatsRenderer } from './items/item-stats';
-
-// TODO: Добавлять экспорты новых модулей по мере создания
-// Рендереры
-// export { DownloadButtonRenderer } from './actions/download-button';
-
-// Менеджеры
-// export { ProfileManager } from './managers/ProfileManager';
-// export { StateManager } from './managers/StateManager';
-// export { SortManager } from './managers/SortManager';
-// export { ScreenshotManager } from './managers/screenshot-manager';
-
-// Контроллеры
-// export { SortController } from './sort/SortController';

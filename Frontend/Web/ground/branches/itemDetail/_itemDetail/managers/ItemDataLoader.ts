@@ -8,7 +8,7 @@ type LoadCallback = (item: ItemDefinition) => void;
 type ErrorCallback = () => void;
 
 export class ItemDataLoader {
-    private searchSlug: string;
+    private readonly searchSlug: string;
     private onLoadedCb: LoadCallback | null = null;
     private onErrorCb: ErrorCallback | null = null;
     private onNotFoundCb: ErrorCallback | null = null;

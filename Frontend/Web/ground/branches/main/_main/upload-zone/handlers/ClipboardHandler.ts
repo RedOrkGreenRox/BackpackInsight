@@ -1,10 +1,10 @@
 import { FileHandler } from './FileHandler';
 
 export class ClipboardHandler {
-    private area: HTMLElement;
-    private input: HTMLTextAreaElement;
-    private fileInput: HTMLInputElement;
-    private onContent: (content: string) => void;
+    private readonly area: HTMLElement;
+    private readonly input: HTMLTextAreaElement;
+    private readonly fileInput: HTMLInputElement;
+    private readonly onContent: (content: string) => void;
     private cleanupFns: (() => void)[] = [];
 
     constructor(

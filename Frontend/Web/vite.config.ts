@@ -1,9 +1,9 @@
 // @ts-ignore
 import { defineConfig } from 'vite';
 // @ts-ignore
-import { resolve, dirname } from 'path';
+import { resolve, dirname } from 'node:path';
 // @ts-ignore
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
@@ -56,13 +56,13 @@ export default defineConfig({
                 },
                 assetFileNames: (assetInfo) => {
                     // Разные сроки кеширования для разных типов файлов
-                    if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+                    if (assetInfo.name?.endsWith('.css')) {
                         return 'assets/[name]-[hash][extname]';
                     }
-                    if (assetInfo.name && assetInfo.name.match(/\.(png|jpg|jpeg|gif|webp|avif|svg)$/)) {
+                    if (assetInfo.name?.match(/\.(png|jpg|jpeg|gif|webp|avif|svg)$/)) {
                         return 'assets/images/[name].[hash][extname]';
                     }
-                    if (assetInfo.name && assetInfo.name.match(/\.(woff2|woff|ttf|eot)$/)) {
+                    if (assetInfo.name?.match(/\.(woff2|woff|ttf|eot)$/)) {
                         return 'assets/fonts/[name].[hash][extname]';
                     }
                     return 'assets/[name].[hash][extname]';

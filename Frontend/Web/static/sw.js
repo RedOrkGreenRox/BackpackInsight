@@ -16,42 +16,40 @@ const STATIC_ASSETS = [
 const MAX_DYNAMIC_CACHE_ENTRIES = 350;
 
 // Установка Service Worker
-self.addEventListener('install', (event) => {
+globalThis.addEventListener('install', (event) => {
     
     event.waitUntil(
         caches.open(STATIC_CACHE)
             .then((cache) => {
                 return cache.addAll(STATIC_ASSETS);
             })
-            .then(() => self.skipWaiting())
+            .then(() => globalThis.skipWaiting())
     );
 });
 
 // Активация и очистка старых кэшей
-self.addEventListener('activate', (event) => {
+globalThis.addEventListener('activate', (event) => {
     
     event.waitUntil(
         caches.keys()
             .then((cacheNames) => {
                 return Promise.all(
-                    cacheNames.map((cacheName) => {
-                        if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-                            return caches.delete(cacheName);
-                        }
-                    })
+                    cacheNames
+                        .filter(name => name !== STATIC_CACHE && name !== DYNAMIC_CACHE)
+                        .map(name => caches.delete(name))
                 );
             })
             .then(async () => {
-                if (self.registration.navigationPreload) {
-                    await self.registration.navigationPreload.enable();
+                if (globalThis.registration.navigationPreload) {
+                    await globalThis.registration.navigationPreload.enable();
                 }
             })
-            .then(() => self.clients.claim())
+            .then(() => globalThis.clients.claim())
     );
 });
 
 // Перехват запросов
-self.addEventListener('fetch', (event) => {
+globalThis.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
 
@@ -90,17 +88,15 @@ self.addEventListener('fetch', (event) => {
                 } else {
                     return cacheFirst(request);
                 }
+            } else if (request.destination === 'script' || request.destination === 'style') {
+                // JS/CSS имеют hash в имени, поэтому cache-first безопаснее
+                return cacheFirst(request);
+            } else if (request.destination === 'image') {
+                return cacheFirst(request);
+            } else if (url.pathname.startsWith('/api/')) {
+                return networkFirst(request);
             } else {
-                // JS/CSS имеют hash в имени, поэтому cache-first безопаснее и убирает рывок стилей при F5.
-                if (request.destination === 'script' || request.destination === 'style') {
-                    return cacheFirst(request);
-                } else if (request.destination === 'image') {
-                    return cacheFirst(request);
-                } else if (url.pathname.startsWith('/api/')) {
-                    return networkFirst(request);
-                } else {
-                    return staleWhileRevalidate(request);
-                }
+                return staleWhileRevalidate(request);
             }
         })()
     );
@@ -258,10 +254,10 @@ async function trimCache(cacheName, maxEntries) {
 }
 
 // Очистка кэша при сообщении от клиента
-self.addEventListener('message', (event) => {
+globalThis.addEventListener('message', (event) => {
     // Проверяем origin отправителя — принимаем только сообщения с нашего домена.
     // event.origin у SW-сообщений содержит origin клиентской страницы.
-    if (event.origin && event.origin !== self.location.origin) return;
+    if (event.origin && event.origin !== globalThis.location.origin) return;
 
     if (event.data && event.data.type === 'CACHE_UPDATED') {
         trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES);

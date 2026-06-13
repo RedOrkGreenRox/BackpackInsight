@@ -1,6 +1,6 @@
 export class Parallax {
     private static instance: Parallax;
-    private img: HTMLElement | null = null;
+    private readonly img: HTMLElement | null = null;
     private initialX: number | null = null;
     private initialY: number | null = null;
 
@@ -19,14 +19,13 @@ export class Parallax {
 
     private throttle(func: Function, limit: number) {
         let inThrottle: boolean;
-        return function (this: any, ...args: any[]) {
-            const context = this;
+        return (...args: any[]) => {
             if (!inThrottle) {
-                func.apply(context, args);
+                func(...args);
                 inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
+                setTimeout(() => { inThrottle = false; }, limit);
             }
-        }
+        };
     }
 
     private handleParallax(e: MouseEvent): void {

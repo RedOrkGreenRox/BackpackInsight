@@ -61,7 +61,7 @@ def session_fixture(engine):
 
     with Session(engine) as setup_session:
         ProfileFactory.preload_definitions(setup_session)
-        for def_obj in list(ProfileFactory.get_cached_definitions().values()):
+        for def_obj in ProfileFactory.get_cached_definitions().values():
             # переподключаем к новой сессии (объекты могли быть detached)
             if def_obj not in setup_session:
                 setup_session.merge(def_obj)

@@ -3,10 +3,10 @@ import { i18n, t } from '../localization/i18n';
 
 export class Shell {
     private static instance: Shell;
-    private sidebar: HTMLElement | null = null;
-    private overlay: HTMLElement | null = null;
-    private toggleBtn: HTMLElement | null = null;
-    private bgImg: HTMLImageElement | null = null;
+    private readonly sidebar: HTMLElement | null = null;
+    private readonly overlay: HTMLElement | null = null;
+    private readonly toggleBtn: HTMLElement | null = null;
+    private readonly bgImg: HTMLImageElement | null = null;
 
     private constructor() {
         this.sidebar = document.getElementById('sidebar');

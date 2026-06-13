@@ -7,8 +7,8 @@ interface PrefetchedItemPreview {
 }
 
 export class ItemPreviewPrefetchService {
-    private static previews = new Map<string, PrefetchedItemPreview>();
-    private static preloadedImages = new Set<string>();
+    private static readonly previews = new Map<string, PrefetchedItemPreview>();
+    private static readonly preloadedImages = new Set<string>();
 
     public static prefetch(item: ItemDefinition, imageSrc: string): void {
         const slug = SlugService.toSlug(item.name);

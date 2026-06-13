@@ -763,13 +763,8 @@ On shop entered:
                 full_text = "\n".join(tooltips)
                 parsed_result = parse_text_with_icons(full_text)
                 # Пропускаем сохранение в БД для теста
-                success = True
-                results[item_name] = success
-                
-                if success:
-                    print(f"+ Processed '{item_name}': {len(parsed_result.icons_used)} icons, {len(parsed_result.structure.get('triggers', []))} triggers")
-                else:
-                    print(f"- Failed to process '{item_name}'")
+                results[item_name] = True
+                print(f"+ Processed '{item_name}': {len(parsed_result.icons_used)} icons, {len(parsed_result.structure.get('triggers', []))} triggers")
         
         successful = sum(1 for success in results.values() if success)
         total = len(results)

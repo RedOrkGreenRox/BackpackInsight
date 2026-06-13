@@ -52,7 +52,7 @@ def get_latest_items_file():
         return Path(latest_file)
         
     except Exception as e:
-        logger.error(f"Error auto-detecting items file: {e}")
+        logger.exception("Error auto-detecting items file")
         # Fallback на старый путь
         return BASE_DIR.parent / "DB" / "items_3_1_0.json"
 
@@ -78,13 +78,13 @@ def load_items():
                 logger.error(f"Invalid items file structure: expected dict with 'items' key or list, got {type(data)}")
                 return []
     except FileNotFoundError:
-        logger.error(f"Items file not found at {ITEMS_PATH}")
+        logger.error("Items file not found at %s", ITEMS_PATH)
         return []
     except json.JSONDecodeError as e:
-        logger.error(f"Invalid JSON in items file: {e}")
+        logger.exception("Invalid JSON in items file")
         return []
     except Exception as e:
-        logger.error(f"Error loading items: {e}")
+        logger.exception("Error loading items")
         return []
 
 

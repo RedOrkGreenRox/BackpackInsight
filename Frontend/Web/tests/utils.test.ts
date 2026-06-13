@@ -58,7 +58,7 @@ describe('Icon Parser', () => {
 describe('ApiService', () => {
     // Mocking the global fetch
     const mockFetch = vi.fn();
-    global.fetch = mockFetch;
+    globalThis.fetch = mockFetch;
 
     it('should handle successful GET requests', async () => {
         mockFetch.mockResolvedValue({

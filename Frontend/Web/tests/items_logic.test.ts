@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { ItemsFilterManager } from '../ground/branches/items/_items/managers/ItemsFilterManager';
 import { ItemsStateManager, FilterState } from '../ground/branches/items/_items/managers/ItemsStateManager';
 import { ItemsIconService } from '../ground/branches/items/_items/services/ItemsIconService';

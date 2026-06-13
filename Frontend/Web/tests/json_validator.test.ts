@@ -12,7 +12,7 @@ vi.mock('../../../../localization/i18n', () => ({
 // Мокаем document для escapeHtml
 const { JSDOM } = require('jsdom');
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
-global.document = dom.window.document;
+globalThis.document = dom.window.document;
 
 describe('JsonValidator', () => {
     it('should validate correct JSON', () => {

@@ -13,8 +13,8 @@ import { ItemDetailData } from '../utils/item-detail-types';
 import { ItemDefinition } from '@utils/ItemIconService';
 
 export class ItemDetailManager {
-    private container: HTMLElement;
-    private data: ItemDetailData;
+    private readonly container: HTMLElement;
+    private readonly data: ItemDetailData;
     private cleanupFns: (() => void)[] = [];
 
     private loader: ItemDataLoader | null = null;
@@ -76,7 +76,7 @@ export class ItemDetailManager {
             this.container.innerHTML = html;
             this.seoManager?.update(item, isProfile);
             this.navManager?.attachProfileNavListeners(this.container);
-            (window as any).AOS?.refresh();
+            (globalThis as any).AOS?.refresh();
         });
     }
 
@@ -84,10 +84,10 @@ export class ItemDetailManager {
         const resolved: ItemDetailData = data || {};
 
         if (!resolved.name) {
-            resolved.name = decodeURIComponent(window.location.pathname.split('/').pop() || '');
+            resolved.name = decodeURIComponent(globalThis.location.pathname.split('/').pop() || '');
         }
 
-        const isProfile = window.location.pathname.startsWith('/profile/item/');
+        const isProfile = globalThis.location.pathname.startsWith('/profile/item/');
         if (isProfile && !resolved.playerItem) {
             resolved.playerItem = this.restorePlayerItem(resolved.name);
         }
@@ -145,14 +145,14 @@ export class ItemDetailManager {
         // Восстанавливаем скролл только при переходе назад (popstate),
         // то есть когда пользователь уже был на этой странице.
         // При первом заходе на ItemDetail скроллить к позиции профиля не нужно.
-        if (window.history.state?.fromBack !== true) return;
+        if (globalThis.history.state?.fromBack !== true) return;
 
         try {
             const raw = sessionStorage.getItem('profileDynamicState')
                 ?? localStorage.getItem('profileDynamicState');
             if (raw) {
                 const state = JSON.parse(raw);
-                if (state.scrollY > 0) setTimeout(() => window.scrollTo(0, state.scrollY), 50);
+                if (state.scrollY > 0) setTimeout(() => globalThis.scrollTo(0, state.scrollY), 50);
             }
         } catch { /* ignore */ }
     }

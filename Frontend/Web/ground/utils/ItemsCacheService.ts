@@ -22,8 +22,7 @@ export class ItemsCacheService {
             return stored;
         }
 
-        if (!this.inFlight) {
-            this.inFlight = ApiService.getItems()
+        this.inFlight ??= ApiService.getItems()
                 .then((items: ItemDefinition[]) => {
                     this.setAllItems(items);
                     return items;
@@ -31,7 +30,6 @@ export class ItemsCacheService {
                 .finally(() => {
                     this.inFlight = null;
                 });
-        }
 
         return this.inFlight;
     }

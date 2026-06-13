@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // Скрипт для оптимизации изображений перед сборкой
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 // Оптимизация для продакшена
 const optimizeImages = () => {

@@ -1,9 +1,9 @@
 import { DragDropHandler, FileHandler, ClipboardHandler, UIHandler } from './handlers';
 
 export class UploadHandler {
-    private container: HTMLElement;
-    private onHideError: () => void;
-    private onContentChange: (value: string) => void;
+    private readonly container: HTMLElement;
+    private readonly onHideError: () => void;
+    private readonly onContentChange: (value: string) => void;
     private dragDropHandler: DragDropHandler | null = null;
     private clipboardHandler: ClipboardHandler | null = null;
     private uiHandler: UIHandler | null = null;

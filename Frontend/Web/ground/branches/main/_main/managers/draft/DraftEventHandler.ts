@@ -1,7 +1,7 @@
 export class DraftEventHandler {
-    private container: HTMLElement;
+    private readonly container: HTMLElement;
     private input: HTMLTextAreaElement | null = null;
-    private onSave: (value: string) => void;
+    private readonly onSave: (value: string) => void;
     private cleanupFns: (() => void)[] = [];
 
     constructor(container: HTMLElement, onSave: (value: string) => void) {

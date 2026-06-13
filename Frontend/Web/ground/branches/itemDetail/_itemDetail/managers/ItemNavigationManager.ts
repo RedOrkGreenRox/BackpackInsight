@@ -5,7 +5,7 @@ import { NavigationState } from '../utils/item-detail-types';
 import { SlugService } from '@utils/SlugService';
 
 export class ItemNavigationManager {
-    private isProfile: boolean;
+    private readonly isProfile: boolean;
     private cleanupFns: (() => void)[] = [];
 
     constructor(isProfile: boolean) {

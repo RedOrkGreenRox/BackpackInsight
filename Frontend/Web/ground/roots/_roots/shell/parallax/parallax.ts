@@ -1,13 +1,12 @@
 function throttle(func: Function, limit: number) {
     let inThrottle: boolean;
-    return function (this: any, ...args: any[]) {
-        const context = this;
+    return (...args: any[]) => {
         if (!inThrottle) {
-            func.apply(context, args);
+            func(...args);
             inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
+            setTimeout(() => { inThrottle = false; }, limit);
         }
-    }
+    };
 }
 
 // 3. Параллакс фона (ИСПРАВЛЕННЫЙ: без рывков)

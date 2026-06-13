@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { SortController } from '../ground/branches/profile/_profile/sort/SortController';
 
 const { JSDOM } = require('jsdom');
@@ -26,14 +26,14 @@ describe('SortController', () => {
         `);
         document = dom.window.document;
         container = document.getElementById('profile-sort')!;
-        global.HTMLElement = dom.window.HTMLElement;
-        global.HTMLImageElement = dom.window.HTMLImageElement;
-        global.document = document;
-        global.requestAnimationFrame = (cb) => cb();
+        globalThis.HTMLElement = dom.window.HTMLElement;
+        globalThis.HTMLImageElement = dom.window.HTMLImageElement;
+        globalThis.document = document;
+        globalThis.requestAnimationFrame = (cb) => cb();
     });
 
     it('should sort by level descending by default', () => {
-        const controller = new SortController(container);
+        void new SortController(container); // init triggers sort
         const grid = container.querySelector('#mainHeroesGrid')!;
         const cards = Array.from(grid.children);
         
@@ -44,7 +44,7 @@ describe('SortController', () => {
     });
 
     it('should toggle sorting direction', () => {
-        const controller = new SortController(container);
+        void new SortController(container); // init triggers sort
         const invertBtn = container.querySelector('#invertToggle')!;
         
         invertBtn.click(); // Теперь ASC
@@ -58,7 +58,7 @@ describe('SortController', () => {
     });
 
     it('should sort by rating', () => {
-        const controller = new SortController(container);
+        void new SortController(container); // init triggers sort
         const sortBtn = container.querySelector('#sortToggle')!;
         
         sortBtn.click(); // Смена на rating
@@ -73,7 +73,7 @@ describe('SortController', () => {
     });
 
     it('should correctly handle prestige in level sorting', () => {
-        const controller = new SortController(container);
+        void new SortController(container); // init triggers sort
         const grid = container.querySelector('#mainHeroesGrid')!;
         
         // Hero 3 is level 5 but prestige, so 5+20 = 25

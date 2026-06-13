@@ -68,12 +68,12 @@ def start_services():
     # 1. Чистка старых контейнеров (Только в режиме паранойи)
     if PARANOID_MODE:
         containers = ["backpack_insight_db", "backpack_insight_web", "backpack_insight_backend"]
-        print(f"   - [PARANOID] Cleaning containers...", end="\r")
+        print("   - [PARANOID] Cleaning containers...", end="\r")
         for c in containers:
             run_command(f"docker rm -f {c}", silent=True)
-        print(f"   - [PARANOID] Cleaning containers... DONE")
+        print("   - [PARANOID] Cleaning containers... DONE")
     else:
-        print(f"   - Fast Start Mode (Skipping container cleanup)")
+        print("   - Fast Start Mode (Skipping container cleanup)")
 
     # 2. Сборка и Запуск
     cache_bust = int(time.time()) if PARANOID_MODE else 1
@@ -81,7 +81,7 @@ def start_services():
     # Устанавливаем переменную окружения средствами Python (универсально для Win/Linux)
     os.environ["CACHE_BUST"] = str(cache_bust)
 
-    print(f"   - Initializing Containers (Build & Up)...")
+    print("   - Initializing Containers (Build & Up)...")
 
     # Теперь команда чистая, без лишних флагов, которые ломали запуск
     # Используем docker compose (новый синтаксис) или docker-compose (fallback)
@@ -93,7 +93,7 @@ def start_services():
     if res_up.returncode != 0:
         print("\n[ERROR] Failed to start containers. Set PARANOID_MODE = True to debug.")
         sys.exit(1)
-    print(f"   - Initializing Containers... DONE")
+    print("   - Initializing Containers... DONE")
 
     print("\nServices Started!")
     

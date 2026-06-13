@@ -1,6 +1,6 @@
 export class DragDropHandler {
-    private area: HTMLElement;
-    private onFileRead: (file: File) => void;
+    private readonly area: HTMLElement;
+    private readonly onFileRead: (file: File) => void;
     private cleanupFns: (() => void)[] = [];
 
     constructor(area: HTMLElement, onFileRead: (file: File) => void) {

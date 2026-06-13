@@ -1,8 +1,8 @@
 export class UIHandler {
-    private input: HTMLTextAreaElement;
-    private hint: HTMLElement;
-    private onHideError: () => void;
-    private onContentChange: (value: string) => void;
+    private readonly input: HTMLTextAreaElement;
+    private readonly hint: HTMLElement;
+    private readonly onHideError: () => void;
+    private readonly onContentChange: (value: string) => void;
     private cleanupFns: (() => void)[] = [];
 
     constructor(input: HTMLTextAreaElement, hint: HTMLElement, onHideError: () => void, onContentChange: (value: string) => void) {

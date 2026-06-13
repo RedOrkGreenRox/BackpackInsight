@@ -6,8 +6,8 @@ import { StorageManager } from '../draft/StorageManager';
 import { ValidationManager } from '../ValidationManager';
 
 export class SubmitManager {
-    private container: HTMLElement;
-    private t: (key: string) => string;
+    private readonly container: HTMLElement;
+    private readonly t: (key: string) => string;
 
     constructor(container: HTMLElement, t: (key: string) => string) {
         this.container = container;

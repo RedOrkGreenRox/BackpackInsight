@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { ItemDetailBranch } from '../ground/branches/itemDetail/ItemDetailBranch';
 import { ItemNavigationManager } from '../ground/branches/itemDetail/_itemDetail/managers/ItemNavigationManager';
-import { ItemSEOManager } from '../ground/branches/itemDetail/_itemDetail/managers/ItemSEOManager';
 
 vi.mock('../ground/localization/i18n', () => ({
     t: (key: string, params?: any) => {

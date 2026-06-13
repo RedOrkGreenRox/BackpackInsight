@@ -104,8 +104,8 @@ export class ItemsBranch extends Branch {
     private currentSort: 'rarity' | 'name' = 'rarity';
     private cleanupFns: (() => void)[] = [];
     private fuse: Fuse<PreparedItem> | null = null; // Экземпляр Fuse.js
-    private searchScores = new Map<string, number>();
-    private strictTagScores = new Map<string, number>();
+    private readonly searchScores = new Map<string, number>();
+    private readonly strictTagScores = new Map<string, number>();
     private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private intersectionObserver: IntersectionObserver | null = null;
     private renderedCount = 0;
@@ -139,7 +139,7 @@ export class ItemsBranch extends Branch {
         ADVANCED_FILTERS_VISIBLE: 'items_advanced_filters_visible'
     };
 
-    private rarityWeights: Record<string, number> = {
+    private readonly rarityWeights: Record<string, number> = {
         "Unique": 100, "Mythic": 90, "Legendary": 80, "Epic": 70,
         "Rare": 60, "Common": 50, "Boon": 40, "Relic": 30, "Special": 20
     };
@@ -351,10 +351,8 @@ export class ItemsBranch extends Branch {
                 target.dataset['failed'] = 'true';
                 console.warn(`[ItemsBranch] Image not found for item: "${target.alt}". Using placeholder.`);
                 const placeholder = ImageFormatService.placeholderSrc();
-                const picture = target.parentElement;
-                if (picture && picture.tagName === 'PICTURE') {
-                    const sources = picture.querySelectorAll('source');
-                    sources.forEach(s => {
+                if (target.parentElement?.tagName === 'PICTURE') {
+                    target.parentElement.querySelectorAll('source').forEach(s => {
                         s.srcset = placeholder;
                         s.type = 'image/webp';
                     });
@@ -732,7 +730,7 @@ export class ItemsBranch extends Branch {
             button.dataset['value'] = option;
 
             const iconHtml = this.getIconForFilter(option, containerId);
-            button.innerHTML = iconHtml ? iconHtml : `<span>${option}</span>`;
+            button.innerHTML = iconHtml || `<span>${option}</span>`;
 
             // Восстанавливаем визуальное состояние из сохраненных данных
             if (selectedSet.has(option)) button.classList.add('active');
@@ -924,7 +922,7 @@ export class ItemsBranch extends Branch {
                     panel.classList.add('show');
                     // Обновляем AOS после открытия меню фильтров
                     setTimeout(() => {
-                        if (typeof AOS !== 'undefined') {
+                        if (AOS !== undefined) {
                             AOS.refresh();
                         }
                     }, 50);
@@ -939,7 +937,7 @@ export class ItemsBranch extends Branch {
                         panel.style.display = 'none';
                     }
                     // Обновляем AOS после закрытия меню фильтров
-                    if (typeof AOS !== 'undefined') {
+                    if (AOS !== undefined) {
                         AOS.refresh();
                     }
                 }, 400); // Соответствует времени transition в CSS
@@ -1380,10 +1378,10 @@ export class ItemsBranch extends Branch {
 
     private getAliasFieldScore(prepared: PreparedItem, term: string): number | null {
         if (SearchTermService.normalizeText(prepared.item.name).includes(term)) return 0.05;
-        if (prepared.typeText.includes(term)) return 0.10;
+        if (prepared.typeText.includes(term)) return 0.1;
         if (prepared.normalizedHero.toLowerCase().includes(term)) return 0.14;
         if (prepared.statKeysText.includes(term)) return 0.18;
-        if (prepared.tooltipText.includes(term)) return 0.30;
+        if (prepared.tooltipText.includes(term)) return 0.3;
         if (prepared.searchText.includes(term)) return 0.42;
         return null;
     }
@@ -1446,18 +1444,12 @@ export class ItemsBranch extends Branch {
             const firstTooltip = item.tooltips[0];
             if (firstTooltip) {
                 // Сначала пробуем найти арабские цифры: например, "Step 1/4" или "Step 3"
-                const arabicMatch = firstTooltip.match(/Step\s+(\d+)/i);
-                if (arabicMatch && arabicMatch[1]) {
-                    return `heist-plan-${arabicMatch[1]}`;
-                }
+                const arabicNum = /Step\s+(\d+)/i.exec(firstTooltip)?.[1];
+                if (arabicNum) return `heist-plan-${arabicNum}`;
 
                 // Если не нашли арабские, пробуем римские: например, "Step IV"
-                const romanMatch = firstTooltip.match(/Step\s+([IVXLCDM]+)/i);
-                if (romanMatch && romanMatch[1]) {
-                    const romanNumeral = romanMatch[1];
-                    const arabicNumber = this.romanToArabic(romanNumeral);
-                    return `heist-plan-${arabicNumber}`;
-                }
+                const romanNumeral = /Step\s+([IVXLCDM]+)/i.exec(firstTooltip)?.[1];
+                if (romanNumeral) return `heist-plan-${this.romanToArabic(romanNumeral)}`;
             }
         }
         

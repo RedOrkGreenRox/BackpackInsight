@@ -24,9 +24,7 @@ export class ScreenshotManager {
     }
 
     private preloadHtml2Canvas(): Promise<any> {
-        if (!this.html2canvasPromise) {
-            this.html2canvasPromise = import('html2canvas').then(module => module.default);
-        }
+        this.html2canvasPromise ??= import('html2canvas').then(module => module.default);
         return this.html2canvasPromise;
     }
 

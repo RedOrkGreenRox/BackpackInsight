@@ -116,7 +116,7 @@ def _sync_static_data() -> None:
             session.commit()
             logger.info("Synced %s items from JSON to DB", json_count)
         except Exception as e:
-            logger.error("Could not load definitions: %s", e)
+            logger.exception("Could not load definitions")
             session.rollback()
 
 
@@ -249,7 +249,7 @@ async def process_profile(
         raise
     except Exception as e:
         session.rollback()  # Важно: откат транзакции при ошибке
-        logger.error("Error processing profile: %s", e, exc_info=True)
+        logger.exception("Error processing profile")
         raise HTTPException(status_code=400, detail=f"Failed to process profile: {str(e)}")
 
 

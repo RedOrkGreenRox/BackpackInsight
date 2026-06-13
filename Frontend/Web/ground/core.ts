@@ -85,7 +85,7 @@ class PerformanceMonitor {
 
 // Делаем AOS глобальным для совместимости с другими файлами, 
 // где используется declare const AOS
-(window as any).AOS = AOS;
+(globalThis as any).AOS = AOS;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Сначала инициализируем локализацию и единый формат изображений
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (href) router.prefetch(href);
     });
 
-    const requestIdle = window.requestIdleCallback || ((cb: IdleRequestCallback) => window.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 }), 800));
+    const requestIdle = globalThis.requestIdleCallback || ((cb: IdleRequestCallback) => globalThis.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 }), 800));
     requestIdle(() => {
         const connection = (navigator as any).connection;
         const saveData = !!connection?.saveData;

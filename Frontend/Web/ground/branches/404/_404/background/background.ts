@@ -22,7 +22,7 @@ export class BackgroundManager {
         } else {
             // Генерируем новый рандом
             const rand = Math.random() * 100;
-            let rarity = '00';
+            let rarity: string;
 
             if (rand > 99.9) rarity = '04';       // 0.1%
             else if (rand > 99) rarity = '03';    // 0.9%
@@ -35,7 +35,7 @@ export class BackgroundManager {
 
         // Добавляем класс для блокировки скролла только на 404 странице
         document.body.classList.add('error-404');
-        Shell.getInstance().set404Background(this.currentRarity!);
+        Shell.getInstance().set404Background(this.currentRarity ?? '00');
     }
 
     /**

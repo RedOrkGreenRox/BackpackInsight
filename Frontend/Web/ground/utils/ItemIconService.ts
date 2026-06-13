@@ -41,7 +41,7 @@ export class ItemIconService {
 
         const firstTooltip = item.tooltips?.[0];
         if (item.rarity === 'Special' && firstTooltip) {
-            const match = firstTooltip.match(STEP_PATTERN);
+            const match = STEP_PATTERN.exec(firstTooltip);
             if (match?.[1]) {
                 const token = match[1];
                 const number = SlugService.isRomanNumeral(token)

@@ -53,13 +53,13 @@ export class ImageFormatService {
                 resolve(supported);
             };
 
-            const timeout = window.setTimeout(() => done(false), 800);
+            const timeout = globalThis.setTimeout(() => done(false), 800);
             img.onload = () => {
-                window.clearTimeout(timeout);
+                globalThis.clearTimeout(timeout);
                 done(img.width > 0 && img.height > 0);
             };
             img.onerror = () => {
-                window.clearTimeout(timeout);
+                globalThis.clearTimeout(timeout);
                 done(false);
             };
             img.src = this.TEST_IMAGES[format];

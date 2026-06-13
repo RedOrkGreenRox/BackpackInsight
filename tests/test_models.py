@@ -49,7 +49,7 @@ class TestHero:
         assert hero.name == "TotallyMadeUpHero"
 
     def test_from_entry_prestige(self):
-        # Уровень > 20 = prestige
+        # level > 20 in JSON means prestige
         hero = Hero.from_entry(["Warrior", "25", "0", "5000"])
         assert hero.level == 6  # 25+1 = 26 -> -20 = 6
         assert hero.prestige is True
@@ -104,7 +104,6 @@ class TestProfile:
         session.add(profile)
         session.commit()
 
-        hero_names = {h.name for h in profile.heroes}
         # Имена могут быть оригинальные или из VALUES-мэппинга
         assert len(profile.heroes) == 2
 

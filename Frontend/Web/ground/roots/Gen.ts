@@ -19,21 +19,21 @@ export class Gen {
     private isNavigating: boolean = false;
     private scrollTimeout: any = null;
     private navigationId = 0;
-    private prefetchedRoutes = new Set<string>();
+    private readonly prefetchedRoutes = new Set<string>();
 
     private constructor() {
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
 
-        window.addEventListener('popstate', (event) => {
-            void this.handleRoute(window.location.pathname, event.state);
+        globalThis.addEventListener('popstate', (event) => {
+            void this.handleRoute(globalThis.location.pathname, event.state);
         });
 
-        window.addEventListener('scroll', () => {
+        globalThis.addEventListener('scroll', () => {
             if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
             this.scrollTimeout = setTimeout(() => {
-                this.updateCurrentState({ scrollY: window.scrollY });
+                this.updateCurrentState({ scrollY: globalThis.scrollY });
             }, 100);
         });
     }
@@ -51,7 +51,7 @@ export class Gen {
             throw new Error(`Gen: Container #${containerId} not found!`);
         }
         
-        void this.handleRoute(window.location.pathname, history.state);
+        void this.handleRoute(globalThis.location.pathname, history.state);
         
         document.body.addEventListener('click', (e) => {
             const target = (e.target as HTMLElement).closest('a');
@@ -82,7 +82,7 @@ export class Gen {
 
     public navigate(path: string, data?: any): void {
         if (this.isNavigating) return;
-        this.updateCurrentState({ scrollY: window.scrollY });
+        this.updateCurrentState({ scrollY: globalThis.scrollY });
         history.pushState(data, '', path);
         void this.handleRoute(path, data);
     }
@@ -90,14 +90,14 @@ export class Gen {
     public updateCurrentState(partialData: any): void {
         const currentState = history.state || {};
         const newState = { ...currentState, ...partialData };
-        history.replaceState(newState, '', window.location.pathname);
+        history.replaceState(newState, '', globalThis.location.pathname);
     }
 
     /**
      * Перерисовывает текущую страницу, сохраняя ее состояние.
      */
     public reRenderCurrentBranch(): void {
-        void this.handleRoute(window.location.pathname, history.state);
+        void this.handleRoute(globalThis.location.pathname, history.state);
     }
 
     private updateMeta(meta: PageMeta): void {
@@ -200,7 +200,7 @@ export class Gen {
             
             setTimeout(() => {
                 if (navId !== this.navigationId) return;
-                window.scrollTo(0, scrollY);
+                globalThis.scrollTo(0, scrollY);
                 AOS.refresh();
             }, 100);
         };

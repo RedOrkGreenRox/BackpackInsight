@@ -97,8 +97,8 @@ export class ItemDetailRenderer {
 
     private static renderNavLink(targetName: string | null, dir: 'prev' | 'next', baseUrl: string): string {
         const arrow = dir === 'prev' ? '❮' : '❯';
-        if (!targetName) return `<div class="nav-btn-top disabled">${arrow}</div>`;
-        return `<a href="${baseUrl}/${targetName}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}">${arrow}</a>`;
+        if (targetName) return `<a href="${baseUrl}/${targetName}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}">${arrow}</a>`;
+        return `<div class="nav-btn-top disabled">${arrow}</div>`;
     }
 
     private static renderPlayerInfo(playerItem?: { name: string; level: number; cards: number; cards_need: number }): string {
@@ -120,11 +120,14 @@ export class ItemDetailRenderer {
         const combatStatsHtml = item.combatStats
             ? Object.entries(item.combatStats)
                 .filter(([, v]) => v !== null)
-                .map(([k, v]) => `<li>${parseTextWithIcons(`stat_${k}`)} <span>${v}</span></li>`)
+                .map(([k, v]) => {
+                    const iconHtml = parseTextWithIcons(`stat_${k}`);
+                    return `<li>${iconHtml} <span>${v}</span></li>`;
+                })
                 .join('')
             : '';
 
-        const desc = item.tooltips?.length ? parseTextWithIcons(item.tooltips.join('\\n')) : '';
+        const desc = item.tooltips?.length ? parseTextWithIcons(item.tooltips.join(String.raw`\n`)) : '';
 
         return `<div class="wiki-stats-block" data-aos="fade-up" data-aos-delay="100">
             ${desc ? `<div class="item-description">${desc}</div>` : ''}

@@ -12,12 +12,8 @@ export class ErrorDisplayManager {
         let highlightedError = '';
         
         // Используем JsonValidator если доступен
-        if (jsonValidator && jsonValidator.highlightError) {
-            highlightedError = jsonValidator.highlightError(jsonText, validation.line, validation.column);
-        } else {
-            // Fallback - простой pre блок
-            highlightedError = `<pre>${jsonText}</pre>`;
-        }
+        highlightedError = jsonValidator?.highlightError(jsonText, validation.line, validation.column)
+            ?? `<pre>${jsonText}</pre>`;
         
         element.innerHTML = `
             <div class="validation-error-header">

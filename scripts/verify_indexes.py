@@ -76,7 +76,7 @@ def verify():
                 print(f"   Query failed: {e}")
 
     except Exception as e:
-        print(f"\nCRITICAL ERROR: Could not connect to database.")
+        print("\nCRITICAL ERROR: Could not connect to database.")
         print(f"   Details: {e}")
         print("   Make sure Docker is running: 'docker-compose up -d'")
 

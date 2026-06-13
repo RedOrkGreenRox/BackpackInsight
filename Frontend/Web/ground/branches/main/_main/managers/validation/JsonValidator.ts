@@ -86,7 +86,7 @@ export class JsonValidator {
      */
     private static getLineAndColumn(text: string, position: number): { line: number; column: number } {
         const lines = text.substring(0, position).split('\n');
-        const lastLine = lines[lines.length - 1];
+        const lastLine = lines.at(-1);
         return {
             line: lines.length,
             column: (lastLine ? lastLine.length : 0) + 1
@@ -105,7 +105,7 @@ export class JsonValidator {
      */
     private static getLastLineLength(text: string): number {
         const lines = text.split('\n');
-        const lastLine = lines[lines.length - 1];
+        const lastLine = lines.at(-1);
         return lastLine ? lastLine.length : 0;
     }
 

@@ -92,7 +92,12 @@ function getAlphaId(num: number): string {
 }
 
 const replaceOutsideSpans = (str: string, regex: RegExp, handler: (...args: string[]) => string) => {
-    const ignoreRegex = /(<span[^>]*>.*?<\/span>|\[\[ICN[A-Z]+]]|<picture[^>]*>.*?<\/picture>|<br\s*\/?>)/g;
+    // Разбиваем на части для снижения сложности regex (Sonar S5843)
+    const SPAN_PATTERN = '<span[^>]*>.*?<\/span>';
+    const ICN_PATTERN = '\\[\\[ICN[A-Z]+]]';
+    const PICTURE_PATTERN = '<picture[^>]*>.*?<\/picture>';
+    const BR_PATTERN = '<br\\s*\\/?>';
+    const ignoreRegex = new RegExp(`(${SPAN_PATTERN}|${ICN_PATTERN}|${PICTURE_PATTERN}|${BR_PATTERN})`, 'g');
     const combined = new RegExp(`(${ignoreRegex.source})|${regex.source}`, 'g');
     return str.replace(combined, (match, ignoreGroup, ...rest) => {
         if (ignoreGroup) return match;
@@ -179,7 +184,7 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => {
         const firstName = m.split(/\s+/)[0];
         if (!firstName) return m;
-        return FORBIDDEN_NAMES.includes(firstName.replace(/['']s$/, "")) ? m : `<span class="value-text">${m}</span>`;
+        return FORBIDDEN_NAMES.includes(firstName.replace(/(?:'|[\u2019])s$/, "")) ? m : `<span class="value-text">${m}</span>`;
     });
 
     // ШАГ 6.1: Специальная логика для Star (Placeholder Star + Name)

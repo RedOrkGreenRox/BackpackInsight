@@ -8,12 +8,12 @@ import { UploadHandler } from '../upload-zone/upload';
  * Выносит всю логику инициализации из основного класса
  */
 export class MainManager {
-    private container: HTMLElement;
-    private t: (key: string) => string;
+    private readonly container: HTMLElement;
+    private readonly t: (key: string) => string;
     private uploadHandler: UploadHandler | null = null;
     private submitManager: SubmitManager | null = null;
-    private formManager: FormManager = new FormManager();
-    private draftManager: DraftManager = new DraftManager();
+    private readonly formManager: FormManager = new FormManager();
+    private readonly draftManager: DraftManager = new DraftManager();
 
     constructor(container: HTMLElement, t: (key: string) => string) {
         this.container = container;
