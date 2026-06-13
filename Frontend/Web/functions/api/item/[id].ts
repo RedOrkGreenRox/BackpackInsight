@@ -1,5 +1,15 @@
 const BASE_URL = 'https://backpackinsight.pages.dev';
 
+interface ItemDefinition {
+    id: string;
+    name: string;
+    description?: string;
+    rarity: string;
+    coinValue?: number;
+    itemTypes?: string[];
+    icon?: string;
+}
+
 export async function onRequestGet(context: any) {
     const { params } = context;
     
@@ -115,7 +125,7 @@ function generateItemHTML(item: ItemDefinition, structuredData: any): string {
     <meta property="og:site_name" content="Backpack Insight">
     <meta property="article:section" content="Предметы">
     <meta property="article:tag" content="${item.rarity}">
-    ${item.itemTypes?.map(type => `<meta property="article:tag" content="${type}">`).join('\n    ') || ''}
+    ${item.itemTypes?.map((type: string) => `<meta property="article:tag" content="${type}">`).join('\n    ') || ''}
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
