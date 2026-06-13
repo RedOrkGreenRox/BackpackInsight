@@ -149,9 +149,6 @@ serve({
     }
 
     // --- 5. SPA Fallback (index.html) только для навигационных URL ---
-    let core = file(DIST_DIR + "/core.html");
-    if (await core.exists()) return new Response(core, { headers: CACHE_HTML });
-    
     let index = file(DIST_DIR + "/index.html");
     if (await index.exists()) return new Response(index, { headers: CACHE_HTML });
 

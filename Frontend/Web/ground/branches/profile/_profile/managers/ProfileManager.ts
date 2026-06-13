@@ -319,11 +319,7 @@ export class ProfileManager {
             if (!img) return;
 
             const paths = this.skinsManager.getSkinImagePaths(heroName, skin);
-            img.src = paths.webp;
-            img.parentElement?.querySelectorAll('source').forEach(s => {
-                if (s.type === 'image/webp') s.srcset = paths.webp;
-                if (s.type === 'image/avif') s.srcset = paths.avif;
-            });
+            this.applySkinToImage(img, paths);
             (heroCard as HTMLElement).dataset['currentSkin'] = skin;
             this.updateHeaderSkin(heroName, skin);
         });

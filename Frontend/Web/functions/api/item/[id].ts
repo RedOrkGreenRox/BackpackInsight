@@ -1,15 +1,5 @@
 const BASE_URL = 'https://backpackinsight.pages.dev';
 
-interface ItemDefinition {
-    id: string;
-    name: string;
-    description?: string;
-    rarity: string;
-    coinValue?: number;
-    itemTypes?: string[];
-    icon?: string;
-}
-
 export async function onRequestGet(context: any) {
     const { params } = context;
     

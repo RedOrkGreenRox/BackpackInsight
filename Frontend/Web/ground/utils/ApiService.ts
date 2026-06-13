@@ -124,15 +124,7 @@ export class ApiService {
             return await response.json();
         };
 
-        try {
-            return await this.retryWithBackoff(operation);
-        } catch (error: any) {
-            const message = error.message || error.toString();
-            if (message.startsWith('Retryable:')) {
-                throw new Error(message.replace('Retryable: ', ''));
-            }
-            throw error;
-        }
+        return this.executeWithRetry(operation);
     }
 
     /**
@@ -155,6 +147,13 @@ export class ApiService {
             return await response.json();
         };
 
+        return this.executeWithRetry(operation);
+    }
+
+    /**
+     * Выполняет операцию с retry и разворачивает Retryable-ошибки.
+     */
+    private static async executeWithRetry<T>(operation: () => Promise<T>): Promise<T> {
         try {
             return await this.retryWithBackoff(operation);
         } catch (error: any) {

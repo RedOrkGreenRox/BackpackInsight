@@ -55,7 +55,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-fix
+Удаление дубликатов
     """
     message = f"{upd} | Automated push: {timestamp}"
 
