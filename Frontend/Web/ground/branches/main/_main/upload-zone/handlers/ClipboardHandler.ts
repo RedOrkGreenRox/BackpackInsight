@@ -52,8 +52,7 @@ export class ClipboardHandler {
             const items = clipboardEvent.clipboardData?.items;
             if (!items) return;
 
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
+            for (const item of Array.from(items)) {
                 if (!item) continue;
 
                 if (item.kind === 'file') {

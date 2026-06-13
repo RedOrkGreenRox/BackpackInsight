@@ -80,10 +80,10 @@ def load_items():
     except FileNotFoundError:
         logger.error("Items file not found at %s", ITEMS_PATH)
         return []
-    except json.JSONDecodeError as e:
+    except json.JSONDecodeError:
         logger.exception("Invalid JSON in items file")
         return []
-    except Exception as e:
+    except Exception:
         logger.exception("Error loading items")
         return []
 

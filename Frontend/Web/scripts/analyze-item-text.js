@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -166,7 +166,10 @@ function printTable(title, entries, limit = TOP_LIMIT) {
   console.log(`\n${title}`);
   console.log('-'.repeat(title.length));
   for (const [token, count] of entries.slice(0, limit)) {
-    const printable = token === '\n' ? '\\n' : token === '\t' ? '\\t' : token;
+    let printable;
+    if (token === '\n') printable = '\\n';
+    else if (token === '\t') printable = '\\t';
+    else printable = token;
     console.log(`${String(count).padStart(6)}  ${printable}`);
   }
 }

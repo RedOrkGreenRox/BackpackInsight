@@ -151,31 +151,39 @@ export class SearchTermService {
         this.tokenToExpansion.clear();
 
         for (const [canonicalRaw, aliasesRaw] of Object.entries(this.aliases)) {
-            const weightedTerms = new Map<string, number>();
-            const canonicalTokens = this.tokenize(canonicalRaw);
+            const weightedTerms = this.buildWeightedTerms(canonicalRaw, aliasesRaw);
+            this.indexWeightedTerms(weightedTerms);
+        }
+    }
 
-            for (const token of canonicalTokens) weightedTerms.set(token, 0.08);
+    private static buildWeightedTerms(
+        canonicalRaw: string,
+        aliasesRaw: any[]
+    ): Map<string, number> {
+        const weightedTerms = new Map<string, number>();
+        for (const token of this.tokenize(canonicalRaw)) weightedTerms.set(token, 0.08);
 
-            for (const alias of aliasesRaw) {
-                const aliasTerm = this.getAliasTerm(alias);
-                const aliasWeight = this.getAliasWeight(alias);
-                for (const token of this.tokenize(aliasTerm)) {
-                    weightedTerms.set(token, Math.min(weightedTerms.get(token) ?? Infinity, aliasWeight));
-                }
+        for (const alias of aliasesRaw) {
+            const aliasTerm = this.getAliasTerm(alias);
+            const aliasWeight = this.getAliasWeight(alias);
+            for (const token of this.tokenize(aliasTerm)) {
+                weightedTerms.set(token, Math.min(weightedTerms.get(token) ?? Infinity, aliasWeight));
             }
+        }
+        return weightedTerms;
+    }
 
-            const group = [...weightedTerms.entries()];
-            for (const [token, tokenWeight] of group) {
-                if (!this.tokenToExpansion.has(token)) {
-                    this.tokenToExpansion.set(token, new Map());
-                }
-                const target = this.tokenToExpansion.get(token)!;
-                for (const [related, relatedWeight] of group) {
-                    if (related === token) continue;
-                    // Если пользователь ввел алиас, canonical/соседние термины чуть штрафуем.
-                    const edgeWeight = Math.max(tokenWeight, relatedWeight);
-                    target.set(related, Math.min(target.get(related) ?? Infinity, edgeWeight));
-                }
+    private static indexWeightedTerms(weightedTerms: Map<string, number>): void {
+        const group = [...weightedTerms.entries()];
+        for (const [token, tokenWeight] of group) {
+            if (!this.tokenToExpansion.has(token)) {
+                this.tokenToExpansion.set(token, new Map());
+            }
+            const target = this.tokenToExpansion.get(token)!;
+            for (const [related, relatedWeight] of group) {
+                if (related === token) continue;
+                const edgeWeight = Math.max(tokenWeight, relatedWeight);
+                target.set(related, Math.min(target.get(related) ?? Infinity, edgeWeight));
             }
         }
     }

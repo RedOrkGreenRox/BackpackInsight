@@ -8,7 +8,8 @@
     left: 50%;
     transform: translateX(-50%);
     padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
-    background: rgba(255, 255, 255, 0.1); /* on dark sidebar bg ~#1a1a2e, effective contrast >7:1 */
+    background: #2a2a3e; /* solid fallback for contrast checkers */
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;

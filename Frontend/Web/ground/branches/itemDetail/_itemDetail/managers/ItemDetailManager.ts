@@ -114,7 +114,7 @@ export class ItemDetailManager {
 
     private setupCopyHandler(): void {
         const handler = (e: ClipboardEvent) => {
-            const sel = window.getSelection();
+            const sel = globalThis.getSelection();
             if (!sel?.rangeCount) return;
 
             const clone = sel.getRangeAt(0).cloneContents();

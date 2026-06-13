@@ -49,14 +49,14 @@ const ICON_TRIGGER_EXCEPTIONS = ['Bag of Flour', 'Pet Rock', 'Brown Rat', 'White
 const HEADER_EXCEPTIONS_BEFORE_COLON = ['to', 'more', 'less', 'higher', 'lower', 'inside', 'slot', 'Стоимость', 'Cost', 'Hero', 'Герой'];
 const HEADER_EXCEPTIONS_NO_COLON = ['are', 'is', 'can', 'require', 'also', 'rerolls', 'gain', 'inflict', 'steal', 'benefits', 'counts', 'per'];
 
-const FORBIDDEN_NAMES = [
+const FORBIDDEN_NAMES = new Set([
     'Gain', 'Get', 'Give', 'Turn', 'Shoot', 'When', 'After', 'Every', 'Activate', 'Use', 'Steal',
     'Have', 'Inflict', 'Remove', 'Trap', 'Cleanse', 'Become', 'Per', 'On', 'Increased', 'If',
     'Reduce', 'Heal', 'Look', 'Spend', 'Deal', 'Next', 'Also', 'Increase', 'Transform', 'Your',
     'That', 'The', 'Add', 'Transfer', 'Attract', 'Trigger', 'Both', 'Restore', 'Brings',
     'Opponent', 'Crack', 'Find', 'Catch', 'No', 'Absorb', 'Block', 'Hits', 'Hammer', 'Break',
     'Drain', 'Suffer', 'Void', 'Sabotage', "Weaken", "Turns", "Can"
-];
+]);
 
 const KEYWORDS_REGEX = /\b(Discharge|common|magnetic|Sabotage|empty|Lumps\s+of\s+Coal|Hunter['’]s\s+mark|Call\s+of\s+the\s+Void)\b/gi;
 const ITEM_PREFIX_KEYWORDS = ['magnetic', 'common'];
@@ -93,10 +93,10 @@ function getAlphaId(num: number): string {
 
 const replaceOutsideSpans = (str: string, regex: RegExp, handler: (...args: string[]) => string) => {
     // Разбиваем на части для снижения сложности regex (Sonar S5843)
-    const SPAN_PATTERN = '<span[^>]*>.*?<\/span>';
+    const SPAN_PATTERN = '<span[^>]*>.*?</span>';
     const ICN_PATTERN = '\\[\\[ICN[A-Z]+]]';
-    const PICTURE_PATTERN = '<picture[^>]*>.*?<\/picture>';
-    const BR_PATTERN = '<br\\s*\\/?>';
+    const PICTURE_PATTERN = '<picture[^>]*>.*?</picture>';
+    const BR_PATTERN = '<br\\s*/?>';
     const ignoreRegex = new RegExp(`(${SPAN_PATTERN}|${ICN_PATTERN}|${PICTURE_PATTERN}|${BR_PATTERN})`, 'g');
     const combined = new RegExp(`(${ignoreRegex.source})|${regex.source}`, 'g');
     return str.replace(combined, (match, ignoreGroup, ...rest) => {
@@ -184,13 +184,13 @@ export function parseTextWithIcons(text: string | undefined | null): string {
     processedText = replaceOutsideSpans(processedText, itemNamesRegex, (m) => {
         const firstName = m.split(/\s+/)[0];
         if (!firstName) return m;
-        return FORBIDDEN_NAMES.includes(firstName.replace(/(?:'|[\u2019])s$/, "")) ? m : `<span class="value-text">${m}</span>`;
+        return FORBIDDEN_NAMES.has(firstName.replace(/(?:'|[\u2019])s$/, "")) ? m : `<span class="value-text">${m}</span>`;
     });
 
     // ШАГ 6.1: Специальная логика для Star (Placeholder Star + Name)
     iconsMap.forEach((html, placeholder) => {
         if (html.includes(`title="${SPECIAL_LOGIC_ICON}"`)) {
-            const followWordRegex = new RegExp(`(${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[ \\xA0\\t]*)(${ITEM_WORD_VARIANTS}|[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)`, 'g');
+            const followWordRegex = new RegExp(`(${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[ \xA0\t]*)(${ITEM_WORD_VARIANTS}|[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)`, 'g');
             processedText = processedText.replace(followWordRegex, (_match, s, name) => {
                 return `${s}<span class="value-text">${name}</span>`;
             });
@@ -223,8 +223,8 @@ export function parseTextWithIcons(text: string | undefined | null): string {
         const trimmed = match.trim();
         if (!trimmed) return match;
 
-        const leadingSpace = match.match(/^\s*/)?.[0] || '';
-        const trailingSpace = match.match(/\s*$/)?.[0] || '';
+        const leadingSpace = /^\s*/.exec(match)?.[0] ?? '';
+        const trailingSpace = /\s*$/.exec(match)?.[0] ?? '';
 
         return `${leadingSpace}<span class="${DEFAULT_TEXT_CLASS}">${trimmed}</span>${trailingSpace}`;
     });

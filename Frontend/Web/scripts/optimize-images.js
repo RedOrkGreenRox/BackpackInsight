@@ -7,7 +7,6 @@ const path = require('node:path');
 // Оптимизация для продакшена
 const optimizeImages = () => {
     const staticDir = path.join(__dirname, '../static');
-    const imagesDir = path.join(staticDir, 'images');
     
     // Создаем WebP версии если их нет
     // Здесь можно добавить imagemin или sharp для реальной оптимизации

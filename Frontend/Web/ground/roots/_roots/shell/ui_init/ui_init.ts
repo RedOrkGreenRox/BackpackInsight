@@ -29,8 +29,8 @@ globalThis.handleImageError = function(img: HTMLImageElement) {
 
 document.addEventListener('error', (event) => {
     const target = event.target as HTMLElement;
-    if (target.tagName === 'IMG' && (target as HTMLImageElement).dataset['fallback']) {
-        globalThis.handleImageError(target as HTMLImageElement);
+    if (target.tagName === 'IMG' && (target as HTMLElement).dataset['fallback']) {
+        globalThis.handleImageError(target as HTMLImageElement); // cast safe after tagName check
     }
 }, true);
 

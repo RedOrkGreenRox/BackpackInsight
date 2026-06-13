@@ -33,12 +33,8 @@ export class DragDropHandler {
         this.addListener(this.area, 'drop', (e: Event) => {
             this.area.classList.remove('drag-over');
             const dragEvent = e as DragEvent;
-            if (dragEvent.dataTransfer && dragEvent.dataTransfer.files && dragEvent.dataTransfer.files.length > 0) {
-                const file = dragEvent.dataTransfer.files[0];
-                if (file) {
-                    this.onFileRead(file);
-                }
-            }
+            const file = dragEvent.dataTransfer?.files?.[0];
+                if (file) this.onFileRead(file);
         });
     }
 

@@ -113,8 +113,7 @@ export class JsonValidator {
      * Извлекает неожиданный символ из сообщения об ошибке
      */
     private static extractUnexpectedChar(errorMessage: string): string {
-        const match = errorMessage.match(/Unexpected token ([^"]+)/);
-        return match && match[1] ? match[1].trim() : 'неизвестный символ';
+        return /Unexpected token ([^"]+)/.exec(errorMessage)?.[1]?.trim() ?? 'неизвестный символ';
     }
 
     /**

@@ -110,6 +110,7 @@ async function getEffectiveConnectionType() {
             return connection.effectiveType || '4g';
         }
     } catch (e) {
+        console.warn("[SW] Non-critical error ignored:", e);
     }
     
     return '4g';
@@ -127,10 +128,8 @@ async function cacheOnly(request) {
         const networkResponse = await fetch(request);
         return networkResponse;
     } catch (error) {
-        return new Response('Offline - no cached data available', { 
-            status: 503, 
-            statusText: 'Service Unavailable' 
-        });
+        console.warn('[SW] cacheOnly failed:', error);
+        return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
     }
 }
 
@@ -189,6 +188,7 @@ async function networkFirst(request, event) {
         
         return networkResponse;
     } catch (error) {
+        console.warn('[SW] Network failed, trying cache:', error);
         const cachedResponse = await caches.match(request);
         
         if (cachedResponse) {
@@ -233,7 +233,8 @@ async function staleWhileRevalidate(request) {
             }
             return networkResponse;
         })
-        .catch(() => {
+        .catch((error) => {
+            console.warn('[SW] staleWhileRevalidate failed:', error);
             return cachedResponse || new Response('Offline', {
                 status: 503,
                 statusText: 'Service Unavailable'
