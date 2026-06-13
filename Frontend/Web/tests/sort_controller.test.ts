@@ -33,7 +33,7 @@ describe('SortController', () => {
     });
 
     it('should sort by level descending by default', () => {
-        const _sc = new SortController(container); void _sc; // init triggers sort
+        new SortController(container); // init triggers sort via constructor side effects
         const grid = container.querySelector('#mainHeroesGrid')!;
         const cards = Array.from(grid.children);
         
@@ -44,7 +44,7 @@ describe('SortController', () => {
     });
 
     it('should toggle sorting direction', () => {
-        const _sc = new SortController(container); void _sc; // init triggers sort
+        new SortController(container); // init triggers sort via constructor side effects
         const invertBtn = container.querySelector('#invertToggle')!;
         
         invertBtn.click(); // Теперь ASC
@@ -58,7 +58,7 @@ describe('SortController', () => {
     });
 
     it('should sort by rating', () => {
-        const _sc = new SortController(container); void _sc; // init triggers sort
+        new SortController(container); // init triggers sort via constructor side effects
         const sortBtn = container.querySelector('#sortToggle')!;
         
         sortBtn.click(); // Смена на rating
@@ -73,7 +73,7 @@ describe('SortController', () => {
     });
 
     it('should correctly handle prestige in level sorting', () => {
-        const _sc = new SortController(container); void _sc; // init triggers sort
+        new SortController(container); // init triggers sort via constructor side effects
         const grid = container.querySelector('#mainHeroesGrid')!;
         
         // Hero 3 is level 5 but prestige, so 5+20 = 25

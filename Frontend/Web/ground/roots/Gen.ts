@@ -123,7 +123,7 @@ export class Gen {
                 const routePart = routeParts[i];
                 const pathPart = pathParts[i];
 
-                if (routePart && routePart.startsWith(':')) {
+                if (routePart?.startsWith(':')) {
                     const paramName = routePart.slice(1);
                     params[paramName] = decodeURIComponent(pathPart || '');
                 } else if (routePart !== pathPart) {
@@ -191,7 +191,7 @@ export class Gen {
             const branch = new BranchClass();
             this.currentBranch = branch;
             
-            const combinedData = { ...(data ?? {}), ...routeParams };
+            const combinedData = { ...data, ...routeParams };
 
             this.updateMeta(branch.getMeta(combinedData));
             branch.mount(this.appContainer!, combinedData);

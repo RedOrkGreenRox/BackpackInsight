@@ -7,12 +7,11 @@
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    position: relative; /* Для позиционирования кнопок */
+    position: relative;
     overflow: hidden;
 
-    /* Карточка занимает всю ширину ячейки сетки */
+
     width: 100%;
-    /* max-width: 500px; */
 
     &:hover {
         transform: translateY(-5px);

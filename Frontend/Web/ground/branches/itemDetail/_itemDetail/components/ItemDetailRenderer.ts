@@ -106,9 +106,9 @@ export class ItemDetailRenderer {
 
     private static renderPlayerInfo(playerItem?: { name: string; level: number; cards: number; cards_need: number }): string {
         if (!playerItem) return '';
-        const cardsInfo = playerItem.cards_need !== -1
-            ? `<div class="stat-row"><span class="stat-label">${t('player_item_cards')}:</span> <span class="stat-value">${playerItem.cards} / ${playerItem.cards_need}</span></div>`
-            : '';
+        const cardsInfo = playerItem.cards_need === -1
+            ? ''
+            : `<div class="stat-row"><span class="stat-label">${t('player_item_cards')}:</span> <span class="stat-value">${playerItem.cards} / ${playerItem.cards_need}</span></div>`;
         return `<div class="player-stats-block" data-aos="fade-up">
             <div class="stat-row"><span class="stat-label">${t('player_item_level')}:</span> <span class="stat-value lvl">Lvl ${playerItem.level}</span></div>
             ${cardsInfo}

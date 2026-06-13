@@ -35,7 +35,7 @@ class PerformanceMonitor {
      */
     public static toggleLowResMode(force?: boolean) {
         const isEnabled = document.body.classList.contains('low-res-mode');
-        const shouldEnable = force === undefined ? !isEnabled : force;
+        const shouldEnable = force ?? !isEnabled;
 
         if (shouldEnable) {
             this.enableMode();

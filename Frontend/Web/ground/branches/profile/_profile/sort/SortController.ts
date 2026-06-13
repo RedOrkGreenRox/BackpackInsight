@@ -74,7 +74,7 @@ export class SortController {
 
             if (sortText) {
                 const labels = { level: t('profile_sort_level'), rating: t('profile_sort_rating') };
-                sortText.textContent = labels[this.currentHeroSort as keyof typeof labels] || labels.level;
+                sortText.textContent = labels[this.currentHeroSort] ?? labels.level;
             }
 
             if (sortIcon) {
