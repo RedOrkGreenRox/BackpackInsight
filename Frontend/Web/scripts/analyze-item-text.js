@@ -167,8 +167,8 @@ function printTable(title, entries, limit = TOP_LIMIT) {
   console.log('-'.repeat(title.length));
   for (const [token, count] of entries.slice(0, limit)) {
     let printable;
-    if (token === '\n') printable = '\\n';
-    else if (token === '\t') printable = '\\t';
+    if (token === '\n') printable = String.raw`\n`;
+    else if (token === '\t') printable = String.raw`\t`;
     else printable = token;
     console.log(`${String(count).padStart(6)}  ${printable}`);
   }

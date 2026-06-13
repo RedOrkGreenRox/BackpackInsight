@@ -29,7 +29,7 @@ import { ImageFormatService } from '../../../../utils/ImageFormatService';
 
 document.addEventListener('error', (event) => {
     const target = event.target as HTMLElement;
-    if (target.tagName === 'IMG' && (target as HTMLElement).dataset['fallback']) {
+    if (target.tagName === 'IMG' && target.dataset['fallback']) {
         (globalThis as any).handleImageError(target as HTMLImageElement);
     }
 }, true);
