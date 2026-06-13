@@ -8,7 +8,7 @@ import { SlugService } from '../../../../utils/SlugService';
 
 export class ItemCardRenderer {
     static render(item: Item, index: number): string {
-        const cardsInfo = item.cards_need !== -1 ? `(${item.cards} / ${item.cards_need})` : '';
+        const cardsInfo = item.cards_need === -1 ? '' : `(${item.cards} / ${item.cards_need})`;
 
         const slug = SlugService.toSlug(item.name);
         const imageSrc = ImageFormatService.itemSrc(slug);

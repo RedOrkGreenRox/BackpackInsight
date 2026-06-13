@@ -1,7 +1,7 @@
 export class ScreenshotManager {
-    private container: HTMLElement;
+    private readonly container: HTMLElement;
     private cleanupFns: (() => void)[] = [];
-    private t: (key: string) => string;
+    private readonly t: (key: string) => string;
     private html2canvasPromise: Promise<any> | null = null;
 
     constructor(container: HTMLElement, t: (key: string) => string) {
@@ -17,9 +17,11 @@ export class ScreenshotManager {
             saveBtn.addEventListener('click', handler);
             saveBtn.addEventListener('pointerenter', preloadHandler, { passive: true });
             saveBtn.addEventListener('focus', preloadHandler);
-            this.cleanupFns.push(() => saveBtn.removeEventListener('click', handler));
-            this.cleanupFns.push(() => saveBtn.removeEventListener('pointerenter', preloadHandler));
-            this.cleanupFns.push(() => saveBtn.removeEventListener('focus', preloadHandler));
+            this.cleanupFns.push(
+                () => saveBtn.removeEventListener('click', handler),
+                () => saveBtn.removeEventListener('pointerenter', preloadHandler),
+                () => saveBtn.removeEventListener('focus', preloadHandler),
+            );
         }
     }
 
@@ -75,7 +77,7 @@ export class ScreenshotManager {
             link.href = canvas.toDataURL('image/png');
             document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
+            link.remove();
             
             btn.innerText = originalText;
             btn.style.opacity = "1";
@@ -115,9 +117,7 @@ export class ScreenshotManager {
         // Автоматически удаляем через 3 секунды
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease-out';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
+            setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
 

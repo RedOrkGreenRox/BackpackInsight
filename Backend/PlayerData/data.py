@@ -51,7 +51,7 @@ def get_latest_items_file():
         logger.info(f"Auto-detected latest items file: {Path(latest_file).name} (version {version[0]}.{version[1]}.{version[2]})")
         return Path(latest_file)
         
-    except Exception as e:
+    except Exception:
         logger.exception("Error auto-detecting items file")
         # Fallback на старый путь
         return BASE_DIR.parent / "DB" / "items_3_1_0.json"

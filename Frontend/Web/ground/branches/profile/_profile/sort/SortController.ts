@@ -3,7 +3,7 @@ import { t } from '../../../../localization/i18n';
 import AOS from 'aos';
 
 export class SortController {
-    private container: HTMLElement;
+    private readonly container: HTMLElement;
     private cleanupFns: (() => void)[] = [];
     private currentHeroSort: 'level' | 'rating' = 'level';
     private sortAsc: boolean = false;
@@ -70,7 +70,7 @@ export class SortController {
 
         this.addListener(sortBtn, 'click', () => {
             const currentIdx = sortModes.indexOf(this.currentHeroSort);
-            this.currentHeroSort = sortModes[(currentIdx + 1) % sortModes.length] as any;
+            this.currentHeroSort = sortModes[(currentIdx + 1) % sortModes.length] as 'level' | 'rating';
 
             if (sortText) {
                 const labels = { level: t('profile_sort_level'), rating: t('profile_sort_rating') };
@@ -134,7 +134,7 @@ export class SortController {
         cards.forEach(card => fragment.appendChild(card));
         grid.appendChild(fragment);
 
-        if (typeof AOS !== 'undefined') AOS.refresh();
+        if (AOS !== undefined) AOS.refresh();
     }
 
     public destroy() {

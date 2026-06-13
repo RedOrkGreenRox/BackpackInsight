@@ -24,9 +24,9 @@ export class ProfileManager {
     private readonly stateManager = new ProfileStateManager();
     private readonly skinsManager = new ProfileSkinsManager();
 
-    private data: ProfileData;
+    private readonly data: ProfileData;
     private currentItemSort: 'rarity' | 'level';
-    private savedState: SavedState;
+    private readonly savedState: SavedState;
 
     private sortController: SortController | null = null;
     private screenshotManager: ScreenshotManager | null = null;

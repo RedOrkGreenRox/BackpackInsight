@@ -92,9 +92,7 @@ export class ItemDetailManager {
             resolved.playerItem = this.restorePlayerItem(resolved.name);
         }
 
-        if (!resolved.itemData) {
-            resolved.itemData = this.restoreFromCache(resolved.name);
-        }
+        resolved.itemData ??= this.restoreFromCache(resolved.name);
 
         return resolved;
     }

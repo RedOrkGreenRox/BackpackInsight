@@ -97,8 +97,11 @@ export class ItemDetailRenderer {
 
     private static renderNavLink(targetName: string | null, dir: 'prev' | 'next', baseUrl: string): string {
         const arrow = dir === 'prev' ? '❮' : '❯';
-        if (targetName) return `<a href="${baseUrl}/${targetName}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}">${arrow}</a>`;
-        return `<div class="nav-btn-top disabled">${arrow}</div>`;
+        const label = dir === 'prev' ? t('item_nav_prev') : t('item_nav_next');
+        if (!targetName) {
+            return `<button class="nav-btn-top disabled" disabled aria-label="${label}" aria-disabled="true">${arrow}</button>`;
+        }
+        return `<a href="${baseUrl}/${targetName}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}" aria-label="${label}: ${targetName}">${arrow}</a>`;
     }
 
     private static renderPlayerInfo(playerItem?: { name: string; level: number; cards: number; cards_need: number }): string {

@@ -23,11 +23,9 @@ class PerformanceMonitor {
             this.enableMode();
         } else if (userChoice === 'disabled') {
             this.disableMode();
-        } else {
+        } else if (this.isSlowConnection() || this.isLowEndDevice()) {
             // Автоматическое определение, если пользователь не делал выбор
-            if (this.isSlowConnection() || this.isLowEndDevice()) {
-                this.enableMode();
-            }
+            this.enableMode();
         }
     }
 

@@ -5,7 +5,7 @@ import { ImageFormatService } from '../../../../utils/ImageFormatService';
 // 2. Основная инициализация
 
 // Глобальная функция для обработки ошибок загрузки изображений
-window.handleImageError = function(img: HTMLImageElement) {
+(globalThis as any).handleImageError = function(img: HTMLImageElement) {
     // Предотвращаем бесконечный цикл, если плейсхолдер тоже не загрузился
     const placeholder = ImageFormatService.placeholderSrc();
     if (img.src.includes('/images/placeholder/placeholder.')) {
@@ -29,8 +29,8 @@ window.handleImageError = function(img: HTMLImageElement) {
 
 document.addEventListener('error', (event) => {
     const target = event.target as HTMLElement;
-    if (target.tagName === 'IMG' && (target as HTMLElement).dataset['fallback']) {
-        window.handleImageError(target as HTMLImageElement); // cast safe after tagName check
+    if (target.tagName === 'IMG' && target.dataset['fallback']) {
+        (globalThis as any).handleImageError(target as HTMLImageElement); // cast safe after tagName check
     }
 }, true);
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Инициализация табов меню
-    const currentPath = window.location.pathname;
+    const currentPath = globalThis.location.pathname;
     document.querySelectorAll('.nav-tab').forEach(tab => {
         const onclickAttr = tab.getAttribute('onclick');
         if (onclickAttr && (onclickAttr.includes(`'${currentPath}'`) || onclickAttr.includes(`"${currentPath}"`))) {

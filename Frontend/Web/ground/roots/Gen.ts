@@ -55,7 +55,7 @@ export class Gen {
         
         document.body.addEventListener('click', (e) => {
             const target = (e.target as HTMLElement).closest('a');
-            if (target && target.matches('[data-link]')) {
+            if (target?.matches('[data-link]')) {
                 e.preventDefault();
                 const stateData = (target as any)._stateData; 
                 this.navigate(target.getAttribute('href') || '/', stateData);
@@ -170,7 +170,7 @@ export class Gen {
             BranchClass = await record.load();
         } catch (e) {
             console.error(`Gen: Failed to load route ${cleanPath}`, e);
-            const fallback = cleanPath !== '/404' ? this.routes['/404'] : null;
+            const fallback = cleanPath === '/404' ? null : this.routes['/404'];
             if (!fallback) {
                 this.isNavigating = false;
                 return;
@@ -191,12 +191,12 @@ export class Gen {
             const branch = new BranchClass();
             this.currentBranch = branch;
             
-            const combinedData = { ...(data || {}), ...routeParams };
+            const combinedData = { ...(data ?? {}), ...routeParams };
 
             this.updateMeta(branch.getMeta(combinedData));
             branch.mount(this.appContainer!, combinedData);
             
-            const scrollY = data?.scrollY || 0;
+            const scrollY = data?.scrollY ?? 0;
             
             setTimeout(() => {
                 if (navId !== this.navigationId) return;

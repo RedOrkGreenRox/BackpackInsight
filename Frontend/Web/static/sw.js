@@ -162,6 +162,7 @@ async function cacheFirst(request) {
         
         return networkResponse;
     } catch (error) {
+        console.warn('[SW] networkFirst fallback:', error);
         return new Response('Offline', { 
             status: 503,
             statusText: 'Service Unavailable'
@@ -260,7 +261,7 @@ globalThis.addEventListener('message', (event) => {
     // event.origin у SW-сообщений содержит origin клиентской страницы.
     if (event.origin && event.origin !== globalThis.location.origin) return;
 
-    if (event.data && event.data.type === 'CACHE_UPDATED') {
+    if (event.data?.type === 'CACHE_UPDATED') {
         trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES);
     }
 });
