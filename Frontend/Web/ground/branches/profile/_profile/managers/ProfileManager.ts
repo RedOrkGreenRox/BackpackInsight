@@ -180,17 +180,7 @@ export class ProfileManager {
                 const skin = uniqueSkins[currentIdx];
                 if (!skin || !img) return;
                 const paths = this.skinsManager.getSkinImagePaths(heroName, skin);
-
-                img.style.opacity = '0';
-                setTimeout(() => {
-                    img.src = paths.webp;
-                    img.parentElement?.querySelectorAll('source').forEach(s => {
-                        if (s.type === 'image/webp') s.srcset = paths.webp;
-                        if (s.type === 'image/avif') s.srcset = paths.avif;
-                    });
-                    requestAnimationFrame(() => { img.style.opacity = '1'; });
-                }, 200);
-
+                this.applySkinToImage(img, paths);
                 (card as HTMLElement).dataset['currentSkin'] = skin;
                 this.updateHeaderSkin(heroName, skin);
             };
@@ -206,6 +196,19 @@ export class ProfileManager {
                 updateSkin();
             });
         });
+    }
+
+    private applySkinToImage(img: HTMLImageElement, paths: { webp: string; avif: string }): void {
+        img.style.opacity = '0';
+        setTimeout(() => {
+            img.src = paths.webp;
+            (img.parentElement?.querySelectorAll('source') as NodeListOf<HTMLSourceElement>)
+                ?.forEach(s => {
+                    if (s.type === 'image/webp') s.srcset = paths.webp;
+                    if (s.type === 'image/avif') s.srcset = paths.avif;
+                });
+            requestAnimationFrame(() => { img.style.opacity = '1'; });
+        }, 200);
     }
 
     private updateHeaderSkin(heroName: string, skin: string): void {

@@ -96,41 +96,39 @@ export class SortController {
         });
     }
 
+    private getCardValue(card: HTMLElement): number {
+        if (this.currentHeroSort === 'level') {
+            const lvl = Number.parseInt(card.dataset['level'] || '0');
+            return lvl + (card.dataset['prestige'] === 'true' ? 20 : 0);
+        }
+        return Number.parseInt(card.dataset['rating'] || '0');
+    }
+
+    private getCardTiebreaker(card: HTMLElement): number {
+        if (this.currentHeroSort === 'level') {
+            return Number.parseInt(card.dataset['rating'] || '0');
+        }
+        const lvl = Number.parseInt(card.dataset['level'] || '0');
+        return lvl + (card.dataset['prestige'] === 'true' ? 20 : 0);
+    }
+
+    private compareCards(a: HTMLElement, b: HTMLElement): number {
+        const valA = this.getCardValue(a);
+        const valB = this.getCardValue(b);
+        if (valA !== valB) return this.sortAsc ? valA - valB : valB - valA;
+
+        const tbA = this.getCardTiebreaker(a);
+        const tbB = this.getCardTiebreaker(b);
+        if (tbA !== tbB) return this.sortAsc ? tbA - tbB : tbB - tbA;
+
+        const nameA = a.dataset['heroName'] || '';
+        const nameB = b.dataset['heroName'] || '';
+        return this.sortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    }
+
     private applySort(grid: Element): void {
         const cards = Array.from(grid.children) as HTMLElement[];
-
-        cards.sort((a, b) => {
-            let valA: number = 0, valB: number = 0;
-
-            if (this.currentHeroSort === 'level') {
-                valA = Number.parseInt(a.dataset['level'] || '0');
-                valB = Number.parseInt(b.dataset['level'] || '0');
-                // Prestige-герои считаются выше максимального уровня (20)
-                if (a.dataset['prestige'] === 'true') valA += 20;
-                if (b.dataset['prestige'] === 'true') valB += 20;
-            } else if (this.currentHeroSort === 'rating') {
-                valA = Number.parseInt(a.dataset['rating'] || '0');
-                valB = Number.parseInt(b.dataset['rating'] || '0');
-            }
-
-            if (valA !== valB) return this.sortAsc ? valA - valB : valB - valA;
-
-            // Тайbreaker: вторичная сортировка по противоположному параметру
-            if (this.currentHeroSort === 'level') {
-                const rA = Number.parseInt(a.dataset['rating'] || '0');
-                const rB = Number.parseInt(b.dataset['rating'] || '0');
-                if (rA !== rB) return this.sortAsc ? rA - rB : rB - rA;
-            } else {
-                const lA = Number.parseInt(a.dataset['level'] || '0') + (a.dataset['prestige'] === 'true' ? 20 : 0);
-                const lB = Number.parseInt(b.dataset['level'] || '0') + (b.dataset['prestige'] === 'true' ? 20 : 0);
-                if (lA !== lB) return this.sortAsc ? lA - lB : lB - lA;
-            }
-
-            // Финальный тайbreaker: имя героя — всегда детерминировано
-            const nameA = (a.dataset['heroName'] || '');
-            const nameB = (b.dataset['heroName'] || '');
-            return this.sortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-        });
+        cards.sort((a, b) => this.compareCards(a, b));
 
         const fragment = document.createDocumentFragment();
         cards.forEach(card => fragment.appendChild(card));
