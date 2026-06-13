@@ -50,7 +50,4 @@ export class HeroesSectionRenderer {
         return t('profile_heroes_title', String(count));
     }
 
-    private static getSortLevelText(): string {
-        return t('profile_sort_level');
-    }
 }

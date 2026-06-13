@@ -7,7 +7,7 @@ import AOS from 'aos';
 import { t } from '../../../../localization/i18n';
 import { Gen } from '@roots/Gen';
 import { ImageFormatService } from '@utils/ImageFormatService';
-import { ProfileData, Item } from '../utils/profile-types';
+import { ProfileData } from '../utils/profile-types';
 import { ProfileDataManager } from './ProfileDataManager';
 import { ProfileStateManager, SavedState } from './ProfileStateManager';
 import { ProfileSkinsManager } from './ProfileSkinsManager';
@@ -220,7 +220,7 @@ export class ProfileManager {
         const avif = `/images/heroes/${lowerHero}/avif/${lowerHero}${lowerSkin}.avif`;
 
         if (img) img.src = webp;
-        sources.forEach(s => {
+        (sources as NodeListOf<HTMLSourceElement>).forEach(s => {
             if (s.type === 'image/avif') s.srcset = avif;
             if (s.type === 'image/webp') s.srcset = webp;
         });

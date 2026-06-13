@@ -3,7 +3,7 @@
 /**
  * Сайдбар
  */
-globalThis.toggleSidebar = function() {
+window.toggleSidebar = function() {
     const body = document.body;
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');

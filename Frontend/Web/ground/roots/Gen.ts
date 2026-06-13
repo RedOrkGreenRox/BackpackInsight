@@ -27,7 +27,7 @@ export class Gen {
         }
 
         globalThis.addEventListener('popstate', (event) => {
-            void this.handleRoute(globalThis.location.pathname, event.state);
+            void this.handleRoute(globalThis.location.pathname, (event as PopStateEvent).state);
         });
 
         globalThis.addEventListener('scroll', () => {

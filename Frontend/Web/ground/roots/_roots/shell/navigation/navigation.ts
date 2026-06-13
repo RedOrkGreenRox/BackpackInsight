@@ -3,8 +3,8 @@
 /**
  * Переход между страницами
  */
-globalThis.goTo = function(url: string) {
-    const isMobile = globalThis.innerWidth <= 768;
+window.goTo = function(url: string) {
+    const isMobile = window.innerWidth <= 768;
     const delay = isMobile ? 100 : 250; // Уменьшили задержку для скорости
 
     document.body.classList.add('leaving');
@@ -13,13 +13,13 @@ globalThis.goTo = function(url: string) {
     if (sidebar) sidebar.classList.remove('open');
 
     setTimeout(() => {
-        globalThis.location.href = url;
+        window.location.href = url;
     }, delay);
 };
 
 // Восстановление после кнопки "Назад"
-globalThis.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
+window.addEventListener('pageshow', (event) => {
+    if ((event as PageTransitionEvent).persisted) {
         document.body.classList.remove('leaving', 'sidebar-open');
         document.body.classList.add('loaded');
     }
