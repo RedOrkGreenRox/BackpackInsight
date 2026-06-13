@@ -61,7 +61,7 @@ SonarCloud Critical — sw.js L260
 
 SonarCloud Major — отсутствует lock-файл
 Было: корневой package.json (с repomix) без lock-файла.
-Стало: package-lock.json создан через npm install --package-lock-only (168 пакетов, 0 уязвимостей).
+Стало: package-lock.json создан через npm install --package-lock-only (168 пакетов, 0 уязвимостей)
     """
     message = f"{upd} | Automated push: {timestamp}"
 
