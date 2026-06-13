@@ -26,7 +26,6 @@ class PerformanceMonitor {
         } else {
             // Автоматическое определение, если пользователь не делал выбор
             if (this.isSlowConnection() || this.isLowEndDevice()) {
-                console.log("PerformanceMonitor: Slow connection or low-end device detected. Enabling low-res mode.");
                 this.enableMode();
             }
         }

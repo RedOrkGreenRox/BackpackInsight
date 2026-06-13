@@ -1,6 +1,7 @@
 import { Branch, PageMeta } from './Branch';
 // @ts-ignore
 import AOS from 'aos';
+import { MetaService } from '@utils/MetaService';
 import { ProfileCacheUtils } from './profileCacheUtils';
 
 type BranchCtor = new () => Branch;
@@ -100,15 +101,7 @@ export class Gen {
     }
 
     private updateMeta(meta: PageMeta): void {
-        document.title = meta.title;
-        
-        let descTag = document.querySelector('meta[name="description"]');
-        if (!descTag) {
-            descTag = document.createElement('meta');
-            descTag.setAttribute('name', 'description');
-            document.head.appendChild(descTag);
-        }
-        descTag.setAttribute('content', meta.description);
+        MetaService.updatePageMeta(meta);
     }
 
     private findRoute(cleanPath: string): { record: RouteRecord | null; params: Record<string, string> } {

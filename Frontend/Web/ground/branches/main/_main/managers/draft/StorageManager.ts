@@ -5,10 +5,8 @@ export class StorageManager {
         try {
             if (data.trim()) {
                 localStorage.setItem(this.DRAFT_KEY, data);
-                console.log('[StorageManager] Draft saved');
             } else {
                 localStorage.removeItem(this.DRAFT_KEY);
-                console.log('[StorageManager] Draft removed');
             }
         } catch (error) {
             console.error('[StorageManager] Save error:', error);

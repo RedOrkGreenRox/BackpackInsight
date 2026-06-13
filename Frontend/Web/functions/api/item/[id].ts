@@ -180,20 +180,6 @@ function generateItemHTML(item: ItemDefinition, structuredData: any): string {
         <p style="opacity: 0.7; font-size: 14px;">Редкость: ${item.rarity} | Тип: ${item.itemTypes?.join(', ') || 'Неизвестно'}</p>
     </div>
     
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-    </script>
 
     <!-- Entry Point -->
     <script type="module" src="/ground/core.ts"></script>

@@ -13,14 +13,14 @@ const STATIC_ASSETS = [
     '/fonts/NotoSans-Bold.woff2'
 ];
 
+const MAX_DYNAMIC_CACHE_ENTRIES = 350;
+
 // Установка Service Worker
 self.addEventListener('install', (event) => {
-    console.log('SW: Installing...');
     
     event.waitUntil(
         caches.open(STATIC_CACHE)
             .then((cache) => {
-                console.log('SW: Caching static assets');
                 return cache.addAll(STATIC_ASSETS);
             })
             .then(() => self.skipWaiting())
@@ -29,7 +29,6 @@ self.addEventListener('install', (event) => {
 
 // Активация и очистка старых кэшей
 self.addEventListener('activate', (event) => {
-    console.log('SW: Activating...');
     
     event.waitUntil(
         caches.keys()
@@ -37,11 +36,15 @@ self.addEventListener('activate', (event) => {
                 return Promise.all(
                     cacheNames.map((cacheName) => {
                         if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-                            console.log('SW: Deleting old cache', cacheName);
                             return caches.delete(cacheName);
                         }
                     })
                 );
+            })
+            .then(async () => {
+                if (self.registration.navigationPreload) {
+                    await self.registration.navigationPreload.enable();
+                }
             })
             .then(() => self.clients.claim())
     );
@@ -69,7 +72,7 @@ self.addEventListener('fetch', (event) => {
             // HTML-навигация всегда network-first, чтобы F5 после нового деплоя
             // получал свежий index.html с актуальными hash-чанками.
             if (request.mode === 'navigate') {
-                return networkFirst(request);
+                return networkFirst(request, event);
             }
 
             if (url.pathname === '/sw.js') {
@@ -111,7 +114,6 @@ async function getEffectiveConnectionType() {
             return connection.effectiveType || '4g';
         }
     } catch (e) {
-        console.log('NetworkInformation API not available');
     }
     
     return '4g';
@@ -129,7 +131,6 @@ async function cacheOnly(request) {
         const networkResponse = await fetch(request);
         return networkResponse;
     } catch (error) {
-        console.log('SW: No cache and no network for:', request.url);
         return new Response('Offline - no cached data available', { 
             status: 503, 
             statusText: 'Service Unavailable' 
@@ -146,7 +147,7 @@ async function cacheFirst(request) {
             if (response.ok) {
                 const responseClone = response.clone();
                 caches.open(DYNAMIC_CACHE).then((cache) => {
-                    cache.put(request, responseClone);
+                    cache.put(request, responseClone).then(() => trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES));
                 });
             }
         });
@@ -160,13 +161,12 @@ async function cacheFirst(request) {
         if (networkResponse.ok) {
             const responseClone = networkResponse.clone();
             caches.open(DYNAMIC_CACHE).then((cache) => {
-                cache.put(request, responseClone);
+                cache.put(request, responseClone).then(() => trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES));
             });
         }
         
         return networkResponse;
     } catch (error) {
-        console.log('SW: Network failed, serving from cache if available');
         return new Response('Offline', { 
             status: 503,
             statusText: 'Service Unavailable'
@@ -175,20 +175,24 @@ async function cacheFirst(request) {
 }
 
 // Network First стратегия
-async function networkFirst(request) {
+async function networkFirst(request, event) {
     try {
+        if (event?.preloadResponse) {
+            const preloadResponse = await event.preloadResponse;
+            if (preloadResponse) return preloadResponse;
+        }
+
         const networkResponse = await fetch(request);
         
         if (networkResponse.ok) {
             const responseClone = networkResponse.clone();
             caches.open(DYNAMIC_CACHE).then((cache) => {
-                cache.put(request, responseClone);
+                cache.put(request, responseClone).then(() => trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES));
             });
         }
         
         return networkResponse;
     } catch (error) {
-        console.log('SW: Network failed, trying cache');
         const cachedResponse = await caches.match(request);
         
         if (cachedResponse) {
@@ -227,7 +231,7 @@ async function staleWhileRevalidate(request) {
             if (networkResponse.ok) {
                 const responseClone = networkResponse.clone();
                 caches.open(DYNAMIC_CACHE).then((cache) => {
-                    cache.put(request, responseClone);
+                    cache.put(request, responseClone).then(() => trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES));
                 });
             }
             return networkResponse;
@@ -242,9 +246,19 @@ async function staleWhileRevalidate(request) {
     return cachedResponse || fetchPromise;
 }
 
+async function trimCache(cacheName, maxEntries) {
+    const cache = await caches.open(cacheName);
+    const keys = await cache.keys();
+    if (keys.length <= maxEntries) return;
+
+    await Promise.all(
+        keys.slice(0, keys.length - maxEntries).map(key => cache.delete(key))
+    );
+}
+
 // Очистка кэша при сообщении от клиента
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'CACHE_UPDATED') {
-        console.log('SW: Cache update requested');
+        trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_ENTRIES);
     }
 });

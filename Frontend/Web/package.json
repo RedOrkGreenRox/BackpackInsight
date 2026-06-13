@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "bun run server.ts"
+    "start": "bun run server.ts",
+    "verify:images": "node scripts/verify-item-images.js",
+    "analyze:item-text": "node scripts/analyze-item-text.js"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",

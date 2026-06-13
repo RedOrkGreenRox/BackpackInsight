@@ -25,8 +25,7 @@ export class ItemCardRenderer {
                              decoding="async"
                              fetchpriority="low"
                              class="item-icon" 
-                             data-fallback
-                             onerror="window.handleImageError(this)">
+                             data-fallback>
                     </div>
                     <span class="item-name">${item.name}</span>
                     <div class="item-stats">

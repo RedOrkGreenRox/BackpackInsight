@@ -1,31 +1,35 @@
 /**
  * ItemSEOManager — обновление мета-тегов, OG, JSON-LD для страницы предмета.
  */
+import { ImageFormatService } from '@utils/ImageFormatService';
 import { ItemIconService, ItemDefinition } from '@utils/ItemIconService';
+import { MetaService } from '@utils/MetaService';
 import { t } from '../../../../localization/i18n';
 
 export class ItemSEOManager {
-    private jsonLdScript: HTMLScriptElement | null = null;
+    private readonly jsonLdId = 'item-detail-json-ld';
     private originalTitle: string = document.title;
 
     update(item: ItemDefinition, isProfile: boolean): void {
         const desc = item.tooltips?.join(' ').substring(0, 160) ?? '';
-        const img = `/images/items/webp/${ItemIconService.getImagePath(item)}.webp`;
+        const imagePath = ItemIconService.getImagePath(item);
+        const imageSrc = ImageFormatService.itemSrc(imagePath);
+        const absoluteImage = `https://backpackinsight.pages.dev${imageSrc}`;
         const url = window.location.href;
 
         document.title = `${item.name} - Backpack Insight | ${isProfile ? t('sidebar_main') : t('sidebar_items')}`;
 
-        this.setMeta('name', 'description', desc);
-        this.setMeta('name', 'keywords', `${item.name}, Backpack Brawl, ${item.rarity}, ${item.itemTypes?.join(', ') ?? ''}`);
-        this.setMeta('property', 'og:title', `${item.name} - Backpack Insight`);
-        this.setMeta('property', 'og:description', desc);
-        this.setMeta('property', 'og:image', `https://backpackinsight.pages.dev${img}`);
-        this.setMeta('property', 'og:url', url);
-        this.setLink('canonical', url);
-        this.setLink('alternate', url, 'ru');
-        this.setLink('alternate', url.replace('/item/', '/en/item/').replace('/profile/item/', '/profile/en/item/'), 'en');
+        MetaService.setMeta('name', 'description', desc);
+        MetaService.setMeta('name', 'keywords', `${item.name}, Backpack Brawl, ${item.rarity}, ${item.itemTypes?.join(', ') ?? ''}`);
+        MetaService.setMeta('property', 'og:title', `${item.name} - Backpack Insight`);
+        MetaService.setMeta('property', 'og:description', desc);
+        MetaService.setMeta('property', 'og:image', absoluteImage);
+        MetaService.setMeta('property', 'og:url', url);
+        MetaService.setLink('canonical', url);
+        MetaService.setLink('alternate', url, 'ru');
+        MetaService.setLink('alternate', url.replace('/item/', '/en/item/').replace('/profile/item/', '/profile/en/item/'), 'en');
 
-        this.updateStructuredData(item, url);
+        this.updateStructuredData(item, url, absoluteImage);
     }
 
     restore(): void {
@@ -33,30 +37,16 @@ export class ItemSEOManager {
     }
 
     cleanup(): void {
-        this.jsonLdScript?.remove();
-        this.jsonLdScript = null;
+        document.getElementById(this.jsonLdId)?.remove();
     }
 
-    private setMeta(attr: string, name: string, content: string): void {
-        const tag = document.querySelector(`meta[${attr}="${name}"]`);
-        tag?.setAttribute('content', content);
-    }
-
-    private setLink(rel: string, href: string, hreflang?: string): void {
-        const selector = hreflang
-            ? `link[rel="${rel}"][hreflang="${hreflang}"]`
-            : `link[rel="${rel}"]`;
-        const tag = document.querySelector(selector);
-        tag?.setAttribute('href', href);
-    }
-
-    private updateStructuredData(item: ItemDefinition, url: string): void {
+    private updateStructuredData(item: ItemDefinition, url: string, absoluteImage: string): void {
         const data = {
             '@context': 'https://schema.org',
             '@type': 'Thing',
             'name': item.name,
             'description': item.tooltips?.join(' ') ?? '',
-            'image': `https://backpackinsight.pages.dev/images/items/webp/${ItemIconService.getImagePath(item)}.webp`,
+            'image': absoluteImage,
             'identifier': item.id,
             'category': item.itemTypes?.join(', ') ?? '',
             'brand': { '@type': 'Organization', 'name': 'Backpack Brawl' },
@@ -74,11 +64,6 @@ export class ItemSEOManager {
             }
         };
 
-        if (!this.jsonLdScript) {
-            this.jsonLdScript = document.createElement('script');
-            this.jsonLdScript.type = 'application/ld+json';
-            document.head.appendChild(this.jsonLdScript);
-        }
-        this.jsonLdScript.textContent = JSON.stringify(data, null, 2);
+        MetaService.setJsonLd(this.jsonLdId, data);
     }
 }

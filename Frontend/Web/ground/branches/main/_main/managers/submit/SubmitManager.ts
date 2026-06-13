@@ -32,7 +32,6 @@ export class SubmitManager {
         try {
             // Очистка кэша и отправка
             ProfileCacheUtils.clearAllProfileCache();
-            console.log('[SubmitManager] Profile cache cleared before loading new data');
             
             const data = await ApiService.getProfile(JSON.parse(jsonText));
             

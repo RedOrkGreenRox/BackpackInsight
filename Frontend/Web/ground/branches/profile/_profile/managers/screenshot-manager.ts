@@ -2,6 +2,7 @@ export class ScreenshotManager {
     private container: HTMLElement;
     private cleanupFns: (() => void)[] = [];
     private t: (key: string) => string;
+    private html2canvasPromise: Promise<any> | null = null;
 
     constructor(container: HTMLElement, t: (key: string) => string) {
         this.container = container;
@@ -12,9 +13,21 @@ export class ScreenshotManager {
         const saveBtn = this.container.querySelector('#saveProfileBtn');
         if (saveBtn) {
             const handler = () => this.takeScreenshot();
+            const preloadHandler = () => this.preloadHtml2Canvas();
             saveBtn.addEventListener('click', handler);
+            saveBtn.addEventListener('pointerenter', preloadHandler, { passive: true });
+            saveBtn.addEventListener('focus', preloadHandler);
             this.cleanupFns.push(() => saveBtn.removeEventListener('click', handler));
+            this.cleanupFns.push(() => saveBtn.removeEventListener('pointerenter', preloadHandler));
+            this.cleanupFns.push(() => saveBtn.removeEventListener('focus', preloadHandler));
         }
+    }
+
+    private preloadHtml2Canvas(): Promise<any> {
+        if (!this.html2canvasPromise) {
+            this.html2canvasPromise = import('html2canvas').then(module => module.default);
+        }
+        return this.html2canvasPromise;
     }
 
     private async takeScreenshot(): Promise<void> {
@@ -30,9 +43,7 @@ export class ScreenshotManager {
         btn.disabled = true;
 
         try {
-            // Динамический импорт html2canvas
-            // @ts-ignore
-            const html2canvas = (await import('html2canvas')).default;
+            const html2canvas = await this.preloadHtml2Canvas();
             
             // Временно применяем стили для стандартного вида
             const originalStyles = element.style.cssText;
@@ -72,7 +83,6 @@ export class ScreenshotManager {
             btn.style.opacity = "1";
             btn.disabled = false;
             
-            console.log('Screenshot saved successfully');
         } catch (error) {
             console.error('Screenshot failed:', error);
             

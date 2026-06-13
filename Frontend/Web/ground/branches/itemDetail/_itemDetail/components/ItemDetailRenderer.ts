@@ -14,12 +14,10 @@ export class ItemDetailRenderer {
 
     static getMeta(data?: any): PageMeta {
         let itemName: string;
-        if (typeof data?.name === 'string') {
-            itemName = data.name;
-        } else if (typeof data?.itemData?.name === 'string') {
+        if (typeof data?.itemData?.name === 'string') {
             itemName = data.itemData.name;
-        } else if (typeof data?.name === 'object' && data.name?.name) {
-            itemName = data.name.name;
+        } else if (typeof data?.name === 'string') {
+            itemName = data.name;
         } else if (data?.playerItem?.name) {
             itemName = data.playerItem.name;
         } else {
@@ -87,7 +85,7 @@ export class ItemDetailRenderer {
                         </div>
                         <div class="item-visual">
                             <div class="item-image-wrapper ${rarityClass}">
-                                <img src="${imageSrc}" alt="${item.name}" loading="lazy" decoding="async" onerror="window.handleImageError(this)">
+                                <img src="${imageSrc}" alt="${item.name}" loading="lazy" decoding="async" data-fallback>
                             </div>
                         </div>
                         ${this.renderPlayerInfo(data.playerItem)}

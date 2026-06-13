@@ -39,7 +39,5 @@
     "ground/types/global.d.ts",
     "functions/**/*.ts"
   ],
-  "exclude": [
-    "ground/branches/items/_items/**/*.ts",
-  ]
+  "exclude": []
 }

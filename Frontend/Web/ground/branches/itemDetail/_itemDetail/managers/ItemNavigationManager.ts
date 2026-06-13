@@ -11,6 +11,10 @@ export class ItemNavigationManager {
         this.isProfile = isProfile;
     }
 
+    calculateNavigation(itemName: string): NavigationState {
+        return this.calculate(itemName);
+    }
+
     calculate(itemName: string): NavigationState {
         const nav: NavigationState = { prev: null, next: null };
         const raw = sessionStorage.getItem(this.isProfile ? 'profileItemsList' : 'filteredItemsOrder');

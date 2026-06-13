@@ -493,7 +493,6 @@ export class ProfileBranch extends Branch {
                 this.savedState = JSON.parse(saved);
                 // Копируем в sessionStorage для дальнейшего использования
                 sessionStorage.setItem('profileDynamicState', saved);
-                console.log('State restored from localStorage after page reload');
             }
         } catch (e) {
             console.error('Error restoring state from localStorage:', e);

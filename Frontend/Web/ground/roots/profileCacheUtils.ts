@@ -16,7 +16,6 @@ export class ProfileCacheUtils {
             // Очистка localStorage
             localStorage.removeItem('profileDynamicState');
             
-            console.log('[ProfileCacheUtils] All profile cache cleared');
         } catch (error) {
             console.error('[ProfileCacheUtils] Error clearing profile cache:', error);
         }
@@ -42,9 +41,6 @@ export class ProfileCacheUtils {
         
         if (!hasProfileData) {
             this.clearAllProfileCache();
-            console.log('[ProfileCacheUtils] Cache cleared - navigation without profile data');
-        } else {
-            console.log('[ProfileCacheUtils] Cache preserved - navigation with profile data');
         }
     }
 }

@@ -2,6 +2,8 @@ import {Branch} from '@roots/Branch.ts';
 import {t} from '../../localization/i18n';
 import {ItemsCacheService} from '../../utils/ItemsCacheService';
 import {ImageFormatService} from '../../utils/ImageFormatService';
+import {ItemPreviewPrefetchService} from '../../utils/ItemPreviewPrefetchService';
+import {SearchTermService} from '../../utils/SearchTermService';
 import {SlugService} from '../../utils/SlugService';
 import {generateIconsOrText} from '../../utils/icon-parser';
 import {LoadingStates} from '../../utils/LoadingStates';
@@ -63,8 +65,24 @@ export interface ItemDefinition {
 }
 
 
-let cachedFuseItems: ItemDefinition[] | null = null;
-let cachedFuse: Fuse<ItemDefinition> | null = null;
+let cachedFuseItems: PreparedItem[] | null = null;
+let cachedFuse: Fuse<PreparedItem> | null = null;
+
+interface PreparedItem {
+    key: string;
+    item: ItemDefinition;
+    slug: string;
+    imagePath: string;
+    imageSrc: string;
+    tooltipText: string;
+    normalizedHero: string;
+    unlockSource: string;
+    statKeysText: string;
+    typeText: string;
+    baseText: string;
+    searchText: string;
+    strictText: string;
+}
 
 interface FilterState {
     searchQuery: string;
@@ -80,15 +98,19 @@ interface FilterState {
 
 export class ItemsBranch extends Branch {
     private items: ItemDefinition[] = [];
+    private preparedItems: PreparedItem[] = [];
+    private preparedByKey = new Map<string, PreparedItem>();
     private filteredItems: ItemDefinition[] = [];
     private currentSort: 'rarity' | 'name' = 'rarity';
     private cleanupFns: (() => void)[] = [];
-    private fuse: Fuse<ItemDefinition> | null = null; // Экземпляр Fuse.js
+    private fuse: Fuse<PreparedItem> | null = null; // Экземпляр Fuse.js
     private searchScores = new Map<string, number>();
+    private strictTagScores = new Map<string, number>();
     private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
     private intersectionObserver: IntersectionObserver | null = null;
     private renderedCount = 0;
     private readonly renderBatchSize = 80;
+    private readonly eagerImagesCount = 12;
     private filters: FilterState = {
         searchQuery: '',
         selectedTypes: new Set(),
@@ -382,7 +404,12 @@ export class ItemsBranch extends Branch {
 
     private async loadItems() {
         try {
-            this.items = await ItemsCacheService.getAllItems() as unknown as ItemDefinition[];
+            const [items] = await Promise.all([
+                ItemsCacheService.getAllItems() as unknown as Promise<ItemDefinition[]>,
+                SearchTermService.init()
+            ]);
+            this.items = items;
+            this.prepareItems();
 
             this.fuse = this.getFuse();
 
@@ -395,8 +422,145 @@ export class ItemsBranch extends Branch {
         }
     }
 
-    private getFuse(): Fuse<ItemDefinition> {
-        if (cachedFuse && cachedFuseItems === this.items) {
+    private getItemKey(item: ItemDefinition): string {
+        return item.id || item.name;
+    }
+
+    private prepareItems(): void {
+        this.preparedItems = this.items.map(item => {
+            const imagePath = this.getItemImagePath(item);
+            const normalizedHero = (item.connectedHero || 'Shared') === 'Hob Gang' ? 'Hob' : (item.connectedHero || 'Shared');
+            const tooltipText = SearchTermService.normalizeText(item.tooltips.join(' '));
+            const statKeysText = SearchTermService.normalizeText(Object.keys(item.allStats || {}).join(' '));
+            const typeText = SearchTermService.normalizeText(item.itemTypes.join(' '));
+            const baseSearchText = [
+                item.id,
+                item.name,
+                item.rarity,
+                item.itemTypes.join(' '),
+                normalizedHero,
+                item.unlockSource || '',
+                item.tooltips.join(' '),
+                Object.keys(item.allStats || {}).join(' ')
+            ].join(' ');
+
+            const baseText = SearchTermService.normalizeText(baseSearchText);
+            return {
+                key: this.getItemKey(item),
+                item,
+                slug: SlugService.toSlug(item.name),
+                imagePath,
+                imageSrc: ImageFormatService.itemSrc(imagePath),
+                tooltipText,
+                normalizedHero,
+                unlockSource: item.unlockSource || 'Unknown',
+                statKeysText,
+                typeText,
+                baseText,
+                searchText: SearchTermService.expandText(baseSearchText),
+                strictText: this.buildStrictText(baseText)
+            };
+        });
+
+        this.preparedByKey = new Map(this.preparedItems.map(prepared => [prepared.key, prepared]));
+    }
+
+    private getPrepared(item: ItemDefinition): PreparedItem | undefined {
+        return this.preparedByKey.get(this.getItemKey(item));
+    }
+
+    private parseSearchInput(rawQuery: string): { textQuery: string; strictTagGroups: string[][] } {
+        const strictTagGroups: string[][] = [];
+        let textQuery = rawQuery.replace(/\[([^\]]+)]/g, (_match, groupContent: string) => {
+            const tags = this.parseStrictTagGroup(groupContent);
+            if (tags.length > 0) strictTagGroups.push(tags);
+            return ' ';
+        });
+
+        return {
+            textQuery: SearchTermService.normalizeText(textQuery),
+            strictTagGroups
+        };
+    }
+
+    private parseStrictTagGroup(groupContent: string): string[] {
+        return groupContent
+            .split(/[^\p{L}\p{N}_]+/gu)
+            .map(tag => tag.trim())
+            .filter(Boolean)
+            .map(tag => SearchTermService.normalizeText(tag));
+    }
+
+    private buildStrictText(baseText: string): string {
+        const strictTokens = new Set<string>(SearchTermService.tokenize(baseText));
+        const aliases: Record<string, string[]> = {
+            meleeweapon: ['melee weapon', 'melee'],
+            rangedweapon: ['ranged weapon', 'ranged'],
+            critchance: ['crit chance', 'critical chance'],
+            critdamage: ['crit damage', 'critical damage'],
+            maxhealth: ['max health', 'health'],
+            staminacost: ['stamina cost', 'stamina usage', 'stamina'],
+            staminausage: ['stamina usage', 'stamina cost', 'stamina'],
+            staminarecovery: ['stamina recovery', 'stamina'],
+            typeaccessory: ['accessory'],
+            typearmor: ['armor'],
+            typebag: ['bag'],
+            typecharm: ['charm'],
+            typefish: ['fish'],
+            typefood: ['food'],
+            typeingredient: ['ingredient'],
+            typemineral: ['mineral'],
+            typeplant: ['plant'],
+            typepotion: ['potion'],
+            typerat: ['rat'],
+            typeskull: ['skull'],
+            typetool: ['tool']
+        };
+
+        for (const [compact, variants] of Object.entries(aliases)) {
+            if (strictTokens.has(compact) || variants.some(variant => baseText.includes(SearchTermService.normalizeText(variant)))) {
+                strictTokens.add(compact);
+                variants.forEach(variant => SearchTermService.tokenize(variant).forEach(token => strictTokens.add(token)));
+            }
+        }
+
+        return [...strictTokens].join(' ');
+    }
+
+    private getStrictTagScore(item: ItemDefinition, tag: string): number | null {
+        const prepared = this.getPrepared(item);
+        if (!prepared) return null;
+
+        const tagText = this.buildStrictText(SearchTermService.normalizeText(tag));
+        const tagTokens = SearchTermService.tokenize(tagText);
+        if (tagTokens.length === 0) return null;
+
+        const itemTypeText = SearchTermService.normalizeText(item.itemTypes.join(' '));
+        const itemTypeStrictText = this.buildStrictText(itemTypeText);
+        if (this.strictFieldMatches(itemTypeStrictText, tagTokens)) return 0;
+
+        const heroText = SearchTermService.normalizeText(item.connectedHero || '');
+        const heroStrictText = this.buildStrictText(heroText);
+        if (this.strictFieldMatches(heroStrictText, tagTokens)) return 0;
+
+        if (this.strictFieldMatches(prepared.statKeysText, tagTokens)) return 0;
+        if (this.strictFieldMatches(prepared.tooltipText, tagTokens)) return 0.35;
+        if (this.strictFieldMatches(prepared.baseText, tagTokens)) return 0.45;
+
+        return null;
+    }
+
+    private itemMatchesStrictTag(item: ItemDefinition, tag: string): boolean {
+        return this.getStrictTagScore(item, tag) !== null;
+    }
+
+    private strictFieldMatches(fieldText: string, tagTokens: string[]): boolean {
+        const fieldTokens = new Set(SearchTermService.tokenize(fieldText));
+        return tagTokens.every(token => fieldTokens.has(token));
+    }
+
+    private getFuse(): Fuse<PreparedItem> {
+        if (cachedFuse && cachedFuseItems === this.preparedItems) {
             return cachedFuse;
         }
 
@@ -404,15 +568,16 @@ export class ItemsBranch extends Branch {
             includeScore: true,
             threshold: 0.4,
             keys: [
-                {name: 'name', weight: 2},
-                {name: 'itemTypes', weight: 1.5},
-                {name: 'connectedHero', weight: 1},
-                {name: 'tooltips', weight: 0.5}
+                {name: 'item.name', weight: 2.4},
+                {name: 'typeText', weight: 1.4},
+                {name: 'normalizedHero', weight: 1},
+                {name: 'searchText', weight: 1.1},
+                {name: 'tooltipText', weight: 0.35}
             ]
         };
 
-        cachedFuseItems = this.items;
-        cachedFuse = new Fuse(this.items, options);
+        cachedFuseItems = this.preparedItems;
+        cachedFuse = new Fuse(this.preparedItems, options);
         return cachedFuse;
     }
 
@@ -433,32 +598,29 @@ export class ItemsBranch extends Branch {
         // Определяем статистики
         const statKeywords = ['Health', 'MaxHealth', 'Armor', 'Damage', 'Accuracy', 'CritChance', 'CritDamage', 'Stamina', 'StaminaRecovery', 'Resist', 'Static', 'Soul'];
 
-        this.items.forEach(item => {
+        this.preparedItems.forEach(prepared => {
+            const item = prepared.item;
             item.itemTypes.forEach(type => allTypes.add(type));
             allRarities.add(item.rarity);
-            // Объединяем "Hob Gang" и "Hob" как одного героя
-            const hero = item.connectedHero || 'Shared';
-            const normalizedHero = hero === 'Hob Gang' ? 'Hob' : hero;
-            allHeroes.add(normalizedHero);
-            allUnlockSources.add(item.unlockSource || 'Unknown');
+            allHeroes.add(prepared.normalizedHero);
+            allUnlockSources.add(prepared.unlockSource);
 
-            // Извлекаем баффы и дебаффы из tooltips
-            const tooltipText = item.tooltips.join(' ').toLowerCase();
+            // Извлекаем баффы и дебаффы из подготовленного текста tooltips
             buffKeywords.forEach(buff => {
-                if (tooltipText.includes(buff.toLowerCase())) {
+                if (prepared.tooltipText.includes(buff.toLowerCase())) {
                     allBuffs.add(buff);
                 }
             });
             debuffKeywords.forEach(debuff => {
-                if (tooltipText.includes(debuff.toLowerCase())) {
+                if (prepared.tooltipText.includes(debuff.toLowerCase())) {
                     allDebuffs.add(debuff);
                 }
             });
             
-            // Извлекаем статистики из tooltips и allStats
+            // Извлекаем статистики из подготовленных tooltips/allStats
             statKeywords.forEach(stat => {
-                if (tooltipText.includes(stat.toLowerCase()) || 
-                    (item.allStats && Object.keys(item.allStats).some(key => key.toLowerCase().includes(stat.toLowerCase())))) {
+                const needle = stat.toLowerCase();
+                if (prepared.tooltipText.includes(needle) || prepared.statKeysText.includes(needle)) {
                     allStats.add(stat);
                 }
             });
@@ -1017,25 +1179,90 @@ export class ItemsBranch extends Branch {
 
     private applyFilters() {
         let filtered = [...this.items];
-        const searchQuery = this.filters.searchQuery.trim().toLowerCase();
+        const { textQuery: searchQuery, strictTagGroups } = this.parseSearchInput(this.filters.searchQuery);
         this.searchScores.clear();
+        this.strictTagScores.clear();
 
-        // Текстовый поиск
+        // Текстовый поиск. Расширенные термины ищутся как OR, а не одной длинной AND-подобной строкой.
         if (searchQuery) {
             if (this.fuse) {
-                const result = this.fuse.search(searchQuery);
-                result.forEach((res: any) => {
-                    this.searchScores.set(res.item.id || res.item.name, res.score ?? 1);
+                const resultByKey = new Map<string, { item: ItemDefinition; score: number }>();
+                const queries = SearchTermService.getWeightedExpandedQueryTerms(searchQuery);
+
+                queries.forEach((query) => {
+                    if (query.isOriginal) {
+                        const result = this.fuse!.search(query.term);
+                        result.forEach((res: any) => {
+                            const score = (res.score ?? 1) + query.weight;
+                            const existing = resultByKey.get(res.item.key);
+                            if (!existing || score < existing.score) {
+                                resultByKey.set(res.item.key, { item: res.item.item, score });
+                            }
+                        });
+                        return;
+                    }
+
+                    // Алиасы не гоняем через fuzzy, иначе poison начинает матчить potion.
+                    // Для алиасов используем точный includes по подготовленным полям с разными весами.
+                    this.preparedItems.forEach(prepared => {
+                        const fieldScore = this.getAliasFieldScore(prepared, query.term);
+                        if (fieldScore === null) return;
+
+                        const score = fieldScore + query.weight;
+                        const existing = resultByKey.get(prepared.key);
+                        if (!existing || score < existing.score) {
+                            resultByKey.set(prepared.key, { item: prepared.item, score });
+                        }
+                    });
                 });
-                filtered = result.map((res: any) => res.item);
+
+                resultByKey.forEach((value, key) => {
+                    this.searchScores.set(key, value.score);
+                });
+                filtered = [...resultByKey.values()].sort((a, b) => a.score - b.score).map(entry => entry.item);
             } else {
                 filtered = filtered.filter(item => {
-                    const matches = item.name.toLowerCase().includes(searchQuery) ||
-                        item.tooltips.some(tip => tip.toLowerCase().includes(searchQuery));
+                    const prepared = this.getPrepared(item);
+                    const matches = SearchTermService.normalizeText(item.name).includes(searchQuery) ||
+                        !!prepared?.searchText.includes(searchQuery) ||
+                        SearchTermService.semanticRank(prepared?.searchText || '', searchQuery) < 2;
                     if (matches) this.searchScores.set(item.id || item.name, this.getSearchHeuristicScore(item, searchQuery));
                     return matches;
                 });
             }
+        }
+
+        // Строгие теги из поисковой строки: [Poison], [MeleeWeapon RangedWeapon].
+        // Внутри одной группы — OR, между группами — AND.
+        if (strictTagGroups.length > 0) {
+            filtered = filtered.filter(item => {
+                let totalScore = 0;
+
+                for (const group of strictTagGroups) {
+                    let bestGroupScore: number | null = null;
+                    let matchedTagsCount = 0;
+
+                    for (const tag of group) {
+                        const score = this.getStrictTagScore(item, tag);
+                        if (score === null) continue;
+
+                        matchedTagsCount += 1;
+                        if (bestGroupScore === null || score < bestGroupScore) {
+                            bestGroupScore = score;
+                        }
+                    }
+
+                    if (bestGroupScore === null) return false;
+
+                    // Внутри OR-группы больше совпавших тегов = выше в выдаче.
+                    // Маленький бонус не даёт tooltip-совпадениям обгонять прямые itemTypes/hero/stats совпадения.
+                    const multiMatchBonus = Math.min(matchedTagsCount, 10) * 0.01;
+                    totalScore += bestGroupScore - multiMatchBonus;
+                }
+
+                this.strictTagScores.set(this.getItemKey(item), totalScore);
+                return true;
+            });
         }
 
         // Фильтр по типам
@@ -1055,17 +1282,17 @@ export class ItemsBranch extends Branch {
         // Фильтр по герою
         if (this.filters.selectedHeroes.size > 0) {
             filtered = filtered.filter(item => {
-                const hero = item.connectedHero || 'Shared';
-                const normalizedHero = hero === 'Hob Gang' ? 'Hob' : hero;
-                return this.filters.selectedHeroes.has(normalizedHero);
+                const prepared = this.getPrepared(item);
+                return this.filters.selectedHeroes.has(prepared?.normalizedHero || 'Shared');
             });
         }
 
         // Фильтр по источнику разблокировки
         if (this.filters.selectedUnlockSources.size > 0) {
-            filtered = filtered.filter(item =>
-                this.filters.selectedUnlockSources.has(item.unlockSource || 'Unknown')
-            );
+            filtered = filtered.filter(item => {
+                const prepared = this.getPrepared(item);
+                return this.filters.selectedUnlockSources.has(prepared?.unlockSource || 'Unknown');
+            });
         }
 
         // Фильтр по возможности покупки
@@ -1077,33 +1304,29 @@ export class ItemsBranch extends Branch {
 
         // Фильтр по баффам
         if (this.filters.selectedBuffs.size > 0) {
-            filtered = filtered.filter(item => {
-                const tooltipText = item.tooltips.join(' ').toLowerCase();
-                return Array.from(this.filters.selectedBuffs).some(buff =>
-                    tooltipText.includes(buff.toLowerCase())
-                );
-            });
+            filtered = filtered.filter(item =>
+                Array.from(this.filters.selectedBuffs).some(buff =>
+                    this.itemMatchesStrictTag(item, buff)
+                )
+            );
         }
 
         // Фильтр по дебаффам
         if (this.filters.selectedDebuffs.size > 0) {
-            filtered = filtered.filter(item => {
-                const tooltipText = item.tooltips.join(' ').toLowerCase();
-                return Array.from(this.filters.selectedDebuffs).some(debuff =>
-                    tooltipText.includes(debuff.toLowerCase())
-                );
-            });
+            filtered = filtered.filter(item =>
+                Array.from(this.filters.selectedDebuffs).some(debuff =>
+                    this.itemMatchesStrictTag(item, debuff)
+                )
+            );
         }
 
         // Фильтр по статистикам
         if (this.filters.selectedStats.size > 0) {
-            filtered = filtered.filter(item => {
-                const tooltipText = item.tooltips.join(' ').toLowerCase();
-                return Array.from(this.filters.selectedStats).some(stat =>
-                    tooltipText.includes(stat.toLowerCase()) ||
-                    (item.allStats && Object.keys(item.allStats).some(key => key.toLowerCase().includes(stat.toLowerCase())))
-                );
-            });
+            filtered = filtered.filter(item =>
+                Array.from(this.filters.selectedStats).some(stat =>
+                    this.itemMatchesStrictTag(item, stat)
+                )
+            );
         }
 
         this.filteredItems = filtered;
@@ -1113,18 +1336,13 @@ export class ItemsBranch extends Branch {
 
     private sortAndRender() {
         if (this.filteredItems.length > 0) {
-            const searchQuery = this.filters.searchQuery.trim().toLowerCase();
+            const { textQuery: searchQuery } = this.parseSearchInput(this.filters.searchQuery);
             this.filteredItems.sort((a, b) => {
                 if (searchQuery) {
                     return this.compareSearchResults(a, b, searchQuery);
                 }
 
-                if (this.currentSort === 'rarity') {
-                    const weightA = this.rarityWeights[a.rarity] || 0;
-                    const weightB = this.rarityWeights[b.rarity] || 0;
-                    if (weightA !== weightB) return weightB - weightA;
-                }
-                return a.name.localeCompare(b.name);
+                return this.compareWithStrictTagScore(a, b);
             });
         }
 
@@ -1137,6 +1355,39 @@ export class ItemsBranch extends Branch {
         this.renderGrid();
     }
 
+    private compareWithStrictTagScore(a: ItemDefinition, b: ItemDefinition): number {
+        const scoreA = this.strictTagScores.get(this.getItemKey(a));
+        const scoreB = this.strictTagScores.get(this.getItemKey(b));
+
+        if (scoreA !== undefined || scoreB !== undefined) {
+            const normalizedA = scoreA ?? Number.POSITIVE_INFINITY;
+            const normalizedB = scoreB ?? Number.POSITIVE_INFINITY;
+            if (normalizedA !== normalizedB) return normalizedA - normalizedB;
+        }
+
+        return this.compareByCurrentSort(a, b);
+    }
+
+    private compareByCurrentSort(a: ItemDefinition, b: ItemDefinition): number {
+        if (this.currentSort === 'rarity') {
+            const weightA = this.rarityWeights[a.rarity] || 0;
+            const weightB = this.rarityWeights[b.rarity] || 0;
+            if (weightA !== weightB) return weightB - weightA;
+        }
+
+        return a.name.localeCompare(b.name);
+    }
+
+    private getAliasFieldScore(prepared: PreparedItem, term: string): number | null {
+        if (SearchTermService.normalizeText(prepared.item.name).includes(term)) return 0.05;
+        if (prepared.typeText.includes(term)) return 0.10;
+        if (prepared.normalizedHero.toLowerCase().includes(term)) return 0.14;
+        if (prepared.statKeysText.includes(term)) return 0.18;
+        if (prepared.tooltipText.includes(term)) return 0.30;
+        if (prepared.searchText.includes(term)) return 0.42;
+        return null;
+    }
+
     private compareSearchResults(a: ItemDefinition, b: ItemDefinition, query: string): number {
         const rankA = this.getSearchRank(a, query);
         const rankB = this.getSearchRank(b, query);
@@ -1146,26 +1397,32 @@ export class ItemsBranch extends Branch {
         const scoreB = this.searchScores.get(b.id || b.name) ?? this.getSearchHeuristicScore(b, query);
         if (scoreA !== scoreB) return scoreA - scoreB;
 
-        return a.name.localeCompare(b.name);
+        return this.compareWithStrictTagScore(a, b);
     }
 
     private getSearchRank(item: ItemDefinition, query: string): number {
-        const name = item.name.toLowerCase();
+        const name = SearchTermService.normalizeText(item.name);
         const words = name.split(/\s+/);
+        const prepared = this.getPrepared(item);
 
         if (name === query) return 0;
         if (name.startsWith(query)) return 1;
         if (words.some(word => word.startsWith(query))) return 2;
         if (name.includes(query)) return 3;
-        return 4;
+
+        const semanticRank = SearchTermService.semanticRank(prepared?.searchText || '', query);
+        if (semanticRank === 0) return 4;
+        if (semanticRank === 1) return 5;
+
+        return 6;
     }
 
     private getSearchHeuristicScore(item: ItemDefinition, query: string): number {
         const rank = this.getSearchRank(item, query);
-        if (rank < 4) return rank / 10;
+        if (rank < 6) return rank / 10;
 
-        const tooltipText = item.tooltips.join(' ').toLowerCase();
-        return tooltipText.includes(query) ? 0.9 : 1;
+        const prepared = this.getPrepared(item);
+        return prepared?.searchText.includes(query) ? 0.9 : 1;
     }
 
     private getItemImagePath(item: ItemDefinition): string {
@@ -1268,11 +1525,12 @@ export class ItemsBranch extends Branch {
             const item = this.filteredItems[index];
             if (!item) continue;
 
-            const imagePath = this.getItemImagePath(item);
-            const imageSrc = ImageFormatService.itemSrc(imagePath);
+            const prepared = this.getPrepared(item);
+            const imageSrc = prepared?.imageSrc || ImageFormatService.itemSrc(this.getItemImagePath(item));
+            const slug = prepared?.slug || SlugService.toSlug(item.name);
 
             const link = document.createElement('a');
-            link.href = `/item/${SlugService.toSlug(item.name)}`;
+            link.href = `/item/${slug}`;
             link.dataset['link'] = '';
             link.className = 'item-card-link';
             link.style.textDecoration = 'none';
@@ -1289,16 +1547,16 @@ export class ItemsBranch extends Branch {
             const card = document.createElement('div');
             card.className = 'item-card';
 
+            const isEagerImage = index < this.eagerImagesCount;
             card.innerHTML = `
                 <div class="item-image-wrapper">
                     <img src="${imageSrc}"
                          alt="${item.name}" 
-                         loading="lazy"
+                         loading="${isEagerImage ? 'eager' : 'lazy'}"
                          decoding="async"
-                         fetchpriority="low"
+                         fetchpriority="${isEagerImage ? 'high' : 'low'}"
                          class="item-icon"
-                         data-fallback
-                         onerror="window.handleImageError(this)">
+                         data-fallback>
                 </div>
                 <span class="item-name">${item.name}</span>
                 <div class="item-stats">
@@ -1308,6 +1566,9 @@ export class ItemsBranch extends Branch {
 
             link.appendChild(card);
             fragment.appendChild(link);
+            link.addEventListener('pointerenter', () => {
+                ItemPreviewPrefetchService.prefetch(item as any, imageSrc);
+            }, { passive: true });
             link.addEventListener('click', () => {
                 (link as any)._stateData = {
                     itemData: item,

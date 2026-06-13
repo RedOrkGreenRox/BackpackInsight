@@ -6,6 +6,8 @@
     position: relative;
     z-index: 1;
     height: 100%; /* Растягиваем ссылку на всю высоту ячейки грида */
+    content-visibility: auto;
+    contain-intrinsic-size: 190px 170px;
 
     -webkit-tap-highlight-color: transparent;
 

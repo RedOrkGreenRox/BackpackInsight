@@ -8,6 +8,7 @@ import { ItemNavigationManager } from './ItemNavigationManager';
 import { ItemSEOManager } from './ItemSEOManager';
 import { SlugService } from '@utils/SlugService';
 import { ItemsCacheService } from '@utils/ItemsCacheService';
+import { ItemPreviewPrefetchService } from '@utils/ItemPreviewPrefetchService';
 import { ItemDetailData } from '../utils/item-detail-types';
 import { ItemDefinition } from '@utils/ItemIconService';
 
@@ -100,7 +101,7 @@ export class ItemDetailManager {
     }
 
     private restoreFromCache(rawName: string): ItemDefinition | undefined {
-        return ItemsCacheService.getBySlugFromCache(rawName);
+        return ItemPreviewPrefetchService.get(rawName) || ItemsCacheService.getBySlugFromCache(rawName);
     }
 
     private setupCopyHandler(): void {
@@ -149,6 +150,7 @@ export class ItemDetailManager {
         this.loader = null;
         this.navManager?.destroy();
         this.navManager = null;
+        this.seoManager?.restore();
         this.seoManager?.cleanup();
         this.seoManager = null;
     }

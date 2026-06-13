@@ -27,6 +27,13 @@ window.handleImageError = function(img: HTMLImageElement) {
     img.alt = 'Item not available'; // Доступность
 };
 
+document.addEventListener('error', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'IMG' && (target as HTMLImageElement).dataset['fallback']) {
+        window.handleImageError(target as HTMLImageElement);
+    }
+}, true);
+
 document.addEventListener('DOMContentLoaded', () => {
     // МГНОВЕННО показываем body, чтобы не было белого экрана на 3G
     document.body.classList.add('loaded');

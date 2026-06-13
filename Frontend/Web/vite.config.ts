@@ -38,6 +38,22 @@ export default defineConfig({
             output: {
                 entryFileNames: 'assets/[name].[hash].js',
                 chunkFileNames: 'assets/chunks/[name]-[hash].js',
+                manualChunks: (id) => {
+                    if (id.includes('node_modules/html2canvas')) return 'vendor-html2canvas';
+                    if (id.includes('node_modules/aos')) return 'vendor-aos';
+                    if (id.includes('node_modules/fuse.js')) return 'vendor-fuse';
+                    if (
+                        id.includes('/ground/roots/Branch') ||
+                        id.includes('/ground/utils/SlugService') ||
+                        id.includes('/ground/utils/ImageFormatService') ||
+                        id.includes('/ground/utils/ItemsCacheService') ||
+                        id.includes('/ground/utils/ApiService') ||
+                        id.includes('/ground/utils/LoadingStates') ||
+                        id.includes('/ground/utils/ItemIconService')
+                    ) {
+                        return 'app-shared';
+                    }
+                },
                 assetFileNames: (assetInfo) => {
                     // Разные сроки кеширования для разных типов файлов
                     if (assetInfo.name && assetInfo.name.endsWith('.css')) {

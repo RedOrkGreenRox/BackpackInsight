@@ -41,5 +41,4 @@ export class ItemDataLoader {
         }
     }
 
-    isActive(): boolean { return this.isLoading; }
 }
