@@ -3,6 +3,8 @@ import sys
 import os
 import time
 from pathlib import Path
+from urllib.request import urlopen
+from urllib.error import URLError, HTTPError
 
 # --- Configuration ---
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -12,9 +14,10 @@ DOCKER_COMPOSE_SERVER_FILE = PROJECT_ROOT / "docker-compose.server.yml"
 # --- Settings ---
 # Измените эти значения для переключения режимов
 
-SERVER_MODE = False  # True — серверный режим, False — локальный режим
-VERBOSE = True       # True — подробный вывод, False — тихий режим
+SERVER_MODE = False   # True — серверный режим, False — локальный режим
+VERBOSE = True        # True — подробный вывод, False — тихий режим
 PARANOID_MODE = True  # True — пересобрать с нуля, False — быстрый запуск
+FOLLOW_LOGS = False   # True — сразу цепляться к логам, False — завершать скрипт после health-check
 
 
 def run_command(command, cwd=PROJECT_ROOT, capture_output=False, silent=False):
@@ -108,6 +111,25 @@ def start_services():
     print()
 
 
+def wait_http(url: str, name: str, timeout: int = 30):
+    deadline = time.time() + timeout
+    last_error = None
+    while time.time() < deadline:
+        try:
+            with urlopen(url, timeout=3) as response:
+                status = getattr(response, 'status', 200)
+                if 200 <= status < 500:
+                    print(f"   - Health check OK: {name} ({url}) -> {status}")
+                    return True
+        except (URLError, HTTPError, TimeoutError, OSError) as e:
+            last_error = e
+        time.sleep(1)
+    print(f"   - Health check FAILED: {name} ({url})")
+    if last_error:
+        print(f"     Last error: {last_error}")
+    return False
+
+
 def show_logs():
     print("[3/3] Attaching to logs...")
     print("-------------------------------------------------------")
@@ -134,4 +156,18 @@ def show_logs():
 if __name__ == "__main__":
     check_docker()
     start_services()
-    show_logs()
+
+    print("[3/3] Running health checks...")
+    ok_api = wait_http("http://localhost:8000/", "API")
+    ok_web = True if SERVER_MODE else wait_http("http://localhost:5080/", "Web")
+
+    if FOLLOW_LOGS:
+        show_logs()
+    else:
+        print("-------------------------------------------------------")
+        if ok_api and ok_web:
+            print("Startup checks passed. Containers continue running in background.")
+        else:
+            print("Startup checks failed. Check container logs manually:")
+        print("  docker compose -f docker-compose.yml logs -f web backend db")
+        print("-------------------------------------------------------")

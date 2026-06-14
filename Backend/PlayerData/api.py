@@ -67,12 +67,61 @@ def create_indexes(engine):
         logger.warning("DB connection failed during index creation: %s", e)
 
 
+def _canonical_static_item_from_json(static_data: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "item_id": static_data.get("id"),
+        "name": static_data.get("name", "Unknown"),
+        "rarity": static_data.get("rarity", "Common"),
+        "coin_value": static_data.get("coinValue"),
+        "item_types": static_data.get("itemTypes", []),
+        "connected_hero": static_data.get("connectedHero"),
+        "unlock_source": static_data.get("unlockSource"),
+        "item_shape": static_data.get("itemShape", []),
+        "item_stars": static_data.get("itemStars", []),
+        "purchasable": static_data.get("purchasable", False),
+        "recipes": static_data.get("recipes", []),
+        "combat_stats_data": static_data.get("combatStats", {}),
+        "all_stats_data": static_data.get("allStats", {}),
+        "tooltips": static_data.get("tooltips", []),
+        "levels_info": static_data.get("levels", {})
+    }
+
+
+def _canonical_static_item_from_db(def_obj: ItemDefinition) -> Dict[str, Any]:
+    return {
+        "item_id": def_obj.item_id,
+        "name": def_obj.name,
+        "rarity": def_obj.rarity,
+        "coin_value": def_obj.coin_value,
+        "item_types": def_obj.item_types or [],
+        "connected_hero": def_obj.connected_hero,
+        "unlock_source": def_obj.unlock_source,
+        "item_shape": def_obj.item_shape or [],
+        "item_stars": def_obj.item_stars or [],
+        "purchasable": def_obj.purchasable,
+        "recipes": def_obj.recipes or [],
+        "combat_stats_data": def_obj.combat_stats_data or {},
+        "all_stats_data": def_obj.all_stats_data or {},
+        "tooltips": def_obj.tooltips or [],
+        "levels_info": def_obj.levels_info or {}
+    }
+
+
+def _hash_static_payload(rows: List[Dict[str, Any]]) -> str:
+    normalized = sorted(rows, key=lambda row: row.get("item_id") or "")
+    payload = json.dumps(normalized, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
 def _sync_static_data() -> None:
     """
     Синхронизация статических предметов из JSON в БД.
     Схема БД создаётся отдельно — через `alembic upgrade head` при старте контейнера.
+
+    Актуальность определяется по SHA-256 хешу канонического представления данных,
+    а не только по количеству записей.
     """
-    from sqlmodel import SQLModel, func, delete
+    from sqlmodel import SQLModel, delete
     from Backend.PlayerData.data import get_items
 
     # Fallback: если кто-то запустил приложение без миграций (например, в тестах),
@@ -81,26 +130,34 @@ def _sync_static_data() -> None:
     create_indexes(engine)
 
     with Session(engine) as session:
-        db_count = session.exec(select(func.count(ItemDefinition.item_id))).one()
         json_items = get_items()
-        json_count = len(json_items)
+        json_payload = [_canonical_static_item_from_json(item) for item in json_items.values()]
+        json_hash = _hash_static_payload(json_payload)
 
-        logger.info("DB items: %s, JSON items: %s", db_count, json_count)
+        db_definitions = session.exec(select(ItemDefinition)).all()
+        db_payload = [_canonical_static_item_from_db(def_obj) for def_obj in db_definitions]
+        db_hash = _hash_static_payload(db_payload) if db_payload else None
 
-        existing = session.exec(select(ItemDefinition)).first()
+        logger.info(
+            "Static data state: db_items=%s json_items=%s db_hash=%s json_hash=%s",
+            len(db_payload),
+            len(json_payload),
+            db_hash[:12] if db_hash else "<empty>",
+            json_hash[:12],
+        )
 
-        if existing and db_count == json_count:
-            logger.info("Database is up to date")
+        if db_payload and db_hash == json_hash:
+            logger.info("Database static items are up to date (hash match)")
             return
 
-        logger.info("Syncing static item data into DB")
+        logger.info("Static item hash mismatch detected — resyncing DB data")
 
-        if existing:
+        if db_payload:
             try:
                 session.exec(delete(Item))
                 session.commit()
             except Exception as e:
-                logger.warning("Could not clear items: %s", e)
+                logger.warning("Could not clear player items: %s", e)
                 session.rollback()
             try:
                 session.exec(delete(ItemDefinition))
@@ -110,12 +167,13 @@ def _sync_static_data() -> None:
                 session.rollback()
 
         try:
+            ProfileFactory.clear_cache()
             ProfileFactory.preload_definitions(session)
             for def_obj in ProfileFactory.get_cached_definitions().values():
                 session.add(def_obj)
             session.commit()
-            logger.info("Synced %s items from JSON to DB", json_count)
-        except Exception as e:
+            logger.info("Synced %s items from JSON to DB (hash=%s)", len(json_payload), json_hash[:12])
+        except Exception:
             logger.exception("Could not load definitions")
             session.rollback()
 

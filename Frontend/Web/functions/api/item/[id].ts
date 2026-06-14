@@ -1,5 +1,16 @@
 const BASE_URL = 'https://backpackinsight.pages.dev';
 
+function toSlug(name: string): string {
+    return String(name)
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/['’‘`´]/g, '-')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
 interface ItemDefinition {
     id: string;
     name: string;
@@ -26,7 +37,7 @@ export async function onRequestGet(context: any) {
             const response = await fetch(`${BASE_URL}/api/items`);
             if (response.ok) {
                 const items: ItemDefinition[] = await response.json();
-                item = items.find(i => i.id === itemId) || null;
+                item = items.find(i => toSlug(i.name || i.id) === itemId) || null;
             }
         } catch (error) {
             console.error('Failed to fetch item:', error);
@@ -35,6 +46,8 @@ export async function onRequestGet(context: any) {
         if (!item) {
             return new Response('Item not found', { status: 404 });
         }
+
+        const itemSlug = toSlug(item.name || item.id);
 
         // Генерируем JSON-LD для предмета с улучшенной структурой
         const structuredData = {
@@ -68,10 +81,10 @@ export async function onRequestGet(context: any) {
             ],
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": `${BASE_URL}/item/${itemId}`,
+                "@id": `${BASE_URL}/item/${itemSlug}`,
                 "name": `${item.name} - Backpack Insight`,
                 "description": item.description || `Подробная информация о предмете ${item.name} из игры Backpack Brawl`,
-                "url": `${BASE_URL}/item/${itemId}`
+                "url": `${BASE_URL}/item/${itemSlug}`
             }
         };
 
@@ -94,6 +107,7 @@ export async function onRequestGet(context: any) {
 function generateItemHTML(item: ItemDefinition, structuredData: any): string {
     const itemDescription = item.description || `${item.name} - предмет из игры Backpack Brawl. Узнайте характеристики, рецепты и способы получения.`;
     const itemImage = item.icon ? `${BASE_URL}${item.icon}` : `${BASE_URL}/images/placeholder/placeholder.webp`;
+    const itemSlug = toSlug(item.name || item.id);
     
     return `<!DOCTYPE html>
 <html lang="ru">
@@ -105,12 +119,12 @@ function generateItemHTML(item: ItemDefinition, structuredData: any): string {
     <meta name="keywords" content="${item.name}, Backpack Brawl, предмет, ${item.rarity}, ${item.itemTypes?.join(', ') || ''}, игра, аналитика">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="${BASE_URL}/item/${item.id}">
+    <link rel="canonical" href="${BASE_URL}/item/${itemSlug}">
     
     <!-- Hreflang for alternative languages -->
-    <link rel="alternate" hreflang="ru" href="${BASE_URL}/item/${item.id}">
-    <link rel="alternate" hreflang="en" href="${BASE_URL}/en/item/${item.id}">
-    <link rel="alternate" hreflang="x-default" href="${BASE_URL}/item/${item.id}">
+    <link rel="alternate" hreflang="ru" href="${BASE_URL}/item/${itemSlug}">
+    <link rel="alternate" hreflang="en" href="${BASE_URL}/en/item/${itemSlug}">
+    <link rel="alternate" hreflang="x-default" href="${BASE_URL}/item/${itemSlug}">
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="${item.name} - Backpack Insight">
@@ -119,7 +133,7 @@ function generateItemHTML(item: ItemDefinition, structuredData: any): string {
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="400">
     <meta property="og:image:alt" content="${item.name} - иконка предмета">
-    <meta property="og:url" content="${BASE_URL}/item/${item.id}">
+    <meta property="og:url" content="${BASE_URL}/item/${itemSlug}">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Backpack Insight">

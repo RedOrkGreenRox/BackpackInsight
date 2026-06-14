@@ -2,6 +2,17 @@ import { ItemDefinition } from '../../ground/branches/items/ItemsBranch';
 
 const BASE_URL = 'https://backpackinsight.pages.dev';
 
+function toSlug(name: string): string {
+    return String(name)
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/['’‘`´]/g, '-')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
 interface SitemapEntry {
     url: string;
     lastmod: string;
@@ -46,7 +57,7 @@ export async function onRequestGet() {
 
         // Создаем страницы для каждого предмета
         const itemPages: SitemapEntry[] = items.map((item) => ({
-            url: `${BASE_URL}/item/${item.id}`,
+            url: `${BASE_URL}/item/${toSlug(item.name || item.id)}`,
             lastmod: new Date().toISOString(),
             changefreq: 'monthly' as const,
             priority: 0.7

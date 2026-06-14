@@ -51,9 +51,12 @@ export default defineConfig({
                     if (id.includes('/branches/profile/')) return 'page-profile';
                     if (id.includes('/branches/itemDetail/')) return 'page-item-detail';
 
-                    // Shared-утилиты
+                    // Shared-ядро приложения.
+                    // Важно держать i18n рядом с LoadingStates/Branch,
+                    // иначе может появиться цикл чанков page-404 -> app-shared -> page-404.
                     if (
                         id.includes('/ground/roots/Branch') ||
+                        id.includes('/ground/localization/i18n') ||
                         id.includes('/ground/utils/SlugService') ||
                         id.includes('/ground/utils/ImageFormatService') ||
                         id.includes('/ground/utils/ItemsCacheService') ||

@@ -85,6 +85,11 @@ function notFound(path: string): Response {
     });
 }
 
+console.log(`[web] Bun server starting on http://0.0.0.0:${PORT}`);
+console.log(`[web] DIST_DIR=${DIST_DIR}`);
+console.log(`[web] STATIC_DIR=${STATIC_DIR}`);
+console.log(`[web] BACKEND_API_URL=${BACKEND_URL}`);
+
 serve({
   port: PORT,
   async fetch(req: Request) {

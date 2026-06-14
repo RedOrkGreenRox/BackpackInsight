@@ -13,6 +13,8 @@ venv/
 # --- База данных ---
 Backend/DB/*.db
 Backend/DB/*.sqlite3
+Frontend/Web/*.db
+Frontend/Web/*.sqlite3
 
 # --- Frontend & Vite ---
 node_modules/

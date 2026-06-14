@@ -6,6 +6,7 @@ import { PageMeta } from '@roots/Branch.ts';
 import { ItemDetailData, NavigationState, ItemDefinition } from '../utils/item-detail-types';
 import { ImageFormatService } from '@utils/ImageFormatService';
 import { ItemIconService } from '@utils/ItemIconService';
+import { SlugService } from '@utils/SlugService';
 import { parseTextWithIcons, generateIconsOrText } from '@utils/icon-parser';
 import { LoadingStates } from '@utils/LoadingStates';
 import { t } from '../../../../localization/i18n';
@@ -101,7 +102,8 @@ export class ItemDetailRenderer {
         if (!targetName) {
             return `<button class="nav-btn-top disabled" disabled aria-label="${label}" aria-disabled="true">${arrow}</button>`;
         }
-        return `<a href="${baseUrl}/${targetName}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}" aria-label="${label}: ${targetName}">${arrow}</a>`;
+        const targetSlug = SlugService.toSlug(targetName);
+        return `<a href="${baseUrl}/${targetSlug}" class="nav-btn-top nav-${dir}" data-link data-target-name="${targetName}" aria-label="${label}: ${targetName}">${arrow}</a>`;
     }
 
     private static renderPlayerInfo(playerItem?: { name: string; level: number; cards: number; cards_need: number }): string {
