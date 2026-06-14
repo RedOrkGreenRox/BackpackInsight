@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/profile/_profile/sort/SortController.ts](../../../../../../Frontend/Web/ground/branches/profile/_profile/sort/SortController.ts)
+# [Frontend/Web/ground/branches/profile/_profile/sort/SortController.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/sort/SortController.ts)
 
 ## Назначение
 Этот класс управляет интерактивной сортировкой карточек героев в профиле. Он связывает кнопки интерфейса ("По уровню", "По рейтингу", "Инверсия") с DOM-манипуляциями сетки героев.
@@ -44,3 +44,7 @@
 ## AI-контекст
 *   **Производительность**: Сортировка происходит на клиенте через манипуляцию живыми DOM-узлами. Метод `applySort` использует `requestAnimationFrame`, чтобы избежать "фризов" интерфейса.
 *   **Анимации**: После каждого перестроения сетки вызывается `AOS.refresh()`, чтобы эффекты появления карточек сработали заново.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

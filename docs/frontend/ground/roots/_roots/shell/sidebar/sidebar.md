@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/roots/_roots/shell/sidebar/sidebar.ts](../../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/sidebar.ts)
+# [Frontend/Web/ground/roots/_roots/shell/sidebar/sidebar.ts](../../../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/sidebar.ts)
 
 ## Назначение
 Управление боковым меню (сайдбаром) приложения. Обеспечивает доступ к основным разделам проекта и функционалу смены языка.
@@ -14,3 +14,7 @@
 ## AI-контекст
 *   **Маршрутизация**: При добавлении новой страницы в проект, ссылку на неё нужно добавить именно здесь.
 *   **Локализация**: Все названия пунктов меню должны браться из `[i18n.md](../../../../localization/i18n.md)`.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/BaseBranch.ts](../../../../Frontend/Web/ground/branches/BaseBranch.ts)
+# [Frontend/Web/ground/roots/Branch.ts](../../../../Frontend/Web/ground/roots/Branch.ts)
 
 ## Назначение
 Промежуточный базовый класс, расширяющий `[Branch.ts](../roots/Branch.md)`. Он содержит общую логику для всех страниц, связанных с данными игры (обработка ошибок API, общие декораторы заголовков).
@@ -9,3 +9,7 @@
 
 ## AI-контекст
 *   **DRY (Don't Repeat Yourself)**: Если какая-то логика повторяется на странице предметов и странице профиля, она должна быть вынесена сюда.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

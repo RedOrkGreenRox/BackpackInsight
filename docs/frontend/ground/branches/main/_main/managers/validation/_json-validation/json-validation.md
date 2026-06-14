@@ -1,4 +1,4 @@
-# [Стили валидации JSON (json-validation.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/validation/_json-validation/json-validation.scss)
+# [Стили валидации JSON (json-validation.scss)](../../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/validation/_json-validation/json-validation.scss)
 
 ## Назначение
 Дизайн встроенного редактора ошибок JSON. Обеспечивает наглядную подсветку битых символов в логах игры.
@@ -13,3 +13,7 @@
 
 ## AI-контекст
 Стиль должен быть моноширинным (`font-family: monospace`), чтобы номера строк и символы кода точно совпадали.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

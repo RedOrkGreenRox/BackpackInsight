@@ -20,4 +20,7 @@ EXPOSE 8000
 
 # Перед запуском приложения накатываем миграции.
 # Если БД пустая — создастся всё с нуля. Если уже накачена — alembic ничего не сделает.
-CMD ["sh", "-c", "cd /app && alembic upgrade head && cd /app/Backend/PlayerData && uvicorn api:app --host 0.0.0.0 --port 8000"]
+# --workers 1 обязательно: ProfileFactory хранит кэш определений как состояние
+# уровня класса; при нескольких воркерах кэш расщепляется (расхождение данных,
+# неточная статистика hit/miss). Потокобезопасность внутри процесса обеспечена RLock.
+CMD ["sh", "-c", "cd /app && alembic upgrade head && cd /app/Backend/PlayerData && uvicorn api:app --host 0.0.0.0 --port 8000 --workers 1"]

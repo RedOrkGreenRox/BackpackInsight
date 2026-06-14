@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileStateManager.ts](../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileStateManager.ts)
+# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileStateManager.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileStateManager.ts)
 
 ## Назначение
 Этот менеджер отвечает за сохранение и восстановление динамического состояния страницы профиля. Он гарантирует, что если пользователь уйдет на другую страницу и вернется, его прокрутка (scrollY), выбранная сортировка и выбранные скины героев останутся прежними.
@@ -34,3 +34,7 @@
 ## AI-контекст
 *   **UX (User Experience)**: Этот файл — ключ к "бесшовному" интерфейсу. При добавлении новых интерактивных элементов на страницу профиля (например, фильтров), не забудьте добавить их в интерфейс `SavedState` и логику сохранения этого менеджера.
 *   **Источники данных**: Менеджер использует агрессивное сохранение (session + local), чтобы минимизировать потерю данных при сбоях.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

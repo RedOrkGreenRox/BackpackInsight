@@ -4,6 +4,13 @@
 *.jpg binary
 *.jpeg binary
 
+# --- Конфиги окружения: принудительно LF ---
+# Решает проблему CRLF-переносов в .env, из-за которой секреты и пароли
+# «разрастались» на лишние символы (\r) и ломали деплой.
+.env text eol=lf
+.env.* text eol=lf
+*.env text eol=lf
+
 # --- Удаление JSON из статистики кода (PlayerData) ---
 # Считаем все JSON сгенерированными данными, а не JS-кодом
 *.json linguist-generated=true

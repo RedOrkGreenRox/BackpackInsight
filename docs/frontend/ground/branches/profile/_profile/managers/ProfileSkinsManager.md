@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileSkinsManager.ts](../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileSkinsManager.ts)
+# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileSkinsManager.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileSkinsManager.ts)
 
 ## Назначение
 Этот менеджер управляет логикой отображения косметических скинов героев. Он разбирает данные о владении скинами из профиля игрока и формирует пути к соответствующим изображениям.
@@ -27,3 +27,7 @@
 ## AI-контекст
 *   **Консистентность ассетов**: Менеджер опирается на строгий паттерн именования файлов в папке `static`. Если вы переименовываете изображения героев, обязательно обновите этот паттерн.
 *   **Кеширование**: Скины — это визуально тяжелая часть страницы. Этот менеджер помогает быстро переключать изображения без лишних расчетов.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

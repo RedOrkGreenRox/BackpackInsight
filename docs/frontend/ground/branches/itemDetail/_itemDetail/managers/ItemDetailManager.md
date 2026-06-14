@@ -1,14 +1,14 @@
-# [Оркестратор деталей предмета (ItemDetailManager.ts)](../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/managers/ItemDetailManager.ts)
+# [Оркестратор деталей предмета (ItemDetailManager.ts)](../../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/managers/ItemDetailManager.ts)
 
 ## Назначение
 Центральный управляющий класс для страницы детального просмотра предмета. Он связывает загрузку данных, навигацию между предметами, SEO-оптимизацию и специфические браузерные события (например, умное копирование текста).
 
 ## Связи (Dependencies)
-*   **Рендеринг**: Использует [Рендерер деталей предмета](../components/ItemDetailRenderer.md) для отрисовки интерфейса.
+*   **Рендеринг**: Использует [Рендерер деталей предмета](../../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/components/ItemDetailRenderer.ts) для отрисовки интерфейса.
 *   **Менеджеры данных**:
     *   [Загрузчик данных предмета](./ItemDataLoader.md) (Сетевые запросы).
     *   [Менеджер навигации по предметам](./ItemNavigationManager.md) (Кнопки Назад/Вперед).
-    *   [SEO Менеджер](./ItemSEOManager.md) (Заголовки и мета-теги).
+    *   [SEO Менеджер](../../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/managers/ItemSEOManager.ts) (Заголовки и мета-теги).
 *   **Утилиты**:
     *   [SlugService](../../../../../utils/SlugService.md): Для работы с URL.
     *   [Кеш предметов](../../../../../utils/ItemsCacheService.md): Для мгновенного восстановления данных.
@@ -47,3 +47,7 @@
 ## AI-контекст
 *   **Оркестрация**: Этот файл — "клей" всей страницы. Если данные загрузились, но заголовок окна не обновился — проблема в связке `renderFullPage` и `seoManager`.
 *   **Память**: Метод `destroy` критически важен, так как страница предмета тяжелая и часто меняется. Он принудительно очищает ссылки на загрузчики и навигацию.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

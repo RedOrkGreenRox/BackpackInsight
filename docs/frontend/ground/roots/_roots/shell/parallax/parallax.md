@@ -1,14 +1,18 @@
-# [Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts](../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts)
+# [Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts](../../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts)
 
 ## Назначение
 Реализует визуальный эффект параллакса на заднем фоне. Это придает приложению глубину и динамику, соответствующую стилистике **Backpack Brawl**.
 
 ## Связи (Dependencies)
-*   `[_background.scss](./_background.md)`: Содержит стили слоев фона.
-*   `[Shell.ts](../../../../Shell.md)`: Инициализируется один раз внутри оболочки.
+*   `[_background.scss](../../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/_background.scss)`: Содержит стили слоев фона.
+*   `[Shell.ts](../../../Shell.md)`: Инициализируется один раз внутри оболочки.
 
 ## Ключевая логика
 Следит за движением курсора мыши (на десктопах) или гироскопом (на мобильных устройствах) и смещает слои фона с разной скоростью.
 
 ## AI-контекст
 *   **Производительность**: Использует `requestAnimationFrame` для плавности. Если ИИ заметит просадки FPS, проверку стоит начинать с оптимизации этого файла (например, добавление `will-change: transform`).
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

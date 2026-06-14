@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileSortManager.ts](../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileSortManager.ts)
+# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileSortManager.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileSortManager.ts)
 
 ## Назначение
 Специализированный менеджер для выполнения «чистой» сортировки предметов. Он инкапсулирует математическую логику сравнения, не касаясь DOM или системных хранилищ.
@@ -27,3 +27,7 @@
 ## AI-контекст
 *   **Чистая логика**: Этот файл — идеальный пример "чистой функции". Его легко тестировать в изоляции.
 *   **Производительность**: Сортировка выполняется на клиенте. Для профилей с 500+ предметами стоит учитывать время выполнения этого метода (хотя на текущих объемах данных в **Backpack Brawl** это происходит мгновенно).
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

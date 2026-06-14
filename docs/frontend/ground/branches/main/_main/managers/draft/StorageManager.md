@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/main/_main/managers/draft/StorageManager.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/draft/StorageManager.ts)
+# [Frontend/Web/ground/branches/main/_main/managers/draft/StorageManager.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/draft/StorageManager.ts)
 
 ## Назначение
 Этот менеджер отвечает за сохранение временного состояния формы загрузки в `SessionStorage`. Это нужно для того, чтобы если пользователь случайно обновил страницу после вставки текста, но до нажатия кнопки "Анализировать", его данные не пропали.
@@ -17,3 +17,7 @@
 ## AI-контекст
 *   **Жизненный цикл**: Мы используем `SessionStorage` вместо `LocalStorage`, чтобы данные удалялись при закрытии вкладки, так как логи профиля могут быть объемными и конфиденциальными.
 *   **Ключи**: Ключ для хранения должен быть жестко зашит, чтобы избежать конфликтов с другими частями приложения.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

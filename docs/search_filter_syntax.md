@@ -96,3 +96,6 @@ dagger [Poison]
 И строгий фильтр по типу: MeleeWeapon ИЛИ RangedWeapon
 ```
 
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

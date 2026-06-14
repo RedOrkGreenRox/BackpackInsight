@@ -1,12 +1,12 @@
-# [Frontend/Web/ground/branches/main/_main/managers/validation/ErrorDisplayManager.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/validation/ErrorDisplayManager.ts)
+# [Frontend/Web/ground/branches/main/_main/managers/validation/ErrorDisplayManager.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/validation/ErrorDisplayManager.ts)
 
 ## Назначение
 Этот менеджер занимается оркестрацией показа ошибок валидации в пользовательском интерфейсе. Он решает, где и как показать ошибку (в сплывающем окне, красным текстом в зоне загрузки или в консоли).
 
 ## Связи (Dependencies)
 *   `[UIHandler.ts](../../upload-zone/handlers/UIHandler.md)`: Дает команды на отрисовку текста ошибки внутри зоны загрузки.
-*   `[JsonValidator.ts](../../../../../utils/JsonValidator.md)`: Получает от него коды и тексты ошибок.
-*   `[i18n.ts](../../../../localization/i18n.md)`: Использует функцию перевода `t()` для вывода локализованных сообщений об ошибках (RU/EN).
+*   `[JsonValidator.ts](JsonValidator.md)`: Получает от него коды и тексты ошибок.
+*   `[i18n.ts](../../../../../localization/i18n.md)`: Использует функцию перевода `t()` для вывода локализованных сообщений об ошибках (RU/EN).
 
 ## Ключевая логика
 Содержит карту (Map) соответствий технических кодов ошибок понятным пользователю фразам.
@@ -17,4 +17,8 @@
 
 ## AI-контекст
 *   **UX/UI**: При изменении дизайна ошибок в **Backpack Brawl**, правки нужно вносить именно здесь, так как менеджер централизует вывод.
-*   **Локализация**: Никогда не пишите текст ошибки напрямую. Всегда добавляйте ключ в `lang/` и вызывайте его через `[i18n.md](../../../../localization/i18n.md)`.
+*   **Локализация**: Никогда не пишите текст ошибки напрямую. Всегда добавляйте ключ в `lang/` и вызывайте его через `[i18n.md](../../../../../localization/i18n.md)`.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

@@ -1,21 +1,21 @@
-# [Frontend/Web/ground/branches/main/_main/managers/submit/SubmitManager.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/submit/SubmitManager.ts)
+# [Frontend/Web/ground/branches/main/_main/managers/submit/SubmitManager.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/submit/SubmitManager.ts)
 
 ## Назначение
 Этот менеджер управляет финальной стадией — отправкой проверенного профиля на бэкенд для глубокого анализа.
 
 ## Связи (Dependencies)
-*   `[ApiService.ts](../../../../../utils/ApiService.md)`: Использует этот сервис для совершения сетевого запроса.
-*   `[LoadingStates.ts](../../../../../utils/LoadingStates.md)`: Активирует глобальное состояние загрузки страницы.
-*   `[profileCacheUtils.ts](../../../../../utils/profileCacheUtils.md)`: После успешного ответа сохраняет профиль в локальную историю.
-*   `[MainBranch.ts](../../MainBranch.md)`: Сообщает бранчу об успешном завершении, чтобы тот мог перенаправить пользователя на страницу профиля или обновить данные.
+*   `[ApiService.ts](../../../../../../utils/ApiService.md)`: Использует этот сервис для совершения сетевого запроса.
+*   `[LoadingStates.ts](../../../../../../utils/LoadingStates.md)`: Активирует глобальное состояние загрузки страницы.
+*   `[profileCacheUtils.ts](../../../../../../utils/profileCacheUtils.md)`: После успешного ответа сохраняет профиль в локальную историю.
+*   `[MainBranch.ts](../../../MainBranch.md)`: Сообщает бранчу об успешном завершении, чтобы тот мог перенаправить пользователя на страницу профиля или обновить данные.
 
 ## Ключевая логика
 Инкапсулирует асинхронную логику `async/await`.
 
 ### Процесс:
 1.  **Подготовка**: Забирает данные из UI, оборачивает их в объект запроса.
-2.  **Индикация**: Включает лоадер через `[LoadingStates.md](../../../../../utils/LoadingStates.md)`.
-3.  **Запрос**: Вызывает `[ApiService.md](../../../../../utils/ApiService.md)`.
+2.  **Индикация**: Включает лоадер через `[LoadingStates.md](../../../../../../utils/LoadingStates.md)`.
+3.  **Запрос**: Вызывает `[ApiService.md](../../../../../../utils/ApiService.md)`.
 4.  **Обработка результата**: 
     *   Если успех: сохраняет в историю и вызывает колбэк успеха.
     *   Если ошибка: передает управление в `[ErrorDisplayManager.md](../validation/ErrorDisplayManager.md)`.
@@ -23,3 +23,7 @@
 ## AI-контекст
 *   **Redirect**: В этом менеджере стоит логика перехода на URL профиля (например, `/profile/Nickname`).
 *   **Retry**: Здесь можно реализовать логику повторных попыток при обрыве соединения.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

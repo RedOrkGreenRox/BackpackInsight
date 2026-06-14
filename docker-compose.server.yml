@@ -32,17 +32,19 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    # Единственный источник конфигурации — .env (нормализован через .gitattributes).
+    # Раньше использовался отдельный .env.api с эскейпом $ — это борьба с симптомом;
+    # docker compose v2 читает значения env_file литерально, без интерполяции.
     env_file:
       - .env
-      - .env.api
     environment:
       POSTGRES_SERVER: db
-      # API_SECRET передается только через env_file
+      # API_SECRET передается только через env_file (.env)
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./Backend:/app/Backend
+    # В проде НЕ монтируем исходники: контейнер работает с кодом из образа
+    # (иммутабельный, воспроизводимый). Bind-mount оставлен только в dev- compose.
     deploy:
       resources:
         limits:

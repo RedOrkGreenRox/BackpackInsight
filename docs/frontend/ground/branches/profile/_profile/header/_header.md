@@ -1,4 +1,4 @@
-# [Стили шапки профиля (_header.scss)](../../../../../../Frontend/Web/ground/branches/profile/_profile/header/_header.scss)
+# [Стили шапки профиля (_header.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/header/_header.scss)
 
 ## Назначение
 Определяет внешний вид верхней части профиля.
@@ -15,3 +15,7 @@
 
 ## AI-контекст
 Класс `.header-bg` имеет отрицательный `z-index`, чтобы не перекрывать кнопки.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

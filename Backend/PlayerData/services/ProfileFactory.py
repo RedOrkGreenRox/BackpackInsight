@@ -2,6 +2,7 @@ from typing import Dict, Any, List, Optional
 import time
 import re
 import logging
+import threading
 from sqlmodel import Session, select
 from Backend.PlayerData.models.Profile import Profile
 from Backend.PlayerData.models.Hero import Hero
@@ -19,11 +20,26 @@ class ProfileFactory:
     """
 
     _definition_cache: Dict[str, ItemDefinition] = {}
+    # Обратный индекс name -> item_id для O(1) поиска определения по отображаемому имени
+    # (раньше был O(n) линейный скан по всем определениям при cache miss).
+    _definition_name_index: Dict[str, str] = {}
     _fallback_count: int = 0
     _cache_hits: int = 0
     _cache_misses: int = 0
     _cache_timestamp: float = 0
     _cache_ttl: int = 300  # 5 минут
+    # Кэш — изменяемое состояние уровня класса. При работе в пуле потоков
+    # uvicorn (синхронные эндпоинты/генераторы) нужен реентерабельный лок,
+    # чтобы исключить гонки при concurrent preload/clear/refresh.
+    # ВНИМАНИЕ: при --workers > 1 у каждого воркера свой кэш — явно задавайте 1 воркер.
+    _cache_lock: threading.RLock = threading.RLock()
+
+    @classmethod
+    def _index_definition(cls, definition: ItemDefinition) -> None:
+        """Централизованная регистрация определения в кэше и name-индексе."""
+        cls._definition_cache[definition.item_id] = definition
+        if definition.name:
+            cls._definition_name_index[definition.name] = definition.item_id
 
     @classmethod
     def get_cached_definitions(cls) -> Dict[str, ItemDefinition]:
@@ -48,11 +64,13 @@ class ProfileFactory:
     @classmethod
     def clear_cache(cls):
         """Очищает кэш и сбрасывает статистику"""
-        cls._definition_cache.clear()
-        cls._fallback_count = 0
-        cls._cache_hits = 0
-        cls._cache_misses = 0
-        cls._cache_timestamp = 0
+        with cls._cache_lock:
+            cls._definition_cache.clear()
+            cls._definition_name_index.clear()
+            cls._fallback_count = 0
+            cls._cache_hits = 0
+            cls._cache_misses = 0
+            cls._cache_timestamp = 0
 
     @classmethod
     def ensure_cache_fresh(cls, session: Optional[Session] = None):
@@ -69,14 +87,15 @@ class ProfileFactory:
     @classmethod
     def refresh_from_database(cls, session: Session):
         """Обновление кэша из БД без полной очистки"""
-        db_items = {def_.item_id: def_ for def_ in session.exec(select(ItemDefinition)).all()}
-        
-        # Обновляем существующие и добавляем новые
-        for item_id, definition in db_items.items():
-            session.expunge(definition)
-            cls._definition_cache[item_id] = definition
-        
-        logger.info(f"Refreshed cache with {len(db_items)} items from database")
+        with cls._cache_lock:
+            db_items = {def_.item_id: def_ for def_ in session.exec(select(ItemDefinition)).all()}
+
+            # Обновляем существующие и добавляем новые
+            for item_id, definition in db_items.items():
+                session.expunge(definition)
+                cls._index_definition(definition)
+
+            logger.info(f"Refreshed cache with {len(db_items)} items from database")
 
     @classmethod
     def invalidate_cache(cls):
@@ -89,20 +108,21 @@ class ProfileFactory:
     def preload_definitions(cls, session: Optional[Session] = None):
         """Загружает определения предметов из БД (приоритет) и JSON"""
         import time
-        cls._cache_timestamp = time.time()
-        
-        # Сначала загружаем из БД (актуальные данные)
-        if session:
-            existing_defs = session.exec(select(ItemDefinition)).all()
-            for definition in existing_defs:
-                # НЕ используем expunge - оставляем объект привязанным к сессии
-                cls._definition_cache[definition.item_id] = definition
-        
-        # Затем дополняем из JSON (только недостающие)
-        items_dict = get_items()
-        for item_id, static_data in items_dict.items():
-            if item_id not in cls._definition_cache:
-                cls._definition_cache[item_id] = cls._create_definition_from_static(static_data)
+        with cls._cache_lock:
+            cls._cache_timestamp = time.time()
+
+            # Сначала загружаем из БД (актуальные данные)
+            if session:
+                existing_defs = session.exec(select(ItemDefinition)).all()
+                for definition in existing_defs:
+                    # НЕ используем expunge - оставляем объект привязанным к сессии
+                    cls._index_definition(definition)
+
+            # Затем дополняем из JSON (только недостающие)
+            items_dict = get_items()
+            for item_id, static_data in items_dict.items():
+                if item_id not in cls._definition_cache:
+                    cls._index_definition(cls._create_definition_from_static(static_data))
 
     @classmethod
     def create_profile(cls, json_data: Dict[str, Any]) -> Profile:
@@ -270,19 +290,19 @@ class ProfileFactory:
         except ValueError:
             return None
 
-        # Проверяем кэш и считаем статистику
+        # O(1) поиск определения: сначала по item_id (частый случай — ключ = id),
+        # затем по отображаемому имени через обратный индекс (name -> item_id).
         definition = cls._definition_cache.get(name)
+        if not definition:
+            item_id_by_name = cls._definition_name_index.get(name)
+            if item_id_by_name:
+                definition = cls._definition_cache.get(item_id_by_name)
+
         if definition:
             cls._cache_hits += 1
         else:
             cls._cache_misses += 1
-            # Оптимизированный поиск по имени
-            for d in cls._definition_cache.values():
-                if d.name == name:
-                    definition = d
-                    cls._cache_hits += 1  # Корректируем статистику
-                    break
-        
+
         if not definition:
             # Пропускаем неизвестные предметы, чтобы избежать Foreign Key ошибки
             logger.warning(f"Unknown item '{name}' skipped - not found in definitions")

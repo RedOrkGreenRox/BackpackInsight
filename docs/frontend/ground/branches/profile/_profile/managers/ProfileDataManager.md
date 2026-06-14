@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileDataManager.ts](../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileDataManager.ts)
+# [Frontend/Web/ground/branches/profile/_profile/managers/ProfileDataManager.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/managers/ProfileDataManager.ts)
 
 ## Назначение
 Этот менеджер отвечает за подготовку и жизненный цикл данных на странице профиля. Он решает, откуда взять данные (из аргументов навигации или кеша), как их отсортировать для пользователя и как подготовить SEO-информацию.
@@ -39,3 +39,7 @@
 ## AI-контекст
 *   **SEO**: При добавлении новых данных в профиль (например, "Винрейт"), обновите логику `getMeta`, чтобы информация попадала в превью страницы.
 *   **Хранилище**: Данные в `sessionStorage` хранятся только в течение сессии. При закрытии вкладки кеш очищается.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

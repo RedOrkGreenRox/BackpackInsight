@@ -1,12 +1,12 @@
-# [Frontend/Web/ground/branches/main/_main/managers/draft/DraftEventHandler.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/draft/DraftEventHandler.ts)
+# [Frontend/Web/ground/branches/main/_main/managers/draft/DraftEventHandler.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/managers/draft/DraftEventHandler.ts)
 
 ## Назначение
 Координатор событий, связанных с черновиками (Drafts). Он связывает ввод пользователя в текстовое поле с логикой сохранения и восстановления данных.
 
 ## Связи (Dependencies)
 *   `[StorageManager.ts](./StorageManager.md)`: Использует его для физического сохранения данных.
-*   `[eventUtils.ts](../../../../../utils/eventUtils.md)`: Слушает события ввода в текстовую область и вставки из буфера.
-*   `[MainBranch.ts](../../MainBranch.md)`: Сообщает главному компоненту страницы, что нужно восстановить данные из черновика при загрузке.
+*   `[eventUtils.ts](../../../../../../utils/eventUtils.md)`: Слушает события ввода в текстовую область и вставки из буфера.
+*   `[MainBranch.ts](../../../MainBranch.md)`: Сообщает главному компоненту страницы, что нужно восстановить данные из черновика при загрузке.
 
 ## Ключевая логика
 Реализует паттерн `Debounce` при сохранении.
@@ -18,3 +18,7 @@
 ## AI-контекст
 *   **Производительность**: Использование `Debounce` здесь критично. Нельзя записывать в Storage на каждое нажатие клавиши, это затормозит основной поток (Main Thread).
 *   **Событие 'input'**: Основной триггер для работы этого менеджера.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

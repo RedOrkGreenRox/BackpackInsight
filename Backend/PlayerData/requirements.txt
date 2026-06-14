@@ -12,3 +12,6 @@ anyio>=4.4.0
 starlette>=0.40.0
 urllib3>=1.26.19
 zipp>=3.19.1
+
+# Rate limiting (защита /api/profile от DoS и раздувания БД)
+slowapi>=0.1.9

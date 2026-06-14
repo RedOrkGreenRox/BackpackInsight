@@ -1,4 +1,4 @@
-# [Стили переключателя языков (_lang-switcher.scss)](../../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/_lang-switcher.scss)
+# [Стили переключателя языков (_lang-switcher.scss)](../../../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/_lang-switcher.scss)
 
 ## Назначение
 Дизайн кнопок смены языка (RU/EN).
@@ -9,3 +9,7 @@
 
 ## Ключевая логика
 Кнопки подсвечиваются при выборе текущего языка и имеют аккуратную анимацию при наведении.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

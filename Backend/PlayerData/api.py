@@ -3,14 +3,20 @@ import hashlib
 import hmac
 import logging
 import os
+from datetime import datetime, timezone, timedelta
 from contextlib import asynccontextmanager
 from typing import List, Dict, Any, Annotated, Optional
 import json
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import Session, select, text
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from sqlalchemy.exc import SQLAlchemyError
+from sqlmodel import Session, select, text, delete
 
 from Backend.PlayerData.models.Item import ItemDefinition, Item
+from Backend.PlayerData.models.Hero import Hero
 from Backend.PlayerData.models.Profile import Profile
 from Backend.PlayerData.services.ProfileFactory import ProfileFactory
 from Backend.DB.database import engine, get_session
@@ -153,18 +159,18 @@ def _sync_static_data() -> None:
         logger.info("Static item hash mismatch detected — resyncing DB data")
 
         if db_payload:
+            # Очистка старых данных — критичная операция. Если она упала на реальной
+            # ошибке БД, продолжать нельзя (приведёт к дубликатам PK / нарушению FK),
+            # поэтому прерываем ресинк. Узкие исключения SQLAlchemy вместо широкого
+            # `except Exception`, который раньше маскировал реальные сбои.
             try:
                 session.exec(delete(Item))
-                session.commit()
-            except Exception as e:
-                logger.warning("Could not clear player items: %s", e)
-                session.rollback()
-            try:
                 session.exec(delete(ItemDefinition))
                 session.commit()
-            except Exception as e:
-                logger.warning("Could not clear definitions: %s", e)
+            except SQLAlchemyError:
+                logger.exception("Could not clear existing static data — aborting resync to avoid corruption")
                 session.rollback()
+                return
 
         try:
             ProfileFactory.clear_cache()
@@ -173,7 +179,7 @@ def _sync_static_data() -> None:
                 session.add(def_obj)
             session.commit()
             logger.info("Synced %s items from JSON to DB (hash=%s)", len(json_payload), json_hash[:12])
-        except Exception:
+        except SQLAlchemyError:
             logger.exception("Could not load definitions")
             session.rollback()
 
@@ -187,6 +193,21 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(title="Backpack Insight API", lifespan=lifespan)
+
+# --- RATE LIMITING ---
+# Защита /api/profile от DoS и бесконтрольного раздувания БД.
+# Включается только когда задан API_SECRET (т.е. в проде); в тестах/локально
+# (API_SECRET отсутствует) лимит отключён, чтобы не мешать.
+RATE_LIMIT_PROFILES = os.getenv("RATE_LIMIT_PROFILES", "20/minute")
+_limiter_enabled = bool(API_SECRET) and bool(RATE_LIMIT_PROFILES.strip())
+limiter = Limiter(key_func=get_remote_address, enabled=_limiter_enabled)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Политика хранения профилей (в днях). 0 = хранить вечно (по умолчанию).
+# Очистку по этому сроку должен запускать внешний планировщик (cron),
+# вызывая cleanup_old_profiles() (см. ниже).
+PROFILE_RETENTION_DAYS = int(os.getenv("PROFILE_RETENTION_DAYS", "0"))
 
 # CORS: берём разрешённый origin из переменной окружения.
 # Значение по умолчанию — продакшн-домен на Cloudflare Pages.
@@ -277,9 +298,10 @@ def get_items(
         }
     }
 })
+@limiter.limit(RATE_LIMIT_PROFILES)
 async def process_profile(
-    request: Request, 
-    profile_data: Dict[str, Any], 
+    request: Request,
+    profile_data: Dict[str, Any],
     session: Annotated[Session, Depends(get_session)]
 ):
     """
@@ -295,6 +317,21 @@ async def process_profile(
         # Создаем профиль через фабрику
         profile_obj = Profile.from_json(profile_data)
 
+        # --- Upsert по user_id ---
+        # Раньше каждый POST создавал новую строку: один игрок, перезагружающий
+        # профиль, плодил десятки дублей. Теперь обновляем существующую запись.
+        if profile_obj.user_id:
+            existing = session.exec(
+                select(Profile).where(Profile.user_id == profile_obj.user_id)
+            ).first()
+            if existing:
+                # Удаляем старый профиль вместе с его героями/предметами
+                # (FK без ON DELETE CASCADE — чистим явно), затем вставляем свежий снимок.
+                session.exec(delete(Item).where(Item.profile_id == existing.pk))
+                session.exec(delete(Hero).where(Hero.profile_id == existing.pk))
+                session.delete(existing)
+                session.commit()
+
         # Сохраняем в PostgreSQL
         session.add(profile_obj)
         session.commit()
@@ -309,6 +346,34 @@ async def process_profile(
         session.rollback()  # Важно: откат транзакции при ошибке
         logger.exception("Error processing profile")
         raise HTTPException(status_code=400, detail=f"Failed to process profile: {str(e)}")
+
+
+def cleanup_old_profiles(session: Session, retention_days: Optional[int] = None) -> int:
+    """
+    Удаляет профили (и связанные героев/предметы) старше retention_days.
+    Возвращает количество удалённых профилей.
+
+    Должна запускаться внешним планировщиком (cron/systemd timer), например:
+        0 3 * * *  curl -X POST http://localhost:8000/internal/cleanup ...
+    или через отдельный CLI-скрипт. По умолчанию берёт PROFILE_RETENTION_DAYS
+    из окружения (0 = ничего не удалять — политика отключена).
+    """
+    days = retention_days if retention_days is not None else PROFILE_RETENTION_DAYS
+    if not days or days <= 0:
+        logger.info("Profile retention disabled (PROFILE_RETENTION_DAYS=%s), skipping cleanup", days)
+        return 0
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    stale = session.exec(select(Profile).where(Profile.updated_at < cutoff)).all()
+    removed = 0
+    for prof in stale:
+        session.exec(delete(Item).where(Item.profile_id == prof.pk))
+        session.exec(delete(Hero).where(Hero.profile_id == prof.pk))
+        session.delete(prof)
+        removed += 1
+    session.commit()
+    logger.info("Cleanup: removed %s profiles older than %s days", removed, days)
+    return removed
 
 
 # 3. Подключение роутера к приложению

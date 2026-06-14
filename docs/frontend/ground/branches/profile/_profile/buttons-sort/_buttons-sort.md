@@ -1,10 +1,10 @@
-# [Стили кнопок сортировки (_buttons-sort.scss)](../../../../../../Frontend/Web/ground/branches/profile/_profile/buttons-sort/_buttons-sort.scss)
+# [Стили кнопок сортировки (_buttons-sort.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/buttons-sort/_buttons-sort.scss)
 
 ## Назначение
 Дизайн переключателей сортировки (level, rarity, rating).
 
 ## Связи (Dependencies)
-*   [Переменные дизайн-системы](../../../../../roots/_roots/_vars.md).
+*   [Переменные дизайн-системы](../../../../roots/_roots/_vars.md).
 *   Используется [Рендерером секции героев](../heroes/heroes-section.md).
 
 ## Ключевая логика
@@ -13,3 +13,7 @@
 
 ## AI-контекст
 Кнопки имеют активную фазу `:active`, которая визуально «вдавливает» кнопку для лучшего тактильного отклика.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

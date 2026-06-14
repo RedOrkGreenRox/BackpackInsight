@@ -1,11 +1,11 @@
-# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts)
+# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts)
 
 ## Назначение
 Этот файл управляет визуальной составляющей зоны загрузки. Он не касается данных, а только «дергает за ниточки» DOM-элементы, чтобы интерфейс реагировал на действия пользователя.
 
 ## Связи (Dependencies)
-*   `[upload-zone.scss](../upload-zone.md)`: Использует классы из этого файла для смены состояний (hover, loading, error).
-*   `[LoadingStates.ts](../../../../../utils/LoadingStates.md)`: Синхронизирует внутренние стили зоны с глобальным состоянием загрузки.
+*   `[upload-zone.scss](../../upload-zone.md)`: Использует классы из этого файла для смены состояний (hover, loading, error).
+*   `[LoadingStates.ts](../../../../../../utils/LoadingStates.md)`: Синхронизирует внутренние стили зоны с глобальным состоянием загрузки.
 
 ## Ключевая логика
 Хранит ссылки на DOM-элементы (кнопки, тексты подсказок, иконки).
@@ -19,3 +19,7 @@
 ## AI-контекст
 *   **Скелетная анимация**: При реализации скелетонов (пункт «Пересмотр чанков») логику переключения стоит интегрировать именно сюда.
 *   **Доступность**: Важно следить, чтобы атрибуты `aria-busy` обновлялись здесь синхронно с визуалом.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

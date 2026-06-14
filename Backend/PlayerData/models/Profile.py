@@ -1,4 +1,5 @@
 from typing import Optional, List, Dict, Any, Union, TYPE_CHECKING
+from datetime import datetime, timezone
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column, JSON
 
@@ -76,6 +77,14 @@ class Profile(SQLModel, table=True):
     os_version: Optional[str] = Field(default=None)
     app_version: Optional[str] = Field(default=None)
     user_id: Optional[str] = Field(default=None, index=True) # UID
+
+    # -- Timestamps (для upsert по user_id и политики хранения / TTL) --
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
+    updated_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
 
     # -- Relationships --
     heroes: List["Hero"] = Relationship(back_populates="profile")

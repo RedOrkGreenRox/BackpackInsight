@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.ts)
+# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.ts)
 
 ## Назначение
 Реализует механику Drag-and-Drop. Позволяет пользователю перетащить файл профиля **Backpack Brawl** прямо в браузер для анализа.
@@ -19,3 +19,7 @@
 ## AI-контекст
 *   **Слои (Z-index)**: При изменении верстки главной страницы важно следить, чтобы прозрачный оверлей Drag-and-Drop не перекрывал другие важные кнопки, когда файл не перетаскивается.
 *   **Множественные файлы**: Логика рассчитана на обработку одного файла. Если пользователь бросит несколько, берется только первый (индекс 0).
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)

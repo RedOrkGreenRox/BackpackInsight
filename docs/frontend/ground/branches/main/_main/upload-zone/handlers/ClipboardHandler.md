@@ -1,12 +1,12 @@
-# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.ts)
+# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.ts)
 
 ## Назначение
 Этот файл реализует функционал вставки данных профиля напрямую из буфера обмена (Ctrl+V / Paste). Это один из самых удобных способов импорта в **Backpack Insight**, так как игроки часто просто копируют содержимое лога.
 
 ## Связи (Dependencies)
-*   `[JsonValidator.ts](../../../../../utils/JsonValidator.md)`: Получает текст из буфера для проверки.
+*   `[JsonValidator.ts](../../managers/validation/JsonValidator.md)`: Получает текст из буфера для проверки.
 *   `[UIHandler.ts](./UIHandler.md)`: Управляет визуальным состоянием зоны (например, кратковременная вспышка при успешной вставке).
-*   `[eventUtils.ts](../../../../../utils/eventUtils.md)`: Слушает глобальное событие `paste` на уровне документа.
+*   `[eventUtils.ts](../../../../../../utils/eventUtils.md)`: Слушает глобальное событие `paste` на уровне документа.
 
 ## Ключевая логика
 Обработчик подписывается на событие `paste` и извлекает данные.
@@ -15,8 +15,12 @@
 1.  **Перехват**: Слушает событие вставки. Если фокус находится в текстовом поле или просто на странице (в зависимости от настроек), он забирает `clipboardData`.
 2.  **Извлечение**: Пытается получить данные как `text/plain`.
 3.  **Очистка**: Удаляет лишние пробелы в начале и конце строки.
-4.  **Передача**: Если строка не пуста, она отправляется в `[JsonValidator.ts](../../../../../utils/JsonValidator.md)`.
+4.  **Передача**: Если строка не пуста, она отправляется в `[JsonValidator.ts](../../managers/validation/JsonValidator.md)`.
 
 ## AI-контекст
 *   **Фокус**: Важно следить, чтобы обработчик не срабатывал, когда пользователь пишет в других полях ввода (если они появятся).
 *   **Безопасность**: Файл работает только с текстом. Попытки вставить изображения или бинарные файлы игнорируются на уровне логики извлечения.
+
+---
+
+> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
