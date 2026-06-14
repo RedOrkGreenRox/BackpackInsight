@@ -1,0 +1,382 @@
+# 🗺 Карта структуры BackpackInsight
+
+Этот файл является центральным узлом [сетевой документации](../README.md).
+
+| Раздел | Описание |
+| :--- | :--- |
+| [Бэкенд](backend/api.md) | Python API, Модели, Логика парсинга |
+| [Фронтенд](frontend/core.md) | TypeScript, Интерфейс, Дизайн-система |
+
+## 🏗 Иерархия исходного кода
+
+> **Подсказка**: Нажмите на название файла, чтобы открыть его документацию.
+
+- 📦 **BackpackInsight**
+  - 📂 **.github**
+    - 📂 **workflows**
+      - 📄 [deploy.yml](..)
+  - 📂 **Backend**
+    - 📂 **DB**
+      - 📄 [__init__.py](..)
+      - 📄 [Конфигурация БД](backend/db/database.md)
+      - 📄 [init_db.sql](..)
+      - 📄 [items_3_1_0.json](..)
+      - 📄 [items_4_0_0.json](..)
+      - 📄 [items_5_0_0.json](..)
+      - 📄 [items_tooltips.json](..)
+      - 📄 [reset_db.py](..)
+    - 📂 **PlayerData**
+      - 📂 **builds**
+        - 📄 [__init__.py](..)
+        - 📄 [German_build_1.json](..)
+        - 📄 [German_log_1.json](..)
+        - 📄 [icon_parser.py](..)
+        - 📄 [itemdefinition_202602081521.csv](..)
+        - 📄 [README_icon_parser.md](..)
+        - 📄 [Sky_Dorf_1.json](..)
+      - 📂 **models**
+        - 📄 [__init__.py](..)
+        - 📄 [Модель Героя](backend/playerdata/models/Hero.md)
+        - 📄 [Модель Предмета](backend/playerdata/models/Item.md)
+        - 📄 [Модель Профиля](backend/playerdata/models/Profile.md)
+      - 📂 **services**
+        - 📄 [Фабрика профилей](backend/playerdata/services/ProfileFactory.md)
+      - 📄 [API Бэкенда](backend/playerdata/api.md)
+      - 📄 [Константы парсинга](backend/playerdata/constants.md)
+      - 📄 [Справочник предметов](backend/playerdata/data.md)
+      - 📄 [Dockerfile](..)
+      - 📄 [requirements.txt](..)
+      - 📄 [utils.py](..)
+    - 📄 [__init__.py](..)
+  - 📂 **Frontend**
+    - 📂 **Web**
+      - 📂 **functions**
+        - 📂 **api**
+          - 📂 **item**
+            - 📄 [[id].ts](..)
+          - 📄 [[[path]].ts](..)
+          - 📄 [sitemap.ts](..)
+        - 📂 **item**
+          - 📄 [[id].ts](..)
+        - 📂 **utils**
+          - 📄 [seo-utils.ts](..)
+      - 📂 **ground**
+        - 📂 **branches**
+          - 📂 **404**
+            - 📂 **_404**
+              - 📂 **background**
+                - 📄 [background.scss](..)
+                - 📄 [background.ts](..)
+              - 📂 **body**
+                - 📄 [body.scss](..)
+              - 📂 **button**
+                - 📄 [button.scss](..)
+                - 📄 [button.ts](..)
+              - 📂 **container**
+                - 📄 [container.scss](..)
+                - 📄 [container.ts](..)
+              - 📂 **navigation**
+                - 📄 [Навигация Shell](..)
+              - 📂 **overlay**
+                - 📄 [overlay.scss](..)
+              - 📂 **text**
+                - 📄 [text.scss](..)
+                - 📄 [text.ts](..)
+              - 📂 **title**
+                - 📄 [title.scss](..)
+                - 📄 [title.ts](..)
+              - 📄 [index.ts](..)
+            - 📄 [404.scss](frontend/ground/branches/404/404.md)
+            - 📄 [NotFoundBranch.ts](..)
+          - 📂 **itemDetail**
+            - 📂 **_itemDetail**
+              - 📂 **components**
+                - 📄 [ItemDetailRenderer.ts](..)
+              - 📂 **hero-info-row**
+                - 📄 [_hero-info-row.scss](..)
+              - 📂 **info**
+                - 📄 [_info.scss](..)
+              - 📂 **layout**
+                - 📄 [_layout.scss](..)
+              - 📂 **managers**
+                - 📄 [Загрузчик данных предмета](..)
+                - 📄 [Оркестратор деталей](..)
+                - 📄 [Навигация по предметам](..)
+                - 📄 [ItemSEOManager.ts](..)
+              - 📂 **navigation**
+                - 📄 [_navigation.scss](..)
+              - 📂 **player-stats**
+                - 📄 [_player-stats.scss](..)
+              - 📂 **section**
+                - 📄 [_section.scss](..)
+              - 📂 **utils**
+                - 📄 [item-detail-types.ts](..)
+              - 📂 **visual**
+                - 📄 [_visual.scss](..)
+              - 📄 [index.ts](..)
+            - 📄 [itemDetail.scss](..)
+            - 📄 [Детали предмета](..)
+          - 📂 **items**
+            - 📂 **_items**
+              - 📂 **actions**
+                - 📄 [_checkbox.scss](..)
+                - 📄 [_clear-btn.scss](..)
+                - 📄 [_filter-actions.scss](..)
+              - 📂 **animations**
+                - 📄 [_fade-up.scss](..)
+                - 📄 [_loading-spinner.scss](..)
+              - 📂 **chips**
+                - 📄 [_filter-chip.scss](..)
+                - 📄 [_rarity-colors.scss](..)
+              - 📂 **filters**
+                - 📄 [_advanced-panel.scss](..)
+                - 📄 [_dropdown-content.scss](..)
+                - 📄 [_dropdown-toggle.scss](..)
+                - 📄 [_dropdown.scss](..)
+                - 📄 [_filter-controls.scss](..)
+                - 📄 [_filter-group.scss](..)
+                - 📄 [_filter-toggle.scss](..)
+                - 📄 [_filters.scss](frontend/ground/branches/items/_items/filters/_filters.md)
+              - 📂 **layout**
+                - 📄 [_layout.scss](..)
+              - 📂 **responsive**
+                - 📄 [_mobile.scss](..)
+                - 📄 [_tablet.scss](..)
+              - 📂 **search**
+                - 📄 [_container.scss](..)
+                - 📄 [_input.scss](..)
+            - 📄 [items.scss](frontend/ground/branches/items/items.md)
+            - 📄 [Список всех предметов](frontend/ground/branches/items/ItemsBranch.md)
+          - 📂 **main**
+            - 📂 **_main**
+              - 📂 **animations**
+                - 📄 [animations.scss](frontend/ground/branches/main/_main/animations/animations.md)
+              - 📂 **container**
+                - 📂 **styles**
+                  - 📄 [container-base.scss](..)
+                  - 📄 [container-responsive.scss](..)
+                  - 📄 [index.scss](frontend/ground/branches/main/_main/container/styles/index.md)
+                - 📄 [container.scss](..)
+                - 📄 [container.ts](..)
+              - 📂 **error**
+                - 📄 [error.scss](..)
+                - 📄 [error.ts](..)
+              - 📂 **managers**
+                - 📂 **draft**
+                  - 📄 [События черновиков](frontend/ground/branches/main/_main/managers/draft/DraftEventHandler.md)
+                  - 📄 [index.ts](..)
+                  - 📄 [Хранилище черновиков](frontend/ground/branches/main/_main/managers/draft/StorageManager.md)
+                - 📂 **submit**
+                  - 📄 [index.ts](..)
+                  - 📄 [Менеджер отправки](frontend/ground/branches/main/_main/managers/submit/SubmitManager.md)
+                - 📂 **validation**
+                  - 📂 **_json-validation**
+                    - 📄 [json-validation.scss](frontend/ground/branches/main/_main/managers/validation/_json-validation/json-validation.md)
+                  - 📄 [Отображение ошибок](frontend/ground/branches/main/_main/managers/validation/ErrorDisplayManager.md)
+                  - 📄 [index.ts](..)
+                  - 📄 [Валидатор JSON](frontend/ground/branches/main/_main/managers/validation/JsonValidator.md)
+                - 📄 [Менеджер черновиков](frontend/ground/branches/main/_main/managers/DraftManager.md)
+                - 📄 [Менеджер форм](frontend/ground/branches/main/_main/managers/FormManager.md)
+                - 📄 [index.ts](..)
+                - 📄 [Оркестратор главной](frontend/ground/branches/main/_main/managers/MainManager.md)
+                - 📄 [Менеджер валидации](frontend/ground/branches/main/_main/managers/ValidationManager.md)
+              - 📂 **title**
+                - 📂 **styles**
+                  - 📄 [index.scss](frontend/ground/branches/main/_main/title/styles/index.md)
+                  - 📄 [title-base.scss](..)
+                  - 📄 [title-responsive.scss](..)
+                - 📄 [title.scss](..)
+                - 📄 [title.ts](..)
+              - 📂 **upload-zone**
+                - 📂 **button-styles**
+                  - 📄 [button-base.scss](..)
+                  - 📄 [button-responsive.scss](..)
+                  - 📄 [button-states.scss](..)
+                  - 📄 [index.scss](..)
+                - 📂 **handlers**
+                  - 📄 [Буфер обмена](frontend/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.md)
+                  - 📄 [Drag-and-Drop](frontend/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.md)
+                  - 📄 [Обработчик файлов](frontend/ground/branches/main/_main/upload-zone/handlers/FileHandler.md)
+                  - 📄 [index.ts](..)
+                  - 📄 [Интерфейс загрузки](frontend/ground/branches/main/_main/upload-zone/handlers/UIHandler.md)
+                - 📂 **hint-styles**
+                  - 📄 [index.scss](..)
+                  - 📄 [upload-hint-base.scss](..)
+                  - 📄 [upload-hint-pc-only.scss](..)
+                - 📂 **styles**
+                  - 📄 [index.scss](..)
+                  - 📄 [upload-area-base.scss](..)
+                  - 📄 [upload-area-hover.scss](..)
+                  - 📄 [upload-area-responsive.scss](..)
+                  - 📄 [upload-area-textarea.scss](..)
+                  - 📄 [upload-area-user-select.scss](..)
+                - 📂 **zone-styles**
+                  - 📄 [index.scss](..)
+                  - 📄 [visually-hidden.scss](..)
+                - 📄 [button-view-profile.scss](..)
+                - 📄 [upload-area.scss](..)
+                - 📄 [upload-hint.scss](..)
+                - 📄 [upload-zone.scss](..)
+                - 📄 [upload-zone.ts](..)
+                - 📄 [upload.ts](..)
+              - 📄 [index.ts](..)
+            - 📄 [main.scss](..)
+            - 📄 [Главная страница](frontend/ground/branches/main/MainBranch.md)
+          - 📂 **profile**
+            - 📂 **_profile**
+              - 📂 **button-download**
+                - 📄 [_button-download.scss](frontend/ground/branches/profile/_profile/button-download/_button-download.md)
+              - 📂 **buttons-sort**
+                - 📄 [_buttons-sort.scss](frontend/ground/branches/profile/_profile/buttons-sort/_buttons-sort.md)
+              - 📂 **header**
+                - 📄 [_actual-version.scss](..)
+                - 📄 [_header.scss](frontend/ground/branches/profile/_profile/header/_header.md)
+                - 📄 [_nickname.scss](..)
+                - 📄 [_stat-hero-card.scss](..)
+                - 📄 [_stat-items-grid.scss](..)
+                - 📄 [_stat-player-card.scss](..)
+                - 📄 [_stats-heroes-grid.scss](..)
+                - 📄 [_stats-heroes-wrapper.scss](..)
+                - 📄 [_stats-player-grid.scss](..)
+                - 📄 [Рендерер заголовка](frontend/ground/branches/profile/_profile/header/header.md)
+                - 📄 [Инфо об игроке](frontend/ground/branches/profile/_profile/header/player-info.md)
+                - 📄 [Панель ресурсов](frontend/ground/branches/profile/_profile/header/stats-bar.md)
+              - 📂 **heroes**
+                - 📄 [Карточка героя](frontend/ground/branches/profile/_profile/heroes/hero-card.md)
+                - 📄 [Секция героев](frontend/ground/branches/profile/_profile/heroes/heroes-section.md)
+              - 📂 **items**
+                - 📄 [Карточка предмета](frontend/ground/branches/profile/_profile/items/item-card.md)
+                - 📄 [Секция предметов](frontend/ground/branches/profile/_profile/items/items-section.md)
+              - 📂 **main-heroes-grid**
+                - 📄 [_card.scss](frontend/ground/branches/profile/_profile/main-heroes-grid/_card.md)
+                - 📄 [_grid.scss](frontend/ground/branches/profile/_profile/main-heroes-grid/_grid.md)
+                - 📄 [_header-row.scss](..)
+                - 📄 [_image.scss](..)
+                - 📄 [_info.scss](..)
+                - 📄 [_level-rating.scss](..)
+                - 📄 [_main-heroes-grid.scss](..)
+                - 📄 [_name.scss](..)
+              - 📂 **managers**
+                - 📄 [Менеджер данных профиля](frontend/ground/branches/profile/_profile/managers/ProfileDataManager.md)
+                - 📄 [Оркестратор профиля](frontend/ground/branches/profile/_profile/managers/ProfileManager.md)
+                - 📄 [Менеджер скинов](frontend/ground/branches/profile/_profile/managers/ProfileSkinsManager.md)
+                - 📄 [Логика сортировки](frontend/ground/branches/profile/_profile/managers/ProfileSortManager.md)
+                - 📄 [Менеджер состояния](frontend/ground/branches/profile/_profile/managers/ProfileStateManager.md)
+                - 📄 [Менеджер скриншотов](frontend/ground/branches/profile/_profile/managers/screenshot-manager.md)
+              - 📂 **section-title**
+                - 📄 [_section-title.scss](..)
+              - 📂 **sort**
+                - 📄 [Контроллер сортировки](frontend/ground/branches/profile/_profile/sort/SortController.md)
+              - 📂 **utils**
+                - 📄 [profile-types.ts](frontend/ground/branches/profile/_profile/utils/profile-types.md)
+                - 📄 [rarity-weights.ts](frontend/ground/branches/profile/_profile/utils/rarity-weights.md)
+              - 📄 [index.ts](..)
+            - 📄 [profile.scss](frontend/ground/branches/profile/profile.md)
+            - 📄 [Страница профиля](..)
+        - 📂 **localization**
+          - 📄 [Локализация](frontend/ground/localization/i18n.md)
+        - 📂 **roots**
+          - 📂 **_roots**
+            - 📂 **items**
+              - 📄 [_item-card.scss](..)
+              - 📄 [_item-image.scss](..)
+              - 📄 [_item-level.scss](..)
+              - 📄 [_item-link.scss](..)
+              - 📄 [_item-name.scss](..)
+              - 📄 [_item-rarities.scss](..)
+              - 📄 [_items-grid.scss](frontend/ground/roots/_roots/items/_items-grid.md)
+              - 📄 [_items.scss](..)
+              - 📄 [_rarity-vars.scss](..)
+            - 📂 **shell**
+              - 📂 **navigation**
+                - 📄 [_button-toggle.scss](..)
+                - 📄 [_controls-wrapper.scss](..)
+                - 📄 [Навигация Shell](frontend/ground/roots/_roots/shell/navigation/navigation.md)
+              - 📂 **parallax**
+                - 📄 [_background.scss](..)
+                - 📄 [Эффект параллакса](frontend/ground/roots/_roots/shell/parallax/parallax.md)
+              - 📂 **sidebar**
+                - 📄 [_button-logo.scss](..)
+                - 📄 [_lang-switcher.scss](frontend/ground/roots/_roots/shell/sidebar/_lang-switcher.md)
+                - 📄 [_nav-tab.scss](..)
+                - 📄 [_page-title.scss](..)
+                - 📄 [_sidebar.scss](frontend/ground/roots/_roots/shell/sidebar/_sidebar.md)
+                - 📄 [Сайдбар меню](frontend/ground/roots/_roots/shell/sidebar/sidebar.md)
+              - 📂 **ui_init**
+                - 📄 [Инициализация UI](frontend/ground/roots/_roots/shell/ui_init/ui_init.md)
+            - 📄 [_animations.scss](frontend/ground/roots/_roots/_animations.md)
+            - 📄 [_error.scss](..)
+            - 📄 [_fonts.scss](frontend/ground/roots/_roots/_fonts.md)
+            - 📄 [_interactivity.scss](..)
+            - 📄 [_low-res.scss](..)
+            - 📄 [_reset.scss](frontend/ground/roots/_roots/_reset.md)
+            - 📄 [_shell.scss](frontend/ground/roots/_roots/_shell.md)
+            - 📄 [Переменные дизайна](frontend/ground/roots/_roots/_vars.md)
+          - 📄 [_roots.scss](..)
+          - 📄 [Базовый Бранч](frontend/ground/roots/Branch.md)
+          - 📄 [Генератор UI](frontend/ground/roots/Gen.md)
+          - 📄 [Parallax.ts](..)
+          - 📄 [Кеш профилей](..)
+          - 📄 [Оболочка (Shell)](frontend/ground/roots/Shell.md)
+        - 📂 **types**
+          - 📄 [global.d.ts](..)
+        - 📂 **utils**
+          - 📂 **_loading-states**
+            - 📄 [loading-states.scss](frontend/ground/utils/_loading-states/loading-states.md)
+          - 📄 [Сервис API](..)
+          - 📄 [Парсер иконок](..)
+          - 📄 [Сервис форматов изображений](..)
+          - 📄 [Сервис иконок предметов](..)
+          - 📄 [Предзагрузка предметов](..)
+          - 📄 [Кеш предметов](..)
+          - 📄 [Состояния загрузки](..)
+          - 📄 [SEO и Мета-данные](..)
+          - 📄 [Семантический поиск](..)
+          - 📄 [Сервис слагов](..)
+        - 📄 [Ядро приложения](..)
+      - 📂 **scripts**
+        - 📄 [analyze-item-text.js](..)
+        - 📄 [optimize-images.js](..)
+        - 📄 [verify-item-images.js](..)
+      - 📂 **tests**
+        - 📄 [item_detail.test.ts](..)
+        - 📄 [items_logic.test.ts](..)
+        - 📄 [json_validator.test.ts](..)
+        - 📄 [profile_logic.test.ts](..)
+        - 📄 [sort_controller.test.ts](..)
+        - 📄 [utils.test.ts](..)
+      - 📄 [_headers](..)
+      - 📄 [Dockerfile](..)
+      - 📄 [index.html](..)
+      - 📄 [package.json](..)
+      - 📄 [server.ts](..)
+      - 📄 [tsconfig.json](..)
+      - 📄 [vite.config.ts](..)
+      - 📄 [vitest.config.ts](..)
+  - 📂 **scripts**
+    - 📄 [generate_structure.py](..)
+    - 📄 [git_push.py](..)
+    - 📄 [rename_images.py](..)
+    - 📄 [run_docker.py](..)
+    - 📄 [run_tests.py](..)
+    - 📄 [verify_indexes.py](..)
+  - 📂 **tests**
+    - 📄 [conftest.py](..)
+    - 📄 [requirements.txt](..)
+    - 📄 [test_api.py](..)
+    - 📄 [test_backend.py](..)
+    - 📄 [test_data_loader.py](..)
+    - 📄 [test_db_integration.py](..)
+    - 📄 [test_models.py](..)
+    - 📄 [test_profile_factory.py](..)
+    - 📄 [test_profiles_integration.py](..)
+    - 📄 [test_utils.py](..)
+  - 📄 [.env.example](..)
+  - 📄 [alembic.ini](..)
+  - 📄 [docker-compose.server.yml](..)
+  - 📄 [docker-compose.yml](..)
+  - 📄 [package.json](..)
+  - 📄 [update.ps1](..)
+
+---
+*Примечание: Технические файлы и ассеты скрыты для чистоты карты.*
