@@ -1,24 +1,32 @@
-# [Карточка предмета в каталоге (_item-card.scss)](../../../../../../Frontend/Web/ground/roots/_roots/items/_item-card.scss)
+# [Стили карточки предмета (_item-card.scss)](../../../../../../Frontend/Web/ground/roots/_roots/items/_item-card.scss)
 
 ## Назначение
-Глобальные стили карточки предмета `.item-card` (используется в сетке предметов и профиле): стекло, hover, состояния анимации появления, блок статов.
-
-## Задаваемые стили
-### `.item-card`
-*   `background: rgba(30,30,30,0.8); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:15px`.
-*   `display:flex; flex-direction:column; align-items:center; justify-content:space-between; height:100%; width:100%`.
-*   `cursor:pointer; position:relative; overflow:hidden`; составной `transition` (transform/background/border/box-shadow/opacity).
-*   `&.hidden`: `display:none!important` (логическое скрытие).
-*   `&.preparing`: `opacity:0!important; transform: translateY(20px) scale(0.95)` (визуальное состояние перед анимацией появления).
-*   `&:hover`: `translateY(-5px)`, фон `rgba(50,50,50,0.9)`, `border-color: rgba(var(--azure-raw),0.5)`, тень + azure-свечение.
-### `.item-stats`
-*   `display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:8px`.
-### Адаптив
-*   `≤768px`: `padding:12px; border-radius:12px`; `≤480px`: `padding:10px; border-radius:10px`, `.item-stats` `gap:3px; margin-top:6px`.
-
-## AI-контекст
-*   Двойное состояние `hidden` (логика) и `preparing` (анимация) — намеренно: фильтрация прячет через `hidden`, плавное появление новых порций через `preparing`→снятие класса.
+Описание внешнего вида атомарной единицы интерфейса — карточки предмета. Содержит логику анимаций, эффектов наведения и состояний видимости.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+## Ключевые состояния
+
+### 1. Базовое состояние (`.item-card`)
+*   **Фон**: Полупрозрачный темный (`rgba(30, 30, 30, 0.8)`).
+*   **Форма**: Скругление 16px, рамка 1px.
+*   **Макет**: Flex-контейнер с распределением контента `space-between`.
+
+### 2. Эффект наведения (`:hover`)
+*   **Смещение**: Приподнимается на 5px вверх (`translateY`).
+*   **Свечение**: Цвет рамки меняется на акцентный голубой (`--azure`), добавляется сложная тень (box-shadow).
+*   **Плавность**: Используется сложная кривая Безье (`cubic-bezier(0.25, 0.8, 0.25, 1)`) для "игрового" ощущения веса.
+
+### 3. Управление видимостью
+*   **`.hidden`**: Полностью удаляет элемент из потока.
+*   **`.preparing`**: Устанавливает прозрачность в 0 и уменьшает масштаб. Используется для анимации плавного появления списка (эффект вылета снизу).
+
+---
+
+## Связи (Dependencies)
+*   Подключается в [**_items.scss**](base.md).
+*   Содержит внутри себя `.item-stats`.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

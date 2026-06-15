@@ -1,20 +1,21 @@
-# [Тесты моделей (test_models.py)](../../tests/test_models.py)
+# [Тесты Моделей (test_models.py)](../../tests/test_models.py)
 
 ## Назначение
-Юнит-тесты чистой логики моделей [Profile](../backend/playerdata/models/Profile.md)/[Hero](../backend/playerdata/models/Hero.md)/[Item](../backend/playerdata/models/Item.md)/`ItemDefinition` без HTTP.
+Модульные тесты для проверки бизнес-логики, инкапсулированной в моделях [Hero](../backend/playerdata/models/Hero.md), [Item](../backend/playerdata/models/Item.md) и [Profile](../backend/playerdata/models/Profile.md).
 
-## Покрытие
-*   Парсинг героя (`from_entry`), уровни/престиж/лиги; прокси-свойства предмета; сериализация `to_frontend_view`.
-
-## AI-контекст
-*   Самый крупный юнит-набор (рабочий). Хороший ориентир ожидаемого поведения моделей.
-## Покрываемые тест-классы и кейсы
-*   `TestItemDefinitions`: `test_static_items_preloaded`, `test_known_item_exists`, `test_item_has_rarity`.
-*   `TestHero`: `from_entry` (basic/prestige/league/empty/too_short), `test_unknown_hero_name_passes_through`, `exp_req` (below/above 20), `test_to_frontend_view_shape`.
-*   `TestProfile`: creation/heroes/items_skip_unknown/to_frontend_view (shape/currency)/skins/banners/technical_info.
-*   `TestItem`: level_offset/higher_level/proxy_name/to_frontend_view.
-
+## Ключевые проверки
+*   **Герои**: Корректность расчета опыта для следующего уровня, автоматическое определение лиг по рейтингу.
+*   **Предметы**: 
+    *   Работа прокси-свойств (доступ к полям `ItemDefinition` через `Item`).
+    *   Расчет количества карт, необходимых для улучшения (`cards_need`).
+    *   Суммирование опыта предмета для прогресса профиля.
+*   **Профиль**: Сериализация данных для фронтенда (`to_frontend_view`).
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+## AI-контекст
+*   Тесты гарантируют, что формулы прогрессии (из `data.py`) правильно применяются к объектам в базе данных.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

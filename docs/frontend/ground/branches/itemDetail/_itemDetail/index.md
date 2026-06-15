@@ -1,15 +1,8 @@
-# [Barrel модулей ItemDetail (index.ts)](../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/index.ts)
+# [Модуль деталей предмета (index.ts)](../../../../../../Frontend/Web/ground/branches/itemDetail/_itemDetail/index.ts)
 
 ## Назначение
-Barrel-экспорт ветки деталей предмета: рендерер, оркестратор-менеджер и типы.
-
-## Связи (Dependencies)
-*   [ItemDetailRenderer](components/ItemDetailRenderer.md), [ItemDetailManager](managers/ItemDetailManager.md).
-*   Типы: [item-detail-types](utils/item-detail-types.md) (`ItemDetailData`, `NavigationState`, `ItemDefinition`).
-
-## AI-контекст
-*   Используется [ItemDetailBranch](../ItemDetailBranch.md). Типы реэкспортируются здесь для удобного импорта.
+Файл экспорта (Barrel) для папки `_itemDetail/`. Он упрощает архитектуру импортов, позволяя внешним бранчам получать доступ к рендерерам и менеджерам через единую точку.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+> 📌 **Подпись документации:** атомарная точка входа модуля · 2026-06-15

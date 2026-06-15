@@ -1,18 +1,21 @@
-# [Зависимости бэкенда (requirements.txt)](../../../Backend/PlayerData/requirements.txt)
+# [Зависимости Бэкенда (requirements.txt)](../../../Backend/PlayerData/requirements.md)
 
 ## Назначение
-Список Python-зависимостей бэкенда для `pip install`.
+Список Python-библиотек, необходимых для работы API и парсеров.
 
-## Ключевое
-*   Рантайм: `fastapi`, `uvicorn`, `sqlmodel`, `psycopg2-binary`, `python-dotenv`, `alembic`, `slowapi` (rate-limit), `requests`, `deep-translator`.
-*   Закреплены минимумы для фикса уязвимостей: `anyio`, `starlette`, `urllib3`, `zipp`.
-
-## Связи (Dependencies)
-*   Ставится в [Dockerfile бэкенда](Dockerfile.md).
-
-## AI-контекст
-*   `slowapi` — для лимитов `/api/profile`; `psycopg2-binary` — драйвер PostgreSQL. Пины безопасности не понижайте.
+## Ключевые зависимости
+*   **`fastapi` / `uvicorn`**: Веб-сервер и ASGI-интерфейс.
+*   **`sqlmodel`**: ORM для работы с БД (на базе SQLAlchemy и Pydantic).
+*   **`psycopg2-binary`**: Драйвер для PostgreSQL.
+*   **`slowapi`**: Защита от DoS/Bruteforce через ограничение частоты запросов.
+*   **`deep-translator`**: Используется для автоматического перевода текстов предметов.
+*   **`python-dotenv`**: Загрузка настроек из файлов `.env`.
 
 ---
 
-> 📌 **Подпись документации:** создано при добивании полного покрытия (все файлы, включая конфиги/данные/PWA).
+## AI-контекст
+*   В файле также зафиксированы версии для `anyio`, `starlette` и `urllib3` для закрытия известных уязвимостей в транзитивных зависимостях.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

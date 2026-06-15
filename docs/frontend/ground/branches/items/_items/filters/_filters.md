@@ -1,20 +1,15 @@
-# [Стили фильтров (_filters.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/filters/_filters.scss)
+# [Агрегатор фильтров (_filters.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/filters/_filters.scss)
 
 ## Назначение
-Агрегатор стилей блока фильтрации предметов: флекс-контейнер кнопок фильтров с переносами на узких экранах.
+Главная точка входа для модуля фильтрации. Координирует сборку выпадающих списков, панелей и кнопок управления.
 
 ## Связи (Dependencies)
-Объединяет атомы фильтров:
-*   [Переключатель списка](_dropdown-toggle.md), [контент выпадающего списка](_dropdown-content.md).
-*   [Стили чекбоксов](../actions/_checkbox.md), [кнопка очистки](../actions/_clear-btn.md).
-*   Рядом: панель [_advanced-panel](_advanced-panel.md), тоггл [_filter-toggle](_filter-toggle.md), группа [_filter-group](_filter-group.md).
-
-## Ключевая логика
-*   Флекс-контейнер для кнопок фильтров: выравнивание и `flex-wrap` для адаптивных переносов.
-
-## AI-контекст
-*   Атом-агрегатор уровня `filters/`. Цвета редкостей чипсов — в [_rarity-colors](../chips/_rarity-colors.md); адаптив — в [responsive/](../responsive/_tablet.md).
+Импортирует:
+*   `_filter-controls.scss`
+*   `_filter-toggle.scss`
+*   `_advanced-panel.scss`
+*   ... и другие компоненты фильтрации.
 
 ---
 
-> 📌 **Подпись документации:** актуализировано при аудите (полнота, точность, ссылки).
+> 📌 **Подпись документации:** атомарная точка входа стилей библиотеки · 2026-06-15

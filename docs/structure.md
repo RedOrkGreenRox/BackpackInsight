@@ -4,383 +4,495 @@
 
 | Раздел | Описание |
 | :--- | :--- |
-| [Бэкенд](backend/playerdata/api.md) | Python API, Модели, Логика парсинга |
-| [Фронтенд](frontend/ground/core.md) | TypeScript, Интерфейс, Дизайн-система |
+| [Бэкенд](backend/index.md) | Python API, Модели, Логика парсинга |
+| [Фронтенд](frontend/index.md) | TypeScript, Интерфейс, Дизайн-система |
 
 ## 🏗 Иерархия исходного кода
 
 > **Подсказка**: Нажмите на название файла, чтобы открыть его документацию.
 
 - 📦 **BackpackInsight**
-  - 📂 **.github**
-    - 📂 **workflows**
-      - 📄 [deploy.yml](.github\workflows\deploy.md)
-  - 📂 **Backend**
-    - 📂 **DB**
-      - 📄 [__init__.py](Backend\DB\__init__.md)
-      - 📄 [bootstrap.py](Backend\DB\bootstrap.md)
-      - 📄 [Конфигурация БД](Backend\DB\database.md)
-      - 📄 [init_db.sql](Backend\DB\init_db.md)
-      - 📄 [items_3_1_0.json](Backend\DB\items_3_1_0.md)
-      - 📄 [items_4_0_0.json](Backend\DB\items_4_0_0.md)
-      - 📄 [items_5_0_0.json](Backend\DB\items_5_0_0.md)
-      - 📄 [items_tooltips.json](Backend\DB\items_tooltips.md)
-      - 📄 [reset_db.py](Backend\DB\reset_db.md)
-    - 📂 **PlayerData**
-      - 📂 **builds**
-        - 📄 [__init__.py](Backend\PlayerData\builds\__init__.md)
-        - 📄 [German_build_1.json](Backend\PlayerData\builds\German_build_1.md)
-        - 📄 [German_log_1.json](Backend\PlayerData\builds\German_log_1.md)
-        - 📄 [icon_parser.py](Backend\PlayerData\builds\icon_parser.md)
-        - 📄 [itemdefinition_202602081521.csv](Backend\PlayerData\builds\itemdefinition_202602081521.md)
-        - 📄 [README_icon_parser.md](Backend\PlayerData\builds\README_icon_parser.md)
-        - 📄 [Sky_Dorf_1.json](Backend\PlayerData\builds\Sky_Dorf_1.md)
-      - 📂 **models**
-        - 📄 [__init__.py](Backend\PlayerData\models\__init__.md)
-        - 📄 [Модель Героя](Backend\PlayerData\models\Hero.md)
-        - 📄 [Модель Предмета](Backend\PlayerData\models\Item.md)
-        - 📄 [Модель Профиля](Backend\PlayerData\models\Profile.md)
-      - 📂 **services**
-        - 📄 [Фабрика профилей](Backend\PlayerData\services\ProfileFactory.md)
-      - 📄 [API Бэкенда](Backend\PlayerData\api.md)
-      - 📄 [Константы парсинга](Backend\PlayerData\constants.md)
-      - 📄 [Справочник предметов](Backend\PlayerData\data.md)
-      - 📄 [Dockerfile](Backend\PlayerData\Dockerfile.md)
-      - 📄 [requirements.txt](Backend\PlayerData\requirements.md)
-      - 📄 [utils.py](Backend\PlayerData\utils.md)
-    - 📄 [__init__.py](Backend\__init__.md)
-  - 📂 **Frontend**
-    - 📂 **Web**
-      - 📂 **functions**
-        - 📂 **api**
-          - 📂 **item**
-            - 📄 [[id].ts](Frontend\functions\api\item\[id].md)
-          - 📄 [[[path]].ts](Frontend\functions\api\[[path]].md)
-          - 📄 [sitemap.ts](Frontend\functions\api\sitemap.md)
-        - 📂 **item**
-          - 📄 [[id].ts](Frontend\functions\item\[id].md)
-        - 📂 **utils**
-          - 📄 [seo-utils.ts](Frontend\functions\utils\seo-utils.md)
-      - 📂 **ground**
-        - 📂 **branches**
-          - 📂 **404**
-            - 📂 **_404**
-              - 📂 **background**
-                - 📄 [background.scss](Frontend\ground\branches\404\_404\background\background.md)
-                - 📄 [background.ts](Frontend\ground\branches\404\_404\background\background.md)
-              - 📂 **body**
-                - 📄 [body.scss](Frontend\ground\branches\404\_404\body\body.md)
-              - 📂 **button**
-                - 📄 [button.scss](Frontend\ground\branches\404\_404\button\button.md)
-                - 📄 [button.ts](Frontend\ground\branches\404\_404\button\button.md)
-              - 📂 **container**
-                - 📄 [container.scss](Frontend\ground\branches\404\_404\container\container.md)
-                - 📄 [container.ts](Frontend\ground\branches\404\_404\container\container.md)
-              - 📂 **navigation**
-                - 📄 [Навигация Shell](Frontend\ground\branches\404\_404\navigation\navigation.md)
-              - 📂 **overlay**
-                - 📄 [overlay.scss](Frontend\ground\branches\404\_404\overlay\overlay.md)
-              - 📂 **text**
-                - 📄 [text.scss](Frontend\ground\branches\404\_404\text\text.md)
-                - 📄 [text.ts](Frontend\ground\branches\404\_404\text\text.md)
-              - 📂 **title**
-                - 📄 [title.scss](Frontend\ground\branches\404\_404\title\title.md)
-                - 📄 [title.ts](Frontend\ground\branches\404\_404\title\title.md)
-              - 📄 [index.ts](Frontend\ground\branches\404\_404\index.md)
-            - 📄 [404.scss](Frontend\ground\branches\404\404.md)
-            - 📄 [NotFoundBranch.ts](Frontend\ground\branches\404\NotFoundBranch.md)
-          - 📂 **itemDetail**
-            - 📂 **_itemDetail**
-              - 📂 **components**
-                - 📄 [ItemDetailRenderer.ts](Frontend\ground\branches\itemDetail\_itemDetail\components\ItemDetailRenderer.md)
-              - 📂 **hero-info-row**
-                - 📄 [_hero-info-row.scss](Frontend\ground\branches\itemDetail\_itemDetail\hero-info-row\_hero-info-row.md)
-              - 📂 **info**
-                - 📄 [_info.scss](Frontend\ground\branches\itemDetail\_itemDetail\info\_info.md)
-              - 📂 **layout**
-                - 📄 [_layout.scss](Frontend\ground\branches\itemDetail\_itemDetail\layout\_layout.md)
-              - 📂 **managers**
-                - 📄 [Загрузчик данных предмета](Frontend\ground\branches\itemDetail\_itemDetail\managers\ItemDataLoader.md)
-                - 📄 [Оркестратор деталей](Frontend\ground\branches\itemDetail\_itemDetail\managers\ItemDetailManager.md)
-                - 📄 [Навигация по предметам](Frontend\ground\branches\itemDetail\_itemDetail\managers\ItemNavigationManager.md)
-                - 📄 [ItemSEOManager.ts](Frontend\ground\branches\itemDetail\_itemDetail\managers\ItemSEOManager.md)
-              - 📂 **navigation**
-                - 📄 [_navigation.scss](Frontend\ground\branches\itemDetail\_itemDetail\navigation\_navigation.md)
-              - 📂 **player-stats**
-                - 📄 [_player-stats.scss](Frontend\ground\branches\itemDetail\_itemDetail\player-stats\_player-stats.md)
-              - 📂 **section**
-                - 📄 [_section.scss](Frontend\ground\branches\itemDetail\_itemDetail\section\_section.md)
-              - 📂 **utils**
-                - 📄 [item-detail-types.ts](Frontend\ground\branches\itemDetail\_itemDetail\utils\item-detail-types.md)
-              - 📂 **visual**
-                - 📄 [_visual.scss](Frontend\ground\branches\itemDetail\_itemDetail\visual\_visual.md)
-              - 📄 [index.ts](Frontend\ground\branches\itemDetail\_itemDetail\index.md)
-            - 📄 [itemDetail.scss](Frontend\ground\branches\itemDetail\itemDetail.md)
-            - 📄 [Детали предмета](Frontend\ground\branches\itemDetail\ItemDetailBranch.md)
-          - 📂 **items**
-            - 📂 **_items**
-              - 📂 **actions**
-                - 📄 [_checkbox.scss](Frontend\ground\branches\items\_items\actions\_checkbox.md)
-                - 📄 [_clear-btn.scss](Frontend\ground\branches\items\_items\actions\_clear-btn.md)
-                - 📄 [_filter-actions.scss](Frontend\ground\branches\items\_items\actions\_filter-actions.md)
-              - 📂 **animations**
-                - 📄 [_fade-up.scss](Frontend\ground\branches\items\_items\animations\_fade-up.md)
-                - 📄 [_loading-spinner.scss](Frontend\ground\branches\items\_items\animations\_loading-spinner.md)
-              - 📂 **chips**
-                - 📄 [_filter-chip.scss](Frontend\ground\branches\items\_items\chips\_filter-chip.md)
-                - 📄 [_rarity-colors.scss](Frontend\ground\branches\items\_items\chips\_rarity-colors.md)
-              - 📂 **filters**
-                - 📄 [_advanced-panel.scss](Frontend\ground\branches\items\_items\filters\_advanced-panel.md)
-                - 📄 [_dropdown-content.scss](Frontend\ground\branches\items\_items\filters\_dropdown-content.md)
-                - 📄 [_dropdown-toggle.scss](Frontend\ground\branches\items\_items\filters\_dropdown-toggle.md)
-                - 📄 [_dropdown.scss](Frontend\ground\branches\items\_items\filters\_dropdown.md)
-                - 📄 [_filter-controls.scss](Frontend\ground\branches\items\_items\filters\_filter-controls.md)
-                - 📄 [_filter-group.scss](Frontend\ground\branches\items\_items\filters\_filter-group.md)
-                - 📄 [_filter-toggle.scss](Frontend\ground\branches\items\_items\filters\_filter-toggle.md)
-                - 📄 [_filters.scss](Frontend\ground\branches\items\_items\filters\_filters.md)
-              - 📂 **layout**
-                - 📄 [_layout.scss](Frontend\ground\branches\items\_items\layout\_layout.md)
-              - 📂 **responsive**
-                - 📄 [_mobile.scss](Frontend\ground\branches\items\_items\responsive\_mobile.md)
-                - 📄 [_tablet.scss](Frontend\ground\branches\items\_items\responsive\_tablet.md)
-              - 📂 **search**
-                - 📄 [_container.scss](Frontend\ground\branches\items\_items\search\_container.md)
-                - 📄 [_input.scss](Frontend\ground\branches\items\_items\search\_input.md)
-            - 📄 [items.scss](Frontend\ground\branches\items\items.md)
-            - 📄 [Список всех предметов](Frontend\ground\branches\items\ItemsBranch.md)
-          - 📂 **main**
-            - 📂 **_main**
-              - 📂 **animations**
-                - 📄 [animations.scss](Frontend\ground\branches\main\_main\animations\animations.md)
-              - 📂 **container**
-                - 📂 **styles**
-                  - 📄 [container-base.scss](Frontend\ground\branches\main\_main\container\styles\container-base.md)
-                  - 📄 [container-responsive.scss](Frontend\ground\branches\main\_main\container\styles\container-responsive.md)
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\container\styles\index.md)
-                - 📄 [container.scss](Frontend\ground\branches\main\_main\container\container.md)
-                - 📄 [container.ts](Frontend\ground\branches\main\_main\container\container.md)
-              - 📂 **error**
-                - 📄 [error.scss](Frontend\ground\branches\main\_main\error\error.md)
-                - 📄 [error.ts](Frontend\ground\branches\main\_main\error\error.md)
-              - 📂 **managers**
-                - 📂 **draft**
-                  - 📄 [События черновиков](Frontend\ground\branches\main\_main\managers\draft\DraftEventHandler.md)
-                  - 📄 [index.ts](Frontend\ground\branches\main\_main\managers\draft\index.md)
-                  - 📄 [Хранилище черновиков](Frontend\ground\branches\main\_main\managers\draft\StorageManager.md)
-                - 📂 **submit**
-                  - 📄 [index.ts](Frontend\ground\branches\main\_main\managers\submit\index.md)
-                  - 📄 [Менеджер отправки](Frontend\ground\branches\main\_main\managers\submit\SubmitManager.md)
-                - 📂 **validation**
-                  - 📂 **_json-validation**
-                    - 📄 [json-validation.scss](Frontend\ground\branches\main\_main\managers\validation\_json-validation\json-validation.md)
-                  - 📄 [Отображение ошибок](Frontend\ground\branches\main\_main\managers\validation\ErrorDisplayManager.md)
-                  - 📄 [index.ts](Frontend\ground\branches\main\_main\managers\validation\index.md)
-                  - 📄 [Валидатор JSON](Frontend\ground\branches\main\_main\managers\validation\JsonValidator.md)
-                - 📄 [Менеджер черновиков](Frontend\ground\branches\main\_main\managers\DraftManager.md)
-                - 📄 [Менеджер форм](Frontend\ground\branches\main\_main\managers\FormManager.md)
-                - 📄 [index.ts](Frontend\ground\branches\main\_main\managers\index.md)
-                - 📄 [Оркестратор главной](Frontend\ground\branches\main\_main\managers\MainManager.md)
-                - 📄 [Менеджер валидации](Frontend\ground\branches\main\_main\managers\ValidationManager.md)
-              - 📂 **title**
-                - 📂 **styles**
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\title\styles\index.md)
-                  - 📄 [title-base.scss](Frontend\ground\branches\main\_main\title\styles\title-base.md)
-                  - 📄 [title-responsive.scss](Frontend\ground\branches\main\_main\title\styles\title-responsive.md)
-                - 📄 [title.scss](Frontend\ground\branches\main\_main\title\title.md)
-                - 📄 [title.ts](Frontend\ground\branches\main\_main\title\title.md)
-              - 📂 **upload-zone**
-                - 📂 **button-styles**
-                  - 📄 [button-base.scss](Frontend\ground\branches\main\_main\upload-zone\button-styles\button-base.md)
-                  - 📄 [button-responsive.scss](Frontend\ground\branches\main\_main\upload-zone\button-styles\button-responsive.md)
-                  - 📄 [button-states.scss](Frontend\ground\branches\main\_main\upload-zone\button-styles\button-states.md)
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\upload-zone\button-styles\index.md)
-                - 📂 **handlers**
-                  - 📄 [Буфер обмена](Frontend\ground\branches\main\_main\upload-zone\handlers\ClipboardHandler.md)
-                  - 📄 [Drag-and-Drop](Frontend\ground\branches\main\_main\upload-zone\handlers\DragDropHandler.md)
-                  - 📄 [Обработчик файлов](Frontend\ground\branches\main\_main\upload-zone\handlers\FileHandler.md)
-                  - 📄 [index.ts](Frontend\ground\branches\main\_main\upload-zone\handlers\index.md)
-                  - 📄 [Интерфейс загрузки](Frontend\ground\branches\main\_main\upload-zone\handlers\UIHandler.md)
-                - 📂 **hint-styles**
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\upload-zone\hint-styles\index.md)
-                  - 📄 [upload-hint-base.scss](Frontend\ground\branches\main\_main\upload-zone\hint-styles\upload-hint-base.md)
-                  - 📄 [upload-hint-pc-only.scss](Frontend\ground\branches\main\_main\upload-zone\hint-styles\upload-hint-pc-only.md)
-                - 📂 **styles**
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\upload-zone\styles\index.md)
-                  - 📄 [upload-area-base.scss](Frontend\ground\branches\main\_main\upload-zone\styles\upload-area-base.md)
-                  - 📄 [upload-area-hover.scss](Frontend\ground\branches\main\_main\upload-zone\styles\upload-area-hover.md)
-                  - 📄 [upload-area-responsive.scss](Frontend\ground\branches\main\_main\upload-zone\styles\upload-area-responsive.md)
-                  - 📄 [upload-area-textarea.scss](Frontend\ground\branches\main\_main\upload-zone\styles\upload-area-textarea.md)
-                  - 📄 [upload-area-user-select.scss](Frontend\ground\branches\main\_main\upload-zone\styles\upload-area-user-select.md)
-                - 📂 **zone-styles**
-                  - 📄 [index.scss](Frontend\ground\branches\main\_main\upload-zone\zone-styles\index.md)
-                  - 📄 [visually-hidden.scss](Frontend\ground\branches\main\_main\upload-zone\zone-styles\visually-hidden.md)
-                - 📄 [button-view-profile.scss](Frontend\ground\branches\main\_main\upload-zone\button-view-profile.md)
-                - 📄 [upload-area.scss](Frontend\ground\branches\main\_main\upload-zone\upload-area.md)
-                - 📄 [upload-hint.scss](Frontend\ground\branches\main\_main\upload-zone\upload-hint.md)
-                - 📄 [upload-zone.scss](Frontend\ground\branches\main\_main\upload-zone\upload-zone.md)
-                - 📄 [upload-zone.ts](Frontend\ground\branches\main\_main\upload-zone\upload-zone.md)
-                - 📄 [upload.ts](Frontend\ground\branches\main\_main\upload-zone\upload.md)
-              - 📄 [index.ts](Frontend\ground\branches\main\_main\index.md)
-            - 📄 [main.scss](Frontend\ground\branches\main\main.md)
-            - 📄 [Главная страница](Frontend\ground\branches\main\MainBranch.md)
-          - 📂 **profile**
-            - 📂 **_profile**
-              - 📂 **button-download**
-                - 📄 [_button-download.scss](Frontend\ground\branches\profile\_profile\button-download\_button-download.md)
-              - 📂 **buttons-sort**
-                - 📄 [_buttons-sort.scss](Frontend\ground\branches\profile\_profile\buttons-sort\_buttons-sort.md)
-              - 📂 **header**
-                - 📄 [_actual-version.scss](Frontend\ground\branches\profile\_profile\header\_actual-version.md)
-                - 📄 [_header.scss](Frontend\ground\branches\profile\_profile\header\_header.md)
-                - 📄 [_nickname.scss](Frontend\ground\branches\profile\_profile\header\_nickname.md)
-                - 📄 [_stat-hero-card.scss](Frontend\ground\branches\profile\_profile\header\_stat-hero-card.md)
-                - 📄 [_stat-items-grid.scss](Frontend\ground\branches\profile\_profile\header\_stat-items-grid.md)
-                - 📄 [_stat-player-card.scss](Frontend\ground\branches\profile\_profile\header\_stat-player-card.md)
-                - 📄 [_stats-heroes-grid.scss](Frontend\ground\branches\profile\_profile\header\_stats-heroes-grid.md)
-                - 📄 [_stats-heroes-wrapper.scss](Frontend\ground\branches\profile\_profile\header\_stats-heroes-wrapper.md)
-                - 📄 [_stats-player-grid.scss](Frontend\ground\branches\profile\_profile\header\_stats-player-grid.md)
-                - 📄 [Рендерер заголовка](Frontend\ground\branches\profile\_profile\header\header.md)
-                - 📄 [Инфо об игроке](Frontend\ground\branches\profile\_profile\header\player-info.md)
-                - 📄 [Панель ресурсов](Frontend\ground\branches\profile\_profile\header\stats-bar.md)
-              - 📂 **heroes**
-                - 📄 [Карточка героя](Frontend\ground\branches\profile\_profile\heroes\hero-card.md)
-                - 📄 [Секция героев](Frontend\ground\branches\profile\_profile\heroes\heroes-section.md)
-              - 📂 **items**
-                - 📄 [Карточка предмета](Frontend\ground\branches\profile\_profile\items\item-card.md)
-                - 📄 [Секция предметов](Frontend\ground\branches\profile\_profile\items\items-section.md)
-              - 📂 **main-heroes-grid**
-                - 📄 [_card.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_card.md)
-                - 📄 [_grid.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_grid.md)
-                - 📄 [_header-row.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_header-row.md)
-                - 📄 [_image.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_image.md)
-                - 📄 [_info.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_info.md)
-                - 📄 [_level-rating.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_level-rating.md)
-                - 📄 [_main-heroes-grid.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_main-heroes-grid.md)
-                - 📄 [_name.scss](Frontend\ground\branches\profile\_profile\main-heroes-grid\_name.md)
-              - 📂 **managers**
-                - 📄 [Менеджер данных профиля](Frontend\ground\branches\profile\_profile\managers\ProfileDataManager.md)
-                - 📄 [Оркестратор профиля](Frontend\ground\branches\profile\_profile\managers\ProfileManager.md)
-                - 📄 [Менеджер скинов](Frontend\ground\branches\profile\_profile\managers\ProfileSkinsManager.md)
-                - 📄 [Логика сортировки](Frontend\ground\branches\profile\_profile\managers\ProfileSortManager.md)
-                - 📄 [Менеджер состояния](Frontend\ground\branches\profile\_profile\managers\ProfileStateManager.md)
-                - 📄 [Менеджер скриншотов](Frontend\ground\branches\profile\_profile\managers\screenshot-manager.md)
-              - 📂 **section-title**
-                - 📄 [_section-title.scss](Frontend\ground\branches\profile\_profile\section-title\_section-title.md)
-              - 📂 **sort**
-                - 📄 [Контроллер сортировки](Frontend\ground\branches\profile\_profile\sort\SortController.md)
-              - 📂 **utils**
-                - 📄 [profile-types.ts](Frontend\ground\branches\profile\_profile\utils\profile-types.md)
-                - 📄 [rarity-weights.ts](Frontend\ground\branches\profile\_profile\utils\rarity-weights.md)
-              - 📄 [index.ts](Frontend\ground\branches\profile\_profile\index.md)
-            - 📄 [profile.scss](Frontend\ground\branches\profile\profile.md)
-            - 📄 [Страница профиля](Frontend\ground\branches\profile\ProfileBranch.md)
-        - 📂 **localization**
-          - 📄 [Локализация](Frontend\ground\localization\i18n.md)
-        - 📂 **roots**
-          - 📂 **_roots**
-            - 📂 **items**
-              - 📄 [_item-card.scss](Frontend\ground\roots\_roots\items\_item-card.md)
-              - 📄 [_item-image.scss](Frontend\ground\roots\_roots\items\_item-image.md)
-              - 📄 [_item-level.scss](Frontend\ground\roots\_roots\items\_item-level.md)
-              - 📄 [_item-link.scss](Frontend\ground\roots\_roots\items\_item-link.md)
-              - 📄 [_item-name.scss](Frontend\ground\roots\_roots\items\_item-name.md)
-              - 📄 [_item-rarities.scss](Frontend\ground\roots\_roots\items\_item-rarities.md)
-              - 📄 [_items-grid.scss](Frontend\ground\roots\_roots\items\_items-grid.md)
-              - 📄 [_items.scss](Frontend\ground\roots\_roots\items\_items.md)
-              - 📄 [_rarity-vars.scss](Frontend\ground\roots\_roots\items\_rarity-vars.md)
+  - 📂 [**Бэкенд (Python/FastAPI)**](Backend/index.md)
+    - 📂 [**База данных и миграции**](Backend/DB/index.md)
+      - 📂 [**Миграции БД**](Backend/DB/migrations/index.md)
+        - 📂 **Версии схем**
+          - 📄 [Ревизия: Начальная схема](Backend/DB/migrations/versions/0001_initial_schema.md)
+          - 📄 [Ревизия: Индексы и Время](Backend/DB/migrations/versions/0002_profile_indexes_and_timestamps.md)
+        - 📄 [Среда миграций](Backend/DB/migrations/env.md)
+        - 📄 [README](Backend/DB/migrations/README.md)
+        - 📄 [Шаблон ревизий](Backend/DB/migrations/script.py.mako.md)
+      - 📄 [Маркер пакета](Backend/DB/__init__.md)
+      - 📄 [Бутстрап БД](Backend/DB/bootstrap.md)
+      - 📄 [Конфигурация БД](Backend/DB/database.md)
+      - 📄 [SQL Инициализация](Backend/DB/init_db.md)
+      - 📄 [Справочник предметов (v3.1.0)](Backend/DB/items_3_1_0.md)
+      - 📄 [Справочник предметов (v4.0.0)](Backend/DB/items_4_0_0.md)
+      - 📄 [Справочник предметов (v5.0.0)](Backend/DB/items_5_0_0.md)
+      - 📄 [Тултипы предметов](Backend/DB/items_tooltips.md)
+      - 📄 [Сброс базы данных](Backend/DB/reset_db.md)
+    - 📂 [**Логика игроков и предметов**](Backend/PlayerData/index.md)
+      - 📂 **Инструменты сборки данных**
+        - 📄 [Маркер пакета](Backend/PlayerData/builds/__init__.md)
+        - 📄 [Билд: German #1](Backend/PlayerData/builds/German_build_1.md)
+        - 📄 [Лог боя: German #1](Backend/PlayerData/builds/German_log_1.md)
+        - 📄 [Парсер иконок (Python)](Backend/PlayerData/builds/icon_parser.md)
+        - 📄 [Сырые данные предметов (CSV)](Backend/PlayerData/builds/itemdefinition_202602081521.md)
+        - 📄 [Документация парсера иконок](Backend/PlayerData/builds/README_icon_parser.md)
+        - 📄 [Лог боя: Sky (Dorf)](Backend/PlayerData/builds/Sky_Dorf_1.md)
+      - 📂 **Модели данных**
+        - 📄 [Маркер пакета](Backend/PlayerData/models/__init__.md)
+        - 📄 [Модель Героя](Backend/PlayerData/models/Hero.md)
+        - 📄 [Модель Предмета](Backend/PlayerData/models/Item.md)
+        - 📄 [Модель Профиля](Backend/PlayerData/models/Profile.md)
+      - 📂 [**Эталонные профили**](Backend/PlayerData/Profiles/index.md)
+        - 📄 [Маркер пакета](Backend/PlayerData/Profiles/__init__.md)
+        - 📄 [Пример: DI4 (Обновленный)](Backend/PlayerData/Profiles/DI4-new.md)
+        - 📄 [Пример: DI4 (Базовый)](Backend/PlayerData/Profiles/DI4.md)
+        - 📄 [Пример: German](Backend/PlayerData/Profiles/German.md)
+        - 📄 [Пример: Hush](Backend/PlayerData/Profiles/hush.md)
+        - 📄 [Пример: Lotreomon](Backend/PlayerData/Profiles/Lotreomon.md)
+        - 📄 [Пример: Marat](Backend/PlayerData/Profiles/Marat.md)
+        - 📄 [Пример: Merul](Backend/PlayerData/Profiles/merul.md)
+        - 📄 [Пример: Molodoy Zhuk](Backend/PlayerData/Profiles/Molodoy_Zhuk.md)
+        - 📄 [Пример: Rimaster](Backend/PlayerData/Profiles/rimaster.md)
+        - 📄 [Пример: Sky](Backend/PlayerData/Profiles/Sky.md)
+        - 📄 [Пример: Sky (BFG)](Backend/PlayerData/Profiles/Sky_of_BFG.md)
+        - 📄 [Пример: Teger](Backend/PlayerData/Profiles/Teger.md)
+        - 📄 [Пример: xr1stos422](Backend/PlayerData/Profiles/xr1stos422.md)
+      - 📂 **Бизнес-сервисы**
+        - 📄 [Фабрика профилей](Backend/PlayerData/services/ProfileFactory.md)
+      - 📄 [API Бэкенда](Backend/PlayerData/api.md)
+      - 📄 [Константы парсинга](Backend/PlayerData/constants.md)
+      - 📄 [Справочник предметов](Backend/PlayerData/data.md)
+      - 📄 [Инструкции Docker](Backend/PlayerData/Dockerfile.md)
+      - 📄 [Настройки Pytest](Backend/PlayerData/pytest.md)
+      - 📄 [Список зависимостей](Backend/PlayerData/requirements.md)
+      - 📄 [Утилиты бэкенда](Backend/PlayerData/utils.md)
+    - 📄 [Маркер пакета](Backend/__init__.md)
+  - 📂 [**Фронтенд (TypeScript/Vite)**](Frontend/index.md)
+    - 📂 [**Веб-приложение**](Frontend/index.md)
+      - 📂 [**Облачные функции (SSR/SEO)**](Frontend/functions/index.md)
+        - 📂 **API роуты**
+          - 📂 **Детализация (SSR)**
+            - 📄 [Детализация (SSR)](Frontend/functions/api/item/[id].md)
+          - 📄 [Прокси-функция API](Frontend/functions/api/[[path]].md)
+          - 📄 [Генератор Sitemap](Frontend/functions/api/sitemap.md)
+        - 📂 **Детализация (SSR)**
+          - 📄 [Детализация (SSR)](Frontend/functions/item/[id].md)
+        - 📂 **Утилиты и сервисы**
+          - 📄 [Утилиты SEO](Frontend/functions/utils/seo-utils.md)
+      - 📂 [**Ядро фронтенда**](Frontend/ground/index.md)
+        - 📂 [**Страницы приложения**](Frontend/ground/branches/index.md)
+          - 📂 [**Ошибка 404**](Frontend/ground/branches/404/index.md)
+            - 📂 [**Компоненты 404**](Frontend/ground/branches/404/_404/index.md)
+              - 📂 **Фоновые элементы**
+                - 📄 [Стили фона](Frontend/ground/branches/404/_404/background/background.md)
+                - 📄 [Менеджер фона](Frontend/ground/branches/404/_404/background/background.md)
+              - 📂 **Основа страницы**
+                - 📄 [Стили основы](Frontend/ground/branches/404/_404/body/body.md)
+              - 📂 **Кнопки**
+                - 📄 [Стили кнопки](Frontend/ground/branches/404/_404/button/button.md)
+                - 📄 [Рендерер кнопки](Frontend/ground/branches/404/_404/button/button.md)
+              - 📂 **Контейнер**
+                - 📄 [Стили контейнера](Frontend/ground/branches/404/_404/container/container.md)
+                - 📄 [Рендерер контейнера](Frontend/ground/branches/404/_404/container/container.md)
+              - 📂 **Навигация**
+                - 📄 [Навигация Shell](Frontend/ground/branches/404/_404/navigation/navigation.md)
+              - 📂 **Слои наложения**
+                - 📄 [Стили оверлея](Frontend/ground/branches/404/_404/overlay/overlay.md)
+              - 📂 **Текстовые блоки**
+                - 📄 [Стили текста](Frontend/ground/branches/404/_404/text/text.md)
+                - 📄 [Рендерер текста](Frontend/ground/branches/404/_404/text/text.md)
+              - 📂 **Заголовок**
+                - 📄 [Стили заголовка](Frontend/ground/branches/404/_404/title/title.md)
+                - 📄 [Рендерер заголовка](Frontend/ground/branches/404/_404/title/title.md)
+              - 📄 [Точка входа модуля](Frontend/ground/branches/404/_404/index.md)
+            - 📄 [Стили 404](Frontend/ground/branches/404/404.md)
+            - 📄 [Класс страницы 404](Frontend/ground/branches/404/NotFoundBranch.md)
+          - 📂 [**Детализация предмета**](Frontend/ground/branches/itemDetail/index.md)
+            - 📂 [**Логика деталей**](Frontend/ground/branches/itemDetail/_itemDetail/index.md)
+              - 📂 **UI Компоненты**
+                - 📄 [Рендерер деталей](Frontend/ground/branches/itemDetail/_itemDetail/components/ItemDetailRenderer.md)
+              - 📂 **Инфо-ряд героя**
+                - 📄 [Стили инфо-ряда](Frontend/ground/branches/itemDetail/_itemDetail/hero-info-row/_hero-info-row.md)
+              - 📂 **Информация**
+                - 📄 [Стили инфо-блока](Frontend/ground/branches/itemDetail/_itemDetail/info/_info.md)
+              - 📂 **Макет**
+                - 📄 [Макет страницы](Frontend/ground/branches/itemDetail/_itemDetail/layout/_layout.md)
+              - 📂 **Менеджеры логики**
+                - 📄 [Загрузчик данных предмета](Frontend/ground/branches/itemDetail/_itemDetail/managers/ItemDataLoader.md)
+                - 📄 [Оркестратор деталей](Frontend/ground/branches/itemDetail/_itemDetail/managers/ItemDetailManager.md)
+                - 📄 [Навигация по предметам](Frontend/ground/branches/itemDetail/_itemDetail/managers/ItemNavigationManager.md)
+                - 📄 [Менеджер SEO предмета](Frontend/ground/branches/itemDetail/_itemDetail/managers/ItemSEOManager.md)
+              - 📂 **Навигация**
+                - 📄 [Стили навигации](Frontend/ground/branches/itemDetail/_itemDetail/navigation/_navigation.md)
+              - 📂 **Статистика игрока**
+                - 📄 [Стили статов игрока](Frontend/ground/branches/itemDetail/_itemDetail/player-stats/_player-stats.md)
+              - 📂 **Секции**
+                - 📄 [Стили секций](Frontend/ground/branches/itemDetail/_itemDetail/section/_section.md)
+              - 📂 **Утилиты и сервисы**
+                - 📄 [Типы деталей](Frontend/ground/branches/itemDetail/_itemDetail/utils/item-detail-types.md)
+              - 📂 **Визуализация**
+                - 📄 [Стили визуализации](Frontend/ground/branches/itemDetail/_itemDetail/visual/_visual.md)
+              - 📄 [Точка входа модуля](Frontend/ground/branches/itemDetail/_itemDetail/index.md)
+            - 📄 [Стили деталей](Frontend/ground/branches/itemDetail/itemDetail.md)
+            - 📄 [Класс деталей предмета](Frontend/ground/branches/itemDetail/ItemDetailBranch.md)
+          - 📂 [**Библиотека предметов**](Frontend/ground/branches/items/index.md)
+            - 📂 **Логика библиотеки**
+              - 📂 **Действия**
+                - 📄 [Стили чекбоксов](Frontend/ground/branches/items/_items/actions/_checkbox.md)
+                - 📄 [Кнопка очистки](Frontend/ground/branches/items/_items/actions/_clear-btn.md)
+                - 📄 [Действия фильтров](Frontend/ground/branches/items/_items/actions/_filter-actions.md)
+              - 📂 **Анимации**
+                - 📄 [Анимация вылета](Frontend/ground/branches/items/_items/animations/_fade-up.md)
+                - 📄 [Спиннер загрузки](Frontend/ground/branches/items/_items/animations/_loading-spinner.md)
+              - 📂 **Чипсы (Теги)**
+                - 📄 [Фильтр-чипсы](Frontend/ground/branches/items/_items/chips/_filter-chip.md)
+                - 📄 [Цвета чипсов](Frontend/ground/branches/items/_items/chips/_rarity-colors.md)
+              - 📂 **Система фильтрации**
+                - 📄 [Расширенная панель](Frontend/ground/branches/items/_items/filters/_advanced-panel.md)
+                - 📄 [Контент списка](Frontend/ground/branches/items/_items/filters/_dropdown-content.md)
+                - 📄 [Кнопка списка](Frontend/ground/branches/items/_items/filters/_dropdown-toggle.md)
+                - 📄 [Контейнер списка](Frontend/ground/branches/items/_items/filters/_dropdown.md)
+                - 📄 [Обертка фильтров](Frontend/ground/branches/items/_items/filters/_filter-controls.md)
+                - 📄 [Группа фильтров](Frontend/ground/branches/items/_items/filters/_filter-group.md)
+                - 📄 [Кнопка фильтров](Frontend/ground/branches/items/_items/filters/_filter-toggle.md)
+                - 📄 [Агрегатор фильтров](Frontend/ground/branches/items/_items/filters/_filters.md)
+              - 📂 **Макет**
+                - 📄 [Макет страницы](Frontend/ground/branches/items/_items/layout/_layout.md)
+              - 📂 **Адаптивность**
+                - 📄 [Моб. адаптив](Frontend/ground/branches/items/_items/responsive/_mobile.md)
+                - 📄 [Планш. адаптив](Frontend/ground/branches/items/_items/responsive/_tablet.md)
+              - 📂 **Поиск**
+                - 📄 [Стили контейнера](Frontend/ground/branches/items/_items/search/_container.md)
+                - 📄 [Стили поля ввода](Frontend/ground/branches/items/_items/search/_input.md)
+            - 📄 [Стили Вики](Frontend/ground/branches/items/items.md)
+            - 📄 [Класс библиотеки предметов](Frontend/ground/branches/items/ItemsBranch.md)
+          - 📂 [**Главная страница**](Frontend/ground/branches/main/index.md)
+            - 📂 [**Логика главной**](Frontend/ground/branches/main/_main/index.md)
+              - 📂 **Анимации**
+                - 📄 [Анимации страницы](Frontend/ground/branches/main/_main/animations/animations.md)
+              - 📂 **Контейнер**
+                - 📂 [**Стили**](Frontend/ground/branches/main/_main/container/styles/index.md)
+                  - 📄 [База контейнера](Frontend/ground/branches/main/_main/container/styles/container-base.md)
+                  - 📄 [Адаптив контейнера](Frontend/ground/branches/main/_main/container/styles/container-responsive.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/container/styles/index.md)
+                - 📄 [Стили контейнера](Frontend/ground/branches/main/_main/container/container.md)
+                - 📄 [Рендерер контейнера](Frontend/ground/branches/main/_main/container/container.md)
+              - 📂 **Ошибка**
+                - 📄 [Стили уведомлений](Frontend/ground/branches/main/_main/error/error.md)
+                - 📄 [Рендерер ошибок](Frontend/ground/branches/main/_main/error/error_ts.md)
+              - 📂 [**Менеджеры логики**](Frontend/ground/branches/main/_main/managers/index.md)
+                - 📂 [**Система черновиков**](Frontend/ground/branches/main/_main/managers/draft/index.md)
+                  - 📄 [События черновиков](Frontend/ground/branches/main/_main/managers/draft/DraftEventHandler.md)
+                  - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/managers/draft/index.md)
+                  - 📄 [Менеджер хранилища](Frontend/ground/branches/main/_main/managers/draft/StorageManager.md)
+                - 📂 [**Отправка данных**](Frontend/ground/branches/main/_main/managers/submit/index.md)
+                  - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/managers/submit/index.md)
+                  - 📄 [Менеджер отправки](Frontend/ground/branches/main/_main/managers/submit/SubmitManager.md)
+                - 📂 [**Валидация JSON**](Frontend/ground/branches/main/_main/managers/validation/index.md)
+                  - 📂 **Валидация JSON**
+                    - 📄 [Стили редактора ошибок](Frontend/ground/branches/main/_main/managers/validation/_json-validation/json-validation.md)
+                  - 📄 [Менеджер ошибок](Frontend/ground/branches/main/_main/managers/validation/ErrorDisplayManager.md)
+                  - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/managers/validation/index.md)
+                  - 📄 [Валидатор JSON](Frontend/ground/branches/main/_main/managers/validation/JsonValidator.md)
+                - 📄 [Менеджер черновиков](Frontend/ground/branches/main/_main/managers/DraftManager.md)
+                - 📄 [Менеджер форм](Frontend/ground/branches/main/_main/managers/FormManager.md)
+                - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/managers/index.md)
+                - 📄 [Оркестратор главной](Frontend/ground/branches/main/_main/managers/MainManager.md)
+                - 📄 [Менеджер валидации](Frontend/ground/branches/main/_main/managers/ValidationManager.md)
+              - 📂 **Заголовок**
+                - 📂 [**Стили**](Frontend/ground/branches/main/_main/title/styles/index.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/title/styles/index.md)
+                  - 📄 [База заголовка](Frontend/ground/branches/main/_main/title/styles/title-base.md)
+                  - 📄 [Адаптив заголовка](Frontend/ground/branches/main/_main/title/styles/title-responsive.md)
+                - 📄 [Стили заголовка](Frontend/ground/branches/main/_main/title/title.md)
+                - 📄 [Рендерер заголовка](Frontend/ground/branches/main/_main/title/title.md)
+              - 📂 **Зона загрузки**
+                - 📂 [**Стили кнопок**](Frontend/ground/branches/main/_main/upload-zone/button-styles/index.md)
+                  - 📄 [База кнопки](Frontend/ground/branches/main/_main/upload-zone/button-styles/button-base.md)
+                  - 📄 [Адаптив кнопки](Frontend/ground/branches/main/_main/upload-zone/button-styles/button-responsive.md)
+                  - 📄 [Состояния кнопки](Frontend/ground/branches/main/_main/upload-zone/button-styles/button-states.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/upload-zone/button-styles/index.md)
+                - 📂 [**Обработчики ввода**](Frontend/ground/branches/main/_main/upload-zone/handlers/index.md)
+                  - 📄 [Обработчик буфера](Frontend/ground/branches/main/_main/upload-zone/handlers/ClipboardHandler.md)
+                  - 📄 [Обработчик Drag-n-Drop](Frontend/ground/branches/main/_main/upload-zone/handlers/DragDropHandler.md)
+                  - 📄 [Обработчик файлов](Frontend/ground/branches/main/_main/upload-zone/handlers/FileHandler.md)
+                  - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/upload-zone/handlers/index.md)
+                  - 📄 [Обработчик интерфейса](Frontend/ground/branches/main/_main/upload-zone/handlers/UIHandler.md)
+                - 📂 [**Стили подсказок**](Frontend/ground/branches/main/_main/upload-zone/hint-styles/index.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/upload-zone/hint-styles/index.md)
+                  - 📄 [База подсказки](Frontend/ground/branches/main/_main/upload-zone/hint-styles/upload-hint-base.md)
+                  - 📄 [ПК-подсказка](Frontend/ground/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.md)
+                - 📂 [**Стили**](Frontend/ground/branches/main/_main/upload-zone/styles/index.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/upload-zone/styles/index.md)
+                  - 📄 [База области](Frontend/ground/branches/main/_main/upload-zone/styles/upload-area-base.md)
+                  - 📄 [Ховер области](Frontend/ground/branches/main/_main/upload-zone/styles/upload-area-hover.md)
+                  - 📄 [Адаптив области](Frontend/ground/branches/main/_main/upload-zone/styles/upload-area-responsive.md)
+                  - 📄 [Стили текстового поля](Frontend/ground/branches/main/_main/upload-zone/styles/upload-area-textarea.md)
+                  - 📄 [Управление выделением](Frontend/ground/branches/main/_main/upload-zone/styles/upload-area-user-select.md)
+                - 📂 [**Системные стили**](Frontend/ground/branches/main/_main/upload-zone/zone-styles/index.md)
+                  - 📄 [Индекс стилей](Frontend/ground/branches/main/_main/upload-zone/zone-styles/index.md)
+                  - 📄 [Скрытые элементы](Frontend/ground/branches/main/_main/upload-zone/zone-styles/visually-hidden.md)
+                - 📄 [Стиль кнопки профиля](Frontend/ground/branches/main/_main/upload-zone/button-view-profile.md)
+                - 📄 [Стили области загрузки](Frontend/ground/branches/main/_main/upload-zone/upload-area.md)
+                - 📄 [Стили подсказки](Frontend/ground/branches/main/_main/upload-zone/upload-hint.md)
+                - 📄 [Стили зоны загрузки](Frontend/ground/branches/main/_main/upload-zone/upload-zone.md)
+                - 📄 [Логика зоны загрузки](Frontend/ground/branches/main/_main/upload-zone/upload-zone_ts.md)
+                - 📄 [Менеджер загрузки](Frontend/ground/branches/main/_main/upload-zone/upload.md)
+              - 📄 [Точка входа модуля](Frontend/ground/branches/main/_main/index.md)
+            - 📄 [Стили главной](Frontend/ground/branches/main/main.md)
+            - 📄 [Класс главной страницы](Frontend/ground/branches/main/MainBranch.md)
+          - 📂 [**Страница профиля**](Frontend/ground/branches/profile/index.md)
+            - 📂 [**Логика профиля**](Frontend/ground/branches/profile/_profile/index.md)
+              - 📂 **Кнопка сохранения**
+                - 📄 [Кнопка сохранения](Frontend/ground/branches/profile/_profile/button-download/_button-download.md)
+              - 📂 **Кнопки сортировки**
+                - 📄 [Кнопки сортировки](Frontend/ground/branches/profile/_profile/buttons-sort/_buttons-sort.md)
+              - 📂 **Заголовок профиля**
+                - 📄 [Версия игры](Frontend/ground/branches/profile/_profile/header/_actual-version.md)
+                - 📄 [Контейнер шапки](Frontend/ground/branches/profile/_profile/header/_header.md)
+                - 📄 [Стиль никнейма](Frontend/ground/branches/profile/_profile/header/_nickname.md)
+                - 📄 [Мини-герой](Frontend/ground/branches/profile/_profile/header/_stat-hero-card.md)
+                - 📄 [Сводка предметов](Frontend/ground/branches/profile/_profile/header/_stat-items-grid.md)
+                - 📄 [Карточка ресурса](Frontend/ground/branches/profile/_profile/header/_stat-player-card.md)
+                - 📄 [Мини-сетка героев](Frontend/ground/branches/profile/_profile/header/_stats-heroes-grid.md)
+                - 📄 [Обертка героев](Frontend/ground/branches/profile/_profile/header/_stats-heroes-wrapper.md)
+                - 📄 [Сетка ресурсов](Frontend/ground/branches/profile/_profile/header/_stats-player-grid.md)
+                - 📄 [Рендерер заголовка](Frontend/ground/branches/profile/_profile/header/header.md)
+                - 📄 [Инфо об игроке](Frontend/ground/branches/profile/_profile/header/player-info.md)
+                - 📄 [Панель ресурсов](Frontend/ground/branches/profile/_profile/header/stats-bar.md)
+              - 📂 **Секция героев**
+                - 📄 [Карточка героя](Frontend/ground/branches/profile/_profile/heroes/hero-card.md)
+                - 📄 [Секция героев](Frontend/ground/branches/profile/_profile/heroes/heroes-section.md)
+              - 📂 **Библиотека предметов**
+                - 📄 [Карточка предмета](Frontend/ground/branches/profile/_profile/items/item-card.md)
+                - 📄 [Секция предметов](Frontend/ground/branches/profile/_profile/items/items-section.md)
+              - 📂 **Сетка героев**
+                - 📄 [Большая карточка](Frontend/ground/branches/profile/_profile/main-heroes-grid/_card.md)
+                - 📄 [Сетка героев](Frontend/ground/branches/profile/_profile/main-heroes-grid/_grid.md)
+                - 📄 [Верхний ряд](Frontend/ground/branches/profile/_profile/main-heroes-grid/_header-row.md)
+                - 📄 [Портрет героя](Frontend/ground/branches/profile/_profile/main-heroes-grid/_image.md)
+                - 📄 [Стили инфо-блока](Frontend/ground/branches/profile/_profile/main-heroes-grid/_info.md)
+                - 📄 [Уровень и ранг](Frontend/ground/branches/profile/_profile/main-heroes-grid/_level-rating.md)
+                - 📄 [Агрегатор героев](Frontend/ground/branches/profile/_profile/main-heroes-grid/_main-heroes-grid.md)
+                - 📄 [Имя персонажа](Frontend/ground/branches/profile/_profile/main-heroes-grid/_name.md)
+              - 📂 **Менеджеры логики**
+                - 📄 [Менеджер данных профиля](Frontend/ground/branches/profile/_profile/managers/ProfileDataManager.md)
+                - 📄 [Оркестратор профиля](Frontend/ground/branches/profile/_profile/managers/ProfileManager.md)
+                - 📄 [Менеджер скинов](Frontend/ground/branches/profile/_profile/managers/ProfileSkinsManager.md)
+                - 📄 [Логика сортировки](Frontend/ground/branches/profile/_profile/managers/ProfileSortManager.md)
+                - 📄 [Менеджер состояния](Frontend/ground/branches/profile/_profile/managers/ProfileStateManager.md)
+                - 📄 [Менеджер скриншотов](Frontend/ground/branches/profile/_profile/managers/screenshot-manager.md)
+              - 📂 **Заголовки секций**
+                - 📄 [Заголовок секции](Frontend/ground/branches/profile/_profile/section-title/_section-title.md)
+              - 📂 **Сортировка**
+                - 📄 [Контроллер сортировки](Frontend/ground/branches/profile/_profile/sort/SortController.md)
+              - 📂 **Утилиты и сервисы**
+                - 📄 [Типы профиля](Frontend/ground/branches/profile/_profile/utils/profile-types.md)
+                - 📄 [Веса редкостей](Frontend/ground/branches/profile/_profile/utils/rarity-weights.md)
+              - 📄 [Точка входа модуля](Frontend/ground/branches/profile/_profile/index.md)
+            - 📄 [Стили профиля](Frontend/ground/branches/profile/profile.md)
+            - 📄 [Класс страницы профиля](Frontend/ground/branches/profile/ProfileBranch.md)
+        - 📂 **Локализация**
+          - 📄 [Локализация](Frontend/ground/localization/i18n.md)
+        - 📂 **Корневые системы**
+          - 📂 **Базовые стили и Shell**
+            - 📂 [**Библиотека предметов**](Frontend/ground/roots/_roots/items/index.md)
+              - 📄 [Стили карточки](Frontend/ground/roots/_roots/items/_item-card.md)
+              - 📄 [Стили иконки](Frontend/ground/roots/_roots/items/_item-image.md)
+              - 📄 [Стили уровня](Frontend/ground/roots/_roots/items/_item-level.md)
+              - 📄 [Стили ссылки](Frontend/ground/roots/_roots/items/_item-link.md)
+              - 📄 [Стили названия](Frontend/ground/roots/_roots/items/_item-name.md)
+              - 📄 [Стили редкостей](Frontend/ground/roots/_roots/items/_item-rarities.md)
+              - 📄 [Стили сетки](Frontend/ground/roots/_roots/items/_items-grid.md)
+              - 📄 [Стили предметов (Wiki)](Frontend/ground/roots/_roots/items/_items.md)
+              - 📄 [Переменные редкости](Frontend/ground/roots/_roots/items/_rarity-vars.md)
             - 📂 **shell**
-              - 📂 **navigation**
-                - 📄 [_button-toggle.scss](Frontend\ground\roots\_roots\shell\navigation\_button-toggle.md)
-                - 📄 [_controls-wrapper.scss](Frontend\ground\roots\_roots\shell\navigation\_controls-wrapper.md)
-                - 📄 [Навигация Shell](Frontend\ground\roots\_roots\shell\navigation\navigation.md)
-              - 📂 **parallax**
-                - 📄 [_background.scss](Frontend\ground\roots\_roots\shell\parallax\_background.md)
-                - 📄 [Эффект параллакса](Frontend\ground\roots\_roots\shell\parallax\parallax.md)
-              - 📂 **sidebar**
-                - 📄 [_button-logo.scss](Frontend\ground\roots\_roots\shell\sidebar\_button-logo.md)
-                - 📄 [_lang-switcher.scss](Frontend\ground\roots\_roots\shell\sidebar\_lang-switcher.md)
-                - 📄 [_nav-tab.scss](Frontend\ground\roots\_roots\shell\sidebar\_nav-tab.md)
-                - 📄 [_page-title.scss](Frontend\ground\roots\_roots\shell\sidebar\_page-title.md)
-                - 📄 [_sidebar.scss](Frontend\ground\roots\_roots\shell\sidebar\_sidebar.md)
-                - 📄 [Сайдбар меню](Frontend\ground\roots\_roots\shell\sidebar\sidebar.md)
-              - 📂 **ui_init**
-                - 📄 [Инициализация UI](Frontend\ground\roots\_roots\shell\ui_init\ui_init.md)
-            - 📄 [_animations.scss](Frontend\ground\roots\_roots\_animations.md)
-            - 📄 [_error.scss](Frontend\ground\roots\_roots\_error.md)
-            - 📄 [_fonts.scss](Frontend\ground\roots\_roots\_fonts.md)
-            - 📄 [_interactivity.scss](Frontend\ground\roots\_roots\_interactivity.md)
-            - 📄 [_low-res.scss](Frontend\ground\roots\_roots\_low-res.md)
-            - 📄 [_reset.scss](Frontend\ground\roots\_roots\_reset.md)
-            - 📄 [_shell.scss](Frontend\ground\roots\_roots\_shell.md)
-            - 📄 [Переменные дизайна](Frontend\ground\roots\_roots\_vars.md)
-          - 📄 [_roots.scss](Frontend\ground\roots\_roots.md)
-          - 📄 [Базовый Бранч](Frontend\ground\roots\Branch.md)
-          - 📄 [Генератор UI](Frontend\ground\roots\Gen.md)
-          - 📄 [Parallax.ts](Frontend\ground\roots\Parallax.md)
-          - 📄 [Кеш профилей](Frontend\ground\roots\profileCacheUtils.md)
-          - 📄 [Оболочка (Shell)](Frontend\ground\roots\Shell.md)
+              - 📂 **Навигация**
+                - 📄 [Кнопка меню](Frontend/ground/roots/_roots/shell/navigation/_button-toggle.md)
+                - 📄 [Обертка управления](Frontend/ground/roots/_roots/shell/navigation/_controls-wrapper.md)
+                - 📄 [Навигация Shell](Frontend/ground/roots/_roots/shell/navigation/navigation.md)
+              - 📂 **Параллакс**
+                - 📄 [Стили фона](Frontend/ground/roots/_roots/shell/parallax/_background.md)
+                - 📄 [Эффект параллакса](Frontend/ground/roots/_roots/shell/parallax/parallax.md)
+              - 📂 **Боковое меню**
+                - 📄 [Логотип в меню](Frontend/ground/roots/_roots/shell/sidebar/_button-logo.md)
+                - 📄 [Переключатель языка](Frontend/ground/roots/_roots/shell/sidebar/_lang-switcher.md)
+                - 📄 [Вкладки навигации](Frontend/ground/roots/_roots/shell/sidebar/_nav-tab.md)
+                - 📄 [Заголовки меню](Frontend/ground/roots/_roots/shell/sidebar/_page-title.md)
+                - 📄 [Боковое меню](Frontend/ground/roots/_roots/shell/sidebar/_sidebar.md)
+                - 📄 [Сайдбар меню](Frontend/ground/roots/_roots/shell/sidebar/sidebar.md)
+              - 📂 **Инициализация UI**
+                - 📄 [Инициализация UI](Frontend/ground/roots/_roots/shell/ui_init/ui_init.md)
+            - 📄 [Глобальные анимации](Frontend/ground/roots/_roots/_animations.md)
+            - 📄 [Стили ошибок](Frontend/ground/roots/_roots/_error.md)
+            - 📄 [Шрифты](Frontend/ground/roots/_roots/_fonts.md)
+            - 📄 [Интерактивность](Frontend/ground/roots/_roots/_interactivity.md)
+            - 📄 [Режим экономии](Frontend/ground/roots/_roots/_low-res.md)
+            - 📄 [Базовый сброс](Frontend/ground/roots/_roots/_reset.md)
+            - 📄 [Стили оболочки](Frontend/ground/roots/_roots/_shell.md)
+            - 📄 [Дизайн-переменные](Frontend/ground/roots/_roots/_vars.md)
+          - 📄 [Агрегатор ядра](Frontend/ground/roots/_roots.md)
+          - 📄 [Базовый класс страницы](Frontend/ground/roots/Branch.md)
+          - 📄 [Генератор интерфейса](Frontend/ground/roots/Gen.md)
+          - 📄 [Эффект параллакса (Класс)](Frontend/ground/roots/Parallax.md)
+          - 📄 [Кэширование профиля](Frontend/ground/roots/profileCacheUtils.md)
+          - 📄 [Оболочка (Shell)](Frontend/ground/roots/Shell.md)
         - 📂 **types**
-          - 📄 [global.d.ts](Frontend\ground\types\global.md)
-        - 📂 **utils**
-          - 📂 **_loading-states**
-            - 📄 [loading-states.scss](Frontend\ground\utils\_loading-states\loading-states.md)
-          - 📄 [Сервис API](Frontend\ground\utils\ApiService.md)
-          - 📄 [Парсер иконок](Frontend\ground\utils\icon-parser.md)
-          - 📄 [Сервис форматов изображений](Frontend\ground\utils\ImageFormatService.md)
-          - 📄 [Сервис иконок предметов](Frontend\ground\utils\ItemIconService.md)
-          - 📄 [Предзагрузка предметов](Frontend\ground\utils\ItemPreviewPrefetchService.md)
-          - 📄 [Кеш предметов](Frontend\ground\utils\ItemsCacheService.md)
-          - 📄 [Состояния загрузки](Frontend\ground\utils\LoadingStates.md)
-          - 📄 [SEO и Мета-данные](Frontend\ground\utils\MetaService.md)
-          - 📄 [Семантический поиск](Frontend\ground\utils\SearchTermService.md)
-          - 📄 [Сервис слагов](Frontend\ground\utils\SlugService.md)
-        - 📄 [Ядро приложения](Frontend\ground\core.md)
-      - 📂 **scripts**
-        - 📄 [analyze-item-text.js](Frontend\scripts\analyze-item-text.md)
-        - 📄 [optimize-images.js](Frontend\scripts\optimize-images.md)
-        - 📄 [verify-item-images.js](Frontend\scripts\verify-item-images.md)
-      - 📂 **tests**
-        - 📄 [item_detail.test.ts](Frontend\tests\item_detail.test.md)
-        - 📄 [items_logic.test.ts](Frontend\tests\items_logic.test.md)
-        - 📄 [json_validator.test.ts](Frontend\tests\json_validator.test.md)
-        - 📄 [profile_logic.test.ts](Frontend\tests\profile_logic.test.md)
-        - 📄 [sort_controller.test.ts](Frontend\tests\sort_controller.test.md)
-        - 📄 [utils.test.ts](Frontend\tests\utils.test.md)
-      - 📄 [_headers](Frontend\_headers.md)
-      - 📄 [database.db](..)
-      - 📄 [Dockerfile](Frontend\Dockerfile.md)
-      - 📄 [index.html](Frontend\index.md)
-      - 📄 [package.json](Frontend\package.md)
-      - 📄 [server.ts](Frontend\server.md)
-      - 📄 [tsconfig.json](Frontend\tsconfig.md)
-      - 📄 [vite.config.ts](Frontend\vite.config.md)
-      - 📄 [vitest.config.ts](Frontend\vitest.config.md)
-  - 📂 **scripts**
-    - 📄 [check_docs.py](scripts\check_docs.md)
-    - 📄 [generate_structure.py](scripts\generate_structure.md)
-    - 📄 [git_push.py](scripts\git_push.md)
-    - 📄 [rename_images.py](scripts\rename_images.md)
-    - 📄 [run_docker.py](scripts\run_docker.md)
-    - 📄 [run_tests.py](scripts\run_tests.md)
-    - 📄 [verify_indexes.py](scripts\verify_indexes.md)
-  - 📂 **tests**
-    - 📄 [conftest.py](tests\conftest.md)
-    - 📄 [requirements.txt](tests\requirements.md)
-    - 📄 [test_api.py](tests\test_api.md)
-    - 📄 [test_backend.py](tests\test_backend.md)
-    - 📄 [test_data_loader.py](tests\test_data_loader.md)
-    - 📄 [test_db_integration.py](tests\test_db_integration.md)
-    - 📄 [test_models.py](tests\test_models.md)
-    - 📄 [test_profile_factory.py](tests\test_profile_factory.md)
-    - 📄 [test_profiles_integration.py](tests\test_profiles_integration.md)
-    - 📄 [test_utils.py](tests\test_utils.md)
-  - 📄 [.env](..)
-  - 📄 [.env.example](.env.md)
-  - 📄 [alembic.ini](alembic.md)
-  - 📄 [docker-compose.server.yml](docker-compose.server.md)
-  - 📄 [docker-compose.yml](docker-compose.md)
-  - 📄 [package.json](package.md)
-  - 📄 [update.ps1](update.md)
+          - 📄 [Глобальные типы](Frontend/ground/types/global.md)
+        - 📂 **Утилиты и сервисы**
+          - 📂 **Индикаторы загрузки**
+            - 📄 [Стили загрузки](Frontend/ground/utils/_loading-states/loading-states.md)
+          - 📄 [Сервис API](Frontend/ground/utils/ApiService.md)
+          - 📄 [Парсер иконок (TS)](Frontend/ground/utils/icon-parser.md)
+          - 📄 [Сервис форматов изображений](Frontend/ground/utils/ImageFormatService.md)
+          - 📄 [Сервис иконок предметов](Frontend/ground/utils/ItemIconService.md)
+          - 📄 [Предзагрузка предметов](Frontend/ground/utils/ItemPreviewPrefetchService.md)
+          - 📄 [Кеш предметов](Frontend/ground/utils/ItemsCacheService.md)
+          - 📄 [Состояния загрузки](Frontend/ground/utils/LoadingStates.md)
+          - 📄 [SEO и Мета-данные](Frontend/ground/utils/MetaService.md)
+          - 📄 [Семантический поиск](Frontend/ground/utils/SearchTermService.md)
+          - 📄 [Сервис слагов](Frontend/ground/utils/SlugService.md)
+        - 📄 [Ядро приложения](Frontend/ground/core.md)
+      - 📂 **Скрипты автоматизации**
+        - 📄 [Скрипт анализа текстов](Frontend/scripts/analyze-item-text.md)
+        - 📄 [Скрипт оптимизации картинок](Frontend/scripts/optimize-images.md)
+        - 📄 [Скрипт проверки иконок](Frontend/scripts/verify-item-images.md)
+      - 📂 **Статические ресурсы**
+        - 📂 **Шрифты проекта**
+        - 📂 [**Галерея изображений**](Frontend/static/images/index.md)
+          - 📂 [**Ошибка 404**](Frontend/static/images/404/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Фоны игровых зон**](Frontend/static/images/area/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Постоянные ассеты**](Frontend/static/images/const/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Иконки игровых терминов**](Frontend/static/images/fonticon/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Секция героев**](Frontend/static/images/heroes/index.md)
+            - 📂 **Герой: Buzz**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Celeste**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Chana**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Dorf**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Enoch**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Fern**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Harkon**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Hob**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Kragg**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Morrow**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Nymphedora**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Pepper**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Ronan**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Sage**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Tink**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📂 **Герой: Zahir**
+              - 📂 **Формат AVIF**
+              - 📂 **Формат WebP**
+            - 📄 [convert.ps1](Frontend/static/images/heroes/convert.md)
+          - 📂 [**Библиотека предметов**](Frontend/static/images/items/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Ассеты манифеста**](Frontend/static/images/manifest/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат PNG**
+            - 📂 **Формат WebP**
+          - 📂 [**Заглушки**](Frontend/static/images/placeholder/index.md)
+          - 📂 [**Страница профиля**](Frontend/static/images/profile/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+          - 📂 [**Шаблоны страниц**](Frontend/static/images/templates/index.md)
+            - 📂 **Формат AVIF**
+            - 📂 **Формат WebP**
+        - 📂 [**Языковые пакеты**](Frontend/static/lang/index.md)
+          - 📄 [Локализация (EN)](Frontend/static/lang/en.md)
+          - 📄 [Локализация (RU)](Frontend/static/lang/ru.md)
+        - 📂 **Поиск**
+          - 📄 [Синонимы поиска (RU)](Frontend/static/search/term-aliases.ru.md)
+        - 📄 [Заголовки Cloudflare](Frontend/static/_headers.md)
+        - 📄 [Конфиг браузера](Frontend/static/browserconfig.md)
+        - 📄 [Манифест PWA](Frontend/static/manifest.md)
+        - 📄 [Инструкции роботам](Frontend/static/robots.md)
+        - 📄 [Service Worker](Frontend/static/sw.md)
+      - 📂 [**Тестирование**](Frontend/tests/index.md)
+        - 📄 [Тест: Детализация](Frontend/tests/item_detail.test.md)
+        - 📄 [Тест: Логика Вики](Frontend/tests/items_logic.test.md)
+        - 📄 [Тест: Валидация JSON](Frontend/tests/json_validator.test.md)
+        - 📄 [Тест: Логика Профиля](Frontend/tests/profile_logic.test.md)
+        - 📄 [Тест: Сортировка](Frontend/tests/sort_controller.test.md)
+        - 📄 [Тест: Утилиты](Frontend/tests/utils.test.md)
+      - 📄 [Заголовки Cloudflare](Frontend/_headers.md)
+      - 📄 [Инструкции Docker](Frontend/Dockerfile.md)
+      - 📄 [Главный HTML шаблон](Frontend/index.md)
+      - 📄 [Зависимости и скрипты](Frontend/package.md)
+      - 📄 [Runtime-сервер](Frontend/server.md)
+      - 📄 [Конфигурация TypeScript](Frontend/tsconfig.md)
+      - 📄 [Конфигурация Vite](Frontend/vite.config.md)
+      - 📄 [Конфиг Vitest](Frontend/vitest.config.md)
+  - 📂 **Скрипты автоматизации**
+    - 📄 [Линтер документации](scripts/check_docs.md)
+    - 📄 [Генератор карты](scripts/generate_structure.md)
+    - 📄 [Пуш в репозиторий](scripts/git_push.md)
+    - 📄 [Настройки Pytest](scripts/pytest.md)
+    - 📄 [Переименование ассетов](scripts/rename_images.md)
+    - 📄 [Запуск Docker](scripts/run_docker.md)
+    - 📄 [Запуск тестов](scripts/run_tests.md)
+    - 📄 [Проверка индексов](scripts/verify_indexes.md)
+  - 📂 **Тестирование**
+    - 📂 **Тестовые данные**
+      - 📄 [Сэмпл: Полный профиль](tests/fixtures/synthetic_profile_full.md)
+      - 📄 [Сэмпл: Минимальный профиль](tests/fixtures/synthetic_profile_minimal.md)
+    - 📄 [Инфраструктура тестов](tests/conftest.md)
+    - 📄 [Список зависимостей](tests/requirements.md)
+    - 📄 [Тесты API](tests/test_api.md)
+    - 📄 [Тесты Бэкенда](tests/test_backend.md)
+    - 📄 [Тесты Загрузчика](tests/test_data_loader.md)
+    - 📄 [Тесты Интеграции БД](tests/test_db_integration.md)
+    - 📄 [Тесты Моделей](tests/test_models.md)
+    - 📄 [Тесты Фабрики](tests/test_profile_factory.md)
+    - 📄 [Тесты Интеграции Профилей](tests/test_profiles_integration.md)
+    - 📄 [Тесты Утилит](tests/test_utils.md)
+  - 📄 [Конфиг Alembic](alembic.md)
+  - 📄 [Docker Compose (Prod)](docker-compose.server.md)
+  - 📄 [Docker Compose (Dev)](docker-compose.md)
+  - 📄 [Зависимости и скрипты](package.md)
+  - 📄 [Настройки Pytest](pytest.md)
+  - 📄 [Описание проекта](readme.md)
+  - 📄 [Скрипт очистки Windows](update.md)
 
 ---
 *Примечание: Технические файлы и ассеты скрыты для чистоты карты.*

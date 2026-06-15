@@ -1,24 +1,20 @@
-# [Грид ресурсов игрока (_stats-player-grid.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/header/_stats-player-grid.scss)
+# [Сетка ресурсов игрока (_stats-player-grid.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/header/_stats-player-grid.scss)
 
 ## Назначение
-Стили блока ресурсов/валют игрока `.stats-grid` в шапке: иконки валют и числовые значения с адаптивными размерами через `clamp()`.
-
-## Задаваемые стили
-### `.profile-header .stats-grid`
-*   `display:flex; flex-wrap:wrap; justify-content:center; align-items:center; width:fit-content; height:fit-content; max-width:100%; flex:0 1 auto`.
-*   Адаптивные отступы: `gap: clamp(10px,2vmin,20px); padding: clamp(8px,1.5vmin,15px)`.
-*   `border-radius:15px; background: rgba(0,0,0,0.5); transition: all 0.3s cubic-bezier(...)`.
-*   `:hover`: `box-shadow: 0 0 16px rgba(var(--azure-raw),0.8); transform: translateY(3px)`.
-### `.stat-player-card`
-*   `display:flex; align-items:center; padding:0 5px`.
-### Иконки валют (`picture/img`)
-*   `width/height: clamp(20px,4vmin,32px); margin-right:6px; object-fit:contain` (img внутри picture — на 100%).
-### `.stat-value`
-*   `font-size: clamp(14px,3vmin,20px); font-weight:bold; color:#fff; white-space:nowrap`.
-
-## AI-контекст
-*   Все размеры через `clamp()` с единицей `vmin` — намеренно, чтобы и иконки, и цифры масштабировались плавно без гигантизма на больших мониторах.
+Главный макет для панели базовых ресурсов (Золото, Гемы, XP, Уровень).
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+## Характеристики
+*   **Макет**: Flex-блок с горизонтальным выравниванием и центрированием.
+*   **Размеры**: `width: fit-content` — блок занимает ровно столько места, сколько нужно числам.
+*   **Адаптивность**: Использует `clamp()` для зазоров (`gap`) и внутренних отступов (`padding`), что позволяет панели органично смотреться как на 4K мониторах, так и на старых смартфонах.
+
+---
+
+## Связи (Dependencies)
+*   Является контейнером для элементов [**_stat-player-card.scss**](_stat-player-card.md).
+
+---
+
+> 📌 **Подпись документации:** атомарный стиль профиля · 2026-06-15

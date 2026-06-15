@@ -1,16 +1,8 @@
-# [Barrel модулей главной (index.ts)](../../../../../../Frontend/Web/ground/branches/main/_main/index.ts)
+# [Модуль главной страницы (index.ts)](../../../../../../Frontend/Web/ground/branches/main/_main/index.ts)
 
 ## Назначение
-Индексный файл ветки главной: реэкспортирует рендереры, менеджеры и обработчик загрузки.
-
-## Связи (Dependencies)
-*   Рендереры: [ContainerRenderer](container/container.md), [TitleRenderer](title/title.md), [UploadZoneRenderer](upload-zone/upload-zone.md), [ErrorRenderer](error/error.md).
-*   Менеджеры: реэкспорт из [managers/index](managers/index.md) (`FormManager, DraftManager, MainManager, ValidationManager, SubmitManager`).
-*   [UploadHandler](upload-zone/upload.md).
-
-## AI-контекст
-*   Используется [MainBranch](../MainBranch.md). Единая точка импорта частей главной страницы.
+Точка входа для всех компонентов и менеджеров главной страницы. Экспортирует рендереры контейнера, заголовка, зоны загрузки и главный менеджер.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+> 📌 **Подпись документации:** атомарная точка входа модуля · 2026-06-15

@@ -1,15 +1,15 @@
-# [Сетка героев профиля — агрегатор (_main-heroes-grid.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/main-heroes-grid/_main-heroes-grid.scss)
+# [Агрегатор сетки героев (_main-heroes-grid.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/main-heroes-grid/_main-heroes-grid.scss)
 
 ## Назначение
-Агрегатор модульных стилей большой сетки героев профиля. Собственных правил нет — подключает части через `@use`.
+Главная точка входа для стилей секции персонажей. Объединяет все атомарные части большой карточки героя.
 
-## Подключения
-*   `@use "grid"`, `"card"`, `"image"`, `"header-row"`, `"name"`, `"level-rating"`, `"info"`.
-*   Соответствующие доки: [grid](_grid.md), [card](_card.md), [image](_image.md), [header-row](_header-row.md), [name](_name.md), [level-rating](_level-rating.md), [info](_info.md).
-
-## AI-контекст
-*   Barrel-файл стилей сетки героев. Новые части подключайте здесь, сохраняя порядок каскада.
+## Связи (Dependencies)
+Использует `@use` для подключения:
+*   `_grid.scss`
+*   `_card.scss`
+*   `_image.scss`
+*   ... и других.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+> 📌 **Подпись документации:** атомарная точка входа стилей профиля · 2026-06-15

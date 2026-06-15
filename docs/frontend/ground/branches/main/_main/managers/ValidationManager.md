@@ -1,30 +1,17 @@
-# [Frontend/Web/ground/branches/main/_main/managers/ValidationManager.ts](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/ValidationManager.ts)
+# [Менеджер валидации (ValidationManager.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/managers/ValidationManager.ts)
 
 ## Назначение
-Этот статический менеджер является точкой входа для всей логики валидации на главной странице. Он связывает процесс проверки JSON с процессом отображения ошибок.
-
-## Связи (Dependencies)
-*   `[JsonValidator.ts](validation/JsonValidator.md)`: Используется для выполнения фактической проверки синтаксиса JSON.
-*   `[ErrorDisplayManager.ts](validation/ErrorDisplayManager.md)` (косвенно через импорт из `./validation`): Используется для показа ошибок пользователю.
-
-## Подробное описание методов
-
-### `validateAndShowError(jsonText, errorElement, tFunction)` (static)
-Основной метод, который вызывается перед попыткой отправки данных на сервер.
-1.  **Проверка на пустоту**: Если текста нет, показывает локализованную ошибку "Поле пустое".
-2.  **Валидация**: Вызывает `[JsonValidator.md](validation/JsonValidator.md)`.
-3.  **Обработка результата**:
-    *   Если JSON невалиден: извлекает данные об ошибке (строка, колонка) и вызывает `ErrorDisplayManager.showValidationError` для отрисовки кода с подсветкой ошибки.
-    *   Если JSON валиден: скрывает все текущие сообщения об ошибках.
-4.  **Результат**: Возвращает `true`, если данные готовы к отправке, и `false` в противном случае.
-
-### `showError(element, msg)` (static)
-Простой прокси-метод для отображения произвольного текстового сообщения об ошибке через `ErrorDisplayManager`.
-
-## AI-контекст
-*   **Логика управления**: Это "фильтр", через который проходят все данные пользователя. Если вы хотите добавить дополнительную проверку (например, проверку на максимальный размер строки), её стоит добавить в метод `validateAndShowError`.
-*   **Интерфейс**: В качестве параметров принимает `errorElement` и `tFunction`, что делает его независимым от конкретного экземпляра Бранча.
+Статический сервис-прослойка между логикой проверки данных и интерфейсом отображения ошибок.
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+## Функционал
+*   **`validateAndShowError`**: Выполняет полную цепочку проверок. Сначала проверяет текст на пустоту, затем вызывает [**JsonValidator**](validation/JsonValidator.md). При обнаружении ошибки передает управление в [**ErrorDisplayManager**](validation/ErrorDisplayManager.md).
+
+## Связи (Dependencies)
+*   **Логика**: [JsonValidator.ts](validation/JsonValidator.md).
+*   **UI**: [ErrorDisplayManager.ts](validation/ErrorDisplayManager.md).
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

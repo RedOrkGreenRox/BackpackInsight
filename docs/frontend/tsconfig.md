@@ -1,17 +1,30 @@
 # [Конфигурация TypeScript (tsconfig.json)](../../Frontend/Web/tsconfig.json)
 
 ## Назначение
-Настройки компилятора TS: строгий режим, bundler-резолюция, алиасы путей, набор проверок.
-
-## Ключевое
-*   `target/module: ESNext`, `moduleResolution: bundler`, `noEmit: true`.
-*   **Максимальная строгость**: `strict`, `noImplicitReturns`, `noUnusedLocals/Parameters`, `noFallthroughCasesInSwitch`, `noUncheckedIndexedAccess`, `noPropertyAccessFromIndexSignature`.
-*   `paths`: `@roots/* @branches/* @utils/*` (зеркалят алиасы [vite.config](vite.config.md)).
-*   `include`: `ground/**`, `functions/**`.
-
-## AI-контекст
-*   `noUncheckedIndexedAccess` — самая «злая» настройка: обращение по индексу даёт `T | undefined`. Алиасы должны совпадать с vite.config, иначе сборка и типчек разойдутся.
+Файл `tsconfig.json` задает правила компиляции TypeScript-кода и обеспечивает строгую типизацию во всем проекте.
 
 ---
 
-> 📌 **Подпись документации:** создано при добивании полного покрытия (все файлы, включая конфиги/данные/PWA).
+## Ключевые настройки
+
+### 1. Режим компиляции
+*   **`target: ESNext`**: Код компилируется в современный стандарт JavaScript, поддерживаемый актуальными браузерами.
+*   **`moduleResolution: bundler`**: Оптимизация поиска модулей для Vite.
+
+### 2. Максимальная строгость (Strict Mode)
+Проект использует экстремальные настройки безопасности кода:
+*   **`noUncheckedIndexedAccess`**: Обязательная проверка на `undefined` при доступе к элементам массивов.
+*   **`noImplicitOverride`**: Требует явного указания ключевого слова `override` при переопределении методов классов «бранчей».
+*   **`strict: true`**: Включает все базовые проверки типов.
+
+### 3. Глобальные типы
+В область видимости включены типы из `ground/types/global.d.ts` и облачные функции `functions/**/*.ts`.
+
+---
+
+## AI-контекст
+*   Наличие строгой типизации и запрета на неявные возвраты (`noImplicitReturns`) гарантирует высокую стабильность Vanilla TS движка.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

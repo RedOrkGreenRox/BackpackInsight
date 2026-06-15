@@ -6,7 +6,7 @@ from sqlmodel import select
 
 # Imports are handled by conftest.py sys.path setup
 from Backend.PlayerData.models.Profile import Profile
-from Backend.PlayerData.data import ITEMS
+from Backend.PlayerData.data import get_items
 
 # Define path to profiles relative to this test file
 # tests/ -> root -> Backend -> PlayerData -> Profiles
@@ -29,7 +29,7 @@ def test_real_profile_ingestion(session, profile_path):
     """
     print(f"\nTesting Profile: {profile_path.name}")
     
-    with open(profile_path, "r", encoding="utf-8") as f:
+    with open(profile_path, "r", encoding="utf-8-sig") as f:
         json_data = json.load(f)
     
     # 1. Attempt to parse and save
@@ -56,11 +56,12 @@ def test_real_profile_ingestion(session, profile_path):
     # Check Items
     # Note: item.name is a proxy to definition.name. If definition is missing, it might be the ID.
     unknown_items = []
+    items_dict = get_items()
     for i in profile.items:
         # If the item name matches its ID, it usually means the definition wasn't found 
         # and the factory created a dummy definition with name=id.
         # Unless the item's real name IS its ID (rare).
-        if i.name == i.definition_id and i.name not in ITEMS:
+        if i.name == i.definition_id and i.definition_id not in items_dict:
             unknown_items.append(i.name)
             
     if unknown_items:

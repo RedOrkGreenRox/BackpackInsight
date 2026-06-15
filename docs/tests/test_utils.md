@@ -1,18 +1,12 @@
-# [Тесты утилит бэкенда (test_utils.py)](../../tests/test_utils.py)
+# [Тесты утилит (test_utils.py)](../../tests/test_utils.py)
 
 ## Назначение
-Тесты хелперов [utils.py](../backend/playerdata/utils.md): `create_item_definition_safe`, `safe_get_nested`.
+Модульные тесты для вспомогательных функций бэкенда.
 
-## Покрытие
-*   Валидация пустых id/name; безопасный обход вложенных словарей.
-
-## AI-контекст
-*   Рабочий тест.
-## Покрываемые тест-классы и кейсы
-*   `TestSafeGetNested`: `test_simple/nested/missing_returns_default/partial_path_missing/non_dict_in_middle/empty_keys_returns_data`.
-*   `TestCreateItemDefinitionSafe`: `test_basic/default_rarity/strips_whitespace/rejects_empty_id/rejects_whitespace_id/rejects_empty_name`.
-
+## Что тестируется
+*   **`safe_get_nested`**: Проверка безопасного извлечения данных из словарей любой вложенности, включая граничные случаи (пустые ключи, отсутствие цепочки, не-словари в середине пути).
+*   **`create_item_definition_safe`**: Проверка валидации при ручном создании определений предметов: обрезка пробелов, запрет пустых ID и имен.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

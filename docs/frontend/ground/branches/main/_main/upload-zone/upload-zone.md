@@ -1,18 +1,23 @@
-# [Рендерер зоны загрузки (upload-zone.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload-zone.ts)
+# [Стили зоны загрузки (upload-zone.scss)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload-zone.scss)
 
 ## Назначение
-`UploadZoneRenderer` генерирует HTML формы загрузки: скрытый `input[type=file]`, `textarea#jsonInput`, подсказку и кнопку отправки.
-
-## Связи (Dependencies)
-*   [Локализация (i18n)](../../../../localization/i18n.md): все подписи через переданную `tFunction`.
-*   Поведение навешивает [UploadHandler (upload.ts)](upload.md); стили — [upload-area](upload-area.md), [upload-hint](upload-hint.md), [button-view-profile](button-view-profile.md).
-
-## Логика
-*   `static render(tFunction): string` — форма `#uploadForm` с `#uploadArea`, `#fileInput` (`accept=.json`), `#jsonInput`, `#uploadHint` (3 строки, средняя `.pc-only`) и `<button id="submitBtn">`.
-
-## AI-контекст
-*   Контракт по id: `#uploadForm/#uploadArea/#fileInput/#jsonInput/#uploadHint/#submitBtn` — по ним работают обработчики. Не меняйте id без синхронной правки `upload.ts`/handlers.
+Этот файл является связующим звеном для всех визуальных компонентов загрузчика профилей. Он обеспечивает общую видимость текста и правильную иерархию слоев.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине; `.ts`+`.scss` одного компонента объединены).
+## Ключевые правила
+
+### 1. Глобальная видимость
+*   Принудительно устанавливает цвет текста из переменной `--text-default-color` для всех вложенных элементов.
+*   Добавляет глубокие тени `text-shadow` (0 2px 5px), чтобы инструкции по загрузке были четко видны поверх любого динамического фона или эффектов параллакса.
+
+### 2. Структурные связи
+Файл через `@use` подключает:
+*   [**upload-area.scss**](upload-area.md) — стили рамки и текстового поля.
+*   [**upload-hint.scss**](upload-hint.md) — стили фоновой подсказки.
+*   [**button-view-profile.scss**](button-view-profile.md) — стили главной кнопки.
+*   [**zone-styles**](zone-styles/index.md) — системные классы (скрытые инпуты).
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

@@ -1,17 +1,30 @@
-# [Инициализация БД (init_db.sql)](../../../Backend/DB/init_db.sql)
+# [SQL Инициализация (init_db.sql)](../../../Backend/DB/init_db.sql)
 
 ## Назначение
-SQL-скрипт первичной инициализации PostgreSQL. Монтируется в контейнер БД (`docker-entrypoint-initdb.d`) и выполняется при первом создании БД.
+Файл `init_db.sql` содержит SQL-команды, которые должны быть выполнены в базе данных PostgreSQL **до** того, как приложение начнет с ней работать.
 
 ## Содержимое
-*   `CREATE EXTENSION IF NOT EXISTS pg_trgm;` — включает расширение триграммного поиска, нужное для GIN-индексов из [миграции 0002](migrations/versions/0002_profile_indexes_and_timestamps.md).
+В текущей версии файл содержит одну критически важную команду:
+```sql
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+```
 
-## Связи (Dependencies)
-*   Подключается в [docker-compose.yml](../../docker-compose.md) и [docker-compose.server.yml](../../docker-compose.server.md) как volume в `/docker-entrypoint-initdb.d/`.
+### Зачем это нужно?
+*   **`pg_trgm`** — это расширение PostgreSQL, которое позволяет использовать триграммный поиск. 
+*   **Текстовый поиск**: Именно благодаря этому расширению в BackpackInsight работает быстрый поиск по названиям предметов с поддержкой опечаток и неполных вхождений.
+
+## Механизм работы
+Файл используется в [docker-compose.yml](../../docker-compose.md):
+```yaml
+volumes:
+  - ./Backend/DB/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+```
+При первом создании контейнера PostgreSQL автоматически выполняет все скрипты из папки `/docker-entrypoint-initdb.d/`.
 
 ## AI-контекст
-*   Выполняется только при инициализации пустого тома БД. Само расширение также пытается создать миграция 0002 (`CREATE EXTENSION IF NOT EXISTS`) — дублирование безопасно (идемпотентно).
+*   Это расширение необходимо для создания GIN-индексов, которые описаны в миграции [0002_profile_indexes_and_timestamps.py](migrations/versions/0002_profile_indexes_and_timestamps.md).
+*   При переходе на SQLite данный файл игнорируется, так как SQLite не поддерживает расширения PostgreSQL.
 
 ---
 
-> 📌 **Подпись документации:** создано при добивании полного покрытия (все файлы, включая конфиги/данные/PWA).
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

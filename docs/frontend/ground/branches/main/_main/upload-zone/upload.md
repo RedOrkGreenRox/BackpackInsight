@@ -1,20 +1,29 @@
-# [Оркестратор загрузки (upload.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload.ts)
+# [Оркестратор загрузки (UploadHandler.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload.ts)
 
 ## Назначение
-Класс `UploadHandler` связывает зону загрузки с тремя обработчиками ввода (DnD/буфер/файл) и UI, единым колбэком прокидывая полученный текст наверх.
-
-## Связи (Dependencies)
-*   [Обработчики (handlers)](handlers/index.md): [DragDropHandler](handlers/DragDropHandler.md), [FileHandler](handlers/FileHandler.md), [ClipboardHandler](handlers/ClipboardHandler.md), [UIHandler](handlers/UIHandler.md).
-*   Разметку даёт [UploadZoneRenderer](upload-zone.md).
-
-## Подробное описание
-*   Конструктор `(container, onHideError, onContentChange?)` → `init()`.
-*   `init()`: находит `#uploadArea/#jsonInput/#fileInput/#uploadHint`; создаёт `UIHandler`, `DragDropHandler` (читает файл через `FileHandler` → `uiHandler.setValue`), `ClipboardHandler`; вешает `change` на `#fileInput` (читает первый файл, сбрасывает `value`), сохраняя ручной деструктор `_fileInputCleanup`.
-*   `destroy()`: снимает file-listener и вызывает `destroy()` у всех под-обработчиков, обнуляя ссылки.
-
-## AI-контекст
-*   Все источники ввода сходятся в один колбэк `setValue` → единое состояние textarea. `change` у `#fileInput` обрабатывается отдельно (не входит в handlers), поэтому его деструктор хранится вручную — не забывайте про симметрию init/destroy.
+Класс `UploadHandler` — это менеджер среднего уровня, который объединяет все специализированные обработчики ввода (мышь, клавиатура, файлы) в единый механизм.
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине; `.ts`+`.scss` одного компонента объединены).
+## Ключевая логика
+
+### 1. Композиция обработчиков
+При инициализации создает экземпляры:
+*   [**UIHandler**](handlers/UIHandler.md) — для управления видимостью элементов.
+*   [**DragDropHandler**](handlers/DragDropHandler.md) — для перетаскивания.
+*   [**ClipboardHandler**](handlers/ClipboardHandler.md) — для работы с буфером обмена.
+
+### 2. Централизация данных
+Любой из дочерних обработчиков, получив JSON-данные, передает их в `UIHandler.setValue()`. Это гарантирует, что визуальный интерфейс всегда синхронизирован с актуальным состоянием введенных данных.
+
+### 3. Ручной выбор файла
+Содержит логику для события `change` скрытого инпута выбора файла. После чтения файла инпут сбрасывается (`value = ''`), чтобы пользователь мог повторно выбрать тот же файл.
+
+---
+
+## AI-контекст
+*   Метод `destroy` выполняет каскадную очистку: вызывает деструкторы всех вложенных классов и снимает слушатель события `change` с инпута.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

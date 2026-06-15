@@ -1,24 +1,24 @@
 # [Тесты API (test_api.py)](../../tests/test_api.py)
 
 ## Назначение
-Интеграционные тесты FastAPI через `TestClient`: эндпоинты `/api/items`, `/api/profile`, обработка ошибок/лимитов.
+Интеграционные тесты для проверки публичных и защищенных эндпоинтов FastAPI сервера.
 
-## Связи (Dependencies)
-*   [api.py](../backend/playerdata/api.md); фикстуры из [conftest](conftest.md).
-
-## Покрытие
-*   Получение списка предметов; обработка корректного/битого профиля; коды ответов (400/413 и т.п.).
-
-## AI-контекст
-*   Рабочий тест. Использует in-memory БД из conftest; rate-limit отключён без `API_SECRET`.
-## Покрываемые тест-классы и кейсы
-*   `TestPublicRoutes`: `test_root`.
-*   `TestItemsEndpoint`: `test_returns_list`, `test_has_cache_header`, `test_item_structure`.
-*   `TestProfileEndpoint`: `test_accepts_minimal/full`, `test_rejects_empty_body/no_uid/too_large_payload`.
-*   `TestSecretAuth`: `test_no_secret_required_when_not_configured`, `test_constant_time_compare`.
-*   `TestStaticSync`: `test_sync_runs_idempotently`.
-
+## Проверяемые сценарии
+1.  **Доступность**: Проверка корневого пути `/`.
+2.  **Справочник предметов**: Проверка `GET /api/items` (структура ответа, наличие заголовков кэширования).
+3.  **Загрузка профиля**:
+    *   Успешный парсинг минимального и полного лога.
+    *   Обработка ошибок при некорректном JSON.
+    *   **Защита**: Проверка лимита на размер запроса (413 Payload Too Large).
+4.  **Безопасность**:
+    *   Проверка работы секрета `X-Internal-Secret`.
+    *   Защита от timing-атак (использование `hmac.compare_digest`).
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+## AI-контекст
+*   Тесты используют `monkeypatch` для имитации различных настроек секрета и лимитов в реальном времени.
+
+---
+
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15

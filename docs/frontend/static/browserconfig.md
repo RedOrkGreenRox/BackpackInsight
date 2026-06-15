@@ -1,18 +1,12 @@
-# [Конфигурация плиток Windows (browserconfig.xml)](../../../Frontend/Web/static/browserconfig.xml)
+# [IE Конфигурация (browserconfig.xml)](../../../Frontend/Web/static/browserconfig.xml)
 
 ## Назначение
-Настройка плиток (tiles) для закреплённого сайта в Windows/IE/Edge: иконки разных размеров и цвет плитки.
+Служебный файл для настройки отображения сайта в плиточном интерфейсе (Live Tiles) браузеров Internet Explorer 11 и ранних версий Microsoft Edge.
 
-## Содержимое
-*   `square70x70logo`, `square150x150logo`, `square310x310logo` — пути к png-иконкам.
-*   `<TileColor>#121212</TileColor>`.
-
-## Связи (Dependencies)
-*   Подключается через `<meta name=msapplication-config>` в [index.html](../index.html.md).
-
-## AI-контекст
-*   Легаси-формат для Microsoft. Цвет плитки согласован с `theme/background` из [manifest.json](manifest.md).
+## Описание
+*   Определяет иконки разных размеров для "закрепления" сайта на панели задач или в меню "Пуск".
+*   Задает цвет плитки (`TileColor: #121212`), соответствующий темной теме BackpackInsight.
 
 ---
 
-> 📌 **Подпись документации:** создано при добивании полного покрытия (все файлы, включая конфиги/данные/PWA).
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15
