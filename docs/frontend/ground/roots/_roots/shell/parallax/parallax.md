@@ -4,7 +4,7 @@
 Реализует визуальный эффект параллакса на заднем фоне. Это придает приложению глубину и динамику, соответствующую стилистике **Backpack Brawl**.
 
 ## Связи (Dependencies)
-*   `[_background.scss](../../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/_background.scss)`: Содержит стили слоев фона.
+*   [_background.scss](_background.md): Содержит стили слоев фона.
 *   `[Shell.ts](../../../Shell.md)`: Инициализируется один раз внутри оболочки.
 
 ## Ключевая логика

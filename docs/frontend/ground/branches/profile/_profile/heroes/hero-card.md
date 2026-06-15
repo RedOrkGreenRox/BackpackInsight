@@ -6,6 +6,7 @@
 ## Связи (Dependencies)
 *   **Типы**: Использует интерфейс [Герой](../utils/profile-types.md).
 *   **Управление**: Генерирует кнопки `.skin-btn`, события на которых слушает [Оркестратор профиля](../managers/ProfileManager.md).
+*   **Изображения**: Портреты/скины берёт из [папки героев (/images/heroes/)](../../../../../static/images/heroes/index.md); смену скина оркеструет [ProfileSkinsManager](../managers/ProfileSkinsManager.md).
 *   **Стили**: Опирается на анимации из `AOS` (атрибут `data-aos="fade-up"`).
 
 ---

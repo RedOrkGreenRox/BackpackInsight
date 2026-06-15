@@ -6,10 +6,10 @@
 ## Связи (Dependencies)
 Импортирует всю архитектуру стилей профиля:
 *   [Глобальные переменные](../../roots/_roots/_vars.md).
-*   [Стили шапки](./_profile/header/_header.md).
-*   [Сетку героев](./_profile/main-heroes-grid/_grid.md).
+*   [Стили шапки](_profile/header/_header.md).
+*   [Сетку героев](_profile/main-heroes-grid/_grid.md).
 *   [Сетку предметов](../../roots/_roots/items/_items-grid.md).
-*   [Кнопки сортировки](./_profile/buttons-sort/_buttons-sort.md).
+*   [Кнопки сортировки](_profile/buttons-sort/_buttons-sort.md).
 
 ## Ключевая логика
 Файл обеспечивает изоляцию стилей страницы Профиля, предотвращая их утечку на Главную страницу. Все селекторы здесь начинаются с контейнера `.profile-header` или `.section`.

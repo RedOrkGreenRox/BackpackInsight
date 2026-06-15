@@ -4,7 +4,7 @@
 Дизайн анимаций ожидания: спиннеров и мерцающих скелетонов.
 
 ## Связи (Dependencies)
-*   [Состояния загрузки (TS)](../../../utils/LoadingStates.md): Этот класс переключает классы, описанные здесь.
+*   [Состояния загрузки (TS)](../LoadingStates.md): Этот класс переключает классы, описанные здесь.
 
 ## Ключевая логика
 *   `.skeleton`: Реализует эффект "бегущей волны" через градиентный фон и анимацию `shimmer`.
@@ -12,6 +12,13 @@
 
 ## AI-контекст
 Все новые компоненты, поддерживающие загрузку, должны использовать классы из этого файла для консистентности.
+## Группы селекторов
+*   **Скелетоны**: `.skeleton-card/-image/-content/-title/-text/-meta/-badge`, `.skeleton-profile/-header/-avatar/-info/-name/-level/-stats/-stat`.
+*   **Прогресс**: `.progress-container/-bar/-fill/-label/-text`.
+*   **Спиннер**: `.spinner`, `.spinner-circle`, `.spinner-small/-medium/-large`.
+*   **Прочее**: `.page-loading`, `.loading-text`; `.low-res-mode &` — упрощение анимаций.
+*   Генерируются методами [LoadingStates.ts](../LoadingStates.md).
+
 
 ---
 

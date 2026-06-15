@@ -1,11 +1,19 @@
 # [Адаптивность кнопки (button-responsive.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/button-styles/button-responsive.scss)
 
 ## Назначение
-Меняет размер и поведение кнопки выбора файла на маленьких экранах.
+Адаптивные переопределения размеров кнопки `.button-view-profile` через медиа-запросы. Базовые стили — в [button-base](button-base.md).
 
-## Связи (Dependencies)
-*   [Переменные дизайна](../../../../../roots/_roots/_vars.md): Использует медиа-запросы.
+## Задаваемые стили
+
+### `@media (max-width: 768px)`
+*   `.button-view-profile`: `padding:18px; font-size:1.2em; gap:12px`.
+
+### `@media (max-width: 480px)`
+*   `.button-view-profile`: `padding:15px; font-size:1em; gap:10px; letter-spacing:0.5px`.
+
+## AI-контекст
+*   Файл содержит только `@media`-переопределения. Базовый внешний вид и состояния не дублируются — лежат в соседних атомах.
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите сетевой документации (добавлен детальный разбор стилей).

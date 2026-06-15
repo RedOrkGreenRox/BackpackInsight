@@ -5,7 +5,7 @@
 
 ## Связи (Dependencies)
 *   `[ProfileStateManager.ts](../managers/ProfileStateManager.md)`: Реэкспортирует тип `SavedState` для управления сохраненным состоянием UI.
-*   `[global.d.ts](../../../../../types/global.md)`: Является основой для этих интерфейсов.
+*   `[global.d.ts](../../../../types/global.md)`: Является основой для этих интерфейсов.
 
 ---
 

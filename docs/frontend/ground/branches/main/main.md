@@ -1,18 +1,18 @@
 # [Стили главной страницы (main.scss)](../../../../../Frontend/Web/ground/branches/main/main.scss)
 
 ## Назначение
-Точка сборки всех стилей главной страницы.
+Корневой агрегатор стилей главной страницы (загрузка/вставка профиля). Собирает все модули главной через `@use`.
 
 ## Связи (Dependencies)
-Импортирует компоненты на 1 уровень ниже:
-*   [Стили зоны загрузки](./_main/upload-zone.md).
-*   [Стили заголовка](./_main/title/styles/index.md).
-*   [Стили контейнера](./_main/container/styles/index.md).
-*   [Локальные анимации](./_main/animations/animations.md).
+*   [Стили зоны загрузки](_main/upload-zone.md) (и её под-стили: [upload-area](_main/upload-zone/upload-area.md), [upload-hint](_main/upload-zone/upload-hint.md), [button-view-profile](_main/upload-zone/button-view-profile.md)).
+*   [Стили заголовка](_main/title/styles/index.md), [стили контейнера](_main/container/styles/index.md), [локальные анимации](_main/animations/animations.md).
 
 ## Ключевая логика
-Использует `@use` для объединения всех модулей главной страницы в единый бандл.
+*   Через `@use` объединяет модули главной в единый бандл (CSS не сплитится — см. [vite.config](../../../vite.config.md), `cssCodeSplit:false`).
+
+## AI-контекст
+*   Barrel-файл: добавляя новый блок главной, подключайте его здесь и держите атомарные стили в `_main/*`. HTML-структуру даёт [MainBranch](MainBranch.md).
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите (полнота, точность, ссылки).

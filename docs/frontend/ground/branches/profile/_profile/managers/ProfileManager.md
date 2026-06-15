@@ -5,10 +5,10 @@
 
 ## Связи (Dependencies)
 *   **Менеджеры данных и состояния**:
-    *   `[ProfileDataManager.ts](./ProfileDataManager.md)`: Подготовка данных и сортировка.
-    *   `[ProfileStateManager.ts](./ProfileStateManager.md)`: Сохранение позиции скролла и фильтров.
-    *   `[ProfileSkinsManager.ts](./ProfileSkinsManager.md)`: Логика косметики героев.
-    *   `[screenshot-manager.ts](./screenshot-manager.md)`: Функционал сохранения карточки профиля.
+    *   `[ProfileDataManager.ts](ProfileDataManager.md)`: Подготовка данных и сортировка.
+    *   `[ProfileStateManager.ts](ProfileStateManager.md)`: Сохранение позиции скролла и фильтров.
+    *   `[ProfileSkinsManager.ts](ProfileSkinsManager.md)`: Логика косметики героев.
+    *   `[screenshot-manager.ts](screenshot-manager.md)`: Функционал сохранения карточки профиля.
 *   **UI Рендереры**:
     *   `[header.ts](../header/header.md)`: Отрисовка шапки профиля.
     *   `[heroes-section.ts](../heroes/heroes-section.md)`: Отрисовка сетки героев.
@@ -16,7 +16,7 @@
     *   `[item-card.ts](../items/item-card.md)`: Рендеринг индивидуальных карточек предметов.
 *   **Системные утилиты**:
     *   `[SortController.ts](../sort/SortController.md)`: Контроллер сортировки героев.
-    *   `[ImageFormatService.ts](../../../../../utils/ImageFormatService.md)`: Обработка ошибок загрузки картинок.
+    *   `[ImageFormatService.ts](../../../../utils/ImageFormatService.md)`: Обработка ошибок загрузки картинок.
     *   `[i18n.ts](../../../../localization/i18n.md)`: Локализация текстов кнопок.
 
 ---
@@ -38,7 +38,7 @@
 *   Уничтожает дочерние менеджеры (`screenshotManager`, `sortController`).
 
 ### Методы `attach...` (Регистрация событий)
-*   `attachImageErrorHandler()`: Глобальный перехват ошибок загрузки изображений внутри контейнера. При сбое подставляет заглушку из `[ImageFormatService.md](../../../../../utils/ImageFormatService.md)`.
+*   `attachImageErrorHandler()`: Глобальный перехват ошибок загрузки изображений внутри контейнера. При сбое подставляет заглушку из `[ImageFormatService.md](../../../../utils/ImageFormatService.md)`.
 *   `attachItemSort()`: Слушает клик по кнопке сортировки предметов. Меняет режим ('rarity' <-> 'level'), пересортировывает массив через `ProfileDataManager` и обновляет DOM грида.
 *   `attachSkins()`: Находит карточки героев с кнопками смены скина. Настраивает циклическое переключение и синхронизирует выбранный скин с маленькой иконкой в шапке (`updateHeaderSkin`).
 *   `attachItemLinks()`: Подготавливает ссылки на предметы, сохраняя состояние страницы перед переходом на детальный просмотр.

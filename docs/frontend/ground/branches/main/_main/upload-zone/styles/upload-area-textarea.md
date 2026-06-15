@@ -1,11 +1,19 @@
 # [Текстовое поле загрузки (upload-area-textarea.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/styles/upload-area-textarea.scss)
 
 ## Назначение
-Стили для скрытого или явного текстового поля `textarea`, куда попадает JSON профиля.
+Стили `textarea` внутри `.upload-area` — прозрачного поля на весь размер зоны для ручной вставки JSON.
 
-## Ключевая логика
-Делает поле прозрачным или стилизует его под редактор кода. Отключает возможность изменения размера пользователем (`resize: none`).
+## Задаваемые стили
+
+### `.upload-area textarea`
+*   Растяжка на всю зону: `position:absolute; top:0; left:0; width:100%; height:100%`.
+*   Прозрачность: `background: transparent; border:none; outline:none`.
+*   Текст: `color: var(--text-default-color)`; `font-family:'Courier New', monospace`; `font-size:18px; line-height:1.5`; `text-shadow:0 1px 2px rgba(0,0,0,0.8)`.
+*   `padding:25px`; `resize:none`; `z-index:5` (над подсказкой `.upload-hint`).
+
+## AI-контекст
+*   Моноширинный шрифт выбран намеренно — JSON удобнее читать/редактировать. `z-index:5` держит поле выше подсказки.
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите сетевой документации (добавлен детальный разбор стилей).

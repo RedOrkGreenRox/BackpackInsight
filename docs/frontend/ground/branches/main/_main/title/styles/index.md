@@ -1,15 +1,15 @@
-# [Стили заголовка главной (index.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/container/styles/index.scss)
+# [Стили заголовка главной (index.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/title/styles/index.scss)
 
 ## Назначение
-Сборка стилей для главного заголовка "Backpack Insight".
+Файл-агрегатор стилей заголовка главной страницы. Подключает части через `@use`, собственных правил не содержит.
 
-## Связи (Dependencies)
-*   [Базовая типографика](../../../../../../../../Frontend/Web/ground/branches/main/_main/title/styles/title-base.scss).
-*   [Адаптивность заголовка](../../../../../../../../Frontend/Web/ground/branches/main/_main/title/styles/title-responsive.scss).
+## Задаваемые стили / подключения
+*   `@use "title-base"` — базовая типографика/раскладка ([title-base](title-base.md)).
+*   `@use "title-responsive"` — адаптивные переопределения размеров ([title-responsive](title-responsive.md)).
 
-## Ключевая логика
-Реализует сложный многослойный текст с градиентами и тенями, имитирующий логотип игры **Backpack Brawl**.
+## AI-контекст
+*   Это barrel-файл стилей заголовка. (Ранее H1-ссылка ошибочно указывала на `container/styles/index.scss` — исправлено на корректный `title/styles/index.scss`.)
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите сетевой документации (добавлен детальный разбор стилей).

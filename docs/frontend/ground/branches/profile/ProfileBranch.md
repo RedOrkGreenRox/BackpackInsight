@@ -1,12 +1,23 @@
 # [Страница профиля (ProfileBranch.ts)](../../../../../Frontend/Web/ground/branches/profile/ProfileBranch.ts)
 
 ## Назначение
-Главный класс страницы профиля игрока.
+Бранч страницы профиля игрока. Наследуется от [Branch](../../roots/Branch.md): резолвит данные профиля, сортирует предметы, рендерит скелетон и передаёт управление оркестратору.
 
 ## Связи (Dependencies)
-*   **Стили**: [Корневые стили профиля](./profile.md).
-*   **Управление**: Инициализирует [Оркестратор профиля](./_profile/managers/ProfileManager.md).
+*   [Базовый Бранч](../../roots/Branch.md) (`extends Branch`).
+*   [Менеджер данных профиля (ProfileDataManager)](_profile/managers/ProfileDataManager.md): `getMeta`, `resolve`, `restoreSavedState`, `sortItems`, `renderSkeleton`.
+*   [Оркестратор профиля (ProfileManager)](_profile/managers/ProfileManager.md): основная отрисовка/интерактив.
+*   Стили: [profile.scss](profile.md).
+*   Изображения шапки: [фоны арен](../../../static/images/area/index.md), [иконки профиля](../../../static/images/profile/index.md).
+
+## Подробное описание методов
+*   `getMeta(data)` — делегирует `dataManager.getMeta`.
+*   `getHtml(data)` — резолвит данные; при отсутствии показывает ошибку; сортирует предметы (по `itemsSort`/сохранённому состоянию, дефолт `rarity`); кладёт `_pending` для `init()`; возвращает скелетон.
+*   `init()` — забирает `_pending` и инициализирует [ProfileManager](_profile/managers/ProfileManager.md).
+
+## AI-контекст
+*   Разделение ответственности: данные/сортировка — в [ProfileDataManager](_profile/managers/ProfileDataManager.md), отрисовка/события — в [ProfileManager](_profile/managers/ProfileManager.md). Передача состояния через `(this as any)._pending` — мостик между `getHtml()` и `init()` в рамках жизненного цикла Branch.
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите (полнота, точность, ссылки).

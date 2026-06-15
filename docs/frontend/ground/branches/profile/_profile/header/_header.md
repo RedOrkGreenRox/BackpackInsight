@@ -1,21 +1,23 @@
 # [Стили шапки профиля (_header.scss)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/header/_header.scss)
 
 ## Назначение
-Определяет внешний вид верхней части профиля.
+Агрегатор стилей шапки профиля: подключает все под-стили заголовка через `@use` и задаёт сам контейнер `.profile-header` (флекс-раскладка, фон арены, затемнение).
 
 ## Связи (Dependencies)
-Определяет стили для рендереров на этом уровне:
-*   [Рендерер заголовка](./header.md).
-*   [Инфо об игроке](./player-info.md).
-*   [Панель ресурсов](./stats-bar.md).
+Подключает (`@use`) атомы заголовка:
+*   [_nickname](_nickname.md), [_stats-player-grid](_stats-player-grid.md), [_stat-player-card](_stat-player-card.md), [_stats-heroes-wrapper](_stats-heroes-wrapper.md), [_stats-heroes-grid](_stats-heroes-grid.md), [_stat-hero-card](_stat-hero-card.md), [_stat-items-grid](_stat-items-grid.md), [_actual-version](_actual-version.md).
+*   HTML формирует [HeaderRenderer (header.ts)](header.md); фоны — [/images/area/](../../../../../static/images/area/index.md).
 
-## Ключевая логика
-*   **Эффект Стекла (Glassmorphism)**: Использует `backdrop-filter: blur()`, чтобы статы игрока читались поверх пестрого фона арены.
-*   **Позиционирование фона**: Фоновое изображение арены растягивается на всю ширину.
+## Задаваемые стили
+### `.container .profile-header`
+*   Раскладка: `display:flex; flex-direction:row; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap: clamp(10px,3vmin,20px); padding: clamp(15px,4vmin,30px)`.
+*   Размер: `width: calc(100% - 30px); max-width:1100px; min-height: min(400px,80vh); margin: clamp(40px,12vh,150px) auto 40px`.
+*   Фон арены: `background-size:cover; background-position:center; background-repeat:no-repeat; border-radius:25px; overflow:hidden`.
+*   **Затемнение**: `box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.3)` — равномерная тёмная вуаль поверх фоновой картинки для читаемости текста (НЕ `backdrop-filter`).
 
 ## AI-контекст
-Класс `.header-bg` имеет отрицательный `z-index`, чтобы не перекрывать кнопки.
+*   Затемнение фона реализовано приёмом «гигантская inset-тень», а не blur — дешевле для GPU. Само фоновое изображение подставляет [header.ts](header.md) по `data.area`; слой `.header-bg` уходит под контент отрицательным z-index ([_stat-player-card](_stat-player-card.md)).
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите (barrel-список, точный разбор контейнера, исправлена неточность про backdrop-filter).

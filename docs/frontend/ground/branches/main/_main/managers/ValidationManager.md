@@ -4,15 +4,15 @@
 Этот статический менеджер является точкой входа для всей логики валидации на главной странице. Он связывает процесс проверки JSON с процессом отображения ошибок.
 
 ## Связи (Dependencies)
-*   `[JsonValidator.ts](./validation/JsonValidator.md)`: Используется для выполнения фактической проверки синтаксиса JSON.
-*   `[ErrorDisplayManager.ts](./validation/ErrorDisplayManager.md)` (косвенно через импорт из `./validation`): Используется для показа ошибок пользователю.
+*   `[JsonValidator.ts](validation/JsonValidator.md)`: Используется для выполнения фактической проверки синтаксиса JSON.
+*   `[ErrorDisplayManager.ts](validation/ErrorDisplayManager.md)` (косвенно через импорт из `./validation`): Используется для показа ошибок пользователю.
 
 ## Подробное описание методов
 
 ### `validateAndShowError(jsonText, errorElement, tFunction)` (static)
 Основной метод, который вызывается перед попыткой отправки данных на сервер.
 1.  **Проверка на пустоту**: Если текста нет, показывает локализованную ошибку "Поле пустое".
-2.  **Валидация**: Вызывает `[JsonValidator.md](./validation/JsonValidator.md)`.
+2.  **Валидация**: Вызывает `[JsonValidator.md](validation/JsonValidator.md)`.
 3.  **Обработка результата**:
     *   Если JSON невалиден: извлекает данные об ошибке (строка, колонка) и вызывает `ErrorDisplayManager.showValidationError` для отрисовки кода с подсветкой ошибки.
     *   Если JSON валиден: скрывает все текущие сообщения об ошибках.

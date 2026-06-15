@@ -95,11 +95,38 @@ def find_doc_file(relative_path: Path) -> Path:
     
     doc_dir = DOCS_ROOT
     for p in parts[:-1]:
-        doc_dir = doc_dir / p.lower()
+        # Сначала пробуем точное совпадение по имени папки (сохраняем регистр,
+        # т.к. зеркало 1:1 повторяет имена исходников, напр. itemDetail/_itemDetail).
+        candidate = doc_dir / p
+        if candidate.is_dir():
+            doc_dir = candidate
+            continue
+        # Фолбэк: исторически папки нижнего регистра (backend/frontend и пр.).
+        lower = doc_dir / p.lower()
+        if lower.is_dir():
+            doc_dir = lower
+            continue
+        # Последняя попытка — регистронезависимый поиск по реальной ФС.
+        match = None
+        if doc_dir.is_dir():
+            for entry in os.listdir(doc_dir):
+                if entry.lower() == p.lower() and (doc_dir / entry).is_dir():
+                    match = doc_dir / entry
+                    break
+        if match is None:
+            return Path()
+        doc_dir = match
     
     if not doc_dir.exists(): return Path()
     
-    target_name = parts[-1].rsplit('.', 1)[0].lower() + ".md"
+    # Имя дока: убираем расширение. Особый случай .d.ts -> убираем оба сегмента,
+    # чтобы global.d.ts искал global.md (а не global.d.md).
+    _base = parts[-1]
+    if _base.endswith('.d.ts'):
+        _base = _base[:-len('.d.ts')]
+    else:
+        _base = _base.rsplit('.', 1)[0]
+    target_name = _base.lower() + ".md"
     try:
         for f in os.listdir(doc_dir):
             if f.lower() == target_name:
@@ -146,8 +173,8 @@ def main():
         "",
         "| Раздел | Описание |",
         "| :--- | :--- |",
-        "| [Бэкенд](backend/api.md) | Python API, Модели, Логика парсинга |",
-        "| [Фронтенд](frontend/core.md) | TypeScript, Интерфейс, Дизайн-система |",
+        "| [Бэкенд](backend/playerdata/api.md) | Python API, Модели, Логика парсинга |",
+        "| [Фронтенд](frontend/ground/core.md) | TypeScript, Интерфейс, Дизайн-система |",
         "",
         "## 🏗 Иерархия исходного кода",
         "",
@@ -158,6 +185,10 @@ def main():
         "",
         "---",
         "*Примечание: Технические файлы и ассеты скрыты для чистоты карты.*",
+        "",
+        "---",
+        "",
+        "> 📌 **Подпись документации:** карта генерируется автоматически скриптом `scripts/generate_structure.py`. Не редактируйте вручную — запустите скрипт после изменений в дереве исходников.",
         ""
     ]
     DOCS_ROOT.mkdir(parents=True, exist_ok=True)

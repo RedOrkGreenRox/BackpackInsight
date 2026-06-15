@@ -1,11 +1,22 @@
 # [Состояния кнопки (button-states.scss)](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/button-styles/button-states.scss)
 
 ## Назначение
-Описывает визуальные изменения кнопки при наведении (`:hover`), нажатии (`:active`) и когда она заблокирована (`:disabled`).
+Интерактивные состояния `:hover`/`:active` кнопки `.button-view-profile` с неоновым свечением azure.
+
+## Задаваемые стили
+
+### `.button-view-profile:hover`
+*   Неоновое свечение: `box-shadow: 0 0 20px var(--azure), inset 0 0 10px rgba(255,255,255,0.1)`.
+*   Движение: `transform: translateY(-2px)`.
+*   Подсветка: `background: rgba(0,0,0,0.7)`; `border-color: rgba(var(--azure-raw),0.6)`.
+
+### `.button-view-profile:active`
+*   `transform: translateY(2px)` — эффект нажатия.
+*   `box-shadow: 0 0 10px var(--azure)`; `filter: brightness(0.9)`.
 
 ## AI-контекст
-Когда [Менеджер отправки](../../managers/submit/SubmitManager.md) блокирует форму, кнопка окрашивается в соответствии с правилами из этого файла.
+*   Свечение завязано на `--azure`/`--azure-raw`. Базовые размеры/типографику не трогает — только состояния.
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано при аудите сетевой документации (добавлен детальный разбор стилей).

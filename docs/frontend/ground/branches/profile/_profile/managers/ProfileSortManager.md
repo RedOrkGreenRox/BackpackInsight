@@ -5,7 +5,7 @@
 
 ## Связи (Dependencies)
 *   `[profile-types.ts](../utils/profile-types.md)`: Использует интерфейс `Item`.
-*   Вызывается из `[ProfileDataManager.ts](./ProfileDataManager.md)` для обработки массивов данных.
+*   Вызывается из `[ProfileDataManager.ts](ProfileDataManager.md)` для обработки массивов данных.
 
 ---
 

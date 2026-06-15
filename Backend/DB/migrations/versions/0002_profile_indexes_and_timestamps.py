@@ -32,6 +32,51 @@ def _dialect() -> str:
     return bind.dialect.name
 
 
+def _dedupe_profiles_by_user_id() -> None:
+    """
+    Удаляет дубли профилей по user_id, оставляя строку с наибольшим pk (самую свежую).
+    Сначала чистит дочерние item/hero устаревших профилей (нет ON DELETE CASCADE),
+    затем сами профили. Идемпотентно и безопасно на чистой БД (нечего удалять).
+    """
+    bind = op.get_bind()
+
+    # Подзапрос: pk «победителя» для каждого непустого user_id.
+    # Удаляем потомков и профили, чьи pk НЕ являются победителями.
+    op.execute(sa.text(
+        """
+        DELETE FROM item
+        WHERE profile_id IN (
+            SELECT p.pk FROM profile p
+            WHERE p.user_id IS NOT NULL
+              AND p.pk <> (
+                  SELECT MAX(p2.pk) FROM profile p2 WHERE p2.user_id = p.user_id
+              )
+        )
+        """
+    ))
+    op.execute(sa.text(
+        """
+        DELETE FROM hero
+        WHERE profile_id IN (
+            SELECT p.pk FROM profile p
+            WHERE p.user_id IS NOT NULL
+              AND p.pk <> (
+                  SELECT MAX(p2.pk) FROM profile p2 WHERE p2.user_id = p.user_id
+              )
+        )
+        """
+    ))
+    op.execute(sa.text(
+        """
+        DELETE FROM profile
+        WHERE user_id IS NOT NULL
+          AND pk <> (
+              SELECT MAX(p2.pk) FROM profile p2 WHERE p2.user_id = profile.user_id
+          )
+        """
+    ))
+
+
 def upgrade() -> None:
     """Upgrade schema."""
     dialect = _dialect()
@@ -49,6 +94,14 @@ def upgrade() -> None:
 
     # --- 2. Частичный уникальный индекс по user_id ---
     # Допускает несколько NULL (профили без UID), но запрещает дубли одного UID.
+    #
+    # ВАЖНО: на «старых» БД мог накопиться дубль профилей одного игрока
+    # (баг до введения upsert). Прямое создание UNIQUE-индекса на таких данных
+    # падает с UniqueViolation ("Key (user_id)=... is duplicated") и роняет старт.
+    # Поэтому СНАЧАЛА чистим дубли: оставляем самый свежий профиль (макс. pk),
+    # у устаревших удаляем связанные item/hero (FK без ON DELETE CASCADE).
+    _dedupe_profiles_by_user_id()
+
     op.create_index(
         'uix_profile_user_id',
         'profile',

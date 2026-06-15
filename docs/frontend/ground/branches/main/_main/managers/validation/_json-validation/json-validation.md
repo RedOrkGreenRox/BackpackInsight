@@ -13,6 +13,13 @@
 
 ## AI-контекст
 Стиль должен быть моноширинным (`font-family: monospace`), чтобы номера строк и символы кода точно совпадали.
+## Полный список селекторов
+*   `.json-validation-error` — контейнер ошибки; `.validation-error-header/-footer` — шапка/подвал.
+*   `.json-code`, `.code-line`, `.line-number`, `.error-line-numbers` — нумерованный код.
+*   `.error-char` — подсветка битого символа; `.error-line` — подсветка строки; `.error-dismiss-btn` — крестик.
+*   Цвета: `#c0392b`/`#e74c3c` (фон/рамка), `#ff6b6b` (ошибка), `#ffffff` (текст). `.low-res-mode &` — упрощение.
+*   Разметку генерирует [JsonValidator](../JsonValidator.md), показывает [ErrorDisplayManager](../ErrorDisplayManager.md).
+
 
 ---
 

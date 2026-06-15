@@ -23,4 +23,9 @@ EXPOSE 8000
 # --workers 1 обязательно: ProfileFactory хранит кэш определений как состояние
 # уровня класса; при нескольких воркерах кэш расщепляется (расхождение данных,
 # неточная статистика hit/miss). Потокобезопасность внутри процесса обеспечена RLock.
-CMD ["sh", "-c", "cd /app && alembic upgrade head && cd /app/Backend/PlayerData && uvicorn api:app --host 0.0.0.0 --port 8000 --workers 1"]
+# Бутстрап схемы вместо голого `alembic upgrade head`:
+# на «старой» БД (том создан до Alembic) upgrade падал с "table already exists"
+# и ронял весь старт (uvicorn не запускался, порт 8000 не открывался,
+# restart: always зацикливал контейнер). bootstrap.py делает stamp head для
+# таких БД и обычный upgrade для чистых/уже-мигрированных. См. Backend/DB/bootstrap.py.
+CMD ["sh", "-c", "cd /app && python -m Backend.DB.bootstrap && cd /app/Backend/PlayerData && uvicorn api:app --host 0.0.0.0 --port 8000 --workers 1"]

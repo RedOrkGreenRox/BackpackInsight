@@ -5,8 +5,8 @@
 
 ## Связи (Dependencies)
 *   `[i18n.ts](../../../../localization/i18n.md)`: Для генерации локализованных мета-тегов и текстов в скелетонах.
-*   `[LoadingStates.ts](../../../../../utils/LoadingStates.md)`: Использует методы создания скелетонов (скелетных загрузочных экранов).
-*   `[ProfileStateManager.ts](./ProfileStateManager.md)`: Синхронизирует состояние (сортировки, фильтры) с данными.
+*   `[LoadingStates.ts](../../../../utils/LoadingStates.md)`: Использует методы создания скелетонов (скелетных загрузочных экранов).
+*   `[ProfileStateManager.ts](ProfileStateManager.md)`: Синхронизирует состояние (сортировки, фильтры) с данными.
 *   `[profile-types.ts](../utils/profile-types.md)`: Использует интерфейсы `ProfileData` и `Item` для типизации.
 *   `[rarity-weights.ts](../utils/rarity-weights.md)`: Получает веса редкостей для алгоритма сортировки предметов.
 

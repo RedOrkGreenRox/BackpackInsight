@@ -4,17 +4,23 @@
 «Оболочка» или Каркас приложения. Это самый верхний уровень иерархии UI, который содержит элементы, присутствующие на всех страницах (сайдбар, фон, навигация).
 
 ## Связи (Dependencies)
-*   `[sidebar.ts](./_roots/shell/sidebar/sidebar.md)`: Инициализирует и управляет боковым меню.
-*   `[navigation.ts](./_roots/shell/navigation/navigation.md)`: Управляет процессом смены «бранчей» внутри основной контентной области.
-*   `[parallax.ts](./_roots/shell/parallax/parallax.md)`: Запускает фоновые эффекты.
-*   `[ui_init.ts](./_roots/shell/ui_init/ui_init.md)`: Выполняет первичную настройку UI при загрузке.
+*   `[sidebar.ts](_roots/shell/sidebar/sidebar.md)`: Инициализирует и управляет боковым меню.
+*   `[navigation.ts](_roots/shell/navigation/navigation.md)`: Управляет процессом смены «бранчей» внутри основной контентной области.
+*   `[parallax.ts](_roots/shell/parallax/parallax.md)`: Запускает фоновые эффекты.
+*   `[ui_init.ts](_roots/shell/ui_init/ui_init.md)`: Выполняет первичную настройку UI при загрузке.
+*   **Изображения**: Управляет фоном — [фоны арен (/images/area/)](../../static/images/area/index.md) и [фоны 404 (/images/404/)](../../static/images/404/index.md).
 
 ## Ключевая логика
-`Shell` является синглтоном, который создается один раз при старте `[core.ts](../../core.md)`. Он предоставляет контейнер (Main Area), в который динамически подставляются бранчи.
+`Shell` является синглтоном, который создается один раз при старте `[core.ts](../core.md)`. Он предоставляет контейнер (Main Area), в который динамически подставляются бранчи.
 
 ## AI-контекст
 *   **Точка входа**: Это первый объект, который создается после инициализации движка. Если приложение не отображается, проблему нужно искать в методе `init()` этого файла.
 *   **Глобальные элементы**: Если нужно добавить элемент, который виден всегда (например, глобальный чат или уведомление), он должен быть частью `Shell`.
+## Полный API
+*   `static getInstance(): Shell` — синглтон оболочки (создаётся в [core.ts](../core.md)).
+*   `set404Background(rarity)` / `setRandomBackground()` / `setBackground(...)` — управление фоном ([area](../../static/images/area/index.md), [404](../../static/images/404/index.md)).
+*   Приватные: `translateStaticContent()` (i18n статики), `addLangSwitcher()` (переключатель языка), `initListeners()` (сайдбар/оверлей), `toggleSidebar()`/`closeSidebar()`.
+
 
 ---
 

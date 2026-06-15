@@ -1,25 +1,25 @@
-# [Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts)
+# [Интерфейс зоны загрузки (UIHandler.ts)](../../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/handlers/UIHandler.ts)
 
 ## Назначение
-Этот файл управляет визуальной составляющей зоны загрузки. Он не касается данных, а только «дергает за ниточки» DOM-элементы, чтобы интерфейс реагировал на действия пользователя.
+Управляет визуальной синхронизацией поля ввода `#jsonInput` и подсказки `#uploadHint`: при вводе скрывает подсказку, сбрасывает ошибку и прокидывает значение наверх колбэком.
 
 ## Связи (Dependencies)
-*   `[upload-zone.scss](../../upload-zone.md)`: Использует классы из этого файла для смены состояний (hover, loading, error).
-*   `[LoadingStates.ts](../../../../../../utils/LoadingStates.md)`: Синхронизирует внутренние стили зоны с глобальным состоянием загрузки.
+*   Стили зоны: [upload-zone.scss](../../upload-zone.md).
+*   Создаётся и управляется [UploadHandler (upload.ts)](../upload.md); получает колбэки `onHideError`/`onContentChange`.
+*   **Нативный DOM**: события через `addEventListener` (своя шина событий отсутствует).
 
-## Ключевая логика
-Хранит ссылки на DOM-элементы (кнопки, тексты подсказок, иконки).
-
-### Функции:
-*   `showHover()` / `hideHover()`: Визуальный отклик на перетаскивание файла.
-*   `setLoading(state)`: Переключает зону в режим «крутилки», скрывая инструкции.
-*   `displayError(message)`: Показывает текст ошибки прямо в зоне загрузки вместо стандартного текста.
-*   `reset()`: Возвращает зону в исходное состояние (например, после удаления загруженного файла).
+## Подробное описание (реальный API)
+*   Конструктор `(input, hint, onHideError, onContentChange)` → `init()`.
+*   `private addListener(el, event, handler)` — подписка с автосбором деинсталлятора в `cleanupFns`.
+*   `private updateUI()` — скрывает/показывает `hint` (`display: none/flex` по `input.value.trim()`), зовёт `onHideError()` и `onContentChange(value)`.
+*   `private init()` — вешает `input`-слушатель на `updateUI`.
+*   `public setValue(value)` — программно ставит значение и вызывает `updateUI` (используется при DnD/вставке/выборе файла).
+*   `public getValue(): string` — текущее значение поля.
+*   `public destroy()` — снимает все слушатели.
 
 ## AI-контекст
-*   **Скелетная анимация**: При реализации скелетонов (пункт «Пересмотр чанков») логику переключения стоит интегрировать именно сюда.
-*   **Доступность**: Важно следить, чтобы атрибуты `aria-busy` обновлялись здесь синхронно с визуалом.
+*   Методов `showHover/hideHover/setLoading/displayError/reset` **нет** — UIHandler делает ровно одно: синхронизирует поле, подсказку и колбэки. Подсветку DnD (`.drag-over`) ставит [DragDropHandler](DragDropHandler.md); ошибки показывает [ErrorDisplayManager](../../managers/validation/ErrorDisplayManager.md).
 
 ---
 
-> 📌 **Подпись документации:** коммит `d7d6066a23f60f9000a75b680a0de293df877ceb` (`d7d6066`) · 2026-06-15 02:31:46 +03:00 (Europe/Moscow)
+> 📌 **Подпись документации:** актуализировано линтером check_docs.py (исправлены несуществующие методы на реальный API).
