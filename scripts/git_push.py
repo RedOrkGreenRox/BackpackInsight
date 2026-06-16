@@ -55,8 +55,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Монолит успешно нарезан (требуется проверка)
-Введён умный поиск (чипсы, страница предметов) (требует доработки)
+тест
     """
     message = f"{upd} | Automated push: {timestamp}"
 

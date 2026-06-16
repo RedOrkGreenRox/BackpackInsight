@@ -22,22 +22,11 @@ jobs:
             
             # Проверить и конвертировать .env в Unix формат
             if [ -f .env ]; then
-                echo "Найден .env, конвертируем в Unix формат..."
-                # Показать размер до конвертации
-                echo "Размер API_SECRET до: $(grep API_SECRET .env | wc -c)"
                 
                 # Конвертировать Windows переносы строк в Unix
                 sed -i 's/\r$//' .env
                 
-                # Показать размер после конвертации
-                echo "Размер API_SECRET после: $(grep API_SECRET .env | wc -c)"
-                
-                # Дополнительная проверка на скрытые символы
-                echo "Последние 5 символов API_SECRET:"
-                grep API_SECRET .env | tail -c 5 | od -c
-                
                 # Создать отдельный env файл для API_SECRET без интерполяции
-                echo "Создаем отдельный env файл для API_SECRET..."
                 grep API_SECRET .env > .env.api
                 
                 # Экранировать все символы которые могут интерполироваться
@@ -77,10 +66,6 @@ jobs:
             else
                 echo "✅ Alembic state OK ($HAS_ALEMBIC / profile=$HAS_PROFILE) — миграции применятся при старте"
             fi
-
-            # Проверить что Docker прочитает правильный API_SECRET
-            echo "Проверка конфигурации Docker:"
-            docker compose -f docker-compose.server.yml config | grep -A 3 -B 3 API_SECRET
 
             docker compose -f docker-compose.server.yml up -d --build --force-recreate
             
