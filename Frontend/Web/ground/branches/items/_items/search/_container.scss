@@ -1,7 +1,95 @@
 // Search container styles
 .search-container {
     margin: 20px auto 40px;
-    max-width: 600px;
+    max-width: 1100px; // Растягиваем поисковую строку до полноценной ширины контента
+    width: 100%;
     position: relative;
-    z-index: 10;
+    z-index: 100; // Повышаем z-index
+}
+
+// Обертка инпута и интегрированной кнопки фильтра
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+
+    &:focus-within {
+        border-color: var(--azure);
+        box-shadow: 0 0 15px rgba(var(--azure-raw), 0.3);
+    }
+
+    // Когда панель открыта, обрезаем нижние углы для слияния с выпадающим списком
+    &.open {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .search-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 15px 70px 15px 30px; // Компактный отступ под круглую иконку-кнопку справа
+        text-align: left;
+
+        &:focus {
+            border-color: transparent;
+            box-shadow: none;
+        }
+    }
+
+    // Круглая лаконичная кнопка-иконка раскрытия фильтров (Pill Toggle Circle)
+    .filter-toggle-btn {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%; // Круглая кнопка
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 2;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--azure);
+            transform: translateY(-50%) scale(1.08); // Легкий зум при ховере
+        }
+
+        &:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        &.open {
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--azure);
+        }
+
+        .filter-toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.85rem;
+            color: var(--azure);
+        }
+
+        &.open .filter-toggle-icon {
+            transform: rotate(180deg); // Плавный разворот стрелочки на 180 градусов
+        }
+    }
 }

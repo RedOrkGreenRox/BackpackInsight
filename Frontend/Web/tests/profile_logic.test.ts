@@ -1,32 +1,70 @@
-import { describe, it, expect, vi } from 'vitest';
-import { ProfileManager } from '../ground/branches/profile/_profile/managers/profile-manager';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { ProfileDataManager } from '../ground/branches/profile/_profile/managers/ProfileDataManager';
+import { Item } from '../ground/branches/profile/_profile/utils/profile-types';
 
 // Mocking dependencies
-vi.mock('../../../localization/i18n', () => ({
-    t: (key: string) => key
+vi.mock('../ground/localization/i18n', () => ({
+    t: (key: string, val?: string) => {
+        if (val) return `${key}_${val}`;
+        return key;
+    }
 }));
 
-describe('ProfileManager', () => {
-    it('should process profile data and return formatted view', () => {
-        const manager = new ProfileManager();
-        const mockProfile = {
+describe('ProfileDataManager', () => {
+    let dataManager: ProfileDataManager;
+
+    beforeEach(() => {
+        dataManager = new ProfileDataManager();
+        sessionStorage.clear();
+    });
+
+    it('should resolve profile data and save to cache', () => {
+        const mockProfile: any = {
             nickname: 'TestPlayer',
             level: 10,
             trophies: 1000,
             coins: 500,
             gems: 100,
-            heroes: [
-                { name: 'Barbarian', level: 5, rating: 1200, experience: 100, prestige: false, league: 'Bronze' }
-            ],
-            items: [
-                { name: 'Sword', rarity: 'Common', level: 1, cards: 10, cards_need: 20 }
-            ]
+            heroes: [],
+            items: []
         };
 
-        const view = manager.toFrontendView(mockProfile as any);
-        expect(view.nickname).toBe('TestPlayer');
-        expect(view.heroes).toHaveLength(1);
-        expect(view.items).toHaveLength(1);
-        expect(view.heroes[0].name).toBe('Barbarian');
+        const resolved = dataManager.resolve(mockProfile);
+        expect(resolved).not.toBeNull();
+        expect(resolved?.nickname).toBe('TestPlayer');
+
+        // Check if cached in sessionStorage
+        const cached = sessionStorage.getItem('currentProfileData');
+        expect(cached).not.toBeNull();
+        expect(JSON.parse(cached!).nickname).toBe('TestPlayer');
+    });
+
+    it('should sort items by rarity weights first, then level, then cards progress, then name', () => {
+        const items: Item[] = [
+            { name: 'Sword', rarity: 'Common', level: 1, cards: 5, cards_need: 10 },
+            { name: 'Shield', rarity: 'Legendary', level: 2, cards: 0, cards_need: 0 },
+            { name: 'Axe', rarity: 'Common', level: 5, cards: 1, cards_need: 10 },
+            { name: 'Bow', rarity: 'Common', level: 1, cards: 8, cards_need: 10 }
+        ];
+
+        // Sort by rarity
+        const sortedRarity = dataManager.sortItems(items, 'rarity');
+        // Legendary (Shield) > Common level 5 (Axe) > Common level 1 progress 80% (Bow) > Common level 1 progress 50% (Sword)
+        expect(sortedRarity[0].name).toBe('Shield');
+        expect(sortedRarity[1].name).toBe('Axe');
+        expect(sortedRarity[2].name).toBe('Bow');
+        expect(sortedRarity[3].name).toBe('Sword');
+    });
+
+    it('should generate correct SEO metadata', () => {
+        const mockProfile: any = {
+            nickname: 'Gladiator',
+            heroes_count: 5,
+            items_count: 25
+        };
+
+        const meta = dataManager.getMeta(mockProfile);
+        expect(meta.title).toContain('Gladiator');
+        expect(meta.description).toContain('Gladiator');
     });
 });

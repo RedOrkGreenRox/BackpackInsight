@@ -42,6 +42,16 @@ export class ItemNavigationManager {
         return nav;
     }
 
+    calculateNavigation(itemName: string, playerItem?: any): NavigationState {
+        const originalIsProfile = this.isProfile;
+        if (playerItem !== undefined) {
+            (this as any).isProfile = true;
+        }
+        const nav = this.calculate(itemName);
+        (this as any).isProfile = originalIsProfile;
+        return nav;
+    }
+
     attachProfileNavListeners(container: HTMLElement): void {
         if (!this.isProfile) return;
 

@@ -46,7 +46,6 @@ describe('SortController', () => {
 
     it('should toggle sorting direction', () => {
         const sc = new SortController(container);
-        sc.destroy(); // used: init triggers sort, destroy for cleanup
         const invertBtn = container.querySelector('#invertToggle')!;
         
         invertBtn.click(); // Теперь ASC
@@ -57,11 +56,11 @@ describe('SortController', () => {
         // Hero 1 (10), Hero 2 (20), Hero 3 (25)
         expect(cards[0].textContent).toBe('Hero 1');
         expect(cards[2].textContent).toBe('Hero 3');
+        sc.destroy();
     });
 
     it('should sort by rating', () => {
         const sc = new SortController(container);
-        sc.destroy(); // used: init triggers sort, destroy for cleanup
         const sortBtn = container.querySelector('#sortToggle')!;
         
         sortBtn.click(); // Смена на rating
@@ -73,6 +72,7 @@ describe('SortController', () => {
         expect(cards[0].textContent).toBe('Hero 3');
         expect(cards[1].textContent).toBe('Hero 1');
         expect(cards[2].textContent).toBe('Hero 2');
+        sc.destroy();
     });
 
     it('should correctly handle prestige in level sorting', () => {
