@@ -80,3 +80,62 @@ npm run build — OK
 npx vitest run — OK, 36 tests passed
 Максимальный размер файла в Frontend/Web/ground/branches/items — 150 строк
 ```
+
+## Документация, добавленная/обновлённая после замечания о сетевой документации
+
+### Изменены
+```text
+docs/frontend/ground/branches/items/_items/actions/_filter-actions.md
+docs/frontend/ground/branches/items/_items/components/ItemsLayoutRenderer.md
+docs/frontend/ground/branches/items/_items/filters/_advanced-panel.md
+docs/frontend/ground/branches/items/_items/managers/ItemsFilterManager.md
+docs/frontend/ground/branches/items/_items/managers/ItemsManager.md
+docs/frontend/ground/branches/items/_items/search/_input.md
+docs/frontend/static/search/term-aliases.ru.md
+```
+
+### Созданы
+```text
+docs/frontend/ground/branches/items/_items/managers/filter/index.md
+docs/frontend/ground/branches/items/_items/managers/filter/alias-fuzzy.md
+docs/frontend/ground/branches/items/_items/managers/filter/comparison.md
+docs/frontend/ground/branches/items/_items/managers/filter/filter-applier.md
+docs/frontend/ground/branches/items/_items/managers/filter/filter-options.md
+docs/frontend/ground/branches/items/_items/managers/filter/filter-types.md
+docs/frontend/ground/branches/items/_items/managers/filter/fuse-collector.md
+docs/frontend/ground/branches/items/_items/managers/filter/fuse-search.md
+docs/frontend/ground/branches/items/_items/managers/filter/fuzzy-term-guard.md
+docs/frontend/ground/branches/items/_items/managers/filter/item-matcher.md
+docs/frontend/ground/branches/items/_items/managers/filter/prepared-items.md
+docs/frontend/ground/branches/items/_items/managers/filter/query-parser.md
+docs/frontend/ground/branches/items/_items/managers/filter/search-plan.md
+docs/frontend/ground/branches/items/_items/managers/filter/search-score.md
+docs/frontend/ground/branches/items/_items/managers/filter/sort-service.md
+docs/frontend/ground/branches/items/_items/managers/runtime/index.md
+docs/frontend/ground/branches/items/_items/managers/runtime/advanced-panel-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/autocomplete-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/caret-utils.md
+docs/frontend/ground/branches/items/_items/managers/runtime/chips-sync-service.md
+docs/frontend/ground/branches/items/_items/managers/runtime/dropdown-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/filter-icon-resolver.md
+docs/frontend/ground/branches/items/_items/managers/runtime/filter-options-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/group-dom-raw.md
+docs/frontend/ground/branches/items/_items/managers/runtime/image-error-handler.md
+docs/frontend/ground/branches/items/_items/managers/runtime/items-grid-renderer.md
+docs/frontend/ground/branches/items/_items/managers/runtime/items-runtime-types.md
+docs/frontend/ground/branches/items/_items/managers/runtime/logical-chips-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/logic-labels.md
+docs/frontend/ground/branches/items/_items/managers/runtime/multiselect-filter-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/raw-edit-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/rich-group-renderer.md
+docs/frontend/ground/branches/items/_items/managers/runtime/rich-input-controller.md
+docs/frontend/ground/branches/items/_items/managers/runtime/rich-query-renderer.md
+docs/frontend/ground/branches/items/_items/managers/runtime/search-debouncer.md
+docs/frontend/ground/branches/items/_items/managers/runtime/sort-query.md
+docs/frontend/ground/branches/items/_items/managers/runtime/token-replacer.md
+docs/frontend/ground/branches/items/_items/search/_caret-spacer.md
+docs/frontend/ground/branches/items/_items/search/_rich-group.md
+docs/frontend/ground/branches/items/_items/search/_rich-operator.md
+docs/frontend/ground/branches/items/_items/search/_rich-placeholder.md
+docs/frontend/ground/branches/items/_items/search/_rich-token.md
+```

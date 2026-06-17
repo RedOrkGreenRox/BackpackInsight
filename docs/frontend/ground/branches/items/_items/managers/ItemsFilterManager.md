@@ -1,18 +1,24 @@
-# [Менеджер фильтрации (ItemsFilterManager.ts)](../../../../../../../Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
+# [Facade поиска и фильтрации (ItemsFilterManager.ts)](../../../../../../../Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
 
 ## Назначение
-Класс `ItemsFilterManager` отвечает за фильтрацию, сортировку и нечеткий семантический поиск по всей библиотеке предметов.
-
----
+`ItemsFilterManager` — публичный facade для поисковой подсети страницы предметов. Он сохраняет старый внешний API (`initFuse`, `applyFilters`, `sortItems`, `calculateFilterOptions`), но делегирует реализацию файлам каталога [filter/](filter/index.md).
 
 ## Ключевая логика
+- `initFuse` создаёт `PreparedItem[]` через [prepared-items](filter/prepared-items.md), индекс `preparedByKey`, `ItemMatcher` и Fuse instance.
+- `applyFilters` вызывает [fuse-search](filter/fuse-search.md), который разделяет free text и `[]`-условия.
+- `sortItems` делегирует [sort-service](filter/sort-service.md).
+- `calculateFilterOptions` делегирует [filter-options](filter/filter-options.md).
 
-### 1. Нечеткий поиск
-Использует библиотеку `Fuse.js` для нечеткого поиска, а также интегрирует `SearchTermService` для автоматического семантического расширения запросов и учета синонимов.
+## Текущая семантика поиска
+- Свободный текст вне `[]` проходит через Fuse и fuzzy alias layer.
+- Простые нестрогие `[]` могут стать weighted Fuse terms.
+- Exact/negated/логические/числовые условия уходят в AST matcher.
+- Русские и английские операторы (`И/ИЛИ/НЕ`, `AND/OR/NOT`) нормализуются в [query-parser](filter/query-parser.md).
 
-### 2. Строгие теги (Strict Tags)
-Поддерживает продвинутый синтаксис поиска в квадратных скобках (например, `[Poison]`), позволяющий выполнять сложные многогрупповые булевы выборки.
+## Связи
+- Runtime UI: [runtime index](runtime/index.md).
+- Алиасы: [term-aliases.ru.json](../../../../../../../static/search/term-aliases.ru.md).
 
 ---
 
-> 📌 **Подпись документации:** атомарный документ логики фильтрации · 2026-06-16
+> 📌 **Подпись документации:** facade search/filter engine · 2026-06-17

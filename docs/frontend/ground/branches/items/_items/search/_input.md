@@ -1,18 +1,19 @@
-# [Поле ввода поиска (_input.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_input.scss)
+# [База rich search input (_input.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_input.scss)
 
 ## Назначение
-Детальная стилизация текстового инпута для поиска по Вики.
+`_input.scss` задаёт базовое поведение `#itemSearch`. После перехода с flex на обычный inline-flow этот файл критичен для возможности ставить каретку между чипами.
+
+## Ключевые правила
+- `display: block` вместо `flex`, чтобы inline-чипы не ломали caret.
+- `white-space: pre-wrap`, чтобы реальные пробелы и caret-spacer работали как точки ввода.
+- `word-break: break-word` для длинных запросов.
+- Placeholder через `:empty::before`.
+
+## Связи
+- [caret-spacer](./_caret-spacer.md) — физические промежутки между atomic-элементами.
+- [rich-token](./_rich-token.md), [rich-group](./_rich-group.md), [rich-operator](./_rich-operator.md).
+- [rich-input-controller](../managers/runtime/rich-input-controller.md).
 
 ---
 
-## Визуальные характеристики
-*   **Стиль**: Glass UI с полупрозрачным фоном (`0.5`).
-*   **Типографика**: Шрифт `Signika`, размер `1.2rem`, центрированный ввод.
-*   **Форма**: Крупное скругление (50px), создающее форму капсулы.
-
-## Интерактивность
-При фокусе (`:focus`) рамка окрашивается в цвет `--azure` и добавляется мягкое внешнее свечение для акцентирования внимания пользователя на процессе ввода.
-
----
-
-> 📌 **Подпись документации:** атомарный стиль библиотеки · 2026-06-15
+> 📌 **Подпись документации:** базовые стили rich input · 2026-06-17

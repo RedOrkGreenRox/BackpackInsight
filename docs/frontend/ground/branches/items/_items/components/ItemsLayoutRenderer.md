@@ -1,15 +1,22 @@
-# [Рендерер макета Вики (ItemsLayoutRenderer.ts)](../../../../../../../Frontend/Web/ground/branches/items/_items/components/ItemsLayoutRenderer.ts)
+# [Renderer layout страницы предметов (ItemsLayoutRenderer.ts)](../../../../../../../Frontend/Web/ground/branches/items/_items/components/ItemsLayoutRenderer.ts)
 
 ## Назначение
-Класс `ItemsLayoutRenderer` отвечает за генерацию начального HTML макета страницы Википедии предметов (заголовки, поля ввода поиска, фильтры, контейнеры выпадающих списков).
+`ItemsLayoutRenderer` создаёт статический HTML-каркас страницы `/items`: заголовок, rich search input, advanced panel, dropdown-категории фильтров, сетку карточек и sentinel infinite scroll.
+
+## Актуальная структура
+- `#itemSearch` — contenteditable rich input.
+- `#advancedFiltersPanel` — раскрываемая панель фильтров.
+- Категории создаются через `renderDropdown(id, label)`.
+- `filterLogic` представлен блоком «Логика запроса» с шаблонами группы, AND/OR/NOT.
+- `filterFlags` содержит boolean-флаги, включая `Purchasable`.
+- `#wikiItemsGrid` содержит skeleton до загрузки данных.
+
+## Связи
+- Runtime-оркестратор: [ItemsManager](../managers/ItemsManager.md).
+- Панель: [advanced-panel-controller](../managers/runtime/advanced-panel-controller.md).
+- Chips: [multiselect-filter-controller](../managers/runtime/multiselect-filter-controller.md).
+- Стили панели: [advanced-panel.scss](../filters/_advanced-panel.md).
 
 ---
 
-## Ключевая логика
-*   Формирует статическую разметку шапки, поиска и структуры фильтров.
-*   Использует локализованные строки через метод `t()`.
-*   Рендерит начальный скелетон карточек предметов через `LoadingStates`.
-
----
-
-> 📌 **Подпись документации:** атомарный рендерер макета · 2026-06-16
+> 📌 **Подпись документации:** layout renderer items · 2026-06-17

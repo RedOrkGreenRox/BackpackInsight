@@ -1,8 +1,19 @@
-# [Обертка действий фильтрации (_filter-actions.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/actions/_filter-actions.scss)
+# [Действия фильтров и логика запроса (_filter-actions.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/actions/_filter-actions.scss)
 
 ## Назначение
-Контейнер для кнопок подтверждения или сброса в нижней части панели фильтров. Отделяет функциональные кнопки от области выбора параметров тонкой линией.
+`_filter-actions.scss` оформляет нижние действия панели и отдельную категорию «Логика запроса».
+
+## Актуальные элементы
+- `.filter-category` и `.filter-category-title` — компактный блок категории.
+- `.logical-chips` — контейнер логических шаблонов.
+- `.logical-chip` — кнопки `[]`, `&`, `|`, `!` с разными цветами.
+- `.filter-actions` — область действий вроде сброса фильтров.
+
+## Связи
+- Логика кнопок: [logical-chips-controller](../managers/runtime/logical-chips-controller.md).
+- Layout: [ItemsLayoutRenderer](../components/ItemsLayoutRenderer.md).
+- Панель: [advanced-panel](../filters/_advanced-panel.md).
 
 ---
 
-> 📌 **Подпись документации:** атомарный стиль библиотеки · 2026-06-15
+> 📌 **Подпись документации:** стили логики фильтров · 2026-06-17
