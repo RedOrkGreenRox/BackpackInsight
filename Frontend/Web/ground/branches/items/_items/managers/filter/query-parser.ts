@@ -86,6 +86,23 @@ function makeAnd(children: ASTNode[]): ASTNode {
     return children.length === 1 && children[0]!.type === 'and' ? children[0]! : { type: 'and', children };
 }
 
+function readComparison(text: string, start: number): string | null {
+    const rest = text.slice(start);
+    const number = String.raw`\d+(?:\.\d+)?`;
+    const stat = String.raw`[a-zA-Z_]+`;
+    const op = String.raw`[<>]=?|=`;
+    const patterns = [
+        new RegExp(`^${number}\\s*${op}\\s*${stat}\\s*${op}\\s*${number}(?=$|\\s|[\\]&|])`, 'i'),
+        new RegExp(`^${stat}\\s*${op}\\s*${number}(?=$|\\s|[\\]&|])`, 'i'),
+        new RegExp(`^${number}\\s*${op}\\s*${stat}(?=$|\\s|[\\]&|])`, 'i'),
+    ];
+    for (const pattern of patterns) {
+        const match = pattern.exec(rest);
+        if (match?.[0]) return match[0].trim();
+    }
+    return null;
+}
+
 export function parseQueryToAST(query: string): ASTNode[] {
     const trimmed = normalizeOperators(query.trim());
     if (!trimmed) return [];
@@ -111,9 +128,15 @@ export function parseQueryToAST(query: string): ASTNode[] {
             node = parsed.node;
             i = parsed.end;
         } else {
-            const start = i;
-            while (i < trimmed.length && !/\s/.test(trimmed[i] || '') && trimmed[i] !== '[') i++;
-            node = parseToken(trimmed.slice(start, i));
+            const comparison = readComparison(trimmed, i);
+            if (comparison) {
+                i += comparison.length;
+                node = parseToken(comparison);
+            } else {
+                const start = i;
+                while (i < trimmed.length && !/\s/.test(trimmed[i] || '') && trimmed[i] !== '[') i++;
+                node = parseToken(trimmed.slice(start, i));
+            }
         }
         if (isNegated) node.isNegated = true;
         clauses.push(node);

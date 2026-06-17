@@ -1,0 +1,177 @@
+.prompt-panel-top {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 18px;
+    transition: margin .25s ease, opacity .25s ease;
+}
+
+.prompt-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 0;
+}
+
+.prompt-list {
+    background: rgba(0, 0, 0, 0.34);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 10px 12px;
+    min-height: 54px;
+}
+
+.prompt-list-positive { border-color: rgba(67, 224, 139, 0.22); }
+.prompt-list-negative { border-color: rgba(255, 94, 94, 0.22); }
+
+.prompt-list-title {
+    font-family: 'Signika', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.prompt-list-positive .prompt-list-title { color: #8ff0b5; }
+.prompt-list-negative .prompt-list-title { color: #ff9b9b; }
+
+.prompt-list-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.prompt-list-items.empty::before {
+    content: attr(data-empty);
+    color: rgba(255,255,255,0.42);
+    font-size: 0.88rem;
+}
+
+.prompt-token {
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    padding: 4px 8px 4px 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-family: 'Signika', sans-serif;
+    cursor: pointer;
+    transition: transform .15s ease, filter .15s ease;
+}
+
+.prompt-token:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.prompt-token.include { background: rgba(42, 180, 108, 0.34); border-color: rgba(67, 224, 139, 0.75); }
+.prompt-token.exclude { background: rgba(206, 56, 56, 0.34); border-color: rgba(255, 94, 94, 0.78); }
+
+.prompt-token .filter-icon,
+.prompt-token .text-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.prompt-token .filter-icon img,
+.prompt-token .text-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.prompt-token b { opacity: 0.75; font-size: 1rem; }
+
+.advanced-formula-preview {
+    grid-column: 1 / -1;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(var(--azure-raw), 0.24);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.advanced-search-help {
+    background: rgba(0,0,0,0.38);
+    border: 1px solid rgba(var(--azure-raw), 0.32);
+    border-radius: 16px;
+    padding: 8px;
+    color: var(--text-default-color);
+    position: relative;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.advanced-search-help[open] {
+    border-color: rgba(var(--azure-raw), 0.75);
+    box-shadow: 0 0 16px rgba(var(--azure-raw), 0.18);
+}
+
+.advanced-search-help summary {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--azure-raw), 0.18);
+    border: 1px solid rgba(var(--azure-raw), 0.5);
+    color: var(--azure);
+    cursor: pointer;
+    font-weight: 900;
+    list-style: none;
+}
+
+.advanced-search-help summary::-webkit-details-marker { display: none; }
+
+.advanced-search-help-content {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: min(840px, calc(100vw - 40px));
+    margin-top: 0;
+    padding: 14px 16px;
+    line-height: 1.45;
+    font-size: 0.95rem;
+    max-height: 560px;
+    overflow: auto;
+    border-radius: 16px;
+    background: rgba(8, 10, 14, 0.96);
+    border: 1px solid rgba(var(--azure-raw), 0.45);
+    box-shadow: 0 18px 42px rgba(0,0,0,.55);
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(-8px) scale(.98);
+    transform-origin: top right;
+    animation: helpPanelIn .18s ease forwards;
+}
+
+.copy-example { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+.copy-query-btn { border: 1px solid rgba(var(--azure-raw), .5); background: rgba(var(--azure-raw), .16); color: var(--azure); border-radius: 8px; padding: 4px 8px; cursor: pointer; transition: filter .15s ease, transform .15s ease; }
+.copy-query-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+@keyframes helpPanelIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dropdown-filter,
+.logic-category,
+.advanced-formula-preview {
+    transition: opacity .22s ease, transform .22s ease, margin .22s ease;
+}
+
+.prompt-panel-top + .dropdown-filter,
+.prompt-panel-top + .logic-category,
+.advanced-formula-preview + .dropdown-filter {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .prompt-panel-top,
+    .prompt-lists { grid-template-columns: 1fr; }
+}

@@ -1,29 +1,45 @@
 import { RARITY_WEIGHTS } from './filter-types';
 import { getSearchScore } from './search-score';
+import { SortInput, SortPriority } from '../runtime/items-runtime-types';
 
-export type ItemSortMode = 'rarity' | 'name' | 'relevance';
 type Criterion = 'relevance' | 'rarity-down' | 'rarity-up' | 'alphabet-up' | 'alphabet-down';
 
-export function sortItems(items: any[], sortBy: ItemSortMode, query: string = ''): any[] {
+export function sortItems(items: any[], sortBy: SortInput, query: string = ''): any[] {
     const criteria = resolveCriteria(sortBy, query, hasScores(items));
     if (!criteria.length) return [...items];
     return [...items].sort((a, b) => compareByCriteria(a, b, criteria));
 }
 
-function resolveCriteria(sortBy: ItemSortMode, query: string, scored: boolean): Criterion[] {
+function resolveCriteria(sortBy: SortInput, query: string, scored: boolean): Criterion[] {
     const explicit = parseSortTags(query);
     const criteria = scored ? ['relevance' as Criterion] : [];
     if (explicit.length) criteria.push(...explicit.filter(item => item !== 'relevance'));
-    else if (!scored && sortBy === 'rarity') criteria.push('rarity-down');
-    else if (!scored && sortBy === 'name') criteria.push('alphabet-up');
-    return criteria;
+    else if (Array.isArray(sortBy)) criteria.push(...sortBy.map(priorityToCriterion));
+    else criteria.push(...legacySort(sortBy, scored));
+    return dedupe(criteria);
+}
+
+function legacySort(sortBy: string, scored: boolean): Criterion[] {
+    if (scored) return [];
+    if (sortBy === 'rarity') return ['rarity-down'];
+    if (sortBy === 'rarity-up') return ['rarity-up'];
+    if (sortBy === 'name') return ['alphabet-up'];
+    if (sortBy === 'alphabet-down') return ['alphabet-down'];
+    if (sortBy === 'relevance') return ['relevance'];
+    return [];
+}
+
+function priorityToCriterion(priority: SortPriority): Criterion {
+    if (priority.key === 'relevance') return 'relevance';
+    if (priority.key === 'rarity') return priority.direction === 'up' ? 'rarity-up' : 'rarity-down';
+    return priority.direction === 'up' ? 'alphabet-up' : 'alphabet-down';
 }
 
 function parseSortTags(query: string): Criterion[] {
     const tags: Criterion[] = [];
     for (const match of query.matchAll(/\{([a-zA-Z\s]+)\}/gi)) {
         const criterion = tagToCriterion(match[1]!.toLowerCase().trim());
-        if (criterion && !tags.includes(criterion)) tags.push(criterion);
+        if (criterion) tags.push(criterion);
     }
     return tags;
 }
@@ -54,6 +70,5 @@ function compareOne(a: any, b: any, criterion: Criterion): number {
     return 0;
 }
 
-function hasScores(items: any[]): boolean {
-    return items.some(item => getSearchScore(item) !== null);
-}
+function hasScores(items: any[]): boolean { return items.some(item => getSearchScore(item) !== null); }
+function dedupe(criteria: Criterion[]): Criterion[] { return [...new Set(criteria)]; }

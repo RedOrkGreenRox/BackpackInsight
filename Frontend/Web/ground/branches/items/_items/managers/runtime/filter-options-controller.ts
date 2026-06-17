@@ -23,6 +23,5 @@ export class FilterOptionsController {
         this.multiselect.create('filterDebuffs', options.sortedDebuffs, 'debuff');
         this.multiselect.create('filterStats', options.sortedStats, 'stat');
         this.multiselect.create('filterFlags', options.sortedFlags, 'flag');
-        this.multiselect.create('filterSort', ['Rarity Down', 'Rarity Up', 'Alphabet Up', 'Alphabet Down', 'Relevance'], 'sort');
     }
 }

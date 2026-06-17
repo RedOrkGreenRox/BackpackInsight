@@ -64,12 +64,12 @@ export class ItemsBranch extends Branch {
         return ItemsLayoutRenderer.render();
     }
 
-    protected init(): void {
+    protected init(data?: any): void {
         if (!this.container) return;
-        this.loadAndActivate().catch(console.error);
+        this.loadAndActivate(data).catch(console.error);
     }
 
-    private async loadAndActivate(): Promise<void> {
+    private async loadAndActivate(data?: any): Promise<void> {
         // Инициализируем семантический сервис синонимов параллельно с загрузкой кэша
         const [items] = await Promise.all([
             ItemsCacheService.getAllItems(),
@@ -78,9 +78,15 @@ export class ItemsBranch extends Branch {
         
         if (this.container) {
             // Передача управления главному оркестратору
-            this.manager = new ItemsManager(this.container, items as any);
+            this.manager = new ItemsManager(this.container, items as any, this.decodeSharedQuery(data?.query));
             this.manager.init();
         }
+    }
+
+    private decodeSharedQuery(raw: unknown): string | null {
+        if (typeof raw !== 'string' || !raw.trim()) return null;
+        try { return decodeURIComponent(raw).trim(); }
+        catch { return raw.trim(); }
     }
 
     protected destroy(): void {

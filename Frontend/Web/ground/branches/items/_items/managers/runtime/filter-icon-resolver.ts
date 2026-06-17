@@ -1,4 +1,3 @@
-import { t } from '../../../../../localization/i18n';
 import { generateIconsOrText } from '../../../../../utils/icon-parser';
 
 const TYPE_ICONS: Record<string, string> = {
@@ -26,10 +25,7 @@ const STAT_ICONS: Record<string, string> = {
     Critical: 'CritChance', Cooldown: 'Cooldown', CritChance: 'CritChance', CritDamage: 'CritDamage', Stamina: 'Stamina', StaminaRecovery: 'StaminaRecovery',
     Resist: 'Resist', Static: 'Static', Soul: 'Soul',
 };
-const SORT_ICONS: Record<string, string> = {
-    'Rarity Down': 'sortlow', 'Rarity Up': 'sorthigh', 'Alphabet Up': 'sorthigh',
-    'Alphabet Down': 'sortlow', Relevance: 'luck',
-};
+
 
 export class FilterIconResolver {
     public getIconForFilter(value: string, filterType: string): string | null {
@@ -49,14 +45,13 @@ export class FilterIconResolver {
         else if (filterType === 'filterStats') { iconName = STAT_ICONS[value] || null; titleDesc = `Характеристика: ${value}`; }
         else if (filterType === 'filterFlags') { iconName = value === 'Purchasable' ? 'Gold' : null; titleDesc = `Тег: ${value}`; }
         else if (filterType === 'filterSort') {
-            iconName = SORT_ICONS[value] || null;
-            titleDesc = `Сортировка: ${t('items_sort_' + value.toLowerCase().replace(' ', '_'))}`;
+            return null;
         }
-        return iconName ? this.createIconHtml(iconName, titleDesc, filterType === 'filterSort') : null;
+        return iconName ? this.createIconHtml(iconName, titleDesc) : null;
     }
 
-    private createIconHtml(iconName: string, title: string, profile = false): string {
-        const base = profile && iconName !== 'luck' ? '/images/profile' : '/images/fonticon';
+    private createIconHtml(iconName: string, title: string): string {
+        const base = '/images/fonticon';
         const formats = [{ type: 'image/avif', ext: 'avif', path: `${base}/avif` }, { type: 'image/webp', ext: 'webp', path: `${base}/webp` }];
         const sources = formats.map(f => `<source srcset="${f.path}/${iconName.toLowerCase()}.${f.ext}" type="${f.type}">`).join('');
         return `<picture class="filter-icon" title="${title}">${sources}<img src="${base}/webp/${iconName.toLowerCase()}.webp" alt="${title}" loading="lazy"></picture>`;

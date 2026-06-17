@@ -15,6 +15,14 @@ export function applySearch(items: any[], rawQuery: string, fuse: FuseLike, matc
     return plan.terms.length ? applyFuseSearch(filtered, plan.terms, plan.groupCount, fuse) : filtered;
 }
 
+export function applyPlainTextSearch(items: any[], rawQuery: string, fuse: FuseLike): any[] {
+    clearSearchScores(items);
+    const sanitized = (rawQuery || '').replace(/[\[\]{}<>!&|()]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!sanitized) return [...items];
+    const plan = buildSearchPlan(sanitized);
+    return plan.terms.length ? applyFuseSearch(items, plan.terms, plan.groupCount, fuse) : [...items];
+}
+
 export function withoutSearch(filters: FilterState): FilterState {
     return { ...filters, searchQuery: '' };
 }

@@ -5,7 +5,8 @@ import { getItemKey } from './prepared-items';
 const BUFFS = ['buff', 'haste', 'regeneration', 'cleanse', 'luck', 'empower', 'thorns', 'heal', 'lifesteal', 'mana'];
 const DEBUFFS = ['poison', 'burn', 'bleed', 'chill', 'frost', 'curse', 'blind', 'stun', 'debuff'];
 const STATS = ['damage', 'critical', 'accuracy', 'stamina', 'cooldown', 'health', 'armor', 'resist'];
-const PRIORITY_TYPES = ['Bag', 'Melee Weapon', 'Ranged Weapon', 'Pet', 'Food', 'Accessory', 'Armor'];
+const PRIORITY_TYPES = ['Melee Weapon', 'Ranged Weapon', 'Pet', 'Food', 'Accessory', 'Armor'];
+const LAST_TYPES = ['Bag'];
 
 export function calculateFilterOptions(items: any[], preparedByKey: Map<string, PreparedItem>): FilterOptions {
     const allTypes = new Set<string>();
@@ -53,6 +54,12 @@ function addExtracted(keys: string[], extracted: Set<string>, target: Set<string
 
 function sortTypes(types: Set<string>): string[] {
     return Array.from(types).sort((a, b) => {
+        const lastA = LAST_TYPES.indexOf(a);
+        const lastB = LAST_TYPES.indexOf(b);
+        if (lastA !== -1 && lastB !== -1) return lastA - lastB;
+        if (lastA !== -1) return 1;
+        if (lastB !== -1) return -1;
+
         const priorityA = PRIORITY_TYPES.indexOf(a);
         const priorityB = PRIORITY_TYPES.indexOf(b);
         if (priorityA !== -1 && priorityB !== -1) return priorityA - priorityB;

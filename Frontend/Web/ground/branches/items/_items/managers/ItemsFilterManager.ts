@@ -1,14 +1,15 @@
 // @ts-ignore
 import Fuse from 'fuse.js';
 import { FilterState } from './ItemsStateManager';
-import { applyFilters as applyFiltersCore } from './filter/filter-applier';
+import { applyConcreteFilters, applyFilters as applyFiltersCore } from './filter/filter-applier';
 import { calculateFilterOptions as calculateFilterOptionsCore } from './filter/filter-options';
-import { applySearch, withoutSearch } from './filter/fuse-search';
+import { applyPlainTextSearch, applySearch, withoutSearch } from './filter/fuse-search';
 import { ItemMatcher } from './filter/item-matcher';
 import { mapPreparedByKey, prepareItems } from './filter/prepared-items';
 import { parseQueryToAST as parseQueryToASTCore } from './filter/query-parser';
 import { sortItems as sortItemsCore } from './filter/sort-service';
 import { ASTNode, FilterOptions, PreparedItem } from './filter/filter-types';
+import { SortInput } from './runtime/items-runtime-types';
 
 export type { ASTNode, PreparedItem } from './filter/filter-types';
 
@@ -48,12 +49,25 @@ export class ItemsFilterManager {
         return this.matcher.itemMatchesStrictTag(item, tag);
     }
 
+    /** Backward-compatible method used by older tests and advanced filter flow. */
     public applyFilters(items: any[], filters: FilterState): any[] {
         const searched = applySearch(items, filters.searchQuery, this.fuse, this.matcher);
         return applyFiltersCore(searched, withoutSearch(filters), this.matcher);
     }
 
-    public sortItems(items: any[], sortBy: 'rarity' | 'name' | 'relevance', query: string = ''): any[] {
+    public applyConcreteFilters(items: any[], filters: FilterState): any[] {
+        return applyConcreteFilters(items, filters, this.matcher);
+    }
+
+    public applyPlainTextSearch(items: any[], query: string): any[] {
+        return applyPlainTextSearch(items, query, this.fuse);
+    }
+
+    public applyAdvancedSearch(items: any[], query: string): any[] {
+        return applySearch(items, query, this.fuse, this.matcher);
+    }
+
+    public sortItems(items: any[], sortBy: SortInput, query: string = ''): any[] {
         return sortItemsCore(items, sortBy, query);
     }
 

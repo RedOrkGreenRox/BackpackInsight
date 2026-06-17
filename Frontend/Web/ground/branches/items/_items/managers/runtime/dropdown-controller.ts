@@ -5,6 +5,7 @@ export class DropdownController {
 
     public init(): void {
         this.container.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            this.open(toggle as HTMLElement);
             this.addListener(toggle, 'click', (e: Event) => this.onClick(e, toggle as HTMLElement));
         });
     }
@@ -21,5 +22,15 @@ export class DropdownController {
         dropdown.classList.toggle('show', !isOpen);
         toggle.classList.toggle('open', !isOpen);
         if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+    }
+
+    private open(toggle: HTMLElement): void {
+        const targetId = toggle.dataset['target'];
+        if (!targetId) return;
+        const dropdown = this.container.querySelector(`#${targetId}`) as HTMLElement | null;
+        const arrow = toggle.querySelector('.dropdown-arrow') as HTMLElement | null;
+        dropdown?.classList.add('show');
+        toggle.classList.add('open');
+        if (arrow) arrow.textContent = '▲';
     }
 }

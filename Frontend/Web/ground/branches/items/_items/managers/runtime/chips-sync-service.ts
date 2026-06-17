@@ -1,39 +1,44 @@
-import { t } from '../../../../../localization/i18n';
-
-const TYPE_MAPPING: Record<string, string> = { 'Melee Weapon': 'MeleeWeapon', 'Ranged Weapon': 'RangedWeapon' };
+import { FilterState } from '../ItemsStateManager';
+import { SortKey, SortPriority } from './items-runtime-types';
 
 export class ChipsSyncService {
     constructor(private readonly container: HTMLElement) {}
 
-    public sync(query: string): void {
-        this.container.querySelectorAll('.filter-chip').forEach(chip => this.syncChip(chip as HTMLElement, query));
+    public sync(filters: FilterState, sortPriorities: SortPriority[]): void {
+        this.container.querySelectorAll('.filter-chip').forEach(chip => this.syncChip(chip as HTMLElement, filters, sortPriorities));
     }
 
-    private syncChip(chip: HTMLElement, query: string): void {
+    private syncChip(chip: HTMLElement, filters: FilterState, sortPriorities: SortPriority[]): void {
         const val = chip.dataset['value'];
         const type = chip.dataset['groupType'];
         if (!val || !type || chip.dataset['moreToggle']) return;
-        if (type === 'sort') return this.syncSortChip(chip, val, query);
-        const mappedVal = TYPE_MAPPING[val] || val.replace(/\s+/g, '');
-        const escVal = mappedVal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const tests = this.buildTests(escVal);
-        const label = this.containerIdToLabel(val, (chip.parentElement as HTMLElement).id);
-        const span = chip.querySelector('span');
         this.resetChipClass(chip);
-        if (tests.exact.test(query)) this.setActive(chip, span, ['active', 'exact'], `&lt;${label}&gt;`);
-        else if (tests.negatedExact.test(query)) this.setActive(chip, span, ['active', 'negated', 'exact'], `!&lt;${label}&gt;`);
-        else if (tests.plain.test(query)) this.setActive(chip, span, ['active', 'plain'], `${label}`);
-        else if (tests.negatedPlain.test(query)) this.setActive(chip, span, ['active', 'negated', 'plain'], `!${label}`);
-        else this.setInactive(chip, span, val, label);
+        if (type === 'sort') return this.syncSortChip(chip, sortKeyFromOption(val), sortPriorities);
+        const state = this.getState(val, type, filters);
+        if (state === 'include') chip.classList.add('active', 'include');
+        if (state === 'exclude') chip.classList.add('active', 'exclude');
+        if (type === 'rarity') chip.classList.add(`rarity-${val.toLowerCase()}`);
     }
 
-    private buildTests(escVal: string): { exact: RegExp; negatedExact: RegExp; plain: RegExp; negatedPlain: RegExp } {
-        return {
-            exact: new RegExp(`\\[\\s*<${escVal}>\\s*\\]`, 'i'),
-            negatedExact: new RegExp(`\\[\\s*!<${escVal}>\\s*\\]`, 'i'),
-            plain: new RegExp(`\\[\\s*${escVal}\\s*\\]`, 'i'),
-            negatedPlain: new RegExp(`\\[\\s*!${escVal}\\s*\\]`, 'i'),
-        };
+    private getState(val: string, type: string, filters: FilterState): 'none' | 'include' | 'exclude' {
+        if (type === 'type') return this.stateFromSets(val, filters.selectedTypes, filters.excludedTypes);
+        if (type === 'rarity') return this.stateFromSets(val, filters.selectedRarities, filters.excludedRarities);
+        if (type === 'hero') return this.stateFromSets(val, filters.selectedHeroes, filters.excludedHeroes);
+        if (type === 'unlock') return this.stateFromSets(val, filters.selectedUnlockSources, filters.excludedUnlockSources);
+        if (type === 'buff') return this.stateFromSets(val, filters.selectedBuffs, filters.excludedBuffs);
+        if (type === 'debuff') return this.stateFromSets(val, filters.selectedDebuffs, filters.excludedDebuffs);
+        if (type === 'stat') return this.stateFromSets(val, filters.selectedStats, filters.excludedStats);
+        if (type === 'flag' && val === 'Purchasable') {
+            if (filters.purchasableOnly === true) return 'include';
+            if (filters.purchasableOnly === false) return 'exclude';
+        }
+        return 'none';
+    }
+
+    private stateFromSets(val: string, include: Set<string>, exclude: Set<string> | undefined): 'none' | 'include' | 'exclude' {
+        if (include.has(val)) return 'include';
+        if (exclude?.has(val)) return 'exclude';
+        return 'none';
     }
 
     private resetChipClass(chip: HTMLElement): void {
@@ -42,23 +47,19 @@ export class ChipsSyncService {
         chip.className = keep.join(' ');
     }
 
-    private syncSortChip(chip: HTMLElement, val: string, query: string): void {
-        const sortTag = `{${val}}`;
-        const escTag = sortTag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        chip.classList.toggle('active', new RegExp(escTag, 'i').test(query));
+    private syncSortChip(chip: HTMLElement, key: SortKey, sortPriorities: SortPriority[]): void {
+        const idx = sortPriorities.findIndex(item => item.key === key);
+        const priority = idx >= 0 ? sortPriorities[idx] : null;
+        chip.classList.toggle('active', !!priority);
+        chip.classList.toggle('include', priority?.direction === 'down');
+        chip.classList.toggle('exclude', priority?.direction === 'up');
+        chip.querySelector('.sort-dir')!.textContent = priority ? (priority.direction === 'down' ? '↓' : '↑') : '';
+        chip.querySelector('.sort-priority')!.textContent = priority ? `#${idx + 1}` : '';
     }
+}
 
-    private setActive(chip: HTMLElement, span: Element | null, classes: string[], html: string): void {
-        chip.classList.add(...classes);
-        if (span) span.innerHTML = html;
-    }
-
-    private setInactive(chip: HTMLElement, span: Element | null, val: string, label: string): void {
-        if (span) span.innerHTML = `${label}`;
-        if ((chip.parentElement as HTMLElement).id === 'filterRarities') chip.classList.add(`rarity-${val.toLowerCase()}`);
-    }
-
-    private containerIdToLabel(val: string, containerId: string): string {
-        return containerId === 'filterSort' ? t(`items_sort_${val.toLowerCase().replace(' ', '_')}`) : val;
-    }
+function sortKeyFromOption(option: string): SortKey {
+    if (option === 'Relevance') return 'relevance';
+    if (option === 'Alphabet') return 'alphabet';
+    return 'rarity';
 }

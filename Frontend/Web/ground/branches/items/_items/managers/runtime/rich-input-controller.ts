@@ -11,11 +11,15 @@ export class RichInputController {
         private readonly addListener: ListenerRegistrar,
         private readonly onQueryChange: () => void,
         private readonly onCompile: () => void,
+        private readonly isAdvancedMode: () => boolean = () => true,
     ) {}
     public init(initialQuery: string): void {
         const richInput = this.input();
         if (!richInput) return;
-        if (initialQuery) richInput.innerHTML = this.renderer.renderTextToRichHTML(initialQuery);
+        if (initialQuery) {
+            if (this.isAdvancedMode()) richInput.innerHTML = this.renderer.renderTextToRichHTML(initialQuery);
+            else richInput.textContent = initialQuery;
+        }
         this.attachInput(richInput);
         this.attachKeys(richInput);
         this.attachCopy(richInput);
@@ -33,6 +37,12 @@ export class RichInputController {
         moveCaretToEnd(richInput);
         this.onCompile();
         this.autocomplete.hide(this.container);
+    }
+    public renderPlainText(): void {
+        const richInput = this.input();
+        if (!richInput) return;
+        richInput.textContent = this.renderer.getCleanTextFromRichHTML(this.container);
+        moveCaretToEnd(richInput);
     }
     public hideAutocomplete(): void {
         this.autocomplete.hide(this.container);
@@ -53,7 +63,11 @@ export class RichInputController {
     private handleKeydown(event: KeyboardEvent, richInput: HTMLElement): void {
         if (event.key === 'Enter') {
             event.preventDefault();
-            if (!this.acceptGhost(richInput)) this.triggerCompilation();
+            if (this.isAdvancedMode()) {
+                if (!this.acceptGhost(richInput)) this.triggerCompilation();
+            } else if (!this.acceptGhost(richInput)) {
+                this.onCompile();
+            }
             return;
         }
         if (event.key === 'Escape') {

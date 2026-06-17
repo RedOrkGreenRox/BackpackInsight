@@ -1,9 +1,8 @@
-// Filter chips styles
 .filter-chip {
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    border-radius: 18px;
     color: var(--text-default-color);
     font-size: 0.9rem;
     font-family: 'Signika', sans-serif;
@@ -15,66 +14,114 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 36px;
+    min-height: 44px;
+    min-width: 44px;
     line-height: 1;
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.4);
-        transform: translateY(-1px);
-    }
-
-    &.active {
-        background: var(--azure);
-        border-color: var(--azure);
-        color: white;
-        box-shadow: 0 0 10px rgba(var(--azure-raw), 0.5);
-    }
-
-    // Icons inside chips
-    .filter-icon,
-    .text-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        flex-shrink: 0;
-        margin: 0;
-
-        picture, img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-    }
-
-    // Larger icons only inside heroes block
-    #filterHeroes & .filter-icon,
-    #filterHeroes & .text-icon {
-        width: 32px;
-        height: 32px;
-    }
-
-    // Spacing adjustment for icon-only chips
-    &:has(.filter-icon):not(:has(span)),
-    &:has(.text-icon):not(:has(span)) { 
-        padding: 8px;
-        width: 40px;
-        height: 40px;
-    }
-
-    &.no-icon-extra {
-        display: none;
-    }
 }
 
-.filter-multiselect.show-no-icon-extra .filter-chip.no-icon-extra {
+.filter-chip:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.filter-chip.active.include {
+    background: rgba(42, 180, 108, 0.28);
+    border-color: rgba(67, 224, 139, 0.86);
+    color: #dfffea;
+    box-shadow: 0 0 12px rgba(67, 224, 139, 0.28);
+}
+
+.filter-chip.active.exclude {
+    background: rgba(206, 56, 56, 0.28);
+    border-color: rgba(255, 94, 94, 0.9);
+    color: #ffe2e2;
+    box-shadow: 0 0 12px rgba(255, 94, 94, 0.28);
+}
+
+.filter-chip.active:not(.include):not(.exclude) {
+    background: var(--azure);
+    border-color: var(--azure);
+    color: white;
+    box-shadow: 0 0 10px rgba(var(--azure-raw), 0.5);
+}
+
+.filter-chip .filter-icon,
+.filter-chip .text-icon {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.filter-more-chip {
-    min-width: 40px;
-    font-weight: 800;
+#filterHeroes .filter-chip .filter-icon,
+#filterHeroes .filter-chip .text-icon {
+    width: 52px;
+    height: 52px;
+}
+
+.filter-chip .filter-icon picture,
+.filter-chip .filter-icon img,
+.filter-chip .text-icon picture,
+.filter-chip .text-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.filter-chip:has(.filter-icon):not(:has(span)),
+.filter-chip:has(.text-icon):not(:has(span)) {
+    padding: 0;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+}
+
+#filterHeroes .filter-chip:has(.filter-icon):not(:has(span)),
+#filterHeroes .filter-chip:has(.text-icon):not(:has(span)) {
+    width: 54px;
+    height: 54px;
+}
+
+.filter-chip:has(.filter-icon):not(:has(span)) .filter-icon,
+.filter-chip:has(.text-icon):not(:has(span)) .text-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.filter-chip.no-icon-extra { display: none; }
+.filter-multiselect.show-no-icon-extra .filter-chip.no-icon-extra { display: inline-flex; }
+.filter-more-chip { min-width: 44px; font-weight: 800; }
+
+.sort-dir,
+.sort-priority {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.24);
+    font-weight: 900;
+}
+
+.sort-order-controls {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-left: 2px;
+}
+
+.sort-order-controls b {
+    font-size: .68rem;
+    line-height: .8rem;
+    padding: 0 3px;
+    border-radius: 4px;
+    background: rgba(255,255,255,.12);
 }

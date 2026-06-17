@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     router.register('/', () => import('./branches/main/MainBranch').then(m => m.MainBranch));
     router.register('/profile', () => import('./branches/profile/ProfileBranch').then(m => m.ProfileBranch));
     router.register('/items', () => import('./branches/items/ItemsBranch').then(m => m.ItemsBranch));
+    router.register('/items/:query', () => import('./branches/items/ItemsBranch').then(m => m.ItemsBranch));
     router.register('/404', () => import('./branches/404/NotFoundBranch').then(m => m.NotFoundBranch));
 
     // Динамические маршруты

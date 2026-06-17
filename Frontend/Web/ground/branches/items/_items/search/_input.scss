@@ -22,4 +22,21 @@
         pointer-events: none;
         display: block;
     }
+
+    &[data-filter-query]::after {
+        content: attr(data-filter-query);
+        display: inline-block;
+        margin-left: 10px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        max-width: 100%;
+        color: rgba(var(--azure-raw), 0.95);
+        background: rgba(var(--azure-raw), 0.12);
+        border: 1px solid rgba(var(--azure-raw), 0.28);
+        font-size: 0.86rem;
+        line-height: 1.4rem;
+        vertical-align: middle;
+        pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+    }
 }
