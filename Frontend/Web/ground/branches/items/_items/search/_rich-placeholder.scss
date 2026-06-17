@@ -1,0 +1,43 @@
+.search-input-rich {
+    .rich-placeholder {
+        display: inline-block;
+        padding: 4px 12px;
+        border: 1px dashed rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        animation: pulse-placeholder 1.5s infinite alternate;
+        user-select: none;
+        margin: 2px;
+
+        &.active-placeholder {
+            border-color: var(--azure);
+            background: rgba(var(--azure-raw), 0.15);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(var(--azure-raw), 0.3);
+        }
+    }
+
+    .ghost-suggestion {
+        color: rgba(255, 255, 255, 0.35);
+        font-style: italic;
+        pointer-events: none;
+        user-select: none;
+        display: inline-block;
+        font-weight: 400;
+    }
+}
+
+@keyframes pulse-placeholder {
+    0% {
+        opacity: 0.6;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        opacity: 1;
+        border-color: var(--azure);
+    }
+}

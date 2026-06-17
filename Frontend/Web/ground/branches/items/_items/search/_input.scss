@@ -1,4 +1,4 @@
-// Search input styles
+// Search input base styles
 .search-input-rich {
     width: 100%;
     min-height: 48px;
@@ -7,184 +7,19 @@
     outline: none;
     font-family: 'Signika', sans-serif;
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 70px 12px 30px; // Отступ справа под круглую иконку-кнопку
+    display: block;
+    line-height: 2.4rem;
+    word-break: break-word;
+    padding: 12px 70px 12px 30px;
     box-sizing: border-box;
     text-align: left;
     cursor: text;
+    white-space: pre-wrap;
 
-    // Placeholder logic for contenteditable
     &:empty::before {
         content: attr(placeholder);
         color: rgba(255, 255, 255, 0.4);
         pointer-events: none;
         display: block;
-    }
-
-    // Стили интерактивных тегов (чипсов)
-    .rich-token {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin: 2px;
-        user-select: none;
-        cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid transparent;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-
-        // State 1: Exact (<Tag>) - Золотой
-        &.exact {
-            background: rgba(255, 180, 0, 0.12);
-            border-color: rgba(255, 180, 0, 0.5);
-            color: #ffb400;
-        }
-
-        // State 2: Negated Exact (!<Tag>) - Красный
-        &.negated.exact {
-            background: rgba(255, 50, 50, 0.12);
-            border-color: rgba(255, 50, 50, 0.5);
-            color: #ff3232;
-        }
-
-        // State 3: Plain (Tag) - Лазурный
-        &.plain {
-            background: rgba(0, 180, 255, 0.12);
-            border-color: rgba(0, 180, 255, 0.5);
-            color: #00b4ff;
-        }
-
-        // State 4: Negated Plain (!Tag) - Оранжевый штрих
-        &.negated.plain {
-            background: rgba(255, 100, 0, 0.1);
-            border-color: rgba(255, 100, 0, 0.55);
-            border-style: dashed;
-            color: #ff6400;
-        }
-
-        // Сфокусированный (выбранный кликом) чип
-        &.focused-token {
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-            border-color: #fff;
-            transform: scale(1.05);
-        }
-
-        // Иконка-крестик закрытия чипа (особенно удобно для мобилок!)
-        .token-close-btn {
-            margin-left: 6px;
-            font-size: 0.9rem;
-            color: currentColor;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 14px;
-            height: 14px;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        .filter-icon {
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: auto; // Разрешаем события для показа title тултипа
-            
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                display: block;
-            }
-        }
-    }
-
-    // Стили логических операторов как красивых бэджей
-    .rich-operator {
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: rgba(255, 255, 255, 0.8);
-        user-select: none;
-        margin: 0 4px;
-        display: inline-block;
-
-        &.op-and {
-            background: rgba(46, 204, 113, 0.12);
-            border-color: rgba(46, 204, 113, 0.4);
-            color: #2ecc71;
-        }
-
-        &.op-or {
-            background: rgba(155, 89, 182, 0.12);
-            border-color: rgba(155, 89, 182, 0.4);
-            color: #9b59b6;
-        }
-
-        &.op-not {
-            background: rgba(231, 76, 60, 0.12);
-            border-color: rgba(231, 76, 60, 0.4);
-            color: #e74c3c;
-        }
-    }
-
-    // Временный интерактивный плейсхолдер ожидания аргументов
-    .rich-placeholder {
-        display: inline-block;
-        padding: 4px 12px;
-        border: 1px dashed rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.05);
-        color: rgba(255, 255, 255, 0.5);
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        animation: pulse-placeholder 1.5s infinite alternate;
-        user-select: none;
-        margin: 2px;
-
-        &.active-placeholder {
-            border-color: var(--azure);
-            background: rgba(var(--azure-raw), 0.15);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(var(--azure-raw), 0.3);
-        }
-    }
-
-    // Призрачная авто-подсказка прямо внутри строки ввода
-    .ghost-suggestion {
-        color: rgba(255, 255, 255, 0.35);
-        font-style: italic;
-        pointer-events: none;
-        user-select: none;
-        display: inline-block;
-        font-weight: 400;
-    }
-}
-
-@keyframes pulse-placeholder {
-    0% {
-        opacity: 0.6;
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    100% {
-        opacity: 1;
-        border-color: var(--azure);
     }
 }

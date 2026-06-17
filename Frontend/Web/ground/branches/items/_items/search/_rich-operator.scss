@@ -1,0 +1,32 @@
+.search-input-rich {
+    .rich-operator {
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.8);
+        user-select: none;
+        margin: 0 4px;
+        display: inline-block;
+
+        &.op-and {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+        }
+
+        &.op-or {
+            background: rgba(155, 89, 182, 0.12);
+            border-color: rgba(155, 89, 182, 0.4);
+            color: #9b59b6;
+        }
+
+        &.op-not {
+            background: rgba(231, 76, 60, 0.12);
+            border-color: rgba(231, 76, 60, 0.4);
+            color: #e74c3c;
+        }
+    }
+}

@@ -64,4 +64,17 @@
         width: 40px;
         height: 40px;
     }
+
+    &.no-icon-extra {
+        display: none;
+    }
+}
+
+.filter-multiselect.show-no-icon-extra .filter-chip.no-icon-extra {
+    display: inline-flex;
+}
+
+.filter-more-chip {
+    min-width: 40px;
+    font-weight: 800;
 }

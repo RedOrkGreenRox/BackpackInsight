@@ -47,7 +47,7 @@
         }
     }
 
-    // Круглая лаконичная кнопка-иконка раскрытия фильтров (Pill Toggle Circle)
+    // Кнопка-иконка раскрытия фильтров без круглой границы
     .filter-toggle-btn {
         position: absolute;
         right: 12px;
@@ -56,9 +56,9 @@
         width: 38px;
         height: 38px;
         padding: 0;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 50%; // Круглая кнопка
+        background: transparent;
+        border: none;
+        border-radius: 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,8 +67,8 @@
         transition: all 0.3s ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: var(--azure);
+            background: rgba(var(--azure-raw), 0.12);
+            box-shadow: 0 0 12px rgba(var(--azure-raw), 0.35);
             transform: translateY(-50%) scale(1.08); // Легкий зум при ховере
         }
 
@@ -77,9 +77,8 @@
         }
 
         &.open {
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            border-color: var(--azure);
+            background: rgba(var(--azure-raw), 0.16);
+            box-shadow: 0 0 14px rgba(var(--azure-raw), 0.4);
         }
 
         .filter-toggle-icon {
