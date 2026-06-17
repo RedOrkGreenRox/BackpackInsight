@@ -18,19 +18,24 @@ Frontend/Web/ground/branches/items/_items/search/_input.scss
 Frontend/Web/ground/branches/items/_items/search/_rich-operator.scss
 Frontend/Web/ground/branches/items/_items/search/_rich-token.scss
 Frontend/Web/ground/branches/items/items.scss
+Frontend/Web/static/search/term-aliases.ru.json
 ```
 
 ## Созданы
 
 ```text
+Frontend/Web/ground/branches/items/_items/managers/filter/alias-fuzzy.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/comparison.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/filter-applier.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/filter-options.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/filter-types.ts
+Frontend/Web/ground/branches/items/_items/managers/filter/fuse-collector.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/fuse-search.ts
+Frontend/Web/ground/branches/items/_items/managers/filter/fuzzy-term-guard.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/item-matcher.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/prepared-items.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/query-parser.ts
+Frontend/Web/ground/branches/items/_items/managers/filter/search-plan.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/search-score.ts
 Frontend/Web/ground/branches/items/_items/managers/filter/sort-service.ts
 Frontend/Web/ground/branches/items/_items/managers/runtime/advanced-panel-controller.ts

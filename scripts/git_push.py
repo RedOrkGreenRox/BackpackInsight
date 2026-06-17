@@ -55,7 +55,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Попытка 2 нарезки монолита. Прототип поисковой системы (чипсеты + семантика)
+тест
     """
     message = f"{upd} | Automated push: {timestamp}"
 

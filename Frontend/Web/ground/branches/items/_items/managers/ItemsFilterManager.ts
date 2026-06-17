@@ -25,6 +25,7 @@ export class ItemsFilterManager {
         this.fuse = new Fuse(this.preparedItems, {
             includeScore: true,
             threshold: 0.4,
+            ignoreLocation: true,
             keys: [
                 { name: 'item.name', weight: 2.4 },
                 { name: 'typeText', weight: 1.4 },
