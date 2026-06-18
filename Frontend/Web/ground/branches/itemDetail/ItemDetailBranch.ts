@@ -1,5 +1,6 @@
 import { PageMeta } from '../../roots/Branch';
-import { StructuredBranch } from '../../roots/StructuredBranch';
+import { BranchSpec } from '../../roots/BranchSpec';
+import { BranchRunner } from '../../roots/BranchRunner';
 import { ItemDetailDisplay, ItemDetailInput } from './_itemDetail/display/ItemDetailDisplay';
 import { ItemDetailDataLoader } from './_itemDetail/data/ItemDetailData';
 import { ItemDetailLogic } from './_itemDetail/logic/ItemDetailLogic';
@@ -7,19 +8,17 @@ import { ItemDetailData } from './_itemDetail/utils/item-detail-types';
 import { ItemDetailRenderer } from './_itemDetail/components/ItemDetailRenderer';
 import './itemDetail.scss';
 
-export class ItemDetailBranch extends StructuredBranch<ItemDetailInput, ItemDetailData> {
-  protected pageClass = 'item-detail-page';
-  protected bodyClass = 'item-detail-body';
-  protected display = new ItemDetailDisplay();
-  protected data = new ItemDetailDataLoader();
-  protected meta: PageMeta | ((input?: ItemDetailInput) => PageMeta) = (input?: ItemDetailInput) =>
-    ItemDetailRenderer.getMeta(input);
+export const itemDetailSpec: BranchSpec<ItemDetailInput, ItemDetailData> = {
+  id: 'itemDetail',
+  routes: ['/item/:name', '/profile/item/:name'],
+  styles: {
+    pageClass: 'item-detail-page',
+    bodyClass: 'item-detail-body',
+  },
+  display: new ItemDetailDisplay(),
+  data: new ItemDetailDataLoader(),
+  meta: (input?: ItemDetailInput): PageMeta => ItemDetailRenderer.getMeta(input),
+  logic: (_ctx, root: HTMLElement) => [new ItemDetailLogic(root)],
+};
 
-  protected createLogic(_context: ItemDetailData, root: HTMLElement): ItemDetailLogic {
-    return new ItemDetailLogic(root);
-  }
-
-  protected override extractInput(data?: any): ItemDetailInput {
-    return data as ItemDetailInput;
-  }
-}
+export const ItemDetailBranch = new BranchRunner(itemDetailSpec).createBranchClass();

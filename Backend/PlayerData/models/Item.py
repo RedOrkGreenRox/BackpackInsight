@@ -59,6 +59,10 @@ class ItemDefinition(SQLModel, table=True):
     tooltips: List[str] = Field(default=[], sa_column=Column(JSON))
     levels_info: Dict[str, Any] = Field(default={}, sa_column=Column(JSON), alias="levels")
 
+    # Localized fields for version 5.1.0 (RU + EN)
+    names_local: Dict[str, str] = Field(default={}, sa_column=Column(JSON))
+    tooltips_local: Dict[str, List[str]] = Field(default={}, sa_column=Column(JSON))
+
     # Relationship to player items
     items: List["Item"] = Relationship(back_populates="definition")
 
@@ -101,13 +105,11 @@ class Item(SQLModel, table=True):
     @definition_proxy_property("name", "Unknown")
     def name(self) -> str: 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @definition_proxy_property("rarity", "Common")
     def rarity(self) -> str: 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @property
@@ -116,13 +118,11 @@ class Item(SQLModel, table=True):
     @definition_proxy_property("combat_stats")
     def combat_stats(self) -> 'CombatStats': 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @definition_proxy_property("all_stats_data", {})
     def all_stats(self) -> Dict[str, Any]: 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @property
@@ -133,7 +133,6 @@ class Item(SQLModel, table=True):
     # -- Computed Properties --
     @property
     def cards_need(self) -> int:
-        # Use self.rarity property which now handles fallback
         rarity = self.rarity
         if (self.level >= 15) or (rarity == "Relic" and self.level >= 10): return -1
         if rarity == "Boon": return -1
@@ -181,13 +180,11 @@ class Item(SQLModel, table=True):
     @definition_proxy_property("connected_hero")
     def group(self) -> Optional[str]: 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @definition_proxy_property("item_types", [])
     def types(self) -> List[str]: 
         # Empty implementation - decorated with @definition_proxy_property
-        # which handles the actual property access via ItemDefinition
         pass
     
     @property

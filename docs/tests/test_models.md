@@ -1,7 +1,7 @@
 # [Тесты Моделей (test_models.py)](../../tests/test_models.py)
 
 ## Назначение
-Модульные тесты для проверки бизнес-логики, инкапсулированной в моделях [Hero](../backend/playerdata/models/Hero.md), [Item](../backend/playerdata/models/Item.md) и [Profile](../backend/playerdata/models/Profile.md).
+Модульные тесты для проверки бизнес-логики, инкапсулированной в моделях [Hero](../Backend/PlayerData/models/Hero.md), [Item](../Backend/PlayerData/models/Item.md) и [Profile](../Backend/PlayerData/models/Profile.md).
 
 ## Ключевые проверки
 *   **Герои**: Корректность расчета опыта для следующего уровня, автоматическое определение лиг по рейтингу.

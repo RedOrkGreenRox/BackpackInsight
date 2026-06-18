@@ -1,7 +1,7 @@
 # [Тесты фабрики профилей (test_profile_factory.py)](../../tests/test_profile_factory.py)
 
 ## Назначение
-Тесты [ProfileFactory](../backend/playerdata/services/ProfileFactory.md): парсинг JSON, валидация, кеш определений предметов.
+Тесты [ProfileFactory](../Backend/PlayerData/services/ProfileFactory.md): парсинг JSON, валидация, кеш определений предметов.
 
 ## Покрытие
 *   Валидация обязательных полей; создание профиля; статистика по редкости; поведение кеша (hit/miss).

@@ -12,7 +12,7 @@
 
 ### 2. `session`
 Готовит сессию БД для теста:
-*   Очищает кэш [ProfileFactory](../backend/playerdata/services/ProfileFactory.md).
+*   Очищает кэш [ProfileFactory](../Backend/PlayerData/services/ProfileFactory.md).
 *   Предзагружает статические определения предметов из JSON в in-memory БД.
 *   Обеспечивает актуальное состояние базы перед каждым тестом.
 

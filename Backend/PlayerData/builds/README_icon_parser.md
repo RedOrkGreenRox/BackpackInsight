@@ -147,5 +147,5 @@ python icon_parser.py
 
 - Python 3.8+
 - Работает с plain-text данными из JSON
-- Не требует HTML или frontend зависимостей
+- Не требует HTML или Frontend зависимостей
 - Готов для интеграции с PostgreSQL через SQLModel

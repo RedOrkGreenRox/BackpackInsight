@@ -277,7 +277,9 @@ class ProfileFactory:
             combat_stats_data=static_data.get("combatStats", {}),
             all_stats_data=static_data.get("allStats", {}),
             tooltips=static_data.get("tooltips", []),
-            levels_info=static_data.get("levels", {})
+            levels_info=static_data.get("levels", {}),
+            names_local=static_data.get("names_local", {}),
+            tooltips_local=static_data.get("tooltips_local", {})
         )
 
     @classmethod

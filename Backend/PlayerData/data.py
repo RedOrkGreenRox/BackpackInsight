@@ -38,7 +38,7 @@ def get_latest_items_file():
         
         def extract_version(filename):
             """Извлекает версию из имени файла"""
-            match = re.search(r'items_(\d+)_(\d+)_(\d+)\.json', filename)
+            match = re.search(r'items_(?:en_|ru_)?(\d+)_(\d+)_(\d+)\.json', filename)
             if match:
                 major, minor, patch = map(int, match.groups())
                 return (major, minor, patch)
@@ -61,22 +61,62 @@ ITEMS_PATH = get_latest_items_file()
 
 
 def load_items():
-    """Load items with proper error handling"""
+    """Load items and merge English and Russian locales for 5.1.0 when available"""
+    db_dir = BASE_DIR.parent / "DB"
+    en_path = db_dir / "items_en_5_1_0.json"
+    ru_path = db_dir / "items_ru_5_1_0.json"
+
+    # Если оба файла 5.1.0 существуют, сливаем их
+    if en_path.exists() and ru_path.exists():
+        try:
+            logger.info("Merging items_en_5_1_0.json and items_ru_5_1_0.json")
+            with open(en_path, "r", encoding="utf-8") as f:
+                en_data = json.load(f)
+                en_list = en_data.get("items", en_data) if isinstance(en_data, dict) else en_data
+            with open(ru_path, "r", encoding="utf-8") as f:
+                ru_data = json.load(f)
+                ru_list = ru_data.get("items", ru_data) if isinstance(ru_data, dict) else ru_data
+
+            merged_items = {}
+            for item in en_list:
+                item_id = item["id"]
+                merged_items[item_id] = {
+                    **item,
+                    "names_local": {"en": item["name"], "ru": item["name"]},
+                    "tooltips_local": {"en": item.get("tooltips", []), "ru": item.get("tooltips", [])}
+                }
+            for item in ru_list:
+                item_id = item["id"]
+                if item_id in merged_items:
+                    merged_items[item_id]["names_local"]["ru"] = item["name"]
+                    merged_items[item_id]["tooltips_local"]["ru"] = item.get("tooltips", [])
+                else:
+                    merged_items[item_id] = {
+                        **item,
+                        "names_local": {"en": item["name"], "ru": item["name"]},
+                        "tooltips_local": {"en": item.get("tooltips", []), "ru": item.get("tooltips", [])}
+                    }
+            return list(merged_items.values())
+        except Exception:
+            logger.exception("Error merging localized 5.1.0 files, falling back to sequential loader")
+
     if ITEMS_PATH is None:
         logger.error("No items file available")
         return []
         
     try:
-        with open(ITEMS_PATH, "rb") as f:
-            data = json.loads(f.read())
-            # JSON файл имеет структуру {"items": [...]}
-            if isinstance(data, dict) and "items" in data:
-                return data["items"]
-            elif isinstance(data, list):
-                return data
-            else:
-                logger.error(f"Invalid items file structure: expected dict with 'items' key or list, got {type(data)}")
-                return []
+        with open(ITEMS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            raw_list = data.get("items", data) if isinstance(data, dict) else data
+            
+            result_list = []
+            for item in raw_list:
+                result_list.append({
+                    **item,
+                    "names_local": {"en": item["name"], "ru": item["name"]},
+                    "tooltips_local": {"en": item.get("tooltips", []), "ru": item.get("tooltips", [])}
+                })
+            return result_list
     except FileNotFoundError:
         logger.error("Items file not found at %s", ITEMS_PATH)
         return []

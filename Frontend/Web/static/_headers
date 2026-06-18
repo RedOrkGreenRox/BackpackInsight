@@ -1,8 +1,8 @@
-# --- Шрифты (1 час, immutable) ---
+# --- Шрифты (1 год, immutable) ---
 /fonts/*
-  Cache-Control: public, max-age=3600, immutable
+  Cache-Control: public, max-age=31536000, immutable
 /*.woff2
-  Cache-Control: public, max-age=3600, immutable
+  Cache-Control: public, max-age=31536000, immutable
 
 # --- Остальная статика (1 минута, immutable) ---
 # Cloudflare применяет правила сверху вниз. Более специфичные должны быть выше,
@@ -13,7 +13,7 @@
 /images/*
   Cache-Control: public, max-age=60, immutable
 /assets/*
-  Cache-Control: public, max-age=60, immutable
+  Cache-Control: public, max-age=31536000, immutable
 /*.js
   Cache-Control: public, max-age=60, immutable
 /*.css

@@ -1,7 +1,7 @@
 # [Тесты Фабрики (test_profile_factory.py)](../../tests/test_profile_factory.py)
 
 ## Назначение
-Детальные тесты сервиса [ProfileFactory](../backend/playerdata/services/ProfileFactory.md), отвечающего за парсинг и кэширование.
+Детальные тесты сервиса [ProfileFactory](../Backend/PlayerData/services/ProfileFactory.md), отвечающего за парсинг и кэширование.
 
 ## Что тестируется
 1.  **Валидация**: Реакция на отсутствие ключей `Data`, `Name`, `UID` в логах.

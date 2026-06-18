@@ -14,6 +14,16 @@ import { RichInputController } from './runtime/rich-input-controller';
 import { RichQueryRenderer } from './runtime/rich-query-renderer';
 import { SearchDebouncer } from './runtime/search-debouncer';
 
+// Импортируем утилиты слотов и ввода каретки для продвинутого поиска
+import { insertHTMLAtCaret } from './runtime/caret-utils';
+import { refreshAncestorGroups } from './runtime/group-dom-raw';
+import { renderGroupInner, replaceGroupSlot } from './runtime/rich-group-renderer';
+
+// Импортируем выделенные контроллеры для SRP
+import { ItemsUrlController } from './runtime/items-url-controller';
+import { ItemsPromptChipsController } from './runtime/items-prompt-chips-controller';
+import { ItemsHelpController } from './runtime/items-help-controller';
+
 export class ItemsManager {
     private readonly filterManager = new ItemsFilterManager();
     private readonly stateManager = new ItemsStateManager();
@@ -30,6 +40,11 @@ export class ItemsManager {
     private advancedModeEnabled = false;
     private filters: FilterState = defaultFilters();
 
+    // Экземпляры выделенных контроллеров
+    private urlController!: ItemsUrlController;
+    private promptChipsController!: ItemsPromptChipsController;
+    private helpController!: ItemsHelpController;
+
     constructor(private readonly container: HTMLElement, private readonly items: any[], private readonly sharedQuery: string | null = null) {
         this.gridRenderer = new ItemsGridRenderer(container);
         this.chipsSync = new ChipsSyncService(container);
@@ -37,6 +52,10 @@ export class ItemsManager {
 
     public init(): void {
         this.restoreState();
+        this.urlController = new ItemsUrlController(this.filters, () => this.advancedModeEnabled, this.container);
+        this.promptChipsController = new ItemsPromptChipsController(this.container, this.filters, this.iconResolver);
+        this.helpController = new ItemsHelpController(this.container);
+
         this.filterManager.initFuse(this.items);
         this.initRichInput();
         this.initPanelControls();
@@ -74,7 +93,7 @@ export class ItemsManager {
     private parseSortState(raw: string): SortPriority[] {
         try {
             const parsed = JSON.parse(raw || '');
-            if (Array.isArray(parsed) && parsed.every(item => ['relevance', 'rarity', 'alphabet'].includes(item?.key) && ['down', 'up'].includes(item?.direction))) {
+            if (parsed && Array.isArray(parsed) && parsed.every(item => ['relevance', 'rarity', 'alphabet'].includes(item?.key) && ['down', 'up'].includes(item?.direction))) {
                 return parsed as SortPriority[];
             }
         } catch {
@@ -144,7 +163,7 @@ export class ItemsManager {
         );
         const options = this.filterManager.calculateFilterOptions(this.items);
         new FilterOptionsController(multiselect).setup(options);
-        this.renderAdvancedHelp(options);
+        this.helpController.renderAdvancedHelp(options);
         this.applyFilters();
     }
 
@@ -156,14 +175,14 @@ export class ItemsManager {
     private onQueryInput(): void {
         this.filters.searchQuery = this.richRenderer.getCleanTextFromRichHTML(this.container);
         this.saveState();
-        this.syncUrl();
+        this.urlController.syncUrl();
         this.searchDebouncer.run(() => this.applyFilters());
     }
 
     private onQueryCompiled(): void {
         this.filters.searchQuery = this.richRenderer.getCleanTextFromRichHTML(this.container);
         this.saveState();
-        this.syncUrl();
+        this.urlController.syncUrl();
         this.applyFilters();
         this.syncAll();
     }
@@ -173,13 +192,21 @@ export class ItemsManager {
         if (richInput) richInput.textContent = '';
         this.sortPriorities = defaultSortPriorities();
         this.filters = defaultFilters();
+        // Переинициализируем UrlController
+        this.urlController = new ItemsUrlController(this.filters, () => this.advancedModeEnabled, this.container);
         this.saveState();
-        this.syncUrl();
+        this.urlController.syncUrl();
         this.applyFilters();
         this.syncAll();
     }
 
     private cycleConcreteFilter(value: string, groupType: string): void {
+        if (this.advancedModeEnabled) {
+            // Если включен продвинутый режим - вставляем тег в слот или позицию каретки
+            this.insertTagIntoRichInput(value, groupType);
+            return;
+        }
+
         this.ensureNegativeSets();
         if (groupType === 'flag' && value === 'Purchasable') {
             this.filters.purchasableOnly = this.filters.purchasableOnly === null ? true : this.filters.purchasableOnly === true ? false : null;
@@ -194,9 +221,37 @@ export class ItemsManager {
         this.afterFilterChange();
     }
 
+    private insertTagIntoRichInput(value: string, groupType: string): void {
+        const richInput = this.container.querySelector('#itemSearch') as HTMLElement | null;
+        if (!richInput) return;
+
+        const isStrict = ['type', 'rarity', 'hero', 'unlock', 'flag'].includes(groupType);
+        const tag = isStrict ? `[<${this.mappedTag(value)}>]` : `[${value}]`;
+
+        const placeholder = this.container.querySelector('.rich-placeholder.active-placeholder') as HTMLElement | null;
+        const group = placeholder?.closest('.rich-group') as HTMLElement | null;
+
+        if (group) {
+            const nextRaw = replaceGroupSlot(group.dataset['raw'] || '[]', tag);
+            group.dataset['raw'] = nextRaw;
+            group.innerHTML = renderGroupInner(nextRaw, token => this.richRenderer.compileTokenToHTML(token));
+            refreshAncestorGroups(group);
+        } else {
+            insertHTMLAtCaret(richInput, this.richRenderer.compileTokenToHTML(tag));
+        }
+
+        richInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    private mappedTag(value: string): string {
+        if (value === 'Melee Weapon') return 'MeleeWeapon';
+        if (value === 'Ranged Weapon') return 'RangedWeapon';
+        return value.replace(/\s+/g, '');
+    }
+
     private afterFilterChange(): void {
         this.saveState();
-        this.syncUrl();
+        this.urlController.syncUrl();
         this.applyFilters();
         this.syncAll();
     }
@@ -249,8 +304,8 @@ export class ItemsManager {
     private syncAll(): void {
         this.chipsSync.sync(this.filters, this.sortPriorities);
         this.renderFormulaPreview();
-        this.renderSearchFilterPreview();
-        this.renderPromptLists();
+        this.urlController.renderSearchFilterPreview();
+        this.promptChipsController.renderPromptLists();
         const toggle = this.container.querySelector('#advancedModeToggle') as HTMLInputElement | null;
         if (toggle) toggle.checked = this.advancedModeEnabled;
     }
@@ -271,83 +326,6 @@ export class ItemsManager {
         if (formula) formula.style.display = 'none';
         const toggle = this.container.querySelector('#advancedModeToggle') as HTMLInputElement | null;
         if (toggle) toggle.checked = this.advancedModeEnabled;
-    }
-
-    private renderSearchFilterPreview(): void {
-        const input = this.container.querySelector('#itemSearch') as HTMLElement | null;
-        if (!input) return;
-        const formula = this.advancedModeEnabled ? '' : this.normalizeShareQuery(this.buildConcreteFormula());
-        if (formula) input.dataset['filterQuery'] = formula;
-        else delete input.dataset['filterQuery'];
-    }
-
-    private syncUrl(): void {
-        const raw = this.shareQuery();
-        const normalized = this.normalizeShareQuery(raw);
-        const nextPath = normalized ? `/items/${encodeURIComponent(normalized)}` : '/items';
-        if (globalThis.location.pathname !== nextPath) {
-            history.replaceState(history.state || {}, '', nextPath);
-        }
-    }
-
-    private shareQuery(): string {
-        const text = (this.filters.searchQuery || '').trim();
-        if (this.advancedModeEnabled) return text;
-        const formula = this.buildConcreteFormula();
-        return [text, formula].filter(Boolean).join(' & ');
-    }
-
-    private normalizeShareQuery(query: string): string {
-        return query
-            .replace(/\s+/g, ' ')
-            .replace(/\s*([&|!])\s*/g, '$1')
-            .replace(/\s*([<>]=?|=)\s*/g, '$1')
-            .replace(/\s*([\[\](){}])\s*/g, '$1')
-            .trim()
-            .toLowerCase();
-    }
-
-    private renderPromptLists(): void {
-        const positive = this.container.querySelector('#positiveFilterList') as HTMLElement | null;
-        const negative = this.container.querySelector('#negativeFilterList') as HTMLElement | null;
-        if (!positive || !negative) return;
-        positive.innerHTML = this.promptChips('include');
-        negative.innerHTML = this.promptChips('exclude');
-        positive.classList.toggle('empty', !positive.innerHTML.trim());
-        negative.classList.toggle('empty', !negative.innerHTML.trim());
-    }
-
-    private promptChips(kind: 'include' | 'exclude'): string {
-        const chips: string[] = [];
-        const addSet = (set: Set<string> | undefined, groupType: string, filterId: string, label: string) => {
-            (set ?? new Set<string>()).forEach(value => chips.push(this.promptChip(kind, groupType, filterId, label, value)));
-        };
-        if (kind === 'include') {
-            addSet(this.filters.selectedTypes, 'type', 'filterTypes', 'Тип');
-            addSet(this.filters.selectedRarities, 'rarity', 'filterRarities', 'Редкость');
-            addSet(this.filters.selectedHeroes, 'hero', 'filterHeroes', 'Герой');
-            addSet(this.filters.selectedUnlockSources, 'unlock', 'filterUnlockSources', 'Источник');
-            addSet(this.filters.selectedBuffs, 'buff', 'filterBuffs', 'Бафф');
-            addSet(this.filters.selectedDebuffs, 'debuff', 'filterDebuffs', 'Дебафф');
-            addSet(this.filters.selectedStats, 'stat', 'filterStats', 'Стата');
-            if (this.filters.purchasableOnly === true) chips.push(this.promptChip(kind, 'flag', 'filterFlags', 'Флаг', 'Purchasable'));
-        } else {
-            addSet(this.filters.excludedTypes, 'type', 'filterTypes', 'Тип');
-            addSet(this.filters.excludedRarities, 'rarity', 'filterRarities', 'Редкость');
-            addSet(this.filters.excludedHeroes, 'hero', 'filterHeroes', 'Герой');
-            addSet(this.filters.excludedUnlockSources, 'unlock', 'filterUnlockSources', 'Источник');
-            addSet(this.filters.excludedBuffs, 'buff', 'filterBuffs', 'Бафф');
-            addSet(this.filters.excludedDebuffs, 'debuff', 'filterDebuffs', 'Дебафф');
-            addSet(this.filters.excludedStats, 'stat', 'filterStats', 'Стата');
-            if (this.filters.purchasableOnly === false) chips.push(this.promptChip(kind, 'flag', 'filterFlags', 'Флаг', 'Purchasable'));
-        }
-        return chips.join('');
-    }
-
-    private promptChip(kind: 'include' | 'exclude', groupType: string, filterId: string, label: string, value: string): string {
-        const icon = this.iconResolver.getIconForFilter(value, filterId) || '';
-        const safeValue = this.escapeAttr(value);
-        return `<button class="prompt-token ${kind}" data-group-type="${groupType}" data-value="${safeValue}" title="Убрать: ${label}: ${safeValue}">${icon}<span>${label}: ${this.escapeHtml(value)}</span><b>×</b></button>`;
     }
 
     private copyHelpExample(e: Event): void {
@@ -377,66 +355,10 @@ export class ItemsManager {
     private renderFormulaPreview(): void {
         const target = this.container.querySelector('#advancedFormulaPreview') as HTMLElement | null;
         if (!target) return;
-        const formula = this.buildConcreteFormula();
-        target.innerHTML = formula
-            ? `<span>Формула списков:</span> <code>${this.escapeHtml(formula)}</code><button class="copy-query-btn" data-copy="${this.escapeAttr(formula)}">Копировать</button>`
+        const formulaText = this.urlController.buildConcreteFormula();
+        target.innerHTML = formulaText
+            ? `<span>Формула списков:</span> <code>${this.escapeHtml(formulaText)}</code><button class="copy-query-btn" data-copy="${this.escapeAttr(formulaText)}">Копировать</button>`
             : '<span>Формула списков появится здесь после выбора тегов.</span>';
-    }
-
-    private buildConcreteFormula(): string {
-        const parts: string[] = [];
-        const add = (set: Set<string> | undefined, negated = false) => {
-            const values = [...(set ?? new Set<string>())].map(v => `[<${this.mappedTag(v)}>]`);
-            if (!values.length) return;
-            const chunk = values.length > 1 ? `(${values.join(' | ')})` : values[0]!;
-            parts.push(negated ? `!${chunk}` : chunk);
-        };
-        add(this.filters.selectedTypes); add(this.filters.selectedRarities); add(this.filters.selectedHeroes);
-        add(this.filters.selectedUnlockSources); add(this.filters.selectedBuffs); add(this.filters.selectedDebuffs); add(this.filters.selectedStats);
-        add(this.filters.excludedTypes, true); add(this.filters.excludedRarities, true); add(this.filters.excludedHeroes, true);
-        add(this.filters.excludedUnlockSources, true); add(this.filters.excludedBuffs, true); add(this.filters.excludedDebuffs, true); add(this.filters.excludedStats, true);
-        if (this.filters.purchasableOnly === true) parts.push('[<Purchasable>]');
-        if (this.filters.purchasableOnly === false) parts.push('![<Purchasable>]');
-        return parts.join(' & ');
-    }
-
-    private mappedTag(value: string): string {
-        if (value === 'Melee Weapon') return 'MeleeWeapon';
-        if (value === 'Ranged Weapon') return 'RangedWeapon';
-        return value.replace(/\s+/g, '');
-    }
-
-    private renderAdvancedHelp(options: RuntimeFilterOptions): void {
-        const target = this.container.querySelector('#advancedSearchHelpContent');
-        if (!target) return;
-        const list = (values: string[]) => values.map(v => `<code>${this.escapeHtml(v)}</code>`).join(' ');
-        const examples = ['[<Knife>] | [<Dagger>]', '[Poison] & [<Dagger>]', '![<Purchasable>]', '1 < cooldown < 5', 'damageMax > 10 & [<MeleeWeapon>]', '([Poison] | [Burn]) & ![<Boon>]'];
-        target.innerHTML = `
-            <h3>Как работает поиск</h3>
-            <p><b>Обычный режим:</b> строка сверху ищет только текстом по уже отфильтрованному списку. Теги выбираются кнопками: первый клик — зелёный «Искать», второй — красный «Исключить», третий — убрать.</p>
-            <p><b>Продвинутый режим:</b> можно писать формулу руками. Это быстрее кнопок, если привыкнуть: вставил текст, нажал Enter — получил токены.</p>
-            <ul>
-                <li><code>[Poison]</code> — <b>умный НЕ точный тег</b>: ищет термин шире, через описания, иконки и алиасы. Хорошо для эффектов вроде Poison/Burn.</li>
-                <li><code>[&lt;Knife&gt;]</code> — <b>конкретный точный тег</b>: только точный тип/герой/редкость/флаг. В списках «Искать/Исключить» все теги работают именно так.</li>
-                <li><code>!</code> / <code>НЕ</code> / <code>NOT</code> — исключить: <code>![&lt;Purchasable&gt;]</code>.</li>
-                <li><code>&amp;</code> / <code>И</code> / <code>AND</code> — оба условия: <code>[Poison] &amp; [&lt;Dagger&gt;]</code>.</li>
-                <li><code>|</code> / <code>ИЛИ</code> / <code>OR</code> — любое условие: <code>[&lt;Knife&gt;] | [&lt;Dagger&gt;]</code>.</li>
-                <li><code>[ ]</code> — группа условий. Двойной клик по токену возвращает сырой текст.</li>
-                <li>Сравнения: <code>damageMax &gt; 10</code>, <code>1 &lt; cooldown &lt; 5</code>, <code>accuracy &gt;= 80</code>, <code>cost &lt;= 5</code>.</li>
-                <li>Сортировка в обычном UI задаётся тремя приоритетами. В тексте также работают: <code>{rarity down}</code>, <code>{rarity up}</code>, <code>{alphabet up}</code>, <code>{alphabet down}</code>, <code>{relevance}</code>.</li>
-            </ul>
-            <h3>Примеры — можно скопировать</h3>
-            ${examples.map(example => `<div class="copy-example"><code>${this.escapeHtml(example)}</code><button class="copy-query-btn" data-copy="${this.escapeAttr(example)}">Копировать</button></div>`).join('')}
-            <h3>Теги из текущей базы</h3>
-            <p><b>Типы:</b> ${list(options.sortedTypes)}</p>
-            <p><b>Редкости:</b> ${list(options.sortedRarities)}</p>
-            <p><b>Герои:</b> ${list(options.sortedHeroes)}</p>
-            <p><b>Источники:</b> ${list(options.sortedUnlockSources)}</p>
-            <p><b>Баффы:</b> ${list(options.sortedBuffs)}</p>
-            <p><b>Дебаффы:</b> ${list(options.sortedDebuffs)}</p>
-            <p><b>Статы/термины:</b> ${list(options.sortedStats)} <code>damageMin</code> <code>damageMax</code> <code>criticalChance</code> <code>criticalDamage</code> <code>staminaCost</code> <code>coinValue</code></p>
-            <p><b>Флаги:</b> ${list(options.sortedFlags)}</p>
-        `;
     }
 
     private escapeHtml(value: string): string {
@@ -453,3 +375,4 @@ export class ItemsManager {
         this.cleanupFns.push(() => element.removeEventListener(event, handler, options));
     }
 }
+export type { RuntimeFilterOptions };

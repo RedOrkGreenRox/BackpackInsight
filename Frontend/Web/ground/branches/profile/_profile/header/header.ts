@@ -1,10 +1,11 @@
 /**
- * HeaderRenderer - основной рендерер заголовка профиля
+ * HeaderRenderer - основной рендерер заголовка профиля с защитой от XSS
  */
 
 import { ProfileData } from '../utils/profile-types';
 import { PlayerInfoRenderer } from './player-info';
 import { StatsBarRenderer } from './stats-bar';
+import { SecurityService } from '../../../../utils/SecurityService';
 
 export class HeaderRenderer {
     static render(data: ProfileData): string {
@@ -25,7 +26,7 @@ export class HeaderRenderer {
                 <!-- Версия игры -->
                 <div class="actual-version-container">
                     <span class="actual-version">
-                        ${data.actual_version}    ${data.install_version}
+                        ${SecurityService.escapeHtml(data.actual_version)}    ${SecurityService.escapeHtml(data.install_version)}
                     </span>
                 </div>
                 
@@ -45,17 +46,19 @@ export class HeaderRenderer {
     }
 
     private static renderHeroCard(hero: any): string {
+        const safeName = SecurityService.escapeHtml(hero.name);
+        const lowerName = safeName.toLowerCase();
         return `
             <div class="stat-hero-card" 
-                 data-hero-name="${hero.name.toLowerCase()}"
+                 data-hero-name="${lowerName}"
                  data-level="${hero.level}"
                  data-rating="${hero.rating}"
                  data-prestige="${hero.prestige}">
                 <div class="hero-header-row">
                     <picture class="stat-hero-image-wrapper">
-                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/avif/${hero.name.toLowerCase()}${hero.skin_num}.avif" type="image/avif">
-                        <source srcset="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name.toLowerCase()}${hero.skin_num}.webp" type="image/webp">
-                        <img class="stat-hero-icon" src="/images/heroes/${hero.name.toLowerCase()}/webp/${hero.name}${hero.skin_num}.webp" alt="${hero.name}" loading="lazy">
+                        <source srcset="/images/heroes/${lowerName}/avif/${lowerName}${hero.skin_num}.avif" type="image/avif">
+                        <source srcset="/images/heroes/${lowerName}/webp/${lowerName}${hero.skin_num}.webp" type="image/webp">
+                        <img class="stat-hero-icon" src="/images/heroes/${lowerName}/webp/${safeName}${hero.skin_num}.webp" alt="${safeName}" loading="lazy">
                     </picture>
                     <div class="stat-hero-level-container">
                         <picture class="stat-hero-level-frame">

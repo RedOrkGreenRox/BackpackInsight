@@ -13,7 +13,7 @@ export class BranchRunner {
     });
   }
 
-  private createBranchClass(): new () => Branch {
+  public createBranchClass(): new () => Branch {
     const spec = this.spec;
 
     return class extends StructuredBranch<any, any> {

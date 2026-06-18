@@ -1,7 +1,3 @@
-/**
- * ProfileManager — оркестратор страницы профиля.
- * Аналог ItemDetailManager / MainManager.
- */
 // @ts-ignore
 import AOS from 'aos';
 import { t } from '../../../../localization/i18n';
@@ -13,10 +9,14 @@ import { ProfileStateManager, SavedState } from './ProfileStateManager';
 import { ProfileSkinsManager } from './ProfileSkinsManager';
 import { SortController } from '../sort/SortController';
 import { ScreenshotManager } from './screenshot-manager';
-import { HeaderRenderer } from '../header/header';
-import { HeroesSectionRenderer } from '../heroes/heroes-section';
-import { ItemsSectionRenderer } from '../items/items-section';
 import { ItemCardRenderer } from '../items/item-card';
+
+// Импортируем утилиту кэша и переиспользуем Продвинутый поиск предметов в Профиле!
+import { ItemsCacheService } from '../../../../utils/ItemsCacheService';
+import { ItemsFilterManager } from '../../../items/_items/managers/ItemsFilterManager';
+
+// Импортируем выделенный рендерер макета для SRP
+import { ProfileLayoutRenderer } from '../components/ProfileLayoutRenderer';
 
 export class ProfileManager {
     private readonly container: HTMLElement;
@@ -32,6 +32,9 @@ export class ProfileManager {
     private screenshotManager: ScreenshotManager | null = null;
     private cleanupFns: (() => void)[] = [];
 
+    // Менеджер продвинутой фильтрации для поиска в профиле
+    private readonly filterManager = new ItemsFilterManager();
+
     constructor(
         container: HTMLElement,
         data: ProfileData,
@@ -46,33 +49,22 @@ export class ProfileManager {
         this.dataManager = dataManager;
     }
 
-    init(): void {
-        // Рендерим реальный контент поверх skeleton
+    public init(): void {
+        // Инициализируем поисковой индекс на основе всех предметов глобальной базы
+        const allDefs = ItemsCacheService.getAllItemsFromCache() || [];
+        this.filterManager.initFuse(allDefs);
+
+        // Рендерим реальный контент поверх skeleton с помощью SRP-рендерера
         requestAnimationFrame(() => {
             if (!this.container) return;
-            this.container.innerHTML = `
-                <div class="container" id="profileContainer">
-                    ${HeaderRenderer.render(this.data)}
-
-                    <div class="button-download-profile">
-                        <button id="saveProfileBtn">${t('profile_save_card')}</button>
-                    </div>
-
-                    ${HeroesSectionRenderer.render(this.data)}
-                    ${ItemsSectionRenderer.render(this.data, this.currentItemSort)}
-                </div>
-
-                <script id="skins-data" type="application/json">
-                    ${JSON.stringify(this.data.profile_skins)}
-                </script>
-            `;
+            this.container.innerHTML = ProfileLayoutRenderer.render(this.data, this.currentItemSort);
 
             this.attachAll();
             setTimeout(() => this.restoreDynamicState(), 100);
         });
     }
 
-    destroy(): void {
+    public destroy(): void {
         this.saveCurrentState();
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns = [];
@@ -99,7 +91,13 @@ export class ProfileManager {
         this.attachImageErrorHandler();
         this.attachHeroSort();
         this.attachItemSort();
-        this.attachSkins();
+        this.attachProfileItemSearch();
+        this.skinsManager.attachSkins(
+            this.container,
+            this.addListener.bind(this),
+            this.updateHeaderSkin.bind(this),
+            this.applySkinToImage.bind(this)
+        );
         this.attachScreenshot();
         this.attachItemLinks();
         this.attachBeforeUnload();
@@ -141,6 +139,10 @@ export class ProfileManager {
 
             this.data.items = this.dataManager.sortItems(this.data.items, this.currentItemSort);
 
+            // Сбрасываем строку поиска при смене сортировки для избежания путаницы
+            const searchInput = this.container.querySelector('#profileItemSearch') as HTMLInputElement | null;
+            if (searchInput) searchInput.value = '';
+
             const grid = this.container.querySelector('#profileItemsGrid');
             if (grid) {
                 grid.innerHTML = this.data.items
@@ -157,44 +159,37 @@ export class ProfileManager {
         });
     }
 
-    private attachSkins(): void {
-        const skinsDataEl = document.getElementById('skins-data');
-        const skinsMap = this.skinsManager.parseSkinsData(skinsDataEl?.textContent ?? null);
+    /**
+     * ПОЛНОЦЕННЫЙ ПРЕДЕЛЬНО МОЩНЫЙ ПОИСК В ПРОФИЛЕ:
+     * Переиспользует поисковой и синтаксический движок ItemsFilterManager,
+     * обеспечивая поддержку сравнений, тегов, логических операторов, баффов и дебаффов
+     * при поиске по инвентарю игрока!
+     */
+    private attachProfileItemSearch(): void {
+        const searchInput = this.container.querySelector('#profileItemSearch') as HTMLInputElement | null;
+        if (!searchInput) return;
 
-        this.container.querySelectorAll('.main-hero-card').forEach(card => {
-            const heroName = (card as HTMLElement).dataset['heroName']?.toLowerCase();
-            if (!heroName) return;
+        this.addListener(searchInput, 'input', (e: Event) => {
+            const query = (e.target as HTMLInputElement).value.trim();
+            let filtered = this.data.items;
 
-            const uniqueSkins = this.skinsManager.getUniqueSkins(heroName, skinsMap);
-            if (uniqueSkins.length <= 1) {
-                card.querySelectorAll('.skin-btn').forEach(b => {
-                    (b as HTMLElement).style.display = 'none';
-                });
-                return;
+            if (query) {
+                const allDefs = ItemsCacheService.getAllItemsFromCache() || [];
+                // Прогоняем полнотекстовый синтаксический поиск по глобальной базе определений
+                const matchedDefs = this.filterManager.applyAdvancedSearch(allDefs, query);
+                const matchedNames = new Set(matchedDefs.map(d => d.name));
+
+                // Фильтруем инвентарь игрока, оставляя только те предметы, чьи имена совпали
+                filtered = this.data.items.filter(item => matchedNames.has(item.name));
             }
 
-            let currentIdx = 0;
-            const img = card.querySelector('.main-hero-image img') as HTMLImageElement | null;
-
-            const updateSkin = () => {
-                const skin = uniqueSkins[currentIdx];
-                if (!skin || !img) return;
-                const paths = this.skinsManager.getSkinImagePaths(heroName, skin);
-                this.applySkinToImage(img, paths);
-                (card as HTMLElement).dataset['currentSkin'] = skin;
-                this.updateHeaderSkin(heroName, skin);
-            };
-
-            this.addListener(card.querySelector('.prev-skin'), 'click', (e: Event) => {
-                e.stopPropagation();
-                currentIdx = (currentIdx - 1 + uniqueSkins.length) % uniqueSkins.length;
-                updateSkin();
-            });
-            this.addListener(card.querySelector('.next-skin'), 'click', (e: Event) => {
-                e.stopPropagation();
-                currentIdx = (currentIdx + 1) % uniqueSkins.length;
-                updateSkin();
-            });
+            const grid = this.container.querySelector('#profileItemsGrid');
+            if (grid) {
+                grid.innerHTML = filtered
+                    .map((item, i) => ItemCardRenderer.render(item, i))
+                    .join('');
+            }
+            setTimeout(() => AOS.refresh(), 100);
         });
     }
 
@@ -325,3 +320,4 @@ export class ProfileManager {
         });
     }
 }
+export type { SavedState };

@@ -29,4 +29,50 @@ export class ProfileSkinsManager {
             avif: `/images/heroes/${lowerHero}/avif/${lowerHero}${lowerSkin}.avif`
         };
     }
+
+    public attachSkins(
+        container: HTMLElement,
+        addListener: (el: Element | null, event: string, handler: EventListenerOrEventListenerObject) => void,
+        updateHeaderSkinFn: (heroName: string, skin: string) => void,
+        applySkinFn: (img: HTMLImageElement, paths: { webp: string; avif: string }) => void
+    ): void {
+        const skinsDataEl = document.getElementById('skins-data');
+        const skinsMap = this.parseSkinsData(skinsDataEl?.textContent ?? null);
+
+        container.querySelectorAll('.main-hero-card').forEach(card => {
+            const heroName = (card as HTMLElement).dataset['heroName']?.toLowerCase();
+            if (!heroName) return;
+
+            const uniqueSkins = this.getUniqueSkins(heroName, skinsMap);
+            if (uniqueSkins.length <= 1) {
+                card.querySelectorAll('.skin-btn').forEach(b => {
+                    (b as HTMLElement).style.display = 'none';
+                });
+                return;
+            }
+
+            let currentIdx = 0;
+            const img = card.querySelector('.main-hero-image img') as HTMLImageElement | null;
+
+            const updateSkin = () => {
+                const skin = uniqueSkins[currentIdx];
+                if (!skin || !img) return;
+                const paths = this.getSkinImagePaths(heroName, skin);
+                applySkinFn(img, paths);
+                (card as HTMLElement).dataset['currentSkin'] = skin;
+                updateHeaderSkinFn(heroName, skin);
+            };
+
+            addListener(card.querySelector('.prev-skin'), 'click', (e: Event) => {
+                e.stopPropagation();
+                currentIdx = (currentIdx - 1 + uniqueSkins.length) % uniqueSkins.length;
+                updateSkin();
+            });
+            addListener(card.querySelector('.next-skin'), 'click', (e: Event) => {
+                e.stopPropagation();
+                currentIdx = (currentIdx + 1) % uniqueSkins.length;
+                updateSkin();
+            });
+        });
+    }
 }

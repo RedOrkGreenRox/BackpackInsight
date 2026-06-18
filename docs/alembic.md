@@ -8,15 +8,15 @@
 ### 1. Секция `[alembic]`
 *   **`script_location`**: Указывает на директорию `Backend/DB/migrations`. Именно здесь хранятся файлы `env.py` и папка `versions/` с историей изменений схемы БД.
 *   **`prepend_sys_path = .`**: Важный параметр, который добавляет корневую директорию проекта в `sys.path`. Это позволяет скрипту миграций (`env.py`) импортировать модули бэкенда (например, модели и настройки БД).
-*   **`sqlalchemy.url`**: В файле указан `sqlite:///./alembic_placeholder.db`. 
-    > **Важно**: Это значение является **заглушкой**. Реальная строка подключения к базе данных динамически подставляется в [env.py](backend/db/migrations/env.md) через импорт `engine` из [database.py](backend/db/database.md).
+*   **`sqlalchemy.url`**: В файле указан `sqlite:///./alembic_placeholder.DB`. 
+    > **Важно**: Это значение является **заглушкой**. Реальная строка подключения к базе данных динамически подставляется в [env.py](Backend/DB/migrations/env.md) через импорт `engine` из [database.py](Backend/DB/database.md).
 
 ### 2. Секция логирования (`[loggers]`, `[handlers]`, etc.)
 Настроено стандартное логирование для уровней `INFO` (для Alembic) и `WARNING` (для SQLAlchemy). Вывод осуществляется в `sys.stderr`.
 
 ## Связи (Dependencies)
-*   **Скрипты**: Зависит от содержимого папки [Backend/DB/migrations](backend/db/migrations/env.md).
-*   **Инфраструктура**: Используется в [Dockerfile](backend/playerdata/Dockerfile.md) и скрипте [run_docker.py](scripts/run_docker.md) для автоматического применения миграций при запуске контейнера через команду `alembic upgrade head`.
+*   **Скрипты**: Зависит от содержимого папки [Backend/DB/migrations](Backend/DB/migrations/env.md).
+*   **Инфраструктура**: Используется в [Dockerfile](Backend/PlayerData/Dockerfile.md) и скрипте [run_docker.py](scripts/run_docker.md) для автоматического применения миграций при запуске контейнера через команду `alembic upgrade head`.
 *   **Развертывание**: Копируется в корень рабочей директории внутри Docker-образа.
 
 ## Роль в жизненном цикле проекта

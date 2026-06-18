@@ -7,7 +7,7 @@
 *   Подаётся фикстурой `profile_json_minimal` из [conftest.py](../conftest.md) в тесты [test_db_integration](../test_db_integration.md) и др.
 
 ## AI-контекст
-*   Синтетика безопаснее реальных [профилей-образцов](../../backend/playerdata/Profiles/index.md) для CI. Минимальный набор полей проверяет «счастливый путь» парсинга.
+*   Синтетика безопаснее реальных [профилей-образцов](../../Backend/PlayerData/Profiles/index.md) для CI. Минимальный набор полей проверяет «счастливый путь» парсинга.
 
 ---
 

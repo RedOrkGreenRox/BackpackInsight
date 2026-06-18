@@ -55,7 +55,7 @@ def main():
     # 6. Создание сообщения
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     upd = """
-Ввод StructuredBranch и BranchSpec+BranchRunner; Миграция 404, ItemDetail, Main Branches to BranchSpec
+Все страницы на BranchSpec | Скриншоты снова сломались.
     """
     message = f"{upd} | Automated push: {timestamp}"
 

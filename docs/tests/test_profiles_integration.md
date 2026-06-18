@@ -4,7 +4,7 @@
 Прогон реальных профилей-образцов из `Backend/PlayerData/Profiles` через парсер.
 
 ## ⚠️ Статус: НЕРАБОЧИЙ (мёртвый импорт)
-Импортирует `from Backend.PlayerData.data import ITEMS` — такого имени в [data.py](../backend/playerdata/data.md) нет (есть `get_items()`). Тест падает на сборе pytest.
+Импортирует `from Backend.PlayerData.data import ITEMS` — такого имени в [data.py](../Backend/PlayerData/data.md) нет (есть `get_items()`). Тест падает на сборе pytest.
 
 ## AI-контекст
 *   **Требует действия**: заменить `ITEMS` на `get_items()` (и адаптировать использование), затем синхронизировать док. Сейчас блокирует прогон набора.

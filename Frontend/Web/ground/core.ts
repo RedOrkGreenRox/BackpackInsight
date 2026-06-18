@@ -58,21 +58,20 @@ class PerformanceMonitor {
         const conn = (navigator as any).connection;
         if (!conn) return false;
 
-        // effectiveType: 'slow-2g', '2g', '3g', '4g'
-        // downlink: скорость в Мбит/с
-        return conn.effectiveType.includes('2g') || (conn.downlink && conn.downlink < 1);
+        // effectiveType: 'slow-2g', '2g' (downlink can fluctuate, so we skip it to avoid false positives)
+        return conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g';
     }
 
     private static isLowEndDevice(): boolean {
-        // deviceMemory: объем ОЗУ в ГБ (приблизительно)
+        // deviceMemory: объем ОЗУ в ГБ (приблизительно) - порог снижен до 2 ГБ для точности
         const memory = (navigator as any).deviceMemory;
-        if (memory && memory < 4) { // Меньше 4 ГБ ОЗУ
+        if (memory && memory < 2) {
             return true;
         }
 
-        // hardwareConcurrency: количество логических ядер процессора
+        // hardwareConcurrency: количество логических ядер процессора - порог снижен до 2 ядер
         const cores = navigator.hardwareConcurrency;
-        if (cores && cores < 4) { // Меньше 4 ядер
+        if (cores && cores < 2) {
             return true;
         }
 

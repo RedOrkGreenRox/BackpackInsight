@@ -9,7 +9,7 @@
 2.  Индексы `idx_itemdefinition_name_trgm` и `idx_itemdefinition_id_trgm` созданы и активны.
 
 ## Применение
-Запускается вручную или в рамках дебаг-сессии на сервере, чтобы подтвердить, что миграция [0002](backend/db/migrations/versions/0002_profile_indexes_and_timestamps.md) прошла успешно и индексы реально существуют в системных каталогах Postgres.
+Запускается вручную или в рамках дебаг-сессии на сервере, чтобы подтвердить, что миграция [0002](Backend/DB/migrations/versions/0002_profile_indexes_and_timestamps.md) прошла успешно и индексы реально существуют в системных каталогах Postgres.
 
 ---
 

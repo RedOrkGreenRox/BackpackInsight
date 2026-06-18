@@ -5,17 +5,17 @@
 ## Где лежат данные
 *   **Справочники предметов**: `Backend/DB/items_*.json` (версионируются по имени файла, автоматически выбирается старшая версия) и `Backend/DB/items_tooltips.json`.
 *   **Профили-образцы**: `Backend/PlayerData/Profiles/*.json`.
-*   **Сборки (builds)**: `Backend/PlayerData/builds/*.json` + [парсер иконок предметов](../backend/playerdata/data.md).
+*   **Сборки (builds)**: `Backend/PlayerData/builds/*.json` + [парсер иконок предметов](../Backend/PlayerData/data.md).
 
 ## Документация механик
-*   [Справочник предметов и формулы (data.py)](../backend/playerdata/data.md) — таблицы:
+*   [Справочник предметов и формулы (data.py)](../Backend/PlayerData/data.md) — таблицы:
     *   `PROFILE_EXP_NEED` — опыт по уровням игрока;
     *   `ITEM_LEVELING_CARDS` / `ITEM_LEVELING_EXP` — прокачка предметов по редкости;
     *   `HERO_LEVELING_EXP`, `HERO_LEAGUES` — уровни и лиги героев;
     *   `PROFILE_AREAS` — пороги трофеев для зон;
     *   `VALUES` — маппинг технических имён героев в игровые.
-*   [Фабрика профилей (ProfileFactory.py)](../backend/playerdata/services/ProfileFactory.md) — как сырые данные превращаются в статистику (уровень, опыт, зона, разбивка по редкости).
-*   [Модель Героя](../backend/playerdata/models/Hero.md) и [Модель Предмета](../backend/playerdata/models/Item.md) — логика парсинга отдельных сущностей.
+*   [Фабрика профилей (ProfileFactory.py)](../Backend/PlayerData/services/ProfileFactory.md) — как сырые данные превращаются в статистику (уровень, опыт, зона, разбивка по редкости).
+*   [Модель Героя](../Backend/PlayerData/models/Hero.md) и [Модель Предмета](../Backend/PlayerData/models/Item.md) — логика парсинга отдельных сущностей.
 
 ## Синтаксис поиска
 *   [Синтаксис фильтров поиска](../search_filter_syntax.md) — поддерживаемые операторы и поля.

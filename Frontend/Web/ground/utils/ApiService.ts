@@ -1,4 +1,5 @@
 // ApiService.ts
+import { i18n } from '../localization/i18n';
 
 enum ErrorType {
     NETWORK = 'network',
@@ -132,7 +133,8 @@ export class ApiService {
      */
     public static async getItems(): Promise<any> {
         const operation = async () => {
-            const response = await fetch('/api/items');
+            const lang = i18n.currentLang || 'en';
+            const response = await fetch(`/api/items?lang=${lang}`);
 
             if (!response.ok) {
                 const errorInfo = this.getErrorInfo(response.status);

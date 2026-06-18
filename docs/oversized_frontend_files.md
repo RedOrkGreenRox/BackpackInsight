@@ -12,8 +12,8 @@ Frontend/Web/functions
 ## Больше 250 строк — критично
 
 ```text
-402  Frontend/Web/ground/branches/items/_items/managers/ItemsManager.ts
-327  Frontend/Web/ground/branches/profile/_profile/managers/ProfileManager.ts
+339  Frontend/Web/ground/branches/items/_items/managers/ItemsManager.ts
+273  Frontend/Web/ground/branches/profile/_profile/managers/ProfileManager.ts
 256  Frontend/Web/ground/utils/icon-parser.ts
 ```
 
