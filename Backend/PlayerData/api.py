@@ -139,18 +139,21 @@ def _sync_static_data() -> None:
     create_indexes(engine)
 
     # 2. Авто-миграция (добавление новых колонок локализации, если БД уже существует)
-    with engine.begin() as conn:
-        try:
+    # Используем ОТДЕЛЬНЫЕ независимые транзакции для каждого ALTER, так как в PostgreSQL
+    # любая ошибка внутри блока транзакции абортирует всю транзакцию и бросает исключение на выходе.
+    try:
+        with engine.begin() as conn:
             conn.execute(text("ALTER TABLE itemdefinition ADD COLUMN names_local JSON;"))
             logger.info("Added column names_local to itemdefinition table via auto-migration")
-        except Exception:
-            pass
+    except Exception:
+        pass
 
-        try:
+    try:
+        with engine.begin() as conn:
             conn.execute(text("ALTER TABLE itemdefinition ADD COLUMN tooltips_local JSON;"))
             logger.info("Added column tooltips_local to itemdefinition table via auto-migration")
-        except Exception:
-            pass
+    except Exception:
+        pass
 
     with Session(engine) as session:
         json_items = get_items()
