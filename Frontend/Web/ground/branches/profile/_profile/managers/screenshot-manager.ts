@@ -33,12 +33,17 @@ export class ScreenshotManager {
         btn.style.opacity = "0.7";
         btn.disabled = true;
 
-        // Создаем временный клон элемента вне экрана для предотвращения любых конфликтов с живым DOM
+        // Создаем временный клон элемента.
+        // ВНИМАНИЕ: Некоторые браузеры оптимизируют отрисовку и НЕ рендерят элементы,
+        // находящиеся за пределами экрана (left: -9999px), возвращая пустой черный холст.
+        // Мы позиционируем клон в левом верхнем углу (left: 0, top: 0), но прячем его глубоко
+        // ПОД основной контент с помощью z-index: -9999. Браузер принудительно отрендерит его,
+        // но пользователь его не увидит!
         const clone = element.cloneNode(true) as HTMLElement;
         clone.style.cssText = `
             position: fixed !important;
-            left: -9999px !important;
-            top: -9999px !important;
+            left: 0 !important;
+            top: 0 !important;
             width: 900px !important;
             height: 600px !important;
             max-width: 900px !important;
@@ -48,6 +53,7 @@ export class ScreenshotManager {
             background: #121212 !important;
             box-sizing: border-box !important;
             z-index: -9999 !important;
+            opacity: 0.99 !important;
         `;
         document.body.appendChild(clone);
 
@@ -88,14 +94,32 @@ export class ScreenshotManager {
                 }
             });
 
-            // Ждем 100мс перед рендером, чтобы браузер успел просчитать стили клона
-            await new Promise(resolve => setTimeout(resolve, 100));
+            // 3. ЗАЩИТА ОТ ОШИБОК ЗАГРУЗКИ:
+            // Подменяем сломанные картинки пустышкой, чтобы html-to-image не падал с ошибкой Event.
+            const allCloneImages = clone.querySelectorAll('img');
+            allCloneImages.forEach(img => {
+                img.addEventListener('error', () => {
+                    logger_warn(`[Screenshot] Image failed to load, replacing with placeholder: ${img.src}`);
+                    img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+                    if (img.parentElement?.tagName === 'PICTURE') {
+                        img.parentElement.querySelectorAll('source').forEach(s => s.remove());
+                    }
+                });
+            });
+
+            function logger_warn(msg: string) {
+                console.warn(msg);
+            }
+
+            // Даем браузеру 300мс на полноценную загрузку абсолютных картинок и пересчет стилей клона во viewport
+            await new Promise(resolve => setTimeout(resolve, 300));
 
             // Генерируем PNG изображение с клонированного элемента
             const dataUrl = await toPng(clone, {
                 backgroundColor: '#121212',
                 width: 900,
                 height: 600,
+                cacheBust: true, // Исключает кеш-баги на localhost
                 style: {
                     transform: 'scale(1)',
                     left: '0',

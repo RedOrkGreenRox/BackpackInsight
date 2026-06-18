@@ -58,7 +58,7 @@ export class HeaderRenderer {
                     <picture class="stat-hero-image-wrapper">
                         <source srcset="/images/heroes/${lowerName}/avif/${lowerName}${hero.skin_num}.avif" type="image/avif">
                         <source srcset="/images/heroes/${lowerName}/webp/${lowerName}${hero.skin_num}.webp" type="image/webp">
-                        <img class="stat-hero-icon" src="/images/heroes/${lowerName}/webp/${safeName}${hero.skin_num}.webp" alt="${safeName}" loading="lazy">
+                        <img class="stat-hero-icon" src="/images/heroes/${lowerName}/webp/${lowerName}${hero.skin_num}.webp" alt="${safeName}" loading="lazy">
                     </picture>
                     <div class="stat-hero-level-container">
                         <picture class="stat-hero-level-frame">
@@ -72,7 +72,7 @@ export class HeaderRenderer {
                         <picture class="stat-hero-league">
                             <source srcset="/images/profile/avif/rank${hero.league.toLowerCase()}.avif" type="image/avif">
                             <source srcset="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" type="image/webp">
-                            <img src="/images/profile/webp/Rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
+                            <img src="/images/profile/webp/rank${hero.league.toLowerCase()}.webp" alt="rank" loading="lazy">
                         </picture>
                         <span class="stat-hero-rating">${this.formatRating(hero.rating)}</span>
                     </div>
