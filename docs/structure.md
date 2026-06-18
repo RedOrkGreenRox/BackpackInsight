@@ -28,6 +28,8 @@
       - 📄 [Справочник предметов (v3.1.0)](backend/db/items_3_1_0.md)
       - 📄 [Справочник предметов (v4.0.0)](backend/db/items_4_0_0.md)
       - 📄 [Справочник предметов (v5.0.0)](backend/db/items_5_0_0.md)
+      - ❌ items_en_5_1_0.json <!-- MISSING DOC -->
+      - ❌ items_ru_5_1_0.json <!-- MISSING DOC -->
       - 📄 [Тултипы предметов](backend/db/items_tooltips.md)
       - 📄 [Сброс базы данных](backend/db/reset_db.md)
     - 📂 [**Логика игроков и предметов**](backend/playerdata/index.md)
@@ -96,6 +98,12 @@
               - 📂 **Контейнер**
                 - 📄 [Стили контейнера](frontend/ground/branches/404/_404/container/container.md)
                 - 📄 [Рендерер контейнера](frontend/ground/branches/404/_404/container/container.md)
+              - 📂 **data**
+                - 📄 [NotFoundData.ts](frontend/ground/branches/404/_404/data/NotFoundData.md)
+              - 📂 **display**
+                - 📄 [NotFoundDisplay.ts](frontend/ground/branches/404/_404/display/NotFoundDisplay.md)
+              - 📂 **logic**
+                - 📄 [NotFoundLogic.ts](frontend/ground/branches/404/_404/logic/NotFoundLogic.md)
               - 📂 **Навигация**
                 - 📄 [Навигация Shell](frontend/ground/branches/404/_404/navigation/navigation.md)
               - 📂 **Слои наложения**
@@ -113,12 +121,18 @@
             - 📂 [**Логика деталей**](frontend/ground/branches/itemDetail/_itemDetail/index.md)
               - 📂 **UI Компоненты**
                 - 📄 [Рендерер деталей](frontend/ground/branches/itemDetail/_itemDetail/components/ItemDetailRenderer.md)
+              - 📂 **data**
+                - 📄 [ItemDetailData.ts](frontend/ground/branches/itemDetail/_itemDetail/data/ItemDetailData.md)
+              - 📂 **display**
+                - 📄 [ItemDetailDisplay.ts](frontend/ground/branches/itemDetail/_itemDetail/display/ItemDetailDisplay.md)
               - 📂 **Инфо-ряд героя**
                 - 📄 [Стили инфо-ряда](frontend/ground/branches/itemDetail/_itemDetail/hero-info-row/_hero-info-row.md)
               - 📂 **Информация**
                 - 📄 [Стили инфо-блока](frontend/ground/branches/itemDetail/_itemDetail/info/_info.md)
               - 📂 **Макет**
                 - 📄 [Макет страницы](frontend/ground/branches/itemDetail/_itemDetail/layout/_layout.md)
+              - 📂 **logic**
+                - 📄 [ItemDetailLogic.ts](frontend/ground/branches/itemDetail/_itemDetail/logic/ItemDetailLogic.md)
               - 📂 **Менеджеры логики**
                 - 📄 [Загрузчик данных предмета](frontend/ground/branches/itemDetail/_itemDetail/managers/ItemDataLoader.md)
                 - 📄 [Оркестратор деталей](frontend/ground/branches/itemDetail/_itemDetail/managers/ItemDetailManager.md)
@@ -138,7 +152,7 @@
             - 📄 [Стили деталей](frontend/ground/branches/itemDetail/itemDetail.md)
             - 📄 [Класс деталей предмета](frontend/ground/branches/itemDetail/ItemDetailBranch.md)
           - 📂 [**Библиотека предметов**](frontend/ground/branches/items/index.md)
-            - 📂 **Логика библиотеки**
+            - 📂 [**Логика библиотеки**](frontend/ground/branches/items/_items/index.md)
               - 📂 **Действия**
                 - 📄 [Стили чекбоксов](frontend/ground/branches/items/_items/actions/_checkbox.md)
                 - 📄 [Кнопка очистки](frontend/ground/branches/items/_items/actions/_clear-btn.md)
@@ -149,6 +163,8 @@
               - 📂 **Чипсы (Теги)**
                 - 📄 [Фильтр-чипсы](frontend/ground/branches/items/_items/chips/_filter-chip.md)
                 - 📄 [Цвета чипсов](frontend/ground/branches/items/_items/chips/_rarity-colors.md)
+              - 📂 **UI Компоненты**
+                - 📄 [ItemsLayoutRenderer.ts](frontend/ground/branches/items/_items/components/ItemsLayoutRenderer.md)
               - 📂 **Система фильтрации**
                 - 📄 [Расширенная панель](frontend/ground/branches/items/_items/filters/_advanced-panel.md)
                 - 📄 [Контент списка](frontend/ground/branches/items/_items/filters/_dropdown-content.md)
@@ -160,12 +176,62 @@
                 - 📄 [Агрегатор фильтров](frontend/ground/branches/items/_items/filters/_filters.md)
               - 📂 **Макет**
                 - 📄 [Макет страницы](frontend/ground/branches/items/_items/layout/_layout.md)
+              - 📂 **Менеджеры логики**
+                - 📂 [**filter**](frontend/ground/branches/items/_items/managers/filter/index.md)
+                  - 📄 [alias-fuzzy.ts](frontend/ground/branches/items/_items/managers/filter/alias-fuzzy.md)
+                  - 📄 [comparison.ts](frontend/ground/branches/items/_items/managers/filter/comparison.md)
+                  - 📄 [filter-applier.ts](frontend/ground/branches/items/_items/managers/filter/filter-applier.md)
+                  - 📄 [filter-options.ts](frontend/ground/branches/items/_items/managers/filter/filter-options.md)
+                  - 📄 [filter-types.ts](frontend/ground/branches/items/_items/managers/filter/filter-types.md)
+                  - 📄 [fuse-collector.ts](frontend/ground/branches/items/_items/managers/filter/fuse-collector.md)
+                  - 📄 [fuse-search.ts](frontend/ground/branches/items/_items/managers/filter/fuse-search.md)
+                  - 📄 [fuzzy-term-guard.ts](frontend/ground/branches/items/_items/managers/filter/fuzzy-term-guard.md)
+                  - 📄 [item-matcher.ts](frontend/ground/branches/items/_items/managers/filter/item-matcher.md)
+                  - 📄 [prepared-items.ts](frontend/ground/branches/items/_items/managers/filter/prepared-items.md)
+                  - 📄 [query-parser.ts](frontend/ground/branches/items/_items/managers/filter/query-parser.md)
+                  - 📄 [search-plan.ts](frontend/ground/branches/items/_items/managers/filter/search-plan.md)
+                  - 📄 [search-score.ts](frontend/ground/branches/items/_items/managers/filter/search-score.md)
+                  - 📄 [sort-service.ts](frontend/ground/branches/items/_items/managers/filter/sort-service.md)
+                - 📂 [**runtime**](frontend/ground/branches/items/_items/managers/runtime/index.md)
+                  - 📄 [advanced-panel-controller.ts](frontend/ground/branches/items/_items/managers/runtime/advanced-panel-controller.md)
+                  - 📄 [autocomplete-controller.ts](frontend/ground/branches/items/_items/managers/runtime/autocomplete-controller.md)
+                  - 📄 [caret-utils.ts](frontend/ground/branches/items/_items/managers/runtime/caret-utils.md)
+                  - 📄 [chips-sync-service.ts](frontend/ground/branches/items/_items/managers/runtime/chips-sync-service.md)
+                  - 📄 [dropdown-controller.ts](frontend/ground/branches/items/_items/managers/runtime/dropdown-controller.md)
+                  - 📄 [filter-icon-resolver.ts](frontend/ground/branches/items/_items/managers/runtime/filter-icon-resolver.md)
+                  - 📄 [filter-options-controller.ts](frontend/ground/branches/items/_items/managers/runtime/filter-options-controller.md)
+                  - 📄 [group-dom-raw.ts](frontend/ground/branches/items/_items/managers/runtime/group-dom-raw.md)
+                  - 📄 [image-error-handler.ts](frontend/ground/branches/items/_items/managers/runtime/image-error-handler.md)
+                  - 📄 [items-grid-renderer.ts](frontend/ground/branches/items/_items/managers/runtime/items-grid-renderer.md)
+                  - 📄 [items-runtime-types.ts](frontend/ground/branches/items/_items/managers/runtime/items-runtime-types.md)
+                  - 📄 [logic-labels.ts](frontend/ground/branches/items/_items/managers/runtime/logic-labels.md)
+                  - 📄 [logical-chips-controller.ts](frontend/ground/branches/items/_items/managers/runtime/logical-chips-controller.md)
+                  - 📄 [multiselect-filter-controller.ts](frontend/ground/branches/items/_items/managers/runtime/multiselect-filter-controller.md)
+                  - 📄 [raw-edit-controller.ts](frontend/ground/branches/items/_items/managers/runtime/raw-edit-controller.md)
+                  - 📄 [rich-group-renderer.ts](frontend/ground/branches/items/_items/managers/runtime/rich-group-renderer.md)
+                  - 📄 [rich-input-controller.ts](frontend/ground/branches/items/_items/managers/runtime/rich-input-controller.md)
+                  - 📄 [rich-query-renderer.ts](frontend/ground/branches/items/_items/managers/runtime/rich-query-renderer.md)
+                  - 📄 [search-debouncer.ts](frontend/ground/branches/items/_items/managers/runtime/search-debouncer.md)
+                  - 📄 [sort-query.ts](frontend/ground/branches/items/_items/managers/runtime/sort-query.md)
+                  - 📄 [token-replacer.ts](frontend/ground/branches/items/_items/managers/runtime/token-replacer.md)
+                - 📄 [ItemsFilterManager.ts](frontend/ground/branches/items/_items/managers/ItemsFilterManager.md)
+                - 📄 [ItemsManager.ts](frontend/ground/branches/items/_items/managers/ItemsManager.md)
+                - 📄 [ItemsStateManager.ts](frontend/ground/branches/items/_items/managers/ItemsStateManager.md)
               - 📂 **Адаптивность**
                 - 📄 [Моб. адаптив](frontend/ground/branches/items/_items/responsive/_mobile.md)
                 - 📄 [Планш. адаптив](frontend/ground/branches/items/_items/responsive/_tablet.md)
               - 📂 **Поиск**
+                - 📄 [_caret-spacer.scss](frontend/ground/branches/items/_items/search/_caret-spacer.md)
                 - 📄 [Стили контейнера](frontend/ground/branches/items/_items/search/_container.md)
                 - 📄 [Стили поля ввода](frontend/ground/branches/items/_items/search/_input.md)
+                - ❌ _prompt-lists.scss <!-- MISSING DOC -->
+                - 📄 [_rich-group.scss](frontend/ground/branches/items/_items/search/_rich-group.md)
+                - 📄 [_rich-operator.scss](frontend/ground/branches/items/_items/search/_rich-operator.md)
+                - 📄 [_rich-placeholder.scss](frontend/ground/branches/items/_items/search/_rich-placeholder.md)
+                - 📄 [_rich-token.scss](frontend/ground/branches/items/_items/search/_rich-token.md)
+              - 📂 **Бизнес-сервисы**
+                - 📄 [ItemsIconService.ts](frontend/ground/branches/items/_items/services/ItemsIconService.md)
+              - 📄 [Точка входа модуля](frontend/ground/branches/items/_items/index.md)
             - 📄 [Стили Вики](frontend/ground/branches/items/items.md)
             - 📄 [Класс библиотеки предметов](frontend/ground/branches/items/ItemsBranch.md)
           - 📂 [**Главная страница**](frontend/ground/branches/main/index.md)
@@ -296,7 +362,7 @@
             - 📄 [Класс страницы профиля](frontend/ground/branches/profile/ProfileBranch.md)
         - 📂 **Локализация**
           - 📄 [Локализация](frontend/ground/localization/i18n.md)
-        - 📂 **Корневые системы**
+        - 📂 [**Корневые системы**](frontend/ground/roots/index.md)
           - 📂 **Базовые стили и Shell**
             - 📂 [**Библиотека предметов**](frontend/ground/roots/_roots/items/index.md)
               - 📄 [Стили карточки](frontend/ground/roots/_roots/items/_item-card.md)
@@ -335,10 +401,13 @@
             - 📄 [Дизайн-переменные](frontend/ground/roots/_roots/_vars.md)
           - 📄 [Агрегатор ядра](frontend/ground/roots/_roots.md)
           - 📄 [Базовый класс страницы](frontend/ground/roots/Branch.md)
+          - 📄 [BranchRunner.ts](frontend/ground/roots/BranchRunner.md)
+          - 📄 [BranchSpec.ts](frontend/ground/roots/BranchSpec.md)
           - 📄 [Генератор интерфейса](frontend/ground/roots/Gen.md)
           - 📄 [Эффект параллакса (Класс)](frontend/ground/roots/Parallax.md)
           - 📄 [Кэширование профиля](frontend/ground/roots/profileCacheUtils.md)
           - 📄 [Оболочка (Shell)](frontend/ground/roots/Shell.md)
+          - 📄 [StructuredBranch.ts](frontend/ground/roots/StructuredBranch.md)
         - 📂 **types**
           - 📄 [Глобальные типы](frontend/ground/types/global.md)
         - 📂 **Утилиты и сервисы**

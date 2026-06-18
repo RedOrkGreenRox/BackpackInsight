@@ -1,26 +1,25 @@
-import { Branch, PageMeta } from '@roots/Branch.ts';
-import { ItemDetailRenderer, ItemDetailManager } from './_itemDetail';
+import { PageMeta } from '../../roots/Branch';
+import { StructuredBranch } from '../../roots/StructuredBranch';
+import { ItemDetailDisplay, ItemDetailInput } from './_itemDetail/display/ItemDetailDisplay';
+import { ItemDetailDataLoader } from './_itemDetail/data/ItemDetailData';
+import { ItemDetailLogic } from './_itemDetail/logic/ItemDetailLogic';
+import { ItemDetailData } from './_itemDetail/utils/item-detail-types';
+import { ItemDetailRenderer } from './_itemDetail/components/ItemDetailRenderer';
 import './itemDetail.scss';
 
-export class ItemDetailBranch extends Branch {
-    private manager: ItemDetailManager | null = null;
+export class ItemDetailBranch extends StructuredBranch<ItemDetailInput, ItemDetailData> {
+  protected pageClass = 'item-detail-page';
+  protected bodyClass = 'item-detail-body';
+  protected display = new ItemDetailDisplay();
+  protected data = new ItemDetailDataLoader();
+  protected meta: PageMeta | ((input?: ItemDetailInput) => PageMeta) = (input?: ItemDetailInput) =>
+    ItemDetailRenderer.getMeta(input);
 
-    public override getMeta(data?: any): PageMeta {
-        return ItemDetailRenderer.getMeta(data);
-    }
+  protected createLogic(_context: ItemDetailData, root: HTMLElement): ItemDetailLogic {
+    return new ItemDetailLogic(root);
+  }
 
-    protected getHtml(): string {
-        return ItemDetailRenderer.renderSkeleton();
-    }
-
-    protected init(data?: any): void {
-        if (!this.container) return;
-        this.manager = new ItemDetailManager(this.container, data);
-        this.manager.init();
-    }
-
-    protected destroy(): void {
-        this.manager?.destroy();
-        this.manager = null;
-    }
+  protected override extractInput(data?: any): ItemDetailInput {
+    return data as ItemDetailInput;
+  }
 }

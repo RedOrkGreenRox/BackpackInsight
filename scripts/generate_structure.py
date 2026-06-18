@@ -13,8 +13,9 @@ IGNORE_DIRS = {
     '.arena', '.cache', 'tmp', '.github', 'docs'
 }
 IGNORE_FILES = {
-    '.DS_Store', 'structure.md', 'structure.txt', 'package-lock.json', 
-    '.dockerignore', '.gitignore', '.gitattributes', 'LICENSE', '.env', '.env.example'
+    '.DS_Store', 'structure.md', 'structure.txt', 'package-lock.json',
+    '.dockerignore', '.gitignore', '.gitattributes', 'LICENSE', '.env', '.env.example',
+    'ARENA.MD'
 }
 
 # Словарь красивых имен

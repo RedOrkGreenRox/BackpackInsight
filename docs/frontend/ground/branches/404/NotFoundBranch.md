@@ -1,33 +1,38 @@
 # [Страница 404 (NotFoundBranch.ts)](../../../../../Frontend/Web/ground/branches/404/NotFoundBranch.ts)
 
 ## Назначение
-Класс `NotFoundBranch` управляет жизненным циклом страницы ошибки 404. Он отвечает за рендеринг контента, инициализацию случайного "редкостного" фона и обработку навигации обратно на главную.
+
+Класс `NotFoundBranch` управляет жизненным циклом страницы ошибки 404. Он реализован через [`StructuredBranch`](../../roots/StructuredBranch.md) и делегирует ответственность трём модулям:
+
+*   **Display** — [`NotFoundDisplay`](_404/display/NotFoundDisplay.md) рендерит HTML.
+*   **Data** — [`NotFoundData`](_404/data/NotFoundData.md) возвращает пустой контекст.
+*   **Logic** — [`NotFoundLogic`](_404/logic/NotFoundLogic.md) управляет навигацией и фоном.
 
 ---
 
 ## Ключевая логика
 
-### 1. Рендеринг (`getHtml`)
-Собирает структуру страницы из атомарных рендереров:
-*   [**ContainerRenderer**](_404/container/container.md): Общая обертка.
-*   [**TitleRenderer**](_404/title/title.md): Крупный заголовок "404".
-*   [**TextRenderer**](_404/text/text.md): Сообщение об ошибке.
-*   [**ButtonRenderer**](_404/button/button.md): Кнопка возврата.
+### 1. Рендеринг
+`NotFoundBranch` не собирает HTML самостоятельно. Он передаёт управление [`NotFoundDisplay`](_404/display/NotFoundDisplay.md), который использует атомарные рендереры:
+*   [`ContainerRenderer`](_404/container/container.md)
+*   [`TitleRenderer`](_404/title/title.md)
+*   [`TextRenderer`](_404/text/text.md)
+*   [`ButtonRenderer`](_404/button/button.md)
 
 ### 2. Жизненный цикл
-*   **`init`**: 
-    1.  Активирует [**NavigationManager**](_404/navigation/navigation.md) для обработки кликов.
-    2.  Динамически импортирует и запускает [**BackgroundManager**](_404/background/background.md) для установки случайного фона.
-*   **`destroy`**: 
-    1.  Очищает слушатели навигации.
-    2.  Просит [**BackgroundManager**](_404/background/background.md) восстановить стандартный фон приложения.
+`StructuredBranch` вызывает:
+1. `loadData()` → [`NotFoundData`](_404/data/NotFoundData.md) (пустой контекст).
+2. `renderFullPage()` → [`NotFoundDisplay`](_404/display/NotFoundDisplay.md).
+3. `createLogic()` → [`NotFoundLogic`](_404/logic/NotFoundLogic.md), который инициализирует навигацию и фон.
+4. При уничтожении `destroy()` — `NotFoundLogic` очищает слушатели и восстанавливает фон.
 
 ---
 
 ## AI-контекст
-*   Использует флаг `isMounted` для предотвращения гонок состояний (race conditions) при асинхронной загрузке ресурсов фона.
-*   Интегрирован с системой локализации через метод `getMeta` для обновления SEO-тегов.
+
+*   Это первая страница, мигрированная на [`StructuredBranch`](../../roots/StructuredBranch.md), и служит эталоном для остальных.
+*   Вся логика, ранее находившаяся в `NotFoundBranch`, перенесена в модули с чёткими контрактами.
 
 ---
 
-> 📌 **Подпись документации:** атомарный документ бранча 404 · 2026-06-15
+> 📌 **Подпись документации:** обновлено в рамках миграции 404 на StructuredBranch · 2026-06-18

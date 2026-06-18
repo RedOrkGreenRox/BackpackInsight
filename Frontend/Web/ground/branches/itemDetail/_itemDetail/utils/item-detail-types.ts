@@ -11,6 +11,7 @@ export interface ItemDetailData {
     name?: string;
     playerItem?: PlayerItemData;
     itemData?: ItemDefinition | null;
+    navigation?: NavigationState;
 }
 
 export interface NavigationState {
