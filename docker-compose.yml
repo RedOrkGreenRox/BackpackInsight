@@ -3,20 +3,32 @@ services:
     image: postgres:15-alpine
     container_name: backpack_insight_db
     restart: always
+
+    # --- Podman rootless fix ---
+    # В rootless-режиме Podman запускает контейнеры в user namespace.
+    # keep-id маппит UID хоста внутрь контейнера, давая право писать в volume.
+    # Для обычного Docker эти директивы молча игнорируются.
+    userns_mode: "keep-id"
+    user: "0:0"
+
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      # Обязателен при user: 0:0 — иначе PG не инициализируется
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./Backend/DB/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      # init_db.sql убран: pg_trgm extension создаётся в Backend/DB/bootstrap.py.
+      # Bind-mount этого файла вызывал "Permission denied" в Podman rootless.
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 15s
 
   backend:
     build:
@@ -34,8 +46,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./Backend:/app/Backend
+    # Bind-mount ./Backend убран: в Podman rootless он монтируется с правами хоста
+    # и перекрывает файлы скопированные в образ через COPY, из-за чего Python
+    # не может найти модуль Backend.DB (ModuleNotFoundError).
+    # Код уже полностью встроен в образ через Dockerfile — volume не нужен.
 
   web:
     build:
@@ -43,7 +57,6 @@ services:
       dockerfile: Frontend/Web/Dockerfile
     container_name: backpack_insight_web
     restart: always
-
     ports:
       - "5080:5080"
     environment:
@@ -53,9 +66,9 @@ services:
         condition: service_healthy
       backend:
         condition: service_started
-    volumes:
-      - ./Frontend/Web:/app/Frontend/Web
+    # Bind-mount ./Frontend/Web убран: в Podman rootless Bun не мог прочитать
+    # рабочую директорию (CouldntReadCurrentDirectory) из-за UID-маппинга.
+    # Статика и server.ts уже встроены в образ через Dockerfile.
 
 volumes:
   postgres_data:
-  

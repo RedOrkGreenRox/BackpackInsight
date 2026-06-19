@@ -24,7 +24,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from sqlalchemy import inspect  # noqa: E402
+from sqlalchemy import inspect, text  # noqa: E402
 from alembic.config import Config  # noqa: E402
 from alembic import command  # noqa: E402
 
@@ -35,7 +35,33 @@ def _alembic_config() -> Config:
     return Config(str(PROJECT_ROOT / "alembic.ini"))
 
 
+def _ensure_extensions() -> None:
+    """
+    Создаёт расширения PostgreSQL, необходимые приложению.
+
+    Раньше это делал init_db.sql, монтируемый в /docker-entrypoint-initdb.d/.
+    На Bazzite/Podman rootless bind-mount этого файла вызывал ошибки прав доступа
+    (ls: Permission denied в логах), поэтому расширения перенесены сюда.
+
+    CREATE EXTENSION IF NOT EXISTS — идемпотентная операция, безопасно вызывать
+    при каждом старте. Для SQLite вызов пропускается.
+    """
+    db_url = str(engine.url)
+    if db_url.startswith("sqlite"):
+        return  # SQLite не поддерживает расширения PostgreSQL
+
+    try:
+        with engine.begin() as conn:
+            conn.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm"))
+        print("[bootstrap] Extension pg_trgm: OK", flush=True)
+    except Exception as exc:
+        # Не падаем — расширение некритично для старта, но сообщаем
+        print(f"[bootstrap] WARNING: could not create pg_trgm extension: {exc}", flush=True)
+
+
 def main() -> int:
+    _ensure_extensions()
+
     insp = inspect(engine)
     tables = set(insp.get_table_names())
 
