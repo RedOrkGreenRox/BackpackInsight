@@ -1,0 +1,10 @@
+namespace BackpackInsight.Error;
+
+table ApiError {
+  code:string (required);
+  detail:string (required);
+  issues:[string];
+}
+
+root_type ApiError;
+file_identifier "BIER";

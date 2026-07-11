@@ -1,0 +1,43 @@
+{
+    "Data": { "AV": "5.0.0" },
+    "BN": "50000",
+    "GR": "abcdef0000",
+    "BT": "2026-01-01T00:00:00",
+    "Name": "FullTestPlayer",
+    "PH": "skin1,skin2",
+    "Currency": {
+        "coins": 99999,
+        "gems": 500,
+        "EventTickets": 10,
+        "BoonPoints": 0
+    },
+    "UL": [
+        "WarriorSkinGold",
+        "BarbarianSkinFire",
+        "Season01Banner01",
+        "Season02Banner02",
+        "InvalidEntry",
+        "QuestUnlockPlayerLevelRewardData"
+    ],
+    "Trophy": 5000,
+    "BonusTrophy": 250,
+    "UID": "00000000-0000-0000-0000-000000000002",
+    "DUID": "test-device-uid-2",
+    "FBID": "",
+    "Device": "Generic Test Device 2",
+    "OS": "TestOS 2.0",
+    "IV": "1.0.0",
+    "LV": "5.0.0",
+    "Hero": {
+        "Warrior": "14:3151:3281",
+        "Elementalist": "12:1696:2897",
+        "Barbarian": "25:500:5000"
+    },
+    "Item": {
+        "Wooden Sword": "5:200",
+        "Iron Sword": "3:50",
+        "Apple": "7:300",
+        "Power Stone": "2:80",
+        "UnknownItemThatDoesNotExist": "1:1"
+    }
+}

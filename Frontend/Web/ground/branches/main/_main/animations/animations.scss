@@ -1,0 +1,6 @@
+/* Анимация пульсации, если нужна (опционально) */
+@keyframes glow-pulse {
+    0% { box-shadow: 0 0 5px rgba(var(--azure-raw), 0.2); }
+    50% { box-shadow: 0 0 20px rgba(var(--azure-raw), 0.6); }
+    100% { box-shadow: 0 0 5px rgba(var(--azure-raw), 0.2); }
+}

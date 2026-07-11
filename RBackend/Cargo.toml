@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/cli",
+    "crates/api",
+    "crates/builder",
+    "crates/pack",
+    "crates/middleware",
+    "crates/db",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/RedOrkGreenRox/Backpackinsight"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"

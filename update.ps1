@@ -1,0 +1,1 @@
+Get-ChildItem -Force | Where-Object Name -NotIn '.env','.github','.git', 'update.ps1' | ForEach-Object { takeown /F $_.FullName /R /A /D Y >$null 2>&1; icacls $_.FullName /grant ($env:USERNAME+':F') /T /C /Q >$null 2>&1; Remove-Item -LiteralPath $_.FullName -Recurse -Force }

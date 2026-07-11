@@ -1,0 +1,15 @@
+namespace BackpackInsight.Localization;
+
+table LocalizedString {
+  key:string (required);
+  value:string (required);
+}
+
+table LocalePack {
+  schema_version:string (required);
+  lang:string (required);
+  strings:[LocalizedString] (required);
+}
+
+root_type LocalePack;
+file_identifier "BILC";

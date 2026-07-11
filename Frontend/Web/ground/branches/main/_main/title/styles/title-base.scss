@@ -1,0 +1,24 @@
+.main-title {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 30px;
+
+    /* Улучшаем видимость текста */
+    color: var(--text-default-color);
+    font-weight: 800; /* Делаем жирнее */
+    text-shadow:
+        0 4px 4px rgba(0, 0, 0, 0.8),   /* Жесткая тень вниз */
+        0 0 20px rgba(0, 0, 0, 0.5);    /* Мягкое свечение вокруг для контраста */
+
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    /* Легкий эффект при наведении */
+    &:hover {
+        text-shadow:
+            0 4px 8px rgba(0, 0, 0, 1),
+            0 0 25px rgba(255, 255, 255, 0.4);
+        transform: scale(1.02);
+    }
+}

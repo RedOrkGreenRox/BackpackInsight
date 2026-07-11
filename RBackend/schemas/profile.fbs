@@ -1,0 +1,53 @@
+namespace BackpackInsight.Profile;
+
+table HeroView {
+  name:string (required);
+  level:uint;
+  rating:uint;
+  experience:ulong;
+  exp_req:ulong;
+  prestige:bool;
+  league:string;
+  skin_num:string;
+}
+
+table ItemView {
+  name:string (required);
+  rarity:string;
+  level:uint;
+  cards:uint;
+  cards_need:int;
+}
+
+table ItemStat {
+  rarity:string (required);
+  count:ulong;
+}
+
+table SkinList {
+  owner:string (required);
+  skins:[string] (required);
+}
+
+table ProfileView {
+  nickname:string (required);
+  level:ulong;
+  trophy:ulong;
+  bonus_trophy:ulong;
+  gems:ulong;
+  coins:ulong;
+  xp_current:ulong;
+  xp_need:ulong;
+  area:string;
+  item_stats:[ItemStat];
+  heroes:[HeroView];
+  heroes_count:uint;
+  items:[ItemView];
+  items_count:uint;
+  actual_version:string;
+  install_version:string;
+  profile_skins:[SkinList];
+}
+
+root_type ProfileView;
+file_identifier "BIPR";

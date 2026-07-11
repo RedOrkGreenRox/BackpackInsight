@@ -1,0 +1,49 @@
+// Advanced filters toggle button
+.filter-toggle-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--text-default-color);
+    font-size: 1rem;
+    font-family: 'Signika', sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    margin: 0;
+    overflow: hidden;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.7);
+        border-color: var(--azure);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    &.open {
+        border-color: var(--azure);
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 8px 8px 0 0;
+        overflow: visible;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .filter-toggle-icon {
+        transition: transform 0.3s ease;
+        font-size: 0.8rem;
+        color: var(--azure);
+    }
+
+    &.open .filter-toggle-icon {
+        transform: rotate(180deg);
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "backpack-insight-web",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "bun run server.ts",
+    "verify:images": "node scripts/verify-item-images.js",
+    "analyze:item-text": "node scripts/analyze-item-text.js"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "flatbuffers": "^25.9.23",
+    "fuse.js": "^7.0.0",
+    "html-to-image": "^1.11.13"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/node": "^20.11.0",
+    "bun-types": "latest",
+    "fast-glob": "^3.3.3",
+    "jsdom": "^24.1.3",
+    "playwright": "^1.61.0",
+    "sass": "^1.85.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.9"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

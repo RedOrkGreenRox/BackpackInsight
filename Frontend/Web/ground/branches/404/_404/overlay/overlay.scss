@@ -1,0 +1,10 @@
+.overlay-404 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Более глубокое затемнение по краям для фокуса на центре */
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0.95) 100%);
+    z-index: -1;
+}

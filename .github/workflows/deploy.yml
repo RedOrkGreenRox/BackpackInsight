@@ -1,0 +1,122 @@
+name: CD (Backend Deployment)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy RBackend on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euo pipefail
+
+            cd ~/BackpackInsight
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            if [ ! -f .env ]; then
+              echo "❌ .env не найден на сервере"
+              exit 1
+            fi
+            sed -i 's/\r$//' .env
+
+            if ! grep -Eq '^(API_SECRET|ROOT_API_SECRET)=' .env; then
+              echo "❌ В .env нет API_SECRET или ROOT_API_SECRET"
+              exit 1
+            fi
+
+            # Docker Compose v2 preferred; legacy docker-compose supported.
+            if docker compose version >/dev/null 2>&1; then
+              DC="docker compose"
+            else
+              DC="docker-compose"
+            fi
+            COMPOSE="$DC -f docker-compose.yml"
+
+            # Single compose file, server mode selected by exported env.
+            export ROOT_ENV=production
+            export BACKEND_BIND=0.0.0.0
+            export POSTGRES_BIND=127.0.0.1
+            export ROOT_DB_ENABLED=true
+
+            echo "🚀 Building and starting RBackend + PostgreSQL"
+            $COMPOSE up -d --build --force-recreate db backend
+
+            echo "⏳ Waiting for RBackend health"
+            for i in $(seq 1 60); do
+              if curl -fsS http://localhost:8000/health >/dev/null 2>&1; then
+                echo "✅ RBackend health OK after $i attempts"
+                break
+              fi
+              if [ "$i" = "60" ]; then
+                echo "❌ RBackend did not become healthy"
+                $COMPOSE logs --tail=80 backend
+                exit 1
+              fi
+              sleep 2
+            done
+
+            echo "🔐 Checking backend secret wiring"
+            docker exec backpack_insight_backend sh -c 'test -n "${ROOT_API_SECRET:-}${API_SECRET:-}"'
+
+            SECRET_HEADER=$(awk -F= '/^ROOT_API_SECRET=|^API_SECRET=/{sub(/^[^=]*=/,""); print; exit}' .env | sed 's/\r$//')
+            if [ -z "$SECRET_HEADER" ]; then
+              echo "❌ Secret parsed empty from .env"
+              exit 1
+            fi
+
+            NO_SECRET_CODE=$(curl -sS -o /tmp/items_no_secret.fb -w '%{http_code}' 'http://localhost:8000/api/items.fb?lang=en')
+            if [ "$NO_SECRET_CODE" != "403" ]; then
+              echo "❌ Protected binary endpoint without secret returned $NO_SECRET_CODE, expected 403"
+              exit 1
+            fi
+
+            WITH_SECRET_CODE=$(curl -sS -o /tmp/items.fb -w '%{http_code}' -H "X-Internal-Secret: $SECRET_HEADER" 'http://localhost:8000/api/items.fb?lang=en')
+            if [ "$WITH_SECRET_CODE" != "200" ]; then
+              echo "❌ Protected binary endpoint with secret returned $WITH_SECRET_CODE, expected 200"
+              $COMPOSE logs --tail=80 backend
+              exit 1
+            fi
+            ITEMS_ID=$(dd if=/tmp/items.fb bs=1 skip=4 count=4 2>/dev/null || true)
+            if [ "$ITEMS_ID" != "BIAI" ]; then
+              echo "❌ /api/items.fb wrong FlatBuffer identifier: $ITEMS_ID"
+              exit 1
+            fi
+
+            PROFILE_CODE=$(curl -sS -o /tmp/profile.fb -w '%{http_code}' \
+              -H "X-Internal-Secret: $SECRET_HEADER" \
+              -H 'Content-Type: application/json' \
+              --data-binary @tests/fixtures/synthetic_profile_minimal.json \
+              'http://localhost:8000/api/profile.fb')
+            if [ "$PROFILE_CODE" != "200" ]; then
+              echo "❌ /api/profile.fb returned $PROFILE_CODE, expected 200"
+              $COMPOSE logs --tail=80 backend
+              exit 1
+            fi
+            PROFILE_ID=$(dd if=/tmp/profile.fb bs=1 skip=4 count=4 2>/dev/null || true)
+            if [ "$PROFILE_ID" != "BIPR" ]; then
+              echo "❌ /api/profile.fb wrong FlatBuffer identifier: $PROFILE_ID"
+              exit 1
+            fi
+
+            OLD_ITEMS_CODE=$(curl -sS -o /tmp/old_items.out -w '%{http_code}' 'http://localhost:8000/api/items?lang=en')
+            if [ "$OLD_ITEMS_CODE" != "404" ]; then
+              echo "❌ Legacy /api/items returned $OLD_ITEMS_CODE, expected 404"
+              exit 1
+            fi
+
+            POSTGRES_USER_VAL=$(awk -F= '/^POSTGRES_USER=/{sub(/^[^=]*=/,""); print; exit}' .env | sed 's/\r$//')
+            POSTGRES_DB_VAL=$(awk -F= '/^POSTGRES_DB=/{sub(/^[^=]*=/,""); print; exit}' .env | sed 's/\r$//')
+            docker exec backpack_insight_db psql -U "$POSTGRES_USER_VAL" -d "$POSTGRES_DB_VAL" -tAc "SELECT COUNT(*) FROM profiles;" >/tmp/profile_count.txt
+            echo "✅ DB persistence OK, profiles rows: $(cat /tmp/profile_count.txt)"
+
+            docker image prune -f
+            echo "✅ RBackend deploy completed"

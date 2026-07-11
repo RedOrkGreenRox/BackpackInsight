@@ -1,0 +1,15 @@
+namespace BackpackInsight.Search;
+
+table TokenPosting {
+  token:string (required);
+  item_rows:[uint] (required);
+}
+
+table SearchIndexPack {
+  schema_version:string (required);
+  lang:string (required);
+  postings:[TokenPosting] (required);
+}
+
+root_type SearchIndexPack;
+file_identifier "BISR";

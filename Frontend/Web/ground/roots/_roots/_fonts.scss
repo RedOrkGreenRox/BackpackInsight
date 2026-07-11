@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Signika';
+    src: url('/static/fonts/Signika-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0000-007F, U+00A0-00FF;
+}
+
+@font-face {
+    font-family: 'Signika';
+    src: url('/static/fonts/Signika-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0000-007F, U+00A0-00FF;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/static/fonts/NotoSans.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0400-04FF;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/static/fonts/NotoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0400-04FF;
+}

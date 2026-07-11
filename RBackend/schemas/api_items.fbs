@@ -1,0 +1,40 @@
+namespace BackpackInsight.ApiItems;
+
+enum ValueKind:ubyte {
+  Null = 0,
+  Bool = 1,
+  Int = 2,
+  Float = 3,
+  String = 4,
+  Array = 5,
+  Object = 6
+}
+
+table KeyValue {
+  key:string (required);
+  value:Value (required);
+}
+
+table Value {
+  kind:ValueKind;
+  bool_value:bool;
+  int_value:long;
+  float_value:double;
+  string_value:string;
+  array_value:[Value];
+  object_value:[KeyValue];
+}
+
+table ApiItem {
+  item_id:string (required);
+  value:Value (required);
+}
+
+table ApiItemsPack {
+  schema_version:string (required);
+  lang:string (required);
+  items:[ApiItem] (required);
+}
+
+root_type ApiItemsPack;
+file_identifier "BIAI";

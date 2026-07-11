@@ -1,0 +1,31 @@
+.button-view-profile {
+    width: 100%;
+    padding: 22px;
+    font-size: 1.5em;
+
+    /* Центрирование контента */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    /* --- СТИЛЬ GLASS UI (Как у кнопки скачивания) --- */
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+    border: 2px solid rgba(255, 255, 255, 0.25); /* Тонкая рамка */
+    border-radius: 50px;
+
+    /* Типографика */
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* Тень текста для читаемости */
+
+    /* Объем */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
+}

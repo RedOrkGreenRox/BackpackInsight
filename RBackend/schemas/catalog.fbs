@@ -1,0 +1,36 @@
+namespace BackpackInsight.Catalog;
+
+enum Rarity:ubyte {
+  Common = 0,
+  Rare = 1,
+  Epic = 2,
+  Legendary = 3,
+  Mythic = 4,
+  Unique = 5,
+  Relic = 6,
+  Boon = 7,
+  Special = 8
+}
+
+table PackHeader {
+  schema_version:string (required);
+  game_version:string;
+  build_hash:string;
+}
+
+table ItemSummary {
+  row:uint;
+  item_id:string (required);
+  name:string (required);
+  slug:string (required);
+  image_key:string (required);
+  rarity:Rarity;
+}
+
+table CatalogSummaryPack {
+  header:PackHeader (required);
+  items:[ItemSummary] (required);
+}
+
+root_type CatalogSummaryPack;
+file_identifier "BICS";

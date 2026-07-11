@@ -1,0 +1,13 @@
+# Docker context hygiene
+.git
+**/target
+**/node_modules
+**/dist
+**/coverage
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.venv
+Frontend/Web/database.db
+Frontend/Web/browser_probe_tmp.cjs
