@@ -19,14 +19,24 @@ use tower_http::{cors::CorsLayer, trace::TraceLayer};
 pub use state::AppState;
 
 pub fn app(state: AppState) -> Router {
+    // Rate-limit ONLY the POST /api/profile.fb endpoint (parity with legacy
+    // Python slowapi limiter). GET endpoints are cached 1h upstream and don't
+    // need per-IP limiting. Mounted before the API-secret check.
+    let profile_route = Router::new()
+        .route("/api/profile.fb", post(routes::profile_binary::profile_fb))
+        .route_layer(DefaultBodyLimit::max(state.max_body_bytes))
+        .route_layer(middleware::from_fn_with_state(
+            state.clone(),
+            security::rate_limit::rate_limit_profile,
+        ));
+
     let api_routes = Router::new()
         .route("/api/items.fb", get(routes::packs::items_pack))
         .route(
             "/api/catalog-summary.fb",
             get(routes::packs::catalog_summary_pack),
         )
-        .route("/api/profile.fb", post(routes::profile_binary::profile_fb))
-        .route_layer(DefaultBodyLimit::max(state.max_body_bytes))
+        .merge(profile_route)
         .route_layer(middleware::from_fn_with_state(
             state.clone(),
             security::secret::require_api_secret,
@@ -48,7 +58,9 @@ pub fn app(state: AppState) -> Router {
 pub async fn serve(addr: SocketAddr) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let state = AppState::discover().await?;
     let listener = tokio::net::TcpListener::bind(addr).await?;
-    axum::serve(listener, app(state)).await?;
+    axum::serve(listener, app(state))
+        .with_graceful_shutdown(shutdown_signal())
+        .await?;
     Ok(())
 }
 
@@ -65,4 +77,36 @@ fn cors_layer(state: &AppState) -> CorsLayer {
             header::CONTENT_TYPE,
             header::HeaderName::from_static("x-internal-secret"),
         ])
+}
+
+/// Wait for SIGINT + SIGTERM (unix) or Ctrl-C (other platforms).
+async fn shutdown_signal() {
+    let ctrl_c = async {
+        tokio::signal::ctrl_c()
+            .await
+            .unwrap_or_else(|err| tracing::warn!("ctrl_c signal install failed: {err}"));
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        use tokio::signal::unix::{signal, SignalKind};
+        let mut sigterm = signal(SignalKind::terminate())
+            .unwrap_or_else(|err| panic!("install SIGTERM handler: {err}"));
+        let mut sigint = signal(SignalKind::interrupt())
+            .unwrap_or_else(|err| panic!("install SIGINT handler: {err}"));
+        tokio::select! {
+            _ = sigterm.recv() => tracing::info!("received SIGTERM, shutting down"),
+            _ = sigint.recv() => tracing::info!("received SIGINT, shutting down"),
+        }
+    };
+
+    #[cfg(not(unix))]
+    let terminate = async {
+        std::future::pending::<()>().await;
+    };
+
+    tokio::select! {
+        _ = ctrl_c => tracing::info!("received Ctrl-C, shutting down"),
+        _ = terminate => {}
+    }
 }

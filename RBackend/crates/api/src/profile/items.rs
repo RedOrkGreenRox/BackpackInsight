@@ -1,8 +1,8 @@
-use middleware::decode_items;
-use rbackend_core::{Cards, ItemLevel, ItemLevelService, ItemRarity, RarityService};
+use crate::profile::catalog_cache::{catalog_lookup, Lang};
+use rbackend_core::{Cards, ItemLevel, ItemLevelService};
 use serde::Serialize;
 use serde_json::Value;
-use std::{collections::BTreeMap, fs, path::Path};
+use std::{collections::BTreeMap, path::Path};
 
 #[derive(Debug, Clone, Serialize)]
 pub struct ProfileItemView {
@@ -16,16 +16,24 @@ pub struct ProfileItemView {
 #[derive(Debug, Clone)]
 pub struct ProfileItemRead {
     pub view: ProfileItemView,
+    pub item_id: String,
     pub total_xp: u64,
 }
 
-#[derive(Debug, Clone)]
-struct CatalogItemLite {
-    name: String,
-    rarity: ItemRarity,
+/// DB-facing companion to `ProfileItemView`: carries the catalog `item_id`
+/// (slug) + `total_xp`. Used to populate `ItemSave` rows; NOT serialised into
+/// the FlatBuffer response (the `.fbs` schema is unchanged).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub struct ProfileItemRecord {
+    pub item_id: String,
+    pub total_xp: u64,
 }
 
-pub fn read_items(json: &Value, project_root: &Path) -> Result<Vec<ProfileItemRead>, String> {
+pub fn read_items(
+    json: &Value,
+    project_root: &Path,
+    lang: Lang,
+) -> Result<Vec<ProfileItemRead>, String> {
     let Some(items) = json.get("Item").and_then(Value::as_object) else {
         return Ok(Vec::new());
     };
@@ -33,11 +41,11 @@ pub fn read_items(json: &Value, project_root: &Path) -> Result<Vec<ProfileItemRe
         return Ok(Vec::new());
     }
 
-    let catalog = catalog_lookup(project_root)?;
+    let catalog = catalog_lookup(project_root, lang)?;
     let mut result = Vec::new();
 
     for (raw_name, raw_value) in items {
-        let Some(parsed) = read_item(raw_name, raw_value, &catalog) else {
+        let Some(parsed) = read_item(raw_name, raw_value, catalog) else {
             continue;
         };
         result.push(parsed);
@@ -76,31 +84,19 @@ fn read_item(
             cards,
             cards_need,
         },
+        item_id: catalog_item.item_id.clone(),
         total_xp: info.total_xp.0,
     })
 }
 
-fn catalog_lookup(project_root: &Path) -> Result<BTreeMap<String, CatalogItemLite>, String> {
-    let bytes = fs::read(project_root.join("RBackend/generated/api_items_en.fb"))
-        .map_err(|err| format!("could not read api_items_en.fb: {err}"))?;
-    let items = decode_items(&bytes)?;
-    let mut lookup = BTreeMap::new();
-
-    for item in items.items {
-        let rarity = RarityService::parse(&item.rarity)?;
-        let lite = CatalogItemLite {
-            name: item.name.clone(),
-            rarity,
-        };
-        lookup.insert(item.id, lite.clone());
-        lookup.entry(item.name).or_insert(lite);
-    }
-    Ok(lookup)
-}
+// Re-export so `items.rs` consumers (e.g. `view.rs`) can refer to the cached type
+// without depending on `catalog_cache` directly.
+pub use crate::profile::catalog_cache::CatalogItemLite;
 
 #[cfg(test)]
 mod tests {
     use super::{item_stats, read_items};
+    use crate::profile::catalog_cache::Lang;
     use serde_json::json;
     use std::path::Path;
 
@@ -121,7 +117,7 @@ mod tests {
         if packs_missing(&root) {
             return;
         }
-        let items = read_items(&json!({"Item": {"Wooden Sword": "5:200"}}), &root)
+        let items = read_items(&json!({"Item": {"Wooden Sword": "5:200"}}), &root, Lang::En)
             .unwrap_or_else(|err| panic!("items should read: {err}"));
 
         assert_eq!(items.len(), 1);
@@ -142,6 +138,7 @@ mod tests {
         let items = read_items(
             &json!({"Item": {"UnknownThing": "1:2", "Wooden Sword": "bad"}}),
             &root,
+            Lang::En,
         )
         .unwrap_or_else(|err| panic!("items should read: {err}"));
 
@@ -157,6 +154,7 @@ mod tests {
         let items = read_items(
             &json!({"Item": {"Wooden Sword": "5:200", "Banana": "1:10"}}),
             &root,
+            Lang::En,
         )
         .unwrap_or_else(|err| panic!("items should read: {err}"));
         let stats = item_stats(&items);

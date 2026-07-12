@@ -1,5 +1,6 @@
 use crate::{
     profile::{
+        catalog_cache::normalize_lang,
         json_input,
         view::{profile_view, ProfileErrorResponse, ProfileViewResponse},
     },
@@ -7,7 +8,7 @@ use crate::{
 };
 use axum::{
     body::Body,
-    extract::State,
+    extract::{Query, State},
     http::{header, StatusCode},
     response::Response,
     Json,
@@ -17,16 +18,25 @@ use pack::{
     ProfileItemPack, ProfileViewPack,
 };
 use rbackend_core::ProfileIdentityService;
+use serde::Deserialize;
 use serde_json::Value;
+
+#[derive(Debug, Deserialize)]
+pub struct ProfileLangQuery {
+    #[serde(default)]
+    pub lang: String,
+}
 
 pub async fn profile_fb(
     State(state): State<AppState>,
+    Query(query): Query<ProfileLangQuery>,
     Json(payload): Json<Value>,
 ) -> Result<Response, (StatusCode, Response)> {
-    match profile_view(&payload, &state.project_root) {
+    let lang = normalize_lang(&query.lang);
+    match profile_view(&payload, &state.project_root, lang) {
         Ok(view) => {
             let bytes = build_profile_view_bytes(&to_pack(view.clone()));
-            save_profile_if_enabled(&state, &payload, &view, &bytes)
+            save_profile_if_enabled(&state, &payload, &view)
                 .await
                 .map_err(|error| (StatusCode::INTERNAL_SERVER_ERROR, error_response(error)))?;
             Ok(binary_response(StatusCode::OK, bytes))
@@ -39,7 +49,6 @@ async fn save_profile_if_enabled(
     state: &AppState,
     payload: &Value,
     view: &ProfileViewResponse,
-    bytes: &[u8],
 ) -> Result<(), ProfileErrorResponse> {
     let Some(db) = &state.db else {
         return Ok(());
@@ -53,6 +62,34 @@ async fn save_profile_if_enabled(
             }
         })?;
 
+    let heroes = view
+        .heroes
+        .iter()
+        .map(|hero| db::HeroSave {
+            name: hero.name.clone(),
+            level: hero.level as i32,
+            experience: hero.experience as i64,
+            rating: hero.rating as i32,
+            prestige: hero.prestige,
+            league: hero.league.clone(),
+            exp_req: hero.exp_req as i64,
+        })
+        .collect::<Vec<_>>();
+
+    // Zip view.items with view.item_records (same length by construction).
+    let items = view
+        .items
+        .iter()
+        .zip(view.item_records.iter())
+        .map(|(item, record)| db::ItemSave {
+            item_id: record.item_id.clone(),
+            level: item.level as i32,
+            cards: item.cards as i32,
+            cards_need: item.cards_need,
+            total_xp: record.total_xp as i64,
+        })
+        .collect::<Vec<_>>();
+
     db::save_profile(
         db.pool(),
         db::ProfileSave {
@@ -64,7 +101,8 @@ async fn save_profile_if_enabled(
             coins: view.coins,
             gems: view.gems,
             area: view.area.clone(),
-            profile_fb: bytes.to_vec(),
+            heroes,
+            items,
         },
     )
     .await
@@ -75,6 +113,9 @@ async fn save_profile_if_enabled(
     Ok(())
 }
 
+/// Translate `ProfileViewResponse` into the FlatBuffer pack. Drops `item_records`
+/// (the `ItemView` FlatBuffer schema has no `item_id` / `total_xp` field — those
+/// are DB-only) and `heroes_count` / `items_count` (recomputed by the pack).
 fn to_pack(view: ProfileViewResponse) -> ProfileViewPack {
     ProfileViewPack {
         nickname: view.nickname,

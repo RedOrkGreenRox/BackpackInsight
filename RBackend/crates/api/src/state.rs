@@ -1,3 +1,4 @@
+use crate::security::rate_limit::{parse_rate_limit, RateLimiter};
 use std::{env, path::PathBuf};
 
 #[derive(Debug, Clone)]
@@ -8,6 +9,7 @@ pub struct AppState {
     pub cors_origin: String,
     pub max_body_bytes: usize,
     pub db: Option<db::Db>,
+    pub profile_rate_limiter: Option<RateLimiter>,
 }
 
 impl AppState {
@@ -28,6 +30,15 @@ impl AppState {
             );
         }
 
+        let db = db::Db::connect_from_env_if_enabled().await?;
+        // Seed item definitions on boot if the DB is enabled and the table is empty.
+        // Idempotent — safe to call on every startup.
+        if let Some(db) = db.as_ref() {
+            db::seed_itemdefinitions_if_empty(db.pool(), &project_root)
+                .await
+                .map_err(|err| format!("itemdefinition seed failed: {err}"))?;
+        }
+
         let state = Self {
             project_root,
             public_base_url: env::var("ROOT_PUBLIC_BASE_URL")
@@ -40,7 +51,20 @@ impl AppState {
                 .ok()
                 .and_then(|value| value.parse::<usize>().ok())
                 .unwrap_or(1024 * 1024),
-            db: db::Db::connect_from_env_if_enabled().await?,
+            db,
+            // Rate limiter for POST /api/profile.fb. Default 20/minute (parity
+            // with Python slowapi). Env: ROOT_PROFILE_RATE_LIMIT (or legacy
+            // RATE_LIMIT_PROFILES). Empty / "0" disables.
+            profile_rate_limiter: env::var("ROOT_PROFILE_RATE_LIMIT")
+                .ok()
+                .and_then(|raw| parse_rate_limit(&raw))
+                .or_else(|| {
+                    env::var("RATE_LIMIT_PROFILES")
+                        .ok()
+                        .and_then(|raw| parse_rate_limit(&raw))
+                })
+                .or(Some(20))
+                .map(RateLimiter::new),
         };
         state.verify_required_packs()?;
         Ok(state)

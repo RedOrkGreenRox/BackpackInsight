@@ -1,6 +1,7 @@
 use crate::profile::{
+    catalog_cache::Lang,
     heroes::{read_heroes, ProfileHeroView},
-    items::{item_stats, read_items, ProfileItemView},
+    items::{item_stats, read_items, ProfileItemRecord, ProfileItemView},
     json_input,
 };
 use rbackend_core::{
@@ -27,6 +28,9 @@ pub struct ProfileViewResponse {
     pub heroes_count: usize,
     pub items: Vec<ProfileItemView>,
     pub items_count: usize,
+    /// DB-facing companions to `items`, 1:1 by index. Carries `item_id` (catalog
+    /// slug) + `total_xp`. Dropped by `to_pack` (FlatBuffer schema unchanged).
+    pub item_records: Vec<ProfileItemRecord>,
     pub actual_version: Option<String>,
     pub install_version: Option<String>,
     pub profile_skins: BTreeMap<String, Vec<String>>,
@@ -41,6 +45,7 @@ pub struct ProfileErrorResponse {
 pub fn profile_view(
     json: &Value,
     project_root: &std::path::Path,
+    lang: Lang,
 ) -> Result<ProfileViewResponse, ProfileErrorResponse> {
     let check = ProfileCheckService::check(&json_input::check_input(json));
     if !check.is_valid() {
@@ -68,16 +73,24 @@ pub fn profile_view(
     let unlocks = UnlockService::inspect(json_input::unlock_values(json));
     let heroes = read_heroes(json);
     let heroes_count = heroes.len();
-    let item_reads = read_items(json, project_root).map_err(|error| ProfileErrorResponse {
+    let item_reads = read_items(json, project_root, lang).map_err(|error| ProfileErrorResponse {
         detail: format!("Failed to process profile: {error}"),
         issues: vec![error],
     })?;
     let total_item_xp = item_reads.iter().map(|item| item.total_xp).sum::<u64>();
     let item_stats = item_stats(&item_reads);
-    let items = item_reads
+    let (items, item_records): (Vec<ProfileItemView>, Vec<ProfileItemRecord>) = item_reads
         .into_iter()
-        .map(|item| item.view)
-        .collect::<Vec<_>>();
+        .map(|item| {
+            (
+                item.view,
+                ProfileItemRecord {
+                    item_id: item.item_id,
+                    total_xp: item.total_xp,
+                },
+            )
+        })
+        .unzip();
     let items_count = items.len();
 
     let level = LevelService::from_total_xp(Xp(total_item_xp));
@@ -97,6 +110,7 @@ pub fn profile_view(
         heroes_count,
         items,
         items_count,
+        item_records,
         actual_version: data_string(json, "AV"),
         install_version: top_string(json, "IV"),
         profile_skins: unlocks.skins,
@@ -117,6 +131,7 @@ fn top_string(json: &Value, key: &str) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use super::profile_view;
+    use crate::profile::catalog_cache::Lang;
     use serde_json::json;
     use std::path::{Path, PathBuf};
 
@@ -141,7 +156,7 @@ mod tests {
             "IV": "1.0.0",
             "UL": ["WarriorSkinGold", "NymphedoraSkin02", "Season01Banner01"]
         });
-        let Ok(view) = profile_view(&value, &repo_root()) else {
+        let Ok(view) = profile_view(&value, &repo_root(), Lang::En) else {
             panic!("view should be valid");
         };
 
@@ -178,7 +193,7 @@ mod tests {
             "Item": {"Wooden Sword": "5:200"},
             "Currency": {"coins": 0, "gems": 0}
         });
-        let Ok(view) = profile_view(&value, &root) else {
+        let Ok(view) = profile_view(&value, &root, Lang::En) else {
             panic!("view should be valid");
         };
 
@@ -195,7 +210,7 @@ mod tests {
 
     #[test]
     fn invalid_shape_returns_error() {
-        let Err(error) = profile_view(&json!({}), &repo_root()) else {
+        let Err(error) = profile_view(&json!({}), &repo_root(), Lang::En) else {
             panic!("view should be invalid");
         };
 

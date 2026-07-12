@@ -1,15 +1,27 @@
 //! db — SQLx persistence for RBackend.
+//!
+//! Dual-driver support: Postgres (production) and SQLite (local dev).
+//! The active driver is selected at runtime via `DATABASE_URL`:
+//!   * `sqlite:./path.db` → SQLite (bundled via libsqlite3-sys, no system dep).
+//!   * `postgres://...`  → Postgres.
+//! All public APIs operate on `&AnyPool`, so callers do not need to know which
+//! driver is in use. Migrations live in `migrations/pg/` and `migrations/sqlite/`.
 
 mod profile;
+mod seed;
 
-use sqlx::{postgres::PgPoolOptions, PgPool};
+use sqlx::any::{install_default_drivers, Any, AnyPoolOptions};
+use sqlx::Pool;
 use std::env;
 
-pub use profile::{save_profile, ProfileSave, SavedProfile};
+pub use profile::{save_profile, HeroSave, ItemSave, ProfileSave, SavedProfile};
+pub use seed::seed_itemdefinitions_if_empty;
+
+pub(crate) type AnyPool = Pool<Any>;
 
 #[derive(Debug, Clone)]
 pub struct Db {
-    pool: PgPool,
+    pool: AnyPool,
 }
 
 impl Db {
@@ -17,20 +29,32 @@ impl Db {
         if !db_enabled() {
             return Ok(None);
         }
+        // Install every driver compiled into sqlx (postgres + sqlite) once.
+        // Safe to call multiple times; subsequent calls are no-ops.
+        install_default_drivers();
+
         let url = database_url()?;
-        let pool = PgPoolOptions::new()
+        let pool = AnyPoolOptions::new()
             .max_connections(5)
             .connect(&url)
             .await
             .map_err(|err| format!("database connect failed: {err}"))?;
-        sqlx::migrate!("./migrations")
-            .run(&pool)
-            .await
-            .map_err(|err| format!("database migration failed: {err}"))?;
+
+        if url.starts_with("sqlite:") {
+            sqlx::migrate!("./migrations/sqlite")
+                .run(&pool)
+                .await
+                .map_err(|err| format!("sqlite migration failed: {err}"))?;
+        } else {
+            sqlx::migrate!("./migrations/pg")
+                .run(&pool)
+                .await
+                .map_err(|err| format!("postgres migration failed: {err}"))?;
+        }
         Ok(Some(Self { pool }))
     }
 
-    pub fn pool(&self) -> &PgPool {
+    pub fn pool(&self) -> &AnyPool {
         &self.pool
     }
 }

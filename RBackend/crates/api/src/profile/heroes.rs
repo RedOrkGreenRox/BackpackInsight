@@ -47,6 +47,10 @@ fn read_hero(raw_name: &str, raw_value: &Value) -> Option<ProfileHeroView> {
         exp_req: hero.exp_need.0,
         prestige: hero.prestige,
         league: hero.league.to_string(),
+        // Harmless default: there is no equipped-skin field in the profile JSON
+        // (only `UL` lists *unlocked* skins). The frontend switches the actual
+        // skin via the `profile_skins` map, so this constant is just a placeholder
+        // satisfying the FlatBuffer HeroView schema.
         skin_num: "01",
     })
 }

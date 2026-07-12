@@ -6,7 +6,9 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "migrate", "macros"] }
+middleware = { path = "../middleware" }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "sqlite", "any", "migrate", "macros"] }
+libsqlite3-sys = { version = "0.30", features = ["bundled"] }
 
 [lints]
 workspace = true

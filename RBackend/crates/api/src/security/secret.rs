@@ -7,6 +7,7 @@ use axum::{
     response::Response,
 };
 use pack::{build_api_error_bytes, ApiErrorPack};
+use subtle::ConstantTimeEq;
 
 const INTERNAL_SECRET_HEADER: &str = "x-internal-secret";
 
@@ -24,17 +25,13 @@ pub async fn require_api_secret(
         .get(INTERNAL_SECRET_HEADER)
         .and_then(|value| value.to_str().ok());
 
-    if provided.is_some_and(|value| constant_time_eq(value.as_bytes(), expected.as_bytes())) {
+    if provided.is_some_and(|value| secret_eq(value.as_bytes(), expected.as_bytes())) {
         return Ok(next.run(request).await);
     }
 
     Err((
         StatusCode::FORBIDDEN,
-        binary_error(
-            StatusCode::FORBIDDEN,
-            "forbidden",
-            "Direct access forbidden",
-        ),
+        binary_error(StatusCode::FORBIDDEN, "forbidden", "Direct access forbidden"),
     ))
 }
 
@@ -52,28 +49,41 @@ fn binary_error(status: StatusCode, code: &str, detail: &str) -> Response {
     response
 }
 
-pub fn constant_time_eq(left: &[u8], right: &[u8]) -> bool {
-    let max_len = left.len().max(right.len());
-    let mut diff = left.len() ^ right.len();
-
-    for index in 0..max_len {
-        let left_byte = left.get(index).copied().unwrap_or(0);
-        let right_byte = right.get(index).copied().unwrap_or(0);
-        diff |= usize::from(left_byte ^ right_byte);
+/// Constant-time сравнение секретов через аудированную библиотеку `subtle`.
+/// Длина API-секрета не чувствительна; для равных длин — `ct_eq`.
+fn secret_eq(left: &[u8], right: &[u8]) -> bool {
+    if left.len() != right.len() {
+        return false;
     }
-
-    diff == 0
+    left.ct_eq(right).into()
 }
 
 #[cfg(test)]
 mod tests {
-    use super::constant_time_eq;
+    use super::secret_eq;
 
     #[test]
-    fn constant_time_compare_matches_equality() {
-        assert!(constant_time_eq(b"secret", b"secret"));
-        assert!(!constant_time_eq(b"secret", b"Secret"));
-        assert!(!constant_time_eq(b"secret", b"secret-longer"));
-        assert!(!constant_time_eq(b"", b"secret"));
+    fn equal_secrets_match() {
+        assert!(secret_eq(b"secret", b"secret"));
+    }
+
+    #[test]
+    fn different_case_does_not_match() {
+        assert!(!secret_eq(b"secret", b"Secret"));
+    }
+
+    #[test]
+    fn different_length_does_not_match() {
+        assert!(!secret_eq(b"secret", b"secret-longer"));
+    }
+
+    #[test]
+    fn empty_vs_non_empty_does_not_match() {
+        assert!(!secret_eq(b"", b"secret"));
+    }
+
+    #[test]
+    fn both_empty_match() {
+        assert!(secret_eq(b"", b""));
     }
 }
