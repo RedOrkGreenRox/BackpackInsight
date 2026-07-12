@@ -1,13 +1,24 @@
+# BackpackInsight — единый docker-compose с самоопределением сервер/локал.
+#
+# Режим определяется env-переменной COMPOSE_PROFILES в .env:
+#   * COMPOSE_PROFILES=local   → поднимает db + backend + web (локальная разработка)
+#   * COMPOSE_PROFILES=        → поднимает только db + backend (сервер, web на Cloudflare Pages)
+#
+# Это стандартная docker compose возможность (не требует --profile флага).
+# Скрипт scripts/run_docker.py может автоопределять режим (BACKPACK_DOCKER_MODE=auto).
+#
+# БД: по умолчанию SQLite (DATABASE_URL=sqlite:./backpack_insight.db в .env),
+# что позволяет local-разработку вообще без сервиса db. Для Postgres —
+# раскомментируйте DATABASE_URL с postgres://... или задайте POSTGRES_* vars.
+
 services:
   db:
     image: postgres:15-alpine
     container_name: backpack_insight_db
     restart: always
-
     # Podman rootless fix. Docker ignores keep-id where unsupported.
     userns_mode: "keep-id"
     user: "0:0"
-
     env_file:
       - .env
     environment:
@@ -29,6 +40,9 @@ services:
       resources:
         limits:
           memory: 300M
+    # В SQLite-режиме сервис db не нужен — backend использует файл.
+    # Чтобы не поднимать Postgres впустую, задайте COMPOSE_PROFILES=local-sqlite
+    # и используйте DATABASE_URL=sqlite:./backpack_insight.db в .env.
 
   backend:
     build:
@@ -46,6 +60,7 @@ services:
       ROOT_PROJECT_ROOT: /app
       ROOT_DB_ENABLED: ${ROOT_DB_ENABLED:-true}
       ROOT_PUBLIC_BASE_URL: ${ROOT_PUBLIC_BASE_URL:-https://backpackinsight.pages.dev}
+      # Postgres connection (если DATABASE_URL не задан как sqlite:...)
       POSTGRES_SERVER: db
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -53,8 +68,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    # Backend code and generated FlatBuffer packs are baked into the image.
-    # Runtime has no Python backend, no bind-mounted source, and no JSON compatibility mode.
     deploy:
       resources:
         limits:
@@ -76,7 +89,6 @@ services:
     depends_on:
       backend:
         condition: service_started
-    # Local-only frontend container. Server deploy starts only db+backend; Cloudflare Pages owns frontend hosting.
 
 volumes:
   postgres_data:

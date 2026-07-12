@@ -8,6 +8,7 @@ RUN apt-get update \
 
 COPY RBackend /src/RBackend
 COPY Backend/DB /src/Backend/DB
+COPY tests /src/tests
 COPY Frontend/Web/static/images/items /src/Frontend/Web/static/images/items
 
 WORKDIR /src/RBackend
