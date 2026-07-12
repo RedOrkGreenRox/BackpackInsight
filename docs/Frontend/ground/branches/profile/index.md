@@ -1,4 +1,4 @@
-# [Страница профиля (ProfileBranch.ts)](../../../../../Frontend/Web/ground/branches/profile/ProfileBranch.ts)
+# [Страница профиля (ProfileBranch.ts)](/Frontend/Web/ground/branches/profile/ProfileBranch.ts)
 
 ## Назначение
 Самый сложный бранч приложения. Отвечает за визуализацию игрового прогресса, инвентаря и статистики конкретного игрока.
@@ -8,13 +8,13 @@
 ## Ключевая логика
 
 ### 1. Аналитика данных
-Бранч принимает обработанный JSON от API и использует [ProfileManager](../../ground/branches/profile/_profile/managers/ProfileManager.md) для отрисовки:
+Бранч принимает обработанный JSON от API и использует [ProfileManager](_profile/managers/ProfileManager.md) для отрисовки:
 *   **Stats Bar**: Суммарные ресурсы и уровни.
 *   **Hero Grid**: Сетка персонажей с их прогрессом.
 *   **Item Collection**: Полный список предметов с возможностью сортировки.
 
 ### 2. Сортировка инвентаря
-Интегрирует [SortController](../../ground/branches/profile/_profile/sort/SortController.md), позволяя игроку упорядочивать предметы по редкости, уровню или количеству карт.
+Интегрирует [SortController](_profile/sort/SortController.md), позволяя игроку упорядочивать предметы по редкости, уровню или количеству карт.
 
 ---
 

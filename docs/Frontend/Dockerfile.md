@@ -1,4 +1,4 @@
-# [Dockerfile Фронтенда (Dockerfile)](../../Frontend/Web/Dockerfile.md)
+# [Dockerfile Фронтенда (Dockerfile)](/Frontend/Web/Dockerfile)
 
 ## Назначение
 Инструкции для многоэтапной сборки (Multi-stage build) фронтенд-сервиса.

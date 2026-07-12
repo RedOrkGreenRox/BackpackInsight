@@ -1,4 +1,4 @@
-# [Стили оболочки (_shell.scss)](../../../../../Frontend/Web/ground/roots/_roots/_shell.scss)
+# [Стили оболочки (_shell.scss)](/Frontend/Web/ground/roots/_roots/_shell.scss)
 
 ## Назначение
 Файл описывает базовые стили для верхнеуровневой структуры приложения (Shell). Он управляет анимацией появления всего сайта и подключает модули системного интерфейса.
@@ -15,10 +15,10 @@
 
 ### 2. Структурные связи
 Файл через `@use` подключает визуальные компоненты оболочки:
-*   [Навигация](../../../../../Frontend/Web/ground/roots/_roots/shell/navigation/navigation.md)
-*   [Сайдбар](../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/sidebar.md)
-*   [Параллакс-фон](../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/parallax.md)
-*   [Локализация (переключатель)](../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/_lang-switcher.scss)
+*   [Навигация](shell/navigation/navigation.md)
+*   [Сайдбар](shell/sidebar/sidebar.md)
+*   [Параллакс-фон](shell/parallax/parallax.md)
+*   [Локализация (переключатель)](shell/sidebar/_lang-switcher.md)
 
 ---
 

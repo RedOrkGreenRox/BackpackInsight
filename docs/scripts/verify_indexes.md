@@ -1,4 +1,4 @@
-# [Проверка индексов (verify_indexes.py)](../../scripts/verify_indexes.py)
+# [Проверка индексов (verify_indexes.py)](/scripts/verify_indexes.py)
 
 ## Назначение
 Служебный скрипт для верификации существования GIN-индексов в базе данных PostgreSQL.
@@ -9,7 +9,7 @@
 2.  Индексы `idx_itemdefinition_name_trgm` и `idx_itemdefinition_id_trgm` созданы и активны.
 
 ## Применение
-Запускается вручную или в рамках дебаг-сессии на сервере, чтобы подтвердить, что миграция [0002](Backend/DB/migrations/versions/0002_profile_indexes_and_timestamps.md) прошла успешно и индексы реально существуют в системных каталогах Postgres.
+Запускается вручную или в рамках дебаг-сессии на сервере, чтобы подтвердить, что SQLx-миграция [0002_normalized_tables.sql](../../RBackend/crates/db/migrations/sqlite/0002_normalized_tables.sql) прошла успешно и индексы реально существуют в системных каталогах Postgres.
 
 ---
 

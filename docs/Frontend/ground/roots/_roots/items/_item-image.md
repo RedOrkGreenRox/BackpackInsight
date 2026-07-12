@@ -1,4 +1,4 @@
-# [Иконка предмета (_item-image.scss)](../../../../../../Frontend/Web/ground/roots/_roots/items/_item-image.scss)
+# [Иконка предмета (_item-image.scss)](/Frontend/Web/ground/roots/_roots/items/_item-image.scss)
 
 ## Назначение
 Стили для контейнера и самого изображения (иконки) предмета. Обеспечивает правильное масштабирование и визуальные эффекты.
@@ -22,7 +22,7 @@
 
 ## Связи (Dependencies)
 *   Подключается в [**_items.scss**](base.md).
-*   Оптимизировано для работы с тегами `<picture>`, генерируемыми [icon_parser.py](../../../../Backend/PlayerData/builds/icon_parser.md).
+*   Оптимизировано для работы с тегами `<picture>`, генерируемыми [icon-parser.ts](../../../utils/icon-parser.md).
 
 ---
 

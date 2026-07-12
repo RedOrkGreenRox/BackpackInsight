@@ -1,4 +1,4 @@
-# [StructuredBranch.ts](../../../../Frontend/Web/ground/roots/StructuredBranch.ts)
+# [StructuredBranch.ts](/Frontend/Web/ground/roots/StructuredBranch.ts)
 
 ## Назначение
 
@@ -37,7 +37,7 @@ export abstract class StructuredBranch<TInput = any, TContext = any> extends Bra
 ## AI-контекст
 
 - Страница, наследующая `StructuredBranch`, обязана определить только свои 4–5 полей, а не реализовывать `getHtml` / `init` / `destroy` вручную.
-- Это снижает вероятность появления god objects вроде [`ItemsManager`](../../branches/items/_items/managers/ItemsManager.md) или [`ProfileManager`](../../branches/profile/_profile/managers/ProfileManager.md).
+- Это снижает вероятность появления god objects вроде [`ItemsManager`](../branches/items/_items/managers/ItemsManager.md) или [`ProfileManager`](../branches/profile/_profile/managers/ProfileManager.md).
 - Любой новый модуль должен помещаться в один из четырёх слоёв. Если не помещается — слой неверно выбран или модуль слишком большой и требует деления.
 
 ---

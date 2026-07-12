@@ -10,7 +10,7 @@ UI-иконки страницы профиля: валюты (coins, gems...), 
 *   Самая используемая в коде папка изображений. Потребители: [header.ts](../../../ground/branches/profile/_profile/header/header.md), [stats-bar.ts](../../../ground/branches/profile/_profile/header/stats-bar.md), [hero-card.ts](../../../ground/branches/profile/_profile/heroes/hero-card.md), [heroes-section.ts](../../../ground/branches/profile/_profile/heroes/heroes-section.md), [SortController](../../../ground/branches/profile/_profile/sort/SortController.md).
 
 ## AI-контекст
-*   Имена карт редкости (`card<rarity>`) и лиг согласованы с моделью данных ([Hero](../../../../Backend/PlayerData/models/Hero.md), `HERO_LEAGUES` в [data.py](../../../../Backend/PlayerData/data.md)).
+*   Имена карт редкости (`card<rarity>`) и лиг согласованы с моделью данных ([core/profile/heroes/league.rs](../../../../RBackend/crates/core/src/profile/heroes/league.md), `ItemRarity` в [core/profile/items/types.rs](../../../../RBackend/crates/core/src/profile/items/types.md)).
 
 ---
 

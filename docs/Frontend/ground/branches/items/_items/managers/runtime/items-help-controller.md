@@ -1,4 +1,4 @@
-# [items-help-controller.ts](../../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/items-help-controller.ts)
+# [items-help-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-help-controller.ts)
 
 ## Назначение
 Контроллер, отвечающий за рендеринг справочной панели и подробного руководства по синтаксису продвинутого поиска на странице списка предметов.

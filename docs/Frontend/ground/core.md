@@ -1,4 +1,4 @@
-# [Ядро приложения (core.ts)](../../../Frontend/Web/ground/core.ts)
+# [Ядро приложения (core.ts)](/Frontend/Web/ground/core.ts)
 
 ## Назначение
 Файл `core.ts` является главной точкой входа фронтенда. Он координирует процесс инициализации всех систем, настраивает анимации и запускает роутер.
@@ -7,11 +7,11 @@
 
 ## Процесс инициализации
 
-1.  **Загрузка критических сервисов**: Параллельный запуск [i18n.ts](../localization/i18n.md) (локализация) и [ImageFormatService.ts](../utils/ImageFormatService.md).
+1.  **Загрузка критических сервисов**: Параллельный запуск [i18n.ts](localization/i18n.md) (локализация) и [ImageFormatService.ts](utils/ImageFormatService.md).
 2.  **Performance Monitoring**: Инициализация `PerformanceMonitor` для определения слабых устройств и активации режима экономии ресурсов.
 3.  **Анимации**: Настройка библиотеки **AOS** (Animate On Scroll) с глобальными задержками и смещениями.
 4.  **Регистрация маршрутов**: Определение связей между путями URL и классами "Бранчей" с использованием **Lazy Loading** (`import()`).
-5.  **Запуск Shell**: Инициализация [Shell.ts](../roots/Shell.md) и [Parallax.ts](../roots/Parallax.md).
+5.  **Запуск Shell**: Инициализация [Shell.ts](roots/Shell.md) и [Parallax.ts](roots/Parallax.md).
 
 ---
 

@@ -1,4 +1,4 @@
-# [items-prompt-chips-controller.ts](../../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/items-prompt-chips-controller.ts)
+# [items-prompt-chips-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-prompt-chips-controller.ts)
 
 ## Назначение
 Контроллер, отвечающий за рендеринг и синхронизацию списков включенных и исключенных токенов (чипсов) фильтрации на странице списка предметов.

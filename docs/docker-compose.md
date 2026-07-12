@@ -1,47 +1,35 @@
 # [Docker Compose — локальная разработка (docker-compose.yml)](../docker-compose.yml)
 
 ## Назначение
-Файл `docker-compose.yml` предназначен для быстрого развертывания полной инфраструктуры проекта **BackpackInsight** в среде локальной разработки. Он объединяет базу данных, серверную часть и веб-интерфейс в единую изолированную сеть.
+`docker-compose.yml` поднимает PostgreSQL + Rust-бэкенд (`RBackend/`) + фронтенд для локальной разработки. Используется скриптом [run_docker.py](scripts/run_docker.md).
 
----
+## Сервисы
 
-## Описание сервисов
+### 1. `db` (PostgreSQL)
+*   Образ `postgres:15-alpine`.
+*   Схема инициализируется через SQLx-миграции `RBackend/crates/db/migrations/pg/` (запускаются самим Rust-приложением при старте).
+*   Том `postgres_data`, порт только на `127.0.0.1`.
+*   Healthcheck `pg_isready`.
 
-### 1. `DB` (База данных)
-*   **Образ**: `postgres:15-alpine` — легковесная версия PostgreSQL 15.
-*   **Инициализация**: Монтирует файл [init_db.sql](Backend/DB/init_db.md) в директорию `/docker-entrypoint-initdb.d/`, что гарантирует создание начальной схемы при первом запуске.
-*   **Хранение**: Использует именованный том `postgres_data` для сохранения данных между перезапусками контейнеров.
-*   **Безопасность**: Порт проброшен только на `127.0.0.1`, что закрывает доступ к БД из внешней сети.
-*   **Healthcheck**: Проверяет готовность БД к приему соединений с помощью `pg_isready`. Это критично для зависимых сервисов.
-
-### 2. `Backend` (FastAPI API)
-*   **Сборка**: Использует контекст корня проекта и [Dockerfile бэкенда](Backend/PlayerData/Dockerfile.md).
-*   **Зависимости**: Ждет статуса `service_healthy` от базы данных (`DB`).
-*   **Разработка**: Том `./Backend:/app/Backend` позволяет изменять код на хосте и видеть изменения внутри контейнера (Hot Reload) без пересборки.
-*   **Окружение**: Получает учетные данные БД из `.env`.
+### 2. `backend` (Rust API)
+*   Собирается из [RBackend/Dockerfile](RBackend/Dockerfile.md).
+*   Ждёт `db: service_healthy`.
+*   Запускает `api` crate (`RBackend/crates/api/src/main.md`).
+*   Получает `POSTGRES_*`, `ROOT_API_SECRET`, `ROOT_ENV` из `.env`.
 
 ### 3. `web` (Frontend)
-*   **Сборка**: Использует [Dockerfile фронтенда](Frontend/Dockerfile.md).
-*   **Связь**: Настроен прокси-адрес `BACKEND_API_URL=http://Backend:8000` для взаимодействия с API внутри Docker-сети.
-*   **Порт**: Выставлен на `5080`.
+*   Собирается из [Dockerfile фронтенда](Frontend/Dockerfile.md).
+*   Прокси `BACKEND_API_URL=http://backend:8090`.
+*   Порт `5080`.
 
----
-
-## Переменные окружения (Environment)
-Для корректной работы требуются следующие переменные (обычно из файла `.env`):
-*   `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` — учетные данные БД.
-*   `POSTGRES_PORT` — порт на хосте (по умолчанию 5432).
-
----
-
-## Связи (Dependencies)
-*   **Сборка**: Зависит от Docker-файлов в папках `Backend/PlayerData/` и `Frontend/Web/`.
-*   **Сценарии**: Используется в скрипте [run_docker.py](scripts/run_docker.md) для управления жизненным циклом приложения.
+## Связи
+*   Образы: [RBackend/Dockerfile](RBackend/Dockerfile.md), [Frontend/Dockerfile](Frontend/Dockerfile.md).
+*   Миграции: [db crate](RBackend/crates/db.md).
+*   Управление: [run_docker.py](scripts/run_docker.md).
 
 ## AI-контекст
-*   Этот файл оптимизирован для **разработки**: порты открыты локально, монтируются папки с исходным кодом. 
-*   **Важно**: В отличие от [docker-compose.server.yml](docker-compose.server.md), здесь нет жестких лимитов по ресурсам и отсутствуют настройки автоматического бекапа.
+*   Файл оптимизирован для разработки: порты локальные, монтируются исходники.
+*   В production использует Cloudflare Pages + Rust-контейнер; смотрите [cloudflare_edge_security.md](RBackend/cloudflare_edge_security.md).
 
 ---
-
-> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15
+> 📌 **Подпись документации:** обновлено под Rust-бэкенд · 2026-07-12.

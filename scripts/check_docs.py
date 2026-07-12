@@ -21,9 +21,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 DOCS = "docs"
 
-SRC_EXT = ('.py', '.ts', '.scss', '.js')
+SRC_EXT = ('.py', '.ts', '.scss', '.js', '.rs')
 IMG_EXT = {'.avif','.webp','.png','.jpg','.jpeg','.gif','.ico','.woff','.woff2','.ttf','.otf'}
-SKIP_DIRS = {'.git','node_modules','__pycache__','dist','.arena','.cache','.pytest_cache'}
+SKIP_DIRS = {'.git','node_modules','__pycache__','dist','.arena','.cache','.pytest_cache','target','generated'}
 SKIP_FILES = {'package-lock.json','database.db','.gitignore','.gitattributes'}
 
 def all_docs():
@@ -111,7 +111,8 @@ def doc_source_map():
 
 def all_sources():
     out=[]
-    for base in ['Backend','Frontend/Web','scripts','tests']:
+    for base in ['Backend','Frontend/Web','scripts','tests','RBackend']:
+        if not os.path.isdir(base): continue
         for dp,dn,fn in os.walk(base):
             dn[:]=[x for x in dn if x not in SKIP_DIRS]
             if any(x in dp for x in ['/migrations/versions','Profiles','/fixtures']):
@@ -160,11 +161,29 @@ def symbols_scss(src):
     for m in re.finditer(r'@keyframes\s+([\w-]+)', src): s.add(m.group(1))
     return s
 
+def symbols_rs(src):
+    """Rust: pub fn / fn, struct, enum, trait, const, static."""
+    s=set()
+    for m in re.finditer(r'\b(?:pub\s+)?(?:async\s+)?(?:unsafe\s+)?fn\s+([a-zA-Z_][\w]*)', src):
+        s.add(m.group(1))
+    for m in re.finditer(r'\b(?:pub\s+)?struct\s+([A-Za-z_][\w]*)', src):
+        s.add(m.group(1))
+    for m in re.finditer(r'\b(?:pub\s+)?enum\s+([A-Za-z_][\w]*)', src):
+        s.add(m.group(1))
+    for m in re.finditer(r'\b(?:pub\s+)?trait\s+([A-Za-z_][\w]*)', src):
+        s.add(m.group(1))
+    for m in re.finditer(r'\b(?:pub\s+)?const\s+([A-Z_][\w]*)', src):
+        s.add(m.group(1))
+    for m in re.finditer(r'\b(?:pub\s+)?static\s+([A-Z_][\w]*)', src):
+        s.add(m.group(1))
+    return s
+
 def source_symbols(src_path):
     src=read(src_path)
     if src_path.endswith('.py'): return symbols_py(src)
     if src_path.endswith(('.ts','.js')): return symbols_ts(src)
     if src_path.endswith('.scss'): return symbols_scss(src)
+    if src_path.endswith('.rs'): return symbols_rs(src)
     return set()
 
 # токены, которые ДОК упоминает в backticks и которые выглядят как код
@@ -195,7 +214,7 @@ def check_complete_and_truth():
     # глобальный индекс всех символов кода (для отсева кросс-файловых упоминаний)
     global_ids=set(); global_css=set(); global_text_use=""
     for s in all_sources():
-        if s.endswith(('.py','.ts','.js')):
+        if s.endswith(('.py','.ts','.js','.rs')):
             global_ids|= {x for x in source_symbols(s)}
         if s.endswith('.scss'):
             global_css|= source_symbols(s)

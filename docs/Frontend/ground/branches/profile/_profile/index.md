@@ -1,7 +1,7 @@
-# [Модуль Профиля (index.ts)](../../../../../../Frontend/Web/ground/branches/profile/_profile/index.ts)
+# [Модуль Профиля (index.ts)](/Frontend/Web/ground/branches/profile/_profile/index.ts)
 
 ## Назначение
-Этот файл является точкой входа (Barrel) для папки `_profile/`. Он экспортирует все ключевые менеджеры и рендереры, предоставляя чистый интерфейс для внешнего бранча [ProfileBranch](../../ProfileBranch.md).
+Этот файл является точкой входа (Barrel) для папки `_profile/`. Он экспортирует все ключевые менеджеры и рендереры, предоставляя чистый интерфейс для внешнего бранча [ProfileBranch](../ProfileBranch.md).
 
 ---
 

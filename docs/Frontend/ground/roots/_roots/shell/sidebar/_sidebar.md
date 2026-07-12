@@ -1,4 +1,4 @@
-# [Боковое меню (_sidebar.scss)](../../../../../../../Frontend/Web/ground/roots/_roots/shell/sidebar/_sidebar.scss)
+# [Боковое меню (_sidebar.scss)](/Frontend/Web/ground/roots/_roots/shell/sidebar/_sidebar.scss)
 
 ## Назначение
 Описание структуры и анимации основной панели навигации (Sidebar).
@@ -21,7 +21,7 @@
 
 ## Связи (Dependencies)
 *   Подключается в [**_shell.scss**](../../_shell.md).
-*   Управляется через [**sidebar.ts**](../../sidebar.md).
+*   Управляется через [**sidebar.ts**](sidebar.md).
 
 ---
 

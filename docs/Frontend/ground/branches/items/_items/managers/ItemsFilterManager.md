@@ -1,4 +1,4 @@
-# [Facade поиска и фильтрации (ItemsFilterManager.ts)](../../../../../../../Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
+# [Facade поиска и фильтрации (ItemsFilterManager.ts)](/Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
 
 ## Назначение
 `ItemsFilterManager` — публичный facade для поисковой подсети страницы предметов. Он сохраняет старый внешний API (`initFuse`, `applyFilters`, `sortItems`, `calculateFilterOptions`), но делегирует реализацию файлам каталога [filter/](filter/index.md).
@@ -17,7 +17,7 @@
 
 ## Связи
 - Runtime UI: [runtime index](runtime/index.md).
-- Алиасы: [term-aliases.ru.json](../../../../../../../static/search/term-aliases.ru.md).
+- Алиасы: [term-aliases.ru.json](../../../../../static/search/term-aliases.ru.md).
 
 ---
 

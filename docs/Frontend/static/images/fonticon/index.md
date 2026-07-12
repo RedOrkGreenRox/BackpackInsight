@@ -7,7 +7,7 @@
 *   `avif/<name>.avif`, `webp/<name>.webp` (например, `armor.webp`, `accuracy.avif`).
 
 ## Связи (Dependencies)
-*   Используется [icon-parser.ts](../../../ground/utils/icon-parser.md) (фронт) и [icon_parser.py](../../../../Backend/PlayerData/builds/icon_parser.md) (бэкенд) — оба генерируют `<picture>` с этими иконками.
+*   Используется [icon-parser.ts](../../../ground/utils/icon-parser.md) (фронт) и Rust [core/catalog](../../../../RBackend/crates/core_catalog.md) (бэкенд) — оба генерируют `<picture>` с этими иконками.
 *   В фильтрах применяется в [ItemsBranch](../../../ground/branches/items/ItemsBranch.md).
 
 ## AI-контекст

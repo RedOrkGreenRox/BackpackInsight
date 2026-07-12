@@ -22,7 +22,7 @@
 ## Связи
 - Внешний facade: [ItemsFilterManager](../ItemsFilterManager.md).
 - UI-слой: [runtime index](../runtime/index.md).
-- Алиасы: [term-aliases.ru.json](../../../../../../../static/search/term-aliases.ru.md).
+- Алиасы: [term-aliases.ru.json](../../../../../../static/search/term-aliases.ru.md).
 
 ---
 

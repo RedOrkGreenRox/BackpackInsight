@@ -7,7 +7,7 @@
 *   `avif/areaNN.avif`, `webp/areaNN.webp` (NN = 01…20).
 
 ## Связи (Dependencies)
-*   Выбор зоны по трофеям: `_calculate_area` / `PROFILE_AREAS` в [ProfileFactory](../../../../Backend/PlayerData/services/ProfileFactory.md) и [data.py](../../../../Backend/PlayerData/data.md).
+*   Выбор зоны по трофеям: `_calculate_area` / `PROFILE_AREAS` в [core/profile/area.rs](../../../../RBackend/crates/core/src/profile/area.md) и [core/profile/score.rs](../../../../RBackend/crates/core/src/profile/score.md).
 *   Подстановка фона: [header.ts](../../../ground/branches/profile/_profile/header/header.md), [Shell](../../../ground/roots/Shell.md).
 
 ## AI-контекст

@@ -13,7 +13,7 @@
 *   Соответствие имён проверяет [verify-item-images.js](../../../scripts/verify-item-images.md).
 
 ## AI-контекст
-*   Слаги совпадают с [SlugService](../../../ground/utils/SlugService.md). Добавляя предмет в [items_*.json](../../../../Backend/DB/items_5_0_0.md), добавьте парные `avif`+`webp` с тем же слагом, иначе попадёте на [placeholder](../placeholder/index.md).
+*   Слаги совпадают с [SlugService](../../../ground/utils/SlugService.md). Добавляя предмет в [items_*.json](../../../../Backend/DB/index.md), добавьте парные `avif`+`webp` с тем же слагом, иначе попадёте на [placeholder](../placeholder/index.md).
 
 ---
 

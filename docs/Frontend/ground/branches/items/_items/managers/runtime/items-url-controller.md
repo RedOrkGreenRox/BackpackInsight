@@ -1,4 +1,4 @@
-# [items-url-controller.ts](../../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/items-url-controller.ts)
+# [items-url-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-url-controller.ts)
 
 ## Назначение
 Контроллер, отвечающий за сборку поисковых формул предметов, генерацию строки шаринга запроса и синхронизацию состояния с адресной строкой браузера.
