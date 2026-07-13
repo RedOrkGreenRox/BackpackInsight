@@ -17,13 +17,10 @@ pub fn check_images(project_root: &Path) -> Result<ImageCheckReport, String> {
     let mut files_checked = 0usize;
 
     for item in &items {
-        let name = item
-            .get("name")
-            .and_then(Value::as_str)
-            .or_else(|| item.get("id").and_then(Value::as_str));
-        let Some(name) = name else { continue };
+        let name = item.get("name").and_then(Value::as_str);
+        let id = item.get("id").and_then(Value::as_str);
+        let Some(lookup) = name.or(id) else { continue };
         let rarity = item.get("rarity").and_then(Value::as_str);
-        // Validate rarity string while preserving current fallback behavior for image key.
         if let Some(rarity) = rarity {
             let _ = RarityService::parse(rarity);
         }
@@ -32,14 +29,25 @@ pub fn check_images(project_root: &Path) -> Result<ImageCheckReport, String> {
             .and_then(Value::as_array)
             .and_then(|values| values.first())
             .and_then(Value::as_str);
-        let key = ItemIconService::image_key(name, rarity, first_tooltip);
+        let key = ItemIconService::image_key(lookup, rarity, first_tooltip);
 
         for format in ["webp", "avif"] {
             files_checked += 1;
             let expected = images_root.join(format).join(format!("{key}.{format}"));
-            if !expected.exists() {
-                missing.push(format!("[{format}] {name}: {}", expected.display()));
+            if expected.exists() {
+                continue;
             }
+            // Fallback: try by id if name didn't match (files may be renamed to id).
+            if let Some(id) = id {
+                if id != lookup {
+                    let id_key = ItemIconService::image_key(id, rarity, first_tooltip);
+                    let alt = images_root.join(format).join(format!("{id_key}.{format}"));
+                    if alt.exists() {
+                        continue;
+                    }
+                }
+            }
+            missing.push(format!("[{format}] {}: {}", name.or(id).unwrap_or("?"), expected.display()));
         }
     }
 
