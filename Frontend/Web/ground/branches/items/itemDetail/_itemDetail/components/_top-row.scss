@@ -1,0 +1,95 @@
+/* Верхний ряд: Герой (4x, без рамки, левый верх) | Название+Теги (центр правой половины) */
+.id-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+}
+
+.id-top-left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.id-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    img {
+        width: 128px;
+        height: 128px;
+        object-fit: contain;
+    }
+    picture {
+        display: flex;
+    }
+    &.id-hero-empty { opacity: 0.3; }
+}
+
+.id-top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.id-title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+}
+
+.id-title {
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.id-rarity {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Теги: правая четверть правой половины, вертикальный список, центрировано */
+.id-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: auto;
+    width: fit-content;
+    max-width: 50%;
+    text-align: center;
+
+    img, picture { max-width: 18px; max-height: 18px; }
+}
+
+/* Описание: во всю ширину, без скролла, иконки выровнены по тексту */
+.id-description {
+    font-size: 1rem;
+    color: var(--text-default-color);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    img, picture {
+        height: 1.1em;
+        width: auto;
+        vertical-align: text-bottom;
+        display: inline;
+    }
+
+    .value-text, [class*="value"] {
+        color: var(--text-header-color);
+    }
+}

@@ -1,0 +1,56 @@
+/* Статы: 2x шрифт, структурированные по строкам */
+.id-stats-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+
+.id-stats-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-header-color);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.id-stat-row-h {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1.1rem;
+    align-self: flex-start;
+    width: 100%;
+}
+
+.id-stat-line {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+.id-stat-inline {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.id-stat-icon {
+    display: inline-flex;
+    align-items: center;
+
+    img, picture {
+        max-width: 22px;
+        max-height: 22px;
+    }
+}
+
+.id-stat-val {
+    font-weight: 600;
+    color: #fff;
+}

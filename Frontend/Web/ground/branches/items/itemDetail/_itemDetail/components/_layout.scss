@@ -1,0 +1,98 @@
+.id-container {
+    width: 100%;
+    max-width: min(90vw, 1000px);
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.id-nav {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+    gap: 0.75rem;
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+}
+
+.id-nav-group {
+    display: flex;
+    flex: 1;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.id-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.6rem, 2vw, 0.8rem);
+    background: rgba(12, 15, 22, 0.9);
+    border: 1px solid rgba(var(--azure-raw), 0.2);
+    border-radius: 0.75rem;
+    color: var(--text-default-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover:not(.disabled) {
+        background: rgba(var(--azure-raw), 0.15);
+        border-color: rgba(var(--azure-raw), 0.5);
+    }
+    &.disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.id-card {
+    background: rgba(20, 22, 30, 0.96);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.id-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(var(--azure-raw), 0.4) 50%, transparent 100%);
+    margin: 4px 0;
+}
+
+.id-middle-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.id-left-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.id-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.id-player-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.id-stat-row {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.stat-label { color: rgba(255, 255, 255, 0.6); }
+.stat-value {
+    font-weight: 600;
+    &.lvl { color: rgba(var(--azure-raw), 1); }
+}

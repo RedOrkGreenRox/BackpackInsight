@@ -40,6 +40,11 @@ export class ImageFormatService {
         return `/images/items/${format}/${imageName}.${format}`;
     }
 
+    public static iconSrc(iconName: string): string {
+        const format = this.getFormat();
+        return `/images/fonticon/${format}/${iconName}.${format}`;
+    }
+
     public static placeholderSrc(): string {
         return `/images/placeholder/placeholder.${this.getFormat()}`;
     }

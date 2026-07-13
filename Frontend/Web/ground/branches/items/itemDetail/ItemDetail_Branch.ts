@@ -1,19 +1,19 @@
-import { PageMeta } from '../../roots/Branch';
-import { BranchSpec } from '../../roots/BranchSpec';
-import { BranchRunner } from '../../roots/BranchRunner';
+import { PageMeta } from '@roots/Branch';
+import { BranchSpec } from '@roots/BranchSpec';
+import { BranchRunner } from '@roots/BranchRunner';
 import { ItemDetailDisplay, ItemDetailInput } from './_itemDetail/display/ItemDetailDisplay';
 import { ItemDetailDataLoader } from './_itemDetail/data/ItemDetailData';
 import { ItemDetailLogic } from './_itemDetail/logic/ItemDetailLogic';
 import { ItemDetailData } from './_itemDetail/utils/item-detail-types';
 import { ItemDetailRenderer } from './_itemDetail/components/ItemDetailRenderer';
-import './itemDetail.scss';
+import './ItemDetail.scss';
 
-export const itemDetailSpec: BranchSpec<ItemDetailInput, ItemDetailData> = {
-  id: 'itemDetail',
-  routes: ['/item/:name', '/profile/item/:name'],
+export const itemDetailSubSpec: BranchSpec<ItemDetailInput, ItemDetailData> = {
+  id: 'item-detail-sub',
+  routes: [],
   styles: {
-    pageClass: 'item-detail-page',
-    bodyClass: 'item-detail-body',
+    pageClass: 'item-detail-sub-page',
+    bodyClass: 'item-detail-sub-body',
   },
   display: new ItemDetailDisplay(),
   data: new ItemDetailDataLoader(),
@@ -21,4 +21,4 @@ export const itemDetailSpec: BranchSpec<ItemDetailInput, ItemDetailData> = {
   logic: (_ctx, root: HTMLElement) => [new ItemDetailLogic(root)],
 };
 
-export const ItemDetailBranch = new BranchRunner(itemDetailSpec).createBranchClass();
+export const ItemDetail_Branch = new BranchRunner(itemDetailSubSpec).createBranchClass();

@@ -10,6 +10,7 @@ export class ItemsGridRenderer {
     private renderedCount = 0;
     private readonly renderBatchSize = 80;
     private readonly eagerImagesCount = 12;
+    public onCardClick: ((item: any) => void) | null = null;
 
     constructor(private readonly container: HTMLElement) {}
 
@@ -62,17 +63,18 @@ export class ItemsGridRenderer {
         const imagePath = ItemsIconService.getItemImagePath(item);
         const imageSrc = ImageFormatService.itemSrc(imagePath);
         const link = document.createElement('a');
-        link.href = `/item/${SlugService.toSlug(item.name)}`;
-        link.dataset['link'] = '';
+        link.href = `/items?item=${SlugService.toSlug(item.name)}`;
         link.className = 'item-card-link';
         link.style.cssText = 'text-decoration: none; color: inherit; display: block;';
-        (link as any)._stateData = { itemData: item };
         link.dataset['aos'] = 'fade-up';
         link.dataset['aosOffset'] = '-400px';
         link.dataset['aosDelay'] = `${Math.min((index % 10) * 30, 300)}`;
         link.appendChild(this.createCard(item, imageSrc, index));
         link.addEventListener('pointerenter', () => ItemPreviewPrefetchService.prefetch(item, imageSrc), { passive: true });
-        link.addEventListener('click', () => { (link as any)._stateData = { itemData: item, scrollY: window.scrollY }; });
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (this.onCardClick) this.onCardClick(item);
+        });
         return link;
     }
 

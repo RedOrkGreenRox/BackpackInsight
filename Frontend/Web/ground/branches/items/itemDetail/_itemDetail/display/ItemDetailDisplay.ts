@@ -1,4 +1,4 @@
-import { BranchDisplay } from '../../../../roots/StructuredBranch';
+import { BranchDisplay } from '@roots/StructuredBranch';
 import { ItemDetailRenderer } from '../components/ItemDetailRenderer';
 import { ItemDetailData, NavigationState } from '../utils/item-detail-types';
 

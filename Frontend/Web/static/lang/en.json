@@ -80,5 +80,6 @@
   "jsonld_cost_na": "N/A",
   "jsonld_type": "Type",
   "unknown_item": "Unknown item",
-  "profile_upload_textarea_label": "Paste your JSON data here"
+  "profile_upload_textarea_label": "Paste your JSON data here",
+  "item_stats_title": "Stats"
 }

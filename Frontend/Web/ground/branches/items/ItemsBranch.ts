@@ -13,12 +13,8 @@ export type { ItemDefinition };
 
 interface ItemsContext {
   items: ItemDefinition[];
-}
-
-function decodeSharedQuery(raw: unknown): string | null {
-  if (typeof raw !== 'string' || !raw.trim()) return null;
-  try { return decodeURIComponent(raw).trim(); }
-  catch { return raw.trim(); }
+  detailName?: string;
+  searchQuery?: string | null;
 }
 
 class ItemsDisplay implements BranchDisplay<any, ItemsContext> {
@@ -36,26 +32,38 @@ class ItemsDisplay implements BranchDisplay<any, ItemsContext> {
 }
 
 class ItemsDataLoader implements BranchData<any, ItemsContext> {
-  async load(): Promise<ItemsContext> {
+  async load(_input?: any): Promise<ItemsContext> {
     const [items] = await Promise.all([
       ItemsCacheService.getAllItems(),
       SearchTermService.init()
     ]);
-    return { items: items as any as ItemDefinition[] };
+    const searchParams = new URLSearchParams(globalThis.location.search);
+    const detailName = searchParams.get('item') ?? undefined;
+    const searchQuery = searchParams.get('search') ?? null;
+    return {
+      items: items as any as ItemDefinition[],
+      detailName,
+      searchQuery,
+    };
   }
 }
 
 class ItemsLogic implements BranchLogic<ItemsContext> {
   private manager: ItemsManager | null = null;
   private readonly query: string | null;
+  private readonly detailName: string | undefined;
 
-  constructor(query: string | null) {
+  constructor(query: string | null, detailName?: string) {
     this.query = query;
+    this.detailName = detailName;
   }
 
   init(context: ItemsContext, root: HTMLElement): void {
     this.manager = new ItemsManager(root, context.items, this.query);
     this.manager.init();
+    if (this.detailName) {
+      this.manager.openDetail(this.detailName);
+    }
   }
 
   destroy(): void {
@@ -75,7 +83,7 @@ export const itemsSpec: BranchSpec<any, ItemsContext> = {
     title: 'Список предметов | Backpack Insight',
     description: 'Интерактивная база данных предметов, рецепты крафтов и характеристики Backpack Brawl.',
   }),
-  logic: (ctx) => [new ItemsLogic(decodeSharedQuery(ctx.input?.query))],
+  logic: (ctx) => [new ItemsLogic(ctx.context.searchQuery ?? null, ctx.context.detailName)],
 };
 
 export const ItemsBranch = new BranchRunner(itemsSpec).createBranchClass();

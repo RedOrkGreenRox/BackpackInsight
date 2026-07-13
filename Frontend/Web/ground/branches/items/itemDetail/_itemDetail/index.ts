@@ -1,7 +1,3 @@
-/**
- * Баррель-экспорт всех модулей ветки ItemDetail.
- */
-
 export { ItemDetailRenderer } from './components/ItemDetailRenderer';
 export { ItemDetailDataLoader } from './data/ItemDetailData';
 export { ItemDetailDisplay } from './display/ItemDetailDisplay';

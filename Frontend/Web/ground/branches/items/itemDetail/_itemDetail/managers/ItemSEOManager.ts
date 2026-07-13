@@ -1,10 +1,7 @@
-/**
- * ItemSEOManager — обновление мета-тегов, OG, JSON-LD для страницы предмета.
- */
 import { ImageFormatService } from '@utils/ImageFormatService';
 import { ItemIconService, ItemDefinition } from '@utils/ItemIconService';
 import { MetaService } from '@utils/MetaService';
-import { t } from '../../../../localization/i18n';
+import { t } from '@i18n';
 
 export class ItemSEOManager {
     private readonly jsonLdId = 'item-detail-json-ld';
@@ -26,8 +23,6 @@ export class ItemSEOManager {
         MetaService.setMeta('property', 'og:image', absoluteImage);
         MetaService.setMeta('property', 'og:url', url);
         MetaService.setLink('canonical', url);
-        MetaService.setLink('alternate', url, 'ru');
-        MetaService.setLink('alternate', url.replace('/item/', '/en/item/').replace('/profile/item/', '/profile/en/item/'), 'en');
 
         this.updateStructuredData(item, url, absoluteImage);
     }
@@ -63,7 +58,6 @@ export class ItemSEOManager {
                 'url': url
             }
         };
-
         MetaService.setJsonLd(this.jsonLdId, data);
     }
 }

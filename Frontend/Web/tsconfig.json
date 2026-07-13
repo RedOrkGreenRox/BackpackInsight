@@ -28,7 +28,8 @@
     "paths": {
       "@roots/*": ["ground/roots/*"],
       "@branches/*": ["ground/branches/*"],
-      "@utils/*": ["ground/utils/*"]
+      "@utils/*": ["ground/utils/*"],
+      "@i18n": ["ground/localization/i18n"]
     }
   },
   "include": [

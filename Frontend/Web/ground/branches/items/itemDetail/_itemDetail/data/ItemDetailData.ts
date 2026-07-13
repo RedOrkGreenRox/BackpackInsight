@@ -1,8 +1,8 @@
-import { BranchData } from '../../../../roots/StructuredBranch';
-import { ItemDefinition } from '../../../../utils/ItemIconService';
-import { ItemPreviewPrefetchService } from '../../../../utils/ItemPreviewPrefetchService';
-import { ItemsCacheService } from '../../../../utils/ItemsCacheService';
-import { SlugService } from '../../../../utils/SlugService';
+import { BranchData } from '@roots/StructuredBranch';
+import { ItemDefinition } from '@utils/ItemIconService';
+import { ItemPreviewPrefetchService } from '@utils/ItemPreviewPrefetchService';
+import { ItemsCacheService } from '@utils/ItemsCacheService';
+import { SlugService } from '@utils/SlugService';
 import { ItemDataLoader } from '../managers/ItemDataLoader';
 import { ItemDetailData, NavigationState, PlayerItemData } from '../utils/item-detail-types';
 import { ItemDetailInput } from '../display/ItemDetailDisplay';
@@ -57,7 +57,6 @@ export class ItemDetailDataLoader implements BranchData<ItemDetailInput, ItemDet
     const nav: NavigationState = { prev: null, next: null };
     const raw = sessionStorage.getItem(isProfile ? 'profileItemsList' : 'filteredItemsOrder');
     if (!raw) return nav;
-
     try {
       let order: string[];
       if (isProfile) {
@@ -66,7 +65,6 @@ export class ItemDetailDataLoader implements BranchData<ItemDetailInput, ItemDet
       } else {
         order = JSON.parse(raw) as string[];
       }
-
       const targetSlug = SlugService.toSlug(itemName);
       const idx = order.findIndex(name => SlugService.toSlug(name) === targetSlug);
       if (idx !== -1) {
@@ -74,7 +72,6 @@ export class ItemDetailDataLoader implements BranchData<ItemDetailInput, ItemDet
         nav.next = idx < order.length - 1 ? (order[idx + 1] ?? null) : null;
       }
     } catch { /* ignore */ }
-
     return nav;
   }
 }

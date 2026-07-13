@@ -19,6 +19,7 @@
 @use "./_items/responsive/mobile";
 @use "./_items/animations/loading-spinner";
 @use "./_items/animations/fade-up";
+@use "./itemDetail/ItemDetail";
 
 .items-scroll-sentinel {
     width: 100%;

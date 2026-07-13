@@ -1,6 +1,3 @@
-/**
- * ItemDataLoader — асинхронная загрузка данных предмета с API.
- */
 import { ItemsCacheService } from '@utils/ItemsCacheService';
 import type { ItemDefinition } from '@utils/ItemIconService';
 
@@ -25,20 +22,14 @@ export class ItemDataLoader {
     async load(): Promise<void> {
         if (this.isLoading) return;
         this.isLoading = true;
-
         try {
             const found = await ItemsCacheService.getBySlug(this.searchSlug);
-
-            if (found) {
-                this.onLoadedCb?.(found);
-            } else {
-                this.onNotFoundCb?.();
-            }
+            if (found) this.onLoadedCb?.(found);
+            else this.onNotFoundCb?.();
         } catch {
             this.onErrorCb?.();
         } finally {
             this.isLoading = false;
         }
     }
-
 }

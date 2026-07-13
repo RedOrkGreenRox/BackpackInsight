@@ -1,4 +1,4 @@
-import type { ItemDefinition } from '../../../../utils/ItemIconService';
+import type { ItemDefinition } from '@utils/ItemIconService';
 
 export interface PlayerItemData {
     name: string;
@@ -19,4 +19,4 @@ export interface NavigationState {
     next: string | null;
 }
 
-export type { ItemDefinition } from '../../../../utils/ItemIconService';
+export type { ItemDefinition } from '@utils/ItemIconService';

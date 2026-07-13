@@ -80,5 +80,6 @@
   "jsonld_type": "Тип",
   "unknown_item": "Неизвестный предмет",
   "wiki_item_cost_unit": "монет",
-  "profile_upload_textarea_label": "Вставьте JSON данные здесь"
+  "profile_upload_textarea_label": "Вставьте JSON данные здесь",
+  "item_stats_title": "Статистика"
 }

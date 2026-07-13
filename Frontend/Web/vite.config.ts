@@ -36,6 +36,7 @@ export default defineConfig({
             '@roots': resolve(__dirname, 'ground/roots'),
             '@branches': resolve(__dirname, 'ground/branches'),
             '@utils': resolve(__dirname, 'ground/utils'),
+            '@i18n': resolve(__dirname, 'ground/localization/i18n'),
             '/static': '' // Для совместимости путей в коде
         }
     },

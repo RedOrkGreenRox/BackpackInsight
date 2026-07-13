@@ -13,6 +13,7 @@ import { MultiselectFilterController } from './runtime/multiselect-filter-contro
 import { RichInputController } from './runtime/rich-input-controller';
 import { RichQueryRenderer } from './runtime/rich-query-renderer';
 import { SearchDebouncer } from './runtime/search-debouncer';
+import { SlugService } from '@utils/SlugService';
 
 // Импортируем утилиты слотов и ввода каретки для продвинутого поиска
 import { insertHTMLAtCaret } from './runtime/caret-utils';
@@ -47,6 +48,7 @@ export class ItemsManager {
 
     constructor(private readonly container: HTMLElement, private readonly items: any[], private readonly sharedQuery: string | null = null) {
         this.gridRenderer = new ItemsGridRenderer(container);
+        this.gridRenderer.onCardClick = (item) => this.openDetail(item.name);
         this.chipsSync = new ChipsSyncService(container);
     }
 
@@ -73,6 +75,45 @@ export class ItemsManager {
         this.gridRenderer.destroy();
         this.cleanupFns.forEach(fn => fn());
         this.cleanupFns.length = 0;
+    }
+
+    public async openDetail(nameOrSlug: string): Promise<void> {
+        const item = this.items.find(i =>
+            SlugService.toSlug(i.name) === nameOrSlug ||
+            SlugService.toSlug(i.name) === SlugService.toSlug(nameOrSlug) ||
+            i.name === nameOrSlug
+        );
+        if (!item) return;
+        const slug = SlugService.toSlug(item.name);
+        history.pushState({ itemDetail: slug }, '', `/items?item=${slug}`);
+        const { ItemDetail_Branch } = await import('../../itemDetail/ItemDetail_Branch');
+        const overlay = document.createElement('div');
+        overlay.className = 'item-detail-overlay';
+        document.body.appendChild(overlay);
+        const branch = new ItemDetail_Branch();
+        branch.mount(overlay, { itemData: item, name: item.name });
+        const onEsc = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') { this.closeDetail(); }
+        };
+        document.addEventListener('keydown', onEsc);
+        const onClose = () => this.closeDetail();
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) onClose();
+        });
+        this.cleanupFns.push(() => {
+            document.removeEventListener('keydown', onEsc);
+            branch.unmount();
+            overlay.remove();
+        });
+    }
+
+    public closeDetail(): void {
+        const overlay = document.querySelector('.item-detail-overlay');
+        if (overlay) {
+            const fn = this.cleanupFns.pop();
+            if (fn) fn();
+            history.replaceState({}, '', '/items');
+        }
     }
 
     private restoreState(): void {
