@@ -1,11 +1,16 @@
 # [core/profile/wallet/types.rs](/RBackend/crates/core/src/profile/wallet/types.rs)
 
 ## Назначение
-Small value types wallet: `Coins(pub u64)`, `Gems(pub u64)`, `ProfileWallet`, `ProfileWalletInput`.
+Типы валют профиля.
 
-## Ключевая функциональность
-- `Coins(pub u64)`, `Gems(pub u64)` — newtype.
+## Типы
+- `Coins(u64)` — монеты; `Default` = 0, `Display` — число.
+- `Gems(u64)` — гемы; то же.
+- `ProfileWalletInput` — сырой вход: `coins` и `gems` как `Option<u64>`.
+- `ProfileWallet` — прочитанный кошелёк: `coins` + `gems`.
+
+Чтение — [read](read.md).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -1,12 +1,22 @@
 # [core/profile/score.rs](/RBackend/crates/core/src/profile/score.rs)
 
 ## Назначение
-`Trophy(pub u64)` + `ScoreService` — расчёт трофеев/ранга на основе `AreaService`.
+Чтение счёта игрока: обычные и бонусные трофеи, их сумма и игровая область.
 
-## Ключевая функциональность
-- `Trophy(pub u64)` — newtype.
-- `ScoreService` — вычисляет ранг/зону по трофеям.
+## Типы
+- `Trophy(u64)`, `BonusTrophy(u64)` — счётчики трофеев (`Default` = 0, `Display` — число).
+- `ProfileScoreInput` — вход: `trophy` и `bonus_trophy` как `Option<u64>` (отсутствие = 0).
+- `ProfileScore` — результат: `trophy`, `bonus_trophy`, `total_trophies` (сумма с насыщением) и `area` (`PlayerArea`, см. [types](types.md)).
+
+## API
+- `ProfileScoreService::read(input)` — заполняет `ProfileScore`, область считает [AreaService](area.md).
+
+## Пример
+5000 + 250 трофеев → сумма 5250, область `14`.
+
+## Связи
+- Используется в [api/profile/view](../../../api/src/profile/view.md). Обзор: [core_profile_score](../../../core_profile_score.md).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

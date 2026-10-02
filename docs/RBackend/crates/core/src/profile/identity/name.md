@@ -1,11 +1,11 @@
 # [core/profile/identity/name.rs](/RBackend/crates/core/src/profile/identity/name.rs)
 
 ## Назначение
-`ProfileNameService` — правила чтения имени профиля из `ProfileIdentityInput`.
+`ProfileNameService` читает отображаемое имя игрока.
 
-## Ключевая функциональность
-- `ProfileNameService::name(&input)` → `ProfileName`.
+## `read(input)`
+Возвращает `ProfileName` из поля `name` с обрезанными пробелами; пустое или пробельное имя — `None` (см. `ProfileName::new` в [types](types.md)).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

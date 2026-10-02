@@ -1,12 +1,13 @@
 # [core/profile/unlocks/banners.rs](/RBackend/crates/core/src/profile/unlocks/banners.rs)
 
 ## Назначение
-`BannerService` — парсер unlock-строк баннеров (маркер `"Banner"`).
+`BannerService` разбирает строку разблокировки баннера вида `{имя}Banner…`.
 
-## Ключевая функциональность
-- `BANNER_MARKER = "Banner"`.
-- `BannerService::parse(unlock_str)` → `BannerUnlock`.
+## `parse(unlock)`
+Ищет маркер `Banner` (`BANNER_MARKER`); имя баннера — часть строки до маркера, она должна быть корректным `UnlockName` ([types](types.md)). Всё после маркера игнорируется.
+
+Примеры: `Season01Banner01` → `Season01`; `birthdayBanner01` → `birthday`; `Banner01` и `bad-nameBanner01` — `None`.
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

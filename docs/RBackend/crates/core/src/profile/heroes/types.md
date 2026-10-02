@@ -1,12 +1,18 @@
 # [core/profile/heroes/types.rs](/RBackend/crates/core/src/profile/heroes/types.rs)
 
 ## Назначение
-Small value types героя: `HeroName(String)`, `HeroLevel`, `HeroLeague`, `HeroRating`.
+Доменные типы героя профиля.
 
-## Ключевая функциональность
-- `HeroName(String)` — нормализованное отображаемое имя.
-- `HeroRating(u32)`, `HeroLevel(u32)`, `HeroLeague`.
+## Типы
+- `HeroName(String)` — нормализованное имя героя; `new`, `as_str`, `Display`.
+- `HeroLevel(u32)` — уровень после применения правила престижа (1–20).
+- `HeroRating(u32)` — очки рейтинга.
+- `HeroLeague(&'static str)` — название лиги из фиксированного списка ([league](league.md)).
+- `HeroInput` — сырой герой из профиля: `raw_name`, `raw_level` (с нуля), `experience` (`Xp`), `rating`.
+- `Hero` — готовый герой: `name`, `level`, `experience`, `exp_need`, `rating`, `prestige`, `league`.
+
+Все числовые обёртки реализуют `Display`; `Hero` собирается в [heroes/mod](mod.md).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

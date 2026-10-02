@@ -1,11 +1,11 @@
 # [core/profile/identity/uid.rs](/RBackend/crates/core/src/profile/identity/uid.rs)
 
 ## Назначение
-`ProfileUidService` — правила выбора UID профиля из `ProfileIdentityInput`.
+`ProfileUidService` выбирает UID профиля.
 
-## Ключевая функциональность
-- `ProfileUidService::uid(&input)` → `ProfileUid`.
+## `read(input)`
+Берёт UID из секции Data (`data_uid`); если его нет или он пустой после обрезки пробелов — UID из корня (`outer_uid`). Если оба отсутствуют — `None`. Очистку выполняет `ProfileUid::new` ([types](types.md)).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -1,10 +1,15 @@
 # [core/profile/wallet/mod.rs](/RBackend/crates/core/src/profile/wallet/mod.rs)
 
 ## Назначение
-Агрегатор wallet-правил: монеты и гемы вместе как одна ответственность.
+Кошелёк профиля: монеты и гемы. Намеренно не разделён по валютам — это одна маленькая ответственность «прочитать базовые валюты с нулём по умолчанию».
 
-## Ключевая функциональность
-- Подмодули: [read](read.md), [types](types.md).
+## Подмодули
+- `read` → `ProfileWalletService` — [read](read.md).
+- `types` → `Coins`, `Gems`, `ProfileWallet`, `ProfileWalletInput` — [types](types.md).
+
+## Связи
+- Используется в [api/profile/view](../../../../api/src/profile/view.md). Обзор: [core_profile_wallet](../../../../core_profile_wallet.md).
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

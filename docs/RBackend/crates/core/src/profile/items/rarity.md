@@ -1,11 +1,14 @@
 # [core/profile/items/rarity.rs](/RBackend/crates/core/src/profile/items/rarity.rs)
 
 ## Назначение
-`RarityService` — парсер/нормализатор имён редкостей.
+`RarityService` — точка разбора строки редкости в `ItemRarity` ([types](types.md)).
 
-## Ключевая функциональность
-- `RarityService::parse(str)` → `ItemRarity`.
+## API
+- `parse(value)` — делегирует `ItemRarity::from_str`: известные имена (`Common` … `Special`) дают `Ok`, остальные — `Err` с текстом ошибки (например, для «Godly»).
+
+## Потребители
+[api/profile/catalog_cache](../../../../api/src/profile/catalog_cache.md), [builder/catalog/flatbuffer](../../../../builder/src/catalog/flatbuffer.md), [builder/catalog/images](../../../../builder/src/catalog/images.md), [cli](../../../../cli/src/main.md).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
