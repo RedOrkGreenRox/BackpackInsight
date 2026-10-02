@@ -1,18 +1,13 @@
-# [Оркестратор search-пайплайна](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/fuse-search.ts)
+# [fuse-search.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/fuse-search.ts)
 
 ## Назначение
-Разделяет запрос на свободный Fuse-текст и строгие AST-условия, затем пересекает результаты.
+Точки входа поиска для [ItemsFilterManager](../ItemsFilterManager.md). Перед каждым поиском старые оценки релевантности снимаются (`clearSearchScores`, [search-score](search-score.md)).
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
-
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Экспорт
+- `applySearch(items, rawQuery, fuse, matcher)` — расширенный режим: строит план ([search-plan](search-plan.md)), последовательно применяет каждое строгое условие (`applyStructuredSearch` — разбор [query-parser](query-parser.md) и проверка [item-matcher](item-matcher.md)), затем, если есть термы, — нечёткий поиск ([fuse-collector](fuse-collector.md)).
+- `applyPlainTextSearch(items, rawQuery, fuse)` — обычный режим: символы `[ ] { } < > ! & | ( )` заменяются пробелами, остаётся только нечёткий поиск по термам. Пустой запрос возвращает копию списка.
+- `withoutSearch(filters)` — копия `FilterState` с пустым `searchQuery`.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

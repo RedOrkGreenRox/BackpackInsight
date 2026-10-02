@@ -1,18 +1,14 @@
-# [Подготовка предметов к поиску](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/prepared-items.ts)
+# [prepared-items.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/prepared-items.ts)
 
 ## Назначение
-Создаёт `PreparedItem`: нормализованный hero/type/tooltip/searchText/strictText для Fuse и matcher.
+Подготовка предметов к поиску: один раз при загрузке каталога строит для каждого предмета нормализованные тексты, чтобы поиск и фильтры не пересчитывали их на каждый ввод.
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
-
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Экспорт
+- `getItemKey(item)` — ключ предмета: `id`, иначе имя.
+- `prepareItems(items)` — `PreparedItem` ([filter-types](filter-types.md)) для каждого предмета: слаг имени, герой (`Hob Gang` → `Hob`, пусто → `Shared`), источник открытия, нормализованные подсказки, типы и ключи характеристик, базовый текст (id, имя, редкость, типы, герой, источник, подсказки, характеристики), расширенный текст `SearchTermService.expandText` и строгий текст. `imagePath` равен слагу, `imageSrc` пустой.
+- `buildStrictText(baseText)` — токены базового текста плюс слитные формы из `STRICT_ALIASES`: если в тексте есть «melee weapon», добавляется `meleeweapon`, и наоборот; так же для крита, выносливости, здоровья и типов предметов.
+- `mapPreparedByKey(prepared)` — словарь по ключу для [item-matcher](item-matcher.md) и [filter-options](filter-options.md).
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

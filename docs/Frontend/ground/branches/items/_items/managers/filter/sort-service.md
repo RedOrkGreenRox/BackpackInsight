@@ -1,18 +1,20 @@
-# [Сортировка найденных предметов](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/sort-service.ts)
+# [sort-service.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/sort-service.ts)
 
 ## Назначение
-Сортирует по релевантности/Fuse-score, затем по цепочке sort-флагов: rarity/alphabet/relevance.
+`sortItems(items, sortBy, query)` — сортировка результатов поиска по цепочке критериев; возвращает новый массив.
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
+## Как выбираются критерии (`resolveCriteria`)
+1. Если у предметов есть оценки поиска (`hasScores`), первым идёт `relevance`.
+2. Теги в запросе (`parseSortTags`, `tagToCriterion`): `{relevance}`, `{rarity down}`, `{rarity up}`, `{alphabet up}`, `{alphabet down}` — если они есть, `sortBy` не используется.
+3. Иначе массив `SortPriority` из [items-runtime-types](../runtime/items-runtime-types.md) переводится `priorityToCriterion`.
+4. Иначе строка старого формата (`legacySort`: `rarity`, `rarity-up`, `name`, `alphabet-down`, `relevance`); при наличии оценок она игнорируется.
+5. Повторы убираются (`dedupe`).
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Сравнение
+`compareByCriteria` идёт по критериям, пока `compareOne` не даст ненулевой результат: оценка по убыванию, вес редкости `RARITY_WEIGHTS` ([filter-types](filter-types.md)) или имя через `localeCompare`.
+
+[ItemsManager](../ItemsManager.md) всегда передаёт цепочку «релевантность, редкость по убыванию», а запрос — только в расширенном режиме, поэтому теги `{…}` работают только там.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

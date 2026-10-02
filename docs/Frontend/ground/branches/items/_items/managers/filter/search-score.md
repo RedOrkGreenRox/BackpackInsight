@@ -1,18 +1,13 @@
-# [Хранение Fuse-score](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/search-score.ts)
+# [search-score.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/search-score.ts)
 
 ## Назначение
-Сохраняет итоговый поисковый вес на item через не-enumerable поле для последующей сортировки.
+Хранение оценки релевантности прямо в объекте предмета под скрытым ключом `__itemsFuseScore` (`SCORE_KEY`). Свойство неперечисляемое, поэтому не попадает в `JSON.stringify` и обход ключей.
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
-
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Экспорт
+- `setSearchScore(item, score)` — записывает оценку ([fuse-collector](fuse-collector.md)).
+- `getSearchScore(item)` — оценка или `null` ([sort-service](sort-service.md)).
+- `clearSearchScores(items)` — удаляет оценки перед новым поиском ([fuse-search](fuse-search.md)).
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

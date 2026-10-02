@@ -1,18 +1,25 @@
-# [Числовые сравнения фильтра](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/comparison.ts)
+# [comparison.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/comparison.ts)
 
 ## Назначение
-Разбирает и вычисляет выражения вида `damageMin>5`, `cooldown<=2`, `10<damageMax<20`.
+`parseAndEvaluateComparison(item, term)` — проверка числового условия по характеристике предмета. Поддерживает формы `10<damage<20`, `damage>=5` и `5<cooldown`; операторы `<`, `<=`, `>`, `>=`, `=`. Внешние круглые скобки снимаются. Если формула не распознана, условие истинно, когда у предмета есть такая характеристика.
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
+## Внутреннее
+- `getStatValue(item, name)` — значение по имени без учёта регистра; неизвестное имя или отсутствующее значение — `null`, и условие ложно.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+| Имена | Поле |
+| :--- | :--- |
+| `criticalchance`, `critchance`, `critical_chance` | шанс крита |
+| `criticaldamage`, `critdamage`, `critical_damage` | урон крита |
+| `accuracy`, `acc` | точность |
+| `staminacost`, `stamina` | расход выносливости |
+| `cooldown`, `cd` | перезарядка |
+| `damagemin`, `mindamage`, `damage_min` / `damagemax`, `maxdamage`, `damage_max` | урон |
+| `coinvalue`, `value`, `price`, `gold`, `cost` | цена в монетах |
+| `level`, `lvl` | уровень |
+
+Боевые характеристики читаются из `item.combatStats`, цена и уровень — с самого предмета.
+- `evaluateOp(left, op, right)` — применяет оператор.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

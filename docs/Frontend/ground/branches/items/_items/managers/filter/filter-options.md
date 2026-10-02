@@ -1,18 +1,23 @@
-# [Расчёт доступных фильтров](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/filter-options.ts)
+# [filter-options.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/filter-options.ts)
 
 ## Назначение
-Собирает списки типов, редкостей, героев, unlock source, buffs, debuffs, stats и flags из массива предметов.
+`calculateFilterOptions(items, preparedByKey)` — списки значений для панели фильтров (`FilterOptions` из [filter-types](filter-types.md)), собранные по всем предметам каталога.
 
-## Место в сети
-- [Filter index](index.md)
-- [ItemsFilterManager](../ItemsFilterManager.md)
-- [Runtime index](../runtime/index.md)
+## Состав и порядок
+| Список | Источник | Порядок |
+| :--- | :--- | :--- |
+| `sortedTypes` | `itemTypes` | сначала `PRIORITY_TYPES` (оружие ближнего и дальнего боя, питомец, еда, аксессуар, броня), затем по алфавиту, `LAST_TYPES` (сумка) в конце (`sortTypes`) |
+| `sortedRarities` | `rarity` | по убыванию `RARITY_WEIGHTS` |
+| `sortedHeroes` | `connectedHero` (`Hob Gang` → `Hob`, пусто → `Shared`) | `Shared` первым, затем по алфавиту (`sortHeroes`) |
+| `sortedUnlockSources` | `unlockSource` (пусто → `Unknown`) | по алфавиту |
+| `sortedBuffs`, `sortedDebuffs` | слова из `BUFFS` и `DEBUFFS`, найденные в тексте предмета | общий `Buff`/`Debuff` первым (`sortWithFirst`) |
+| `sortedStats` | слова из `STATS` | по алфавиту |
+| `sortedFlags` | — | всегда `Purchasable` |
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Внутреннее
+- `collectTerms(prepared, …)` — извлекает строгие термины из подсказок, базового текста и типов через `SearchTermService.extractStrictTerms` ([SearchTermService](../../../../../utils/SearchTermService.md)).
+- `addExtracted(keys, extracted, target)` — добавляет найденные ключи с заглавной буквы.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
