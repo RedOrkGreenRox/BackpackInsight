@@ -1,12 +1,20 @@
 # [pack/lib.rs](/RBackend/crates/pack/src/lib.rs)
 
 ## Назначение
-Crate `pack` — runtime readers/writers для сгенерированных FlatBuffer-паков. Не зависит от `flatc` в runtime (использует сгенерированные баиндинги в `generated/`).
+Crate `pack` — чтение и запись FlatBuffer-паков в рантайме. Сгенерированные компилятором FlatBuffers Rust-биндинги лежат в `src/generated/` (`pub mod generated`; файлы `*_generated.rs` закоммичены и исключены из зеркальной документации), поэтому сборке и серверу компилятор не нужен. Только этому crate разрешён `unsafe_code` — его требуют сгенерированные аксессоры.
 
-## Ключевая функциональность
-- Подмодули: `api_items`, `catalog`, `error`, `profile`.
-- Репэкспорт: `read_*_bytes`, `build_*_bytes`, `*Pack`.
+## Модули и реэкспорты
+| Модуль | Экспорт | Документ |
+| :--- | :--- | :--- |
+| `api_items` | `read_api_items`, `read_api_items_bytes`, `ApiItemEntry`, `ApiItemsPackInfo`, `PackValue` | [api_items](api_items.md) |
+| `catalog` | `read_catalog_summary`, `read_catalog_summary_bytes`, `CatalogPackInfo`, `CatalogPackItem` | [catalog](catalog.md) |
+| `error` | `build_api_error_bytes`, `read_api_error_bytes`, `ApiErrorPack` | [error](error.md) |
+| `profile` | `build_profile_view_bytes`, `read_profile_view_bytes`, `read_profile_view_info_bytes`, `ProfileHeroPack`, `ProfileItemPack`, `ProfileViewInfo`, `ProfileViewPack` | [profile](profile.md) |
+
+## Связи
+- Схемы паков: [schemas](../../../schemas.md); обзор crate — [pack.md](../../pack.md), бинарные контракты — [api_binary_packs](../../api_binary_packs.md).
+- Потребители: [api](../../api.md) (ответы и ошибки), [middleware](../../middleware.md) (декодирование), [builder](../../build.md) (проверка собранных паков).
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

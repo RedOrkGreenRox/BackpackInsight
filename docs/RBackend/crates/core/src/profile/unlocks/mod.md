@@ -16,7 +16,7 @@
 Пример: `NymphedoraSkin02`, `NymphedoraSkin03`, `Season01Banner01` → `skins = { Nymphedora: ["02", "03"] }`, `banners = ["Season01"]`.
 
 ## Связи
-- Вызывается в [api/profile/view](../../../../api/src/profile/view.md); словарь скинов попадает во фронтенд как `profile_skins` (переключатель скинов в профиле). Обзор: [core_unlocks](../../../../core_unlocks.md).
+- Вызывается в [api/profile/view](../../../../api/src/profile/view.md); словарь скинов попадает во фронтенд как поле profile_skins (переключатель скинов в профиле). Обзор: [core_unlocks](../../../../core_unlocks.md).
 
 ---
 
