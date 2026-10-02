@@ -1,18 +1,18 @@
-# [Raw-редактирование чипов](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/raw-edit-controller.ts)
+# [raw-edit-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/raw-edit-controller.ts)
 
 ## Назначение
-Фокусирует чип по клику, раскрывает чип/группу/оператор в raw-текст по double click и поддерживает стрелки.
+`RawEditController` — работа мышью и стрелками с чипами внутри поля расширенного поиска. Создаётся в [rich-input-controller](rich-input-controller.md).
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Поведение
+- Клик по пустому слоту делает его активным (`activatePlaceholder`, класс `active-placeholder`) — туда встанет следующий шаблон или фильтр.
+- Клик по крестику `.token-close-btn` удаляет токен (`removeToken`) и вызывает событие `input`.
+- Клик по токену, группе или оператору выделяет его (`focusEditable`, класс `focused-token`).
+- Двойной клик заменяет элемент его исходным текстом (`convertToRawText`: `data-raw`, `data-value` или текст) и ставит каретку после него, чтобы условие можно было править вручную.
+- Стрелки влево и вправо выделяют соседний элемент, если каретка стоит в тексте рядом с ним (`onKeyup`, `getAdjacentEditable`).
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Методы
+`init(richInput)` вешает обработчики `click`, `dblclick`, `keyup`; `onClick`, `onDoubleClick` распределяют события.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

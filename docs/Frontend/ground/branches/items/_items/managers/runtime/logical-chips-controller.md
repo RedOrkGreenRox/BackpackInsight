@@ -1,18 +1,28 @@
-# [Контроллер логических шаблонов](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/logical-chips-controller.ts)
+# [logical-chips-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/logical-chips-controller.ts)
 
 ## Назначение
-Обрабатывает кнопки логики: группа, AND/OR/NOT; вставляет шаблон или заменяет активный слот/фокус.
+`LogicalChipsController` — кнопки-шаблоны логики (`.logical-chip`) в расширенном поиске. По клику вставляют в поле группу с пустыми слотами, которые пользователь затем заполняет условиями.
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Шаблоны (`templateFor`)
+| `data-value` кнопки | Вставляется |
+| :--- | :--- |
+| `[]` | группа с одним слотом |
+| `&` | два слота через «и» |
+| `\|` | два слота через «или» |
+| `!` | отрицание одного слота |
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+Слот — маркер `slotToken()` из [rich-group-renderer](rich-group-renderer.md).
+
+## Куда вставляется (`onClick`)
+1. Если в поле выделен токен, группа или оператор (`focusedEditable`) — шаблон заменяет его (`replaceFocused`), внешние группы обновляются (`refreshAncestorGroups`, [group-dom-raw](group-dom-raw.md)).
+2. Иначе, если активен пустой слот какой-то группы (`activeGroup`), шаблон встаёт в этот слот (`replaceActiveSlot` через `replaceGroupSlot`).
+3. Иначе — в позицию каретки (`insertTemplate`, `insertHTMLAtCaret` из [caret-utils](caret-utils.md)).
+
+После вставки поле получает событие `input`, и [ItemsManager](../ItemsManager.md) перезапускает поиск. Токены внутри групп рисует [rich-query-renderer](rich-query-renderer.md).
+
+## Прочее
+`init()` вешает обработчики; `htmlToElement(html)` — первый элемент из HTML-строки.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
