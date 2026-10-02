@@ -1,45 +1,26 @@
-# build flatbuffer — первый настоящий `.fb` pack
+# build flatbuffer — пак сводки каталога
 
-Эта контрольная точка добавляет первый настоящий FlatBuffer artifact для catalog summary.
-
-Команды:
+Как утилита [builder](build.md) собирает `RBackend/generated/catalog_summary.fb` (идентификатор `"BICS"`).
 
 ```bash
 cargo run -p builder -- build-catalog-flatbuffer
 cargo run -p builder -- verify-flatbuffer
 ```
 
-## Что делает `build-catalog-flatbuffer`
+## `build-catalog-flatbuffer`
+1. Читает нелокализованный JSON-каталог из `Backend/DB`.
+2. Пишет временный JSON по схеме `RBackend/schemas/catalog.fbs`: номер строки, id, имя, слаг, ключ картинки и редкость каждого предмета.
+3. Вызывает внешний `flatc -b`, удаляет временный JSON и переименовывает результат в `.fb`.
+4. Сразу читает пак через crate [pack](pack.md), чтобы убедиться, что он корректен.
 
-1. Читает текущий plain JSON-каталог.
-2. Строит JSON, соответствующий `RBackend/schemas/catalog.fbs`.
-3. Вызывает внешний `flatc`.
-4. Создаёт бинарный pack:
+## `verify-flatbuffer`
+Читает пак через сгенерированные Rust-биндинги crate pack и печатает число предметов, версию схемы и первый предмет. Тот же пак читает API в `/ready` ([routes/health](api/src/routes/health.md)).
 
-```text
-RBackend/generated/catalog_summary.fb
-```
+## Почему `flatc`
+Бинарный пак строит эталонный компилятор FlatBuffers, а не ручной код. Поэтому формат гарантированно совпадает со схемой; цена — `flatc` нужен в окружении сборки, но не на сервере.
 
-## Что делает `verify-flatbuffer`
-
-Проверяет минимальные свойства pack-а:
-
-```text
-файл существует
-размер больше 8 байт
-FlatBuffers file identifier == BICS
-```
-
-Это пока не runtime-парсер pack-а. Runtime-переход `api` на чтение `.fb` будет отдельной backend-точкой.
-
-## Почему через `flatc`, а не вручную
-
-На этой точке важно получить настоящий бинарный FlatBuffer без преждевременного связывания runtime API с generated-кодом. `flatc` становится build-зависимостью data-source слоя.
+Код — [catalog/flatbuffer](builder/src/catalog/flatbuffer.md).
 
 ---
-> 📌 **Подпись документации:** первый build шаг настоящего FlatBuffer pack, 2026-07-06.
 
-
-## Runtime reader
-
-Добавлен `pack`: `verify-flatbuffer` теперь читает pack через generated Rust bindings, а не только проверяет байты file identifier.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

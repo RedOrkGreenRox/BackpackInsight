@@ -1,18 +1,17 @@
 # [builder/catalog/mod.rs](/RBackend/crates/builder/src/catalog/mod.rs)
 
 ## Назначение
-Агрегатор модулей сборки каталога предметов из `Backend/DB/items_*.json` в FlatBuffer-паки.
+Модули утилиты сборки, вызываемые из [main](../main.md):
 
-## Подмодули
-- [files.rs](files.md) — чтение JSON-справочников.
-- [locales.rs](locales.md) — проверка `en`/`ru` локализаций.
-- [validate.rs](validate.md) — целостность каталога (рецепты, слаги).
-- [images.rs](images.md) — проверка наличия иконок.
-- [flatbuffer.rs](flatbuffer.md) — сборка `catalog_summary.fb`.
-- [api_items_flatbuffer.rs](api_items_flatbuffer.md) — сборка `api_items_{en,ru}.fb`.
-
-## Связи
-- Точка входа: [builder/src/main.rs](../main.md) + [builder/src/root.rs](../root.md).
+| Подмодуль | Роль |
+| :--- | :--- |
+| [files](files.md) | пути к исходным JSON и их чтение |
+| [validate](validate.md) | проверка каталога |
+| [images](images.md) | проверка картинок предметов |
+| [locales](locales.md) | проверка EN/RU каталогов |
+| [flatbuffer](flatbuffer.md) | пак `catalog_summary.fb` |
+| [api_items_flatbuffer](api_items_flatbuffer.md) | паки `api_items_{en,ru}.fb` |
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

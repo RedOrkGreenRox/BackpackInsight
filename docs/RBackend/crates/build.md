@@ -1,32 +1,27 @@
-# build — сборка и проверка данных
+# builder — проверка и сборка данных
 
-`builder` — backend/oracle crate для data source layer.
+Crate `builder` — консольная утилита для сборки образа и CI. Она проверяет исходные JSON из `Backend/DB` и картинки из `Frontend/Web/static/images/items`, а затем собирает FlatBuffer-паки в `RBackend/generated`, которые читает API. В рантайм-сервер утилита не входит; для сборки паков нужен внешний компилятор `flatc`.
 
-Он не является runtime API и не должен попадать в production runtime image без необходимости. Это build/CI-инструмент для будущего перехода от raw JSON к проверенным data packs.
-
-## Команды контрольной точки
-
+## Команды
 ```bash
-cargo run -p builder -- validate-catalog
-cargo run -p builder -- check-images
-cargo run -p builder -- check-locales
-cargo run -p builder -- validate-all
-cargo run -p builder -- build-catalog-preview
+cargo run -p builder -- validate-all       # validate-catalog + check-images + check-locales
+cargo run -p builder -- build-all-packs    # catalog_summary.fb + api_items_{en,ru}.fb
+cargo run -p builder -- verify-all-packs   # чтение всех паков через crate pack
 ```
+Полный список команд — [src/main](builder/src/main.md).
 
-## Ответственности
+## Файлы
+- [src/main](builder/src/main.md), [src/root](builder/src/root.md) — разбор команды и поиск корня проекта.
+- [catalog/mod](builder/src/catalog/mod.md) — обзор модулей: [files](builder/src/catalog/files.md), [validate](builder/src/catalog/validate.md), [images](builder/src/catalog/images.md), [locales](builder/src/catalog/locales.md), [flatbuffer](builder/src/catalog/flatbuffer.md), [api_items_flatbuffer](builder/src/catalog/api_items_flatbuffer.md).
 
-```text
-catalog/files.rs       поиск и чтение текущих JSON-файлов
-catalog/validate.rs    проверка id/slug/rarity/recipes
-catalog/images.rs      проверка image_key -> webp/avif
-catalog/locales.rs     проверка en/ru id coverage
-catalog/preview.rs     preview pack для следующего шага FlatBuffers
-```
+## Какие данные куда идут
+| Пак | Источник |
+| :--- | :--- |
+| `catalog_summary.fb` | нелокализованный каталог с наибольшей версией (`items_5_0_0.json`) |
+| `api_items_en.fb`, `api_items_ru.fb` | `items_en_5_1_0.json` и `items_ru_5_1_0.json` |
 
-## Важно
-
-`build-catalog-preview` пока создаёт JSON preview, а не финальный FlatBuffer binary. Это осознанный промежуточный шаг: сначала фиксируются схемы и валидаторы, затем будет подключён `flatc`/генерация бинарных packs.
+Подробнее о сборке сводки каталога — [build_flatbuffer](build_flatbuffer.md); схемы паков — [schemas](../schemas.md).
 
 ---
-> 📌 **Подпись документации:** build data source layer, 2026-07-06.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

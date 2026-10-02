@@ -1,15 +1,15 @@
 # [builder/catalog/locales.rs](/RBackend/crates/builder/src/catalog/locales.rs)
 
 ## Назначение
-Проверка консистентности `en`/`ru` локализаций: число предметов, пересечение по `id`, отчёт о пропущенных.
+`check_locales(root)` — EN и RU каталоги (`localized_files`, см. [files](files.md)) должны содержать одинаковый набор `id`. При расхождении ошибка показывает до 30 id с каждой стороны.
 
-## Ключевая функциональность
-- `LocaleCheckReport { en_items, ru_items, shared_items }`.
-- `check_locales(project_root)` — сравнивает два JSON-набора.
+## API
+- `LocaleCheckReport` — `en_items`, `ru_items`, `shared_items` (число уникальных id).
+- `ids(items)` — множество строковых `id`.
 
-## Связи
-- Вход: [files.rs](files.md) → `localized_files`.
-- Вызов: [catalog/mod.rs](mod.md) из [builder/src/main.rs](../main.md).
+## Тесты
+`repository_locales_have_same_ids` — на данных репозитория числа совпадают и id больше 1000.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

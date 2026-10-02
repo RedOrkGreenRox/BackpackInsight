@@ -1,16 +1,25 @@
 # [builder/main.rs](/RBackend/crates/builder/src/main.rs)
 
 ## Назначение
-Бинарная точка входа `builder` — собирает FlatBuffer-паки каталога предметов из `Backend/DB/items_*.json`.
+Консольная утилита сборки данных: проверяет исходные JSON-каталоги, картинки и локали и собирает FlatBuffer-паки в `RBackend/generated`. Запускается как `cargo run -p builder -- <команда>` при сборке образа и в CI; в рантайм API не входит.
 
-## Ключевая функциональность
-- `fn main()` — диспетчер CLI-команд.
+## Команды
+| Команда | Что делает | Модуль |
+| :--- | :--- | :--- |
+| `validate-catalog` | id, редкости, рецепты, дубли слагов | [validate](catalog/validate.md) |
+| `check-images` | наличие webp и avif для каждого предмета | [images](catalog/images.md) |
+| `check-locales` | совпадение id в EN и RU каталогах | [locales](catalog/locales.md) |
+| `build-catalog-flatbuffer`, `verify-flatbuffer` | сборка и чтение `catalog_summary.fb` | [flatbuffer](catalog/flatbuffer.md) |
+| `build-api-items-flatbuffer`, `verify-api-items-flatbuffer` | сборка и чтение `api_items_{en,ru}.fb` | [api_items_flatbuffer](catalog/api_items_flatbuffer.md) |
+| `build-all-packs` | обе сборки подряд | `build_all_packs` |
+| `verify-all-packs` | обе проверки подряд | `verify_all_packs` |
+| `validate-all` | три проверки данных подряд | `validate_all` |
+| `help`, `--help`, `-h` | справка | `print_help` |
 
-## Связи
-- catalog/mod.rs
-- ../catalog/mod.md
-- root.rs: root.md
+Без аргументов печатает справку и выходит с кодом 2; неизвестная команда или ошибка — сообщение в stderr и код 1. Корень проекта ищет [root](root.md). Успешные команды печатают короткий итог со счётчиками.
+
+Строки справки для сборочных команд длиннее колонки и сдвигают выравнивание — это косметика вывода.
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

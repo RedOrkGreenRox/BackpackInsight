@@ -1,11 +1,10 @@
 # [builder/root.rs](/RBackend/crates/builder/src/root.rs)
 
 ## Назначение
-Обнаружение корня проекта для `builder`: `find_project_root()` поднимается по дереву каталогов, ища `RBackend/` или `Backend/DB`+`Frontend/Web`.
+`find_project_root()` — поднимается от текущего каталога, пока не найдёт папку, где есть одновременно `Backend/DB` и `Frontend/Web`; иначе ошибка. Переменные окружения не читает.
 
-## Ключевая функциональность
-- `find_project_root()` → `Result<PathBuf, String>`.
+В отличие от поиска корня в [api/state](../../api/src/state.md), признак `RBackend/` здесь не подходит: утилите нужны исходные JSON из `Backend/DB` и картинки из `Frontend/Web`.
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
