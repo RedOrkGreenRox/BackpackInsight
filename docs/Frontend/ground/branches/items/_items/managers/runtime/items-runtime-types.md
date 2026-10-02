@@ -1,18 +1,21 @@
-# [Runtime-типы items UI](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/items-runtime-types.ts)
+# [items-runtime-types.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-runtime-types.ts)
 
 ## Назначение
-Содержит `SortMode`, `ListenerRegistrar`, `defaultFilters` и списки hero/rarity/type для UI.
+Общие типы, списки и значения по умолчанию для контроллеров интерфейса страницы предметов.
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Типы
+- `SortKey` (`relevance`, `rarity`, `alphabet`), `SortDirection` (`down`, `up`), `SortPriority` — один критерий сортировки.
+- `SortMode` — старые строковые режимы; `SortInput` — режим или список приоритетов. Разбирает [sort-service](../filter/sort-service.md).
+- `ListenerRegistrar` — функция регистрации обработчика с автоматическим снятием при уходе со страницы.
+- `ItemsViewCallbacks` — что контроллеры могут вызвать у [ItemsManager](../ItemsManager.md): получить и задать фильтры и сортировку, сохранить состояние, применить фильтры, синхронизировать чипы.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Списки
+`HERO_LIST`, `RARITY_LIST`, `TYPE_LIST` — слаги героев, редкостей и типов в нижнем регистре; по ним контроллеры решают, к какой группе относится введённое слово.
+
+## Функции
+- `defaultFilters()` — пустой `FilterState` ([ItemsStateManager](../ItemsStateManager.md)) с `purchasableOnly = null`.
+- `defaultSortPriorities()` — редкость по убыванию.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

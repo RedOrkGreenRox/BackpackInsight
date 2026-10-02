@@ -1,18 +1,14 @@
-# [Инициализация групп фильтров](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/filter-options-controller.ts)
+# [filter-options-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-options-controller.ts)
 
 ## Назначение
-Создаёт UI-группы filterTypes/filterRarities/filterHeroes/filterFlags/filterSort через MultiselectFilterController.
+`FilterOptionsController` — заполняет панель фильтров чипами после загрузки каталога.
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## API
+- `RuntimeFilterOptions` — те же восемь списков, что `FilterOptions` из [filter-types](../filter/filter-types.md).
+- `setup(options)` — для каждой группы вызывает `create` из [multiselect-filter-controller](multiselect-filter-controller.md): контейнеры `filterTypes`, `filterRarities`, `filterHeroes`, `filterUnlockSources`, `filterBuffs`, `filterDebuffs`, `filterStats`, `filterFlags` с типами групп `type`, `rarity`, `hero`, `unlock`, `buff`, `debuff`, `stat`, `flag`.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+Списки считает [filter-options](../filter/filter-options.md); вызов — из [ItemsManager](../ItemsManager.md).
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -13,7 +13,7 @@
 
 Предметы берутся из `RBackend/generated/api_items_en.fb` через `decode_items` ([middleware/items](../../../middleware/src/items.md)); слаг строится из имени через `SlugService::to_slug` ([core/slug](../../../core/src/slug.md)).
 
-Фронтенд открывает предмет по адресу `/items/<slug>` (см. [items-url-controller](../../../../../Frontend/ground/branches/items/_items/managers/runtime/items-url-controller.md)), а путь `/item/` в [core](../../../../../Frontend/ground/core.md) не зарегистрирован, так что ссылки на предметы в карте сайта не совпадают с маршрутами фронтенда.
+Фронтенд открывает предмет по адресу `/items?item=<slug>` (параметр читает [ItemsBranch](../../../../../Frontend/ground/branches/items/ItemsBranch.md)), а путь `/item/` в [core](../../../../../Frontend/ground/core.md) не зарегистрирован: роутер показывает на нём страницу 404. Ссылки на предметы в карте сайта не совпадают с маршрутами фронтенда.
 
 ## Внутреннее
 - `SitemapEntry` — `loc`, `changefreq`, `priority`.

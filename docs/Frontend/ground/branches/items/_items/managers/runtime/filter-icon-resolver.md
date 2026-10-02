@@ -1,18 +1,14 @@
-# [Резолвер иконок фильтров](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/filter-icon-resolver.ts)
+# [filter-icon-resolver.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-icon-resolver.ts)
 
 ## Назначение
-Подбирает fonticon/profile-иконки для типов, героев, buffs/debuffs, stats, flags и сортировок.
+`FilterIconResolver` — иконка для чипа фильтра по значению и группе. Используется в [multiselect-filter-controller](multiselect-filter-controller.md), [items-prompt-chips-controller](items-prompt-chips-controller.md) и [ItemsManager](../ItemsManager.md).
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Методы
+- `getIconForFilter(value, filterType)` — выбирает имя иконки по таблице группы: `TYPE_ICONS` (`filterTypes`), `HERO_ICONS` (`filterHeroes`), `BUFF_ICONS` (`filterBuffs`), `DEBUFF_ICONS` (`filterDebuffs`), `STAT_ICONS` (`filterStats`); для флага `Purchasable` — иконка золота. Для сортировки и неизвестных значений возвращает `null`, и чип остаётся без иконки. Тип без своей иконки пробует `generateIconsOrText` ([icon-parser](../../../../../utils/icon-parser.md)) и берёт результат, только если это картинка. Пробелы в значении при поиске типа убираются.
+- `createIconHtml(iconName, title)` — `picture.filter-icon` с источниками avif и webp из `/images/fonticon` (имя в нижнем регистре), подсказкой вида «Герой: Ronan» и ленивой загрузкой.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+Некоторые значения делят иконку: Cleanse — Resist, Heal — Life, Frost — Chill, Critical — CritChance.
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

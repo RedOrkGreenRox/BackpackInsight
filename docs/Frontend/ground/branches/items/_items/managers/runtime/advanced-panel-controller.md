@@ -1,18 +1,17 @@
-# [Контроллер advanced-панели](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/advanced-panel-controller.ts)
+# [advanced-panel-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/advanced-panel-controller.ts)
 
 ## Назначение
-Открывает/закрывает advanced filters panel, восстанавливает состояние и обновляет AOS.
+`AdvancedPanelController` — раскрытие и скрытие панели фильтров под строкой поиска по кнопке `#advancedFiltersToggle`. Видимость хранит [ItemsManager](../ItemsManager.md) и сохраняет между переходами ([ItemsStateManager](../ItemsStateManager.md)).
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Методы
+- `init()` — вешает обработчик на кнопку и применяет сохранённое состояние (`applyInitialState`) без анимации.
+- `toggle()` — переключает видимость, обновляет стрелку `.filter-toggle-icon` (▲/▼) и вызывает `saveState`.
+- `show(panel, toggleBtn, wrapper)` — показывает `#advancedFiltersPanel`, через 10 мс добавляет классы `show` и `open` (для CSS-перехода), затем обновляет анимации AOS.
+- `hide(panel, toggleBtn, wrapper)` — снимает классы и через 400 мс, после перехода, прячет панель, если её не открыли снова.
+- `panel()`, `icon()`, `toggleBtn()`, `wrapper()` — поиск элементов внутри контейнера страницы; `wrapper` — `.search-input-wrapper`.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+Стили панели — [search/_container](../../search/_container.md).
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

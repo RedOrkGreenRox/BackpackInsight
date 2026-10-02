@@ -1,18 +1,15 @@
-# [Raw из DOM-группы](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/group-dom-raw.ts)
+# [group-dom-raw.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/group-dom-raw.ts)
 
 ## Назначение
-Восстанавливает raw-строку группы из DOM-детей и обновляет `data-raw` у родительских групп.
+Восстановление текста запроса из DOM группы условий `.rich-group` в поле расширенного поиска. Нужен, когда пользователь меняет содержимое группы прямо в поле, а сохранённый `data-raw` устаревает.
 
-## Место в сети
-- [Runtime index](index.md)
-- [ItemsManager](../ItemsManager.md)
-- [Filter index](../filter/index.md)
+## Функции
+- `groupRawFromDom(group)` — собирает `[…]` из дочерних узлов (`collectRawPart`): текст как есть, вложенные группы рекурсивно, токены (`.rich-token`) — их `data-raw` или `[значение]`, операторы (`.rich-operator`) — `data-raw` или текст, пустые слоты (`.rich-placeholder`) — маркер `slotToken()` из [rich-group-renderer](rich-group-renderer.md). Скобки-украшения (`.group-bracket`) пропускаются.
+- `refreshAncestorGroups(group)` — обновляет `data-raw` у всех внешних групп.
 
-## Инварианты
-- Файл относится только к странице `items`.
-- При изменении поведения сначала обновить этот документ и связанные узлы сети.
-- Каждый файл модуля должен оставаться не больше 150 строк.
+## Потребители
+`groupRawFromDom` — [rich-query-renderer](rich-query-renderer.md); `refreshAncestorGroups` — [logical-chips-controller](logical-chips-controller.md) и [ItemsManager](../ItemsManager.md).
 
 ---
 
-> 📌 **Подпись документации:** страница предметов · декомпозиция поиска и rich-фильтров · 2026-06-17
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

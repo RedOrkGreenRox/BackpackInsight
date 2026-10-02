@@ -1,10 +1,14 @@
 # [items-help-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-help-controller.ts)
 
 ## Назначение
-Контроллер, отвечающий за рендеринг справочной панели и подробного руководства по синтаксису продвинутого поиска на странице списка предметов.
+`ItemsHelpController` — справка по расширенному поиску в `#advancedSearchHelpContent`. Синтаксис, который она описывает, разобран в [search_filter_syntax](../../../../../../../search_filter_syntax.md).
 
-## Функции
-- `renderAdvancedHelp()`: Собирает и вставляет HTML разметку со списком всех доступных тегов, сравнений и примеров формул.
+## Методы
+- `renderAdvancedHelp(options)` — пишет разметку справки: обычный и расширенный режимы, умный тег `[Poison]` и точный `[<Knife>]`, операторы `!`, `&`, `|` и их русские и английские слова, группы, сравнения, теги сортировки. Шесть примеров получают кнопки «Копировать» (`.copy-query-btn` с `data-copy`). В конце — списки тегов из текущего каталога (`RuntimeFilterOptions` из [filter-options-controller](filter-options-controller.md)).
+- `escapeHtml(value)`, `escapeAttr(value)` — экранирование значений и примеров.
+
+Обработчик кнопок копирования находится в [ItemsManager](../ItemsManager.md).
 
 ---
-> 📌 **Подпись документации:** аудит и декомпозиция · 2026-06-18
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
