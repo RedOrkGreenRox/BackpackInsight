@@ -18,14 +18,14 @@
 ## Приватные методы
 - `renderNav(nav, baseUrl, backUrl, backTitle)` — липкая панель `.id-nav`: «предыдущий», кнопка «☰» назад к списку, «следующий».
 - `renderNavLink(targetName, dir, baseUrl)` — ссылка `<baseUrl>?item=<slug>` с `data-link` (SPA-навигация через [Gen](../../../../../roots/Gen.md)); без соседа — неактивная кнопка с `aria-disabled`.
-- `renderTopRow(item, rarity, rarityClass, tagsHtml)` — иконка героя (`connectedHero` через `parseTextWithIcons`, иначе пустой `.id-hero-empty`), заголовок `h1.id-title`, бейдж редкости и теги.
+- `renderTopRow(item, rarity, rarityClass, tagsHtml)` — иконка героя (`connectedHero` через `parseTextWithIcons`, иначе пустой блок с классом `id-hero-empty`), заголовок `h1.id-title`, бейдж редкости и теги.
 - `renderDescription(item)` — тултипы, склеенные литералом `\n` и прогнанные через `parseTextWithIcons` (иконки игровых терминов в тексте).
 
 ## Стили
 Классы `.id-*` описаны в [_layout](_layout.md), [_top-row](_top-row.md), [_stats](_stats.md), [_recipes](_recipes.md), [_grid](_grid.md), [_responsive](_responsive.md).
 
 ## Связи
-- Вызывается из [ItemDetailDisplay](../display/ItemDetailDisplay.md) и `meta` в [ItemDetail_Branch](../../ItemDetail_Branch.md).
+- Вызывается из [ItemDetailDisplay](../display/ItemDetailDisplay.md) и из `itemDetailSubSpec.meta` в [ItemDetail_Branch](../../ItemDetail_Branch.md).
 - Slug соседей — [SlugService](../../../../../utils/SlugService.md).
 
 ---

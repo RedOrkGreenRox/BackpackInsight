@@ -12,11 +12,11 @@
 *   [Скрытые элементы](upload-zone/zone-styles/visually-hidden.md).
 
 ## Ключевая логика
-*   **Состояния**: интерактивные состояния зоны (`:hover`, перетаскивание `.drag-over`) задаются в дочернем [upload-area-hover](upload-zone/styles/upload-area-hover.md).
+*   **Состояния**: интерактивные состояния зоны (`:hover`, перетаскивание — класс `drag-over`) задаются в дочернем [upload-area-hover](upload-zone/styles/upload-area-hover.md).
 *   **Эффект стекла**: Использует полупрозрачные фоны для создания эффекта "упаковки рюкзака".
 
 ## AI-контекст
-Если зона загрузки перестала подсвечиваться при перетаскивании файла — проверьте класс `.drag-over` в [upload-area-hover](upload-zone/styles/upload-area-hover.md) (его навешивает [DragDropHandler](upload-zone/handlers/DragDropHandler.md)).
+Если зона загрузки перестала подсвечиваться при перетаскивании файла — проверьте класс `drag-over` в [upload-area-hover](upload-zone/styles/upload-area-hover.md) (его навешивает [DragDropHandler](upload-zone/handlers/DragDropHandler.md)).
 
 ---
 

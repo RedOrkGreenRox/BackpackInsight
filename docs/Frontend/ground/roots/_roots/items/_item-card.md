@@ -24,7 +24,7 @@
 ---
 
 ## Связи (Dependencies)
-*   Подключается в [**_items.scss**](base.md).
+*   Подключается в [**_items.scss**](_items.md).
 *   Содержит внутри себя `.item-stats`.
 
 ---

@@ -1,45 +1,35 @@
-# [StructuredBranch.ts](/Frontend/Web/ground/roots/StructuredBranch.ts)
+# [Структурированная страница (StructuredBranch.ts)](/Frontend/Web/ground/roots/StructuredBranch.ts)
 
 ## Назначение
+`StructuredBranch<TInput, TContext>` — абстрактная надстройка над [Branch](Branch.md), которая реализует жизненный цикл страницы один раз: скелетон → загрузка данных → полный рендер → логика → уничтожение. Наследник лишь подставляет модули. На практике наследника генерирует [BranchRunner](BranchRunner.md) из [BranchSpec](BranchSpec.md).
 
-`StructuredBranch` — это надстройка над базовым [`Branch.ts`](Branch.md), которая превращает страницу из произвольного класса в шаблон с четырьмя слоями ответственности:
+## Контракты модулей
+- `BranchDisplay` — `renderSkeleton()`, `renderError(error, input?)`, `renderFullPage(context, input?)`; все возвращают HTML-строку.
+- `BranchData` — `load(input?)` → `Promise<TContext>`.
+- `BranchState` — `save(context)` и `restore()` → `TContext | null` (кеш контекста).
+- `BranchLogic` — `init(context, root)` (может быть асинхронным) и `destroy()`.
+- `BranchContext` — пара `input` + `context`; передаётся фабрике логики в `BranchSpec`.
 
-- **Display** — рендеринг HTML (`Renderer`, `LayoutRenderer`, `SkeletonRenderer`).
-- **Data** — загрузка, кеширование и хранение состояния (`DataManager`, `StateManager`, `CacheService`).
-- **Logic** — инициализация событий, оркестрация, навигация (`Manager`, `Controller`, `InputController`, `NavigationController`).
-- **Styles** — CSS-классы страницы и body (`pageClass`, `bodyClass`).
+## Поля наследника
+Абстрактные: `pageClass`, `bodyClass`, `display`, `data`, `meta` (объект или функция от входа), метод `createLogic(context, root)`. Необязательное: `state`.
 
-Класс использует generics `TInput` и `TContext` для строгой типизации входных данных роутера и загруженного контекста страницы.
+## Жизненный цикл
+- `getMeta(data)` — вычисляет мета-данные из `meta` по входу (`extractInput`).
+- `getHtml(data)` — запоминает вход и сразу возвращает `<div class="<pageClass>">` со скелетоном.
+- `init(data)`:
+  1. добавляет `bodyClass` к `body`;
+  2. берёт контекст из `state.restore()` или из `data.load(input)`, сохраняет его через `state.save`;
+  3. заменяет содержимое контейнера на `renderFullPage(context, input)`;
+  4. создаёт логику (`createLogic`) и ждёт `init` всех модулей;
+  5. любая ошибка на этих шагах заменяет страницу на `renderError(error, input)`.
+- `destroy()` — вызывает `destroy` всех модулей логики и снимает `bodyClass`.
+- `extractInput(data)` — по умолчанию возвращает данные как есть; можно переопределить.
+- `getLastInput()` — последний вход (нужен `BranchRunner` для `BranchContext`).
 
 ## Связи
-
-- Наследуется от [`Branch.ts`](Branch.md) — базового жизненного цикла страницы.
-- Используется [`Gen.ts`](Gen.md) для регистрации маршрутов.
-- Является предшественником [`BranchSpec`](BranchSpec.md) + [`BranchRunner`](BranchRunner.md): BranchSpec декларирует страницу, а StructuredBranch реализует её жизненный цикл.
-
-## Структура слоёв
-
-```typescript
-export abstract class StructuredBranch<TInput = any, TContext = any> extends Branch {
-  protected abstract pageClass: string;
-  protected abstract bodyClass?: string;
-
-  protected abstract display: BranchDisplay<TInput, TContext>;
-  protected abstract data: BranchData<TInput, TContext>;
-  protected abstract logic: BranchLogic<TContext>;
-  protected abstract state?: BranchState<TContext>;
-
-  protected abstract loadData(input?: TInput): Promise<TContext>;
-  protected abstract createLogic(context: TContext, root: HTMLElement): BranchLogic<TContext>;
-}
-```
-
-## AI-контекст
-
-- Страница, наследующая `StructuredBranch`, обязана определить только свои 4–5 полей, а не реализовывать `getHtml` / `init` / `destroy` вручную.
-- Это снижает вероятность появления god objects вроде [`ItemsManager`](../branches/items/_items/managers/ItemsManager.md) или [`ProfileManager`](../branches/profile/_profile/managers/ProfileManager.md).
-- Любой новый модуль должен помещаться в один из четырёх слоёв. Если не помещается — слой неверно выбран или модуль слишком большой и требует деления.
+- Маршрутизация и монтирование: [Gen](Gen.md).
+- Страницы: [ItemsBranch](../branches/items/ItemsBranch.md), [ProfileBranch](../branches/profile/ProfileBranch.md), [MainBranch](../branches/main/MainBranch.md), [NotFoundBranch](../branches/404/NotFoundBranch.md), [ItemDetail_Branch](../branches/items/itemDetail/ItemDetail_Branch.md).
 
 ---
 
-> 📌 **Подпись документации:** создано в рамках внедрения StructuredBranch · 2026-06-18
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

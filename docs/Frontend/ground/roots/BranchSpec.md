@@ -11,7 +11,7 @@
 - `display` — `BranchDisplay`: `renderSkeleton`, `renderError`, `renderFullPage`.
 - `data` — **один** `BranchData` с методом `load(input)`.
 - `state` (необязательно) — `BranchState` с `save`/`restore`.
-- `logic` — массив `BranchLogic` или фабрика `(ctx, root) => BranchLogic[]`, где `ctx` — `BranchContext` (`input` + загруженный `context`).
+- `logic` — массив `BranchLogic` или фабрика `(ctx, root) => BranchLogic[]`, где `ctx` — `BranchContext` с полями `ctx.input` и `ctx.context` (загруженные данные).
 
 Контракты `BranchDisplay`/`BranchData`/`BranchState`/`BranchLogic`/`BranchContext` объявлены в [StructuredBranch](StructuredBranch.md).
 

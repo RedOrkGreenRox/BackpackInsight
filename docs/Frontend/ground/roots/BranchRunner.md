@@ -1,39 +1,23 @@
-# [BranchRunner.ts](../../../../Frontend/Web/ground/roots/BranchRunner.ts)
+# [Исполнитель спецификаций (BranchRunner.ts)](../../../../Frontend/Web/ground/roots/BranchRunner.ts)
 
 ## Назначение
+`BranchRunner` превращает декларативную [BranchSpec](BranchSpec.md) в класс страницы и при необходимости регистрирует её маршруты в роутере [Gen](Gen.md). Бизнес-логики страниц не содержит.
 
-`BranchRunner` — это движок, который выполняет [`BranchSpec`](BranchSpec.md). Он:
+## API
+- `constructor(spec)` — запоминает спецификацию.
+- `createBranchClass()` — возвращает анонимный класс, наследующий [StructuredBranch](StructuredBranch.md), где:
+  - `pageClass` = `spec.styles.pageClass` или `spec.id`; `bodyClass` = `spec.styles.bodyClass`;
+  - `display`, `data`, `state` берутся из спецификации;
+  - `meta` — функция или объект из спецификации, по умолчанию `{ title: 'Backpack Insight', description: '' }`;
+  - `createLogic(context, root)` — если `spec.logic` функция, вызывает её с `BranchContext` (`input` из `getLastInput()` и загруженный `context`), иначе возвращает массив как есть.
+- `register(router)` — создаёт класс один раз и регистрирует его под каждым путём из `spec.routes`.
 
-1. Регистрирует маршруты страницы в [`Gen.ts`](Gen.md).
-2. Создаёт на лету `Branch`-подобный объект, который управляет жизненным циклом страницы.
-3. Управляет порядком инициализации модулей: `Display` → `Data` → `State` → `Logic`.
-4. Гарантирует корректное уничтожение всех модулей при смене страницы.
-5. Обрабатывает skeleton, ошибки загрузки и мета-данные.
+## Порядок работы
+Сам жизненный цикл (скелетон → `data.load` → `renderFullPage` → `init` логики → `destroy`) реализует `StructuredBranch`; `BranchRunner` только связывает его с модулями спецификации.
 
-## Связи
-
-- Использует [`BranchSpec`](BranchSpec.md) как конфигурацию.
-- Внутри может опираться на [`StructuredBranch.ts`](StructuredBranch.md) для реализации жизненного цикла.
-- Регистрирует страницы через [`Gen.ts`](Gen.md).
-
-## Жизненный цикл
-
-```text
-loadData(input) → renderSkeleton()
-  ↓
-context загружен → renderFullPage(context)
-  ↓
-init logic modules(context, root)
-  ↓
-пользователь уходит со страницы → destroy all modules
-```
-
-## AI-контекст
-
-- BranchRunner — единственный императивный класс в этой архитектуре. Все страницы описываются декларативно, а поведение централизовано.
-- Это уменьшает дублирование кода инициализации между страницами.
-- BranchRunner не должен содержать бизнес-логики конкретной страницы — только оркестрацию модулей.
+## Использование
+Все страницы экспортируют `new BranchRunner(spec).createBranchClass()`, а маршруты регистрируются вручную в [core.ts](../core.md) через `router.register(path, () => import(...))`. Метод `register` в текущем коде не вызывается.
 
 ---
 
-> 📌 **Подпись документации:** создано в рамках внедрения BranchSpec+BranchRunner · 2026-06-18
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

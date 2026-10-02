@@ -13,7 +13,7 @@
 ---
 
 ## Связи (Dependencies)
-*   Использует базовые стили из [**_item-card.scss**](../../../../roots/_roots/items/base.md).
+*   Использует базовые стили из [**_item-card.scss**](../../../../roots/_roots/items/_item-card.md).
 
 ---
 

@@ -21,7 +21,7 @@
 ---
 
 ## Связи (Dependencies)
-*   Подключается в [**_items.scss**](base.md).
+*   Подключается в [**_items.scss**](_items.md).
 *   Оптимизировано для работы с тегами `<picture>`, генерируемыми [icon-parser.ts](../../../utils/icon-parser.md).
 
 ---

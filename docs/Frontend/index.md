@@ -10,7 +10,7 @@
 *   [Базовый Бранч (Branch.ts)](ground/roots/Branch.md) — жизненный цикл страниц.
 *   [StructuredBranch](ground/roots/StructuredBranch.md), [BranchSpec](ground/roots/BranchSpec.md), [BranchRunner](ground/roots/BranchRunner.md).
 *   [Оболочка (Shell.ts)](ground/roots/Shell.md), [Параллакс (Parallax.ts)](ground/roots/Parallax.md), [Кеш профилей (profileCacheUtils.ts)](ground/roots/profileCacheUtils.md).
-*   [Базовые стили (_roots.scss)](ground/roots/_roots.md), [Shell base](ground/roots/_roots/shell_base.md), [UI navigation](ground/roots/shell/ui_navigation.md).
+*   [Базовые стили (_roots.scss)](ground/roots/_roots.md), [Стили оболочки (_shell.scss)](ground/roots/_roots/_shell.md), [UI navigation](ground/roots/shell/ui_navigation.md).
 
 ### Страницы (branches)
 *   [Главная (MainBranch)](ground/branches/main/MainBranch.md) — загрузка/вставка JSON.
@@ -36,7 +36,7 @@
 ### Дизайн-система
 *   [Переменные дизайна (_vars.scss)](ground/roots/_roots/_vars.md) — цвета редкостей, брейкпоинты.
 *   [main стили](ground/branches/main/_main/upload-zone.md), [container_scss](ground/branches/main/_main/container/container_scss.md), [title_scss](ground/branches/main/_main/title/title_scss.md), [title-responsive_scss](ground/branches/main/_main/title/styles/title-responsive_scss.md).
-*   [profile _image_scss](ground/branches/profile/_profile/main-heroes-grid/_image_scss.md).
+*   [Портрет героя и кнопки скинов (profile _image.scss)](ground/branches/profile/_profile/main-heroes-grid/_image.md).
 
 ### Misc
 *   [package-lock](package-lock.md), [Dockerfile](Dockerfile.md), [server](server.md), [vite.config](vite.config.md), [vitest.config](vitest.config.md), [tsconfig](tsconfig.md), [index.html](index.html.md), [_headers](_headers.md).

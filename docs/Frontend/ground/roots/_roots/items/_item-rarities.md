@@ -14,7 +14,7 @@
 
 ## Связи (Dependencies)
 *   Зависит от [**_rarity-vars.scss**](_rarity-vars.md).
-*   Подключается в [**_items.scss**](base.md).
+*   Подключается в [**_items.scss**](_items.md).
 
 ---
 

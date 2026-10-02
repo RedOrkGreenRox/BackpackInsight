@@ -2,7 +2,7 @@
 
 ## Назначение
 
-Класс `NotFoundBranch` управляет жизненным циклом страницы ошибки 404. Он реализован через [`StructuredBranch`](../../roots/StructuredBranch.md) и делегирует ответственность трём модулям:
+Файл собирает страницу ошибки 404 из спецификации `notFoundSpec` через [BranchRunner](../../roots/BranchRunner.md); экспортируемый класс `NotFoundBranch` наследует [`StructuredBranch`](../../roots/StructuredBranch.md) и делегирует ответственность трём модулям:
 
 *   **Display** — [`NotFoundDisplay`](_404/display/NotFoundDisplay.md) рендерит HTML.
 *   **Data** — [`NotFoundData`](_404/data/NotFoundData.md) возвращает пустой контекст.
@@ -19,9 +19,15 @@
 *   [`TextRenderer`](_404/text/text.md)
 *   [`ButtonRenderer`](_404/button/button.md)
 
-### 2. Жизненный цикл
+### 2. Спецификация `notFoundSpec`
+*   `id: 'not-found'`, `routes: ['/404']` (маршрут регистрирует [core.ts](../../core.md); на него же [Gen](../../roots/Gen.md) уводит неизвестные пути).
+*   `styles`: класс страницы `not-found-page`, класс `body` — `error-404` (по нему [Shell](../../roots/Shell.md) понимает, что открыта 404, при смене языка).
+*   `meta`: заголовок и описание из ключей `not_found_meta_title` / `not_found_meta_description`.
+*   `logic`: фабрика создаёт один `NotFoundLogic` на корневой элемент.
+
+### 3. Жизненный цикл
 `StructuredBranch` вызывает:
-1. `loadData()` → [`NotFoundData`](_404/data/NotFoundData.md) (пустой контекст).
+1. `data.load()` → [`NotFoundData`](_404/data/NotFoundData.md) (пустой контекст).
 2. `renderFullPage()` → [`NotFoundDisplay`](_404/display/NotFoundDisplay.md).
 3. `createLogic()` → [`NotFoundLogic`](_404/logic/NotFoundLogic.md), который инициализирует навигацию и фон.
 4. При уничтожении `destroy()` — `NotFoundLogic` очищает слушатели и восстанавливает фон.
@@ -30,9 +36,8 @@
 
 ## AI-контекст
 
-*   Это первая страница, мигрированная на [`StructuredBranch`](../../roots/StructuredBranch.md), и служит эталоном для остальных.
-*   Вся логика, ранее находившаяся в `NotFoundBranch`, перенесена в модули с чёткими контрактами.
+*   Эталонная страница по разделу 3.2 `ARENA.MD`: каждый визуальный элемент — отдельный мелкий рендерер со своим SCSS.
 
 ---
 
-> 📌 **Подпись документации:** обновлено в рамках миграции 404 на StructuredBranch · 2026-06-18
+> 📌 **Подпись документации:** аудит по исходнику · 2026-10-02
