@@ -1,24 +1,18 @@
-# FlatBuffers schemas — начальный набор схем
+# FlatBuffers-схемы RBackend
 
-В `RBackend/schemas/` добавлены стартовые `.fbs` схемы:
+Каталог `RBackend/schemas/` — контракты бинарных паков между сборкой, сервером и браузером. Rust-биндинги для используемых схем сгенерированы заранее и лежат в `RBackend/crates/pack/src/generated` ([pack/lib](crates/pack/src/lib.md)); TS-биндинги фронтенда — в `Frontend/Web/ground/middleware/generated`. Бинарные паки собирает внешний `flatc` в утилите [builder](crates/build.md).
 
-```text
-catalog.fbs       catalog summary/details foundation
-profile.fbs       profile response foundation
-search.fbs        search index foundation
-localization.fbs  locale string table foundation
-error.fbs         shared API error foundation
-```
+| Схема | Корень | Идентификатор | Файл / эндпоинт | Документ |
+| :--- | :--- | :--- | :--- | :--- |
+| `api_items.fbs` | `ApiItemsPack` | `"BIAI"` | `api_items_{en,ru}.fb`, `GET /api/items.fb` | [api_items](schemas/api_items.md) |
+| `catalog.fbs` | `CatalogSummaryPack` | `"BICS"` | `catalog_summary.fb`, `GET /api/catalog-summary.fb` | [catalog](schemas/catalog.md) |
+| `profile.fbs` | `ProfileView` | `"BIPR"` | ответ `POST /api/profile.fb` | [profile](schemas/profile.md) |
+| `error.fbs` | `ApiError` | `"BIER"` | ошибки защищённых эндпоинтов | [error](schemas/error.md) |
+| `localization.fbs` | `LocalePack` | `"BILC"` | не используется | [localization](schemas/localization.md) |
+| `search.fbs` | `SearchIndexPack` | `"BISR"` | не используется | [search](schemas/search.md) |
 
-Эта контрольная точка не генерирует production `.fb` packs. Схемы фиксируют направление и имена будущих бинарных контрактов.
-
-Следующий шаг после валидаторов:
-
-```text
-подключить flatc/codegen
-сгенерировать Rust bindings или использовать reflection/flatbuffers crate
-заменить preview JSON pack на настоящий .fb
-```
+Обзор бинарных контрактов API — [api_binary_packs](crates/api_binary_packs.md).
 
 ---
-> 📌 **Подпись документации:** начальные FlatBuffers schemas, 2026-07-06.
+
+> 📌 **Подпись документации:** переписано по исходникам схем · 2026-10-02
