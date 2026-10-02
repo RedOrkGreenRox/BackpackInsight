@@ -1,17 +1,23 @@
 # [api/profile/catalog_cache.rs](/RBackend/crates/api/src/profile/catalog_cache.rs)
 
 ## Назначение
-In-memory кеш каталога предметов с поддержкой локали. `api_items_{en,ru}.fb` иммутабельны внутри Docker-образа, поэтому инвалидация не нужна.
+Кеш каталога предметов в памяти процесса, по одному на язык. Паки `api_items_en.fb` и `api_items_ru.fb` собираются при сборке образа и не меняются, поэтому кеш заполняется один раз и не сбрасывается.
 
-## Ключевая функциональность
-- `Lang` enum (`En`/`Ru`), `normalize_lang` парсит `?lang=` query.
-- `catalog_lookup()` / `CatalogItemLite` — индекс по slug и display-name.
-- Использует `OnceLock` для ленивой инициализации из `RBackend/generated/api_items_*.fb`.
-- `middleware::decode_items` — распаковка FlatBuffer.
+## API
+- `Lang` — `En` или `Ru`.
+- `normalize_lang(lang)` — `ru`, `rus`, `russian` в любом регистре дают `Ru`, всё остальное, включая пустую строку, — `En`.
+- `CatalogItemLite` — `item_id`, `name`, `rarity` (`ItemRarity` из [core/items/rarity](../../../core/src/profile/items/rarity.md)).
+- `CatalogLookup` — `BTreeMap` от строки к `CatalogItemLite`.
+- `catalog_lookup(project_root, lang)` — ссылка `'static` на кеш нужного языка; строит его при первом вызове.
 
-## Связи
-- Читает: [middleware/items.rs](/docs/RBackend/crates/middleware.md).
-- Используется в [items.rs](items.md), [view.rs](view.md).
+## Внутреннее
+- `CATALOG_EN`, `CATALOG_RU` — ячейки `OnceLock`. `PROJECT_ROOT` записывается при каждом вызове, но нигде не читается.
+- `get_or_build(cell, build)` — возвращает готовое значение или строит и кладёт его. Ошибка построения не кешируется, следующий вызов попробует снова.
+- `build_lookup(project_root, lang)` — читает пак, декодирует через `decode_items` ([middleware/items](../../../middleware/src/items.md)), разбирает редкость `RarityService::parse` (неизвестная редкость — ошибка всего каталога). Каждый предмет кладётся по id и, если имя ещё не занято, по имени.
+
+## Тесты
+`normalize_lang_accepts_common_forms`; при наличии паков — `catalog_lookup_returns_cached_reference_on_second_call` и `catalog_lookup_ru_and_en_are_independent`.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

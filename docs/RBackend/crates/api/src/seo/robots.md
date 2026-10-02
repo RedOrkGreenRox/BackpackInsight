@@ -1,14 +1,11 @@
 # [api/seo/robots.rs](/RBackend/crates/api/src/seo/robots.rs)
 
 ## Назначение
-Генератор `robots.txt`: `User-agent: *`, `Disallow: /api/`, `Allow: /images/`, ссылка на sitemap.
+`generate_robots(base_url)` — текст robots.txt: всем агентам разрешён корень, закрыты `/api/`, `/admin/` и `/private/`, отдельно разрешены `/images/` и `/manifest.json`. Последняя строка — `Sitemap: <base>/sitemap.xml`; завершающий `/` у базового адреса отрезается.
 
-## Ключевая функциональность
-- `generate_robots(base_url)` — возвращает строку `text/plain`.
-- Юнит-тест проверяет наличие `Sitemap:` строки.
-
-## Связи
-- Используется в [routes/robots.rs](../routes/robots.md).
+## Тесты
+`robots_points_to_sitemap` — при базе с завершающим слэшем ссылка на sitemap собирается без двойного слэша.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -1,16 +1,28 @@
 # [api/seo/sitemap.rs](/RBackend/crates/api/src/seo/sitemap.rs)
 
 ## Назначение
-Генератор `sitemap.xml`: статичные страницы + динамические страницы предметов из `api_items_en.fb`.
+`generate_sitemap(project_root, base_url)` — XML-карта сайта: три статические страницы и по одной записи на каждый предмет из английского пака.
 
-## Ключевая функциональность
-- `SitemapEntry { loc, changefreq, priority }`.
-- `generate_sitemap(project_root, base_url)` — собирает URL через `middleware::decode_items` + `rbackend_core::SlugService`, рендерит XML.
+## Состав
+| URL | changefreq | priority |
+| :--- | :--- | :--- |
+| `<base>/` | daily | 1.0 |
+| `<base>/items` | weekly | 0.9 |
+| `<base>/profile` | monthly | 0.8 |
+| `<base>/item/<slug>` для каждого предмета | monthly | 0.7 |
 
-## Связи
-- Источник: [middleware/items.rs](/docs/RBackend/crates/middleware.md).
-- Слаги: [core/slug.rs](/docs/RBackend/crates/core.md).
-- Используется в [routes/sitemap.rs](../routes/sitemap.md).
+Предметы берутся из `RBackend/generated/api_items_en.fb` через `decode_items` ([middleware/items](../../../middleware/src/items.md)); слаг строится из имени через `SlugService::to_slug` ([core/slug](../../../core/src/slug.md)).
+
+Фронтенд открывает предмет по адресу `/items/<slug>` (см. [items-url-controller](../../../../../Frontend/ground/branches/items/_items/managers/runtime/items-url-controller.md)), а путь `/item/` в [core](../../../../../Frontend/ground/core.md) не зарегистрирован, так что ссылки на предметы в карте сайта не совпадают с маршрутами фронтенда.
+
+## Внутреннее
+- `SitemapEntry` — `loc`, `changefreq`, `priority`.
+- `render_sitemap(entries)` — собирает `urlset` по схеме sitemaps.org 0.9.
+- `escape_xml(value)` — экранирует `&`, `<`, `>`, кавычки и апостроф в `loc`.
+
+## Тесты
+`generates_sitemap_from_repository_pack` — на реальном паке проверяет заголовок XML, `/items` и запись `/item/wooden-sword`. Если пака нет, тест молча проходит.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

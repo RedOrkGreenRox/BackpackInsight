@@ -1,16 +1,17 @@
 # [api/routes/packs.rs](/RBackend/crates/api/src/routes/packs.rs)
 
 ## Назначение
-Защищённые FlatBuffer- эндпоинты каталога: раздаёт сгенерированные `.fb` паки с диска как `application/octet-stream`.
+Отдача готовых FlatBuffer-паков из `RBackend/generated` как есть, без декодирования. Маршруты защищены секретом ([security/secret](../security/secret.md)).
 
-## Ключевая функциональность
-- `items_pack(query, state)` — `GET /api/items.fb?lang=en|ru` → `api_items_{en,ru}.fb`.
-- `catalog_summary_pack(state)` — `GET /api/catalog-summary.fb` → `catalog_summary.fb`.
-- При ошибке возвращает FlatBuffer `BIER` через `pack::build_api_error_bytes`.
+## Обработчики
+- `items_pack(state, query)` — `GET /api/items.fb?lang=en|ru`. `ItemsPackQuery` содержит необязательный `lang`, по умолчанию `en`. Отдаёт `api_items_en.fb` или `api_items_ru.fb` (пак `"BIAI"`); другой язык — 400, `code` = `bad_request`.
+- `catalog_summary_pack(state)` — `GET /api/catalog-summary.fb`, файл `catalog_summary.fb` (пак `"BICS"`).
 
-## Связи
-- Чтение: `RBackend/generated/*.fb` (строит [builder](/docs/RBackend/crates/build.md)).
-- Защита: [security/secret.rs](../security/secret.md).
+## Внутреннее
+- `pack_response(path)` — читает файл; ошибка чтения — 503, `code` = `pack_not_available`.
+- `error_response(status, code, detail)` — тело из `build_api_error_bytes` ([pack/error](../../../pack/src/error.md)).
+- `binary_response(status, bytes)` — `content-type: application/octet-stream`; только для 200 добавляет `Cache-Control: public, max-age=3600`.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

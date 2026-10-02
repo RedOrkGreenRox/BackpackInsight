@@ -1,11 +1,15 @@
 # [api/routes/root.rs](/RBackend/crates/api/src/routes/root.rs)
 
 ## Назначение
-Корневой эндпоинт `GET /` — текстовое подтверждение, что API запущен.
+`GET /` — проверка, что сервер отвечает: текст константы `MESSAGE` («Backpack Insight API is running») с `content-type: text/plain; charset=utf-8`.
 
-## Ключевая функциональность
-- `root()` → `Backpack Insight API is running` (text/plain).
-- `text_response(body)` — хелпер для text/plain.
+## Функции
+- `root()` — обработчик.
+- `text_response(body)` — ответ 200 с текстовым заголовком.
+
+## Тесты
+`home_message_matches_current_backend` — текст константы не изменился.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

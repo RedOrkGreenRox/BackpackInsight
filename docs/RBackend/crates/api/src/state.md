@@ -1,18 +1,34 @@
 # [api/state.rs](/RBackend/crates/api/src/state.rs)
 
 ## Назначение
-`AppState` — общее состояние Axum-приложения, доступное в хендлерах через `State<AppState>`. Собирается в `AppState::discover()` на старте.
+`AppState` — общее состояние сервера, которое Axum передаёт обработчикам и слоям. Собирается один раз при старте в `AppState::discover()`.
 
-## Ключевая функциональность
-- Поля: `project_root`, `public_base_url`, `api_secret`, `cors_origin`, `max_body_bytes`, `db: Option<db::Db>`, `profile_rate_limiter: Option<RateLimiter>`.
-- `discover()` — читает env-переменные, подключает БД (`db::Db::connect_from_env_if_enabled`), запускает сидер `db::seed_itemdefinitions_if_empty` при включённой БД, проверяет наличие сгенерированных паков (`catalog_summary.fb`, `api_items_{en,ru}.fb`).
-- `discover_project_root()` — поиск по дереву (env-override или авто-обнаружение `RBackend/`).
-- В production требует `ROOT_API_SECRET` (или `ROOT_ALLOW_NO_SECRET=true`).
+## Поля и переменные окружения
+| Поле | Источник | По умолчанию |
+| :--- | :--- | :--- |
+| `project_root` | `discover_project_root()` | — |
+| `api_secret` | `ROOT_API_SECRET`, затем `API_SECRET` (пустые игнорируются) | `None` |
+| `public_base_url` | `ROOT_PUBLIC_BASE_URL` | `https://backpackinsight.pages.dev` |
+| `cors_origin` | `ROOT_CORS_ORIGIN`, затем `CORS_ORIGIN` | `https://backpackinsight.pages.dev` |
+| `max_body_bytes` | `ROOT_MAX_BODY_BYTES` | 1 МиБ |
+| `db` | `db::Db::connect_from_env_if_enabled` ([db/lib](../../db/src/lib.md)) | `None`, если БД выключена |
+| `profile_rate_limiter` | `ROOT_PROFILE_RATE_LIMIT`, затем `RATE_LIMIT_PROFILES`, через `parse_rate_limit` | 20 запросов в минуту |
 
-## Связи
-- БД: [db crate](../../db.md).
-- Сидер: `db::seed_itemdefinitions_if_empty` (см. [db/src/seed.rs](../../db.md)).
-- Лимитер: [security/rate_limit.rs](security/rate_limit.md).
+## `discover()`
+1. Находит корень проекта и секрет.
+2. При `ROOT_ENV=production` без секрета возвращает ошибку, если не задан `ROOT_ALLOW_NO_SECRET` со значением `true` или `1`.
+3. Подключает БД; если она есть, вызывает `db::seed_itemdefinitions_if_empty` ([db/seed](../../db/src/seed.md)).
+4. Заполняет поля и вызывает `verify_required_packs` — в `RBackend/generated` должны быть `catalog_summary.fb`, `api_items_en.fb`, `api_items_ru.fb`, иначе ошибка со списком отсутствующих.
+
+Значение лимита, которое `parse_rate_limit` ([security/rate_limit](security/rate_limit.md)) не принимает — пустое, `0`, `0/minute` или мусор, — пропускается, и берётся следующий источник, а в конце всегда 20. Поэтому лимитер в текущем коде всегда включён, хотя комментарий в исходнике говорит, что пустое значение или `0` его отключают.
+
+## Помощники
+- `discover_project_root()` — `ROOT_PROJECT_ROOT` (если задан, путь обязан существовать), иначе подъём от текущего каталога до папки с `RBackend/` или с парой `Backend/DB` и `Frontend/Web`.
+- `read_non_empty_env(key)` — значение переменной, если оно не пустое после `trim`.
+
+## Тесты
+`missing_env_is_none` — несуществующая переменная даёт `None`.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

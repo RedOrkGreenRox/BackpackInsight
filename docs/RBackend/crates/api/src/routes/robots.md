@@ -1,13 +1,8 @@
 # [api/routes/robots.rs](/RBackend/crates/api/src/routes/robots.rs)
 
 ## Назначение
-Axum-хендлер `GET /robots.txt`. Делегирует генерацию в [seo/robots.rs](../seo/robots.md).
-
-## Ключевая функциональность
-- `robots(state)` — text/plain ответ с `User-agent: *` + `Sitemap: ...`.
-
-## Связи
-- Генератор: [seo/robots.rs](../seo/robots.md).
+`GET /robots.txt` — отдаёт текст из `generate_robots` ([seo/robots](../seo/robots.md)) для `public_base_url` из [state](../state.md), с `content-type: text/plain; charset=utf-8`. Ошибка сборки ответа превращается в 500 с текстом ошибки.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

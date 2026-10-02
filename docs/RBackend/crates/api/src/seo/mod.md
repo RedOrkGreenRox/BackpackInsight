@@ -1,11 +1,8 @@
 # [api/seo/mod.rs](/RBackend/crates/api/src/seo/mod.rs)
 
 ## Назначение
-Агрегатор SEO-генераторов (robots.txt + sitemap.xml).
-
-## Подмодули
-- [robots.rs](robots.md) — генератор `robots.txt`.
-- [sitemap.rs](sitemap.md) — генератор `sitemap.xml`.
+Генераторы SEO-ответов без HTTP-слоя: [robots](robots.md) (`generate_robots`) и [sitemap](sitemap.md) (`generate_sitemap`). Обработчики, которые их вызывают, — [routes/robots](../routes/robots.md) и [routes/sitemap](../routes/sitemap.md).
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

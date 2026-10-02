@@ -1,15 +1,17 @@
 # [api/profile/mod.rs](/RBackend/crates/api/src/profile/mod.rs)
 
 ## Назначение
-Агрегатор подмодулей profile-обработки: чтение каталога, heroes, items, JSON-input, сборка `ProfileViewResponse`, регрессионные тесты.
+Разбор игрового JSON-профиля в представление для `POST /api/profile.fb` ([routes/profile_binary](../routes/profile_binary.md)). Бизнес-правила (уровни, лиги, редкости, скины) живут в crate core; здесь — только чтение JSON и сборка ответа.
 
-## Подмодули
-- [catalog_cache.rs](catalog_cache.md) — кеш каталога предметов.
-- [heroes.rs](heroes.md) — проецирование героев.
-- [items.rs](items.md) — проецирование предметов.
-- [json_input.rs](json_input.md) — нормализация JSON-входа.
-- [view.rs](view.md) — сборка `ProfileViewResponse`.
-- `regression_tests` (только `#[cfg(test)]`) — [regression_tests.rs](regression_tests.md).
+| Подмодуль | Роль | Документ |
+| :--- | :--- | :--- |
+| `json_input` | достаёт из JSON входы сервисов core | [json_input](json_input.md) |
+| `heroes` | герои из поля `Hero` | [heroes](heroes.md) |
+| `items` | предметы из поля `Item` через каталог | [items](items.md) |
+| `catalog_cache` | кеш каталога предметов по языкам | [catalog_cache](catalog_cache.md) |
+| `view` | сборка всего ответа `profile_view` | [view](view.md) |
+| `regression_tests` | прогон реальных профилей, только в тестах | [regression_tests](regression_tests.md) |
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

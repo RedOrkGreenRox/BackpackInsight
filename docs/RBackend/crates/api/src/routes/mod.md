@@ -1,15 +1,17 @@
 # [api/routes/mod.rs](/RBackend/crates/api/src/routes/mod.rs)
 
 ## Назначение
-Агрегатор Axum-хендлеров маршрутов.
+Модуль HTTP-обработчиков. Каждый подмодуль публичный; пути назначает [lib](../lib.md).
 
-## Подмодули
-- [health.rs](health.md) — `GET /health`, `GET /ready`.
-- [packs.rs](packs.md) — `GET /api/items.fb`, `GET /api/catalog-summary.fb`.
-- [profile_binary.rs](profile_binary.md) — `POST /api/profile.fb`.
-- [robots.rs](robots.md) — `GET /robots.txt`.
-- [root.rs](root.md) — `GET /`.
-- [sitemap.rs](sitemap.md) — `GET /sitemap.xml`, `GET /api/sitemap`.
+| Подмодуль | Пути | Документ |
+| :--- | :--- | :--- |
+| `root` | `GET /` | [root](root.md) |
+| `health` | `GET /health`, `GET /ready` | [health](health.md) |
+| `sitemap` | `GET /sitemap.xml`, `GET /api/sitemap` | [sitemap](sitemap.md) |
+| `robots` | `GET /robots.txt` | [robots](robots.md) |
+| `packs` | `GET /api/items.fb`, `GET /api/catalog-summary.fb` | [packs](packs.md) |
+| `profile_binary` | `POST /api/profile.fb` | [profile_binary](profile_binary.md) |
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

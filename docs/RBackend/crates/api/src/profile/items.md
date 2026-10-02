@@ -1,19 +1,25 @@
 # [api/profile/items.rs](/RBackend/crates/api/src/profile/items.rs)
 
 ## Назначение
-Проецирование предметов профиля: парсит `Items` из входного JSON, считает уровни/карточки/total_xp, формирует `ProfileItemView` (для FlatBuffer) + `ProfileItemRecord { item_id, total_xp }` (для DB).
+Чтение предметов из объекта `Item` профиля. Значение — строка `уровень:карты`, где уровень хранится с нуля; ключ — id или имя предмета в каталоге.
 
-## Ключевая функциональность
-- `ProfileItemView { name, rarity, level, cards, cards_need, total_xp }`.
-- `ProfileItemRecord { item_id, total_xp }` — параллельный DB-носитель (см. SQL-1 worklog).
-- `item_stats` — расчёт XP по редкости.
-- `read_items(json, lang)` — индекс по слагам из [catalog_cache](catalog_cache.md).
+## API
+- `ProfileItemView` — то, что уходит в ответ: `name`, `rarity`, `level`, `cards`, `cards_need` (`-1`, если уровень максимальный).
+- `ProfileItemRecord` — `item_id` и `total_xp` для записи в БД; в пак не попадает.
+- `ProfileItemRead` — пара из представления и полей для БД.
+- `read_items(json, project_root, lang)` — при пустом или отсутствующем `Item` каталог не загружается. Иначе берёт словарь из `catalog_lookup` ([catalog_cache](catalog_cache.md)); ошибка загрузки каталога — `Err`.
+- `item_stats(items)` — число предметов по редкостям.
+- Реэкспорт `CatalogItemLite` из [catalog_cache](catalog_cache.md).
 
-## Связи
-- Ядро: [core/profile/items](/docs/RBackend/crates/core_items.md).
-- Каталог: [catalog_cache.rs](catalog_cache.md).
-- Сборка: [view.rs](view.md).
-- DB-сценарий: [routes/profile_binary.rs](../routes/profile_binary.md).
+## `read_item`
+Уровень = сохранённое значение + 1. Предмет, которого нет в каталоге, или строка с ошибкой формата пропускаются без ошибки. Нужное число карт и суммарный опыт считает `ItemLevelService::inspect` ([core/items](../../../core/src/profile/items/mod.md)).
+
+## Тесты
+Работают только при собранном `api_items_en.fb`, иначе молча проходят.
+- `reads_frontend_item_view` — Wooden Sword `5:200`: уровень 6, нужно 100 карт, опыт 190.
+- `skips_unknown_and_malformed_items`.
+- `builds_item_stats` — два предмета Common.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -1,15 +1,16 @@
 # [api/error.rs](/RBackend/crates/api/src/error.rs)
 
 ## Назначение
-Унифицированная ошибка API: JSON-ответ `ApiError { code, detail }` для человекочитаемых эндпоинтов. Бинарные FlatBuffer-ошибки используют `pack::ApiErrorPack` (`BIER`), а не этот тип.
+JSON-ошибка `ApiError { code, detail }`. Файл не объявлен как модуль в [lib](lib.md) (там нет `mod error`), поэтому он не компилируется и нигде не используется. Все ошибки защищённых эндпоинтов отдаются бинарным паком `"BIER"` через `build_api_error_bytes` из [pack/error](../../pack/src/error.md).
 
-## Ключевая функциональность
-- `ApiError` — структура ошибки с кодом и деталями.
-- `IntoResponse` для Axum: рендерит `StatusCode` + `Json<ApiError>`.
+## Содержимое
+- `ApiError` — `code: &'static str`, `detail: String`, выводит `Serialize`.
+- `ApiError::new(code, detail)` — конструктор, `detail` принимает всё, что приводится к `String`.
+- `ApiError::response(self, status)` — кортеж `(StatusCode, Json<ApiError>)`, который Axum умеет отдать как ответ. Реализации трейта ответа для самой структуры нет.
 
-## Связи
-- Используется только в защищённых текстовых эндпоинтах.
-- Бинарные эндпоинты возвращают `pack::build_api_error_bytes` (см. [pack](../../pack.md)).
+## Планируется
+Решение по файлу не принято: либо подключить его в `lib.rs`, либо удалить как наследие JSON-API.
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

@@ -1,11 +1,15 @@
 # [api/security/mod.rs](/RBackend/crates/api/src/security/mod.rs)
 
 ## Назначение
-Агрегатор middleware защиты API.
+Модуль слоёв защиты, которые [lib](../lib.md) навешивает на маршруты через `middleware::from_fn_with_state`.
 
-## Подмодули
-- [rate_limit.rs](rate_limit.md) — per-IP token bucket для `POST /api/profile.fb`.
-- [secret.rs](secret.md) — проверка `x-internal-secret` для защищённых эндпоинтов.
+| Подмодуль | Слой | Документ |
+| :--- | :--- | :--- |
+| `rate_limit` | `rate_limit_profile` — лимит частоты по IP для `POST /api/profile.fb` | [rate_limit](rate_limit.md) |
+| `secret` | `require_api_secret` — проверка заголовка `x-internal-secret` на всех `/api/*.fb` | [secret](secret.md) |
+
+Оба слоя отвечают отказом в бинарном формате ошибки (`"BIER"`), а не JSON. Как секрет проставляется на краю сети — [cloudflare_edge_security](../../../../cloudflare_edge_security.md).
 
 ---
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
