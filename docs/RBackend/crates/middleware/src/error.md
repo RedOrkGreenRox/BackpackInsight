@@ -1,11 +1,15 @@
 # [middleware/error.rs](/RBackend/crates/middleware/src/error.rs)
 
 ## Назначение
-`decode_error(bytes)` → `ErrorData` — распаковка FlatBuffer `BIER` (ApiError).
+Декодирование бинарной ошибки API (пак с идентификатором `"BIER"`) в `ErrorData`.
 
-## Ключевая функциональность
-- `struct ErrorData { code, detail, issues }`.
+## API
+- `ErrorData` — `code`, `detail`, `issues: Vec<String>`; сериализуется через `serde`.
+- `decode_error(bytes)` — вызывает `read_api_error_bytes` из [pack/error](../../pack/src/error.md) и переносит поля один к одному. Ошибка разбора возвращается как `Err(String)` без изменений.
+
+## Тесты
+`rejects_invalid_error_pack` — произвольные байты дают `Err`.
 
 ---
 
-> 📌 **Подпись документации:** stub-документ для MIRROR-покрытия · 2026-07-12.
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

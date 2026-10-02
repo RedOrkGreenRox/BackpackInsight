@@ -22,5 +22,8 @@ profile.rs  decode_profile
 error.rs    decode_error
 ```
 
+Per-file docs: [lib](middleware/src/lib.md), [items](middleware/src/items.md), [profile](middleware/src/profile.md), [error](middleware/src/error.md).
+
 ---
+
 > 📌 **Подпись документации:** backend-owned middleware decoder layer, 2026-07-11.
