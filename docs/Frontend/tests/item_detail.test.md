@@ -1,18 +1,20 @@
 # [Тест деталей предмета (item_detail.test.ts)](../../../Frontend/Web/tests/item_detail.test.ts)
 
 ## Назначение
-Vitest-тесты логики навигации по предметам на странице деталей.
+Vitest-набор `ItemDetail Managers` для старой страницы деталей предмета: навигация «предыдущий/следующий» и SEO-метаданные.
 
-## Связи (Dependencies)
-*   Тестирует [ItemDetailBranch](../ground/branches/itemDetail/ItemDetailBranch.md) и [ItemNavigationManager](../ground/branches/itemDetail/_itemDetail/managers/ItemNavigationManager.md).
-*   Мокает [i18n](../ground/localization/i18n.md).
+## Сценарии
+- `ItemNavigationManager`: соседние предметы для библиотеки (`filteredItemsOrder`) и для профиля (`profileItemsList`), а также `null`-соседи, если предмет не найден.
+- `ItemDetailBranch SEO`: `getMeta()` содержит имя предмета и даёт запасной заголовок без данных.
+- `i18n` замокан: `t()` возвращает ключ (с JSON параметров).
 
-## Покрытие
-*   Корректность вычисления соседних предметов (prev/next) для wiki-режима.
+## Текущее состояние
+Тест импортирует модули старого расположения — `ground/branches/itemDetail/ItemDetailBranch` и `ground/branches/itemDetail/_itemDetail/managers/ItemNavigationManager`. Этих файлов в кодовой базе больше нет: подстраница переехала в `ground/branches/items/itemDetail/`, а навигация стала приватным методом `calculateNavigation` в [ItemDetailData](../ground/branches/items/itemDetail/_itemDetail/data/ItemDetailData.md). Поэтому набор не проходит этап разрешения импортов и требует переписывания под [ItemDetail_Branch](../ground/branches/items/itemDetail/ItemDetail_Branch.md).
 
-## AI-контекст
-*   Импорты актуальны (модули существуют). При изменении логики навигации обновляйте этот тест.
+## Связи
+- Мокает [i18n](../ground/localization/i18n.md).
+- Конфигурация запуска — [vitest.config](../vitest.config.md).
 
 ---
 
-> 📌 **Подпись документации:** создано при рефактор-документировании (приоритет по глубине вложенности).
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

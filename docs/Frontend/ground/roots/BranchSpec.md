@@ -1,49 +1,38 @@
-# [BranchSpec.ts](../../../../Frontend/Web/ground/roots/BranchSpec.ts)
+# [Спецификация страницы (BranchSpec.ts)](../../../../Frontend/Web/ground/roots/BranchSpec.ts)
 
 ## Назначение
+`BranchSpec<TInput, TContext>` — декларативное описание страницы: из каких модулей она состоит. Императивной логики в файле нет; спецификацию превращает в класс страницы [BranchRunner](BranchRunner.md).
 
-`BranchSpec` — это декларативный объект (спецификация), который описывает страницу приложения в терминах модулей:
+## Поля интерфейса
+- `id` — идентификатор страницы; используется как CSS-класс страницы, если `styles.pageClass` не задан.
+- `routes` — маршруты для регистрации в роутере [Gen](Gen.md) через `BranchRunner.register()`. Пустой массив — страница монтируется вручную (так устроена подстраница деталей предмета).
+- `meta` (необязательно) — объект `PageMeta` или функция `(input) => PageMeta`.
+- `styles` (необязательно) — `pageClass` и `bodyClass`.
+- `display` — `BranchDisplay`: `renderSkeleton`, `renderError`, `renderFullPage`.
+- `data` — **один** `BranchData` с методом `load(input)`.
+- `state` (необязательно) — `BranchState` с `save`/`restore`.
+- `logic` — массив `BranchLogic` или фабрика `(ctx, root) => BranchLogic[]`, где `ctx` — `BranchContext` (`input` + загруженный `context`).
 
-- `id` — уникальный идентификатор страницы.
-- `routes` — массив маршрутов, которые ведут на страницу.
-- `meta` — мета-данные для SEO или функция, генерирующая их из контекста.
-- `styles` — CSS-классы страницы и body.
-- `display` — модуль отображения (skeleton, error, полный рендер).
-- `data` — массив загрузчиков данных.
-- `state` — адаптер сохранения/восстановления состояния.
-- `logic` — массив логических модулей (события, навигация, SEO и т.д.).
+Контракты `BranchDisplay`/`BranchData`/`BranchState`/`BranchLogic`/`BranchContext` объявлены в [StructuredBranch](StructuredBranch.md).
 
-BranchSpec не содержит императивной логики. Он только **декларирует**, из каких модулей состоит страница.
+## Реальные спецификации
+- `itemsSpec` — [ItemsBranch](../branches/items/ItemsBranch.md).
+- `itemDetailSubSpec` — [ItemDetail_Branch](../branches/items/itemDetail/ItemDetail_Branch.md) (`routes: []`, логика через фабрику).
+- Спецификации главной, профиля и 404 — [MainBranch](../branches/main/MainBranch.md), [ProfileBranch](../branches/profile/ProfileBranch.md), [NotFoundBranch](../branches/404/NotFoundBranch.md).
 
-## Связи
-
-- Исполняется [`BranchRunner.ts`](BranchRunner.md).
-- Основан на концепциях [`StructuredBranch.ts`](StructuredBranch.md): те же 4 слоя, но в форме композиции, а не наследования.
-- Модули `display`, `data`, `logic` — это существующие классы вроде `ItemDetailRenderer`, `ItemDataLoader`, `ItemNavigationManager`, приведённые к единому контракту.
-
-## Пример спецификации
-
+## Пример (сокращённо из `ItemDetail_Branch.ts`)
 ```typescript
-export const itemDetailSpec: BranchSpec<ItemDetailContext, ItemDetailInput> = {
-  id: 'itemDetail',
-  routes: ['/item/:name', '/profile/item/:name'],
-  styles: {
-    pageClass: 'item-detail-page',
-    bodyClass: 'item-detail-body',
-  },
-  display: itemDetailDisplay,
-  data: [itemDataLoader],
-  state: itemDetailStateAdapter,
-  logic: [itemNavigationModule, itemSeoModule],
+export const itemDetailSubSpec: BranchSpec<ItemDetailInput, ItemDetailData> = {
+  id: 'item-detail-sub',
+  routes: [],
+  styles: { pageClass: 'item-detail-sub-page', bodyClass: 'item-detail-sub-body' },
+  display: new ItemDetailDisplay(),
+  data: new ItemDetailDataLoader(),
+  meta: (input) => ItemDetailRenderer.getMeta(input),
+  logic: (_ctx, root) => [new ItemDetailLogic(root)],
 };
 ```
 
-## AI-контекст
-
-- BranchSpec позволяет собирать страницы из готовых модулей без наследования.
-- Это делает страницу читаемой как конфигурацию и упрощает тестирование.
-- BranchSpec — это эволюция StructuredBranch: если StructuredBranch отвечает **как внутри устроена страница**, то BranchSpec отвечает **из чего страница состоит**.
-
 ---
 
-> 📌 **Подпись документации:** создано в рамках внедрения BranchSpec+BranchRunner · 2026-06-18
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02

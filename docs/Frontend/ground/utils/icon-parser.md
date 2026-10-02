@@ -7,7 +7,8 @@
 *   **Изображения**: Ссылается на [иконки статов/механик (/images/fonticon/)](../../static/images/fonticon/index.md), используя форматы WebP и AVIF.
 *   `[global.d.ts](../types/global.md)`: Используется для типизации (хотя файл в основном работает со строками).
 *   `[_vars.scss](../roots/_roots/_vars.md)`: CSS-классы `value-text` и `text-default`, которые добавляются парсером, определены в этом файле.
-*   `[ItemDetailBranch.ts](../branches/itemDetail/ItemDetailBranch.md)`: Использует парсер для отображения способностей предмета.
+*   [ItemDetailRenderer](../branches/items/itemDetail/_itemDetail/components/ItemDetailRenderer.md) и [ItemDetailParts](../branches/items/itemDetail/_itemDetail/components/ItemDetailParts.md): используют `parseTextWithIcons` и `generateIconsOrText` для описания, героя, тегов и иконок статов.
+*   [filter-icon-resolver](../branches/items/_items/managers/runtime/filter-icon-resolver.md): использует `generateIconsOrText` для иконок фильтров.
 
 ---
 

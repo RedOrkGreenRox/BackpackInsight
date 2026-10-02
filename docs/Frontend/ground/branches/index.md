@@ -9,5 +9,5 @@
 *   [**main/**](main/index.md): Главная страница (Загрузка).
 *   [**profile/**](profile/index.md): Аналитика игрока.
 *   [**items/**](items/index.md): Библиотека предметов.
-*   [**itemDetail/**](itemDetail/index.md): Детализация предмета.
+    *   [**items/itemDetail/**](items/itemDetail/ItemDetail_Branch.md): Детали предмета — подстраница-оверлей внутри библиотеки, без собственного маршрута.
 *   [**404/**](404/index.md): Страница ошибки.
