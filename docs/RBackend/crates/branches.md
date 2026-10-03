@@ -27,6 +27,7 @@ BranchRunner::router: маршрут Axum на каждый SPEC.path   │
 | `sidebar`, `SidebarManager` | [roots/chrome.rs](branches/src/roots/chrome.md) + [shell/sidebar.rs](branches/src/shell/sidebar.md) | боковая панель из [Shell.ts](/docs/Frontend/ground/roots/Shell.md) |
 | `Backdrop`, `ParallaxManager` | [roots/backdrop.rs](branches/src/roots/backdrop.md) + [shell/parallax.rs](branches/src/shell/parallax.md) | [Parallax.ts](/docs/Frontend/ground/roots/Parallax.md) |
 | `per_lang` | [roots/per_lang.rs](branches/src/roots/per_lang.md) | — |
+| `LazyIslands`, `prefetch_lazy_islands` | [roots/lazy.rs](branches/src/roots/lazy.md) + [shell/prefetch.rs](branches/src/shell/prefetch.md) | — |
 | `PageHead` | [roots/head.rs](branches/src/roots/head.md) | — |
 
 ## Путь запроса
@@ -56,11 +57,13 @@ BranchRunner::router: маршрут Axum на каждый SPEC.path   │
 
 ```bash
 cd RBackend
-cargo leptos build --release          # бинарник + target/site/pkg (WASM, JS, CSS)
+cargo leptos build --release --split  # бинарник + target/site/pkg (WASM, JS, CSS, куски WASM)
 LEPTOS_OUTPUT_NAME=backpack-insight LEPTOS_SITE_ROOT=target/site \
 LEPTOS_SITE_PKG_DIR=pkg LEPTOS_SITE_ADDR=127.0.0.1:3000 \
   ./target/release/branches
 ```
+
+`--split` обязателен: каталог (`ItemsManager`) — ленивый остров, и без разбиения в JS остаётся заглушка, из-за которой не оживает ни один остров. Такой сборке сервер стартовать не даст и напишет, как пересобрать ([roots/lazy.rs](branches/src/roots/lazy.md)).
 
 Перед запуском нужны паки `RBackend/generated/api_items_{en,ru}.fb` и `catalog_summary.fb` — их собирает [builder](build.md) ([builder/main.rs](builder/src/main.md)). Без них `api::AppState::discover` или `Catalog::load` останавливают старт. Корень проекта ищет [api/state.rs](api/src/state.md) (переопределяется `ROOT_PROJECT_ROOT`); оттуда же берутся `Frontend/Web/static` (картинки, шрифты, словари).
 
@@ -77,7 +80,6 @@ LEPTOS_SITE_PKG_DIR=pkg LEPTOS_SITE_ADDR=127.0.0.1:3000 \
 - **Страница предмета `/item/:slug` и остров `ItemField`.** Дизайн владельца: масштабируемое поле-сетка, где каждый предмет — отдельный «остров». Не реализовано; для неё уже есть `LangCatalog::by_slug`/`by_id` и `BranchCtx::param`. После неё карточки каталога станут ссылками.
 - **Ветка профиля** и загрузка профиля на главной (остров `MainManager`) — как в TS-версии; форма на главной уже есть, но пока ничего не отправляет.
 - **Содержимое редактора** ([editor](branches/src/branches/editor/mod.md)) — пока пустая заготовка.
-- **Ленивые острова** (`#[lazy]`): WASM каждого острова грузится отдельно, только когда он нужен.
 - **Полный синтаксис расширенного поиска** ([search_filter_syntax.md](/docs/search_filter_syntax.md)); сейчас — поиск по словам ([search.rs](branches/src/catalog/search.md)).
 - **Sitemap из `BranchSpec.sitemap`**: сейчас поле не читается, `/sitemap.xml` отдаёт `api` ([api_sitemap_robots.md](api_sitemap_robots.md)).
 

@@ -8,11 +8,11 @@
 - **Модули для обеих сборок:**
   - [`branches`](branches/mod.md) — ветки-страницы; в WASM из них попадает только остров каталога;
   - [`model`](model.md) — сериализуемые типы, общие для сервера и островов;
-  - [`shell`](shell/mod.md) — острова общего каркаса: `SidebarManager` (боковая панель) и `ParallaxManager` (параллакс фона).
+  - [`shell`](shell/mod.md) — острова общего каркаса: `SidebarManager` (боковая панель) и `ParallaxManager` (параллакс фона); в WASM ещё `prefetch_lazy_islands`.
 - **Модули только для сервера** (`#[cfg(feature = "ssr")]`):
   - [`catalog`](catalog/mod.md) — каталог предметов из FlatBuffers-паков;
   - [`roots`](roots/mod.md) — `Gen`, `Shell`, `BranchRunner` и остальная дендритная инфраструктура.
-- **`hydrate()`** (`#[cfg(feature = "hydrate")]`, `#[wasm_bindgen]`) — точка входа WASM: ставит `console_error_panic_hook` (паника острова видна в консоли браузера) и вызывает `hydrate_islands`. Включённый в `shell` islands router тоже живёт в этом бандле. Оживляются только острова, отрендеренные сервером; остальной HTML остаётся статическим. Скрипт, который вызывает эту функцию, добавляется в `<head>` функцией `shell` ([shell.rs](roots/shell.md)).
+- **`hydrate()`** (`#[cfg(feature = "hydrate")]`, `#[wasm_bindgen]`) — точка входа WASM: ставит `console_error_panic_hook` (паника острова видна в консоли браузера) и вызывает `hydrate_islands`, затем `prefetch_lazy_islands` ([shell/prefetch.rs](shell/prefetch.md)) — докачку WASM ленивых островов, которых нет на странице. Включённый в `shell` islands router тоже живёт в этом бандле. Оживляются только острова, отрендеренные сервером; остальной HTML остаётся статическим. Скрипт, который вызывает эту функцию, добавляется в `<head>` функцией `shell` ([shell.rs](roots/shell.md)).
 
 ## Почему так
 В браузер уходит готовый HTML, а WASM содержит только интерактивные менеджеры вроде `ItemsManager`, `SidebarManager` и `ParallaxManager` ([manager.rs](branches/items/manager.md)). Каталог, словари и маршрутизация на клиент не попадают, поэтому бандл маленький, а страница работает без JavaScript.
@@ -22,4 +22,4 @@
 - Серверный бинарник: [main.rs](main.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

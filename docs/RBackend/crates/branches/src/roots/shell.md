@@ -19,6 +19,7 @@ HTML-каркас документа (`shell`) и корневой компон�
   6. разметка:
      - `<html lang=…>` и `<body class="loaded">` (на 404 ещё `error-404`). Старый CSS держит `body` прозрачным, пока нет класса `loaded`; в TS-версии его ставил JS, здесь сервер присылает страницу готовой;
      - теги `<head>` ветки: `(entry.head)(&ctx).tags(entry.spec.sitemap)` ([head.rs](head.md)) — `<title>`, `description` и `robots`, одинаковым набором на всех страницах;
+     - `LazyIslands::links(entry.spec.islands)` ([lazy.rs](lazy.md)) — `preload` WASM ленивых островов: сразу для островов этой страницы, отложенный для остальных;
      - боковая панель `sidebar(ctx)` ([chrome.rs](chrome.md));
      - `#bgImage` с `<picture>` (AVIF и запасной WebP, `#bgImg` с `fetchpriority="high"`);
      - остров `ParallaxManager` ([shell/parallax.rs](../shell/parallax.md));

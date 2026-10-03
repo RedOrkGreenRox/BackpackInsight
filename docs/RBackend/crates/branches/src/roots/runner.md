@@ -6,11 +6,11 @@
 ## Ключевая функциональность
 - **`serve()`** — запуск, вызывается из [main.rs](../main.md):
   1. `any_spawner::Executor::init_tokio` — Leptos запускает фоновые задачи рендера через глобальный executor;
-  2. `get_configuration(None)` — настройки Leptos из переменных `LEPTOS_*` или `[[workspace.metadata.leptos]]` в `RBackend/Cargo.toml`;
+  2. `get_configuration(None)` — настройки Leptos из переменных `LEPTOS_*` или `[[workspace.metadata.leptos]]` в `RBackend/Cargo.toml`; затем `LazyIslands::load` ([lazy.rs](lazy.md)) читает манифест ленивых островов и не даёт запустить сайт, собранный без `--split`;
   3. `api::AppState::discover` — корень проекта, секреты, БД и проверка паков ([api/state.rs](../../../api/src/state.md));
   4. `Catalog::load` ([catalog/mod.rs](../catalog/mod.md)) и `Dict::load` ([i18n.rs](i18n.md)) из корня проекта;
   5. `TcpListener` на `site_addr`, `axum::serve` с `api::shutdown_signal` для мягкой остановки.
-  Любая ошибка (нет паков, битый словарь, занят порт) завершает процесс с ошибкой.
+  Любая ошибка (нет паков, битый словарь, занят порт, сборка без `--split`) завершает процесс с ошибкой.
 - **`router(options, state, catalog, dict)`** — сборка `Router`:
   - замыкание `context` кладёт `CatalogHandle` и `Dict` в контекст Leptos каждого рендера и каждой серверной функции;
   - `render` = `render_app_async_with_context(context, shell)`: один обработчик на все ветки, конкретную ветку выбирает `App` через `Gen::resolve`;
@@ -28,4 +28,4 @@
 - Обзор и порядок обработки запроса: [branches.md](../../../branches.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

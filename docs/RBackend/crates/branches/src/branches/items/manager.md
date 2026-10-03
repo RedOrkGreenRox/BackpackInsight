@@ -1,7 +1,9 @@
 # [branches/branches/items/manager.rs](/RBackend/crates/branches/src/branches/items/manager.rs)
 
 ## Назначение
-`ItemsManager` — остров каталога (`#[island]`): заголовок, поле поиска, сетка карточек и подгрузка при прокрутке. Сервер рендерит его в HTML с первой порцией; в браузере WASM оживляет только этот фрагмент. Rust-замена TS-монолита [ItemsManager.ts](/docs/Frontend/ground/branches/items/_items/managers/ItemsManager.md) в объёме простого поиска. Разметка и классы — как у TS-версии (`wiki-header`, `search-container`, `items-grid`), поэтому работают перенесённые стили.
+`ItemsManager` — остров каталога (`#[island(lazy)]`): заголовок, поле поиска, сетка карточек и подгрузка при прокрутке. Сервер рендерит его в HTML с первой порцией; в браузере WASM оживляет только этот фрагмент. Rust-замена TS-монолита [ItemsManager.ts](/docs/Frontend/ground/branches/items/_items/managers/ItemsManager.md) в объёме простого поиска. Разметка и классы — как у TS-версии (`wiki-header`, `search-container`, `items-grid`), поэтому работают перенесённые стили.
+
+Остров ленивый: при сборке с `--split` его код лежит в отдельном WASM-файле, который главная и другие страницы без каталога не грузят сразу, а докачивают в простое ([roots/lazy.rs](../../roots/lazy.md), [shell/prefetch.rs](../../shell/prefetch.md)). На странице каталога файл качается параллельно с основным WASM.
 
 Без JavaScript остров — обычная форма (`/items?q=…`). С WASM он ищет на лету, обновляет адресную строку без перезагрузки и догружает карточки у нижнего края страницы.
 
@@ -28,4 +30,4 @@
 - Типы пропсов: [model.rs](../../model.md). Стили: [items.scss](../../../style/branches/items/items.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

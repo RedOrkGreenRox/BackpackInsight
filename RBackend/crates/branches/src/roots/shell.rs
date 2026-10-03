@@ -5,7 +5,7 @@
 //! ссылкам перехватывает islands router: новая страница приходит с сервера, а в
 //! DOM меняется только то, что отличается.
 
-use super::{chrome::sidebar, Backdrop, Branch, BranchCtx, Gen};
+use super::{chrome::sidebar, Backdrop, Branch, BranchCtx, Gen, LazyIslands};
 use crate::{branches::not_found::NotFoundBranch, shell::ParallaxManager};
 use leptos::{hydration::HydrationScripts, prelude::*};
 use leptos_meta::{provide_meta_context, Body, Html, MetaTags};
@@ -54,6 +54,7 @@ pub fn App() -> impl IntoView {
         <Html {..} lang=ctx.lang.code()/>
         <Body {..} class=body_class/>
         {(entry.head)(&ctx).tags(entry.spec.sitemap)}
+        {LazyIslands::links(entry.spec.islands)}
         {sidebar(&ctx)}
         <div class="background-image" id="bgImage" aria-hidden="true">
             <picture>

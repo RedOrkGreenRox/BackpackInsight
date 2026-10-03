@@ -13,7 +13,7 @@ use std::time::Duration;
 const DEBOUNCE: Duration = Duration::from_millis(200);
 
 /// Остров каталога. Пропсы приходят с сервера: язык, исходный запрос, первая порция, подписи.
-#[island]
+#[island(lazy)]
 #[allow(clippy::must_use_candidate)]
 pub fn ItemsManager(
     lang: Lang,

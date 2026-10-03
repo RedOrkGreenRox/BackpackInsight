@@ -5,7 +5,7 @@
 //! `api` (`/api/*`, `/health`, `/sitemap.xml`, …). Если задан `API_SECRET`, всё, кроме
 //! открытых маршрутов `api`, требует заголовок `X-Internal-Secret` (его ставит Cloudflare).
 
-use super::{shell, Dict, Gen};
+use super::{shell, Dict, Gen, LazyIslands};
 use crate::catalog::{Catalog, CatalogHandle};
 use axum::{
     body::Body,
@@ -30,11 +30,12 @@ impl BranchRunner {
     /// Читает конфигурацию Leptos (`LEPTOS_*` или `Cargo.toml`), каталог и словари, слушает `site_addr`.
     ///
     /// # Errors
-    /// Нет конфигурации или паков, не читаются словари, порт занят.
+    /// Нет конфигурации или паков, не читаются словари, порт занят, сайт собран без `--split`.
     pub async fn serve() -> Result<(), BoxError> {
         // Leptos запускает фоновые задачи рендера через глобальный executor.
         any_spawner::Executor::init_tokio()?;
         let options = get_configuration(None)?.leptos_options;
+        LazyIslands::load(&options)?;
         let state = api::AppState::discover().await?;
         let catalog = CatalogHandle(Arc::new(Catalog::load(&state.project_root)?));
         let dict = Dict::load(&state.project_root)?;

@@ -30,4 +30,5 @@ pub mod roots;
 pub fn hydrate() {
     console_error_panic_hook::set_once();
     leptos::mount::hydrate_islands();
+    shell::prefetch_lazy_islands();
 }

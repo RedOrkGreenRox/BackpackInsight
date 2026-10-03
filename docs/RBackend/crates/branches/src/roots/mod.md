@@ -16,6 +16,7 @@
 | `Gen` | [gen.rs](gen.md) | реестр веток и выбор по пути |
 | `PageHead` | [head.rs](head.md) | заголовок и описание страницы для `<head>` |
 | `Dict` | [i18n.rs](i18n.md) | словари интерфейса |
+| `LazyIslands` | [lazy.rs](lazy.md) | WASM ленивых островов: манифест и подсказки в `<head>` |
 | `per_lang` | [per_lang.rs](per_lang.md) | своя ветка разметки на каждый язык для островов |
 | `BranchRunner` | [runner.rs](runner.md) | маршруты Axum и запуск сервера |
 | `shell`, `App` | [shell.rs](shell.md) | HTML-документ и корневой компонент |

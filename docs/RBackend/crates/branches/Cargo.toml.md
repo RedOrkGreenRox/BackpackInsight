@@ -11,7 +11,7 @@
   - `leptos` 0.8 с `islands` и `islands-router` — острова и переходы без перезагрузки;
   - `leptos_meta` 0.8 — `<Title>`, `<Meta>`, `<Html>`, `<Body>` из веток;
   - `serde` с `derive` — пропсы островов и ответы серверных функций.
-- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`.
+- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`.
 - **Фича `ssr`** (сервер):
   - `leptos/ssr`, `leptos_meta/ssr`;
   - внутренние крейты `api`, `pack`, `rbackend_core`;

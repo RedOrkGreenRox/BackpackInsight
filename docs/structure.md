@@ -552,6 +552,7 @@
             - 📄 [gen.rs](RBackend/crates/branches/src/roots/gen.md)
             - 📄 [head.rs](RBackend/crates/branches/src/roots/head.md)
             - 📄 [i18n.rs](RBackend/crates/branches/src/roots/i18n.md)
+            - 📄 [lazy.rs](RBackend/crates/branches/src/roots/lazy.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/roots/mod.md)
             - 📄 [per_lang.rs](RBackend/crates/branches/src/roots/per_lang.md)
             - 📄 [request.rs](RBackend/crates/branches/src/roots/request.md)
@@ -561,6 +562,7 @@
           - 📂 **shell**
             - 📄 [mod.rs](RBackend/crates/branches/src/shell/mod.md)
             - 📄 [parallax.rs](RBackend/crates/branches/src/shell/parallax.md)
+            - 📄 [prefetch.rs](RBackend/crates/branches/src/shell/prefetch.md)
             - 📄 [sidebar.rs](RBackend/crates/branches/src/shell/sidebar.md)
           - 📄 [lib.rs](RBackend/crates/branches/src/lib.md)
           - 📄 [main.rs](RBackend/crates/branches/src/main.md)
