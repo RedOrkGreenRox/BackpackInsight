@@ -81,5 +81,11 @@
   "jsonld_type": "Type",
   "unknown_item": "Unknown item",
   "profile_upload_textarea_label": "Paste your JSON data here",
-  "item_stats_title": "Stats"
+  "item_stats_title": "Stats",
+  "items_found": "Found: {0}",
+  "items_empty": "Nothing found. Try another word.",
+  "sidebar_editor": "Editor",
+  "editor_title": "Editor",
+  "editor_meta_description": "Backpack Insight editor.",
+  "sidebar_menu": "Menu"
 }

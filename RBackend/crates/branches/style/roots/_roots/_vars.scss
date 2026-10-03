@@ -1,0 +1,14 @@
+:root {
+    --azure-raw: 0, 212, 255;
+    --azure: rgb(var(--azure-raw));
+    --azure-glow-low: 0 0 8px rgba(var(--azure-raw), 0.1), inset 0 0 2px rgba(var(--azure-raw), 0.05);
+    --azure-glow-high: 0 0 15px rgba(var(--azure-raw), 0.25), inset 0 0 4px rgba(var(--azure-raw), 0.1);
+    --border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* Цвета для текста в описаниях */
+    --text-header-color: #FFA500;
+    --text-default-color: #F5F5DC;
+
+    /* Размер шрифта для wiki-stats-block */
+    --wiki-stats-text-size: 1rem;
+}

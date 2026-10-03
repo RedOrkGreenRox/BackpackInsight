@@ -1,0 +1,20 @@
+// Точка входа стилей сайта. Стили веток перенесены из TS-версии без изменений
+// (ground/roots/_roots, ground/branches/*), поверх них идёт `_leptos.scss` —
+// только то, что нужно новой разметке Leptos.
+@use "sass:meta";
+@use "roots/_roots";
+@use "branches/404/404" as not-found;
+@use "leptos";
+
+// В TS-версии стили ветки подгружались только вместе с ней. Их общие селекторы
+// (`.container`, `.main-title`, …) не должны задевать другие страницы,
+// поэтому каждая ветка получает стили в своей области.
+main[data-branch="MainBranch"] {
+  @include meta.load-css("branches/main/main");
+}
+
+main[data-branch="ItemsBranch"],
+main[data-branch="EditorBranch"] {
+  @include meta.load-css("branches/items/items");
+}
+

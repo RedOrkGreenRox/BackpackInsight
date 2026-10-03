@@ -1,0 +1,57 @@
+// Tablet responsive styles
+@media (max-width: 768px) {
+    .filter-controls {
+        margin: 15px auto 15px;
+        padding: 0 10px;
+    }
+
+    .advanced-filters-panel {
+        padding: 15px;
+    }
+
+    .filter-label {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+
+    .filter-chip {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        min-height: 32px;
+        gap: 4px;
+
+        .filter-icon,
+        .text-icon {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    #filterHeroes .filter-chip .filter-icon,
+    #filterHeroes .filter-chip .text-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .filter-multiselect {
+        gap: 6px;
+    }
+
+    .search-container {
+        margin: 15px auto 25px;
+        padding: 0 10px;
+    }
+
+    .search-input {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    .main-title {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .wiki-subtitle {
+        font-size: 1rem;
+    }
+}

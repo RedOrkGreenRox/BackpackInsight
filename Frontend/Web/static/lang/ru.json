@@ -81,5 +81,11 @@
   "unknown_item": "Неизвестный предмет",
   "wiki_item_cost_unit": "монет",
   "profile_upload_textarea_label": "Вставьте JSON данные здесь",
-  "item_stats_title": "Статистика"
+  "item_stats_title": "Статистика",
+  "items_found": "Найдено: {0}",
+  "items_empty": "Ничего не найдено. Попробуйте другое слово.",
+  "sidebar_editor": "Редактор",
+  "editor_title": "Редактор",
+  "editor_meta_description": "Редактор Backpack Insight.",
+  "sidebar_menu": "Меню"
 }

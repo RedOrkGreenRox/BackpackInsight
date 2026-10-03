@@ -1,0 +1,49 @@
+/*
+ * Low Resolution / Performance Mode
+ *
+ * Этот файл содержит стили для режима экономии ресурсов.
+ * Класс .low-res-mode добавляется к <body> для активации.
+ */
+
+body.low-res-mode {
+
+    // 1. Отключаем все переходы и анимации для экономии CPU
+    *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+        will-change: auto !important; // Сбрасываем оптимизацию рендеринга
+    }
+
+    // 2. Отключаем ресурсоемкие фильтры (блюр)
+    .sidebar,
+    .sidebar-overlay {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(0, 0, 0, 0.85) !important; // Заменяем блюр на плотный фон
+    }
+
+    // 3. Упрощаем или отключаем тени
+    .item-card:hover,
+    .load-more-btn:hover {
+        box-shadow: none !important;
+    }
+
+    .nav-tab.active {
+        text-shadow: none !important;
+    }
+
+    // 4. Отключаем параллакс
+    #parallax-container {
+        display: none !important;
+    }
+
+    // 5. Упрощаем ховер-эффекты, которые используют transform
+    .item-card:hover {
+        transform: none !important;
+    }
+
+    .nav-tab:hover img {
+        transform: none !important;
+        filter: none !important;
+    }
+}

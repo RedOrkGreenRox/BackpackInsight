@@ -1,0 +1,70 @@
+.item-card {
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Изменил с center на space-between для равномерного распределения */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    height: 100%; /* Растягиваем карточку на всю высоту родителя (ссылки) */
+    width: 100%;  /* Растягиваем по ширине */
+
+    // Добавляем opacity в список переходов
+    transition:
+        transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        background 0.3s,
+        border-color 0.3s,
+        box-shadow 0.3s,
+        opacity 0.6s ease-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    // Состояние полной невидимости (логическое)
+    &.hidden {
+        display: none !important;
+    }
+
+    // Состояние перед началом анимации (визуальное)
+    &.preparing {
+        opacity: 0 !important;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        background: rgba(50, 50, 50, 0.9);
+        border-color: rgba(var(--azure-raw), 0.5);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.4), 0 0 15px rgba(var(--azure-raw), 0.2);
+    }
+}
+
+.item-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; /* Небольшой отступ между строками */
+    margin-top: 8px; /* Отступ от названия предмета */
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .item-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .item-card {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .item-stats {
+        gap: 3px;
+        margin-top: 6px;
+    }
+}

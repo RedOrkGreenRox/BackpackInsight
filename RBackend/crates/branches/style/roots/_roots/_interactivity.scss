@@ -1,0 +1,40 @@
+img, span, h1, h2, h3, button {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+text {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+
+.h1, .h2, .upload-area,
+.upload-area * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+
+body {
+  opacity: 0;
+  background: black;
+  transition: opacity 0.5s ease-out; /* Ускорил до 0.5с */
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.leaving {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}

@@ -8,6 +8,7 @@ members = [
     "crates/pack",
     "crates/middleware",
     "crates/db",
+    "crates/branches",
 ]
 
 [workspace.package]
@@ -26,3 +27,22 @@ expect_used = "warn"
 lto = "fat"
 codegen-units = 1
 strip = "symbols"
+
+# Smallest WASM for the islands bundle (cargo-leptos `lib-profile-release`).
+[profile.wasm-release]
+inherits = "release"
+opt-level = "z"
+panic = "abort"
+
+[[workspace.metadata.leptos]]
+name = "backpack-insight"
+bin-package = "branches"
+lib-package = "branches"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+style-file = "crates/branches/style/site.scss"
+site-addr = "127.0.0.1:3000"
+reload-port = 3001
+bin-features = ["ssr"]
+lib-features = ["hydrate"]
+lib-profile-release = "wasm-release"
