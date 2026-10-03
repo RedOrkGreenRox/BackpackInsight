@@ -14,12 +14,12 @@
 - 📦 **BackpackInsight**
   - 📂 [**Бэкенд (Python/FastAPI)**](Backend/index.md)
     - 📂 [**База данных и миграции**](Backend/DB/index.md)
-      - ❌ Справочник предметов (v3.1.0) <!-- MISSING DOC -->
-      - ❌ Справочник предметов (v4.0.0) <!-- MISSING DOC -->
-      - ❌ Справочник предметов (v5.0.0) <!-- MISSING DOC -->
-      - ❌ items_en_5_1_0.json <!-- MISSING DOC -->
-      - ❌ items_ru_5_1_0.json <!-- MISSING DOC -->
-      - ❌ Тултипы предметов <!-- MISSING DOC -->
+      - 🗃 Справочник предметов (v3.1.0)
+      - 🗃 Справочник предметов (v4.0.0)
+      - 🗃 Справочник предметов (v5.0.0)
+      - 🗃 items_en_5_1_0.json
+      - 🗃 items_ru_5_1_0.json
+      - 🗃 Тултипы предметов
   - 📂 [**Фронтенд (TypeScript/Vite)**](Frontend/index.md)
     - 📂 [**Веб-приложение**](Frontend/index.md)
       - 📂 [**Облачные функции (SSR/SEO)**](Frontend/functions/index.md)
@@ -309,25 +309,6 @@
         - 📂 **Локализация**
           - 📄 [Локализация](Frontend/ground/localization/i18n.md)
         - 📂 **middleware**
-          - 📂 **generated**
-            - 📂 **backpack-insight**
-              - 📂 **api-items**
-                - ❌ api-item.ts <!-- MISSING DOC -->
-                - ❌ api-items-pack.ts <!-- MISSING DOC -->
-                - ❌ key-value.ts <!-- MISSING DOC -->
-                - ❌ value-kind.ts <!-- MISSING DOC -->
-                - ❌ value.ts <!-- MISSING DOC -->
-              - 📂 **Ошибка**
-                - ❌ api-error.ts <!-- MISSING DOC -->
-              - 📂 **Страница профиля**
-                - ❌ hero-view.ts <!-- MISSING DOC -->
-                - ❌ item-stat.ts <!-- MISSING DOC -->
-                - ❌ item-view.ts <!-- MISSING DOC -->
-                - ❌ profile-view.ts <!-- MISSING DOC -->
-                - ❌ skin-list.ts <!-- MISSING DOC -->
-              - ❌ api-items.ts <!-- MISSING DOC -->
-              - ❌ Рендерер ошибок <!-- MISSING DOC -->
-              - ❌ profile.ts <!-- MISSING DOC -->
           - 📄 [flatbuffer-decoders.ts](Frontend/ground/middleware/flatbuffer-decoders.md)
         - 📂 [**Корневые системы**](Frontend/ground/roots/index.md)
           - 📂 **Базовые стили и Shell**
@@ -483,7 +464,7 @@
         - 📂 **Поиск**
           - 📄 [Синонимы поиска (RU)](Frontend/static/search/term-aliases.ru.md)
         - 📄 [Заголовки Cloudflare](Frontend/static/_headers.md)
-        - ❌ _redirects <!-- MISSING DOC -->
+        - 📄 [_redirects](Frontend/static/_redirects.md)
         - 📄 [Конфиг браузера](Frontend/static/browserconfig.md)
         - 📄 [Манифест PWA](Frontend/static/manifest.md)
         - 📄 [Инструкции роботам](Frontend/static/robots.md)
@@ -496,7 +477,7 @@
         - 📄 [Тест: Сортировка](Frontend/tests/sort_controller.test.md)
         - 📄 [Тест: Утилиты](Frontend/tests/utils.test.md)
       - 📄 [Заголовки Cloudflare](Frontend/_headers.md)
-      - ❌ browser_probe_tmp.cjs <!-- MISSING DOC -->
+      - 📄 [browser_probe_tmp.cjs](Frontend/browser_probe_tmp.md)
       - 📄 [Инструкции Docker](Frontend/Dockerfile.md)
       - 📄 [Главный HTML шаблон](Frontend/index.md)
       - 📄 [Зависимости и скрипты](Frontend/package.md)
@@ -536,7 +517,7 @@
           - 📄 [lib.rs](RBackend/crates/api/src/lib.md)
           - 📄 [main.rs](RBackend/crates/api/src/main.md)
           - 📄 [state.rs](RBackend/crates/api/src/state.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/api/Cargo.toml.md)
       - 📂 **builder**
         - 📂 **src**
           - 📂 **catalog**
@@ -549,11 +530,11 @@
             - 📄 [validate.rs](RBackend/crates/builder/src/catalog/validate.md)
           - 📄 [main.rs](RBackend/crates/builder/src/main.md)
           - 📄 [root.rs](RBackend/crates/builder/src/root.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/builder/Cargo.toml.md)
       - 📂 **cli**
         - 📂 **src**
           - 📄 [main.rs](RBackend/crates/cli/src/main.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/cli/Cargo.toml.md)
       - 📂 **core**
         - 📂 **src**
           - 📂 **catalog**
@@ -597,52 +578,53 @@
           - 📄 [image_key.rs](RBackend/crates/core/src/image_key.md)
           - 📄 [lib.rs](RBackend/crates/core/src/lib.md)
           - 📄 [slug.rs](RBackend/crates/core/src/slug.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/core/Cargo.toml.md)
       - 📂 **db**
         - 📂 **Миграции БД**
           - 📂 **pg**
-            - ❌ 0001_profiles.sql <!-- MISSING DOC -->
-            - ❌ 0002_normalized_tables.sql <!-- MISSING DOC -->
+            - 📄 [0001_profiles.sql](RBackend/crates/db/migrations/pg/0001_profiles.md)
+            - 📄 [0002_normalized_tables.sql](RBackend/crates/db/migrations/pg/0002_normalized_tables.md)
           - 📂 **sqlite**
-            - ❌ 0001_profiles.sql <!-- MISSING DOC -->
-            - ❌ 0002_normalized_tables.sql <!-- MISSING DOC -->
+            - 📄 [0001_profiles.sql](RBackend/crates/db/migrations/sqlite/0001_profiles.md)
+            - 📄 [0002_normalized_tables.sql](RBackend/crates/db/migrations/sqlite/0002_normalized_tables.md)
         - 📂 **src**
           - 📄 [lib.rs](RBackend/crates/db/src/lib.md)
           - 📄 [profile.rs](RBackend/crates/db/src/profile.md)
           - 📄 [seed.rs](RBackend/crates/db/src/seed.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/db/Cargo.toml.md)
       - 📂 **middleware**
         - 📂 **src**
           - 📄 [error.rs](RBackend/crates/middleware/src/error.md)
           - 📄 [items.rs](RBackend/crates/middleware/src/items.md)
           - 📄 [lib.rs](RBackend/crates/middleware/src/lib.md)
           - 📄 [profile.rs](RBackend/crates/middleware/src/profile.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/middleware/Cargo.toml.md)
       - 📂 **pack**
         - 📂 **src**
-          - 📂 **generated**
-            - ❌ api_items_generated.rs <!-- MISSING DOC -->
-            - ❌ catalog_generated.rs <!-- MISSING DOC -->
-            - ❌ error_generated.rs <!-- MISSING DOC -->
-            - ❌ mod.rs <!-- MISSING DOC -->
-            - ❌ profile_generated.rs <!-- MISSING DOC -->
           - 📄 [api_items.rs](RBackend/crates/pack/src/api_items.md)
           - 📄 [catalog.rs](RBackend/crates/pack/src/catalog.md)
           - 📄 [error.rs](RBackend/crates/pack/src/error.md)
           - 📄 [lib.rs](RBackend/crates/pack/src/lib.md)
           - 📄 [profile.rs](RBackend/crates/pack/src/profile.md)
-        - ❌ Cargo.toml <!-- MISSING DOC -->
+        - 📄 [Cargo.toml](RBackend/crates/pack/Cargo.toml.md)
     - 📂 **schemas**
-      - ❌ api_items.fbs <!-- MISSING DOC -->
-      - ❌ catalog.fbs <!-- MISSING DOC -->
-      - ❌ error.fbs <!-- MISSING DOC -->
-      - ❌ localization.fbs <!-- MISSING DOC -->
-      - ❌ profile.fbs <!-- MISSING DOC -->
-      - ❌ search.fbs <!-- MISSING DOC -->
-    - ❌ Cargo.lock <!-- MISSING DOC -->
-    - ❌ Cargo.toml <!-- MISSING DOC -->
+      - 📄 [api_items.fbs](RBackend/schemas/api_items.md)
+      - 📄 [catalog.fbs](RBackend/schemas/catalog.md)
+      - 📄 [error.fbs](RBackend/schemas/error.md)
+      - 📄 [localization.fbs](RBackend/schemas/localization.md)
+      - 📄 [profile.fbs](RBackend/schemas/profile.md)
+      - 📄 [search.fbs](RBackend/schemas/search.md)
+    - 📄 [Cargo.lock](RBackend/Cargo.lock.md)
+    - 📄 [Cargo.toml](RBackend/Cargo.toml.md)
     - 📄 [Инструкции Docker](RBackend/Dockerfile.md)
   - 📂 **Скрипты автоматизации**
+    - 📂 **docs_lint**
+      - 📄 [Маркер пакета](scripts/docs_lint/__init__.md)
+      - 📄 [files.py](scripts/docs_lint/files.md)
+      - 📄 [graph.py](scripts/docs_lint/graph.md)
+      - 📄 [mirror.py](scripts/docs_lint/mirror.md)
+      - 📄 [symbols.py](scripts/docs_lint/symbols.md)
+      - 📄 [truth.py](scripts/docs_lint/truth.md)
     - 📄 [Линтер документации](scripts/check_docs.md)
     - 📄 [Генератор карты](scripts/generate_structure.md)
     - 📄 [Пуш в репозиторий](scripts/git_push.md)
@@ -652,26 +634,26 @@
   - 📂 **Тестирование**
     - 📂 **Тестовые данные**
       - 📂 **profiles**
-        - ❌ Пример: DI4 (Обновленный) <!-- MISSING DOC -->
-        - ❌ Пример: DI4 (Базовый) <!-- MISSING DOC -->
-        - ❌ Пример: German <!-- MISSING DOC -->
-        - ❌ Пример: Hush <!-- MISSING DOC -->
-        - ❌ Пример: Lotreomon <!-- MISSING DOC -->
-        - ❌ Пример: Marat <!-- MISSING DOC -->
-        - ❌ Пример: Merul <!-- MISSING DOC -->
-        - ❌ Пример: Molodoy Zhuk <!-- MISSING DOC -->
-        - ❌ Пример: Rimaster <!-- MISSING DOC -->
-        - ❌ Пример: Sky <!-- MISSING DOC -->
-        - ❌ Пример: Sky (BFG) <!-- MISSING DOC -->
-        - ❌ Пример: Teger <!-- MISSING DOC -->
-        - ❌ Пример: xr1stos422 <!-- MISSING DOC -->
-      - ❌ Сэмпл: Полный профиль <!-- MISSING DOC -->
-      - ❌ Сэмпл: Минимальный профиль <!-- MISSING DOC -->
+        - 🗃 Пример: DI4 (Обновленный)
+        - 🗃 Пример: DI4 (Базовый)
+        - 🗃 Пример: German
+        - 🗃 Пример: Hush
+        - 🗃 Пример: Lotreomon
+        - 🗃 Пример: Marat
+        - 🗃 Пример: Merul
+        - 🗃 Пример: Molodoy Zhuk
+        - 🗃 Пример: Rimaster
+        - 🗃 Пример: Sky
+        - 🗃 Пример: Sky (BFG)
+        - 🗃 Пример: Teger
+        - 🗃 Пример: xr1stos422
+      - 🗃 Сэмпл: Полный профиль
+      - 🗃 Сэмпл: Минимальный профиль
   - 📄 [Docker Compose (Dev)](docker-compose.md)
   - 📄 [Зависимости и скрипты](package.md)
   - 📄 [Описание проекта](readme.md)
-  - ❌ rust-toolchain.toml <!-- MISSING DOC -->
-  - ❌ rust_migration_plan.md <!-- MISSING DOC -->
+  - 📄 [rust-toolchain.toml](rust-toolchain.toml.md)
+  - 🗃 rust_migration_plan.md
   - 📄 [Скрипт очистки Windows](update.md)
 
 ---

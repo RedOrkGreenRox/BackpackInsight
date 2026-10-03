@@ -1,0 +1,24 @@
+# [docs_lint/symbols.py](/scripts/docs_lint/symbols.py)
+
+## Назначение
+Достаёт из исходника имена, которые документ должен упоминать (`COMPLETE`) и которые может показывать как код (`TRUTH`). Разбор регулярными выражениями: быстро и без зависимостей, но не как настоящий парсер.
+
+## Ключевое
+| Функция | Языки | Что считается символом |
+| :--- | :--- | :--- |
+| `symbols_py` | `.py` | `def`, `class` |
+| `symbols_ts` | `.ts`, `.js`, `.cjs`, `.mjs` | классы, функции, `export const/let/interface/type/enum`, методы классов (`TS_METHOD_RE`: отступ, модификаторы, параметры и `{` в конце строки, поэтому вызовы в начале строки не попадают); без ключевых слов `TS_KEYWORDS` |
+| `symbols_scss` | `.scss` | `.класс`, `#id` вне значений свойств, `@keyframes` |
+| `symbols_rs` | `.rs` | `fn`, `struct`, `enum`, `trait`, `type`, `mod`, `const`/`static` с типом; комментарии вырезаются (`RS_COMMENT_RE`) |
+| `symbols_sql` | `.sql` | `CREATE TABLE/INDEX/VIEW` |
+| `symbols_fbs` | `.fbs` | `table`, `struct`, `enum`, `union` |
+| `symbols_toml` | `.toml` | заголовки разделов `[…]` |
+
+- **`source_symbols(path)`** — выбирает функцию по расширению из `EXTRACTORS`; для других файлов пустое множество.
+
+## Связи
+- Используется в [truth.py](truth.md).
+
+---
+
+> 📌 **Подпись документации:** по исходнику · 2026-10-03

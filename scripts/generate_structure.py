@@ -10,7 +10,9 @@ DOCS_ROOT = PROJECT_ROOT / "docs"
 # Настройки фильтрации
 IGNORE_DIRS = {
     '.git', '.idea', '__pycache__', '.pytest_cache', 'venv', 'env', 'node_modules', 'dist', 
-    '.arena', '.cache', 'tmp', '.github', 'docs'
+    '.arena', '.cache', 'tmp', '.github', 'docs',
+    # Сборка Cargo и код/данные, которые генерируют flatc и builder (ARENA.MD §1.2: генерируемое без зеркала)
+    'target', 'generated'
 }
 IGNORE_FILES = {
     '.DS_Store', 'structure.md', 'structure.txt', 'package-lock.json',
@@ -508,15 +510,20 @@ def generate_list_tree(dir_path: Path, current_rel_path: Path, indent: int = 1):
         else:
             doc_file = find_doc_file(rel_path)
             is_asset = item.lower().endswith(('.avif', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.woff', '.ttf', '.ico', '.db', '.ps1'))
+            # ARENA.MD §1.2: .md сами являются документацией, JSON — данными; зеркальный док им не нужен
+            is_exempt = item.lower().endswith(('.md', '.json'))
             if doc_file and doc_file.exists():
                 link_path = os.path.relpath(doc_file, DOCS_ROOT).replace("\\", "/")
                 lines.append(f"{spaces}- 📄 [{pretty_name}]({link_path})")
+            elif is_exempt:
+                lines.append(f"{spaces}- 🗃 {pretty_name}")
             elif not is_asset:
                 lines.append(f"{spaces}- ❌ {pretty_name} <!-- MISSING DOC -->")
 
     return lines
 
-def main():
+def render() -> str:
+    """Текст карты; check_docs.py сравнивает его с docs/structure.md."""
     tree_nodes = generate_list_tree(PROJECT_ROOT, Path(""))
     final_lines = [
         "# 🗺 Карта структуры BackpackInsight",
@@ -543,9 +550,12 @@ def main():
         "> 📌 **Подпись документации:** карта генерируется автоматически скриптом `scripts/generate_structure.py`. Не редактируйте вручную — запустите скрипт после изменений в дереве исходников.",
         ""
     ]
+    return "\n".join(final_lines)
+
+def main():
     DOCS_ROOT.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        f.write("\n".join(final_lines))
+        f.write(render())
     print(f"Standard list structure saved to: {OUTPUT_FILE.relative_to(PROJECT_ROOT)}")
 
 if __name__ == "__main__":
