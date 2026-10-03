@@ -131,3 +131,7 @@ API_SECRET=<same secret as VPS .env>
 ```
 
 Cloudflare Functions inject `X-Internal-Secret` server-side. The browser never receives the backend secret.
+
+---
+
+> 📌 **Подпись документации:** добавлена при проверке оформления, содержание не перепроверялось · 2026-10-02

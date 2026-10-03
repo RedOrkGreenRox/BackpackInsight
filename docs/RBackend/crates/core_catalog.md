@@ -32,10 +32,10 @@ CLI-команда:
 cargo run -p cli -- intern "Wooden Sword" "Wooden Sword" "Apple"
 ```
 
----
-> 📌 **Подпись документации:** typed IDs/string interning контрольная точка, 2026-07-06.
-
-
 ## Следующая контрольная точка
 
 Добавлен `catalog/columns.rs` с первым DOD-скелетом `CatalogColumns`. См. [core_catalog_columns](core_catalog_columns.md).
+
+---
+
+> 📌 **Подпись документации:** typed IDs/string interning контрольная точка, 2026-07-06.

@@ -41,3 +41,7 @@ Possible variants:
 It whitelists request headers, injects `X-Internal-Secret` from Cloudflare env server-side, and returns text errors instead of JSON compatibility error bodies.
 
 Frontend-owned Cloudflare Functions were restored so Cloudflare Pages deployment does not lose route files. The sitemap function now proxies RBackend `/api/sitemap`; item route functions no longer fetch deleted `/api/items` JSON and only keep SPA routing alive until the new FlatBuffer middleware/frontend lands.
+
+---
+
+> 📌 **Подпись документации:** добавлена при проверке оформления, содержание не перепроверялось · 2026-10-02

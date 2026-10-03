@@ -52,3 +52,7 @@ Protected RBackend binary endpoints:
 No Python backend is mounted into the backend container. The active `Backend/` tree now keeps only allowed developer JSON source files under `Backend/DB/*.json`; inactive Python backend/runtime code and old Python tests were removed from the active repo. The preserved `/home/user/Backpackinsight-latest` clone remains available for comparison.
 
 `ROOT_LEGACY_JSON` and `ROOT_DATA_MODE` toggles were removed because there is no JSON runtime mode left.
+
+---
+
+> 📌 **Подпись документации:** добавлена при проверке оформления, содержание не перепроверялось · 2026-10-02
