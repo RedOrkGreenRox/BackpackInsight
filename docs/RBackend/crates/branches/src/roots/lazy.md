@@ -5,13 +5,13 @@
 
 ## Ключевая функциональность
 - **`LazyIslands::load(options)`** — вызывается один раз при старте из `BranchRunner::serve` ([runner.rs](runner.md)):
-  1. читает `{site_root}/{site_pkg_dir}/{output_name}.js`. Если в нём есть заглушка `__wasm_split_placeholder__`, сайт с ленивыми островами собран без `--split`, и в браузере не заработает ни один остров. Тогда `load` возвращает `UnsplitBuild`, и сервер не стартует с понятной ошибкой («пересоберите: `cargo leptos build --release --split`»);
+  1. читает основной JS сайта в `{site_root}/{site_pkg_dir}` (имя от `SplitFiles`, [split_files.rs](split_files.md)). Если в нём есть заглушка `__wasm_split_placeholder__`, сайт с ленивыми островами собран без `--split`, и в браузере не заработает ни один остров. Тогда `load` возвращает `UnsplitBuild`, и сервер не стартует с понятной ошибкой («пересоберите: `cargo leptos build --release --split`»);
   2. читает `__wasm_split_manifest.json` (его пишет cargo-leptos при `--split`): ключ `<остров>_loader_<хэш>` → имена файлов. Хранит ключи и адреса `/{pkg}/{файл}.wasm` в `OnceLock` в порядке `BTreeMap`, то есть одинаковом при каждом запуске. Нет манифеста (сборка без `--split` и без ленивых островов) → список пуст, подсказок нет.
 - **`LazyIslands::links(islands)`** — теги для `<head>` страницы с островами `islands` (из `BranchSpec::islands`, [spec.rs](spec.md)). Вызывает `App` ([shell.rs](shell.md)):
   - `modulepreload` JS-загрузчика `__wasm_split.______________________.js`;
   - для **каждого** файла из манифеста `<link rel="preload" as="fetch" type="application/wasm" crossorigin="anonymous">`. Если остров есть на этой странице, у ссылки `media="all"`, и браузер качает файл сразу. Если нет, то `media="not all"`: браузер файл не трогает, а позже, когда страница загрузится, его докачивает [shell/prefetch.rs](../shell/prefetch.md).
 - **`UnsplitBuild`** — ошибка «собрано без `--split`», `Display` содержит команду для пересборки.
-- Внутреннее состояние: `static SPLIT: OnceLock<Split>`, где `Split` — адрес загрузчика и список `Chunk { key, href }`. Константы: `MANIFEST` (имя манифеста), `SPLIT_JS` (имя загрузчика), `UNSPLIT_MARK` (заглушка несобранного разбиения). `fmt::Display` у `UnsplitBuild` пишет путь и команду пересборки.
+- Внутреннее состояние: `static SPLIT: OnceLock<Split>`, где `Split` — адрес загрузчика и список `Chunk { key, href }`. Константа `UNSPLIT_MARK` — заглушка несобранного разбиения. Имена JS сайта, манифеста и загрузчика (в том числе с хэшами при `hash-files`) даёт `SplitFiles` ([split_files.rs](split_files.md)). `fmt::Display` у `UnsplitBuild` пишет путь и команду пересборки.
 - `snake_case` — `ItemsManager` → `items_manager`: так Leptos называет загрузчик острова (`items_manager_loader_<хэш>`).
 
 ## Почему ссылки одинаковые на всех страницах

@@ -22,7 +22,7 @@
 | `shell`, `App` | [shell.rs](shell.md) | HTML-документ и корневой компонент |
 | `BranchSpec`, `Params` | [spec.rs](spec.md) | декларативный контракт и параметры пути |
 
-Приватные подмодули без реэкспорта: [chrome.rs](chrome.md) (боковая панель, используется только из `App`) и [request.rs](request.md) (разбор query/cookie, используется только из `BranchCtx`).
+Приватные подмодули без реэкспорта: [chrome.rs](chrome.md) (боковая панель, используется только из `App`) [request.rs](request.md) (разбор query/cookie, используется только из `BranchCtx`) и [split_files.rs](split_files.md) (имена файлов WASM-разбиения, используется только из `LazyIslands`).
 
 ## Связи
 - Обзор крейта и схема запроса: [branches.md](../../../branches.md).

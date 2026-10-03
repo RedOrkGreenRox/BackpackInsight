@@ -18,6 +18,7 @@ mod request;
 mod runner;
 mod shell;
 mod spec;
+mod split_files;
 
 pub use backdrop::Backdrop;
 pub use branch::{Branch, BranchEntry};

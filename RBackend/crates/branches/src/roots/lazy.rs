@@ -12,14 +12,11 @@
 //! старый и новый документ узел за узлом, и лишний `<link>` на одной странице сдвигал
 //! это сравнение так, что при переходе терялся весь `<body>`.
 
+use super::split_files::SplitFiles;
 use leptos::{config::LeptosOptions, prelude::*};
 use leptos_meta::Link;
 use std::{collections::BTreeMap, fmt, path::PathBuf, sync::OnceLock};
 
-/// Имя манифеста, который пишет cargo-leptos при `--split` (без `hash-files`).
-const MANIFEST: &str = "__wasm_split_manifest.json";
-/// JS-загрузчик кусков WASM, который cargo-leptos кладёт рядом с манифестом.
-const SPLIT_JS: &str = "__wasm_split.______________________.js";
 /// Заглушка, которая остаётся в JS сайта, если ленивые острова собраны без `--split`.
 const UNSPLIT_MARK: &str = "__wasm_split_placeholder__";
 
@@ -66,11 +63,12 @@ impl LazyIslands {
     pub fn load(options: &LeptosOptions) -> Result<(), UnsplitBuild> {
         let pkg = options.site_pkg_dir.as_ref();
         let dir = PathBuf::from(options.site_root.as_ref()).join(pkg);
-        let js = dir.join(format!("{}.js", options.output_name));
+        let files = SplitFiles::resolve(options);
+        let js = dir.join(&files.js);
         if std::fs::read_to_string(&js).is_ok_and(|code| code.contains(UNSPLIT_MARK)) {
             return Err(UnsplitBuild(js));
         }
-        let path = dir.join(MANIFEST);
+        let path = dir.join(&files.manifest);
         // BTreeMap: порядок ссылок не зависит от запуска, а значит одинаков на всех страницах.
         let manifest = std::fs::read_to_string(path)
             .ok()
@@ -85,7 +83,7 @@ impl LazyIslands {
                 })
             })
             .collect();
-        let loader = format!("/{pkg}/{SPLIT_JS}");
+        let loader = format!("/{pkg}/{}", files.loader);
         let _ = SPLIT.set(Split { loader, chunks });
         Ok(())
     }
