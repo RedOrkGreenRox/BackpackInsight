@@ -5,7 +5,7 @@ import os
 import re
 from collections import defaultdict
 
-from .files import SIGNATURE, all_docs, all_sources, doc_source_map, h1_target, read
+from .files import CODE_RE, SIGNATURE, all_docs, all_sources, doc_source_map, h1_target, read
 
 LINES_WARN = 150
 # Генерируемые документы: их длина зависит от дерева проекта, а не от автора.
@@ -36,7 +36,7 @@ def planning_lines(text: str) -> list[int]:
     for number, line in enumerate(text.split('\n'), 1):
         if line.startswith('#'):
             section = line
-        if not PLANNED_SECTION_RE.search(section) and PLANNING_RE.search(line):
+        if not PLANNED_SECTION_RE.search(section) and PLANNING_RE.search(CODE_RE.sub('', line)):
             found.append(number)
     return found
 

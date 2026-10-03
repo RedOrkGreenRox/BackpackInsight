@@ -1,5 +1,6 @@
 import os
 import re
+import subprocess
 from pathlib import Path
 
 # Конфигурация путей
@@ -472,6 +473,21 @@ def find_doc_file(relative_path: Path) -> Path:
     except Exception: pass
     return None
 
+def tracked_paths() -> set[str] | None:
+    """Файлы под git и их папки: карта не зависит от мусора рабочей копии. Вне git — None."""
+    try:
+        out = subprocess.run(['git', 'ls-files', '-z'], cwd=PROJECT_ROOT, capture_output=True,
+                             check=True).stdout.decode('utf-8')
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    paths = set()
+    for f in filter(None, out.split('\0')):
+        parts = Path(f).parts
+        paths.update(Path(*parts[:i]).as_posix() for i in range(1, len(parts) + 1))
+    return paths
+
+TRACKED = tracked_paths()
+
 def generate_list_tree(dir_path: Path, current_rel_path: Path, indent: int = 1):
     lines = []
     try:
@@ -479,7 +495,8 @@ def generate_list_tree(dir_path: Path, current_rel_path: Path, indent: int = 1):
         items = sorted(os.listdir(dir_path), key=lambda x: (not (dir_path / x).is_dir(), x.lower()))
     except PermissionError: return []
     
-    items = [i for i in items if i not in IGNORE_DIRS and i not in IGNORE_FILES]
+    items = [i for i in items if i not in IGNORE_DIRS and i not in IGNORE_FILES
+             and (TRACKED is None or (current_rel_path / i).as_posix() in TRACKED)]
 
     for item in items:
         full_path = dir_path / item
