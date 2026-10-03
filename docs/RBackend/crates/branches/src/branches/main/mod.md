@@ -6,8 +6,8 @@
 ## Ключевая функциональность
 - **`struct MainBranch`** + `impl Branch`:
   - `SPEC`: `name` `MainBranch`, `path` `/`, `islands` пустой, `sitemap: true`;
+  - `head(ctx)`: `PageHead::site` — заголовок «Backpack Insight», описание из ключа `main_meta_description` ([roots/head.rs](../../roots/head.md));
   - `render(ctx)`:
-    - `<Title>` «Backpack Insight» и `<Meta name="description">` из ключа `main_meta_description`;
     - `.container`:
       - `#errorContainer.error` — скрытый блок ошибок (`role="alert"`, `aria-live="polite"`) для будущего острова загрузки;
       - `h1.main-title` с ключом `profile_title` («Витрина профилей»);
@@ -26,4 +26,4 @@
 - Остров `MainManager`: чтение файла или вставленного JSON, отправка в `/api` и переход на страницу профиля, как в TS-версии. См. «Планируется» в [обзоре крейта](../../../../branches.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

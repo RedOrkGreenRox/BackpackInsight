@@ -1,6 +1,6 @@
 //! `Branch` — типизированная единица страницы и запись реестра [`BranchEntry`].
 
-use super::{BranchCtx, BranchSpec};
+use super::{BranchCtx, BranchSpec, PageHead};
 use leptos::prelude::AnyView;
 
 /// Ветка-страница: контракт и функция рендера.
@@ -11,6 +11,9 @@ pub trait Branch {
     /// Контракт ветки.
     const SPEC: BranchSpec;
 
+    /// Заголовок и описание страницы; теги `<head>` из них рисует каркас.
+    fn head(ctx: &BranchCtx) -> PageHead;
+
     /// Рисует страницу для конкретного запроса.
     fn render(ctx: BranchCtx) -> AnyView;
 }
@@ -20,6 +23,8 @@ pub trait Branch {
 pub struct BranchEntry {
     /// Контракт ветки.
     pub spec: BranchSpec,
+    /// Заголовок и описание ветки.
+    pub head: fn(&BranchCtx) -> PageHead,
     /// Рендер ветки.
     pub render: fn(BranchCtx) -> AnyView,
 }
@@ -30,6 +35,7 @@ impl BranchEntry {
     pub const fn of<B: Branch>() -> Self {
         Self {
             spec: B::SPEC,
+            head: B::head,
             render: B::render,
         }
     }

@@ -4,9 +4,8 @@
 //! (остров `MainManager`) переносится вместе со страницей профиля; пока форма
 //! только показывается.
 
-use crate::roots::{Branch, BranchCtx, BranchSpec};
+use crate::roots::{Branch, BranchCtx, BranchSpec, PageHead};
 use leptos::prelude::*;
-use leptos_meta::{Meta, Title};
 
 /// Главная страница.
 pub struct MainBranch;
@@ -19,10 +18,12 @@ impl Branch for MainBranch {
         sitemap: true,
     };
 
+    fn head(ctx: &BranchCtx) -> PageHead {
+        PageHead::site(ctx.t("main_meta_description"))
+    }
+
     fn render(ctx: BranchCtx) -> AnyView {
         view! {
-            <Title text="Backpack Insight"/>
-            <Meta name="description" content=ctx.t("main_meta_description")/>
             <div class="container">
                 <div id="errorContainer" class="error" hidden role="alert" aria-live="polite"></div>
                 <h1 class="main-title" data-aos="fade-down">{ctx.t("profile_title")}</h1>

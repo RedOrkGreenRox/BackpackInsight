@@ -6,9 +6,8 @@
 ## Ключевая функциональность
 - **`struct EditorBranch`** + `impl Branch`:
   - `SPEC`: `name` `EditorBranch`, `path` `/editor`, `islands` пустой, `sitemap: false` (пустая страница не попадает в карту сайта);
-  - `render(ctx)`:
-    - `<Title>` «{editor_title} | Backpack Insight», `<Meta name="description">` из `editor_meta_description` и `<Meta name="robots" content="noindex">`;
-    - каркас как у каталога: `section.wiki-section > .container > .wiki-header > h1.main-title` с ключом `editor_title` («Редактор» / «Editor»).
+  - `head(ctx)`: `PageHead::section` — «{editor_title} | Backpack Insight», описание из `editor_meta_description`. `robots` `noindex` ставит каркас, потому что страницы нет в sitemap ([roots/head.rs](../../roots/head.md));
+  - `render(ctx)`: каркас как у каталога: `section.wiki-section > .container > .wiki-header > h1.main-title` с ключом `editor_title` («Редактор» / «Editor»).
 - Вкладка в боковой панели: строка `/editor` в `NAV` ([roots/chrome.rs](../../roots/chrome.md)) с подписью `sidebar_editor` и временной иконкой `fonticon/typebag`.
 
 ## Стили
@@ -21,4 +20,4 @@
 - Содержимое редактора: пока не определено.
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

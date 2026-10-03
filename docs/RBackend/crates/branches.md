@@ -7,7 +7,7 @@
 
 ## Дендритная схема
 ```text
-Gen (реестр)  ──  BranchEntry::of::<B>()  ──  B: Branch { SPEC: BranchSpec, render(BranchCtx) }
+Gen (реестр)  ──  BranchEntry::of::<B>()  ──  B: Branch { SPEC: BranchSpec, head(&BranchCtx), render(BranchCtx) }
    │                                                     │
 BranchRunner::router: маршрут Axum на каждый SPEC.path   │
    └─> shell() ─> App ─> Gen::resolve(path) ─> render ───┘ ─> MainBranch / ItemsBranch / EditorBranch / NotFoundBranch
@@ -27,11 +27,12 @@ BranchRunner::router: маршрут Axum на каждый SPEC.path   │
 | `sidebar`, `SidebarManager` | [roots/chrome.rs](branches/src/roots/chrome.md) + [shell/sidebar.rs](branches/src/shell/sidebar.md) | боковая панель из [Shell.ts](/docs/Frontend/ground/roots/Shell.md) |
 | `Backdrop`, `ParallaxManager` | [roots/backdrop.rs](branches/src/roots/backdrop.md) + [shell/parallax.rs](branches/src/shell/parallax.md) | [Parallax.ts](/docs/Frontend/ground/roots/Parallax.md) |
 | `per_lang` | [roots/per_lang.rs](branches/src/roots/per_lang.md) | — |
+| `PageHead` | [roots/head.rs](branches/src/roots/head.md) | — |
 
 ## Путь запроса
 1. Axum: `BranchRunner::router` регистрирует `GET` на `axum_path()` каждого `BranchSpec` из `Gen::branches()` и тот же обработчик как `fallback`. Если задан `API_SECRET`, без заголовка `X-Internal-Secret` всё, кроме открытых маршрутов `api`, отвечает 403: снаружи сайт доступен только через прокси Cloudflare Pages ([[[path]].ts](/docs/Frontend/functions/[[path]].md)).
 2. Обработчик — `render_app_async_with_context`: кладёт `CatalogHandle` и `Dict` в контекст Leptos и рендерит `shell` → `App`.
-3. `App` строит `BranchCtx::current()` (путь, query, cookie, язык `?lang=` → cookie → `Accept-Language`, признак перехода `Islands-Router`), вызывает `Gen::resolve(path)` и рисует боковую панель, фон (при переходе тот же, из cookie), затемнение и `<main data-branch=…>` с `Branch::render`.
+3. `App` строит `BranchCtx::current()` (путь, query, cookie, язык `?lang=` → cookie → `Accept-Language`, признак перехода `Islands-Router`), вызывает `Gen::resolve(path)` и рисует боковую панель, фон (при переходе тот же, из cookie), затемнение теги `<head>` из `Branch::head` (одинаковым набором на всех страницах, иначе islands router теряет `<body>`) и `<main data-branch=…>` с `Branch::render`.
 4. Неизвестный путь → `NotFoundBranch` со статусом 404. Ответ уходит целиком, без `Suspense`: рендер веток синхронный.
 
 ## Остров каталога
@@ -81,4 +82,4 @@ LEPTOS_SITE_PKG_DIR=pkg LEPTOS_SITE_ADDR=127.0.0.1:3000 \
 - **Sitemap из `BranchSpec.sitemap`**: сейчас поле не читается, `/sitemap.xml` отдаёт `api` ([api_sitemap_robots.md](api_sitemap_robots.md)).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-03.

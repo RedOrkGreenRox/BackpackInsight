@@ -53,6 +53,7 @@ pub fn App() -> impl IntoView {
     view! {
         <Html {..} lang=ctx.lang.code()/>
         <Body {..} class=body_class/>
+        {(entry.head)(&ctx).tags(entry.spec.sitemap)}
         {sidebar(&ctx)}
         <div class="background-image" id="bgImage" aria-hidden="true">
             <picture>

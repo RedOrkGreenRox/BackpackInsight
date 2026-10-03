@@ -550,6 +550,7 @@
             - 📄 [chrome.rs](RBackend/crates/branches/src/roots/chrome.md)
             - 📄 [ctx.rs](RBackend/crates/branches/src/roots/ctx.md)
             - 📄 [gen.rs](RBackend/crates/branches/src/roots/gen.md)
+            - 📄 [head.rs](RBackend/crates/branches/src/roots/head.md)
             - 📄 [i18n.rs](RBackend/crates/branches/src/roots/i18n.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/roots/mod.md)
             - 📄 [per_lang.rs](RBackend/crates/branches/src/roots/per_lang.md)

@@ -1,9 +1,8 @@
 //! `NotFoundBranch` — страница 404 для неизвестных путей (и явного `/404`).
 
-use crate::roots::{Branch, BranchCtx, BranchSpec};
+use crate::roots::{Branch, BranchCtx, BranchSpec, PageHead};
 use axum::http::StatusCode;
 use leptos::prelude::*;
-use leptos_meta::{Meta, Title};
 
 /// Ветка 404: отдаёт статус 404 и предлагает вернуться на главную.
 pub struct NotFoundBranch;
@@ -16,12 +15,16 @@ impl Branch for NotFoundBranch {
         sitemap: false,
     };
 
+    fn head(ctx: &BranchCtx) -> PageHead {
+        PageHead {
+            title: ctx.t("not_found_meta_title"),
+            description: ctx.t("not_found_meta_description"),
+        }
+    }
+
     fn render(ctx: BranchCtx) -> AnyView {
         ctx.set_status(StatusCode::NOT_FOUND);
         view! {
-            <Title text=ctx.t("not_found_meta_title")/>
-            <Meta name="description" content=ctx.t("not_found_meta_description")/>
-            <Meta name="robots" content="noindex"/>
             <div class="not-found-page">
                 <div class="container-404">
                     <h1 class="title-404">{ctx.t("not_found_title")}</h1>
