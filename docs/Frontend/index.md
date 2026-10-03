@@ -39,7 +39,7 @@
 *   [Портрет героя и кнопки скинов (profile _image.scss)](ground/branches/profile/_profile/main-heroes-grid/_image.md).
 
 ### Misc
-*   [package-lock](package-lock.md), [Dockerfile](Dockerfile.md), [server](server.md), [vite.config](vite.config.md), [vitest.config](vitest.config.md), [tsconfig](tsconfig.md), [index.html](index.html.md), [_headers](_headers.md).
+*   [package-lock](package-lock.md), [browser_probe_tmp.cjs](browser_probe_tmp.md), [Dockerfile](Dockerfile.md), [server](server.md), [vite.config](vite.config.md), [vitest.config](vitest.config.md), [tsconfig](tsconfig.md), [index.html](index.html.md), [_headers](_headers.md).
 *   [tmp/item-text-statistics](tmp/item-text-statistics.md) — артефакт анализа.
 
 ## Куда дальше

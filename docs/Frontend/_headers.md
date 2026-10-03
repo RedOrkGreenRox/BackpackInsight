@@ -12,7 +12,7 @@
 
 ## Связи (Dependencies)
 *   Поисковую индексацию настраивает [robots.txt](static/robots.md).
-*   Согласовано с политиками [server.ts](server.md) и Edge-кэшем [functions/api/[[path]]](functions/api/[[path]].md). Есть зеркальная копия в [static/_headers](static/_headers.md).
+*   Согласовано с политиками [server.ts](server.md) и Edge-кэшем [functions/api/[[path]]](functions/api/[[path]].md). Для Cloudflare Pages действует другой файл с другими правилами: [static/_headers](static/_headers.md).
 
 ## AI-контекст
 *   Долгий кэш на хешированных ассетах безопасен (новый билд = новое имя). HTML и API намеренно не кэшируются ради корректных обновлений.
