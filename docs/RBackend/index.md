@@ -29,6 +29,11 @@ Runtime backend→middleware/frontend data contract = **FlatBuffer-only**. Legac
 - [core_items.md](crates/core_items.md), [core_profile_check.md](crates/core_profile_check.md), [core_profile_identity.md](crates/core_profile_identity.md), [core_profile_score.md](crates/core_profile_score.md), [core_profile_wallet.md](crates/core_profile_wallet.md), [core_unlocks.md](crates/core_unlocks.md).
 - [db.md](crates/db.md), [middleware.md](crates/middleware.md), [pack.md](crates/pack.md), [cli.md](crates/cli.md).
 
+## Манифесты Cargo
+
+- Workspace: [Cargo.toml](Cargo.toml.md), [Cargo.lock](Cargo.lock.md); тулчейн: [rust-toolchain.toml](../rust-toolchain.toml.md).
+- Крейты: [api](crates/api/Cargo.toml.md), [builder](crates/builder/Cargo.toml.md), [cli](crates/cli/Cargo.toml.md), [core](crates/core/Cargo.toml.md), [db](crates/db/Cargo.toml.md), [middleware](crates/middleware/Cargo.toml.md), [pack](crates/pack/Cargo.toml.md).
+
 ## Per-file mirror docs (crates/*/src/)
 
 - **api/src/**: [lib](crates/api/src/lib.md), [main](crates/api/src/main.md), [state](crates/api/src/state.md), [error](crates/api/src/error.md).
