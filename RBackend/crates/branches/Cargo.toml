@@ -16,7 +16,6 @@ required-features = ["ssr"]
 [dependencies]
 leptos = { version = "0.8", features = ["islands", "islands-router"] }
 leptos_meta = "0.8"
-leptos_router = "0.8"
 serde = { version = "1", features = ["derive"] }
 console_error_panic_hook = { version = "0.1", optional = true }
 wasm-bindgen = { version = "0.2", optional = true }
@@ -38,7 +37,6 @@ hydrate = ["leptos/hydrate", "dep:console_error_panic_hook", "dep:wasm-bindgen",
 ssr = [
     "leptos/ssr",
     "leptos_meta/ssr",
-    "leptos_router/ssr",
     "dep:any_spawner",
     "dep:api",
     "dep:pack",

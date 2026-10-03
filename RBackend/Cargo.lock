@@ -268,7 +268,6 @@ dependencies = [
  "leptos",
  "leptos_axum",
  "leptos_meta",
- "leptos_router",
  "pack",
  "rbackend_core",
  "serde",

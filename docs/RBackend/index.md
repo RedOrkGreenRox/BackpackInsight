@@ -33,7 +33,7 @@ Runtime backend→middleware/frontend data contract = **FlatBuffer-only**. Legac
 ## Манифесты Cargo
 
 - Workspace: [Cargo.toml](Cargo.toml.md), [Cargo.lock](Cargo.lock.md); тулчейн: [rust-toolchain.toml](../rust-toolchain.toml.md).
-- Крейты: [api](crates/api/Cargo.toml.md), [builder](crates/builder/Cargo.toml.md), [cli](crates/cli/Cargo.toml.md), [core](crates/core/Cargo.toml.md), [db](crates/db/Cargo.toml.md), [middleware](crates/middleware/Cargo.toml.md), [pack](crates/pack/Cargo.toml.md).
+- Крейты: [api](crates/api/Cargo.toml.md), [builder](crates/builder/Cargo.toml.md), [cli](crates/cli/Cargo.toml.md), [core](crates/core/Cargo.toml.md), [db](crates/db/Cargo.toml.md), [middleware](crates/middleware/Cargo.toml.md), [pack](crates/pack/Cargo.toml.md), [branches](crates/branches/Cargo.toml.md).
 
 ## Per-file mirror docs (crates/*/src/)
 
