@@ -8,9 +8,25 @@ use serde_json::Value;
 use std::path::{Path, PathBuf};
 
 const KNOWN_RAW_HERO_NAMES: &[&str] = &[
-    "Barbarian", "Elementalist", "Warrior", "Marksman", "Engineer", "Beekeeper",
-    "Hob", "Dorf", "Pepper", "Celeste", "Morrow", "Sage", "Enoch", "Buzz",
-    "Chana", "Harkon", "Nymphedora", "Ronan", "Tink",
+    "Barbarian",
+    "Elementalist",
+    "Warrior",
+    "Marksman",
+    "Engineer",
+    "Beekeeper",
+    "Hob",
+    "Dorf",
+    "Pepper",
+    "Celeste",
+    "Morrow",
+    "Sage",
+    "Enoch",
+    "Buzz",
+    "Chana",
+    "Harkon",
+    "Nymphedora",
+    "Ronan",
+    "Tink",
 ];
 
 fn repo_root() -> PathBuf {
@@ -108,7 +124,10 @@ fn ingests_all_real_profiles_without_errors() {
         for hero in &view.heroes {
             if !is_known_hero(&hero.name) {
                 total_unknown_heroes += 1;
-                eprintln!("  [WARN] {name}: unknown hero name after normalize: {:?}", hero.name);
+                eprintln!(
+                    "  [WARN] {name}: unknown hero name after normalize: {:?}",
+                    hero.name
+                );
             }
         }
         if view.heroes_count < raw_heroes {
@@ -126,12 +145,24 @@ fn ingests_all_real_profiles_without_errors() {
                 missing, raw_items, view.items_count
             );
         }
-        assert!(!view.nickname.is_empty(), "[FAIL] {name}: nickname is empty");
-        assert!(view.level >= 1, "[FAIL] {name}: level < 1 (got {})", view.level);
+        assert!(
+            !view.nickname.is_empty(),
+            "[FAIL] {name}: nickname is empty"
+        );
+        assert!(
+            view.level >= 1,
+            "[FAIL] {name}: level < 1 (got {})",
+            view.level
+        );
         assert!(!view.area.is_empty(), "[FAIL] {name}: area is empty");
         eprintln!(
             "  [OK] {name}: heroes={} items={} level={} area={} trophies={}+{}",
-            view.heroes_count, view.items_count, view.level, view.area, view.trophy, view.bonus_trophy
+            view.heroes_count,
+            view.items_count,
+            view.level,
+            view.area,
+            view.trophy,
+            view.bonus_trophy
         );
     }
     eprintln!(

@@ -73,10 +73,11 @@ pub fn profile_view(
     let unlocks = UnlockService::inspect(json_input::unlock_values(json));
     let heroes = read_heroes(json);
     let heroes_count = heroes.len();
-    let item_reads = read_items(json, project_root, lang).map_err(|error| ProfileErrorResponse {
-        detail: format!("Failed to process profile: {error}"),
-        issues: vec![error],
-    })?;
+    let item_reads =
+        read_items(json, project_root, lang).map_err(|error| ProfileErrorResponse {
+            detail: format!("Failed to process profile: {error}"),
+            issues: vec![error],
+        })?;
     let total_item_xp = item_reads.iter().map(|item| item.total_xp).sum::<u64>();
     let item_stats = item_stats(&item_reads);
     let (items, item_records): (Vec<ProfileItemView>, Vec<ProfileItemRecord>) = item_reads

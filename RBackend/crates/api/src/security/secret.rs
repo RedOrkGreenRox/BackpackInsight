@@ -31,7 +31,11 @@ pub async fn require_api_secret(
 
     Err((
         StatusCode::FORBIDDEN,
-        binary_error(StatusCode::FORBIDDEN, "forbidden", "Direct access forbidden"),
+        binary_error(
+            StatusCode::FORBIDDEN,
+            "forbidden",
+            "Direct access forbidden",
+        ),
     ))
 }
 

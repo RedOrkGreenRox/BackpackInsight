@@ -22,10 +22,7 @@ static CATALOG_EN: OnceLock<CatalogLookup> = OnceLock::new();
 static CATALOG_RU: OnceLock<CatalogLookup> = OnceLock::new();
 static PROJECT_ROOT: OnceLock<PathBuf> = OnceLock::new();
 
-pub fn catalog_lookup(
-    project_root: &Path,
-    lang: Lang,
-) -> Result<&'static CatalogLookup, String> {
+pub fn catalog_lookup(project_root: &Path, lang: Lang) -> Result<&'static CatalogLookup, String> {
     let _ = PROJECT_ROOT.set(project_root.to_path_buf());
     match lang {
         Lang::Ru => get_or_build(&CATALOG_RU, || build_lookup(project_root, Lang::Ru)),

@@ -157,10 +157,9 @@ fn binary_rate_limit_error() -> Response {
         header::CONTENT_TYPE,
         header::HeaderValue::from_static("application/octet-stream"),
     );
-    response.headers_mut().insert(
-        header::RETRY_AFTER,
-        header::HeaderValue::from_static("60"),
-    );
+    response
+        .headers_mut()
+        .insert(header::RETRY_AFTER, header::HeaderValue::from_static("60"));
     response
 }
 

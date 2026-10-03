@@ -16,9 +16,18 @@ use axum::{
 use std::net::SocketAddr;
 use tower_http::{cors::CorsLayer, trace::TraceLayer};
 
+pub use security::secret::require_api_secret;
 pub use state::AppState;
 
+/// Full API application: [`routes`] plus the plain-text `/` health banner.
 pub fn app(state: AppState) -> Router {
+    Router::new()
+        .route("/", get(routes::root::root))
+        .merge(self::routes(state))
+}
+
+/// Every API route except `/`, so an SSR frontend (crate `branches`) can own the home page.
+pub fn routes(state: AppState) -> Router {
     // Rate-limit ONLY the POST /api/profile.fb endpoint (parity with legacy
     // Python slowapi limiter). GET endpoints are cached 1h upstream and don't
     // need per-IP limiting. Mounted before the API-secret check.
@@ -43,7 +52,6 @@ pub fn app(state: AppState) -> Router {
         ));
 
     Router::new()
-        .route("/", get(routes::root::root))
         .route("/health", get(routes::health::health))
         .route("/ready", get(routes::health::ready))
         .route("/sitemap.xml", get(routes::sitemap::sitemap))
@@ -80,7 +88,7 @@ fn cors_layer(state: &AppState) -> CorsLayer {
 }
 
 /// Wait for SIGINT + SIGTERM (unix) or Ctrl-C (other platforms).
-async fn shutdown_signal() {
+pub async fn shutdown_signal() {
     let ctrl_c = async {
         tokio::signal::ctrl_c()
             .await
