@@ -18,7 +18,9 @@
       - 🗃 Справочник предметов (v4.0.0)
       - 🗃 Справочник предметов (v5.0.0)
       - 🗃 items_en_5_1_0.json
+      - 🗃 items_en_7_0_0.json
       - 🗃 items_ru_5_1_0.json
+      - 🗃 items_ru_7_0_0.json
       - 🗃 Тултипы предметов
   - 📂 [**Фронтенд (TypeScript/Vite)**](Frontend/index.md)
     - 📂 [**Веб-приложение**](Frontend/index.md)
