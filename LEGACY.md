@@ -2,7 +2,7 @@
 
 Written 2026-10-06 by the Claude thread "Анализ веток BackpackInsight" (2026-10-01 → 2026-10-06) for a fresh chat.
 Everything below was checked against the git remote on 2026-10-06 unless marked *(inferred)* or *(from earlier reports)*.
-Language rule from now on: **English only** in chat, docs and commits.
+Language rule (Иван, 2026-10-06): **talk to Иван in Russian**. English only for machine-readable files meant for Claude (this file, handoff notes, memory) that he is unlikely to read.
 
 ---
 
@@ -182,7 +182,8 @@ docs_system:
 | 2026-10-02 | Wanted: empty "Editor" page, per-page lazy WASM islands, Pages proxy for the new server. (All done.) |
 | 2026-10-02 | Item grid = the Item Field design (§6); it replaces a separate item detail page. |
 | 2026-10-03 | One branch for all work (`rust-leptos`), not many. |
-| 2026-10-04 | Communicate in English. New chat instead of this thread. |
+| 2026-10-04 | New chat instead of this thread; this handoff file in English. |
+| 2026-10-06 | Chat with Иван stays in Russian; English only for machine-readable files for Claude (replaces a short-lived 2026-10-04 "English only" rule). |
 
 Working rules for agents: no subagents or workflows (quota); no git history rewrites without his command; don't switch production; send short progress updates during long work; put results in the reply text itself, not only in files.
 
