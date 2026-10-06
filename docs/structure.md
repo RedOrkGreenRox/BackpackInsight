@@ -390,6 +390,10 @@
           - 📂 [**Фоны игровых зон**](Frontend/static/images/area/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
+          - 📂 **art**
+            - 📂 **120**
+            - 📂 **60**
+            - 🗃 Манифест PWA
           - 📂 [**Постоянные ассеты**](Frontend/static/images/const/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
@@ -521,6 +525,23 @@
           - 📄 [main.rs](RBackend/crates/api/src/main.md)
           - 📄 [state.rs](RBackend/crates/api/src/state.md)
         - 📄 [Cargo.toml](RBackend/crates/api/Cargo.toml.md)
+      - 📂 **art**
+        - 📂 **src**
+          - 📄 [build.rs](RBackend/crates/art/src/build.md)
+          - 📄 [check.rs](RBackend/crates/art/src/check.md)
+          - 📄 [encode.rs](RBackend/crates/art/src/encode.md)
+          - 📄 [item.rs](RBackend/crates/art/src/item.md)
+          - 📄 [kit.rs](RBackend/crates/art/src/kit.md)
+          - 📄 [main.rs](RBackend/crates/art/src/main.md)
+          - 📄 [manifest.rs](RBackend/crates/art/src/manifest.md)
+          - 📄 [render.rs](RBackend/crates/art/src/render.md)
+          - 📄 [render_tests.rs](RBackend/crates/art/src/render_tests.md)
+          - 📄 [resolve.rs](RBackend/crates/art/src/resolve.md)
+          - 📄 [resolve_tests.rs](RBackend/crates/art/src/resolve_tests.md)
+          - 📄 [rules.rs](RBackend/crates/art/src/rules.md)
+          - 📄 [test_kit.rs](RBackend/crates/art/src/test_kit.md)
+        - 📄 [Cargo.toml](RBackend/crates/art/Cargo.toml.md)
+        - 📄 [rules.toml](RBackend/crates/art/rules.toml.md)
       - 📂 **Страницы приложения**
         - 📂 **src**
           - 📂 **Страницы приложения**
@@ -540,6 +561,7 @@
               - 📄 [mod.rs](RBackend/crates/branches/src/branches/not_found/mod.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/branches/mod.md)
           - 📂 **catalog**
+            - 📄 [art.rs](RBackend/crates/branches/src/catalog/art.md)
             - 📄 [item.rs](RBackend/crates/branches/src/catalog/item.md)
             - 📄 [load.rs](RBackend/crates/branches/src/catalog/load.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/catalog/mod.md)

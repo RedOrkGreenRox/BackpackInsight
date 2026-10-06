@@ -91,7 +91,7 @@ mod tests {
                 changes: vec![],
             },
         };
-        CatalogItem::new(def, name.to_lowercase())
+        CatalogItem::new(def, crate::model::ItemImage::default())
     }
 
     #[test]

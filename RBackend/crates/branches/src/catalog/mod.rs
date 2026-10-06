@@ -4,6 +4,7 @@
 //! `rbackend_core::ItemDef` и дальше живёт в памяти. В браузер каталог целиком не уходит: страницы получают
 //! готовый HTML, а остров каталога — порции по [`crate::model::PAGE_SIZE`] карточек.
 
+mod art;
 mod item;
 mod load;
 mod rarity;
@@ -13,6 +14,7 @@ pub use item::CatalogItem;
 pub use search::{search_page, search_upto, MAX_PAGE};
 
 use crate::model::Lang;
+use art::{ArtIndex, ART_DIR};
 use std::{collections::HashMap, path::Path, sync::Arc};
 
 /// Каталог одного языка: предметы по убыванию редкости (внутри редкости — в порядке пака)
@@ -81,15 +83,11 @@ impl Catalog {
     /// Файл каталога не читается или не совпадает с моделью экспорта.
     pub fn load(project_root: &Path) -> Result<Self, String> {
         let generated = project_root.join("RBackend/generated");
-        let en = load::load_items(&generated.join("items_en.json"), None)?;
-        let images = en
-            .iter()
-            .map(|it| (it.def.id.clone(), it.image.clone()))
-            .collect();
-        let ru = load::load_items(&generated.join("items_ru.json"), Some(&images))?;
-        let pictures = project_root.join("Frontend/Web/static/images/items/webp");
-        let [en, ru] =
-            [en, ru].map(|items| LangCatalog::new(drop_missing_images(items, &pictures)));
+        let art = ArtIndex::load(&project_root.join(format!(
+            "Frontend/Web/static/images/{ART_DIR}/manifest.json"
+        )))?;
+        let en = LangCatalog::new(load::load_items(&generated.join("items_en.json"), &art)?);
+        let ru = LangCatalog::new(load::load_items(&generated.join("items_ru.json"), &art)?);
         Ok(Self { en, ru })
     }
 
@@ -101,16 +99,6 @@ impl Catalog {
             Lang::Ru => &self.ru,
         }
     }
-}
-
-/// Обнуляет ключ картинки, если файла нет: карточка покажет заглушку без JavaScript.
-fn drop_missing_images(mut items: Vec<CatalogItem>, pictures: &Path) -> Vec<CatalogItem> {
-    for item in &mut items {
-        if !pictures.join(format!("{}.webp", item.image)).is_file() {
-            item.image.clear();
-        }
-    }
-    items
 }
 
 /// Разделяемый дескриптор каталога для контекста Leptos и серверных функций.

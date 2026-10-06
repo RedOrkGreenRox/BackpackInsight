@@ -3,7 +3,7 @@
 //! Все данные игры (форма, звёзды, рецепты, уровни, статы) лежат в [`ItemDef`] без потерь,
 //! поэтому будущему полю предметов не нужен второй источник.
 
-use crate::model::ItemCard;
+use crate::model::{ItemCard, ItemImage};
 use rbackend_core::{ItemDef, SlugService};
 
 /// Предмет каталога одного языка.
@@ -13,17 +13,16 @@ pub struct CatalogItem {
     pub def: ItemDef,
     /// Слаг для URL, считается из `id` через `SlugService`.
     pub slug: String,
-    /// Ключ картинки (`ItemIconService`); пустой, если файла картинки нет.
-    pub image: String,
+    /// Картинка из манифеста `art`; пустая, если её нет.
+    pub image: ItemImage,
     /// Строка для поиска: имя, id, герой, редкость, типы в нижнем регистре.
     pub search_text: String,
 }
 
 impl CatalogItem {
-    /// Собирает предмет. `image` вычисляется снаружи,
-    /// потому что зависит от английского текста (см. `load`).
+    /// Собирает предмет; `image` берётся из манифеста `art` по `id` (см. `load`).
     #[must_use]
-    pub fn new(def: ItemDef, image: String) -> Self {
+    pub fn new(def: ItemDef, image: ItemImage) -> Self {
         let search_text = [
             def.name.as_str(),
             def.id.as_str(),

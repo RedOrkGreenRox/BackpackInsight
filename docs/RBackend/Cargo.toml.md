@@ -16,6 +16,7 @@
   | `middleware` | [crates/middleware/Cargo.toml](crates/middleware/Cargo.toml.md) |
   | `db` | [crates/db/Cargo.toml](crates/db/Cargo.toml.md) |
   | `branches` | [crates/branches/Cargo.toml](crates/branches/Cargo.toml.md) |
+  | `art` | [crates/art/Cargo.toml](crates/art/Cargo.toml.md) |
 
 - **`[workspace.package]`** — общие для всех крейтов `edition = "2021"`, `license = "MIT"` и `repository`.
 - **`[workspace.lints]`** — `unsafe_code = "forbid"`; clippy `unwrap_used` и `expect_used` на уровне `warn`. Крейты подключают их через `[lints] workspace = true`; исключение — `pack`, которому нужен `unsafe` для сгенерированного кода.

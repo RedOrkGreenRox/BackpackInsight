@@ -10,10 +10,10 @@
 | :--- | :--- | :--- |
 | `def` | экспорт игры | `ItemDef` целиком |
 | `slug` | `def.id` | `SlugService::to_slug(id)` ([core/slug.rs](/docs/RBackend/crates/core/src/slug.md)) |
-| `image` | снаружи | ключ картинки от [load.rs](load.md); пустой, если файла нет ([catalog/mod.rs](mod.md)) |
+| `image` | снаружи | `ItemImage` из манифеста `art` по `id` ([art.rs](art.md)); пустой, если картинки нет |
 | `search_text` | `def` | см. ниже |
 
-- **`new(def, image)`** — собирает предмет. `image` считается снаружи, потому что ключ картинки зависит от английского текста, а предмет может быть русским. `search_text` — имя, `id`, `connected_hero` (у общих предметов это `Shared`), редкость и типы через пробел в нижнем регистре; по этой строке работает поиск ([search.rs](search.md)).
+- **`new(def, image)`** — собирает предмет. `image` приходит из манифеста `art` ([load.rs](load.md)). `search_text` — имя, `id`, `connected_hero` (у общих предметов это `Shared`), редкость и типы через пробел в нижнем регистре; по этой строке работает поиск ([search.rs](search.md)).
 - **`card()`** — `ItemCard` для сетки: `slug`, `def.name`, редкость строкой (`ItemRarity` через `Display`), `image` ([model.rs](../model.md)).
 
 ## Связи

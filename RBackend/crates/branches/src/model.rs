@@ -64,8 +64,26 @@ pub struct ItemCard {
     pub name: String,
     /// Редкость (`Common`, `Rare`, …) — задаёт цвет подписи.
     pub rarity: String,
-    /// Ключ картинки из `ItemIconService` (без формата и расширения).
-    pub image: String,
+    /// Картинка предмета из манифеста `art`.
+    pub image: ItemImage,
+}
+
+/// Пути к картинке предмета внутри `/images` без расширения (у `.avif` и `.webp` общее имя).
+/// Пустые строки — картинки нет, карточка покажет заглушку.
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ItemImage {
+    /// Клетка 60 px — обычные экраны.
+    pub x1: String,
+    /// Клетка 120 px — экраны 2x и крупные формы.
+    pub x2: String,
+}
+
+impl ItemImage {
+    /// Картинки нет.
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.x1.is_empty()
+    }
 }
 
 /// Порция результатов поиска по каталогу.

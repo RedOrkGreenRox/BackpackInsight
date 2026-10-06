@@ -12,6 +12,7 @@
 | `pack` | FlatBuffers read/write layer + generated bindings | [crates/pack.md](crates/pack.md) |
 | `middleware` | backend-owned binary decoders для frontend/WASM | [crates/middleware.md](crates/middleware.md) |
 | `builder` | валидирует source JSON и собирает FlatBuffer-паки | [crates/build.md](crates/build.md) |
+| `art` | картинки предметов: ContentKit + правила → AVIF/WebP и `manifest.json` | [crates/art/src/main.md](crates/art/src/main.md) |
 | `cli` | dev-диагностика вокруг source JSON/profile JSON | [crates/cli.md](crates/cli.md) |
 | `branches` | Leptos SSR + Islands сайт (замена TS-фронтенда), порт 3000 | [crates/branches.md](crates/branches.md) |
 
@@ -33,7 +34,7 @@ Runtime backend→middleware/frontend data contract = **FlatBuffer-only**. Legac
 ## Манифесты Cargo
 
 - Workspace: [Cargo.toml](Cargo.toml.md), [Cargo.lock](Cargo.lock.md); тулчейн: [rust-toolchain.toml](../rust-toolchain.toml.md).
-- Крейты: [api](crates/api/Cargo.toml.md), [builder](crates/builder/Cargo.toml.md), [cli](crates/cli/Cargo.toml.md), [core](crates/core/Cargo.toml.md), [db](crates/db/Cargo.toml.md), [middleware](crates/middleware/Cargo.toml.md), [pack](crates/pack/Cargo.toml.md), [branches](crates/branches/Cargo.toml.md).
+- Крейты: [api](crates/api/Cargo.toml.md), [builder](crates/builder/Cargo.toml.md), [cli](crates/cli/Cargo.toml.md), [core](crates/core/Cargo.toml.md), [db](crates/db/Cargo.toml.md), [middleware](crates/middleware/Cargo.toml.md), [pack](crates/pack/Cargo.toml.md), [branches](crates/branches/Cargo.toml.md), [art](crates/art/Cargo.toml.md) ([правила](crates/art/rules.toml.md)).
 
 ## Per-file mirror docs (crates/*/src/)
 
@@ -43,6 +44,7 @@ Runtime backend→middleware/frontend data contract = **FlatBuffer-only**. Legac
 - **api/src/security/**: [mod](crates/api/src/security/mod.md), [rate_limit](crates/api/src/security/rate_limit.md), [secret](crates/api/src/security/secret.md).
 - **api/src/seo/**: [mod](crates/api/src/seo/mod.md), [robots](crates/api/src/seo/robots.md), [sitemap](crates/api/src/seo/sitemap.md).
 - **branches/** (src/ + style/): все зеркала перечислены в [crates/branches.md](crates/branches.md).
+- **art/src/**: [main](crates/art/src/main.md), [rules](crates/art/src/rules.md), [kit](crates/art/src/kit.md), [resolve](crates/art/src/resolve.md), [render](crates/art/src/render.md), [encode](crates/art/src/encode.md), [item](crates/art/src/item.md), [build](crates/art/src/build.md), [check](crates/art/src/check.md), [manifest](crates/art/src/manifest.md), тесты [resolve_tests](crates/art/src/resolve_tests.md), [render_tests](crates/art/src/render_tests.md), [test_kit](crates/art/src/test_kit.md).
 - **builder/src/**: [main](crates/builder/src/main.md), [root](crates/builder/src/root.md), [catalog/mod](crates/builder/src/catalog/mod.md), [files](crates/builder/src/catalog/files.md), [locales](crates/builder/src/catalog/locales.md), [validate](crates/builder/src/catalog/validate.md), [images](crates/builder/src/catalog/images.md), [flatbuffer](crates/builder/src/catalog/flatbuffer.md), [api_items_flatbuffer](crates/builder/src/catalog/api_items_flatbuffer.md).
 - **cli/src/**: [main](crates/cli/src/main.md).
 - **core/src/**: [lib](crates/core/src/lib.md), [slug](crates/core/src/slug.md), [image_key](crates/core/src/image_key.md), [catalog/mod](crates/core/src/catalog/mod.md), [columns](crates/core/src/catalog/columns.md), [ids](crates/core/src/catalog/ids.md), [strings](crates/core/src/catalog/strings.md), [profile/mod](crates/core/src/profile/mod.md), [area](crates/core/src/profile/area.md), [check](crates/core/src/profile/check.md), [level](crates/core/src/profile/level.md), [score](crates/core/src/profile/score.md), [types](crates/core/src/profile/types.md), [heroes/*](crates/core/src/profile/heroes/mod.md), [identity/*](crates/core/src/profile/identity/mod.md), [items/*](crates/core/src/profile/items/mod.md), [unlocks/*](crates/core/src/profile/unlocks/mod.md), [wallet/*](crates/core/src/profile/wallet/mod.md).
