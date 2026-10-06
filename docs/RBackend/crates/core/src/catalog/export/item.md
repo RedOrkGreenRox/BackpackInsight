@@ -17,9 +17,11 @@
 | `item_stars` | `itemStars` | `Vec<Cell>` — клетки-звёзды |
 | `purchasable` | `purchasable` | `bool` |
 | `embargoed` | `embargoed` | `bool` |
+| `embargo_code` | `embargoCode` | `Option<String>`, с 7.0.0: метка обновления у скрытого предмета (`Season7`) |
 | `recipes` | `recipes` | `Vec<Recipe>` |
 | `combat_stats` | `combatStats` | `CombatStats` |
 | `tooltips` | `tooltips` | `Vec<String>` — тексты способностей (0–2) |
+| `absorb_effect` | `absorbEffect` | `Option<Vec<String>>`, с 7.0.0: эффект поглощения у поглощаемых предметов |
 | `all_stats` | `allStats` | `BTreeMap<String, f64>` |
 | `levels` | `levels` | `Levels` |
 

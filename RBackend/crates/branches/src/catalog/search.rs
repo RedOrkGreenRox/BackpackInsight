@@ -76,9 +76,11 @@ mod tests {
             item_stars: vec![],
             purchasable: false,
             embargoed: false,
+            embargo_code: None,
             recipes: vec![],
             combat_stats: CombatStats::default(),
             tooltips: vec![],
+            absorb_effect: None,
             all_stats: BTreeMap::new(),
             levels: Levels {
                 max_level: 1,

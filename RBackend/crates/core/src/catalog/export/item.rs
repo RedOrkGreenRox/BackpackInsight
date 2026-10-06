@@ -35,12 +35,18 @@ pub struct ItemDef {
     pub purchasable: bool,
     /// Скрыт ли предмет до выхода обновления.
     pub embargoed: bool,
+    /// Метка обновления у скрытого предмета (с 7.0.0, например `Season7`).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub embargo_code: Option<String>,
     /// Рецепты.
     pub recipes: Vec<Recipe>,
     /// Боевые характеристики.
     pub combat_stats: CombatStats,
     /// Тексты способностей на языке экспорта.
     pub tooltips: Vec<String>,
+    /// Эффект поглощения у поглощаемых предметов (с 7.0.0).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub absorb_effect: Option<Vec<String>>,
     /// Все числовые характеристики по имени.
     pub all_stats: BTreeMap<String, f64>,
     /// Прокачка по уровням.

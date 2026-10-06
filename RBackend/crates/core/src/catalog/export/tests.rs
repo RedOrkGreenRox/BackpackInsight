@@ -55,6 +55,19 @@ fn minimal_export_parses() {
 }
 
 #[test]
+fn fields_added_in_7_0_are_known() {
+    let extra = r#","embargoCode":"Season7","absorbEffect":["Gain 2 Luck"]"#;
+    let export = CatalogExport::parse(minimal(1, "Rare", extra).as_bytes());
+    let export = export.unwrap_or_else(|err| panic!("{err}"));
+    let item = &export.items[0];
+    assert_eq!(item.embargo_code.as_deref(), Some("Season7"));
+    assert_eq!(
+        item.absorb_effect.as_deref(),
+        Some(&["Gain 2 Luck".to_string()][..])
+    );
+}
+
+#[test]
 fn rejects_unknown_rarity_field_and_count() {
     let unknown_rarity = CatalogExport::parse(minimal(1, "Godly", "").as_bytes());
     assert!(matches!(unknown_rarity, Err(ExportError::Json(_))));

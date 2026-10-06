@@ -26,8 +26,11 @@ pub struct CatalogExport {
     pub build_number: String,
     /// Когда сделан экспорт.
     pub export_date: String,
-    /// Язык, как его записал экспорт (у RU-файла 5.1.0 ошибочно `en`).
+    /// Язык, как его записал экспорт (у RU-файла 5.1.0 ошибочно `en`, с 7.0.0 — `ru-RU`).
     pub language: String,
+    /// Для какого уровня подставлены числа в тултипы (с 7.0.0, там `max`).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tooltip_level: Option<String>,
     /// Включены ли в экспорт скрытые предметы.
     pub embargoed: bool,
     /// Сколько предметов заявлено.

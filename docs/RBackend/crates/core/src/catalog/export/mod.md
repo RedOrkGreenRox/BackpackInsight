@@ -12,11 +12,13 @@
 | `app_version` | `appVersion` | версия игры, например `5.1.0` |
 | `build_number` | `buildNumber` | строка |
 | `export_date` | `exportDate` | строка как в файле |
-| `language` | `language` | не проверяется: у RU-файла 5.1.0 там ошибочно `en` |
+| `language` | `language` | не проверяется: у RU-файла 5.1.0 там ошибочно `en`, с 7.0.0 — `ru-RU` |
+| `tooltip_level` | `tooltipLevel` | `Option<String>`, есть с 7.0.0 (`max`): для какого уровня подставлены числа в тултипы |
 | `embargoed` | `embargoed` | включены ли скрытые предметы |
 | `item_count` | `itemCount` | заявленное число предметов |
 | `items` | `items` | `Vec<ItemDef>` |
 
+- **Версии формата:** модель принимает экспорты 5.1.0 и 7.0.0. Поля, появившиеся в 7.0.0, — `Option` с `#[serde(default)]`, а при записи `None` пропускается (`skip_serializing_if`), поэтому нормализованный 5.1.0 совпадает с исходным. Любое другое новое поле по-прежнему ошибка: его надо добавить в модель явно.
 - **`CatalogExport::parse(bytes)`** — `serde_json::from_slice` в модель, затем сверка `item_count` с длиной `items`.
 - **`ExportError`** — почему экспорт не принят: `Json(serde_json::Error)` (битый JSON, незнакомое поле, незнакомая редкость, не тот тип значения) или `Count { declared, actual }`. Реализует `Display` и `std::error::Error` (`source` у `Json` — исходная ошибка serde).
 
