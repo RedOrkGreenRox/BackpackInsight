@@ -712,6 +712,7 @@
         - 📂 **src**
           - 📂 **catalog**
             - 📄 [api_items_flatbuffer.rs](RBackend/crates/builder/src/catalog/api_items_flatbuffer.md)
+            - 📄 [export.rs](RBackend/crates/builder/src/catalog/export.md)
             - 📄 [files.rs](RBackend/crates/builder/src/catalog/files.md)
             - 📄 [flatbuffer.rs](RBackend/crates/builder/src/catalog/flatbuffer.md)
             - 📄 [images.rs](RBackend/crates/builder/src/catalog/images.md)
@@ -728,6 +729,12 @@
       - 📂 **core**
         - 📂 **src**
           - 📂 **catalog**
+            - 📂 **export**
+              - 📄 [item.rs](RBackend/crates/core/src/catalog/export/item.md)
+              - 📄 [mod.rs](RBackend/crates/core/src/catalog/export/mod.md)
+              - 📄 [parts.rs](RBackend/crates/core/src/catalog/export/parts.md)
+              - 📄 [rarity.rs](RBackend/crates/core/src/catalog/export/rarity.md)
+              - 📄 [tests.rs](RBackend/crates/core/src/catalog/export/tests.md)
             - 📄 [columns.rs](RBackend/crates/core/src/catalog/columns.md)
             - 📄 [ids.rs](RBackend/crates/core/src/catalog/ids.md)
             - 📄 [mod.rs](RBackend/crates/core/src/catalog/mod.md)
