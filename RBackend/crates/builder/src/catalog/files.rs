@@ -12,12 +12,30 @@ pub fn web_root(project_root: &Path) -> PathBuf {
     project_root.join("Frontend/Web")
 }
 
+/// Newest `items_en_X_Y_Z.json` and `items_ru_X_Y_Z.json` in `Backend/DB`
+/// (falls back to 5.1.0 when none is found).
 pub fn localized_files(project_root: &Path) -> (PathBuf, PathBuf) {
-    let db = db_dir(project_root);
     (
-        db.join("items_en_5_1_0.json"),
-        db.join("items_ru_5_1_0.json"),
+        latest_localized_file(project_root, "en"),
+        latest_localized_file(project_root, "ru"),
     )
+}
+
+fn latest_localized_file(project_root: &Path, lang: &str) -> PathBuf {
+    let db = db_dir(project_root);
+    let prefix = format!("{lang}_");
+    let newest = fs::read_dir(&db)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .filter_map(|entry| {
+            let name = entry.file_name().into_string().ok()?;
+            let rest = name.strip_prefix("items_")?.strip_prefix(prefix.as_str())?;
+            let version = parse_version(rest.strip_suffix(".json")?)?;
+            Some((version, entry.path()))
+        })
+        .max_by_key(|(version, _)| *version);
+    newest.map_or_else(|| db.join(format!("items_{lang}_5_1_0.json")), |(_, path)| path)
 }
 
 pub fn latest_plain_items_file(project_root: &Path) -> PathBuf {
@@ -59,7 +77,12 @@ pub fn plain_items_version(name: &str) -> Option<(u32, u32, u32)> {
     if rest.starts_with("en_") || rest.starts_with("ru_") || rest == "tooltips" {
         return None;
     }
-    let parts = rest
+    parse_version(rest)
+}
+
+/// `X_Y_Z` → `(X, Y, Z)`.
+fn parse_version(text: &str) -> Option<(u32, u32, u32)> {
+    let parts = text
         .split('_')
         .map(str::parse::<u32>)
         .collect::<Result<Vec<_>, _>>()

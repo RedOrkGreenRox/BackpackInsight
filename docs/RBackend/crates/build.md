@@ -18,7 +18,7 @@ cargo run -p builder -- verify-all-packs   # чтение паков через 
 | Пак | Источник |
 | :--- | :--- |
 | `catalog_summary.fb` | нелокализованный каталог с наибольшей версией (`items_5_0_0.json`) |
-| `api_items_en.fb`, `api_items_ru.fb` | `items_en_5_1_0.json` и `items_ru_5_1_0.json` |
+| `api_items_en.fb`, `api_items_ru.fb` | самые новые `items_en_X_Y_Z.json` и `items_ru_X_Y_Z.json` (сейчас 7.0.0) |
 | `items_en.json`, `items_ru.json` (не пак: каталог сайта) | те же файлы, проверенные моделью [core/catalog/export](core/src/catalog/export/mod.md) |
 
 Подробнее о сборке сводки каталога — [build_flatbuffer](build_flatbuffer.md); схемы паков — [schemas](../schemas.md).
