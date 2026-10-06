@@ -75,6 +75,16 @@ fn main() {
                 },
             )
         }
+        "build-catalog-json" => catalog::export::build_catalog_json(&project_root).map(|paths| {
+            paths
+                .iter()
+                .for_each(|p| println!("catalog json written: {}", p.display()));
+        }),
+        "verify-catalog-json" => catalog::export::verify_catalog_json(&project_root).map(|langs| {
+            langs
+                .iter()
+                .for_each(|(lang, n)| println!("catalog json OK: lang={lang} items={n}"));
+        }),
         "build-all-packs" => build_all_packs(&project_root),
         "verify-all-packs" => verify_all_packs(&project_root),
         "validate-all" => validate_all(&project_root),
@@ -102,6 +112,7 @@ fn validate_all(project_root: &std::path::Path) -> Result<(), String> {
 fn build_all_packs(project_root: &std::path::Path) -> Result<(), String> {
     catalog::flatbuffer::build_catalog_flatbuffer(project_root)?;
     catalog::api_items_flatbuffer::build_api_items_flatbuffers(project_root)?;
+    catalog::export::build_catalog_json(project_root)?;
     println!("all packs built");
     Ok(())
 }
@@ -109,6 +120,7 @@ fn build_all_packs(project_root: &std::path::Path) -> Result<(), String> {
 fn verify_all_packs(project_root: &std::path::Path) -> Result<(), String> {
     catalog::flatbuffer::verify_flatbuffer(project_root, None)?;
     catalog::api_items_flatbuffer::verify_api_items_flatbuffers(project_root)?;
+    catalog::export::verify_catalog_json(project_root)?;
     println!("all packs verified");
     Ok(())
 }
@@ -124,7 +136,9 @@ fn print_help() {
     println!("  verify-flatbuffer      verify generated catalog_summary.fb through pack reader");
     println!("  build-api-items-flatbuffer write api_items_en/ru FlatBuffer packs");
     println!("  verify-api-items-flatbuffer verify api_items_en/ru packs through pack reader");
-    println!("  build-all-packs        build catalog summary and api items packs");
+    println!("  build-catalog-json     check en/ru exports by the typed model, write items_{{lang}}.json");
+    println!("  verify-catalog-json    re-read items_{{lang}}.json through the typed model");
+    println!("  build-all-packs        build catalog summary, api items packs and catalog json");
     println!("  verify-all-packs       verify all generated packs");
     println!("  validate-all           run catalog/images/locales checks");
 }

@@ -1,40 +1,42 @@
-//! Загрузка предметов из FlatBuffers-пака `api_items_{lang}.fb`.
+//! Загрузка предметов одного языка из `RBackend/generated/items_{lang}.json`.
+//!
+//! Файл пишет `builder build-catalog-json` после проверки экспорта игры строгой
+//! моделью [`CatalogExport`]; здесь та же модель, так что расхождение формата — ошибка старта.
 
-use super::{fields, CatalogItem};
-use rbackend_core::ItemIconService;
-use std::{collections::HashMap, path::Path};
+use super::CatalogItem;
+use rbackend_core::{CatalogExport, ItemDef, ItemIconService};
+use std::{collections::HashMap, fs, path::Path};
 
-/// Читает пак и превращает его записи в [`CatalogItem`].
+/// Читает каталог языка и превращает его предметы в [`CatalogItem`].
 ///
-/// `images` — ключи картинок английского каталога по `id`. Для английского пака
+/// `images` — ключи картинок английского каталога по `id`. Для английского каталога
 /// передаётся `None`, и ключ считается здесь: `ItemIconService` опирается на
 /// английский текст первого тултипа (`Step N` у планов ограбления).
+///
+/// # Errors
+/// Файла нет или он не совпадает с моделью экспорта.
 pub fn load_items(
     path: &Path,
     images: Option<&HashMap<String, String>>,
 ) -> Result<Vec<CatalogItem>, String> {
-    let pack = pack::read_api_items(path)?;
-    let mut items = Vec::with_capacity(pack.items.len());
-    for entry in &pack.items {
-        let object = fields::object(&entry.value).ok_or_else(|| {
-            format!(
-                "{}: item {} is not an object",
-                path.display(),
-                entry.item_id
-            )
-        })?;
-        let image = match images.and_then(|map| map.get(&entry.item_id)) {
-            Some(key) => key.clone(),
-            None => image_key(&entry.item_id, object),
-        };
-        items.push(CatalogItem::from_object(&entry.item_id, object, image));
-    }
-    Ok(items)
+    let bytes =
+        fs::read(path).map_err(|err| format!("could not read {}: {err}", path.display()))?;
+    let export =
+        CatalogExport::parse(&bytes).map_err(|err| format!("{}: {err}", path.display()))?;
+    Ok(export
+        .items
+        .into_iter()
+        .map(|def| {
+            let image = images
+                .and_then(|map| map.get(&def.id))
+                .cloned()
+                .unwrap_or_else(|| image_key(&def));
+            CatalogItem::new(def, image)
+        })
+        .collect())
 }
 
-fn image_key(id: &str, object: &fields::Object) -> String {
-    let rarity = fields::string(object, "rarity");
-    let tooltips = fields::strings(object, "tooltips");
-    ItemIconService::image_key(id, rarity.as_deref(), tooltips.first().map(String::as_str))
-        .to_string()
+fn image_key(def: &ItemDef) -> String {
+    let tooltip = def.tooltips.first().map(String::as_str);
+    ItemIconService::image_key(def.id.as_str(), Some(def.rarity.as_str()), tooltip).to_string()
 }

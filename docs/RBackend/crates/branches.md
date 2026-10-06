@@ -48,7 +48,7 @@ BranchRunner::router: маршрут Axum на каждый SPEC.path   │
 | `ssr` | бинарник [main.rs](branches/src/main.md) + rlib | всё: [roots](branches/src/roots/mod.md), [catalog](branches/src/catalog/mod.md), все [ветки](branches/src/branches/mod.md), `api`, `pack`, `rbackend_core`, Axum, tokio |
 | `hydrate` | cdylib → WASM | [model.rs](branches/src/model.md), острова [shell](branches/src/shell/mod.md) и модуль `items` без `ItemsBranch`; точка входа `hydrate()` и islands router в [lib.rs](branches/src/lib.md) |
 
-Каталог ([mod](branches/src/catalog/mod.md), [load](branches/src/catalog/load.md), [item](branches/src/catalog/item.md), [fields](branches/src/catalog/fields.md), [search](branches/src/catalog/search.md), [rarity](branches/src/catalog/rarity.md)) читается один раз на старте из паков и в браузер не уходит.
+Каталог ([mod](branches/src/catalog/mod.md), [load](branches/src/catalog/load.md), [item](branches/src/catalog/item.md), [search](branches/src/catalog/search.md), [rarity](branches/src/catalog/rarity.md)) читается один раз на старте из `RBackend/generated/items_{en,ru}.json` в строгую модель [core/catalog/export](core/src/catalog/export/mod.md) и в браузер не уходит.
 
 Стили: [site.scss](branches/style/site.md) подключает перенесённые без изменений стили TS-версии ([_roots](branches/style/roots/_roots.md), [main](branches/style/branches/main/main.md), [items](branches/style/branches/items/items.md), [404](branches/style/branches/404/404.md)), каждую ветку в своей области, и поправки [_leptos.scss](branches/style/_leptos.md). Ветки: [main](branches/src/branches/main/mod.md), [items](branches/src/branches/items/mod.md), [editor](branches/src/branches/editor/mod.md), [not_found](branches/src/branches/not_found/mod.md).
 
@@ -65,7 +65,7 @@ LEPTOS_SITE_PKG_DIR=pkg LEPTOS_SITE_ADDR=127.0.0.1:3000 \
 
 `--split` обязателен: каталог (`ItemsManager`) — ленивый остров, и без разбиения в JS остаётся заглушка, из-за которой не оживает ни один остров. Такой сборке сервер стартовать не даст и напишет, как пересобрать ([roots/lazy.rs](branches/src/roots/lazy.md)).
 
-Перед запуском нужны паки `RBackend/generated/api_items_{en,ru}.fb` и `catalog_summary.fb` — их собирает [builder](build.md) ([builder/main.rs](builder/src/main.md)). Без них `api::AppState::discover` или `Catalog::load` останавливают старт. Корень проекта ищет [api/state.rs](api/src/state.md) (переопределяется `ROOT_PROJECT_ROOT`); оттуда же берутся `Frontend/Web/static` (картинки, шрифты, словари).
+Перед запуском нужен каталог `RBackend/generated/items_{en,ru}.json` — его пишет [builder](build.md) (`build-catalog-json` или `build-all-packs`, [builder/main.rs](builder/src/main.md)). Без него `Catalog::load` останавливает старт. Паки `.fb` сайту не нужны: без них сервер стартует с предупреждением, а отказывают только старые маршруты `/api/*.fb`. Корень проекта ищет [api/state.rs](api/src/state.md) (переопределяется `ROOT_PROJECT_ROOT`); оттуда же берутся `Frontend/Web/static` (картинки, шрифты, словари).
 
 ## Линты
 - `clippy::pedantic` на уровне `warn`, плюс `unwrap_used` и `expect_used`; `needless_pass_by_value` разрешён, потому что `#[component]` и `#[island]` принимают пропсы по значению.

@@ -538,7 +538,6 @@
               - 📄 [mod.rs](RBackend/crates/branches/src/branches/not_found/mod.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/branches/mod.md)
           - 📂 **catalog**
-            - 📄 [fields.rs](RBackend/crates/branches/src/catalog/fields.md)
             - 📄 [item.rs](RBackend/crates/branches/src/catalog/item.md)
             - 📄 [load.rs](RBackend/crates/branches/src/catalog/load.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/catalog/mod.md)

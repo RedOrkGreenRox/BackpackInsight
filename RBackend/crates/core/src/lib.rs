@@ -8,7 +8,10 @@ mod image_key;
 mod profile;
 mod slug;
 
-pub use catalog::{CatalogColumns, CatalogItemInput, HeroId, ItemId, StringId, StringPool};
+pub use catalog::{
+    CatalogColumns, CatalogExport, CatalogItemInput, Cell, CombatStats, ExportError, HeroId,
+    ItemDef, ItemId, LevelChange, Levels, Recipe, StringId, StringPool,
+};
 pub use image_key::{ImageKey, ItemIconService};
 pub use profile::{
     AreaService, BannerService, BannerUnlock, BonusTrophy, Cards, CardsService, Coins, Gems, Hero,

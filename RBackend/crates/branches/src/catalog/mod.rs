@@ -1,10 +1,9 @@
 //! Каталог предметов на сервере.
 //!
-//! Читается один раз на старте из FlatBuffers-паков `RBackend/generated/api_items_{en,ru}.fb`
-//! и дальше живёт в памяти. В браузер каталог целиком не уходит: страницы получают
+//! Читается один раз на старте из `RBackend/generated/items_{en,ru}.json` в строгую модель
+//! `rbackend_core::ItemDef` и дальше живёт в памяти. В браузер каталог целиком не уходит: страницы получают
 //! готовый HTML, а остров каталога — порции по [`crate::model::PAGE_SIZE`] карточек.
 
-mod fields;
 mod item;
 mod load;
 mod rarity;
@@ -30,7 +29,7 @@ impl LangCatalog {
     /// «редкость по убыванию», как сортировка по умолчанию в TS-версии.
     #[must_use]
     pub fn new(mut items: Vec<CatalogItem>) -> Self {
-        items.sort_by_key(|item| rarity::rank(&item.rarity));
+        items.sort_by_key(|item| rarity::rank(item.def.rarity));
         let by_slug = items
             .iter()
             .enumerate()
@@ -39,7 +38,7 @@ impl LangCatalog {
         let by_id = items
             .iter()
             .enumerate()
-            .map(|(i, it)| (it.id.clone(), i))
+            .map(|(i, it)| (it.def.id.clone(), i))
             .collect();
         Self {
             items,
@@ -76,18 +75,18 @@ pub struct Catalog {
 }
 
 impl Catalog {
-    /// Загружает оба пака из `{project_root}/RBackend/generated`.
+    /// Загружает оба каталога из `{project_root}/RBackend/generated`.
     ///
     /// # Errors
-    /// Пак не читается или повреждён, либо предмет в паке — не объект.
+    /// Файл каталога не читается или не совпадает с моделью экспорта.
     pub fn load(project_root: &Path) -> Result<Self, String> {
         let generated = project_root.join("RBackend/generated");
-        let en = load::load_items(&generated.join("api_items_en.fb"), None)?;
+        let en = load::load_items(&generated.join("items_en.json"), None)?;
         let images = en
             .iter()
-            .map(|it| (it.id.clone(), it.image.clone()))
+            .map(|it| (it.def.id.clone(), it.image.clone()))
             .collect();
-        let ru = load::load_items(&generated.join("api_items_ru.fb"), Some(&images))?;
+        let ru = load::load_items(&generated.join("items_ru.json"), Some(&images))?;
         let pictures = project_root.join("Frontend/Web/static/images/items/webp");
         let [en, ru] =
             [en, ru].map(|items| LangCatalog::new(drop_missing_images(items, &pictures)));

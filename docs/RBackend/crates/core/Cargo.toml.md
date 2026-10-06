@@ -6,7 +6,9 @@
 ## Ключевое
 - **Имя пакета:** `rbackend_core`.
 - **`[package]`**: `version = "0.1.0"`; `edition`, `license` и `repository` берутся из `[workspace.package]` ([RBackend/Cargo.toml](../../Cargo.toml.md)).
-- **Зависимости:** одна внешняя — `unicode-normalization` 0.1, для нормализации строк при построении слагов в [slug.rs](src/slug.md).
+- **Зависимости:**
+  - `unicode-normalization` 0.1 — нормализация строк при построении слагов в [slug.rs](src/slug.md);
+  - `serde` 1 с `derive` и `serde_json` 1 — строгая модель экспорта каталога ([catalog/export](src/catalog/export/mod.md)).
 - **`[lints] workspace = true`** — общие линты workspace: `unsafe_code = "forbid"`, `clippy::unwrap_used` и `clippy::expect_used` на уровне `warn`.
 
 ## Связи

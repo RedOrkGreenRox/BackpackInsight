@@ -11,7 +11,7 @@
 - Запускает последовательно:
   - `cargo test --workspace` — все unit-тесты.
   - `cargo run --release -p builder -- validate-all` — валидация каталога.
-  - `cargo run --release -p builder -- build-all-packs` — сборка `RBackend/generated/*.fb`.
+  - `cargo run --release -p builder -- build-all-packs` — сборка `RBackend/generated/*.fb` и каталога `items_{en,ru}.json`.
   - `cargo run --release -p builder -- verify-all-packs` — проверка паков.
   - `cargo build --release -p api` — компиляция `api` binary.
 

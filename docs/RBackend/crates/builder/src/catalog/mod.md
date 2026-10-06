@@ -11,6 +11,7 @@
 | [locales](locales.md) | проверка EN/RU каталогов |
 | [flatbuffer](flatbuffer.md) | пак `catalog_summary.fb` |
 | [api_items_flatbuffer](api_items_flatbuffer.md) | паки `api_items_{en,ru}.fb` |
+| [export](export.md) | каталог `items_{en,ru}.json` для сайта по строгой модели |
 
 ---
 

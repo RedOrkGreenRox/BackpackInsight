@@ -60,22 +60,36 @@ fn matching<'a>(catalog: &'a LangCatalog, query: &str) -> Vec<&'a super::Catalog
 mod tests {
     use super::*;
     use crate::catalog::CatalogItem;
+    use rbackend_core::{CombatStats, ItemDef, ItemRarity, Levels};
+    use std::collections::BTreeMap;
 
     fn item(name: &str) -> CatalogItem {
-        CatalogItem {
+        let def = ItemDef {
             id: name.into(),
-            slug: name.to_lowercase(),
             name: name.into(),
-            rarity: "Common".into(),
-            coin_value: None,
+            rarity: ItemRarity::Common,
+            coin_value: 1,
             item_types: vec![],
-            hero: None,
-            unlock_source: None,
+            connected_hero: "Shared".into(),
+            unlock_source: "Default".into(),
+            item_shape: vec![],
+            item_stars: vec![],
             purchasable: false,
+            embargoed: false,
+            recipes: vec![],
+            combat_stats: CombatStats::default(),
             tooltips: vec![],
-            image: name.to_lowercase(),
-            search_text: format!("{} common", name.to_lowercase()),
-        }
+            all_stats: BTreeMap::new(),
+            levels: Levels {
+                max_level: 1,
+                chance_per_level: None,
+                base_chance: None,
+                chance_breakpoint_bonus: None,
+                ability_description: None,
+                changes: vec![],
+            },
+        };
+        CatalogItem::new(def, name.to_lowercase())
     }
 
     #[test]

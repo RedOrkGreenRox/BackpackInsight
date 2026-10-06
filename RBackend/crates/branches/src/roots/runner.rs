@@ -30,13 +30,16 @@ impl BranchRunner {
     /// Читает конфигурацию Leptos (`LEPTOS_*` или `Cargo.toml`), каталог и словари, слушает `site_addr`.
     ///
     /// # Errors
-    /// Нет конфигурации или паков, не читаются словари, порт занят, сайт собран без `--split`.
+    /// Нет конфигурации или каталога, не читаются словари, порт занят, сайт собран без `--split`.
     pub async fn serve() -> Result<(), BoxError> {
         // Leptos запускает фоновые задачи рендера через глобальный executor.
         any_spawner::Executor::init_tokio()?;
         let options = get_configuration(None)?.leptos_options;
         LazyIslands::load(&options)?;
-        let state = api::AppState::discover().await?;
+        let state = api::AppState::load().await?;
+        if let Err(err) = state.verify_required_packs() {
+            tracing::warn!(%err, "legacy /api/*.fb routes will fail; the site itself does not need packs");
+        }
         let catalog = CatalogHandle(Arc::new(Catalog::load(&state.project_root)?));
         let dict = Dict::load(&state.project_root)?;
         let addr = options.site_addr;

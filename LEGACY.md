@@ -80,7 +80,7 @@ rbackend_workspace:   # as on rust-leptos
   release_profile: {lto: fat, codegen-units: 1, strip: symbols}
   wasm_profile: {name: wasm-release, opt-level: z, panic: abort}
   crates:
-    core:       {rs_files: 34, role: "domain rules: typed IDs, StringPool, XP/Level/Area, heroes, item leveling, unlocks, profile check/identity/wallet/score, CatalogColumns (data-oriented)"}
+    core:       {rs_files: 39, role: "domain rules: strict game-export catalog model (CatalogExport/ItemDef), typed IDs, StringPool, XP/Level/Area, heroes, item leveling, unlocks, profile check/identity/wallet/score, CatalogColumns (data-oriented)"}
     pack:       {rs_files: 10, role: "FlatBuffers data packs (items, catalog summary, profile)"}
     builder:    {rs_files: 9,  role: "builds packs/catalog from source JSON"}
     db:         {rs_files: 3,  role: "sqlx Postgres/SQLite access + migrations"}
@@ -132,7 +132,7 @@ branches_crate:   # RBackend/crates/branches — the Leptos site
       i18n.rs, per_lang.rs: "translations and per-language data"
     shell/: {mod.rs: "", sidebar.rs: "slide-out side menu (old design)", parallax.rs: "parallax background", prefetch.rs: "idle prefetch of unused lazy chunks (hydrate only)"}
     branches/: {main/, items/: [branch.rs, card.rs, manager.rs, scroll.rs, search_fn.rs, url.rs, mod.rs], editor/, not_found/}
-    catalog/: [fields.rs, item.rs, load.rs, rarity.rs, search.rs, mod.rs]
+    catalog/: [item.rs, load.rs, rarity.rs, search.rs, mod.rs]   # reads RBackend/generated/items_{en,ru}.json into rbackend_core::ItemDef (no pack crate)
   style: "SCSS ported from Frontend/Web/ground, same dendritic folders (roots/_roots/shell/{sidebar,navigation,parallax}, branches/{main,items,404})"
 
 cloudflare_pages_functions:   # Frontend/Web/functions on rust-leptos
@@ -184,6 +184,7 @@ docs_system:
 | 2026-10-03 | One branch for all work (`rust-leptos`), not many. |
 | 2026-10-04 | New chat instead of this thread; this handoff file in English. |
 | 2026-10-06 | Chat with Иван stays in Russian; English only for machine-readable files for Claude (replaces a short-lived 2026-10-04 "English only" rule). |
+| 2026-10-06 | Item catalog data format: the game's JSON export read into a strict Rust model (`rbackend_core::CatalogExport` / `ItemDef`, `deny_unknown_fields`). Not static JSON on Pages, not typed FlatBuffers. The site no longer reads `.fb` packs. |
 
 Working rules for agents: no subagents or workflows (quota); no git history rewrites without his command; don't switch production; send short progress updates during long work; put results in the reply text itself, not only in files.
 
@@ -227,7 +228,7 @@ Overall backend migration was ~35–40% done when analysed on 2026-10-01; phase 
 4. Full search + filters + sort with all state in the URL (the old TS site had advanced filters; the Leptos version has only simple search).
 5. Profile branch: upload of the game export, profile view (heroes grid, header), lazy profile items.
 6. Editor page content (still undefined — ask Иван).
-7. Decide data format: static JSON catalog from Pages vs typed FlatBuffers packs (open question, the numbers favour JSON).
+7. ~~Decide data format~~ Done 2026-10-06: strict Rust model over the game JSON (§3). Remaining: move the api crate's profile parsing and sitemap off `api_items_*.fb`, then drop the generic packs with the TS frontend (phase J).
 8. Finish backend phases A/C/E/F/G/H, then delete Python and the TS frontend (phase J), then make `Rustified` the main branch.
 9. Product: first analytics features (§2).
 10. Optional idea: one typed `project.toml` for all project settings (§9).
@@ -314,7 +315,7 @@ Proposed, not started: a typed `project.toml` (read via serde) as the single sou
 ## 11. Questions still open for Иван
 
 1. When to do the Dockerfile/compose work for `branches` (needed before any switch).
-2. Static JSON catalog vs FlatBuffers packs.
+2. ~~Static JSON catalog vs FlatBuffers packs~~ decided 2026-10-06 (§3).
 3. What the Editor page should do.
 4. Gaps in the Item Field spec (exact sizes of small/medium/detailed forms, behaviour at grid edges, mobile gestures, what "star-shaped grid" shows).
 5. Whether to review and fix the 17 SonarQube issues and the XSS findings now or after the Item Field.

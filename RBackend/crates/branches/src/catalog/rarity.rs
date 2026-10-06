@@ -1,35 +1,32 @@
 //! Порядок редкостей для сортировки каталога (как `RARITY_WEIGHTS` в TS-версии).
 
-/// Редкости от самой ценной к самой простой.
-const ORDER: [&str; 9] = [
-    "Unique",
-    "Mythic",
-    "Legendary",
-    "Epic",
-    "Rare",
-    "Common",
-    "Boon",
-    "Relic",
-    "Special",
-];
+use rbackend_core::ItemRarity;
 
-/// Место редкости в порядке «от ценной к простой»; неизвестные редкости — в конце.
+/// Место редкости в порядке «от ценной к простой». Сопоставление полное:
+/// новая редкость в модели не соберётся, пока ей не найдут место здесь.
 #[must_use]
-pub fn rank(rarity: &str) -> usize {
-    ORDER
-        .iter()
-        .position(|known| *known == rarity)
-        .unwrap_or(ORDER.len())
+pub fn rank(rarity: ItemRarity) -> u8 {
+    match rarity {
+        ItemRarity::Unique => 0,
+        ItemRarity::Mythic => 1,
+        ItemRarity::Legendary => 2,
+        ItemRarity::Epic => 3,
+        ItemRarity::Rare => 4,
+        ItemRarity::Common => 5,
+        ItemRarity::Boon => 6,
+        ItemRarity::Relic => 7,
+        ItemRarity::Special => 8,
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::rank;
+    use super::{rank, ItemRarity};
 
     #[test]
-    fn unique_first_unknown_last() {
-        assert!(rank("Unique") < rank("Mythic"));
-        assert!(rank("Common") < rank("Special"));
-        assert_eq!(rank("???"), 9);
+    fn unique_first_special_last() {
+        assert!(rank(ItemRarity::Unique) < rank(ItemRarity::Mythic));
+        assert!(rank(ItemRarity::Common) < rank(ItemRarity::Special));
+        assert_eq!(rank(ItemRarity::Special), 8);
     }
 }

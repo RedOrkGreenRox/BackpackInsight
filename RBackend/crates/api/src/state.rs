@@ -13,7 +13,16 @@ pub struct AppState {
 }
 
 impl AppState {
+    /// Состояние API для бинарника `api`: [`Self::load`] плюс обязательные паки `.fb`.
     pub async fn discover() -> Result<Self, String> {
+        let state = Self::load().await?;
+        state.verify_required_packs()?;
+        Ok(state)
+    }
+
+    /// Состояние из окружения без проверки паков: сайту (`branches`) паки не нужны,
+    /// без них отказывают только старые маршруты `/api/*.fb`.
+    pub async fn load() -> Result<Self, String> {
         let project_root = discover_project_root()?;
         let api_secret =
             read_non_empty_env("ROOT_API_SECRET").or_else(|| read_non_empty_env("API_SECRET"));
@@ -39,7 +48,7 @@ impl AppState {
                 .map_err(|err| format!("itemdefinition seed failed: {err}"))?;
         }
 
-        let state = Self {
+        Ok(Self {
             project_root,
             public_base_url: env::var("ROOT_PUBLIC_BASE_URL")
                 .unwrap_or_else(|_| "https://backpackinsight.pages.dev".to_string()),
@@ -65,12 +74,11 @@ impl AppState {
                 })
                 .or(Some(20))
                 .map(RateLimiter::new),
-        };
-        state.verify_required_packs()?;
-        Ok(state)
+        })
     }
 
-    fn verify_required_packs(&self) -> Result<(), String> {
+    /// Проверяет, что собраны паки `.fb`, на которых живут маршруты `/api/*.fb`.
+    pub fn verify_required_packs(&self) -> Result<(), String> {
         let generated = self.project_root.join("RBackend/generated");
         let required = [
             generated.join("catalog_summary.fb"),

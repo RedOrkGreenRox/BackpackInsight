@@ -14,7 +14,7 @@
 - **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`.
 - **Фича `ssr`** (сервер):
   - `leptos/ssr`, `leptos_meta/ssr`;
-  - внутренние крейты `api`, `pack`, `rbackend_core`;
+  - внутренние крейты `api` и `rbackend_core` (модель каталога); крейт `pack` сайту не нужен;
   - `axum` 0.8 и `leptos_axum` 0.8 с `islands-router` — без этой фичи сервер не размечает ветки `Either`, и смена языка не заменяет острова;
   - `any_spawner` с `tokio` — executor для фоновых задач рендера;
   - `tokio` (`macros`, `rt-multi-thread`, `net`);

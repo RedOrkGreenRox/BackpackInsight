@@ -22,7 +22,6 @@ wasm-bindgen = { version = "0.2", optional = true }
 web-sys = { version = "0.3", features = ["History", "Location", "HtmlAnchorElement", "HtmlElement", "DomTokenList", "CssStyleDeclaration", "Url", "UrlSearchParams", "Document", "NodeList", "HtmlLinkElement", "Response", "Window"], optional = true }
 any_spawner = { version = "0.3", features = ["tokio"], optional = true }
 api = { path = "../api", optional = true }
-pack = { path = "../pack", optional = true }
 rbackend_core = { path = "../core", optional = true }
 axum = { version = "0.8", optional = true }
 leptos_axum = { version = "0.8", features = ["islands-router"], optional = true }
@@ -39,7 +38,6 @@ ssr = [
     "leptos_meta/ssr",
     "dep:any_spawner",
     "dep:api",
-    "dep:pack",
     "dep:rbackend_core",
     "dep:axum",
     "dep:leptos_axum",
