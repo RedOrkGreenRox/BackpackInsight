@@ -849,11 +849,11 @@
       - 🗃 Сэмпл: Полный профиль
       - 🗃 Сэмпл: Минимальный профиль
   - 📄 [Docker Compose (Dev)](docker-compose.md)
-  - 🗃 LEGACY.md
   - 📄 [Зависимости и скрипты](package.md)
   - 📄 [Описание проекта](readme.md)
   - 📄 [rust-toolchain.toml](rust-toolchain.toml.md)
   - 🗃 rust_migration_plan.md
+  - 🗃 SUMMARY.md
   - 📄 [Скрипт очистки Windows](update.md)
 
 ---
