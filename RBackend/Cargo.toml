@@ -46,3 +46,5 @@ reload-port = 3001
 bin-features = ["ssr"]
 lib-features = ["hydrate"]
 lib-profile-release = "wasm-release"
+# Content hash in /pkg file names: a rebuild changes the URLs, so browsers never run stale WASM.
+hash-files = true

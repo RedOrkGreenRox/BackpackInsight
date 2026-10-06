@@ -5,7 +5,9 @@
 //! ссылкам перехватывает islands router: новая страница приходит с сервера, а в
 //! DOM меняется только то, что отличается.
 
-use super::{chrome::sidebar, Backdrop, Branch, BranchCtx, Gen, LazyIslands};
+use super::{
+    chrome::sidebar, split_files::SplitFiles, Backdrop, Branch, BranchCtx, Gen, LazyIslands,
+};
 use crate::{branches::not_found::NotFoundBranch, shell::ParallaxManager};
 use leptos::{hydration::HydrationScripts, prelude::*};
 use leptos_meta::{provide_meta_context, Body, Html, MetaTags};
@@ -13,7 +15,7 @@ use leptos_meta::{provide_meta_context, Body, Html, MetaTags};
 /// Документ целиком: `<head>` со стилями и скриптами островов, `<body>` с [`App`].
 #[must_use]
 pub fn shell(options: LeptosOptions) -> impl IntoView {
-    let css = format!("/{}/{}.css", options.site_pkg_dir, options.output_name);
+    let css = SplitFiles::stylesheet(&options);
     view! {
         <!DOCTYPE html>
         <html>

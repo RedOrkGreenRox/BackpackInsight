@@ -7,7 +7,7 @@ HTML-каркас документа (`shell`) и корневой компон�
 - **`shell(options)`** — документ целиком; его рендерит обработчик страниц из `BranchRunner::router` ([runner.rs](runner.md)). В `<head>`:
   - `charset`, `viewport`, `theme-color` `#121212`, иконка из `/images/manifest/png/`;
   - `preload` шрифта `Signika-Regular.woff2`, чтобы текст не перерисовывался после загрузки шрифта;
-  - стили `/{site_pkg_dir}/{output_name}.css` (собирает cargo-leptos из [site.scss](../../style/site.md));
+  - стили по адресу `SplitFiles::stylesheet` ([split_files.rs](split_files.md)): `/{site_pkg_dir}/{output_name}.css`, при `hash-files` с хэшем в имени (собирает cargo-leptos из [site.scss](../../style/site.md));
   - `HydrationScripts` с `islands=true` и `islands_router=true`: грузит WASM, который оживляет только острова, и включает islands router;
   - `MetaTags` — сюда `leptos_meta` вставляет `<title>` и `<meta>` из `App`.
 - **`App()`** — корневой компонент:
@@ -38,4 +38,4 @@ Islands router перехватывает клики по ссылкам и от
 - Реэкспорт: [roots/mod.rs](mod.md). Точка входа WASM для островов: `hydrate` в [lib.rs](../lib.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-03.
+> 📌 **Подпись документации:** по исходнику · 2026-10-06

@@ -5,7 +5,7 @@
 //! читает этот файл так же; здесь те же правила, чтобы ссылки совпадали с его.
 
 use leptos::config::LeptosOptions;
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::OnceLock};
 
 /// Имена файлов в каталоге `pkg`.
 #[derive(Debug, PartialEq, Eq)]
@@ -16,6 +16,8 @@ pub struct SplitFiles {
     pub manifest: String,
     /// JS-загрузчик кусков WASM.
     pub loader: String,
+    /// Стили сайта (`<output_name>.css`).
+    pub css: String,
 }
 
 impl SplitFiles {
@@ -30,7 +32,15 @@ impl SplitFiles {
         Self::named(&options.output_name, &hashes)
     }
 
-    /// Имена по таблице хэшей (`js`, `manifest`, `split`); нет хэша — имя без него.
+    /// Адрес стилей сайта для `<head>`. Считается один раз: файл хэшей
+    /// не меняется, пока работает сервер.
+    #[must_use]
+    pub fn stylesheet(options: &LeptosOptions) -> &'static str {
+        static HREF: OnceLock<String> = OnceLock::new();
+        HREF.get_or_init(|| format!("/{}/{}", options.site_pkg_dir, Self::resolve(options).css))
+    }
+
+    /// Имена по таблице хэшей (`js`, `css`, `manifest`, `split`); нет хэша — имя без него.
     fn named(output_name: &str, hashes: &HashMap<String, String>) -> Self {
         let with_hash = |stem: &str, key: &str, ext: &str| match hashes.get(key) {
             Some(hash) => format!("{stem}.{hash}.{ext}"),
@@ -38,6 +48,7 @@ impl SplitFiles {
         };
         Self {
             js: with_hash(output_name, "js", "js"),
+            css: with_hash(output_name, "css", "css"),
             manifest: with_hash("__wasm_split_manifest", "manifest", "json"),
             // Без хэша cargo-leptos ставит на его место подчёркивания.
             loader: match hashes.get("split") {
@@ -71,17 +82,24 @@ mod tests {
     fn plain_names_without_hashes() {
         let files = SplitFiles::named("site", &HashMap::new());
         assert_eq!(files.js, "site.js");
+        assert_eq!(files.css, "site.css");
         assert_eq!(files.manifest, "__wasm_split_manifest.json");
         assert_eq!(files.loader, "__wasm_split.______________________.js");
     }
 
     #[test]
     fn hashed_names_follow_hash_file() {
-        let hashes = [("js", "a1"), ("manifest", "b2"), ("split", "c3")]
-            .map(|(key, hash)| (key.to_owned(), hash.to_owned()))
-            .into();
+        let hashes = [
+            ("js", "a1"),
+            ("css", "d4"),
+            ("manifest", "b2"),
+            ("split", "c3"),
+        ]
+        .map(|(key, hash)| (key.to_owned(), hash.to_owned()))
+        .into();
         let files = SplitFiles::named("site", &hashes);
         assert_eq!(files.js, "site.a1.js");
+        assert_eq!(files.css, "site.d4.css");
         assert_eq!(files.manifest, "__wasm_split_manifest.b2.json");
         assert_eq!(files.loader, "__wasm_split.c3.js");
     }
