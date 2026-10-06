@@ -34,7 +34,12 @@ impl BranchRunner {
     pub async fn serve() -> Result<(), BoxError> {
         // Leptos запускает фоновые задачи рендера через глобальный executor.
         any_spawner::Executor::init_tokio()?;
-        let options = get_configuration(None)?.leptos_options;
+        let mut options = get_configuration(None)?.leptos_options;
+        // Бинарник, запущенный напрямую (не `cargo leptos serve`), не видит `LEPTOS_*`;
+        // `hash-files` берём таким, каким его собрал cargo-leptos.
+        if std::env::var_os("LEPTOS_HASH_FILES").is_none() {
+            options.hash_files = option_env!("LEPTOS_HASH_FILES") == Some("true");
+        }
         LazyIslands::load(&options)?;
         let state = api::AppState::load().await?;
         if let Err(err) = state.verify_required_packs() {
@@ -74,10 +79,16 @@ impl BranchRunner {
             pages = pages.route(&entry.spec.axum_path(), get(render.clone()));
         }
         let pkg = Path::new(&*options.site_root).join(&*options.site_pkg_dir);
+        // С хешем в имени файл никогда не меняется; без хеша браузер обязан перепроверять.
+        let pkg_cache = if options.hash_files {
+            "public, max-age=31536000, immutable"
+        } else {
+            "no-cache"
+        };
         let static_dir = state.project_root.join("Frontend/Web/static");
         pages
             .route("/_fn/{*fn_name}", get(server_fns.clone()).post(server_fns))
-            .nest_service("/pkg", cached(ServeDir::new(pkg), "public, max-age=3600"))
+            .nest_service("/pkg", cached(ServeDir::new(pkg), pkg_cache))
             .nest_service(
                 "/images",
                 cached(

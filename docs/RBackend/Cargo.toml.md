@@ -22,10 +22,11 @@
 - **`[profile.release]`** — `lto = "fat"`, `codegen-units = 1`, `strip = "symbols"`: меньше и быстрее бинарник ценой более долгой сборки.
 - **`[profile.wasm-release]`** — наследует `release`, плюс `opt-level = "z"` и `panic = "abort"`: самый маленький WASM островов. Используется cargo-leptos как `lib-profile-release`.
 - **`[[workspace.metadata.leptos]]`** — настройки cargo-leptos для сайта [branches](crates/branches.md):
-  - `name = "backpack-insight"` — имя файлов в `/pkg` (`backpack-insight.css`, `.js`, `.wasm`);
+  - `name = "backpack-insight"` — имя файлов в `/pkg` (`backpack-insight.<хэш>.css`, `.js`, `.wasm`);
   - `bin-package` и `lib-package` = `branches`, `bin-features = ["ssr"]`, `lib-features = ["hydrate"]`;
   - `site-root = "target/site"`, `site-pkg-dir = "pkg"`, `style-file` — [site.scss](crates/branches/style/site.md);
-  - `site-addr = "127.0.0.1:3000"`, `reload-port = 3001` для `cargo leptos watch`.
+  - `site-addr = "127.0.0.1:3000"`, `reload-port = 3001` для `cargo leptos watch`;
+  - `hash-files = true` (с 2026-10-06) — хэш содержимого в именах файлов `/pkg` и файл `hash.txt` рядом с бинарником. После пересборки адреса меняются, поэтому браузер не берёт старый WASM из кэша, а `/pkg` можно кэшировать навсегда ([roots/runner.rs](crates/branches/src/roots/runner.md)).
   На сервере те же значения задаются переменными `LEPTOS_*`.
 
 ## Связи
@@ -34,4 +35,4 @@
 
 ---
 
-> 📌 **Подпись документации:** по исходнику · 2026-10-02
+> 📌 **Подпись документации:** по исходнику · 2026-10-06
