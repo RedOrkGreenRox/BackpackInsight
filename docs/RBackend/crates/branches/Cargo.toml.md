@@ -7,10 +7,11 @@
 - **`[package]`**: `version = "0.1.0"`; `edition`, `license` и `repository` берутся из `[workspace.package]` ([RBackend/Cargo.toml](../../Cargo.toml.md)).
 - **`[lib] crate-type = ["cdylib", "rlib"]`** — `cdylib` нужен для WASM, `rlib` — чтобы бинарник использовал ту же библиотеку.
 - **`[[bin]] branches`** (`src/main.rs`, [main.rs](src/main.md)) собирается только с `required-features = ["ssr"]`.
-- **Общие зависимости** (обе сборки):
+- **`[dependencies]`** — общие для обеих сборок:
   - `leptos` 0.8 с `islands` и `islands-router` — острова и переходы без перезагрузки;
   - `leptos_meta` 0.8 — `<Title>`, `<Meta>`, `<Html>`, `<Body>` из веток;
   - `serde` с `derive` — пропсы островов и ответы серверных функций.
+- **`[features]`** — две сборки, необязательные зависимости включаются через `dep:`.
 - **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`.
 - **Фича `ssr`** (сервер):
   - `leptos/ssr`, `leptos_meta/ssr`;
@@ -22,8 +23,8 @@
   - `serde_json` — словари интерфейса ([i18n.rs](src/roots/i18n.md));
   - `tracing`, `tracing-subscriber` (`env-filter`) — логи.
 - **Линты — свои вместо workspace:**
-  - `unsafe_code = "deny"`, а не `forbid`: код-обвязка `wasm-bindgen` содержит `unsafe`, а `deny` всё равно запрещает его в рукописном коде;
-  - clippy `pedantic` на уровне `warn`, плюс `unwrap_used` и `expect_used`;
+  - `[lints.rust]`: `unsafe_code = "deny"`, а не `forbid`: код-обвязка `wasm-bindgen` содержит `unsafe`, а `deny` всё равно запрещает его в рукописном коде;
+  - `[lints.clippy]`: `pedantic` на уровне `warn`, плюс `unwrap_used` и `expect_used`;
   - `needless_pass_by_value` разрешён: `#[component]` и `#[island]` принимают пропсы по значению.
 
 ## Связи
@@ -32,4 +33,4 @@
 
 ---
 
-> 📌 **Подпись документации:** по исходнику · 2026-10-03
+> 📌 **Подпись документации:** по исходнику · 2026-10-06

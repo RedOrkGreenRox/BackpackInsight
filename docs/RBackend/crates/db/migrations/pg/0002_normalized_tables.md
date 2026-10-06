@@ -10,7 +10,10 @@
 | `hero` | `profile_id`, `name`, `level`, `experience`, `rating`, `prestige`, `league`, `exp_req`, `created_at` | `profile_id` → `profiles.id`, каскадное удаление |
 | `item` | `profile_id`, `item_id`, `level`, `cards`, `cards_need` (по умолчанию −1), `total_xp`, `created_at` | `profile_id` → `profiles.id` и `item_id` → `itemdefinition.item_id`, оба с каскадным удалением |
 
-Индексы: по `profile_id` и `name` у `hero`, по `profile_id` и `item_id` у `item`, по `rarity` и `connected_hero` у `itemdefinition`.
+Индексы (все `IF NOT EXISTS`):
+- `hero`: `idx_hero_profile_id` (`profile_id`), `idx_hero_name` (`name`);
+- `item`: `idx_item_profile_id` (`profile_id`), `idx_item_item_id` (`item_id`);
+- `itemdefinition`: `idx_itemdefinition_rarity` (`rarity`), `idx_itemdefinition_connected_hero` (`connected_hero`).
 
 ## Удаление старой колонки
 `ALTER TABLE profiles DROP COLUMN IF EXISTS profile_fb` — бинарный пак профиля больше не хранится.
@@ -19,4 +22,4 @@
 
 ---
 
-> 📌 **Подпись документации:** переписано по исходнику · 2026-10-02
+> 📌 **Подпись документации:** переписано по исходнику · 2026-10-06
