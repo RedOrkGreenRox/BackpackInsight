@@ -14839,18 +14839,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/plunder-and-lightning-i.59f635a72b.avif",
-          "webp": "60/plunder-and-lightning-i.59f635a72b.webp"
+          "avif": "60/plunder-and-lightning-i.bc0b8af26c.avif",
+          "webp": "60/plunder-and-lightning-i.bc0b8af26c.webp"
         },
         "120": {
-          "avif": "120/plunder-and-lightning-i.9b3477d13b.avif",
-          "webp": "120/plunder-and-lightning-i.9b3477d13b.webp"
+          "avif": "120/plunder-and-lightning-i.e037deeaee.avif",
+          "webp": "120/plunder-and-lightning-i.e037deeaee.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 1.png",
-        "Items/Hob/Heist Plan - Thundercloud.png"
+        "Items/Hob/Heist Plan - Lightning Spear.png"
       ]
     },
     "Plunder and Lightning II": {
@@ -14860,18 +14860,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/plunder-and-lightning-ii.c9d899103f.avif",
-          "webp": "60/plunder-and-lightning-ii.c9d899103f.webp"
+          "avif": "60/plunder-and-lightning-ii.69019d7814.avif",
+          "webp": "60/plunder-and-lightning-ii.69019d7814.webp"
         },
         "120": {
-          "avif": "120/plunder-and-lightning-ii.3caf28f625.avif",
-          "webp": "120/plunder-and-lightning-ii.3caf28f625.webp"
+          "avif": "120/plunder-and-lightning-ii.d975ef26d1.avif",
+          "webp": "120/plunder-and-lightning-ii.d975ef26d1.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 2.png",
-        "Items/Hob/Heist Plan - Thundercloud.png"
+        "Items/Hob/Heist Plan - Lightning Spear.png"
       ]
     },
     "Plunder and Lightning III": {
@@ -14881,18 +14881,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/plunder-and-lightning-iii.88d12e8acd.avif",
-          "webp": "60/plunder-and-lightning-iii.88d12e8acd.webp"
+          "avif": "60/plunder-and-lightning-iii.066c8d1c65.avif",
+          "webp": "60/plunder-and-lightning-iii.066c8d1c65.webp"
         },
         "120": {
-          "avif": "120/plunder-and-lightning-iii.0a3fd061c1.avif",
-          "webp": "120/plunder-and-lightning-iii.0a3fd061c1.webp"
+          "avif": "120/plunder-and-lightning-iii.edd76a50da.avif",
+          "webp": "120/plunder-and-lightning-iii.edd76a50da.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 3.png",
-        "Items/Hob/Heist Plan - Thundercloud.png"
+        "Items/Hob/Heist Plan - Lightning Spear.png"
       ]
     },
     "Plunder and Lightning IV": {
@@ -14902,18 +14902,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/plunder-and-lightning-iv.a72bd5baac.avif",
-          "webp": "60/plunder-and-lightning-iv.a72bd5baac.webp"
+          "avif": "60/plunder-and-lightning-iv.6030786569.avif",
+          "webp": "60/plunder-and-lightning-iv.6030786569.webp"
         },
         "120": {
-          "avif": "120/plunder-and-lightning-iv.62bb9ba9f8.avif",
-          "webp": "120/plunder-and-lightning-iv.62bb9ba9f8.webp"
+          "avif": "120/plunder-and-lightning-iv.9e6cf05b22.avif",
+          "webp": "120/plunder-and-lightning-iv.9e6cf05b22.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 4.png",
-        "Items/Hob/Heist Plan - Thundercloud.png"
+        "Items/Hob/Heist Plan - Lightning Spear.png"
       ]
     },
     "Poison Apple": {
@@ -17728,18 +17728,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/shock-and-ore-i.bc0b8af26c.avif",
-          "webp": "60/shock-and-ore-i.bc0b8af26c.webp"
+          "avif": "60/shock-and-ore-i.59f635a72b.avif",
+          "webp": "60/shock-and-ore-i.59f635a72b.webp"
         },
         "120": {
-          "avif": "120/shock-and-ore-i.e037deeaee.avif",
-          "webp": "120/shock-and-ore-i.e037deeaee.webp"
+          "avif": "120/shock-and-ore-i.9b3477d13b.avif",
+          "webp": "120/shock-and-ore-i.9b3477d13b.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 1.png",
-        "Items/Hob/Heist Plan - Lightning Spear.png"
+        "Items/Hob/Heist Plan - Thundercloud.png"
       ]
     },
     "Shock and Ore II": {
@@ -17749,18 +17749,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/shock-and-ore-ii.69019d7814.avif",
-          "webp": "60/shock-and-ore-ii.69019d7814.webp"
+          "avif": "60/shock-and-ore-ii.c9d899103f.avif",
+          "webp": "60/shock-and-ore-ii.c9d899103f.webp"
         },
         "120": {
-          "avif": "120/shock-and-ore-ii.d975ef26d1.avif",
-          "webp": "120/shock-and-ore-ii.d975ef26d1.webp"
+          "avif": "120/shock-and-ore-ii.3caf28f625.avif",
+          "webp": "120/shock-and-ore-ii.3caf28f625.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 2.png",
-        "Items/Hob/Heist Plan - Lightning Spear.png"
+        "Items/Hob/Heist Plan - Thundercloud.png"
       ]
     },
     "Shock and Ore III": {
@@ -17770,18 +17770,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/shock-and-ore-iii.066c8d1c65.avif",
-          "webp": "60/shock-and-ore-iii.066c8d1c65.webp"
+          "avif": "60/shock-and-ore-iii.88d12e8acd.avif",
+          "webp": "60/shock-and-ore-iii.88d12e8acd.webp"
         },
         "120": {
-          "avif": "120/shock-and-ore-iii.edd76a50da.avif",
-          "webp": "120/shock-and-ore-iii.edd76a50da.webp"
+          "avif": "120/shock-and-ore-iii.0a3fd061c1.avif",
+          "webp": "120/shock-and-ore-iii.0a3fd061c1.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 3.png",
-        "Items/Hob/Heist Plan - Lightning Spear.png"
+        "Items/Hob/Heist Plan - Thundercloud.png"
       ]
     },
     "Shock and Ore IV": {
@@ -17791,18 +17791,18 @@
       ],
       "images": {
         "60": {
-          "avif": "60/shock-and-ore-iv.6030786569.avif",
-          "webp": "60/shock-and-ore-iv.6030786569.webp"
+          "avif": "60/shock-and-ore-iv.a72bd5baac.avif",
+          "webp": "60/shock-and-ore-iv.a72bd5baac.webp"
         },
         "120": {
-          "avif": "120/shock-and-ore-iv.9e6cf05b22.avif",
-          "webp": "120/shock-and-ore-iv.9e6cf05b22.webp"
+          "avif": "120/shock-and-ore-iv.62bb9ba9f8.avif",
+          "webp": "120/shock-and-ore-iv.62bb9ba9f8.webp"
         }
       },
       "fit": "exact",
       "source": [
         "Items/Hob/Heist Plan 4.png",
-        "Items/Hob/Heist Plan - Lightning Spear.png"
+        "Items/Hob/Heist Plan - Thundercloud.png"
       ]
     },
     "Shoddy Handline": {

@@ -67,7 +67,7 @@ plan = "Heist Plan {step}"
 stamp = "Heist Plan - {theme}"
 
 [heist.themes]
-# Название ограбления → штамп. Сопоставлено по смыслу и нужным предметам — проверить.
+# Название ограбления → штамп. Сверено со списком из игры (2026-10-06).
 "Boomscrolling" = "Scroll"
 "Bullseye Bamboozles" = "Bow"
 "Changing of the Gourd" = "Pumpkin"
@@ -82,8 +82,8 @@ stamp = "Heist Plan - {theme}"
 "Lumber Jacked" = "Lumber"
 "Operation Crustacean" = "Crab"
 "Operation Fermentation" = "Bottle"
-"Plunder and Lightning" = "Thundercloud"
-"Shock and Ore" = "Lightning Spear"
+"Plunder and Lightning" = "Lightning Spear"
+"Shock and Ore" = "Thundercloud"
 "The Butterfly Deflect" = "Butterfly"
 "The Calamari Caper" = "Anchor"
 "The Cookout Break-in" = "Chefs Hat"
