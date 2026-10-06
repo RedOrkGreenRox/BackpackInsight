@@ -317,7 +317,7 @@
           - 📄 [flatbuffer-decoders.ts](Frontend/ground/middleware/flatbuffer-decoders.md)
         - 📂 [**Корневые системы**](Frontend/ground/roots/index.md)
           - 📂 **Базовые стили и Shell**
-            - 📂 [**Библиотека предметов**](Frontend/ground/roots/_roots/items/index.md)
+            - 📂 **Библиотека предметов**
               - 📄 [Стили карточки](Frontend/ground/roots/_roots/items/_item-card.md)
               - 📄 [Стили иконки](Frontend/ground/roots/_roots/items/_item-image.md)
               - 📄 [Стили уровня](Frontend/ground/roots/_roots/items/_item-level.md)

@@ -1,4 +1,4 @@
-# [Страница профиля (ProfileBranch.ts)](/Frontend/Web/ground/branches/profile/ProfileBranch.ts)
+# [Страница профиля (branches/profile/)](../../../../../Frontend/Web/ground/branches/profile/)
 
 ## Назначение
 Точка входа раздела «Профиль»: аналитика прогресса, героев и инвентаря одного игрока. Устройство самой страницы (`profileSpec`, `ProfileDisplay`, `ProfileDataLoader`, `ProfileLogic`) описано в [ProfileBranch](ProfileBranch.md); здесь — карта модулей.

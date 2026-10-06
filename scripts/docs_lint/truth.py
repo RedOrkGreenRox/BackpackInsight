@@ -21,6 +21,25 @@ SYM_IGNORE = {'describe', 'it', 'expect', 'beforeEach', 'afterEach', 'vi', 'test
               'destroy', 'constructor', 'render', 'mount', 'unmount', 'main', 'tests'}
 
 
+# Внешние имена (API браузера, типы Leptos и std, утилиты), которых нет в коде проекта дословно.
+EXTERNAL = {'DocumentFragment', 'textarea', 'replaceState', 'arrayBuffer', 'Display', 'EitherOf3',
+            'prefetch_lazy_fn_on_server', 'flatc', 'rustc', 'cargo', 'RUST_LOG'}
+
+
+def snake(token: str) -> str:
+    """camelCase → snake_case: имя поля JSON и его поле в Rust (serde rename_all)."""
+    return re.sub(r'(?<=[a-z0-9])([A-Z])', lambda m: '_' + m.group(1).lower(), token)
+
+
+def appears(code: str, token: str) -> bool:
+    """Мягкое вхождение для TRUTH: часть составного имени (`.rarity-common`, префикс `items_`)
+    или snake_case-форма camelCase-имени тоже считается."""
+    bare = token.lstrip('.#')
+    tail = '' if bare.endswith('_') else r'(?![a-z0-9])'
+    return any(re.search(r'(?<![A-Za-z0-9$])' + re.escape(t) + tail, code)
+               for t in {bare, snake(bare)})
+
+
 def mentions(text: str, token: str) -> bool:
     """Символ встречается как отдельное слово, а не как часть другого имени."""
     return re.search(r'(?<![\w$-])' + re.escape(token) + r'(?![\w-])', text) is not None
@@ -62,6 +81,7 @@ def check() -> tuple[list[tuple[str, int, int, list[str]]], list[tuple[str, str,
     defined: set[str] = set()
     for src in all_sources():
         defined |= source_symbols(src)
+    everywhere = '\n'.join(read(s) for s in all_sources())
     incomplete, suspicious = [], []
     for doc, src in sorted(doc_source_map().items()):
         if not os.path.exists(src):
@@ -74,8 +94,8 @@ def check() -> tuple[list[tuple[str, int, int, list[str]]], list[tuple[str, str,
             incomplete.append((doc, share, len(symbols), missed[:8]))
         code = '\n'.join(read(s) for s in related_sources(doc, src))
         bad = sorted(t for t in claimed_tokens(text)
-                     if not mentions(code, t.lstrip('.#')) and t not in defined
-                     and t.lstrip('.#') not in defined)
+                     if not appears(code, t) and t.lstrip('.#') not in defined | EXTERNAL
+                     and not appears(everywhere, t))
         if bad:
             suspicious.append((doc, src, bad[:12]))
     return incomplete, suspicious

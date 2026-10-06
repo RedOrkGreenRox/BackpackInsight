@@ -8,6 +8,9 @@
 *   `@use "items-grid"` → [_items-grid](_items-grid.md).
 *   `@use "item-card"`, `"item-image"`, `"item-name"`, `"item-rarities"`, `"item-level"`, `"item-link"` → соответствующие доки в этой папке.
 
+## Связи
+*   Подключается в глобальный файл стилей [_roots.scss](../../_roots.md).
+
 ## AI-контекст
 *   `rarity-vars` обязан подключаться первым: остальные атомы используют его переменные.
 
