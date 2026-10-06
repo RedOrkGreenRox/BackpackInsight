@@ -12,6 +12,8 @@
 > **Подсказка**: Нажмите на название файла, чтобы открыть его документацию.
 
 - 📦 **BackpackInsight**
+  - 📂 **.githooks**
+    - ❌ pre-commit <!-- MISSING DOC -->
   - 📂 [**Бэкенд (Python/FastAPI)**](Backend/index.md)
     - 📂 [**База данных и миграции**](Backend/DB/index.md)
       - 🗃 Справочник предметов (v3.1.0)

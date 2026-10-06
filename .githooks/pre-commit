@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Перед коммитом обновляет docs/structure.md, если в коммите есть добавленные,
+# удалённые или переименованные файлы: дерево проекта меняется только от них.
+# Иначе CI (scripts/check_docs.py, проверка [FRESH]) падает на устаревшей структуре.
+# Включается один раз на клон: git config core.hooksPath .githooks
+set -euo pipefail
+root="$(git rev-parse --show-toplevel)"
+if git diff --cached --name-only --diff-filter=ADR | grep -q .; then
+    python3 "$root/scripts/generate_structure.py" >/dev/null
+    git add "$root/docs/structure.md"
+fi
