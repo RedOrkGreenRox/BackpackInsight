@@ -212,8 +212,7 @@ A server binary for Leptos SSR is not a new cost: the VPS already exists. Any ne
 | D | Axum backend v2 with JSON compatibility | Partly: binary FlatBuffers routes exist; JSON compatibility checkpoints 14–17 recorded |
 | E | SQLx + DB migrations, atomic upsert | Partly; migration conflicts with the old DB (see §7.3) |
 | F | FlatBuffers data packs + validators | Partly; packs are 4.07 MB vs 1.2 MB JSON; validators check the wrong file |
-| G | Dual-run Python vs Rust comparison | Not done |
-| H | Switch backend | Not done |
+| G, H | Dual-run and staged backend switch | **Removed from the plan by Иван (2026-10-06)** |
 | I | Leptos SSR + islands frontend | **Largely done on `rust-leptos`** (home, catalog, editor, 404, i18n, lazy islands) |
 | J | Remove duplicates and old layers | Not done |
 | CI/Guard, perf budgets | | Docs CI done; Rust CI not yet |
@@ -229,7 +228,7 @@ Overall backend migration was ~35–40% done when analysed on 2026-10-01; phase 
 5. Profile branch: upload of the game export, profile view (heroes grid, header), lazy profile items.
 6. Editor page content (still undefined — ask Иван).
 7. ~~Decide data format~~ Done 2026-10-06: strict Rust model over the game JSON (§3). Remaining: move the api crate's profile parsing and sitemap off `api_items_*.fb`, then drop the generic packs with the TS frontend (phase J).
-8. Finish backend phases A/C/E/F/G/H, then delete Python and the TS frontend (phase J), then make `Rustified` the main branch.
+8. Finish backend phases A/C/E/F, then delete Python and the TS frontend (phase J), then make `Rustified` the main branch.
 9. Product: first analytics features (§2).
 10. Optional idea: one typed `project.toml` for all project settings (§9).
 

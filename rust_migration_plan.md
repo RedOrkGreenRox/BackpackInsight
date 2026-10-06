@@ -417,39 +417,9 @@ bi images validate
 
 ---
 
-## 9. Фаза G — dual-run сравнение Python и Rust
+## 9–10. Фазы G и H — удалены
 
-До переключения production:
-
-```text
-Python backend response
-Rust backend response
-  -> canonicalize
-  -> diff
-```
-
-Команды:
-
-```bash
-bi compare api-items
-bi compare profile tests/fixtures/*.json
-```
-
-Различия допускаются только в заранее утверждённом списке intentional fixes.
-
----
-
-## 10. Фаза H — переключение backend
-
-Порядок:
-
-1. Поднять Rust backend на другом порту/container name.
-2. Cloudflare/API proxy пока смотрит на Python.
-3. Запустить shadow traffic/contract checks.
-4. Переключить `/api/v2` на Rust.
-5. Переключить `/api/*` на Rust.
-6. Оставить Python backend как rollback на время.
-7. Удалить Python backend после стабильного периода.
+Параллельный запуск Python/Rust и поэтапное переключение backend убраны из плана (Иван, 2026-10-06): они не нужны.
 
 ---
 
