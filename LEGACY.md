@@ -224,7 +224,7 @@ Overall backend migration was ~35–40% done when analysed on 2026-10-01; phase 
 1. Land PR #4 into `Rustified` (Иван reviews).
 2. Make the `branches` server deployable (Dockerfile, compose service, env) — §7.1. Then a test switch of `LEPTOS_SSR` on a preview, never production without his word.
 3. Build the **Item Field** (§6) as the shared item list component for catalog and profile.
-4. Full search + filters + sort with all state in the URL (the old TS site had advanced filters; the Leptos version has only simple search).
+4. Full search + filters + sort with all state in the URL. Build them from scratch: Иван says the old TS filters/sort were never finished either (2026-10-06). The Leptos version has only simple search.
 5. Profile branch: upload of the game export, profile view (heroes grid, header), lazy profile items.
 6. Editor page content (still undefined — ask Иван).
 7. ~~Decide data format~~ Done 2026-10-06: strict Rust model over the game JSON (§3). Remaining: move the api crate's profile parsing and sitemap off `api_items_*.fb`, then drop the generic packs with the TS frontend (phase J).
