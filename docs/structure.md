@@ -724,6 +724,7 @@
               - 📄 [Режим экономии](RBackend/crates/branches/style/roots/_roots/_low-res.md)
               - 📄 [Базовый сброс](RBackend/crates/branches/style/roots/_roots/_reset.md)
               - 📄 [Стили оболочки](RBackend/crates/branches/style/roots/_roots/_shell.md)
+              - 📄 [_tokens.scss](RBackend/crates/branches/style/roots/_roots/_tokens.md)
               - 📄 [Дизайн-переменные](RBackend/crates/branches/style/roots/_roots/_vars.md)
             - 📄 [Агрегатор ядра](RBackend/crates/branches/style/roots/_roots.md)
           - 📂 **Утилиты и сервисы**
