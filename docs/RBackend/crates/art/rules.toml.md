@@ -5,7 +5,7 @@
 
 ## Разделы
 - **`[sources]`** — `roots` (папки поиска: `Items`, `ui/Icons/Boons`), `states` (суффиксы состояний `Empty`/`open`/`Closed`), `cell_sizes = [60, 120]`, `aspect_tolerance = 0.08`, `default_rotate = 90`.
-- **`[alias]`** — `id` → имя файла: опечатки архива (`Spike Whip`, `Fulminating Hammer`, `Bee`, `Honey`, `BeekeeperBackpack`), `Blind Bake Pie` → `Pie` и 20 благ (`boon-*` из `Season07` и `Generic`).
+- **`[alias]`** — `id` → имя файла: опечатки архива (`Spike Whip`, `Fulminating Hammer`, `Bee`, `Honey`, `BeekeeperBackpack`), `Blind Bake Pie` → `Blind Bake Pie Crust` (пустая корочка, как в main) и 20 благ (`boon-*` из `Season07` и `Generic`).
 - **`[layers]`** — предметы из нескольких файлов (пока пусто: ограбления описаны шаблоном).
 - **`[rotate]`** — явный поворот, если поворот по умолчанию неверен (пока пусто).
 - **`[missing]`** — 4 предмета без картинки ни в одном ContentKit 0.36–7.0.

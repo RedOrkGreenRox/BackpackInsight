@@ -24,7 +24,7 @@ default_rotate = 90
 "Honey Bee" = "Bee"
 "Manuka Honey" = "Honey"
 "Stinger Collector" = "BeekeeperBackpack"
-"Blind Bake Pie" = "Pie"
+"Blind Bake Pie" = "Blind Bake Pie Crust"
 # Блага сезона 7 (ui/Icons/Boons/Season07).
 "Borrowed Vigor" = "boon-vigor"
 "Hyphal Siphoning" = "boon-hyphal"

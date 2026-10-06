@@ -1822,17 +1822,17 @@
       ],
       "images": {
         "60": {
-          "avif": "60/blind-bake-pie.13e77dcac9.avif",
-          "webp": "60/blind-bake-pie.13e77dcac9.webp"
+          "avif": "60/blind-bake-pie.2e987f7901.avif",
+          "webp": "60/blind-bake-pie.2e987f7901.webp"
         },
         "120": {
-          "avif": "120/blind-bake-pie.be1cb9f987.avif",
-          "webp": "120/blind-bake-pie.be1cb9f987.webp"
+          "avif": "120/blind-bake-pie.e80004c020.avif",
+          "webp": "120/blind-bake-pie.e80004c020.webp"
         }
       },
       "fit": "exact",
       "source": [
-        "Items/Pepper/Pie.png"
+        "Items/Pepper/Blind Bake Pie Crust.png"
       ]
     },
     "Blood Moon Berry": {
