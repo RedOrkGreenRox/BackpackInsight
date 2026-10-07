@@ -626,7 +626,9 @@
             - 📄 [spec.rs](RBackend/crates/branches/src/roots/spec.md)
             - 📄 [split_files.rs](RBackend/crates/branches/src/roots/split_files.md)
           - 📂 **shell**
+            - 📄 [drop_wave.rs](RBackend/crates/branches/src/shell/drop_wave.md)
             - 📄 [fade.rs](RBackend/crates/branches/src/shell/fade.md)
+            - 📄 [lang_stay.rs](RBackend/crates/branches/src/shell/lang_stay.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/shell/mod.md)
             - 📄 [parallax.rs](RBackend/crates/branches/src/shell/parallax.md)
             - 📄 [prefetch.rs](RBackend/crates/branches/src/shell/prefetch.md)
@@ -765,6 +767,7 @@
                 - 📂 **Боковое меню**
                   - 📄 [Логотип в меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.md)
                   - 📄 [Переключатель языка](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.md)
+                  - 📄 [_nav-drop.scss](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-drop.md)
                   - 📄 [Вкладки навигации](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-tab.md)
                   - 📄 [Заголовки меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.md)
                   - 📄 [Боковое меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.md)
