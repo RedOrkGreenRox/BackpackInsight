@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/orientation.rs](/RBackend/crates/branches/src/branches/editor/model/orientation.rs)
+# [Поворот предмета (orientation.rs)](/RBackend/crates/branches/src/branches/editor/model/orientation.rs)
 
 ## Назначение
 `Orientation` — поворот предмета (`Up`, `Right`, `Down`, `Left`), как поле `orientation` в экспорте игры. Сверено с экспортом билда Mycella: `Left` переводит смещение `(x, y)` в `(-y, x)` (четверть оборота против часовой), `Right` — в `(y, -x)`.

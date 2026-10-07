@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/board_tests.rs](/RBackend/crates/branches/src/branches/editor/model/board_tests.rs)
+# [Тесты правил поля редактора (board_tests.rs)](/RBackend/crates/branches/src/branches/editor/model/board_tests.rs)
 
 ## Назначение
 Тесты правил поля на наборе из настоящих форм 7.0.0: `SAC` (Sporeweaver's Sac 2×3), `BAG` (Medium Bag 2×2), `STICK` (Wooden Stick 1×2), `MELON` (Watermelon 2×2), `SPORE` (Spore 1×1). `kit()` и `at()` используются и в [file_tests.rs](file_tests.md).

@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/toolbar.rs](/RBackend/crates/branches/src/branches/editor/ui/toolbar.rs)
+# [Панель кнопок редактора (toolbar.rs)](/RBackend/crates/branches/src/branches/editor/ui/toolbar.rs)
 
 ## Назначение
 `Toolbar(labels, dialog)` — панель над полем: выбор героя (герои набора, «любой»), режим сумок (`aria-pressed`), сброс, импорт и экспорт.

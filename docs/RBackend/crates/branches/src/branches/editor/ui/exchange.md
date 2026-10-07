@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/exchange.rs](/RBackend/crates/branches/src/branches/editor/ui/exchange.rs)
+# [Окно импорта и экспорта билда (exchange.rs)](/RBackend/crates/branches/src/branches/editor/ui/exchange.rs)
 
 ## Назначение
 `Exchange(labels, dialog)` — окно импорта и экспорта билда в формате игры ([model/file.rs](../model/file.md)).

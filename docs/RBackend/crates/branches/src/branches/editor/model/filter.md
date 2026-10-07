@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/filter.rs](/RBackend/crates/branches/src/branches/editor/model/filter.rs)
+# [Фильтры каталога редактора (filter.rs)](/RBackend/crates/branches/src/branches/editor/model/filter.rs)
 
 ## Назначение
 `Filter` — состояние панели каталога: `query`, `hero`, `kind`, `rarity`, `sort`; `apply(kit)` — номера подходящих предметов в нужном порядке.

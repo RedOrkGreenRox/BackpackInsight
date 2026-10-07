@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/palette.rs](/RBackend/crates/branches/src/branches/editor/ui/palette.rs)
+# [Каталог редактора (palette.rs)](/RBackend/crates/branches/src/branches/editor/ui/palette.rs)
 
 ## Назначение
 `Palette(labels)` — каталог вместо магазина: поиск, вид (всё / сумки / предметы), редкость, порядок; герой берётся из билда (`Editor::hero`). Карточки показываются по `PAGE` = 60 с кнопкой «Показать ещё». Узел каталога — цель «убрать предмет».

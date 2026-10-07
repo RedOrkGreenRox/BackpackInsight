@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/mod.rs](/RBackend/crates/branches/src/branches/editor/ui/mod.rs)
+# [Интерфейс редактора (mod.rs)](/RBackend/crates/branches/src/branches/editor/ui/mod.rs)
 
 ## Назначение
 Остров редактора и его части. Компилируется и для сервера (каркас страницы), и для WASM (поведение). Наружу открыт только [manager.rs](manager.md).

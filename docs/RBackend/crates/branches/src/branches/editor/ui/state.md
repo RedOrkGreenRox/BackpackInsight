@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/state.rs](/RBackend/crates/branches/src/branches/editor/ui/state.rs)
+# [Состояние редактора (state.rs)](/RBackend/crates/branches/src/branches/editor/ui/state.rs)
 
 ## Назначение
 `Editor` — сигналы острова, общие для всех частей через контекст; `Rect` — прямоугольник элемента на экране.

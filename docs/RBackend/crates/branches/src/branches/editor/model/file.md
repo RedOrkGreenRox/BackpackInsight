@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/file.rs](/RBackend/crates/branches/src/branches/editor/model/file.rs)
+# [Файл билда в формате игры (file.rs)](/RBackend/crates/branches/src/branches/editor/model/file.rs)
 
 ## Назначение
 `BuildFile` — билд в формате экспорта из игры, только то, что относится к билду: `gameVersion`, `hero.name`, `inventoryItems`, `storageItems`. При чтении `run`, уровень героя и имена предметов пропускаются, при записи не выводятся.

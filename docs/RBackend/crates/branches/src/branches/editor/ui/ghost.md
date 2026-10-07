@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/ghost.rs](/RBackend/crates/branches/src/branches/editor/ui/ghost.rs)
+# [Предмет под указателем (ghost.rs)](/RBackend/crates/branches/src/branches/editor/ui/ghost.rs)
 
 ## Назначение
 `Ghost()` — предмет под указателем во время перетаскивания; у сумки вне режима сумок рисуются и предметы, которые она несёт. Положение (`transform`) меняется с каждым движением, содержимое — только при повороте, поэтому картинки не пересоздаются.

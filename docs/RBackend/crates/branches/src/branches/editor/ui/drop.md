@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/drop.rs](/RBackend/crates/branches/src/branches/editor/ui/drop.rs)
+# [Снятие и укладка предмета (drop.rs)](/RBackend/crates/branches/src/branches/editor/ui/drop.rs)
 
 ## Назначение
 Снять предмет в начале перетаскивания и положить в конце. Куда кладём, решает место отпускания.

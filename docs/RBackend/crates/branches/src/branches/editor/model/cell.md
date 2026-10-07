@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/cell.rs](/RBackend/crates/branches/src/branches/editor/model/cell.rs)
+# [Клетки поля рюкзака (cell.rs)](/RBackend/crates/branches/src/branches/editor/model/cell.rs)
 
 ## Назначение
 Клетки поля рюкзака. Координаты как в экспорте игры: `x` вправо, `y` вверх; поле `WIDTH` = 9 на `HEIGHT` = 6 клеток. На экране строка сверху = `HEIGHT - 1 - y`.

@@ -1,4 +1,4 @@
-# [style/branches/editor/_layout.scss](/RBackend/crates/branches/style/branches/editor/_layout.scss)
+# [Раскладка редактора (_layout.scss)](/RBackend/crates/branches/style/branches/editor/_layout.scss)
 
 ## Назначение
 Раскладка редактора: на широком экране (от 64rem) каталог слева, поле со складом справа; на узком — сверху вниз, как в игре.

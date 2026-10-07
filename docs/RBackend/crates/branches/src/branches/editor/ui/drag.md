@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/drag.rs](/RBackend/crates/branches/src/branches/editor/ui/drag.rs)
+# [Перетаскиваемый предмет (drag.rs)](/RBackend/crates/branches/src/branches/editor/ui/drag.rs)
 
 ## Назначение
 `Drag` — перетаскиваемый предмет и расчёт клетки, куда он встанет. Нажатие запоминает `Origin`; предмет снимается (`Lifted`) только после сдвига на `THRESHOLD` = 5 px, поэтому простой клик ничего не меняет.

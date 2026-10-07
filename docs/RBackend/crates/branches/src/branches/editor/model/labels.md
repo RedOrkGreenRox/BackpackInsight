@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/labels.rs](/RBackend/crates/branches/src/branches/editor/model/labels.rs)
+# [Подписи острова редактора (labels.rs)](/RBackend/crates/branches/src/branches/editor/model/labels.rs)
 
 ## Назначение
 `EditorLabels` — переведённые подписи острова редактора (пропс острова). Каждое поле берётся из словаря по ключу `editor_<поле>` в [branch.rs](../branch.md): `catalog`, `search`, `hero`, `hero_all`, `kind*`, `rarity*`, `sort*`, `more`, `inventory`, `storage`, `storage_empty`, `bag_mode`, `reset`, `import`, `export`, `apply`, `close`, `download`, `import_hint`, `import_error`, `unknown` (`{0}` — список), `loading`, `hint`.

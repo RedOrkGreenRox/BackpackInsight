@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/input.rs](/RBackend/crates/branches/src/branches/editor/ui/input.rs)
+# [Управление перетаскиванием (input.rs)](/RBackend/crates/branches/src/branches/editor/ui/input.rs)
 
 ## Назначение
 Управление перетаскиванием (решение Ивана): ЛКМ или палец — взять и тащить; ПКМ, СКМ, пробел или `R` (и `К` в русской раскладке) — поворот; второй палец на телефоне — поворот; `Esc` — вернуть на место.

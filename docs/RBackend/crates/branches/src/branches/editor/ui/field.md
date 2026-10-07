@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/field.rs](/RBackend/crates/branches/src/branches/editor/ui/field.rs)
+# [Поле рюкзака (field.rs)](/RBackend/crates/branches/src/branches/editor/ui/field.rs)
 
 ## Назначение
 `Field(label)` — поле 9 × 6: сетка клеток, слой сумок, слой предметов (в режиме сумок полупрозрачный и не берётся, класс `ed-ghosted`) и слой отметок ([marks.rs](marks.md)).

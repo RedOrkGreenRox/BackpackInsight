@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/manager.rs](/RBackend/crates/branches/src/branches/editor/ui/manager.rs)
+# [Остров редактора (manager.rs)](/RBackend/crates/branches/src/branches/editor/ui/manager.rs)
 
 ## Назначение
 `EditorManager(lang, labels, code)` — ленивый остров редактора (`#[island(lazy)]`): каталог, панель кнопок, поле, склад, предмет под указателем и окно импорта/экспорта.

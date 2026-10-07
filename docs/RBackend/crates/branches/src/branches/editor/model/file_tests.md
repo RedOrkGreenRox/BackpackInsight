@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/file_tests.rs](/RBackend/crates/branches/src/branches/editor/model/file_tests.rs)
+# [Тесты файла билда и адреса (file_tests.rs)](/RBackend/crates/branches/src/branches/editor/model/file_tests.rs)
 
 ## Назначение
 Тесты файла билда и записи в адресе на экспорте билда Mycella из игры 7.0.0 (константа `GAME`).

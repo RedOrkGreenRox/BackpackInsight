@@ -1,4 +1,4 @@
-# [branches/branches/editor/kit_fn.rs](/RBackend/crates/branches/src/branches/editor/kit_fn.rs)
+# [Серверная функция набора предметов редактора (kit_fn.rs)](/RBackend/crates/branches/src/branches/editor/kit_fn.rs)
 
 ## Назначение
 Серверная функция `editor_kit(lang) -> Kit`: все предметы текущей версии игры для острова редактора одним ответом. `GET /_fn/editor_kit?lang=…`, `Cache-Control: public, max-age=300`, как у [search_fn.rs](../items/search_fn.md).

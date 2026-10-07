@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/piece.rs](/RBackend/crates/branches/src/branches/editor/ui/piece.rs)
+# [Картинка предмета (piece.rs)](/RBackend/crates/branches/src/branches/editor/ui/piece.rs)
 
 ## Назначение
 Картинка предмета на поле, на складе, в каталоге и под пальцем. Картинка нарисована для `Up` и покрывает охват формы (ось `y` вверх, проверено на банане, кошке и сабле); блок снаружи занимает охват повёрнутой формы, картинка внутри стоит по центру и поворачивается CSS. Размеры — в `var(--cell)`.

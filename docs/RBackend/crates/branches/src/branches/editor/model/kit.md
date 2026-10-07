@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/kit.rs](/RBackend/crates/branches/src/branches/editor/model/kit.rs)
+# [Набор предметов редактора (kit.rs)](/RBackend/crates/branches/src/branches/editor/model/kit.rs)
 
 ## Назначение
 `Kit` — набор предметов одной версии игры на одном языке для редактора; `KitItem` — предмет: `id`, `slug`, `name`, `rarity`, `rarity_rank`, `hero`, `types`, `price`, `shape`, `stars`, `image`. Сервер собирает его в [kit_fn.rs](../kit_fn.md), остров получает одним ответом.

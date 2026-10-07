@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/placed.rs](/RBackend/crates/branches/src/branches/editor/model/placed.rs)
+# [Предмет на поле (placed.rs)](/RBackend/crates/branches/src/branches/editor/model/placed.rs)
 
 ## Назначение
 `Placed { piece, pos, orient }` — предмет или сумка на поле: номер в `Kit`, опорная клетка, поворот.

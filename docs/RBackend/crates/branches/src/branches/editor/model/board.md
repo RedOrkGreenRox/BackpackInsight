@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/board.rs](/RBackend/crates/branches/src/branches/editor/model/board.rs)
+# [Поле и склад редактора (board.rs)](/RBackend/crates/branches/src/branches/editor/model/board.rs)
 
 ## Назначение
 `Board` — состояние редактора: `bags`, `items` (оба `Vec<Placed>`), `storage` (номера предметов) и `bag_mode`. Правила как в игре: сумки открывают клетки, предметы стоят только на клетках сумок, а то, на что поставили новое, падает на склад.

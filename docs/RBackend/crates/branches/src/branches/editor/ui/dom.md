@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/dom.rs](/RBackend/crates/branches/src/branches/editor/ui/dom.rs)
+# [Обращения редактора к странице (dom.rs)](/RBackend/crates/branches/src/branches/editor/ui/dom.rs)
 
 ## Назначение
 Обращения к странице. Работают только в браузере (`hydrate`), на сервере это заглушки.

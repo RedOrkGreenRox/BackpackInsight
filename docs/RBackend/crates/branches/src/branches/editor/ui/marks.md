@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/marks.rs](/RBackend/crates/branches/src/branches/editor/ui/marks.rs)
+# [Подсветка на поле (marks.rs)](/RBackend/crates/branches/src/branches/editor/ui/marks.rs)
 
 ## Назначение
 Подсветка на поле: куда встанет перетаскиваемый предмет (зелёным или красным) и его звёзды; без перетаскивания — звёзды предмета под указателем. Связи между предметами пока не рисуются (решение Ивана).

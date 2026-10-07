@@ -1,4 +1,4 @@
-# [branches/branches/editor/ui/storage.rs](/RBackend/crates/branches/src/branches/editor/ui/storage.rs)
+# [Склад редактора (storage.rs)](/RBackend/crates/branches/src/branches/editor/ui/storage.rs)
 
 ## Назначение
 `Storage(title, empty)` — склад: предметы не на поле, списком в порядке поступления (первый шаг; гравитация как в игре — следующим шагом, решение Ивана). Узел склада — цель для отпускания ([drop.rs](drop.md)).

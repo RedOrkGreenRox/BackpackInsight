@@ -1,4 +1,4 @@
-# [branches/branches/editor/branch.rs](/RBackend/crates/branches/src/branches/editor/branch.rs)
+# [Страница редактора (branch.rs)](/RBackend/crates/branches/src/branches/editor/branch.rs)
 
 ## Назначение
 `EditorBranch` — серверная часть страницы `/editor`: заголовок и остров `EditorManager` с билдом из адреса.

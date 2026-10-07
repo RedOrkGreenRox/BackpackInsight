@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/mod.rs](/RBackend/crates/branches/src/branches/editor/model/mod.rs)
+# [Модель редактора (mod.rs)](/RBackend/crates/branches/src/branches/editor/model/mod.rs)
 
 ## Назначение
 Модель редактора без браузера и сервера: всё здесь проверяется обычными `cargo test`. Подмодули публичны, основные типы переэкспортированы.

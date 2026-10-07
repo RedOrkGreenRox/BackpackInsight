@@ -1,4 +1,4 @@
-# [Страница «Редактор» (mod.rs)](/RBackend/crates/branches/src/branches/editor/mod.rs)
+# [Ветка редактора (mod.rs)](/RBackend/crates/branches/src/branches/editor/mod.rs)
 
 ## Назначение
 Корень ветки «Редактор» (`/editor`): поле рюкзака как в игре, только без магазина. Компилируется и для сервера, и для WASM: в ветке живёт остров `EditorManager`.

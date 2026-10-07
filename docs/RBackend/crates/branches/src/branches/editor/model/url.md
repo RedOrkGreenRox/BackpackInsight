@@ -1,4 +1,4 @@
-# [branches/branches/editor/model/url.rs](/RBackend/crates/branches/src/branches/editor/model/url.rs)
+# [Билд в адресе страницы (url.rs)](/RBackend/crates/branches/src/branches/editor/model/url.rs)
 
 ## Назначение
 Короткая запись билда в адресе: `/editor?h=Mycella&b=…&s=…`. Поле `b` — записи `слаг.XYО` через `~` (`X`, `Y` — цифры клетки, `О` — `u`/`r`/`d`/`l`), склад `s` — слаги через `~`, `h` — герой. Символы безопасны в адресе и не кодируются.
