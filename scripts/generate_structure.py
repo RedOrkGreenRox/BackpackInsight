@@ -12,13 +12,13 @@ DOCS_ROOT = PROJECT_ROOT / "docs"
 IGNORE_DIRS = {
     '.git', '.idea', '__pycache__', '.pytest_cache', 'venv', 'env', 'node_modules', 'dist', 
     '.arena', '.cache', 'tmp', '.github', 'docs',
-    # Сборка Cargo и код/данные, которые генерируют flatc и builder (ARENA.MD §1.2: генерируемое без зеркала)
+    # Сборка Cargo и код/данные, которые генерируют flatc и builder (REQUIREMENTS.md §2: генерируемое без зеркала)
     'target', 'generated'
 }
 IGNORE_FILES = {
     '.DS_Store', 'structure.md', 'structure.txt', 'package-lock.json',
     '.dockerignore', '.gitignore', '.gitattributes', 'LICENSE', '.env', '.env.example',
-    'ARENA.MD'
+    'REQUIREMENTS.md'
 }
 
 # Словарь красивых имен
@@ -527,7 +527,7 @@ def generate_list_tree(dir_path: Path, current_rel_path: Path, indent: int = 1):
         else:
             doc_file = find_doc_file(rel_path)
             is_asset = item.lower().endswith(('.avif', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.woff2', '.woff', '.ttf', '.ico', '.db', '.ps1'))
-            # ARENA.MD §1.2: .md сами являются документацией, JSON — данными; зеркальный док им не нужен
+            # REQUIREMENTS.md §2: .md сами являются документацией, JSON — данными; зеркальный док им не нужен
             is_exempt = item.lower().endswith(('.md', '.json'))
             if doc_file and doc_file.exists():
                 link_path = os.path.relpath(doc_file, DOCS_ROOT).replace("\\", "/")

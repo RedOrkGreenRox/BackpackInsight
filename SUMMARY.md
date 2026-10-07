@@ -45,7 +45,7 @@ branches:
       Backend/DB: database.py, bootstrap.py, reset_db.py, migrations/versions/{0001_initial_schema,0002_profile_indexes_and_timestamps}.py
       Backend/PlayerData: api.py (FastAPI app), data.py, constants.py, utils.py, models/{Hero,Item,Profile}.py, services/ProfileFactory.py, builds/icon_parser.py, Profiles/ (player data — PII)
       Frontend/Web: index.html, ground/ (TS+SCSS source, dendritic tree: roots/, branches/{main,items,profile,404}/, utils/), functions/, static/ (images, lang JSON), tests/ (vitest), vite.config.ts
-      root: docker-compose.yml, docker-compose.server.yml, alembic.ini, pytest.ini, update.ps1, ARENA.MD, docs/, scripts/, tests/
+      root: docker-compose.yml, docker-compose.server.yml, alembic.ini, pytest.ini, update.ps1, REQUIREMENTS.md, docs/, scripts/, tests/
     api:
       - GET /                      # health message
       - GET /api/items             # catalog JSON (lang, limit, ...)
@@ -149,7 +149,7 @@ ci:
   external_reviewers_seen_on_github: [Codex (PR comments), SonarQube (quality gate passed, 17 issues not inspected)]
 
 docs_system:
-  law: "every source file has a mirror .md under docs/ with the same path (ARENA.MD); files ≤150 lines"
+  law: "every source file has a mirror .md under docs/ with the same path (REQUIREMENTS.md); files ≤150 lines"
   mirror_docs_on_rust_leptos: 626
   linter: "scripts/check_docs.py + scripts/docs_lint/ package"
   checks: [LINKS, TREE, FRESH, MIRROR, STRUCT, COMPLETE, TRUTH]
@@ -316,7 +316,7 @@ Proposed, not started: a typed `project.toml` (read via serde) as the single sou
 | Code | GitHub repo, branch `rust-leptos` (PR #4) |
 | Old analysis reports (Russian) | project files `/mnt/project-files/reports/branches-2026-10-01/` (`00-итог.md` summary, `01`–`04` details, `05` Rustified architecture, `06` product & UI, `screens/`) |
 | Migration plan (Russian) | `rust_migration_plan.md` on `Rustified` / `rust-leptos` |
-| Repo rules | `ARENA.MD` |
+| Repo rules | `REQUIREMENTS.md` (replaced ARENA.MD 2026-10-07) |
 | Project memory | shared Claude project memory (team/silo) |
 | This file | `SUMMARY.md` at the repo root on `rust-leptos` (PR #4); copy at `/mnt/project-files/reports/branches-2026-10-01/SUMMARY.md` |
 | Game data | `Backend/DB/items_{en,ru}_7_0_0.json` (also 5.1.0 for tests); ContentKit zips in `/mnt/project-files/` |

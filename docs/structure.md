@@ -623,6 +623,7 @@
             - 📄 [request.rs](RBackend/crates/branches/src/roots/request.md)
             - 📄 [runner.rs](RBackend/crates/branches/src/roots/runner.md)
             - 📄 [shell.rs](RBackend/crates/branches/src/roots/shell.md)
+            - 📄 [sitemap.rs](RBackend/crates/branches/src/roots/sitemap.md)
             - 📄 [spec.rs](RBackend/crates/branches/src/roots/spec.md)
             - 📄 [split_files.rs](RBackend/crates/branches/src/roots/split_files.md)
           - 📂 **shell**

@@ -37,7 +37,7 @@ def check_links() -> list[tuple[str, str]]:
 
 
 def check_tree() -> tuple[list[str], int, int]:
-    """Документы, недостижимые по ссылкам от README.md и docs/structure.md (ARENA.MD §1.4)."""
+    """Документы, недостижимые по ссылкам от README.md и docs/structure.md (REQUIREMENTS.md §2)."""
     docs = set(all_docs())
     roots = [r for r in ('README.md', 'docs/structure.md') if os.path.exists(r)]
     seen: set[str] = set()

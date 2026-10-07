@@ -5,7 +5,7 @@
 
 ## Ключевое
 - **`ROOT`**, **`DOCS`** — корень репозитория и папка `docs`.
-- **`SRC_EXT`** — расширения исходников, которым нужно зеркало по `ARENA.MD` §1.2: `.py`, `.ts`, `.scss`, `.js`, `.cjs`, `.mjs`, `.rs`, `.sql`, `.mako`, `.fbs`. **`SRC_NAMES`** — исходники по имени: `Cargo.toml`, `rust-toolchain.toml`.
+- **`SRC_EXT`** — расширения исходников, которым нужно зеркало по `REQUIREMENTS.md` §2: `.py`, `.ts`, `.scss`, `.js`, `.cjs`, `.mjs`, `.rs`, `.sql`, `.mako`, `.fbs`. **`SRC_NAMES`** — исходники по имени: `Cargo.toml`, `rust-toolchain.toml`.
 - **`SKIP_DIRS`** — папки без зеркал: служебные, сборка (`target`, `dist`), зависимости и код, который генерируют flatc и builder (`generated`).
 - **`read(path)`** — текст файла; при ошибке чтения или кодировки — пустая строка.
 - **`is_source(path)`** — подходит ли файл под `SRC_EXT` или `SRC_NAMES`.

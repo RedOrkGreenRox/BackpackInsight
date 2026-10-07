@@ -16,7 +16,7 @@
 ## AI-контекст
 
 *   Любая новая страница должна либо наследовать [`Branch`](Branch.md), либо, предпочтительно, использовать [`StructuredBranch`](StructuredBranch.md) или [`BranchSpec`](BranchSpec.md) + [`BranchRunner`](BranchRunner.md).
-*   Подробнее о философии см. [`ARENA.MD`](../../../../ARENA.MD).
+*   Подробнее о философии см. [`REQUIREMENTS.md`](../../../../REQUIREMENTS.md).
 
 ---
 

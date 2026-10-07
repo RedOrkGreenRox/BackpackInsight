@@ -1,6 +1,6 @@
 # Файлы фронтенда сверх лимита строк
 
-Журнал по разделу 2 [ARENA.MD](../ARENA.MD): какие `.ts` и `.scss` фронтенда превышают желательный размер. Проверены каталоги `Frontend/Web/ground` и `Frontend/Web/functions`; сгенерированный flatc-код (`ground/middleware/generated/`) исключён.
+Журнал по разделу 3 [REQUIREMENTS.md](../REQUIREMENTS.md): какие `.ts` и `.scss` фронтенда превышают желательный размер. Проверены каталоги `Frontend/Web/ground` и `Frontend/Web/functions`; сгенерированный flatc-код (`ground/middleware/generated/`) исключён.
 
 Лимиты: желательно до 80 строк, пограничный — 150, крайний — 250.
 

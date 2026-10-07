@@ -8,7 +8,7 @@ import subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DOCS = "docs"
 
-# ARENA.MD §1.2: у каждого такого файла должен быть зеркальный документ.
+# REQUIREMENTS.md §2: у каждого такого файла должен быть зеркальный документ.
 SRC_EXT = ('.py', '.ts', '.scss', '.js', '.cjs', '.mjs', '.rs', '.sql', '.mako', '.fbs')
 SRC_NAMES = {'Cargo.toml', 'rust-toolchain.toml'}
 # Сборка, зависимости и код, который генерируют flatc и builder: без зеркала.
