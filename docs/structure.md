@@ -891,8 +891,14 @@
   - 📂 **Скрипты автоматизации**
     - 📂 **docs_graph**
       - 📄 [build.py](scripts/docs_graph/build.md)
+      - 📄 [collect.py](scripts/docs_graph/collect.md)
+      - 📄 [imports.py](scripts/docs_graph/imports.md)
+      - 📄 [layers.js](scripts/docs_graph/layers.md)
+      - 📄 [pack.js](scripts/docs_graph/pack.md)
       - ❌ page.html <!-- MISSING DOC -->
       - 📄 [panel.js](scripts/docs_graph/panel.md)
+      - 📄 [problems.py](scripts/docs_graph/problems.md)
+      - 📄 [rust_imports.py](scripts/docs_graph/rust_imports.md)
       - 📄 [sim.js](scripts/docs_graph/sim.md)
       - 📄 [view.js](scripts/docs_graph/view.md)
     - 📂 **docs_lint**

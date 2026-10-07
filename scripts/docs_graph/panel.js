@@ -1,4 +1,4 @@
-// Панель документа (маленький рендер Markdown), поиск, легенда зон и запуск страницы.
+// Панель документа (маленький рендер Markdown), поиск, легенда (на телефоне свёрнута) и запуск страницы.
 'use strict';
 
 const $ = (id) => document.getElementById(id);
@@ -68,12 +68,13 @@ function select(n, fly) {
   const panel = $('doc');
   if (!n) { panel.hidden = true; return; }
   const z = ZONES[n.zone], l = LANGS[n.lang];
-  panel.style.setProperty('--c', l.rgb);
-  $('doc-zone').textContent = `${l.label} · ${z.label}`;
+  panel.style.setProperty('--c', n.bad.length ? G.bad : l.rgb);
+  $('doc-zone').textContent = n.bad.length ? `Проблема: ${n.bad.join(', ')}` : `${l.label} · ${z.label}`;
   $('doc-title').textContent = n.title;
-  $('doc-path').textContent = n.src ? `${n.id}  →  ${n.src}` : n.id;
-  $('doc-links').textContent = `Ссылается на ${n.out.length} · на него ссылаются ${n.inc.length}`;
-  $('md').innerHTML = markdown(n.text.split('\n').slice(1).join('\n'), n.id);
+  $('doc-path').textContent = n.code ? n.id : n.src ? `${n.id}  →  ${n.src}` : n.id;
+  $('doc-links').textContent = `Связи: исходящих ${n.out.length} · входящих ${n.inc.length}`;
+  $('md').innerHTML = n.code ? '<p>У этого исходника нет зеркального документа.</p>'
+    : markdown(n.text.split('\n').slice(1).join('\n'), n.id);
   $('md').scrollTop = 0;
   panel.hidden = false;
   if (fly) flyTo(n);
@@ -96,7 +97,7 @@ $('search').addEventListener('input', () => {
   for (const n of found) {
     const li = document.createElement('li'), b = document.createElement('button');
     b.innerHTML = `<span>${esc(n.title)}</span><small>${esc(n.id.replace(/^docs\//, ''))}</small>`;
-    b.addEventListener('click', () => { G.hiddenZones.delete(n.zone); G.hiddenLangs.delete(n.lang); if (n.hub) G.showHubs = true; renderLegend(); select(n, true); });
+    b.addEventListener('click', () => { G.hiddenZones.delete(n.zone); G.hiddenLangs.delete(n.lang); if (n.hub) G.showHubs = true; renderLegend(); repack(false); select(n, true); });
     li.append(b); hits.append(li);
   }
   hits.hidden = !found.length;
@@ -109,7 +110,7 @@ function renderLegend() {
     const b = document.createElement('button');
     b.className = ring ? 'chip ring' : 'chip'; b.setAttribute('aria-pressed', String(on));
     b.style.setProperty('--c', color); b.innerHTML = `<i></i>${esc(label)}`;
-    b.addEventListener('click', () => { toggle(); renderLegend(); reheat(0.5); V.dirty = true; });
+    b.addEventListener('click', () => { toggle(); renderLegend(); repack(false); reheat(0.5); V.dirty = true; });
     box.append(b);
   };
   const group = (title, table, key, hidden, ring) => {
@@ -121,13 +122,20 @@ function renderLegend() {
   };
   group('Язык файла — ядро', LANGS, 'lang', G.hiddenLangs, false);
   group('Папка дока — ореол', ZONES, 'zone', G.hiddenZones, true);
+  head('Связи');
+  for (const [k, kind] of Object.entries(KINDS)) {
+    const key = Number(k), count = G.edges.filter((e) => e.k === key).length;
+    chip(`${kind.label} · ${count}`, kind.rgb, !G.hiddenKinds.has(key),
+      () => (G.hiddenKinds.has(key) ? G.hiddenKinds.delete(key) : G.hiddenKinds.add(key)));
+  }
   chip('Карты README и structure', '#ffd98a', G.showHubs, () => { G.showHubs = !G.showHubs; });
 }
 
-buildGraph(DATA);
-settle(220);
-$('stats').textContent = `${G.nodes.length} документов · ${G.edges.length} ссылок`;
+buildGraph(DATA); buildGroups(); repack(true); settle(260);
+const badCount = G.nodes.filter((n) => n.bad.length).length;
+$('stats').textContent = `${G.nodes.length} звёзд · ${G.edges.length} связей · проблемных ${badCount}`;
 renderLegend();
+if (innerWidth <= 760) $('filters').open = false;
 resize();
 // Камера на центре видимых звёзд, в свободной от панели поиска части экрана (справа на ПК, снизу на телефоне).
 const shown = G.nodes.filter(visible), hud = $('hud').getBoundingClientRect(), wide = V.w > 760;

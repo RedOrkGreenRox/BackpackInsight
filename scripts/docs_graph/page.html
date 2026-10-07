@@ -8,6 +8,7 @@
   --sky: #070b17; --sky-2: #0e1530; --glass: rgba(14, 21, 44, .78); --line: rgba(160, 180, 255, .16);
   --ink: #e6e9f5; --ink-dim: #9aa3c2; --ink-faint: #5d6688; --focus: #ffd98a;
   --l-rust: #ff8f5a; --l-ts: #4ea8ff; --l-scss: #ff6fc0; --l-py: #ffd84d; --l-data: #6fe0a0; --l-doc: #eef0fa;
+  --bad: #ff4d5e; --k-both: #d8e0ff; --k-link: #8f9cd6; --k-import: #ffb347;
   --z-rust: #e0573a; --z-ts: #2fc4d6; --z-py: #c9a227; --z-tools: #3fae6a; --z-meta: #a58bff;
   --f-display: 'Unbounded', 'Golos Text', system-ui, sans-serif;
   --f-body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -42,6 +43,8 @@ h1 { margin: 0; font: 700 17px/1.2 var(--f-display); letter-spacing: .01em; text
 .chip[aria-pressed="false"] i { background: none; box-shadow: inset 0 0 0 1.5px var(--c); }
 .chip:focus-visible, .x:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .hint { color: var(--ink-faint); font-size: 12px; margin: 0; }
+#filters summary { cursor: pointer; color: var(--ink-dim); font-size: 12.5px; margin-bottom: 6px; }
+#filters summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 #doc { top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   width: min(460px, calc(100vw - 32px)); display: flex; flex-direction: column; overflow: hidden; }
 #doc header { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); display: flex; gap: 10px; align-items: flex-start; }
@@ -75,14 +78,14 @@ h1 { margin: 0; font: 700 17px/1.2 var(--f-display); letter-spacing: .01em; text
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 </style>
 
-<canvas id="sky" aria-label="Граф документов: точки — документы, линии — ссылки между ними"></canvas>
+<canvas id="sky" aria-label="Граф документов: точки — документы, линии — ссылки и импорты, круги — кластеры папок"></canvas>
 <section id="hud" class="card">
   <h1>Созвездие документации</h1>
   <div class="stats" id="stats"></div>
   <input id="search" type="search" placeholder="Найти документ или файл…" autocomplete="off" aria-label="Поиск документа">
   <ul id="hits" hidden></ul>
-  <div class="legend" id="legend"></div>
-  <p class="hint">Колесо или щипок — масштаб, перетаскивание — сдвиг. Клик по звезде открывает документ, ссылки в нём ведут по графу.</p>
+  <details id="filters" open><summary>Фильтры и легенда</summary><div class="legend" id="legend"></div></details>
+  <p class="hint">Колесо или щипок — масштаб, перетаскивание — сдвиг. Круги — папки, тяжёлые ближе к центру; красный кластер — проблемы. Клик по звезде открывает документ.</p>
 </section>
 <aside id="doc" class="card" hidden aria-live="polite">
   <header><div><div class="zone" id="doc-zone"></div><h2 id="doc-title"></h2><div class="path" id="doc-path"></div></div>

@@ -13,7 +13,8 @@ function resize() {
   canvas.width = V.w * V.dpr; canvas.height = V.h * V.dpr;
   V.dirty = true;
 }
-const toScreen = (n) => [(n.x - V.cam.x) * V.cam.k + V.w / 2, (n.y - V.cam.y) * V.cam.k + V.h / 2];
+const toScreenXY = (x, y) => [(x - V.cam.x) * V.cam.k + V.w / 2, (y - V.cam.y) * V.cam.k + V.h / 2];
+const toScreen = (n) => toScreenXY(n.x, n.y);
 const toWorld = (sx, sy) => [(sx - V.w / 2) / V.cam.k + V.cam.x, (sy - V.h / 2) / V.cam.k + V.cam.y];
 
 function nodeAt(sx, sy) {
@@ -40,26 +41,20 @@ function draw() {
     ctx.fillRect(x * V.w, y * V.h, 1.2, 1.2);
   }
   const focus = focusSet(), f = V.hover || V.selected, k = V.cam.k;
-  ctx.lineWidth = Math.max(0.4, 0.7 * Math.sqrt(k));
-  for (const e of G.edges) {
-    if (!edgeOn(e)) continue;
-    const hot = f && (e.s === f || e.t === f);
-    ctx.globalAlpha = hot ? 0.85 : focus ? 0.03 : 0.11;
-    ctx.strokeStyle = hot ? ZONES[e.s === f ? e.t.zone : e.s.zone].rgb : ZONES[e.s.zone].rgb;
-    const [x1, y1] = toScreen(e.s), [x2, y2] = toScreen(e.t);
-    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-  }
+  drawGroups(ctx, toScreenXY, k);
+  drawEdges(ctx, toScreen, k, f, focus);
   for (const n of G.nodes) {
     if (!visible(n)) continue;
     const [x, y] = toScreen(n), r = n.r * Math.sqrt(k) + 0.6, dim = focus && !focus.has(n);
     if (x < -20 || y < -20 || x > V.w + 20 || y > V.h + 20) continue;
-    // Ореол — цвет папки дока, ядро — цвет языка файла.
-    ctx.fillStyle = ZONES[n.zone].rgb;
+    // Ореол — цвет папки дока, ядро — цвет языка файла; у проблемных звёзд оба красные.
+    const bad = n.bad.length > 0;
+    ctx.fillStyle = bad ? G.bad : ZONES[n.zone].rgb;
     ctx.globalAlpha = dim ? 0.05 : 0.22;
     ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
     ctx.globalAlpha = dim ? 0.2 : 0.9;
     ctx.beginPath(); ctx.arc(x, y, r + 1.6, 0, 7); ctx.fill();
-    ctx.fillStyle = LANGS[n.lang].rgb;
+    ctx.fillStyle = bad ? '#ffd0d4' : LANGS[n.lang].rgb;
     ctx.globalAlpha = dim ? 0.25 : 1;
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
     if (n === V.selected) {
