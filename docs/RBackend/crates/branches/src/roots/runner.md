@@ -19,7 +19,8 @@
   - `/pkg`: при `hash_files` `Cache-Control: public, max-age=31536000, immutable` (имя меняется вместе с содержимым), без хэшей — `no-cache` (браузер перепроверяет файл и не запускает старый WASM); `/images` (30 дней), `/fonts` (год, `immutable`) через `ServeDir`;
   - `fallback(render)` — неизвестный путь тоже рендерится, `Gen` отдаёт `NotFoundBranch` со статусом 404;
   - слой `api::require_api_secret` ([api/security/secret.rs](../../../api/src/security/secret.md)) поверх страниц, `/_fn`, `/pkg`, `/images`, `/fonts` и fallback: без верного `X-Internal-Secret` ответ 403. Без `API_SECRET` слой ничего не проверяет (локальный запуск);
-  - `api::routes(state)` — все маршруты API, кроме `/` ([api/lib.rs](../../../api/src/lib.md)), подключаются после слоя, поэтому их защиту решает сам `api` (`/health` остаётся открытым);
+  - `/sitemap.xml` — [`Sitemap`](sitemap.md) с состоянием `public_base_url`, открыт, как и маршруты `api`;
+  - `api::routes(state)` — все маршруты API, кроме `/` и старой карты сайта ([api/lib.rs](../../../api/src/lib.md)), подключаются после слоя, поэтому их защиту решает сам `api` (`/health` остаётся открытым);
   - `CompressionLayer` (br/gzip) поверх всего.
 - **`cached(service, value)`** (приватная) — оборачивает сервис в `SetResponseHeader::if_not_present` с заданным `Cache-Control`.
 - **`BoxError`** (приватный тип) — общий тип ошибки `serve`.

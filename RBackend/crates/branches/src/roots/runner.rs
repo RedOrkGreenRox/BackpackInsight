@@ -2,13 +2,14 @@
 //!
 //! Один процесс отдаёт всё: HTML веток (SSR), серверные функции островов (`/_fn/*`),
 //! WASM/CSS (`/pkg`), картинки и шрифты из `Frontend/Web/static`, а также маршруты
-//! `api` (`/api/*`, `/health`, `/sitemap.xml`, …). Если задан `API_SECRET`, всё, кроме
+//! `api` (`/api/*`, `/health`, `/robots.txt`, …) и `/sitemap.xml` ([`Sitemap`]). Если задан `API_SECRET`, всё, кроме
 //! открытых маршрутов `api`, требует заголовок `X-Internal-Secret` (его ставит Cloudflare).
 
-use super::{shell, Dict, Gen, LazyIslands};
+use super::{shell, Dict, Gen, LazyIslands, Sitemap};
 use crate::catalog::{Catalog, CatalogHandle};
 use axum::{
     body::Body,
+    extract::State,
     http::{header, HeaderValue, Request},
     middleware,
     routing::get,
@@ -86,6 +87,12 @@ impl BranchRunner {
             "no-cache"
         };
         let static_dir = state.project_root.join("Frontend/Web/static");
+        let sitemap = Router::new()
+            .route(
+                "/sitemap.xml",
+                get(|State(base): State<String>| async move { Sitemap::response(&base) }),
+            )
+            .with_state(state.public_base_url.clone());
         pages
             .route("/_fn/{*fn_name}", get(server_fns.clone()).post(server_fns))
             .nest_service("/pkg", cached(ServeDir::new(pkg), pkg_cache))
@@ -110,6 +117,7 @@ impl BranchRunner {
                 state.clone(),
                 api::require_api_secret,
             ))
+            .merge(sitemap)
             .merge(api::routes(state))
             .layer(CompressionLayer::new())
     }

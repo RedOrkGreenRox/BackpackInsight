@@ -17,6 +17,7 @@ mod per_lang;
 mod request;
 mod runner;
 mod shell;
+mod sitemap;
 mod spec;
 mod split_files;
 
@@ -30,4 +31,5 @@ pub use lazy::LazyIslands;
 pub use per_lang::per_lang;
 pub use runner::BranchRunner;
 pub use shell::{shell, App};
+pub use sitemap::Sitemap;
 pub use spec::{BranchSpec, Params};

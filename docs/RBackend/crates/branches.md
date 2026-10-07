@@ -81,7 +81,6 @@ LEPTOS_SITE_PKG_DIR=pkg LEPTOS_SITE_ADDR=127.0.0.1:3000 \
 - **Ветка профиля** и загрузка профиля на главной (остров `MainManager`) — как в TS-версии; форма на главной уже есть, но пока ничего не отправляет.
 - **Содержимое редактора** ([editor](branches/src/branches/editor/mod.md)) — пока пустая заготовка.
 - **Полный синтаксис расширенного поиска** ([search_filter_syntax.md](/docs/search_filter_syntax.md)); сейчас — поиск по словам ([search.rs](branches/src/catalog/search.md)).
-- **Sitemap из `BranchSpec.sitemap`**: сейчас поле не читается, `/sitemap.xml` отдаёт `api` ([api_sitemap_robots.md](api_sitemap_robots.md)).
 
 ---
 > 📌 **Подпись документации:** ручной аудит · 2026-10-03.

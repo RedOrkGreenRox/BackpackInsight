@@ -21,12 +21,17 @@ pub use state::AppState;
 
 /// Full API application: [`routes`] plus the plain-text `/` health banner.
 pub fn app(state: AppState) -> Router {
+    let sitemap = Router::new()
+        .route("/sitemap.xml", get(routes::sitemap::sitemap))
+        .route("/api/sitemap", get(routes::sitemap::sitemap))
+        .with_state(state.clone());
     Router::new()
         .route("/", get(routes::root::root))
+        .merge(sitemap)
         .merge(self::routes(state))
 }
 
-/// Every API route except `/`, so an SSR frontend (crate `branches`) can own the home page.
+/// Every API route except `/` and the legacy `.fb`-based sitemap, so an SSR frontend (crate `branches`) can own the home page.
 pub fn routes(state: AppState) -> Router {
     // Rate-limit ONLY the POST /api/profile.fb endpoint (parity with legacy
     // Python slowapi limiter). GET endpoints are cached 1h upstream and don't
@@ -54,8 +59,6 @@ pub fn routes(state: AppState) -> Router {
     Router::new()
         .route("/health", get(routes::health::health))
         .route("/ready", get(routes::health::ready))
-        .route("/sitemap.xml", get(routes::sitemap::sitemap))
-        .route("/api/sitemap", get(routes::sitemap::sitemap))
         .route("/robots.txt", get(routes::robots::robots))
         .merge(api_routes)
         .layer(cors_layer(&state))
