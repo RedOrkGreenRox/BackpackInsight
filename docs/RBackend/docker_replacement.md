@@ -21,7 +21,7 @@ port: 8000
 docker-compose.yml
 ```
 
-`docker-compose.server.yml` удалён. Local/server режим выбирает `scripts/run_docker.py` через env defaults. Подробнее: `docs/RBackend/compose_merge_plan.md`.
+`docker-compose.server.yml` удалён. Local/server режим задаёт `COMPOSE_PROFILES` в `.env` (скрипт `run_docker.py` удалён 2026-10-07). Подробнее: `docs/RBackend/compose_merge_plan.md`.
 
 Local mode запускает:
 

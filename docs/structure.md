@@ -379,10 +379,6 @@
           - 📄 [SecurityService.ts](Frontend/ground/utils/SecurityService.md)
           - 📄 [Сервис слагов](Frontend/ground/utils/SlugService.md)
         - 📄 [Ядро приложения](Frontend/ground/core.md)
-      - 📂 **Скрипты автоматизации**
-        - 📄 [Скрипт анализа текстов](Frontend/scripts/analyze-item-text.md)
-        - 📄 [Скрипт оптимизации картинок](Frontend/scripts/optimize-images.md)
-        - 📄 [Скрипт проверки иконок](Frontend/scripts/verify-item-images.md)
       - 📂 **Статические ресурсы**
         - 📂 **Шрифты проекта**
         - 📂 [**Галерея изображений**](Frontend/static/images/index.md)
@@ -454,7 +450,6 @@
             - 📂 **Герой: Zahir**
               - 📂 **Формат AVIF**
               - 📂 **Формат WebP**
-            - 📄 [convert.ps1](Frontend/static/images/heroes/convert.md)
           - 📂 [**Библиотека предметов**](Frontend/static/images/items/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
@@ -911,10 +906,6 @@
     - 📄 [Линтер документации](scripts/check_docs.md)
     - 📄 [editor_ui_art.py](scripts/editor_ui_art.md)
     - 📄 [Генератор карты](scripts/generate_structure.md)
-    - 📄 [Пуш в репозиторий](scripts/git_push.md)
-    - 📄 [Переименование ассетов](scripts/rename_images.md)
-    - 📄 [Запуск Docker](scripts/run_docker.md)
-    - 📄 [Проверка индексов](scripts/verify_indexes.md)
   - 📂 **Тестирование**
     - 📂 **Тестовые данные**
       - 📂 **profiles**
@@ -939,7 +930,6 @@
   - 📄 [rust-toolchain.toml](rust-toolchain.toml.md)
   - 🗃 rust_migration_plan.md
   - 🗃 SUMMARY.md
-  - 📄 [Скрипт очистки Windows](update.md)
 
 ---
 *Примечание: Технические файлы и ассеты скрыты для чистоты карты.*

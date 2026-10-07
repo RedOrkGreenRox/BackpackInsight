@@ -6,7 +6,6 @@
 ## Структура
 *   `<hero>/avif/<hero>NN.avif`, `<hero>/webp/<hero>NN.webp`.
 *   Герои: buzz, celeste, chana, dorf, enoch, fern, harkon, hob, kragg, morrow, nymphedora, pepper, ronan, sage, tink, zahir.
-*   Утилита подготовки/конвертации этих ассетов — [convert.ps1](convert.md).
 
 ## Связи (Dependencies)
 *   Отрисовка карточек героев: [hero-card.ts](../../../ground/branches/profile/_profile/heroes/hero-card.md), шапка профиля [header.ts](../../../ground/branches/profile/_profile/header/header.md).

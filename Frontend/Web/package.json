@@ -6,9 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "bun run server.ts",
-    "verify:images": "node scripts/verify-item-images.js",
-    "analyze:item-text": "node scripts/analyze-item-text.js"
+    "start": "bun run server.ts"
   },
   "dependencies": {
     "aos": "^2.3.4",

@@ -32,7 +32,7 @@ Network contract remains binary. JavaScript objects are created only inside the 
 From repository root:
 
 ```bash
-python scripts/run_docker.py --local
+COMPOSE_PROFILES=local docker compose up -d --build
 ```
 
 This starts all local services:

@@ -1,7 +1,7 @@
 # [Docker Compose — локальная разработка (docker-compose.yml)](../docker-compose.yml)
 
 ## Назначение
-`docker-compose.yml` поднимает PostgreSQL + Rust-бэкенд (`RBackend/`) + фронтенд для локальной разработки. Используется скриптом [run_docker.py](scripts/run_docker.md).
+`docker-compose.yml` поднимает PostgreSQL + Rust-бэкенд (`RBackend/`) + фронтенд для локальной разработки.
 
 ## Сервисы
 
@@ -25,7 +25,7 @@
 ## Связи
 *   Образы: [RBackend/Dockerfile](RBackend/Dockerfile.md), [Frontend/Dockerfile](Frontend/Dockerfile.md).
 *   Миграции: [db crate](RBackend/crates/db.md).
-*   Управление: [run_docker.py](scripts/run_docker.md).
+*   Управление: `docker compose up -d --build`, режим задаёт `COMPOSE_PROFILES` в `.env`.
 
 ## AI-контекст
 *   Файл оптимизирован для разработки: порты локальные, монтируются исходники.

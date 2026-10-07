@@ -9,7 +9,6 @@
 *   **План реструктуризации**: Текущие и будущие этапы разработки.
 
 ## Связанные документы
-*   [обновление](update.md)
 *   [.gitignore](.gitignore.md)
 *   [.gitattributes](.gitattributes.md)
 *   [.dockerignore](.dockerignore.md)

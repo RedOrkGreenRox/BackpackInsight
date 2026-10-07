@@ -5,7 +5,6 @@
 #   * COMPOSE_PROFILES=        → поднимает только db + backend (сервер, web на Cloudflare Pages)
 #
 # Это стандартная docker compose возможность (не требует --profile флага).
-# Скрипт scripts/run_docker.py может автоопределять режим (BACKPACK_DOCKER_MODE=auto).
 #
 # БД: по умолчанию SQLite (DATABASE_URL=sqlite:./backpack_insight.db в .env),
 # что позволяет local-разработку вообще без сервиса db. Для Postgres —

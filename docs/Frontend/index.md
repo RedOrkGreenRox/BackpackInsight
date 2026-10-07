@@ -40,7 +40,6 @@
 
 ### Misc
 *   [package-lock](package-lock.md), [browser_probe_tmp.cjs](browser_probe_tmp.md), [Dockerfile](Dockerfile.md), [server](server.md), [vite.config](vite.config.md), [vitest.config](vitest.config.md), [tsconfig](tsconfig.md), [index.html](index.html.md), [_headers](_headers.md).
-*   [tmp/item-text-statistics](tmp/item-text-statistics.md) — артефакт анализа.
 
 ## Куда дальше
 *   Общая карта проекта: [Центральный Хаб структуры](../structure.md).
@@ -49,7 +48,6 @@
 
 ## Связанные документы
 *   [тесты фронтенда](tests/index.md)
-*   [оптимизация картинок](scripts/optimize-images.md)
 *   [концепция проекта](../readme.md)
 
 ---

@@ -10,7 +10,7 @@
 - Python backend runtime code was removed from the active tree; `Backend/` keeps only allowed developer item JSON source files.
 - Old Python pytest suite and Python/Rust JSON contract compare scripts were removed.
 - Cloudflare Pages `/api/*` function is reduced to backend-owned binary proxy glue.
-- Compose is merged to a single active `docker-compose.yml`; `run_docker.py` detects local/server mode.
+- Compose is merged to a single active `docker-compose.yml`; the mode comes from `COMPOSE_PROFILES` in `.env` (`run_docker.py` was removed on 2026-10-07).
 - Docker smoke with PostgreSQL persistence passed.
 
 ## Still left before frontend migration

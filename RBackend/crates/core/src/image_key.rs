@@ -23,10 +23,7 @@ impl fmt::Display for ImageKey {
 
 /// Единый сервис выбора картинки предмета.
 ///
-/// Поведение повторяет текущую связку:
-///
-/// - `Frontend/Web/ground/utils/ItemIconService.ts`;
-/// - `Frontend/Web/scripts/verify-item-images.js`.
+/// Поведение повторяет `Frontend/Web/ground/utils/ItemIconService.ts`.
 pub struct ItemIconService;
 
 impl ItemIconService {
