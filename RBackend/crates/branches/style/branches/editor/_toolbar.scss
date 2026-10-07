@@ -1,7 +1,7 @@
 // Панель над полем: портрет героя со списком героев, иконки из игры, импорт и экспорт.
 .ed-toolbar {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: var(--space-2xs);
     width: calc(var(--cell) * 9.62);
@@ -9,6 +9,16 @@
 }
 
 .ed-toolbar-gap { flex: 1; }
+
+// На узком экране всё в одну строку: иконки и кнопки поменьше.
+@media (max-width: 30rem) {
+    .ed-toolbar {
+        --tap-min: 2.25rem;
+        gap: 0.125rem;
+
+        .ed-button { padding: 0 var(--space-2xs); font-size: var(--fs-xs); }
+    }
+}
 
 .ed-icon {
     width: var(--tap-min);
@@ -42,7 +52,7 @@
 }
 
 // Щелчок мимо списка закрывает его.
-.ed-backdrop {
+.ed-hero-backdrop {
     position: fixed;
     inset: 0;
     z-index: 30;

@@ -5,7 +5,7 @@
     // помещается и по ширине, и в верхнюю половину окна. Ручка поля задаёт её инлайн.
     --field-cell: clamp(
         2.25rem,
-        min(calc((100vw - 2 * var(--space-md)) / 9.62), calc((50vh - 4rem) / 6.52)),
+        min(calc((100vw - 4 * var(--space-md)) / 9.62), calc((50vh - 4rem) / 6.52)),
         4.25rem
     );
     --cell: var(--field-cell);

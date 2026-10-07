@@ -85,13 +85,20 @@
 .ed-pile {
     position: relative;
     width: 100%;
+    box-sizing: border-box;
+    // Зона, куда можно бросить предмет, видна и пустой.
+    border: var(--line-width) dashed var(--line);
+    border-radius: var(--radius-md);
     transition: height var(--dur-fast) var(--ease-soft);
 }
 
-.ed-body { position: absolute; }
+// Два класса: `.ed-stored` ниже по файлу ставит `position: relative`.
+.ed-stored.ed-body { position: absolute; }
 
 .ed-storage-list {
     min-height: calc(var(--cell) * 2);
+    border: var(--line-width) dashed var(--line);
+    border-radius: var(--radius-md);
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;

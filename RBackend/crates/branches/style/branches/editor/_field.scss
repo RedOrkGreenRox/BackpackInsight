@@ -99,7 +99,7 @@
     border-radius: 50%;
     background: none;
     cursor: pointer;
-    transform: translate(35%, -35%);
+    transform: translate(20%, -20%);
 
     img { display: block; width: 100%; height: 100%; }
     &:focus-visible { outline: none; box-shadow: var(--focus-ring); }

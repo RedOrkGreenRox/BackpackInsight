@@ -7,12 +7,12 @@ use super::state::Editor;
 use crate::branches::editor::model::kit::SHARED_HERO;
 use leptos::prelude::*;
 
-/// Портрет героя; `None` — герой не выбран.
+/// Портрет героя; `None` — герой не выбран. Значок назван первым словом имени
+/// (`Hob Gang` → `hob`).
 fn portrait(hero: Option<&str>) -> String {
-    format!(
-        "/images/editor/heroes/{}.webp",
-        hero.unwrap_or(SHARED_HERO).to_lowercase()
-    )
+    let name = hero.unwrap_or(SHARED_HERO);
+    let file = name.split_whitespace().next().unwrap_or(name);
+    format!("/images/editor/heroes/{}.webp", file.to_lowercase())
 }
 
 /// Кнопка героя и всплывающий список. `label` — «Герой», `all` — «Любой герой».
@@ -69,7 +69,7 @@ pub fn HeroPicker(label: String, all: String) -> impl IntoView {
                 <img src=move || portrait(editor.hero.get().as_deref()) alt="" width="48" height="48"/>
             </button>
             <Show when=move || open.get()>
-                <button class="ed-backdrop" tabindex="-1" aria-hidden="true" on:click=move |_| open.set(false)></button>
+                <button class="ed-hero-backdrop" tabindex="-1" aria-hidden="true" on:click=move |_| open.set(false)></button>
                 <div class="ed-heroes" role="menu" aria-label=label.clone()
                     on:keydown=move |ev| if ev.key() == "Escape" { open.set(false) }>
                     {options.clone()}
