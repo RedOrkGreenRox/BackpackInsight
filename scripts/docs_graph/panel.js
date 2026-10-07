@@ -110,7 +110,7 @@ function renderLegend() {
     const b = document.createElement('button');
     b.className = ring ? 'chip ring' : 'chip'; b.setAttribute('aria-pressed', String(on));
     b.style.setProperty('--c', color); b.innerHTML = `<i></i>${esc(label)}`;
-    b.addEventListener('click', () => { toggle(); renderLegend(); repack(false); reheat(0.5); V.dirty = true; });
+    b.addEventListener('click', () => { toggle(); renderLegend(); repack(false); updateZoomLimits(); reheat(0.5); V.dirty = true; });
     box.append(b);
   };
   const group = (title, table, key, hidden, ring) => {
@@ -137,12 +137,7 @@ $('stats').textContent = `${G.nodes.length} звёзд · ${G.edges.length} св
 renderLegend();
 if (innerWidth <= 760) $('filters').open = false;
 resize();
-// Камера на центре видимых звёзд, в свободной от панели поиска части экрана (справа на ПК, снизу на телефоне).
-const shown = G.nodes.filter(visible), hud = $('hud').getBoundingClientRect(), wide = V.w > 760;
-const cx = shown.reduce((s, n) => s + n.x, 0) / shown.length, cy = shown.reduce((s, n) => s + n.y, 0) / shown.length;
-const fit = shown.reduce((m, n) => Math.max(m, Math.abs(n.x - cx), Math.abs(n.y - cy)), 1);
-const freeW = wide ? V.w - hud.right : V.w, freeH = wide ? V.h : V.h - hud.bottom;
-V.cam.k = Math.min(freeW, freeH) / (fit * 2.15);
-V.cam.x = cx - (wide ? hud.right / 2 : 0) / V.cam.k; V.cam.y = cy - (wide ? 0 : hud.bottom / 2) / V.cam.k;
+updateZoomLimits();
+fitCamera();
 G.onTick = () => { if (G.alpha > 0.004 || V.dirty) draw(); };
 runSim();

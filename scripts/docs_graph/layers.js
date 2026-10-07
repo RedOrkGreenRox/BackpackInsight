@@ -4,7 +4,8 @@
 // Контуры кластеров и их подписи: верхний уровень виден всегда, вложенные — по мере приближения.
 function drawGroups(ctx, toScreenXY, k) {
   const walk = (g) => {
-    for (const kid of g.kids.values()) {
+    // Тяжёлые раньше: при наложении подписей остаётся подпись более крупной группы.
+    for (const kid of [...g.kids.values()].sort((p, q) => q.weight - p.weight)) {
       if (!kid.weight) continue;
       const [x, y] = toScreenXY(kid.cx, kid.cy), r = kid.r * k, bad = isProblem(kid) || kid.parent && isProblem(kid.parent);
       // Кластеры стилей видны на любом масштабе и обведены цветом SCSS, чтобы отличать их от кода рядом.
@@ -21,11 +22,18 @@ function drawGroups(ctx, toScreenXY, k) {
         ctx.font = `600 ${size}px "Unbounded", "Golos Text", system-ui, sans-serif`;
         ctx.fillStyle = bad || style ? color : '#c9d1f2';
         // Подпись большого круга — внутри у верхней кромки, маленького — над ним.
-        ctx.fillText(`${kid.name} · ${kid.weight}`, x, r > 90 ? y - r + size + 10 : y - r - 6);
+        // Подпись, налезающая на уже поставленную (родитель рисуется раньше), пропускается.
+        const text = `${kid.name} · ${kid.weight}`, ty = r > 90 ? y - r + size + 10 : y - r - 6;
+        const half = ctx.measureText(text).width / 2 + 4, lx = Math.min(Math.max(x, half), V.w - half);
+        const box = { x: lx, y: ty - size / 3, half, h: size + 4 };
+        if (!G.obstacles.some((o) => Math.abs(o.x - box.x) < o.half + box.half && Math.abs(o.y - box.y) < (o.h + box.h) / 2)) {
+          ctx.fillText(text, lx, ty); G.obstacles.push(box);
+        }
       }
       walk(kid);
     }
   };
+  G.obstacles = [];
   ctx.save(); ctx.textAlign = 'center'; walk(G.root);
   // Свои звёзды корня (заметки в docs/ без папки) — диск без круга-группы: подписываем его отдельно.
   if (G.root.or) {

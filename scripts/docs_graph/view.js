@@ -11,6 +11,7 @@ function resize() {
   V.dpr = Math.min(window.devicePixelRatio || 1, 2);
   V.w = canvas.clientWidth; V.h = canvas.clientHeight;
   canvas.width = V.w * V.dpr; canvas.height = V.h * V.dpr;
+  updateZoomLimits();
   V.dirty = true;
 }
 const toScreenXY = (x, y) => [(x - V.cam.x) * V.cam.k + V.w / 2, (y - V.cam.y) * V.cam.k + V.h / 2];
@@ -63,29 +64,12 @@ function draw() {
     }
   }
   ctx.globalAlpha = 1;
-  ctx.font = '500 11.5px "Golos Text", system-ui, sans-serif';
-  ctx.textAlign = 'center';
-  // Подписи от самых связанных к менее связанным; подпись, налезающая на уже поставленную, пропускается.
-  const placed = [], order = (focus ? [...focus] : G.nodes.filter(visible)).sort((p, q) => (q === f) - (p === f) || q.deg - p.deg);
-  for (const n of order) {
-    const [sx, y] = toScreen(n);
-    if (sx < 0 || y < 0 || sx > V.w || y > V.h) continue;
-    const label = n.title.length > 38 ? n.title.slice(0, 36) + '…' : n.title;
-    const ty = y - n.r * Math.sqrt(k) - 7, half = ctx.measureText(label).width / 2 + 4;
-    const x = Math.min(Math.max(sx, half), V.w - half);
-    if (!focus && placed.length >= 14 + 40 * k * k) break;
-    if (placed.some(([px, py, ph]) => Math.abs(px - x) < ph + half && Math.abs(py - ty) < 14)) continue;
-    placed.push([x, ty, half]);
-    ctx.fillStyle = 'rgba(7,11,23,.75)';
-    ctx.fillText(label, x + 1, ty + 1);
-    ctx.fillStyle = n === f ? '#ffd98a' : '#e6e9f5';
-    ctx.fillText(label, x, ty);
-  }
+  drawLabels(ctx, toScreen, k, f, focus);
   V.dirty = false;
 }
 
 function flyTo(n, k) {
-  const from = { ...V.cam }, to = { x: n.x, y: n.y, k: k || Math.max(V.cam.k, 1.6) };
+  const from = { ...V.cam }, to = { x: n.x, y: n.y, k: clampZoom(k || Math.max(V.cam.k, 1.6)) };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const t0 = performance.now(), dur = reduce ? 1 : 520;
   const step = (t) => {
@@ -135,7 +119,7 @@ canvas.addEventListener('pointerleave', () => { if (!drag && V.hover) { V.hover 
 
 function zoomAt(sx, sy, factor) {
   const [wx, wy] = toWorld(sx, sy);
-  V.cam.k = Math.min(6, Math.max(0.15, V.cam.k * factor));
+  V.cam.k = clampZoom(V.cam.k * factor);
   const [nx, ny] = toWorld(sx, sy);
   V.cam.x += wx - nx; V.cam.y += wy - ny; V.dirty = true;
 }

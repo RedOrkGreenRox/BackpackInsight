@@ -19,7 +19,7 @@ sys.path.insert(0, HERE)
 from collect import collect  # noqa: E402
 
 DEFAULT_OUT = os.path.join('target', 'docs-graph.html')
-SCRIPTS = ('sim.js', 'pack.js', 'layers.js', 'view.js', 'panel.js')
+SCRIPTS = ('sim.js', 'pack.js', 'layers.js', 'labels.js', 'view.js', 'camera.js', 'panel.js')
 HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<style>body{margin:0}[hidden]{display:none!important}</style>\n</head>\n<body>\n')

@@ -891,8 +891,10 @@
   - 📂 **Скрипты автоматизации**
     - 📂 **docs_graph**
       - 📄 [build.py](scripts/docs_graph/build.md)
+      - 📄 [camera.js](scripts/docs_graph/camera.md)
       - 📄 [collect.py](scripts/docs_graph/collect.md)
       - 📄 [imports.py](scripts/docs_graph/imports.md)
+      - 📄 [labels.js](scripts/docs_graph/labels.md)
       - 📄 [layers.js](scripts/docs_graph/layers.md)
       - 📄 [pack.js](scripts/docs_graph/pack.md)
       - ❌ page.html <!-- MISSING DOC -->

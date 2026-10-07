@@ -7,11 +7,11 @@
 `python3 scripts/docs_graph/build.py [файл.html] [--fragment]` из любой папки (скрипт сам переходит в корень). По умолчанию пишет `target/docs-graph.html` (папка `target` в `.gitignore`). С `--fragment` пишет страницу без `<!doctype>` и `<head>`: в таком виде её принимает публикация Artifact, которая сама добавляет каркас.
 
 ## Функции
-- **`page(data, fragment)`** — подставляет JSON вместо `/*DATA*/` и скрипты `SCRIPTS` (`sim.js`, `pack.js`, `layers.js`, `view.js`, `panel.js`) вместо `/*SCRIPTS*/` в `page.html`; каждый `<` в данных заменяется на `\u003c`, чтобы текст документа не закрыл и не сломал `<script>`. Скрипты подставляются раньше данных: сами маркеры встречаются в тексте документов (в том числе в этом). Без `fragment` оборачивает страницу в `HEAD`.
+- **`page(data, fragment)`** — подставляет JSON вместо `/*DATA*/` и скрипты `SCRIPTS` (`sim.js`, `pack.js`, `layers.js`, `labels.js`, `view.js`, `camera.js`, `panel.js`) вместо `/*SCRIPTS*/` в `page.html`; каждый `<` в данных заменяется на `\u003c`, чтобы текст документа не закрыл и не сломал `<script>`. Скрипты подставляются раньше данных: сами маркеры встречаются в тексте документов (в том числе в этом). Без `fragment` оборачивает страницу в `HEAD`.
 - **`main()`** — берёт данные у `collect()` из [collect.py](collect.md), пишет файл и печатает число узлов и связей.
 
 ## Связи
-- Данные графа: [collect.py](collect.md). Шаблон `page.html` (разметка и стили) и скрипты страницы: [sim.js](sim.md), [pack.js](pack.md), [layers.js](layers.md), [view.js](view.md), [panel.js](panel.md).
+- Данные графа: [collect.py](collect.md). Шаблон `page.html` (разметка и стили) и скрипты страницы: [sim.js](sim.md), [pack.js](pack.md), [layers.js](layers.md), [labels.js](labels.md), [view.js](view.md), [camera.js](camera.md), [panel.js](panel.md).
 - Проверка тех же ссылок: [check_docs.py](../check_docs.md).
 
 ---
