@@ -47,5 +47,10 @@
 *   Rust-бэкенд: [RBackend index](../RBackend/index.md).
 *   Backend JSON-источники: [Backend index](../Backend/index.md).
 
+## Связанные документы
+*   [тесты фронтенда](tests/index.md)
+*   [оптимизация картинок](scripts/optimize-images.md)
+*   [концепция проекта](../readme.md)
+
 ---
 > 📌 **Подпись документации:** аудит после удаления карусели и настроек, перенос itemDetail в items/ · 2026-10-02

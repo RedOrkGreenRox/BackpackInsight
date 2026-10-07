@@ -69,5 +69,8 @@ Runtime backend→middleware/frontend data contract = **FlatBuffer-only**. Legac
 - [Backend index](../Backend/index.md) — источники JSON-данных.
 - [Data index](../data/index.md) — игровые механики.
 
+## Связанные документы
+*   [концепция проекта](../readme.md)
+
 ---
 > 📌 **Подпись документации:** RBackend workspace hub (обновлено для Rust) · 2026-07-12.

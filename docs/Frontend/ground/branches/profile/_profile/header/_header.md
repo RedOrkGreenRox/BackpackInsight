@@ -25,6 +25,14 @@
 *   `_stats-heroes-wrapper.scss`
 *   ... и другие.
 
+## Связанные документы
+*   [версия игры](_actual-version.md)
+*   [ник игрока](_nickname.md)
+*   [карточка героя](_stat-hero-card.md)
+*   [сетка предметов](_stat-items-grid.md)
+*   [сетка героев](_stats-heroes-grid.md)
+*   [обёртка героев](_stats-heroes-wrapper.md)
+
 ---
 
 > 📌 **Подпись документации:** атомарный стиль профиля · 2026-06-15
