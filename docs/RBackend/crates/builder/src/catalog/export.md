@@ -1,4 +1,4 @@
-# [builder/catalog/export.rs](/RBackend/crates/builder/src/catalog/export.rs)
+# [Каталог для сайта (export.rs)](/RBackend/crates/builder/src/catalog/export.rs)
 
 ## Назначение
 Каталог для сайта: экспорт игры, проверенный строгой моделью `CatalogExport` ([core/catalog/export](/docs/RBackend/crates/core/src/catalog/export/mod.md)) и записанный в `RBackend/generated/items_{lang}.json`. Этот файл читает сайт ([branches/catalog/load.rs](/docs/RBackend/crates/branches/src/catalog/load.md)); паки FlatBuffers ему не нужны.

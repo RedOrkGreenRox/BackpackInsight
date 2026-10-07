@@ -1,4 +1,4 @@
-# 🖼 Превью разделов (images/templates/)
+# Превью разделов (images/templates/)
 
 ## Назначение
 Баннеры/превью разделов (`main`, `profiles`, `recipes`, `leaderboards`) в AVIF/WebP — используются как иллюстрации/og-подобные картинки.

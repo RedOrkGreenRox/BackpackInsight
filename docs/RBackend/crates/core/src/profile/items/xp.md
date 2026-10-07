@@ -1,4 +1,4 @@
-# [core/profile/items/xp.rs](/RBackend/crates/core/src/profile/items/xp.rs)
+# [Опыт предмета (xp.rs)](/RBackend/crates/core/src/profile/items/xp.rs)
 
 ## Назначение
 `ItemXpService` — суммарный опыт, который приносит предмет данного уровня (учитывается в общем опыте профиля).

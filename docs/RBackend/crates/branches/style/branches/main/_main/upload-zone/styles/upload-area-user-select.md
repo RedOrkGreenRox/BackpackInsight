@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/upload-area-user-select.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-user-select.scss)
+# [Выделение текста в зоне загрузки (upload-area-user-select.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-user-select.scss)
 
 ## Назначение
 Разрешает выделение и копирование текста внутри зоны загрузки, переопределяя глобальные запреты.

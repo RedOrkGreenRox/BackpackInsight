@@ -1,4 +1,4 @@
-# [builder/catalog/files.rs](/RBackend/crates/builder/src/catalog/files.rs)
+# [Исходные данные сборки (files.rs)](/RBackend/crates/builder/src/catalog/files.rs)
 
 ## Назначение
 Где лежат исходные данные и как их читать. Общий модуль для всех проверок и сборок.

@@ -1,4 +1,4 @@
-# [api/profile/mod.rs](/RBackend/crates/api/src/profile/mod.rs)
+# [Разбор игрового профиля (mod.rs)](/RBackend/crates/api/src/profile/mod.rs)
 
 ## Назначение
 Разбор игрового JSON-профиля в представление для `POST /api/profile.fb` ([routes/profile_binary](../routes/profile_binary.md)). Бизнес-правила (уровни, лиги, редкости, скины) живут в crate core; здесь — только чтение JSON и сборка ответа.

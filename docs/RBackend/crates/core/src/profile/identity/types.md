@@ -1,4 +1,4 @@
-# [core/profile/identity/types.rs](/RBackend/crates/core/src/profile/identity/types.rs)
+# [Типы идентичности (types.rs)](/RBackend/crates/core/src/profile/identity/types.rs)
 
 ## Назначение
 Типы идентичности профиля. Значения проходят очистку при создании, поэтому пустой UID или имя не могут существовать.

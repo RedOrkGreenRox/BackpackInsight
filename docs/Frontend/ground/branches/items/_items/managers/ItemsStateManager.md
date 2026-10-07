@@ -1,4 +1,4 @@
-# [ItemsStateManager.ts](/Frontend/Web/ground/branches/items/_items/managers/ItemsStateManager.ts)
+# [Состояние фильтров страницы предметов (ItemsStateManager.ts)](/Frontend/Web/ground/branches/items/_items/managers/ItemsStateManager.ts)
 
 ## Назначение
 Тип `FilterState` и класс `ItemsStateManager`, который сохраняет состояние страницы предметов в `sessionStorage`, чтобы после перехода на другую страницу и обратно фильтры и поиск остались прежними. Состояние живёт до закрытия вкладки.

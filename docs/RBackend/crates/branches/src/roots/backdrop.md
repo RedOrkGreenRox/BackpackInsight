@@ -1,4 +1,4 @@
-# [branches/roots/backdrop.rs](/RBackend/crates/branches/src/roots/backdrop.rs)
+# [Выбор фоновой картинки (backdrop.rs)](/RBackend/crates/branches/src/roots/backdrop.rs)
 
 ## Назначение
 Выбор фоновой картинки страницы. Перенос `Shell.setRandomBackground` и 404-`BackgroundManager` из TS-версии с одним отличием: при переходах внутри сайта фон не меняется. Иначе islands router увидел бы новый `src` у `#bgImg` и перерисовал бы фон при каждом клике или смене языка.

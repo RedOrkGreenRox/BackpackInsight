@@ -1,4 +1,4 @@
-# [rich-query-renderer.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-query-renderer.ts)
+# [Перевод запроса в чипы и обратно (rich-query-renderer.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-query-renderer.ts)
 
 ## Назначение
 `RichQueryRenderer` — перевод запроса между текстом и HTML с чипами для поля расширенного поиска. Иконки чипов получает через переданную функцию (`getIconForFilter` из [filter-icon-resolver](filter-icon-resolver.md)).

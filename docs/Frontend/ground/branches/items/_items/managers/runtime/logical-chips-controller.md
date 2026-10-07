@@ -1,4 +1,4 @@
-# [logical-chips-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/logical-chips-controller.ts)
+# [Кнопки-шаблоны логики (logical-chips-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/logical-chips-controller.ts)
 
 ## Назначение
 `LogicalChipsController` — кнопки-шаблоны логики (`.logical-chip`) в расширенном поиске. По клику вставляют в поле группу с пустыми слотами, которые пользователь затем заполняет условиями.

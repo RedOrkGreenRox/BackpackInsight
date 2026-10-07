@@ -1,4 +1,4 @@
-# [Dockerfile — Rust backend (RBackend/Dockerfile)](/RBackend/Dockerfile)
+# [Docker-образ Rust-бэкенда (Dockerfile)](/RBackend/Dockerfile)
 
 ## Назначение
 Многоэтапная сборка Rust-бэкенда `RBackend/` в production-образ. Builder собирает `api` crate и генерирует FlatBuffer-паки, runtime запускает только бинарник `api` + сгенерированные .fb-файлы.

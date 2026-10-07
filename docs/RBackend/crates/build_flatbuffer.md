@@ -1,4 +1,4 @@
-# build flatbuffer — пак сводки каталога
+# Сборка пака сводки каталога
 
 Как утилита [builder](build.md) собирает `RBackend/generated/catalog_summary.fb` (идентификатор `"BICS"`).
 

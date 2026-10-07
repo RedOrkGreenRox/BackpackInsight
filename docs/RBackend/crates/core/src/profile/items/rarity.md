@@ -1,4 +1,4 @@
-# [core/profile/items/rarity.rs](/RBackend/crates/core/src/profile/items/rarity.rs)
+# [Редкость предмета (rarity.rs)](/RBackend/crates/core/src/profile/items/rarity.rs)
 
 ## Назначение
 `RarityService` — точка разбора строки редкости в `ItemRarity` ([types](types.md)).

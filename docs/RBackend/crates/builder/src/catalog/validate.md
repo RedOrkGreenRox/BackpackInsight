@@ -1,4 +1,4 @@
-# [builder/catalog/validate.rs](/RBackend/crates/builder/src/catalog/validate.rs)
+# [Проверка каталога (validate.rs)](/RBackend/crates/builder/src/catalog/validate.rs)
 
 ## Назначение
 `validate_catalog(root)` — проверка нелокализованного каталога (`latest_plain_items_file`, см. [files](files.md)).

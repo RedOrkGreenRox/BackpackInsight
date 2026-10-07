@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_rarity-vars.scss](/RBackend/crates/branches/style/roots/_roots/items/_rarity-vars.scss)
+# [Палитра редкостей (_rarity-vars.scss)](/RBackend/crates/branches/style/roots/_roots/items/_rarity-vars.scss)
 
 ## Назначение
 Этот файл определяет цветовую палитру редкостей предметов, используемую для окрашивания текста, рамок и эффектов свечения. Он является единственным источником истины для визуального разделения уровней силы предметов.

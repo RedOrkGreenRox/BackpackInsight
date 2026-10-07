@@ -1,4 +1,4 @@
-# [style/branches/items/_items/actions/_checkbox.scss](/RBackend/crates/branches/style/branches/items/_items/actions/_checkbox.scss)
+# [Стили флажков фильтров (_checkbox.scss)](/RBackend/crates/branches/style/branches/items/_items/actions/_checkbox.scss)
 
 ## Назначение
 Стилизация элементов типа "флажок" для фильтрации по бинарным параметрам (например, "Только покупаемые").

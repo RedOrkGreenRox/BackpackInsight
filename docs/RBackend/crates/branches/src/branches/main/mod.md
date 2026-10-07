@@ -1,4 +1,4 @@
-# [branches/branches/main/mod.rs](/RBackend/crates/branches/src/branches/main/mod.rs)
+# [Главная страница (mod.rs)](/RBackend/crates/branches/src/branches/main/mod.rs)
 
 ## Назначение
 `MainBranch` — главная страница `/`: витрина профиля с зоной загрузки экспорта игры. Разметка, `id` и классы те же, что у TS-версии ([MainBranch.ts](/docs/Frontend/ground/branches/main/MainBranch.md)), поэтому работают перенесённые стили. Чисто серверная (`ssr`), без островов: форма пока только показывается, загрузка профиля переносится вместе со страницей профиля.

@@ -1,4 +1,4 @@
-# [ProfileLayoutRenderer.ts](../../../../../../../Frontend/Web/ground/branches/profile/_profile/components/ProfileLayoutRenderer.ts)
+# [Сборка макета профиля (ProfileLayoutRenderer.ts)](../../../../../../../Frontend/Web/ground/branches/profile/_profile/components/ProfileLayoutRenderer.ts)
 
 ## Назначение
 Компонент рендеринга макета, отвечающий за сборку полной HTML структуры страницы профиля из микро-рендереров (шапки, героев и предметов) для SRP-разделения ответственности.

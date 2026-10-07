@@ -1,4 +1,4 @@
-# [style/branches/404/_404/title/title.scss](/RBackend/crates/branches/style/branches/404/_404/title/title.scss)
+# [Заголовок 404 (title.scss)](/RBackend/crates/branches/style/branches/404/_404/title/title.scss)
 
 ## Назначение
 Рендерер крупного заголовка "404". Подтягивает локализованную строку из словаря.

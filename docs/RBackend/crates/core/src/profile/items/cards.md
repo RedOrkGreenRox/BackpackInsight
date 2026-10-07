@@ -1,4 +1,4 @@
-# [core/profile/items/cards.rs](/RBackend/crates/core/src/profile/items/cards.rs)
+# [Карты для улучшения (cards.rs)](/RBackend/crates/core/src/profile/items/cards.rs)
 
 ## Назначение
 `CardsService` — сколько карт нужно предмету для следующего уровня и можно ли его улучшить.

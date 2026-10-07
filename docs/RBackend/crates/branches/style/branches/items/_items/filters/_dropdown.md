@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_dropdown.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown.scss)
+# [Обёртка фильтра-дропдауна (_dropdown.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown.scss)
 
 ## Назначение
 Стилизация обертки для отдельного фильтра-дропдауна.

@@ -1,4 +1,4 @@
-# core — корень доменных правил
+# Обзор крейта core (crates/core/)
 
 `core` — первый Rust crate будущего oracle-слоя.
 

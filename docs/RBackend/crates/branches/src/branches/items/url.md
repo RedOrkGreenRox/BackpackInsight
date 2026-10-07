@@ -1,4 +1,4 @@
-# [branches/branches/items/url.rs](/RBackend/crates/branches/src/branches/items/url.rs)
+# [Ссылки каталога (url.rs)](/RBackend/crates/branches/src/branches/items/url.rs)
 
 ## Назначение
 Ссылки каталога. Чистые функции без зависимостей, работают одинаково на сервере и в WASM — поэтому адрес после `replaceState` совпадает с тем, что понимает `ItemsBranch`.

@@ -1,4 +1,4 @@
-# [art/main.rs](/RBackend/crates/art/src/main.rs)
+# [Точка входа утилиты art (main.rs)](/RBackend/crates/art/src/main.rs)
 
 ## Назначение
 Точка входа утилиты `art`: конвейер картинок предметов из оригинального ContentKit по [правилам](../rules.toml.md).

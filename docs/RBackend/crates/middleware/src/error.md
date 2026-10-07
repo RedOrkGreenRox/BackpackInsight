@@ -1,4 +1,4 @@
-# [middleware/error.rs](/RBackend/crates/middleware/src/error.rs)
+# [Декодер ошибки API (error.rs)](/RBackend/crates/middleware/src/error.rs)
 
 ## Назначение
 Декодирование бинарной ошибки API (пак с идентификатором `"BIER"`) в `ErrorData`.

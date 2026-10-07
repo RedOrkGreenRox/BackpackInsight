@@ -1,4 +1,4 @@
-# [core/slug.rs](/RBackend/crates/core/src/slug.rs)
+# [Имена и slug предметов (slug.rs)](/RBackend/crates/core/src/slug.rs)
 
 ## Назначение
 Доменные типы имени предмета и slug, а также `SlugService` — единое правило построения slug-ов, совпадающее с фронтендовым [SlugService.ts](../../../../Frontend/ground/utils/SlugService.md).

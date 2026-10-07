@@ -1,4 +1,4 @@
-# [core/profile/types.rs](/RBackend/crates/core/src/profile/types.rs)
+# [Общие типы профиля (types.rs)](/RBackend/crates/core/src/profile/types.rs)
 
 ## Назначение
 Общие маленькие value-типы профиля, которые используют несколько правил сразу.

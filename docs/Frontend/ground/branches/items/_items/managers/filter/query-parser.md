@@ -1,4 +1,4 @@
-# [query-parser.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/query-parser.ts)
+# [Разбор запроса в дерево условий (query-parser.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/query-parser.ts)
 
 ## Назначение
 Разбор строгой части запроса в дерево `ASTNode` ([filter-types](filter-types.md)), которое проверяет [item-matcher](item-matcher.md). Пользовательский синтаксис — [search_filter_syntax](../../../../../../../search_filter_syntax.md).

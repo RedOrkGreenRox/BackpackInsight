@@ -1,4 +1,4 @@
-# [crates/branches/Cargo.toml](/RBackend/crates/branches/Cargo.toml)
+# [Манифест сайта на Leptos (Cargo.toml)](/RBackend/crates/branches/Cargo.toml)
 
 ## Назначение
 Манифест пакета `branches` — сайта на Leptos SSR + Islands ([обзор](../branches.md)). Один пакет собирается двумя способами: с фичей `ssr` как серверный бинарник, с фичей `hydrate` как WASM островов.

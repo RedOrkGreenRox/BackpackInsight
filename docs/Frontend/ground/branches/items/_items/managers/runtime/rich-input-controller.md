@@ -1,4 +1,4 @@
-# [rich-input-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-input-controller.ts)
+# [Поле расширенного поиска (rich-input-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-input-controller.ts)
 
 ## Назначение
 `RichInputController` — поле поиска `#itemSearch` (редактируемый элемент, а не обычный input). В обычном режиме поле содержит простой текст, в расширенном — текст вперемешку с чипами условий.

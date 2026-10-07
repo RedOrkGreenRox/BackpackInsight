@@ -1,4 +1,4 @@
-# [Оркестратор загрузки (UploadHandler.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload.ts)
+# [Оркестратор загрузки (upload.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/upload-zone/upload.ts)
 
 ## Назначение
 Класс `UploadHandler` — это менеджер среднего уровня, который объединяет все специализированные обработчики ввода (мышь, клавиатура, файлы) в единый механизм.

@@ -1,4 +1,4 @@
-# [api/routes/profile_binary.rs](/RBackend/crates/api/src/routes/profile_binary.rs)
+# [Эндпоинт бинарного профиля (profile_binary.rs)](/RBackend/crates/api/src/routes/profile_binary.rs)
 
 ## Назначение
 `POST /api/profile.fb?lang=en|ru` — принимает игровой профиль в JSON, отвечает бинарным паком `"BIPR"`. Перед обработчиком стоят секрет, лимит частоты и лимит размера тела (см. [lib](../lib.md)).

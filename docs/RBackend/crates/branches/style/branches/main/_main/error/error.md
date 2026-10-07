@@ -1,4 +1,4 @@
-# [style/branches/main/_main/error/error.scss](/RBackend/crates/branches/style/branches/main/_main/error/error.scss)
+# [Ошибки на главной (error.scss)](/RBackend/crates/branches/style/branches/main/_main/error/error.scss)
 
 ## Назначение
 Детальные стили для блока уведомлений об ошибках на главной странице.

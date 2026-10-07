@@ -1,4 +1,4 @@
-# [items-runtime-types.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-runtime-types.ts)
+# [Общие типы контроллеров поиска (items-runtime-types.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-runtime-types.ts)
 
 ## Назначение
 Общие типы, списки и значения по умолчанию для контроллеров интерфейса страницы предметов.

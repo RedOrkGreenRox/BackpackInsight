@@ -1,4 +1,4 @@
-# [Типы фильтров](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/filter-types.ts)
+# [Типы фильтров (filter-types.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/filter-types.ts)
 
 ## Назначение
 Содержит `PreparedItem`, `ASTNode`, `FilterOptions` и веса редкостей.

@@ -1,4 +1,4 @@
-# [pg/0002_normalized_tables.sql](/RBackend/crates/db/migrations/pg/0002_normalized_tables.sql)
+# [Нормализованные таблицы Postgres (0002_normalized_tables.sql)](/RBackend/crates/db/migrations/pg/0002_normalized_tables.sql)
 
 ## Назначение
 Вторая миграция Postgres: переход от хранения профиля одним бинарным полем к нормализованной схеме из четырёх таблиц — `profiles`, `itemdefinition`, `hero`, `item`.

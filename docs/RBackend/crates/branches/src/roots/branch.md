@@ -1,4 +1,4 @@
-# [branches/roots/branch.rs](/RBackend/crates/branches/src/roots/branch.rs)
+# [Контракт страницы (branch.rs)](/RBackend/crates/branches/src/roots/branch.rs)
 
 ## Назначение
 Типизированный контракт страницы (трейт `Branch`) и его стёртая форма для реестра (`BranchEntry`). Rust-аналог [Branch.ts](/docs/Frontend/ground/roots/Branch.md), но без жизненного цикла: ветка — это одна чистая функция рендера.

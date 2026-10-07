@@ -1,4 +1,4 @@
-# [items-grid-renderer.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-grid-renderer.ts)
+# [Отрисовка сетки карточек (items-grid-renderer.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-grid-renderer.ts)
 
 ## Назначение
 `ItemsGridRenderer` — отрисовка сетки карточек в `#wikiItemsGrid` порциями по 80 (`renderBatchSize`) с подгрузкой при прокрутке.

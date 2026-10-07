@@ -1,4 +1,4 @@
-# RBackend JSON removal checkpoint
+# Отказ от JSON в бэкенде
 
 Runtime backend→middleware/frontend contract is now binary FlatBuffers only.
 

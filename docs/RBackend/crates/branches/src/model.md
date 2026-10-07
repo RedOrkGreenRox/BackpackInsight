@@ -1,4 +1,4 @@
-# [branches/model.rs](/RBackend/crates/branches/src/model.rs)
+# [Общие типы сервера и островов (model.rs)](/RBackend/crates/branches/src/model.rs)
 
 ## Назначение
 Общие типы данных между сервером и островами. Компилируется в обе сборки (`ssr` и `hydrate`). Всё здесь `Serialize + Deserialize`: острова получают эти структуры как пропсы (JSON внутри HTML) и как ответы серверных функций.

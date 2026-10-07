@@ -1,4 +1,4 @@
-# [crates/middleware/Cargo.toml](/RBackend/crates/middleware/Cargo.toml)
+# [Манифест декодеров (Cargo.toml)](/RBackend/crates/middleware/Cargo.toml)
 
 ## Назначение
 Манифест пакета `middleware`. Слой декодирования бинарных контрактов бэкенда в типизированные структуры Rust ([обзор](../middleware.md)).

@@ -1,4 +1,4 @@
-# [items-url-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-url-controller.ts)
+# [Поиск и фильтры в адресной строке (items-url-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-url-controller.ts)
 
 ## Назначение
 `ItemsUrlController` — записывает текущий поиск и фильтры в адресную строку и показывает в поле поиска формулу, равную выбранным фильтрам.

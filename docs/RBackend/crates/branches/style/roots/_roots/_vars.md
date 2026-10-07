@@ -1,4 +1,4 @@
-# [style/roots/_roots/_vars.scss](/RBackend/crates/branches/style/roots/_roots/_vars.scss)
+# [CSS-переменные (_vars.scss)](/RBackend/crates/branches/style/roots/_roots/_vars.scss)
 
 ## Назначение
 Глобальный конфигурационный файл CSS-переменных (CSS Custom Properties), определяющий цветовую схему, эффекты свечения и базовые метрики типографики для всего приложения.

@@ -1,4 +1,4 @@
-# [advanced-panel-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/advanced-panel-controller.ts)
+# [Панель фильтров под строкой поиска (advanced-panel-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/advanced-panel-controller.ts)
 
 ## Назначение
 `AdvancedPanelController` — раскрытие и скрытие панели фильтров под строкой поиска по кнопке `#advancedFiltersToggle`. Видимость хранит [ItemsManager](../ItemsManager.md) и сохраняет между переходами ([ItemsStateManager](../ItemsStateManager.md)).

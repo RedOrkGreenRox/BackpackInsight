@@ -1,4 +1,4 @@
-# [style/roots/_roots.scss](/RBackend/crates/branches/style/roots/_roots.scss)
+# [Корень всех стилей (_roots.scss)](/RBackend/crates/branches/style/roots/_roots.scss)
 
 ## Назначение
 Этот файл является центральным узлом всей стилизации приложения. Он собирает воедино все системные, базовые и компонентные стили ядра в единый CSS-бандл.

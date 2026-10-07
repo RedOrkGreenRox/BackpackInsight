@@ -1,4 +1,4 @@
-# [art/build.rs](/RBackend/crates/art/src/build.rs)
+# [Сборка картинок (build.rs)](/RBackend/crates/art/src/build.rs)
 
 ## Назначение
 Сборка `art build`: экспорт + архив + правила → картинки и `manifest.json`.

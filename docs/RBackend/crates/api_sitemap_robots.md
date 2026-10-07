@@ -1,4 +1,4 @@
-# api sitemap and robots — backend SEO endpoints
+# SEO-эндпоинты API
 
 Эта точка добавляет backend-only SEO endpoints в `api`:
 

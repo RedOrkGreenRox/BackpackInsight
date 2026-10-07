@@ -1,4 +1,4 @@
-# [branches/catalog/item.rs](/RBackend/crates/branches/src/catalog/item.rs)
+# [Предмет каталога (item.rs)](/RBackend/crates/branches/src/catalog/item.rs)
 
 ## Назначение
 `CatalogItem` — предмет каталога одного языка: строгая запись экспорта игры `ItemDef` ([core/catalog/export/item.rs](/docs/RBackend/crates/core/src/catalog/export/item.md)) плюс поля, которые нужны только сайту. Все данные игры (форма, звёзды, рецепты, уровни, статы) лежат в `def` без потерь, поэтому будущему полю предметов второй источник не понадобится.

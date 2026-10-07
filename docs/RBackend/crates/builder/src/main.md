@@ -1,4 +1,4 @@
-# [builder/main.rs](/RBackend/crates/builder/src/main.rs)
+# [Утилита сборки данных (main.rs)](/RBackend/crates/builder/src/main.rs)
 
 ## Назначение
 Консольная утилита сборки данных: проверяет исходные JSON-каталоги, картинки и локали собирает FlatBuffer-паки и пишет проверенный строгой моделью каталог `items_{en,ru}.json` в `RBackend/generated`. Запускается как `cargo run -p builder -- <команда>` при сборке образа и в CI; в рантайм API не входит.

@@ -1,4 +1,4 @@
-# pack — runtime-чтение FlatBuffer packs
+# Обзор крейта pack (crates/pack/)
 
 `pack` — маленький runtime crate для чтения сгенерированных FlatBuffer packs.
 

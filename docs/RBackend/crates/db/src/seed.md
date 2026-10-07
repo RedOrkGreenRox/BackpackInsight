@@ -1,4 +1,4 @@
-# [db/seed.rs](/RBackend/crates/db/src/seed.rs)
+# [Заполнение справочника предметов (seed.rs)](/RBackend/crates/db/src/seed.rs)
 
 ## Назначение
 `seed_itemdefinitions_if_empty(pool, project_root)` — заполняет таблицу `itemdefinition` справочником предметов, если в ней нет ни одной строки. Вызывается при каждом старте API ([api/state](../../api/src/state.md)); при непустой таблице возвращает 0 и ничего не делает.

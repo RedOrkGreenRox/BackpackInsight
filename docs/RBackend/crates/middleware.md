@@ -1,4 +1,4 @@
-# middleware — backend-owned FlatBuffer decoder layer
+# Обзор крейта middleware (crates/middleware/)
 
 `middleware` — backend-owned compatibility layer for the future frontend side.
 

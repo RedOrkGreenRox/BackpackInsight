@@ -1,4 +1,4 @@
-# [style/branches/items/_items/actions/_clear-btn.scss](/RBackend/crates/branches/style/branches/items/_items/actions/_clear-btn.scss)
+# [Кнопка сброса фильтров (_clear-btn.scss)](/RBackend/crates/branches/style/branches/items/_items/actions/_clear-btn.scss)
 
 ## Назначение
 Стилизация кнопки сброса всех активных фильтров.

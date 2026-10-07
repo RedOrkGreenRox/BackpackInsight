@@ -1,4 +1,4 @@
-# [style/branches/main/_main/container/styles/container-base.scss](/RBackend/crates/branches/style/branches/main/_main/container/styles/container-base.scss)
+# [Геометрия контейнера главной (container-base.scss)](/RBackend/crates/branches/style/branches/main/_main/container/styles/container-base.scss)
 
 ## Назначение
 Определяет фундаментальные геометрические параметры главного контейнера страницы.

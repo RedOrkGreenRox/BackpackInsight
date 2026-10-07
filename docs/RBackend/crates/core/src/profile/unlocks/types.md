@@ -1,4 +1,4 @@
-# [core/profile/unlocks/types.rs](/RBackend/crates/core/src/profile/unlocks/types.rs)
+# [Типы разблокировок (types.rs)](/RBackend/crates/core/src/profile/unlocks/types.rs)
 
 ## Назначение
 Типы разобранных разблокировок.

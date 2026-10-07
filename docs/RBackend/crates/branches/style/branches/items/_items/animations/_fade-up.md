@@ -1,4 +1,4 @@
-# [style/branches/items/_items/animations/_fade-up.scss](/RBackend/crates/branches/style/branches/items/_items/animations/_fade-up.scss)
+# [Анимация появления (_fade-up.scss)](/RBackend/crates/branches/style/branches/items/_items/animations/_fade-up.scss)
 
 ## Назначение
 Описание кастомной анимации `fadeUp`, используемой для плавного появления карточек предметов при динамической подгрузке (Infinite Scroll).

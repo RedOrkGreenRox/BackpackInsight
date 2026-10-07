@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_item-rarities.scss](/RBackend/crates/branches/style/roots/_roots/items/_item-rarities.scss)
+# [Цвета редкостей карточек (_item-rarities.scss)](/RBackend/crates/branches/style/roots/_roots/items/_item-rarities.scss)
 
 ## Назначение
 Связующий файл, который назначает цвета из переменных конкретным CSS-классам редкостей.

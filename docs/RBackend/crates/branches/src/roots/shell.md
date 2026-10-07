@@ -1,4 +1,4 @@
-# [branches/roots/shell.rs](/RBackend/crates/branches/src/roots/shell.rs)
+# [HTML-каркас документа (shell.rs)](/RBackend/crates/branches/src/roots/shell.rs)
 
 ## Назначение
 HTML-каркас документа (`shell`) и корневой компонент `App`, который выбирает ветку и рисует общий каркас страницы: боковую панель, фон с параллаксом, затемнение и `#app`. Аналог [Shell.ts](/docs/Frontend/ground/roots/Shell.md); разметка повторяет `Frontend/Web/index.html` TS-версии, но весь каркас приходит с сервера готовым HTML.

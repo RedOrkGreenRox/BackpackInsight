@@ -1,4 +1,4 @@
-# [core/catalog/mod.rs](/RBackend/crates/core/src/catalog/mod.rs)
+# [Каталог в ядре (mod.rs)](/RBackend/crates/core/src/catalog/mod.rs)
 
 ## Назначение
 Корень подмодуля каталога в ядре: строгая модель экспорта игры и основа колоночного (data-oriented) хранения предметов — типизированные компактные id, интернирование строк и первые колонки.

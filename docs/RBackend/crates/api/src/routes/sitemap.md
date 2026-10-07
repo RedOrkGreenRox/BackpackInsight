@@ -1,4 +1,4 @@
-# [api/routes/sitemap.rs](/RBackend/crates/api/src/routes/sitemap.rs)
+# [Эндпоинт карты сайта (sitemap.rs)](/RBackend/crates/api/src/routes/sitemap.rs)
 
 ## Назначение
 `GET /sitemap.xml` и `GET /api/sitemap` — один обработчик `sitemap`, который отдаёт XML из `generate_sitemap` ([seo/sitemap](../seo/sitemap.md)) с `content-type: application/xml; charset=utf-8`.

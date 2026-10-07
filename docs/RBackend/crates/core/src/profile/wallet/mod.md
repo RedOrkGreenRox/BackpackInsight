@@ -1,4 +1,4 @@
-# [core/profile/wallet/mod.rs](/RBackend/crates/core/src/profile/wallet/mod.rs)
+# [Кошелёк профиля (mod.rs)](/RBackend/crates/core/src/profile/wallet/mod.rs)
 
 ## Назначение
 Кошелёк профиля: монеты и гемы. Намеренно не разделён по валютам — это одна маленькая ответственность «прочитать базовые валюты с нулём по умолчанию».

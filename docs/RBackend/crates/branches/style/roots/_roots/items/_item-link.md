@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_item-link.scss](/RBackend/crates/branches/style/roots/_roots/items/_item-link.scss)
+# [Ссылка-карточка предмета (_item-link.scss)](/RBackend/crates/branches/style/roots/_roots/items/_item-link.scss)
 
 ## Назначение
 Стиль для обертки карточки предмета, превращающий её в кликабельный элемент навигации.

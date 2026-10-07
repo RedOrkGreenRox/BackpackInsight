@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/upload-area.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-area.scss)
+# [Стили области загрузки (upload-area.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-area.scss)
 
 ## Назначение
 Агрегатор: подключает модульные стили `.upload-area` из `styles/`.

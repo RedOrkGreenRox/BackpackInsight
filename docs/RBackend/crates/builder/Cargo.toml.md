@@ -1,4 +1,4 @@
-# [crates/builder/Cargo.toml](/RBackend/crates/builder/Cargo.toml)
+# [Манифест утилиты сборки данных (Cargo.toml)](/RBackend/crates/builder/Cargo.toml)
 
 ## Назначение
 Манифест пакета `builder`. Консольная утилита проверки исходных данных и сборки FlatBuffer-паков ([обзор](../build.md)).

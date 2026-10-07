@@ -1,4 +1,4 @@
-# [api/security/secret.rs](/RBackend/crates/api/src/security/secret.rs)
+# [Проверка внутреннего секрета (secret.rs)](/RBackend/crates/api/src/security/secret.rs)
 
 ## Назначение
 Слой `require_api_secret`: пропускает к `/api/*.fb` только запросы с верным внутренним секретом в заголовке `x-internal-secret` (константа `INTERNAL_SECRET_HEADER`). Секрет добавляет прокси на краю сети — см. [cloudflare_edge_security](../../../../cloudflare_edge_security.md).

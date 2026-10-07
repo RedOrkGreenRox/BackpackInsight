@@ -1,4 +1,4 @@
-# Cloudflare edge proxy and API secret
+# Прокси Cloudflare и секрет API
 
 ## Main rule
 

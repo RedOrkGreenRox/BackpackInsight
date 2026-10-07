@@ -1,4 +1,4 @@
-# [filter-applier.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/filter-applier.ts)
+# [Применение фильтров к списку (filter-applier.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/filter-applier.ts)
 
 ## Назначение
 Применение фильтров из `FilterState` ([ItemsStateManager](../ItemsStateManager.md)) к списку предметов.

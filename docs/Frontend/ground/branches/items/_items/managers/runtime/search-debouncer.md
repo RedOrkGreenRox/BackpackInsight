@@ -1,4 +1,4 @@
-# [search-debouncer.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/search-debouncer.ts)
+# [Задержка поиска при наборе (search-debouncer.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/search-debouncer.ts)
 
 ## Назначение
 `SearchDebouncer` — откладывает действие, пока пользователь печатает: каждый новый вызов отменяет предыдущий таймер. [ItemsManager](../ItemsManager.md) создаёт его с задержкой 200 мс и запускает через него фильтрацию при вводе.

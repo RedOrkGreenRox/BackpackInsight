@@ -1,4 +1,4 @@
-# [style/branches/main/_main/container/container.scss](/RBackend/crates/branches/style/branches/main/_main/container/container.scss)
+# [Макет главной (container.scss)](/RBackend/crates/branches/style/branches/main/_main/container/container.scss)
 
 ## Назначение
 Простой статический рендерер, описывающий корневой макет главной страницы. Он обеспечивает структуру для вставки динамического контента.

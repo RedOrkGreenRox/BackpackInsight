@@ -1,4 +1,4 @@
-# [rust-toolchain.toml](/rust-toolchain.toml)
+# [Версия Rust (rust-toolchain.toml)](/rust-toolchain.toml)
 
 ## Назначение
 Закрепляет канал Rust для всего репозитория: rustup автоматически ставит и выбирает нужный тулчейн при запуске `cargo` в любой папке проекта.

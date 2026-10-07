@@ -1,4 +1,4 @@
-# FlatBuffers-схемы RBackend
+# Схемы FlatBuffers (schemas/)
 
 Каталог `RBackend/schemas/` — контракты бинарных паков между сборкой, сервером и браузером. Rust-биндинги для используемых схем сгенерированы заранее и лежат в `RBackend/crates/pack/src/generated` ([pack/lib](crates/pack/src/lib.md)); TS-биндинги фронтенда — в `Frontend/Web/ground/middleware/generated`. Бинарные паки собирает внешний `flatc` в утилите [builder](crates/build.md).
 

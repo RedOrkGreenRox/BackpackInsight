@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_container.scss](/RBackend/crates/branches/style/branches/items/_items/search/_container.scss)
+# [Обёртка поля поиска (_container.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_container.scss)
 
 ## Назначение
 Стилизация внешней обертки для поля поиска предметов.

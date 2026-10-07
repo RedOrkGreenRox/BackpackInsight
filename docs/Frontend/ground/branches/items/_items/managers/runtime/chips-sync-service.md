@@ -1,4 +1,4 @@
-# [chips-sync-service.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/chips-sync-service.ts)
+# [Синхронизация чипов фильтров (chips-sync-service.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/chips-sync-service.ts)
 
 ## Назначение
 `ChipsSyncService` — приводит вид кнопок-чипов панели фильтров (`.filter-chip`) в соответствие с `FilterState` ([ItemsStateManager](../ItemsStateManager.md)) и приоритетами сортировки. Вызывается [ItemsManager](../ItemsManager.md) после каждого изменения.

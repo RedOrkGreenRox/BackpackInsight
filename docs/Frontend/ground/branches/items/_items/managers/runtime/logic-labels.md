@@ -1,4 +1,4 @@
-# [Локализация логических операторов](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/logic-labels.ts)
+# [Локализация логических операторов (logic-labels.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/logic-labels.ts)
 
 ## Назначение
 Возвращает подписи `И/ИЛИ/НЕ` или `AND/OR/NOT` по текущему языку.

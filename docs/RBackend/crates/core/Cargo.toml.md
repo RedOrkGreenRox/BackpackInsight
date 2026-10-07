@@ -1,4 +1,4 @@
-# [crates/core/Cargo.toml](/RBackend/crates/core/Cargo.toml)
+# [Манифест ядра (Cargo.toml)](/RBackend/crates/core/Cargo.toml)
 
 ## Назначение
 Манифест пакета `rbackend_core`. Крейт `core` с чистыми доменными правилами ([обзор](../core.md)). Имя пакета `rbackend_core`, потому что `core` занято стандартной библиотекой Rust.

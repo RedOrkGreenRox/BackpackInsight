@@ -1,4 +1,4 @@
-# [core/catalog/export/mod.rs](/RBackend/crates/core/src/catalog/export/mod.rs)
+# [Модель экспорта игры (mod.rs)](/RBackend/crates/core/src/catalog/export/mod.rs)
 
 ## Назначение
 Экспорт каталога из игры (`Backend/DB/items_{lang}_X_Y_Z.json`) в строгих типах. Это единственная модель данных предмета для всего Rust-кода: [builder](/docs/RBackend/crates/builder/src/catalog/export.md) проверяет ею экспорт при сборке и пишет нормализованную копию в `RBackend/generated/items_{lang}.json`, а сайт ([branches/catalog/load.rs](/docs/RBackend/crates/branches/src/catalog/load.md)) читает ту же модель при старте. Решение Ивана от 2026-10-06: каталог хранится как JSON игры в строгой Rust-модели, а не в FlatBuffers.

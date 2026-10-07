@@ -23,6 +23,8 @@ ZONES = (
     ('docs/RBackend/', 'rust'), ('docs/Frontend/', 'ts'), ('docs/Backend/', 'py'),
     ('docs/scripts/', 'tools'), ('docs/data/', 'tools'),
 )
+# Язык исходника по расширению; доки без файла и доки папок — «doc», остальное — «data».
+LANGS = {'rs': 'rust', 'ts': 'ts', 'js': 'ts', 'cjs': 'ts', 'scss': 'scss', 'py': 'py', 'ps1': 'py'}
 # Карты, которые ссылаются почти на всё: по умолчанию их связи скрыты, иначе граф слипается в ком.
 HUBS = {'docs/structure.md', 'README.md'}
 H1_RE = re.compile(r'^#\s+(.*)$', re.M)
@@ -31,6 +33,13 @@ LINK_TEXT_RE = re.compile(r'\[([^\]]*)\]\([^)]*\)')
 
 def zone(path: str) -> str:
     return next((z for prefix, z in ZONES if path.startswith(prefix)), 'meta')
+
+
+def lang(src: str | None) -> str:
+    if not src or os.path.isdir(src):
+        return 'doc'
+    name = os.path.basename(src)
+    return LANGS.get(name.rsplit('.', 1)[-1], 'data') if '.' in name.lstrip('.') else 'data'
 
 
 def title(path: str, text: str) -> str:
@@ -55,8 +64,9 @@ def collect() -> dict:
     nodes, edges = [], set()
     for d in docs:
         text = read(d)
-        nodes.append({'id': d, 'title': title(d, text), 'zone': zone(d), 'hub': d in HUBS,
-                      'src': source_of(d), 'text': text})
+        src = source_of(d)
+        nodes.append({'id': d, 'title': title(d, text), 'zone': zone(d), 'lang': lang(src), 'hub': d in HUBS,
+                      'src': src, 'text': text})
         for t in link_targets(d):
             target = resolve(d, t)
             if target in index and target != d:

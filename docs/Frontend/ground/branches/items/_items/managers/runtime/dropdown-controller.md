@@ -1,4 +1,4 @@
-# [dropdown-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/dropdown-controller.ts)
+# [Сворачиваемые категории фильтров (dropdown-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/dropdown-controller.ts)
 
 ## Назначение
 `DropdownController` — сворачиваемые категории панели фильтров. Каждая кнопка `.dropdown-toggle` с `data-target` управляет блоком с этим id.

@@ -1,4 +1,4 @@
-# core catalog — typed IDs и string interning
+# Идентификаторы и пул строк ядра
 
 `catalog/*` — начало data-oriented корня для будущего каталога.
 

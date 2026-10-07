@@ -1,4 +1,4 @@
-# [pack/catalog.rs](/RBackend/crates/pack/src/catalog.rs)
+# [Сводный пак каталога (catalog.rs)](/RBackend/crates/pack/src/catalog.rs)
 
 ## Назначение
 Чтение сводного пака каталога (`catalog_summary.fb`, схема `catalog.fbs`, идентификатор `"BICS"`) в лёгкую сводку для диагностики.

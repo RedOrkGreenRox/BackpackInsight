@@ -1,4 +1,4 @@
-# [branches/catalog/mod.rs](/RBackend/crates/branches/src/catalog/mod.rs)
+# [Каталог предметов на сервере (mod.rs)](/RBackend/crates/branches/src/catalog/mod.rs)
 
 ## Назначение
 Каталог предметов на сервере (только `ssr`). Читается один раз на старте из `RBackend/generated/items_{en,ru}.json` в строгую модель `ItemDef` ([core/catalog/export](/docs/RBackend/crates/core/src/catalog/export/mod.md)) и дальше живёт в памяти. В браузер каталог целиком не уходит: страницы получают готовый HTML, остров — порции по `PAGE_SIZE` карточек ([model.rs](../model.md)).

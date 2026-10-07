@@ -1,4 +1,4 @@
-# [Защита коротких Fuse-термов](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/fuzzy-term-guard.ts)
+# [Защита коротких нечётких термов (fuzzy-term-guard.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/filter/fuzzy-term-guard.ts)
 
 ## Назначение
 Фильтрует ложные Fuse-срабатывания для коротких слов, требуя token-like совпадение.

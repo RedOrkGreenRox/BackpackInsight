@@ -1,4 +1,4 @@
-# api hardening
+# Защита API
 
 Protected RBackend data endpoints are guarded by `X-Internal-Secret` when `API_SECRET` or `ROOT_API_SECRET` is configured:
 

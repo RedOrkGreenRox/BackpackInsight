@@ -1,4 +1,4 @@
-# [core/lib.rs](/RBackend/crates/core/src/lib.rs)
+# [Корень ядра (lib.rs)](/RBackend/crates/core/src/lib.rs)
 
 ## Назначение
 Корень библиотечного crate ядра (имя пакета в `Cargo.toml` — rbackend_core, зависимости — `unicode-normalization`, `serde`, `serde_json`). Собирает доменные правила BackpackInsight: slug-и, ключи картинок, строгую модель экспорта каталога, колонки каталога и правила профиля. Остальные crates подключают его и используют пути вида `rbackend_core::SlugService`.

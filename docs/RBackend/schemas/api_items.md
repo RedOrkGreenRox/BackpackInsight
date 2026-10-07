@@ -1,4 +1,4 @@
-# [api_items.fbs](/RBackend/schemas/api_items.fbs)
+# [Схема пака предметов (api_items.fbs)](/RBackend/schemas/api_items.fbs)
 
 ## Назначение
 Схема пака предметов `api_items_<lang>.fb` (пространство имён `BackpackInsight.ApiItems`, корень `ApiItemsPack`, идентификатор `"BIAI"`). Пак хранит каталог предметов одного языка в виде произвольного JSON-подобного дерева, поэтому новые поля предмета не требуют правки схемы.

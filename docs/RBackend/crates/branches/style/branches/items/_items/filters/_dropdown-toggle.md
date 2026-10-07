@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_dropdown-toggle.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-toggle.scss)
+# [Кнопка раскрытия фильтра (_dropdown-toggle.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-toggle.scss)
 
 ## Назначение
 Стилизация кнопки, которая открывает и закрывает конкретный фильтр.

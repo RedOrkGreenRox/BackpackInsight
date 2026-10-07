@@ -1,4 +1,4 @@
-# api profile fb — бинарный профильный контракт
+# Бинарный контракт профиля
 
 Backend→middleware endpoint:
 

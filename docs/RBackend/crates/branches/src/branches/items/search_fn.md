@@ -1,4 +1,4 @@
-# [branches/branches/items/search_fn.rs](/RBackend/crates/branches/src/branches/items/search_fn.rs)
+# [Серверная функция поиска (search_fn.rs)](/RBackend/crates/branches/src/branches/items/search_fn.rs)
 
 ## Назначение
 Серверная функция поиска для острова `ItemsManager`. Макрос `#[server]` генерирует из одного объявления и серверный обработчик (сборка `ssr`), и клиентскую заглушку, которая делает HTTP-запрос (сборка `hydrate`). Тело функции компилируется только на сервере.

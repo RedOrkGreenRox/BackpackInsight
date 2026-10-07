@@ -1,4 +1,4 @@
-# [art/resolve_tests.rs](/RBackend/crates/art/src/resolve_tests.rs)
+# [Тесты подбора файлов (resolve_tests.rs)](/RBackend/crates/art/src/resolve_tests.rs)
 
 ## Назначение
 Тесты [resolve.rs](resolve.md) на временном архиве из [test_kit.rs](test_kit.md) и маленьких правилах `RULES`.

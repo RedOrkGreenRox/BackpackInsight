@@ -1,4 +1,4 @@
-# [autocomplete-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/autocomplete-controller.ts)
+# [Подсказка-автодополнение в поиске (autocomplete-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/autocomplete-controller.ts)
 
 ## Назначение
 `AutocompleteController` — подсказка-«призрак» в поле поиска `#itemSearch`: дописывает серым продолжение набираемого слова, если оно начинает имя героя, редкость или тип. Вызывается из [rich-input-controller](rich-input-controller.md) при вводе.

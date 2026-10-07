@@ -1,4 +1,4 @@
-# [Стили rich-чипов](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_rich-token.scss)
+# [Чипы в поле поиска (_rich-token.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_rich-token.scss)
 
 ## Назначение
 Описывает визуальные состояния фильтр-чипов: обычный, exact, negated и focused.

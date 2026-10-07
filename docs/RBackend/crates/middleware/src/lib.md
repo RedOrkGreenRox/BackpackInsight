@@ -1,4 +1,4 @@
-# [middleware/lib.rs](/RBackend/crates/middleware/src/lib.rs)
+# [Декодеры FlatBuffer (lib.rs)](/RBackend/crates/middleware/src/lib.rs)
 
 ## Назначение
 Crate `middleware` — декодеры FlatBuffer-контрактов API на стороне бэкенда. Он превращает байты паков в обычные Rust-структуры с `serde::Serialize`, не открывая потребителям типы crate [pack](../../pack/src/lib.md). Зависимости по Cargo.toml — только crate pack и serde.

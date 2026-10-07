@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/navigation/_button-toggle.scss](/RBackend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.scss)
+# [Кнопка меню (_button-toggle.scss)](/RBackend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.scss)
 
 ## Назначение
 Стилизация основной кнопки открытия меню (бургера). Файл определяет внешний вид, анимацию и поведение кнопки в зависимости от состояния приложения.

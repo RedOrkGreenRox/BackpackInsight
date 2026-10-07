@@ -1,4 +1,4 @@
-# [builder/catalog/locales.rs](/RBackend/crates/builder/src/catalog/locales.rs)
+# [Проверка локализаций (locales.rs)](/RBackend/crates/builder/src/catalog/locales.rs)
 
 ## Назначение
 `check_locales(root)` — EN и RU каталоги (`localized_files`, см. [files](files.md)) должны содержать одинаковый набор `id`. При расхождении ошибка показывает до 30 id с каждой стороны.

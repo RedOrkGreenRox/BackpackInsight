@@ -1,4 +1,4 @@
-# [style/roots/_roots/_shell.scss](/RBackend/crates/branches/style/roots/_roots/_shell.scss)
+# [Стили каркаса (_shell.scss)](/RBackend/crates/branches/style/roots/_roots/_shell.scss)
 
 ## Назначение
 Агрегатор стилей оболочки приложения (Shell). Собственных правил не содержит — только подключает через `@use` партиалы из папки `shell/` в нужном порядке.

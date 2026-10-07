@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/button-styles/button-responsive.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-responsive.scss)
+# [Адаптивная кнопка (button-responsive.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-responsive.scss)
 
 ## Назначение
 Корректирует размеры и отступы главной кнопки для мобильных устройств.

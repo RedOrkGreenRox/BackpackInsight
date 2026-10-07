@@ -1,4 +1,4 @@
-# [filter-icon-resolver.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-icon-resolver.ts)
+# [Иконки чипов фильтров (filter-icon-resolver.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-icon-resolver.ts)
 
 ## Назначение
 `FilterIconResolver` — иконка для чипа фильтра по значению и группе. Используется в [multiselect-filter-controller](multiselect-filter-controller.md), [items-prompt-chips-controller](items-prompt-chips-controller.md) и [ItemsManager](../ItemsManager.md).

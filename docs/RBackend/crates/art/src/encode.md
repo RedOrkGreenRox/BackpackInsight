@@ -1,4 +1,4 @@
-# [art/encode.rs](/RBackend/crates/art/src/encode.rs)
+# [Кодирование в AVIF и WebP (encode.rs)](/RBackend/crates/art/src/encode.rs)
 
 ## Назначение
 Кодирование холста в AVIF и WebP с хешем содержимого в имени: `<slug>.<hash>.<ext>` меняется только вместе с пикселями, поэтому картинки можно кешировать навсегда.

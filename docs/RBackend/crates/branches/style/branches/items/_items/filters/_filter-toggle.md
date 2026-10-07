@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_filter-toggle.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-toggle.scss)
+# [Кнопка расширенного поиска (_filter-toggle.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-toggle.scss)
 
 ## Назначение
 Стилизация главной кнопки "Расширенный поиск", которая управляет видимостью всей панели фильтров.

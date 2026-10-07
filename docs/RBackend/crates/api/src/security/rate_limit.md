@@ -1,4 +1,4 @@
-# [api/security/rate_limit.rs](/RBackend/crates/api/src/security/rate_limit.rs)
+# [Ограничение частоты по IP (rate_limit.rs)](/RBackend/crates/api/src/security/rate_limit.rs)
 
 ## Назначение
 Ограничение частоты по IP для `POST /api/profile.fb` — замена лимитера slowapi «20/minute» из старого Python-бэкенда. Алгоритм — token bucket: у каждого IP своё ведро.

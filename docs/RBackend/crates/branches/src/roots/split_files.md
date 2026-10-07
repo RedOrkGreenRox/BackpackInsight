@@ -1,4 +1,4 @@
-# [branches/roots/split_files.rs](/RBackend/crates/branches/src/roots/split_files.rs)
+# [Файлы ленивых островов (split_files.rs)](/RBackend/crates/branches/src/roots/split_files.rs)
 
 ## Назначение
 `SplitFiles` — имена файлов в каталоге `pkg`, которые нужны ленивым островам ([lazy.rs](lazy.md)): основной JS сайта, манифест разбиения WASM и JS-загрузчик кусков, а также стили сайта для [shell.rs](shell.md). Учитывает настройку `hash-files` cargo-leptos, при которой к именам добавляется хэш.

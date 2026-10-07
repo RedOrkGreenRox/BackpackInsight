@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_caret-spacer.scss](/RBackend/crates/branches/style/branches/items/_items/search/_caret-spacer.scss)
+# [Промежутки в поле поиска (_caret-spacer.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_caret-spacer.scss)
 
 ## Назначение
 Описывает видимые промежутки между atomic-элементами rich-input для постановки каретки.

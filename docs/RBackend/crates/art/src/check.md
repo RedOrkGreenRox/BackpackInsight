@@ -1,4 +1,4 @@
-# [art/check.rs](/RBackend/crates/art/src/check.rs)
+# [Проверка нового ContentKit (check.rs)](/RBackend/crates/art/src/check.rs)
 
 ## Назначение
 `art check`: резолв без кодирования — быстрый ответ, готов ли новый ContentKit.

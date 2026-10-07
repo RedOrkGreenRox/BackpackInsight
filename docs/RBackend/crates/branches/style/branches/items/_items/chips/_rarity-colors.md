@@ -1,4 +1,4 @@
-# [style/branches/items/_items/chips/_rarity-colors.scss](/RBackend/crates/branches/style/branches/items/_items/chips/_rarity-colors.scss)
+# [Цвета редкостей у чипов (_rarity-colors.scss)](/RBackend/crates/branches/style/branches/items/_items/chips/_rarity-colors.scss)
 
 ## Назначение
 Специализированная надстройка над фильтр-чипсами, которая окрашивает их названия в соответствии с игровой редкостью предмета.

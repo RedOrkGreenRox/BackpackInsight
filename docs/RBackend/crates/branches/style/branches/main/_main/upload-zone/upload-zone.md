@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/upload-zone.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-zone.scss)
+# [Стили зоны загрузки (upload-zone.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-zone.scss)
 
 ## Назначение
 Этот файл является связующим звеном для всех визуальных компонентов загрузчика профилей. Он обеспечивает общую видимость текста и правильную иерархию слоев.

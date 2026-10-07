@@ -7,7 +7,8 @@
   color-scheme: dark;
   --sky: #070b17; --sky-2: #0e1530; --glass: rgba(14, 21, 44, .78); --line: rgba(160, 180, 255, .16);
   --ink: #e6e9f5; --ink-dim: #9aa3c2; --ink-faint: #5d6688; --focus: #ffd98a;
-  --rust: #f08a5d; --ts: #5ab8f0; --py: #f2cf5b; --tools: #7fdc9a; --meta: #c3a6ff;
+  --l-rust: #ff8f5a; --l-ts: #4ea8ff; --l-scss: #ff6fc0; --l-py: #ffd84d; --l-data: #6fe0a0; --l-doc: #eef0fa;
+  --z-rust: #e0573a; --z-ts: #2fc4d6; --z-py: #c9a227; --z-tools: #3fae6a; --z-meta: #a58bff;
   --f-display: 'Unbounded', 'Golos Text', system-ui, sans-serif;
   --f-body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
@@ -31,7 +32,9 @@ h1 { margin: 0; font: 700 17px/1.2 var(--f-display); letter-spacing: .01em; text
   color: var(--ink); font: 13px var(--f-body); cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
 #hits button:hover, #hits button:focus-visible { background: rgba(255, 255, 255, .07); outline: none; }
 #hits small { color: var(--ink-faint); font: 11px var(--f-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.legend b { width: 100%; font: 500 10.5px var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-faint); }
+.chip.ring i { background: none; box-shadow: inset 0 0 0 2.5px var(--c), 0 0 8px var(--c); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; cursor: pointer;
   border: 1px solid var(--line); background: none; color: var(--ink); font: 12px var(--f-body); }
 .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
@@ -54,7 +57,7 @@ h1 { margin: 0; font: 700 17px/1.2 var(--f-display); letter-spacing: .01em; text
 #md code { font: 12px var(--f-mono); background: rgba(255, 255, 255, .07); padding: 1px 5px; border-radius: 5px; }
 #md pre { background: rgba(0, 0, 0, .35); padding: 10px 12px; border-radius: 10px; overflow-x: auto; }
 #md pre code { background: none; padding: 0; }
-#md a { color: var(--ts); text-decoration: none; border-bottom: 1px solid rgba(90, 184, 240, .35); }
+#md a { color: var(--l-ts); text-decoration: none; border-bottom: 1px solid rgba(90, 184, 240, .35); }
 #md a[data-doc] { color: var(--focus); border-bottom-color: rgba(255, 217, 138, .35); cursor: pointer; }
 #md blockquote { margin: 10px 0; padding: 4px 12px; border-left: 2px solid var(--line); color: var(--ink-dim); }
 #md .tbl { overflow-x: auto; } #md table { border-collapse: collapse; font-size: 12.5px; }

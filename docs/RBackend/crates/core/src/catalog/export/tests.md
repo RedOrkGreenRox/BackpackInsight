@@ -1,4 +1,4 @@
-# [core/catalog/export/tests.rs](/RBackend/crates/core/src/catalog/export/tests.rs)
+# [Тесты модели экспорта (tests.rs)](/RBackend/crates/core/src/catalog/export/tests.rs)
 
 ## Назначение
 Тесты модели экспорта [export/mod.rs](mod.md) на настоящих файлах `Backend/DB/items_{en,ru}_5_1_0.json` и на маленьком искусственном экспорте.

@@ -1,4 +1,4 @@
-# [branches/roots/ctx.rs](/RBackend/crates/branches/src/roots/ctx.rs)
+# [Контекст запроса ветки (ctx.rs)](/RBackend/crates/branches/src/roots/ctx.rs)
 
 ## Назначение
 `BranchCtx` — всё, что ветке нужно знать об одном запросе: путь, параметры пути, query, язык, каталог и словарь. Ветки не трогают Axum и контекст Leptos напрямую — только через этот тип.

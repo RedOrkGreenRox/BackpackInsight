@@ -1,4 +1,4 @@
-# core catalog columns — первый DOD-скелет каталога
+# Колоночный каталог ядра
 
 `catalog/columns.rs` — первая data-oriented заготовка каталога.
 

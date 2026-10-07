@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_filters.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_filters.scss)
+# [Сборка стилей фильтров (_filters.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_filters.scss)
 
 ## Назначение
 Главная точка входа для модуля фильтрации. Координирует сборку выпадающих списков, панелей и кнопок управления.

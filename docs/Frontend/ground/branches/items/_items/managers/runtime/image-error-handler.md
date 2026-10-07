@@ -1,4 +1,4 @@
-# [Fallback картинок](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/image-error-handler.ts)
+# [Запасные картинки (image-error-handler.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/image-error-handler.ts)
 
 ## Назначение
 Подменяет битые изображения предметов/иконок на placeholder и помечает failed state.

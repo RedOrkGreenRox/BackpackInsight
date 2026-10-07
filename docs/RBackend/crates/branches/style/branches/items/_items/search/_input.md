@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_input.scss](/RBackend/crates/branches/style/branches/items/_items/search/_input.scss)
+# [Поле поиска (_input.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_input.scss)
 
 ## Назначение
 Базовые стили contenteditable-поля поиска `.search-input-rich` (элемент с id itemSearch из ItemsLayoutRenderer). Поле работает в обычном потоке строк, чтобы каретку можно было ставить между чипами.

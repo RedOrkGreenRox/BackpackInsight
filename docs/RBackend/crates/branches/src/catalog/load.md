@@ -1,4 +1,4 @@
-# [branches/catalog/load.rs](/RBackend/crates/branches/src/catalog/load.rs)
+# [Загрузка предметов (load.rs)](/RBackend/crates/branches/src/catalog/load.rs)
 
 ## Назначение
 Загрузка предметов одного языка из `RBackend/generated/items_{lang}.json`. Файл пишет `builder build-catalog-json` ([builder/catalog/export.rs](/docs/RBackend/crates/builder/src/catalog/export.md)) после проверки экспорта игры строгой моделью; здесь та же модель `CatalogExport` ([core/catalog/export](/docs/RBackend/crates/core/src/catalog/export/mod.md)), так что расхождение формата — ошибка старта, а не тихо пропавшие поля.

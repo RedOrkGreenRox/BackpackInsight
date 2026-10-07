@@ -1,4 +1,4 @@
-# [Облачные функции (Functions)](/Frontend/Web/functions)
+# [Облачные функции (functions/)](/Frontend/Web/functions)
 
 ## Назначение
 Серверная логика на базе **Cloudflare Pages Functions**. Используется для SSR (Server Side Rendering) мета-тегов, генерации карты сайта и безопасного проксирования запросов к API.

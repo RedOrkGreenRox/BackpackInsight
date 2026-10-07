@@ -1,4 +1,4 @@
-# [core/profile/level.rs](/RBackend/crates/core/src/profile/level.rs)
+# [Уровень игрока (level.rs)](/RBackend/crates/core/src/profile/level.rs)
 
 ## Назначение
 `LevelService` считает уровень игрока по суммарному опыту.

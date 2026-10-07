@@ -1,4 +1,4 @@
-# [style/roots/_roots/_interactivity.scss](/RBackend/crates/branches/style/roots/_roots/_interactivity.scss)
+# [Интерактивность (_interactivity.scss)](/RBackend/crates/branches/style/roots/_roots/_interactivity.scss)
 
 ## Назначение
 Файл управляет поведением интерфейса в плане взаимодействия пользователя с контентом: запрет на выделение текста, перетаскивание изображений и специфические режимы курсора.

@@ -1,4 +1,4 @@
-# [builder/root.rs](/RBackend/crates/builder/src/root.rs)
+# [Поиск корня проекта (root.rs)](/RBackend/crates/builder/src/root.rs)
 
 ## Назначение
 `find_project_root()` — поднимается от текущего каталога, пока не найдёт папку, где есть одновременно `Backend/DB` и `Frontend/Web`; иначе ошибка. Переменные окружения не читает.

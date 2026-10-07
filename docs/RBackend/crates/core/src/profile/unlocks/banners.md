@@ -1,4 +1,4 @@
-# [core/profile/unlocks/banners.rs](/RBackend/crates/core/src/profile/unlocks/banners.rs)
+# [Разбор баннеров (banners.rs)](/RBackend/crates/core/src/profile/unlocks/banners.rs)
 
 ## Назначение
 `BannerService` разбирает строку разблокировки баннера вида `{имя}Banner…`.

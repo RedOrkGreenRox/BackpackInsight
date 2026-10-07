@@ -1,4 +1,4 @@
-# [branches/roots/per_lang.rs](/RBackend/crates/branches/src/roots/per_lang.rs)
+# [Пропсы островов по языку (per_lang.rs)](/RBackend/crates/branches/src/roots/per_lang.rs)
 
 ## Назначение
 Помощник для островов, чьи пропсы зависят от языка. Islands router Leptos при переходе обновляет серверный HTML, но острова (`<leptos-island>`) не трогает, чтобы не потерять их состояние. Поэтому после смены языка остров остался бы со старыми подписями.

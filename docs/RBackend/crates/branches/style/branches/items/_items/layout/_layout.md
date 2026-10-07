@@ -1,4 +1,4 @@
-# [style/branches/items/_items/layout/_layout.scss](/RBackend/crates/branches/style/branches/items/_items/layout/_layout.scss)
+# [Макет библиотеки предметов (_layout.scss)](/RBackend/crates/branches/style/branches/items/_items/layout/_layout.scss)
 
 ## Назначение
 Описание структуры верхнего уровня для страницы библиотеки предметов.

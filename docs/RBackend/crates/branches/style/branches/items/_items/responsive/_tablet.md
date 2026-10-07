@@ -1,4 +1,4 @@
-# [style/branches/items/_items/responsive/_tablet.scss](/RBackend/crates/branches/style/branches/items/_items/responsive/_tablet.scss)
+# [Планшетная вёрстка библиотеки (_tablet.scss)](/RBackend/crates/branches/style/branches/items/_items/responsive/_tablet.scss)
 
 ## Назначение
 Коррекция элементов библиотеки предметов для экранов шириной до 768px.

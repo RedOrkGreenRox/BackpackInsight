@@ -1,4 +1,4 @@
-# [alias-fuzzy.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/alias-fuzzy.ts)
+# [Синонимы поисковых термов (alias-fuzzy.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/alias-fuzzy.ts)
 
 ## Назначение
 `expandAliasTerm(raw)` — раскрывает поисковый терм в набор синонимов с весами по словарю [term-aliases.ru.json](../../../../../../static/search/term-aliases.ru.md). Позволяет искать, например, по русскому слову предметы с английским описанием.

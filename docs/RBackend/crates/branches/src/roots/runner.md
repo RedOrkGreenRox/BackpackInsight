@@ -1,4 +1,4 @@
-# [branches/roots/runner.rs](/RBackend/crates/branches/src/roots/runner.rs)
+# [Запуск веток как маршрутов (runner.rs)](/RBackend/crates/branches/src/roots/runner.rs)
 
 ## Назначение
 `BranchRunner` превращает `BranchSpec` всех веток в маршруты Axum и запускает сервер. Один процесс отдаёт всё: HTML веток (SSR), серверные функции островов (`/_fn/*`), WASM/CSS (`/pkg`), картинки и шрифты из `Frontend/Web/static` и все маршруты крейта `api`. Если задан `API_SECRET`, сайт отвечает только запросам с заголовком `X-Internal-Secret` (его добавляет прокси Cloudflare Pages, см. [[[path]].ts](/docs/Frontend/functions/[[path]].md)). Аналог [BranchRunner.ts](/docs/Frontend/ground/roots/BranchRunner.md).

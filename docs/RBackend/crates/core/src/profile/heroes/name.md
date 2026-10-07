@@ -1,4 +1,4 @@
-# [core/profile/heroes/name.rs](/RBackend/crates/core/src/profile/heroes/name.rs)
+# [Имя героя (name.rs)](/RBackend/crates/core/src/profile/heroes/name.rs)
 
 ## Назначение
 `HeroNameService` переводит внутренние (старые) идентификаторы героев из профиля в имена, которые использует приложение (картинки, подписи).

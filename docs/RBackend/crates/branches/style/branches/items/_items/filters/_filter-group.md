@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_filter-group.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-group.scss)
+# [Группа внутри фильтра (_filter-group.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-group.scss)
 
 ## Назначение
 Стилизация логического блока внутри фильтра (заголовок + список чипсов).

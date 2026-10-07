@@ -1,4 +1,4 @@
-# [crates/pack/Cargo.toml](/RBackend/crates/pack/Cargo.toml)
+# [Манифест FlatBuffer-паков (Cargo.toml)](/RBackend/crates/pack/Cargo.toml)
 
 ## Назначение
 Манифест пакета `pack`. Чтение FlatBuffer-паков и сгенерированные `flatc` аксессоры ([обзор](../pack.md)).

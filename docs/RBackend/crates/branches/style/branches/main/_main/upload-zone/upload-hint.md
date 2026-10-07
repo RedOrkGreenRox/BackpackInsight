@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/upload-hint.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-hint.scss)
+# [Стили подсказки загрузки (upload-hint.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-hint.scss)
 
 ## Назначение
 Агрегатор: подключает модульные стили подсказки `.upload-hint` из `hint-styles/`.

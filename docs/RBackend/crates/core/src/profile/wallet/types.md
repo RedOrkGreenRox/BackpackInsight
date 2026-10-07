@@ -1,4 +1,4 @@
-# [core/profile/wallet/types.rs](/RBackend/crates/core/src/profile/wallet/types.rs)
+# [Типы валют (types.rs)](/RBackend/crates/core/src/profile/wallet/types.rs)
 
 ## Назначение
 Типы валют профиля.

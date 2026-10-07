@@ -1,4 +1,4 @@
-# [branches/branches/mod.rs](/RBackend/crates/branches/src/branches/mod.rs)
+# [Ветки-страницы сайта (mod.rs)](/RBackend/crates/branches/src/branches/mod.rs)
 
 ## Назначение
 Ветки-страницы сайта. Каждая ветка реализует трейт `Branch` ([roots/branch.rs](../roots/branch.md)) и регистрируется в `Gen` ([roots/gen.rs](../roots/gen.md)). Аналог каталога `Frontend/Web/ground/branches` ([индекс TS-веток](/docs/Frontend/ground/branches/index.md)).

@@ -1,4 +1,4 @@
-# [core/profile/identity/uid.rs](/RBackend/crates/core/src/profile/identity/uid.rs)
+# [UID профиля (uid.rs)](/RBackend/crates/core/src/profile/identity/uid.rs)
 
 ## Назначение
 `ProfileUidService` выбирает UID профиля.

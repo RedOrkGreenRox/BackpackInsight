@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/sidebar/_button-logo.scss](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.scss)
+# [Кнопка-логотип (_button-logo.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.scss)
 
 ## Назначение
 Стилизация кнопки-логотипа, расположенной в верхней части бокового меню.

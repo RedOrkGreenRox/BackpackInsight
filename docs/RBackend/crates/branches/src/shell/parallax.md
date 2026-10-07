@@ -1,4 +1,4 @@
-# [branches/shell/parallax.rs](/RBackend/crates/branches/src/shell/parallax.rs)
+# [Параллакс фона (parallax.rs)](/RBackend/crates/branches/src/shell/parallax.rs)
 
 ## Назначение
 Остров `ParallaxManager`: фон чуть смещается за курсором. Перенос [Parallax.ts](/docs/Frontend/ground/roots/Parallax.md) с теми же константами. Остров ничего не рисует, он только вешает обработчик на окно и двигает `#bgImg` из [roots/shell.rs](../roots/shell.md).

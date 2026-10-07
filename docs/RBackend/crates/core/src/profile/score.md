@@ -1,4 +1,4 @@
-# [core/profile/score.rs](/RBackend/crates/core/src/profile/score.rs)
+# [Счёт игрока (score.rs)](/RBackend/crates/core/src/profile/score.rs)
 
 ## Назначение
 Чтение счёта игрока: обычные и бонусные трофеи, их сумма и игровая область.

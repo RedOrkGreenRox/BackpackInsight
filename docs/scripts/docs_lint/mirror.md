@@ -1,4 +1,4 @@
-# [docs_lint/mirror.py](/scripts/docs_lint/mirror.py)
+# [Зеркальность документов (mirror.py)](/scripts/docs_lint/mirror.py)
 
 ## Назначение
 Принцип 1:1 и правила оформления документов (`ARENA.MD` §1.2, §1.6, §1.7, §2.1): проверки `MIRROR` и `STRUCT`.

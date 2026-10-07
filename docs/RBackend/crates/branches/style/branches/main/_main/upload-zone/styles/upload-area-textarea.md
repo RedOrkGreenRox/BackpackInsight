@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/upload-area-textarea.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-textarea.scss)
+# [Поле ввода JSON (upload-area-textarea.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-textarea.scss)
 
 ## Назначение
 Стилизация области ввода JSON-кода.

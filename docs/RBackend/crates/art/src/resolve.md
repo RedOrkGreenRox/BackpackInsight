@@ -1,4 +1,4 @@
-# [art/resolve.rs](/RBackend/crates/art/src/resolve.rs)
+# [Подбор файлов для картинки (resolve.rs)](/RBackend/crates/art/src/resolve.rs)
 
 ## Назначение
 Какие файлы архива составляют картинку предмета. Порядок правил: `missing` → шаблон ограбления → `layers` → `alias` → файл с именем `id` → файл с именем `name`.

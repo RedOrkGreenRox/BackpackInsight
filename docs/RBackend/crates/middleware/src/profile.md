@@ -1,4 +1,4 @@
-# [middleware/profile.rs](/RBackend/crates/middleware/src/profile.rs)
+# [Декодер профиля (profile.rs)](/RBackend/crates/middleware/src/profile.rs)
 
 ## Назначение
 Декодирование бинарного представления профиля (пак с идентификатором `"BIPR"`) в `ProfileData`.

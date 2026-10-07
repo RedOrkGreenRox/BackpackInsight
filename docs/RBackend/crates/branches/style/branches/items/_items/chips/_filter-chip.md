@@ -1,4 +1,4 @@
-# [style/branches/items/_items/chips/_filter-chip.scss](/RBackend/crates/branches/style/branches/items/_items/chips/_filter-chip.scss)
+# [Чип фильтра (_filter-chip.scss)](/RBackend/crates/branches/style/branches/items/_items/chips/_filter-chip.scss)
 
 ## Назначение
 Описание универсального интерактивного элемента ("чипсы") для выбора параметров фильтрации.

@@ -1,4 +1,4 @@
-# [branches/branches/items/manager.rs](/RBackend/crates/branches/src/branches/items/manager.rs)
+# [Остров каталога (manager.rs)](/RBackend/crates/branches/src/branches/items/manager.rs)
 
 ## Назначение
 `ItemsManager` — остров каталога (`#[island(lazy)]`): заголовок, поле поиска, сетка карточек и подгрузка при прокрутке. Сервер рендерит его в HTML с первой порцией; в браузере WASM оживляет только этот фрагмент. Rust-замена TS-монолита [ItemsManager.ts](/docs/Frontend/ground/branches/items/_items/managers/ItemsManager.md) в объёме простого поиска. Разметка и классы — как у TS-версии (`wiki-header`, `search-container`, `items-grid`), поэтому работают перенесённые стили.

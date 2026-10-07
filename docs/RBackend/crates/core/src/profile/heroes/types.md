@@ -1,4 +1,4 @@
-# [core/profile/heroes/types.rs](/RBackend/crates/core/src/profile/heroes/types.rs)
+# [Типы героя (types.rs)](/RBackend/crates/core/src/profile/heroes/types.rs)
 
 ## Назначение
 Доменные типы героя профиля.

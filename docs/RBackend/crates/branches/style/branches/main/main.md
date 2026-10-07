@@ -1,4 +1,4 @@
-# [style/branches/main/main.scss](/RBackend/crates/branches/style/branches/main/main.scss)
+# [Стили главной страницы (main.scss)](/RBackend/crates/branches/style/branches/main/main.scss)
 
 ## Назначение
 Главный агрегатор стилей для раздела импорта профиля. Он объединяет макеты контейнеров, заголовков и сложной зоны загрузки в единый визуальный блок.

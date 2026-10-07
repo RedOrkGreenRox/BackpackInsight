@@ -1,4 +1,4 @@
-# Current frontend + RBackend runbook
+# Запуск фронтенда и RBackend
 
 This checkpoint keeps the existing TypeScript SPA alive against the binary-only RBackend contract.
 

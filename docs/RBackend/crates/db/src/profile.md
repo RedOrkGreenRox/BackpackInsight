@@ -1,4 +1,4 @@
-# [db/profile.rs](/RBackend/crates/db/src/profile.rs)
+# [Сохранение профиля (profile.rs)](/RBackend/crates/db/src/profile.rs)
 
 ## Назначение
 `save_profile(pool, profile)` — сохранение профиля в нормализованные таблицы `profiles`, `hero` и `item` в одной транзакции. SQL общий для Postgres и SQLite: плейсхолдеры `$N`, `ON CONFLICT ... DO UPDATE ... RETURNING id`, многострочный `INSERT`.

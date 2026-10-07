@@ -1,4 +1,4 @@
-# [art/render.rs](/RBackend/crates/art/src/render.rs)
+# [Сведение слоёв картинки (render.rs)](/RBackend/crates/art/src/render.rs)
 
 ## Назначение
 Сведение слоёв в один холст «рамка формы × клетка». Мастер-холст — `MASTER_CELL = 120` px на клетку, как в ContentKit с версии 1.0.

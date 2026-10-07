@@ -1,4 +1,4 @@
-# 🖼 Иконки интерфейса профиля (images/profile/)
+# Иконки интерфейса профиля (images/profile/)
 
 ## Назначение
 UI-иконки страницы профиля: валюты (coins, gems...), лиги (bronze/diamond...), карточки редкости (cardcommon…cardrelic), а также служебные (default, dev, battles и т.п.). ~69 имён × 2 формата.

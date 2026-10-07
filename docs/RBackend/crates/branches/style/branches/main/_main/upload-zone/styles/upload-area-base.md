@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/upload-area-base.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-base.scss)
+# [Рамка зоны загрузки (upload-area-base.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-base.scss)
 
 ## Назначение
 Определяет базовую геометрию и оформление рамки зоны перетаскивания.

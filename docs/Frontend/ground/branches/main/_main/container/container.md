@@ -1,4 +1,4 @@
-# [Контейнер страницы (ContainerRenderer.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/container/container.ts)
+# [Контейнер страницы (container.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/container/container.ts)
 
 ## Назначение
 Простой статический рендерер, описывающий корневой макет главной страницы. Он обеспечивает структуру для вставки динамического контента.

@@ -1,4 +1,4 @@
-# [core/profile/unlocks/mod.rs](/RBackend/crates/core/src/profile/unlocks/mod.rs)
+# [Разблокировки профиля (mod.rs)](/RBackend/crates/core/src/profile/unlocks/mod.rs)
 
 ## Назначение
 Разбор строк разблокировок профиля (`Unlocks`) на косметику: скины героев и баннеры. Остальные разблокировки (квестовые награды и т. п.) игнорируются.

@@ -1,4 +1,4 @@
-# 🖼 Постоянные ассеты (images/const/)
+# Постоянные ассеты (images/const/)
 
 ## Назначение
 Неизменные общие изображения: `logo`, `menu`, `placeholder` (в AVIF/WebP).

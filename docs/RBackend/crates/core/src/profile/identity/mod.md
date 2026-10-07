@@ -1,4 +1,4 @@
-# [core/profile/identity/mod.rs](/RBackend/crates/core/src/profile/identity/mod.rs)
+# [Идентичность профиля (mod.rs)](/RBackend/crates/core/src/profile/identity/mod.rs)
 
 ## Назначение
 Идентичность профиля: UID и отображаемое имя игрока. `ProfileIdentityService` собирает обе части и сообщает, чего не хватает.

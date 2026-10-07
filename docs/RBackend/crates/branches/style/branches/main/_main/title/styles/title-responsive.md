@@ -1,4 +1,4 @@
-# [style/branches/main/_main/title/styles/title-responsive.scss](/RBackend/crates/branches/style/branches/main/_main/title/styles/title-responsive.scss)
+# [Адаптивный заголовок (title-responsive.scss)](/RBackend/crates/branches/style/branches/main/_main/title/styles/title-responsive.scss)
 
 ## Назначение
 Масштабирует заголовок в зависимости от размера экрана.

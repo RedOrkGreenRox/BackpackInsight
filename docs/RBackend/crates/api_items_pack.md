@@ -1,4 +1,4 @@
-# api items pack — typed FlatBuffer `/api/items.fb`
+# Пак предметов API
 
 Active catalog data endpoint:
 

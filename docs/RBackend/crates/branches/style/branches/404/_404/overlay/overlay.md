@@ -1,4 +1,4 @@
-# [style/branches/404/_404/overlay/overlay.scss](/RBackend/crates/branches/style/branches/404/_404/overlay/overlay.scss)
+# [Виньетка страницы 404 (overlay.scss)](/RBackend/crates/branches/style/branches/404/_404/overlay/overlay.scss)
 
 ## Назначение
 Стилизация виньетирующего слоя, который создает акцент на центральном блоке текста.

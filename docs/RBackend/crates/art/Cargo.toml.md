@@ -1,4 +1,4 @@
-# [crates/art/Cargo.toml](/RBackend/crates/art/Cargo.toml)
+# [Манифест конвейера картинок (Cargo.toml)](/RBackend/crates/art/Cargo.toml)
 
 ## Назначение
 Манифест пакета `art` — конвейера картинок предметов: оригинальный ContentKit игры + [правила](rules.toml.md) → нормализованные AVIF/WebP и `manifest.json` для сайта ([обзор](src/main.md)).

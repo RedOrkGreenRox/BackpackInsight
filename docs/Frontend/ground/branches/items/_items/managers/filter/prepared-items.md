@@ -1,4 +1,4 @@
-# [prepared-items.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/prepared-items.ts)
+# [Подготовка предметов к поиску (prepared-items.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/prepared-items.ts)
 
 ## Назначение
 Подготовка предметов к поиску: один раз при загрузке каталога строит для каждого предмета нормализованные тексты, чтобы поиск и фильтры не пересчитывали их на каждый ввод.

@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/sidebar/_lang-switcher.scss](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.scss)
+# [Переключатель языка (_lang-switcher.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.scss)
 
 ## Назначение
 Стилизация кнопки выбора языка (RU/EN), расположенной в нижней части сайдбара.

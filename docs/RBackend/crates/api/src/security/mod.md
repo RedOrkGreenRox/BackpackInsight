@@ -1,4 +1,4 @@
-# [api/security/mod.rs](/RBackend/crates/api/src/security/mod.rs)
+# [Слои защиты маршрутов (mod.rs)](/RBackend/crates/api/src/security/mod.rs)
 
 ## Назначение
 Модуль слоёв защиты, которые [lib](../lib.md) навешивает на маршруты через `middleware::from_fn_with_state`.

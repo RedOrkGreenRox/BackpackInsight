@@ -1,4 +1,4 @@
-# [core/profile/heroes/league.rs](/RBackend/crates/core/src/profile/heroes/league.rs)
+# [Лига героя (league.rs)](/RBackend/crates/core/src/profile/heroes/league.rs)
 
 ## Назначение
 `LeagueService` переводит рейтинг героя в лигу.

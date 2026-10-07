@@ -1,4 +1,4 @@
-# [Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts](../../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts)
+# [Параллакс фона (parallax.ts)](../../../../../../../Frontend/Web/ground/roots/_roots/shell/parallax/parallax.ts)
 
 ## Назначение
 Реализует визуальный эффект параллакса на заднем фоне. Это придает приложению глубину и динамику, соответствующую стилистике **Backpack Brawl**.

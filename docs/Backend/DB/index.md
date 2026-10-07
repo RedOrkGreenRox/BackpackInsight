@@ -1,4 +1,4 @@
-# 📦 Backend/DB — справочники предметов
+# Справочники предметов (Backend/DB/)
 
 Каталог `Backend/DB/` содержит статические JSON-файлы с данными предметов игры **Backpack Brawl**. Это **исходные данные** для [builder](../../RBackend/crates/build.md) crate (валидация + сборка FlatBuffer-паков).
 

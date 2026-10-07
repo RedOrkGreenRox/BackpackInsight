@@ -1,4 +1,4 @@
-# [api/lib.rs](/RBackend/crates/api/src/lib.rs)
+# [Сборка Axum-приложения (lib.rs)](/RBackend/crates/api/src/lib.rs)
 
 ## Назначение
 Сборка Axum-приложения crate `api`: дерево маршрутов, слои защиты и запуск сервера. Объявляет модули `profile`, `routes`, `security`, `seo`, `state` и реэкспортирует `AppState` и `require_api_secret`. Модуль `error` здесь не объявлен — см. [error](error.md).

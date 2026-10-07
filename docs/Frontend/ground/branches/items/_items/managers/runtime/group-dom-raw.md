@@ -1,4 +1,4 @@
-# [group-dom-raw.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/group-dom-raw.ts)
+# [Текст запроса из группы условий (group-dom-raw.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/group-dom-raw.ts)
 
 ## Назначение
 Восстановление текста запроса из DOM группы условий `.rich-group` в поле расширенного поиска. Нужен, когда пользователь меняет содержимое группы прямо в поле, а сохранённый `data-raw` устаревает.

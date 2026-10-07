@@ -1,4 +1,4 @@
-# [style/branches/404/_404/container/container.scss](/RBackend/crates/branches/style/branches/404/_404/container/container.scss)
+# [Блок контента 404 (container.scss)](/RBackend/crates/branches/style/branches/404/_404/container/container.scss)
 
 ## Назначение
 Рендерер центрального блока контента на странице 404. Определяет структуру для вставки заголовка и кнопок.

@@ -1,4 +1,4 @@
-# [branches/roots/gen.rs](/RBackend/crates/branches/src/roots/gen.rs)
+# [Реестр веток (gen.rs)](/RBackend/crates/branches/src/roots/gen.rs)
 
 ## Назначение
 `Gen` — реестр всех веток сайта и выбор ветки по пути запроса. Rust-версия [Gen.ts](/docs/Frontend/ground/roots/Gen.md): там выбор идёт на клиенте, здесь — на сервере при каждом SSR-рендере.

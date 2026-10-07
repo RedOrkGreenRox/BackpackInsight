@@ -1,4 +1,4 @@
-# [art/render_tests.rs](/RBackend/crates/art/src/render_tests.rs)
+# [Тесты сведения слоёв (render_tests.rs)](/RBackend/crates/art/src/render_tests.rs)
 
 ## Назначение
 Тесты [render.rs](render.md) на PNG одного цвета из [test_kit.rs](test_kit.md).

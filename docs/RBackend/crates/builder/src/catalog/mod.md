@@ -1,4 +1,4 @@
-# [builder/catalog/mod.rs](/RBackend/crates/builder/src/catalog/mod.rs)
+# [Модули утилиты сборки (mod.rs)](/RBackend/crates/builder/src/catalog/mod.rs)
 
 ## Назначение
 Модули утилиты сборки, вызываемые из [main](../main.md):

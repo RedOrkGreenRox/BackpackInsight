@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/navigation/_controls-wrapper.scss](/RBackend/crates/branches/style/roots/_roots/shell/navigation/_controls-wrapper.scss)
+# [Контейнер кнопок интерфейса (_controls-wrapper.scss)](/RBackend/crates/branches/style/roots/_roots/shell/navigation/_controls-wrapper.scss)
 
 ## Назначение
 Контейнер для верхнеуровневых кнопок интерфейса (меню, переключатели). Отвечает за их позиционирование и адаптивное поведение.

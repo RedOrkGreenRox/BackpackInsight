@@ -543,7 +543,7 @@ def render() -> str:
     """Текст карты; check_docs.py сравнивает его с docs/structure.md."""
     tree_nodes = generate_list_tree(PROJECT_ROOT, Path(""))
     final_lines = [
-        "# 🗺 Карта структуры BackpackInsight",
+        "# Карта структуры BackpackInsight",
         "",
         "Этот файл является центральным узлом [сетевой документации](../README.md).",
         "",

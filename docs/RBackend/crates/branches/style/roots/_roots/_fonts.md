@@ -1,4 +1,4 @@
-# [style/roots/_roots/_fonts.scss](/RBackend/crates/branches/style/roots/_roots/_fonts.scss)
+# [Шрифты (_fonts.scss)](/RBackend/crates/branches/style/roots/_roots/_fonts.scss)
 
 ## Назначение
 Этот файл отвечает за загрузку и оптимизацию шрифтов, используемых в проекте. Он гарантирует правильное отображение текста на разных языках и начертаниях.

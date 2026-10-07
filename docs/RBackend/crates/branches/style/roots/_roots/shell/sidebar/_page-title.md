@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/sidebar/_page-title.scss](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.scss)
+# [Подпись пункта меню (_page-title.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.scss)
 
 ## Назначение
 Стилизация текстовых меток внутри навигационных вкладок.

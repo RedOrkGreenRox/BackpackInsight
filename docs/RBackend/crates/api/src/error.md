@@ -1,4 +1,4 @@
-# [api/error.rs](/RBackend/crates/api/src/error.rs)
+# [JSON-ошибка API (error.rs)](/RBackend/crates/api/src/error.rs)
 
 ## Назначение
 JSON-ошибка `ApiError { code, detail }`. Файл не объявлен как модуль в [lib](lib.md) (там нет `mod error`), поэтому он не компилируется и нигде не используется. Все ошибки защищённых эндпоинтов отдаются бинарным паком `"BIER"` через `build_api_error_bytes` из [pack/error](../../pack/src/error.md).

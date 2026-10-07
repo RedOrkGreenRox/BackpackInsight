@@ -1,4 +1,4 @@
-# [branches/catalog/search.rs](/RBackend/crates/branches/src/catalog/search.rs)
+# [Поиск по каталогу (search.rs)](/RBackend/crates/branches/src/catalog/search.rs)
 
 ## Назначение
 Поиск по каталогу и нарезка результатов на порции по `PAGE_SIZE` ([model.rs](../model.md)). Поиск простой: запрос режется на слова, и предмет подходит, если **каждое** слово (без учёта регистра) входит подстрокой в его `search_text` — имя, `id`, герой, типы, редкость ([item.rs](item.md)). Пустой запрос подходит всем предметам. Порядок результатов — порядок каталога по умолчанию: редкость от ценной к простой ([rarity.rs](rarity.md)).

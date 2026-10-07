@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_item-card.scss](/RBackend/crates/branches/style/roots/_roots/items/_item-card.scss)
+# [Карточка предмета (_item-card.scss)](/RBackend/crates/branches/style/roots/_roots/items/_item-card.scss)
 
 ## Назначение
 Описание внешнего вида атомарной единицы интерфейса — карточки предмета. Содержит логику анимаций, эффектов наведения и состояний видимости.

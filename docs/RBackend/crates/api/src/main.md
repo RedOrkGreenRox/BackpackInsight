@@ -1,4 +1,4 @@
-# [api/main.rs](/RBackend/crates/api/src/main.rs)
+# [Точка входа сервера (main.rs)](/RBackend/crates/api/src/main.rs)
 
 ## Назначение
 Бинарная точка входа crate `api` (`#[tokio::main]`).

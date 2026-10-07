@@ -1,4 +1,4 @@
-# [static/_headers](/Frontend/Web/static/_headers)
+# [Заголовки кэширования Cloudflare (_headers)](/Frontend/Web/static/_headers)
 
 ## Назначение
 Правила HTTP-заголовков кэширования для Cloudflare Pages. Лежит в `static/`, которую Vite использует как `publicDir` ([vite.config](../vite.config.md)), поэтому попадает в корень собранного сайта. Второй файл `_headers` в корне `Frontend/Web` относится к Netlify и описан отдельно: [_headers](../_headers.md).

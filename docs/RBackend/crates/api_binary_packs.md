@@ -1,4 +1,4 @@
-# api binary packs — бинарные backend endpoints
+# Бинарные эндпоинты API
 
 Runtime backend→middleware/frontend contract is FlatBuffer only.
 

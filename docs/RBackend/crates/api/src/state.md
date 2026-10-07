@@ -1,4 +1,4 @@
-# [api/state.rs](/RBackend/crates/api/src/state.rs)
+# [Общее состояние сервера (state.rs)](/RBackend/crates/api/src/state.rs)
 
 ## Назначение
 `AppState` — общее состояние сервера, которое Axum передаёт обработчикам и слоям. Собирается один раз при старте: бинарник `api` вызывает `AppState::discover()`, сайт `branches` — `AppState::load()` ([roots/runner.rs](../../branches/src/roots/runner.md)).

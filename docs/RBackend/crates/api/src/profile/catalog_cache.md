@@ -1,4 +1,4 @@
-# [api/profile/catalog_cache.rs](/RBackend/crates/api/src/profile/catalog_cache.rs)
+# [Кеш каталога в памяти (catalog_cache.rs)](/RBackend/crates/api/src/profile/catalog_cache.rs)
 
 ## Назначение
 Кеш каталога предметов в памяти процесса, по одному на язык. Паки `api_items_en.fb` и `api_items_ru.fb` собираются при сборке образа и не меняются, поэтому кеш заполняется один раз и не сбрасывается.

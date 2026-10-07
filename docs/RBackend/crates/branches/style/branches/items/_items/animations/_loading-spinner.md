@@ -1,4 +1,4 @@
-# [style/branches/items/_items/animations/_loading-spinner.scss](/RBackend/crates/branches/style/branches/items/_items/animations/_loading-spinner.scss)
+# [Плейсхолдер загрузки (_loading-spinner.scss)](/RBackend/crates/branches/style/branches/items/_items/animations/_loading-spinner.scss)
 
 ## Назначение
 Стилизация текстового плейсхолдера, который отображается внизу сетки Вики, пока браузер подготавливает следующую порцию карточек предметов.

@@ -1,4 +1,4 @@
-# [art/manifest.rs](/RBackend/crates/art/src/manifest.rs)
+# [Манифест картинок для сайта (manifest.rs)](/RBackend/crates/art/src/manifest.rs)
 
 ## Назначение
 `manifest.json` — единственная связь сайта с картинками: сайт берёт `id` предмета и читает отсюда пути, ничего не угадывая.

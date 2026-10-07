@@ -1,4 +1,4 @@
-# [static/_redirects](/Frontend/Web/static/_redirects)
+# [Перенаправления Cloudflare (_redirects)](/Frontend/Web/static/_redirects)
 
 ## Назначение
 Правила перенаправлений Cloudflare Pages. Файл копируется в корень собранного сайта вместе с остальной статикой.

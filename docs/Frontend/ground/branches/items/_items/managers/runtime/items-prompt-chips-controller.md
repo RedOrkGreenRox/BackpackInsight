@@ -1,4 +1,4 @@
-# [items-prompt-chips-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-prompt-chips-controller.ts)
+# [Списки выбранных фильтров (items-prompt-chips-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-prompt-chips-controller.ts)
 
 ## Назначение
 `ItemsPromptChipsController` — два списка выбранных фильтров под строкой поиска: «искать» (`#positiveFilterList`) и «исключить» (`#negativeFilterList`). Каждый выбранный фильтр показан кнопкой `.prompt-token` с иконкой, подписью вида «Тип: Pet» и крестиком. Стили — [search/_prompt-lists](../../search/_prompt-lists.md).

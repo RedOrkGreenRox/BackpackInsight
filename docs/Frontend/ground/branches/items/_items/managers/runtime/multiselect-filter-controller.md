@@ -1,4 +1,4 @@
-# [multiselect-filter-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/multiselect-filter-controller.ts)
+# [Чипы одной категории фильтров (multiselect-filter-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/multiselect-filter-controller.ts)
 
 ## Назначение
 `MultiselectFilterController` — чипы одной категории панели фильтров. Создаёт кнопки и передаёт клики в [ItemsManager](../ItemsManager.md) через `MultiselectCallbacks`.

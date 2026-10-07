@@ -1,4 +1,4 @@
-# [art/test_kit.rs](/RBackend/crates/art/src/test_kit.rs)
+# [Временный ContentKit для тестов (test_kit.rs)](/RBackend/crates/art/src/test_kit.rs)
 
 ## Назначение
 Временный ContentKit для тестов (только `cfg(test)`): папка в `temp_dir` с уникальным именем, удаляется в `Drop`.

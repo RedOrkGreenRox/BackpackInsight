@@ -1,4 +1,4 @@
-# [style/branches/items/items.scss](/RBackend/crates/branches/style/branches/items/items.scss)
+# [Стили страницы предметов (items.scss)](/RBackend/crates/branches/style/branches/items/items.scss)
 
 ## Назначение
 Главный агрегатор стилей для страницы Вики. Координирует сборку всех модульных компонентов поиска, фильтров и адаптивных сеток.

@@ -1,4 +1,4 @@
-# [raw-edit-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/raw-edit-controller.ts)
+# [Правка чипов в поле поиска (raw-edit-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/raw-edit-controller.ts)
 
 ## Назначение
 `RawEditController` — работа мышью и стрелками с чипами внутри поля расширенного поиска. Создаётся в [rich-input-controller](rich-input-controller.md).

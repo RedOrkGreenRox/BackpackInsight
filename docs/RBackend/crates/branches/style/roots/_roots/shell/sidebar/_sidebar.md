@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/sidebar/_sidebar.scss](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.scss)
+# [Боковая панель (_sidebar.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.scss)
 
 ## Назначение
 Описание структуры и анимации основной панели навигации (Sidebar).

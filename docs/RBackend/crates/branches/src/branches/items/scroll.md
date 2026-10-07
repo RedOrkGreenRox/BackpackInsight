@@ -1,4 +1,4 @@
-# [branches/branches/items/scroll.rs](/RBackend/crates/branches/src/branches/items/scroll.rs)
+# [Проверка конца прокрутки (scroll.rs)](/RBackend/crates/branches/src/branches/items/scroll.rs)
 
 ## Назначение
 Проверка «страница докручена почти до конца» для бесконечной прокрутки каталога. Вынесена из острова, чтобы `ItemsManager` не знал про размеры окна и `web-sys`.

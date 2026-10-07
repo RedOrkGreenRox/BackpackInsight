@@ -1,4 +1,4 @@
-# [style/roots/_roots/_animations.scss](/RBackend/crates/branches/style/roots/_roots/_animations.scss)
+# [Базовые анимации (_animations.scss)](/RBackend/crates/branches/style/roots/_roots/_animations.scss)
 
 ## Назначение
 Описание низкоуровневых CSS-анимаций (`@keyframes`), которые используются для создания живого и динамичного игрового интерфейса.

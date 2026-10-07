@@ -1,4 +1,4 @@
-# [style/branches/404/_404/body/body.scss](/RBackend/crates/branches/style/branches/404/_404/body/body.scss)
+# [Тело страницы 404 (body.scss)](/RBackend/crates/branches/style/branches/404/_404/body/body.scss)
 
 ## Назначение
 Базовые настройки для тела страницы ошибки.

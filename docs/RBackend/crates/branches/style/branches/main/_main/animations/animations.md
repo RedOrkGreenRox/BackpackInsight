@@ -1,4 +1,4 @@
-# [style/branches/main/_main/animations/animations.scss](/RBackend/crates/branches/style/branches/main/_main/animations/animations.scss)
+# [Анимации главной (animations.scss)](/RBackend/crates/branches/style/branches/main/_main/animations/animations.scss)
 
 ## Назначение
 Специфические анимации для элементов главной страницы.

@@ -1,4 +1,4 @@
-# branches — Leptos SSR + Islands фронтенд
+# Обзор крейта branches (crates/branches/)
 
 ## Назначение
 Крейт `RBackend/crates/branches` — сайт Backpack Insight на Rust: Leptos 0.8 в режиме SSR + Islands поверх Axum. Он заменяет TS-фронтенд [Frontend/Web](/docs/Frontend/index.md) и сохраняет его «дендритные» имена: `Gen`, `Shell`, `Branch`, `BranchSpec`, `BranchRunner`, страницы `*Branch`, интерактивные острова `*Manager`.

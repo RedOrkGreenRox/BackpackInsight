@@ -1,4 +1,4 @@
-# [caret-utils.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/caret-utils.ts)
+# [Работа с кареткой в поле поиска (caret-utils.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/caret-utils.ts)
 
 ## Назначение
 Работа с кареткой в редактируемом поле поиска (атрибут contenteditable).

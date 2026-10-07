@@ -1,4 +1,4 @@
-# [core/profile/check.rs](/RBackend/crates/core/src/profile/check.rs)
+# [Проверка формы профиля (check.rs)](/RBackend/crates/core/src/profile/check.rs)
 
 ## Назначение
 Базовая проверка формы загруженного профиля до разбора деталей. Ядро не читает JSON само — вызывающий заполняет плоский `ProfileCheckInput`.

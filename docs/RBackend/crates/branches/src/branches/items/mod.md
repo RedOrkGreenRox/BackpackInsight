@@ -1,4 +1,4 @@
-# [branches/branches/items/mod.rs](/RBackend/crates/branches/src/branches/items/mod.rs)
+# [Ветка каталога предметов (mod.rs)](/RBackend/crates/branches/src/branches/items/mod.rs)
 
 ## Назначение
 Ветка каталога предметов `/items`. Модуль собирается и для сервера, и для WASM; только сама страница `ItemsBranch` закрыта фичей `ssr`. Аналог [ItemsBranch.ts](/docs/Frontend/ground/branches/items/ItemsBranch.md) с его `_items/`.

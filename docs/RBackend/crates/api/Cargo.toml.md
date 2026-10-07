@@ -1,4 +1,4 @@
-# [crates/api/Cargo.toml](/RBackend/crates/api/Cargo.toml)
+# [Манифест HTTP-сервера (Cargo.toml)](/RBackend/crates/api/Cargo.toml)
 
 ## Назначение
 Манифест пакета `api`. HTTP-сервер RBackend на Axum: служебные маршруты и защищённое бинарное API ([обзор](../api.md)).

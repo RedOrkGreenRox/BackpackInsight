@@ -1,4 +1,4 @@
-# [crates/cli/Cargo.toml](/RBackend/crates/cli/Cargo.toml)
+# [Манифест консольной утилиты (Cargo.toml)](/RBackend/crates/cli/Cargo.toml)
 
 ## Назначение
 Манифест пакета `cli`. Консольная утилита для ручной сверки правил крейта `core` ([обзор](../cli.md)).

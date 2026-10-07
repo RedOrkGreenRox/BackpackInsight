@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/hint-styles/upload-hint-base.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-base.scss)
+# [Подсказка в зоне загрузки (upload-hint-base.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-base.scss)
 
 ## Назначение
 Стилизация фонового текста внутри зоны загрузки, который инструктирует пользователя.

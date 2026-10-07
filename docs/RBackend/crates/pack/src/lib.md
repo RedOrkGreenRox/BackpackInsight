@@ -1,4 +1,4 @@
-# [pack/lib.rs](/RBackend/crates/pack/src/lib.rs)
+# [FlatBuffer-паки (lib.rs)](/RBackend/crates/pack/src/lib.rs)
 
 ## Назначение
 Crate `pack` — чтение и запись FlatBuffer-паков в рантайме. Сгенерированные компилятором FlatBuffers Rust-биндинги лежат в `src/generated/` (`pub mod generated`; файлы `*_generated.rs` закоммичены и исключены из зеркальной документации), поэтому сборке и серверу компилятор не нужен. Только в этом crate `Cargo.toml` переопределяет workspace-запрет unsafe-кода (`unsafe_code = "allow"` вместо `"forbid"`): его требуют сгенерированные аксессоры.

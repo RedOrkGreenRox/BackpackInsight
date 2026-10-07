@@ -1,4 +1,4 @@
-# [api/routes/mod.rs](/RBackend/crates/api/src/routes/mod.rs)
+# [Модуль HTTP-обработчиков (mod.rs)](/RBackend/crates/api/src/routes/mod.rs)
 
 ## Назначение
 Модуль HTTP-обработчиков. Каждый подмодуль публичный; пути назначает [lib](../lib.md).

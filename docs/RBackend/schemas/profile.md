@@ -1,4 +1,4 @@
-# [profile.fbs](/RBackend/schemas/profile.fbs)
+# [Схема ответа профиля (profile.fbs)](/RBackend/schemas/profile.fbs)
 
 ## Назначение
 Схема ответа `POST /api/profile.fb` (пространство имён `BackpackInsight.Profile`, корень `ProfileView`, идентификатор `"BIPR"`): разобранный профиль игрока, готовый к показу.

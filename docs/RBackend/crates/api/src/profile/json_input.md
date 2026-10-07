@@ -1,4 +1,4 @@
-# [api/profile/json_input.rs](/RBackend/crates/api/src/profile/json_input.rs)
+# [Граница JSON профиля и core (json_input.rs)](/RBackend/crates/api/src/profile/json_input.rs)
 
 ## Назначение
 Граница между JSON профиля и crate core: каждая функция достаёт из `serde_json::Value` нужные поля и собирает входную структуру сервиса. Ошибок не возвращает — отсутствующее или иного типа поле становится `None`.

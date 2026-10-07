@@ -1,4 +1,4 @@
-# [branches/roots/head.rs](/RBackend/crates/branches/src/roots/head.rs)
+# [Заголовок страницы (head.rs)](/RBackend/crates/branches/src/roots/head.rs)
 
 ## Назначение
 `PageHead` — то, что ветка сообщает о себе для `<head>`: текст `<title>` и описание. Сами теги рисует каркас ([shell.rs](shell.md)), всегда одним и тем же набором и в одном порядке на всех страницах.

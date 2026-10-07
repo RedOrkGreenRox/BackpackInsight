@@ -1,4 +1,4 @@
-# [api/seo/robots.rs](/RBackend/crates/api/src/seo/robots.rs)
+# [Текст robots.txt (robots.rs)](/RBackend/crates/api/src/seo/robots.rs)
 
 ## Назначение
 `generate_robots(base_url)` — текст robots.txt: всем агентам разрешён корень, закрыты `/api/`, `/admin/` и `/private/`, отдельно разрешены `/images/` и `/manifest.json`. Последняя строка — `Sitemap: <base>/sitemap.xml`; завершающий `/` у базового адреса отрезается.

@@ -1,4 +1,4 @@
-# Docker Compose merge / auto-detect checkpoint
+# Слияние Docker Compose
 
 Status: implemented as one active Compose file plus script-owned mode detection.
 

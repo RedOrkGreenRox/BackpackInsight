@@ -1,4 +1,4 @@
-# [Парсер sort query](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/sort-query.ts)
+# [Разбор запроса сортировки (sort-query.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/sort-query.ts)
 
 ## Назначение
 Определяет активную сортировку из `{Rarity Down}`, `{Alphabet Up}`, `{Relevance}`. Исторический helper.

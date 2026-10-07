@@ -1,4 +1,4 @@
-# [builder/catalog/images.rs](/RBackend/crates/builder/src/catalog/images.rs)
+# [Проверка картинок предметов (images.rs)](/RBackend/crates/builder/src/catalog/images.rs)
 
 ## Назначение
 `check_images(root)` — для каждого предмета нелокализованного каталога должны существовать `Frontend/Web/static/images/items/webp/<key>.webp` и `avif/<key>.avif`.

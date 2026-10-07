@@ -53,9 +53,13 @@ function draw() {
     if (!visible(n)) continue;
     const [x, y] = toScreen(n), r = n.r * Math.sqrt(k) + 0.6, dim = focus && !focus.has(n);
     if (x < -20 || y < -20 || x > V.w + 20 || y > V.h + 20) continue;
+    // Ореол — цвет папки дока, ядро — цвет языка файла.
     ctx.fillStyle = ZONES[n.zone].rgb;
-    ctx.globalAlpha = dim ? 0.05 : 0.16;
+    ctx.globalAlpha = dim ? 0.05 : 0.22;
     ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
+    ctx.globalAlpha = dim ? 0.2 : 0.9;
+    ctx.beginPath(); ctx.arc(x, y, r + 1.6, 0, 7); ctx.fill();
+    ctx.fillStyle = LANGS[n.lang].rgb;
     ctx.globalAlpha = dim ? 0.25 : 1;
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
     if (n === V.selected) {

@@ -1,4 +1,4 @@
-# RBackend production pack-only Docker layer
+# Продакшен-образ на паках
 
 Эта контрольная точка делает `RBackend/api` production-ready replacement для старого Python backend на том же порту `8000`.
 

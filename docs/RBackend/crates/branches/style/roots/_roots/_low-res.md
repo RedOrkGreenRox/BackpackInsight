@@ -1,4 +1,4 @@
-# [style/roots/_roots/_low-res.scss](/RBackend/crates/branches/style/roots/_roots/_low-res.scss)
+# [Режим слабых устройств (_low-res.scss)](/RBackend/crates/branches/style/roots/_roots/_low-res.scss)
 
 ## Назначение
 Этот файл содержит логику «экстремальной оптимизации» производительности. Она активируется динамически классом `.low-res-mode` на теге `<body>` для слабых мобильных устройств или медленных соединений.

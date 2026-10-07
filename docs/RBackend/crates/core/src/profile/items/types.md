@@ -1,4 +1,4 @@
-# [core/profile/items/types.rs](/RBackend/crates/core/src/profile/items/types.rs)
+# [Типы предметов профиля (types.rs)](/RBackend/crates/core/src/profile/items/types.rs)
 
 ## Назначение
 Доменные типы предметов профиля.

@@ -1,4 +1,4 @@
-# [catalog.fbs](/RBackend/schemas/catalog.fbs)
+# [Схема сводки каталога (catalog.fbs)](/RBackend/schemas/catalog.fbs)
 
 ## Назначение
 Схема сводки каталога `catalog_summary.fb` (пространство имён `BackpackInsight.Catalog`, корень `CatalogSummaryPack`, идентификатор `"BICS"`). Короткая запись на каждый предмет: без подсказок и характеристик.

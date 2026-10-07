@@ -1,4 +1,4 @@
-# [core/catalog/export/rarity.rs](/RBackend/crates/core/src/catalog/export/rarity.rs)
+# [Чтение редкости (rarity.rs)](/RBackend/crates/core/src/catalog/export/rarity.rs)
 
 ## Назначение
 Модуль для `#[serde(with = "super::rarity")]`: читает и пишет `ItemRarity` ([profile/items/types.rs](../../profile/items/types.md)) строкой, как она записана в экспорте игры. Так модель экспорта использует ту же редкость, что и правила профиля, без второго перечисления.

@@ -1,4 +1,4 @@
-# [branches/shell/sidebar.rs](/RBackend/crates/branches/src/shell/sidebar.rs)
+# [Боковая панель (sidebar.rs)](/RBackend/crates/branches/src/shell/sidebar.rs)
 
 ## Назначение
 Остров `SidebarManager`: кнопка меню, выезжающая боковая панель с навигацией и переключатель языка. Разметка, `id` и классы те же, что в TS-версии ([Shell.ts](/docs/Frontend/ground/roots/Shell.md)), поэтому без изменений работают перенесённые стили из `style/roots/_roots/shell`: [_sidebar.scss](../../style/roots/_roots/shell/sidebar/_sidebar.md), [_nav-tab.scss](../../style/roots/_roots/shell/sidebar/_nav-tab.md), [_lang-switcher.scss](../../style/roots/_roots/shell/sidebar/_lang-switcher.md), [_button-toggle.scss](../../style/roots/_roots/shell/navigation/_button-toggle.md).

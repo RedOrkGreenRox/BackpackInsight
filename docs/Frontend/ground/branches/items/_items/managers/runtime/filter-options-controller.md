@@ -1,4 +1,4 @@
-# [filter-options-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-options-controller.ts)
+# [Заполнение панели фильтров (filter-options-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/filter-options-controller.ts)
 
 ## Назначение
 `FilterOptionsController` — заполняет панель фильтров чипами после загрузки каталога.

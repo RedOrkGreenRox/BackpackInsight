@@ -1,4 +1,4 @@
-# [branches/branches/items/branch.rs](/RBackend/crates/branches/src/branches/items/branch.rs)
+# [Серверная страница каталога (branch.rs)](/RBackend/crates/branches/src/branches/items/branch.rs)
 
 ## Назначение
 `ItemsBranch` — серверная страница каталога `/items`: остров `ItemsManager`, в который сразу переданы подписи и первая порция карточек. Пользователь видит заголовок, поиск и сетку в первом же HTML, без ожидания WASM. Аналог [ItemsBranch.ts](/docs/Frontend/ground/branches/items/ItemsBranch.md).

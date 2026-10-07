@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_prompt-lists.scss](/RBackend/crates/branches/style/branches/items/_items/search/_prompt-lists.scss)
+# [Стили списков чипов в подсказке (_prompt-lists.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_prompt-lists.scss)
 
 ## Назначение
 Стили положительных/отрицательных списков чипсов в подсказке поиска (prompt-panel-top + prompt lists).

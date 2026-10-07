@@ -67,9 +67,9 @@ function select(n, fly) {
   V.selected = n; V.dirty = true;
   const panel = $('doc');
   if (!n) { panel.hidden = true; return; }
-  const z = ZONES[n.zone];
-  panel.style.setProperty('--c', z.rgb);
-  $('doc-zone').textContent = z.label;
+  const z = ZONES[n.zone], l = LANGS[n.lang];
+  panel.style.setProperty('--c', l.rgb);
+  $('doc-zone').textContent = `${l.label} · ${z.label}`;
   $('doc-title').textContent = n.title;
   $('doc-path').textContent = n.src ? `${n.id}  →  ${n.src}` : n.id;
   $('doc-links').textContent = `Ссылается на ${n.out.length} · на него ссылаются ${n.inc.length}`;
@@ -96,7 +96,7 @@ $('search').addEventListener('input', () => {
   for (const n of found) {
     const li = document.createElement('li'), b = document.createElement('button');
     b.innerHTML = `<span>${esc(n.title)}</span><small>${esc(n.id.replace(/^docs\//, ''))}</small>`;
-    b.addEventListener('click', () => { G.hiddenZones.delete(n.zone); if (n.hub) G.showHubs = true; renderLegend(); select(n, true); });
+    b.addEventListener('click', () => { G.hiddenZones.delete(n.zone); G.hiddenLangs.delete(n.lang); if (n.hub) G.showHubs = true; renderLegend(); select(n, true); });
     li.append(b); hits.append(li);
   }
   hits.hidden = !found.length;
@@ -104,18 +104,23 @@ $('search').addEventListener('input', () => {
 
 function renderLegend() {
   const box = $('legend'); box.innerHTML = '';
-  const chip = (label, color, on, toggle) => {
+  const head = (text) => { const b = document.createElement('b'); b.textContent = text; box.append(b); };
+  const chip = (label, color, on, toggle, ring) => {
     const b = document.createElement('button');
-    b.className = 'chip'; b.setAttribute('aria-pressed', String(on));
+    b.className = ring ? 'chip ring' : 'chip'; b.setAttribute('aria-pressed', String(on));
     b.style.setProperty('--c', color); b.innerHTML = `<i></i>${esc(label)}`;
     b.addEventListener('click', () => { toggle(); renderLegend(); reheat(0.5); V.dirty = true; });
     box.append(b);
   };
-  for (const [key, z] of Object.entries(ZONES)) {
-    const count = G.nodes.filter((n) => n.zone === key).length;
-    chip(`${z.label} · ${count}`, z.rgb, !G.hiddenZones.has(key),
-      () => (G.hiddenZones.has(key) ? G.hiddenZones.delete(key) : G.hiddenZones.add(key)));
-  }
+  const group = (title, table, key, hidden, ring) => {
+    head(title);
+    for (const [k, z] of Object.entries(table)) {
+      const count = G.nodes.filter((n) => n[key] === k).length;
+      if (count) chip(`${z.label} · ${count}`, z.rgb, !hidden.has(k), () => (hidden.has(k) ? hidden.delete(k) : hidden.add(k)), ring);
+    }
+  };
+  group('Язык файла — ядро', LANGS, 'lang', G.hiddenLangs, false);
+  group('Папка дока — ореол', ZONES, 'zone', G.hiddenZones, true);
   chip('Карты README и structure', '#ffd98a', G.showHubs, () => { G.showHubs = !G.showHubs; });
 }
 

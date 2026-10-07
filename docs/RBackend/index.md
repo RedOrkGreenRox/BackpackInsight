@@ -1,4 +1,4 @@
-# RBackend — Rust backend workspace
+# Rust-бэкенд, точка входа (RBackend/)
 
 `RBackend/` — активный Rust-бэкенд Backpack Insight. Заменил Python/FastAPI. Стек: Axum + FlatBuffers + sqlx + SQLite/PostgreSQL.
 

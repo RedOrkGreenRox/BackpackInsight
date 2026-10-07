@@ -1,4 +1,4 @@
-# [api/profile/regression_tests.rs](/RBackend/crates/api/src/profile/regression_tests.rs)
+# [Регрессионный тест профилей (regression_tests.rs)](/RBackend/crates/api/src/profile/regression_tests.rs)
 
 ## Назначение
 Регрессионный тест на реальных профилях: модуль подключается только под `cfg(test)`. Повторяет Python-тест `test_profiles_integration.py` из старого бэкенда.

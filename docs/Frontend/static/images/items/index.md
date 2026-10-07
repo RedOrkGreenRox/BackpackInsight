@@ -1,4 +1,4 @@
-# 🖼 Иконки предметов (images/items/)
+# Иконки предметов (images/items/)
 
 ## Назначение
 Иконки всех предметов **Backpack Brawl** (~1100 шт.) в форматах AVIF и WebP. Имя файла — слаг названия предмета (например, `wooden-sword.webp`, `a-hug-in-a-mug.avif`).

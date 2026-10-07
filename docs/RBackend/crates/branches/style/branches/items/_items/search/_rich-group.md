@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_rich-group.scss](/RBackend/crates/branches/style/branches/items/_items/search/_rich-group.scss)
+# [Группа условий в поиске (_rich-group.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_rich-group.scss)
 
 ## Назначение
 Описывает визуальный контейнер логической группы `[...]`: жёлтый акцент, вложенные группы и компактный режим для глубокой вложенности.

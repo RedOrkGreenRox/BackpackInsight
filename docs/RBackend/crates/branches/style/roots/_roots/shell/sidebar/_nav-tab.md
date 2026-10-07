@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/sidebar/_nav-tab.scss](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-tab.scss)
+# [Пункт меню (_nav-tab.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-tab.scss)
 
 ## Назначение
 Стилизация элементов списка меню (Главная, Предметы и др.).

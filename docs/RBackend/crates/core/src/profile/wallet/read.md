@@ -1,4 +1,4 @@
-# [core/profile/wallet/read.rs](/RBackend/crates/core/src/profile/wallet/read.rs)
+# [Чтение валют (read.rs)](/RBackend/crates/core/src/profile/wallet/read.rs)
 
 ## Назначение
 `ProfileWalletService` читает валюты профиля.

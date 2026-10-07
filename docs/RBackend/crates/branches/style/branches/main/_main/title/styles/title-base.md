@@ -1,4 +1,4 @@
-# [style/branches/main/_main/title/styles/title-base.scss](/RBackend/crates/branches/style/branches/main/_main/title/styles/title-base.scss)
+# [Главный заголовок (title-base.scss)](/RBackend/crates/branches/style/branches/main/_main/title/styles/title-base.scss)
 
 ## Назначение
 Детальное оформление главного заголовка страницы.

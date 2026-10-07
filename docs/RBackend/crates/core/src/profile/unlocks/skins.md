@@ -1,4 +1,4 @@
-# [core/profile/unlocks/skins.rs](/RBackend/crates/core/src/profile/unlocks/skins.rs)
+# [Разбор скинов (skins.rs)](/RBackend/crates/core/src/profile/unlocks/skins.rs)
 
 ## Назначение
 `SkinService` разбирает строку разблокировки скина вида `{владелец}Skin{код}`.

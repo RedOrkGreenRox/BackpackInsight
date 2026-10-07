@@ -1,4 +1,4 @@
-# [style/roots/_roots/shell/parallax/_background.scss](/RBackend/crates/branches/style/roots/_roots/shell/parallax/_background.scss)
+# [Полноэкранный фон (_background.scss)](/RBackend/crates/branches/style/roots/_roots/shell/parallax/_background.scss)
 
 ## Назначение
 Описание стилей для полноэкранного фона приложения. Обеспечивает поддержку эффекта глубины и корректное поведение при скролле.

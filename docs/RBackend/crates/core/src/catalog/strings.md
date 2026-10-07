@@ -1,4 +1,4 @@
-# [core/catalog/strings.rs](/RBackend/crates/core/src/catalog/strings.rs)
+# [Пул строк (strings.rs)](/RBackend/crates/core/src/catalog/strings.rs)
 
 ## Назначение
 `StringPool` — минимальный детерминированный интернер строк: одинаковые строки получают один и тот же `StringId` ([ids](ids.md)), id выдаются по порядку вставки.

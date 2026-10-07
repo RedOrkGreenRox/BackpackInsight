@@ -1,4 +1,4 @@
-# [api/seo/sitemap.rs](/RBackend/crates/api/src/seo/sitemap.rs)
+# [XML-карта сайта (sitemap.rs)](/RBackend/crates/api/src/seo/sitemap.rs)
 
 ## Назначение
 `generate_sitemap(project_root, base_url)` — XML-карта сайта: три статические страницы и по одной записи на каждый предмет из английского пака.

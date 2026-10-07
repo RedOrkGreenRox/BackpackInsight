@@ -1,4 +1,4 @@
-# [Рендерер заголовка (TitleRenderer.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/title/title.ts)
+# [Рендерер заголовка (title.ts)](../../../../../../../Frontend/Web/ground/branches/main/_main/title/title.ts)
 
 ## Назначение
 Отвечает за генерацию HTML-кода главного заголовка страницы.

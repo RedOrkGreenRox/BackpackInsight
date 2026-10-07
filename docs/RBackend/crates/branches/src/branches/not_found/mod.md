@@ -1,4 +1,4 @@
-# [branches/branches/not_found/mod.rs](/RBackend/crates/branches/src/branches/not_found/mod.rs)
+# [Страница 404 (mod.rs)](/RBackend/crates/branches/src/branches/not_found/mod.rs)
 
 ## Назначение
 `NotFoundBranch` — страница 404 для явного пути `/404` и для любого пути, который не принял ни один `BranchSpec`. Чисто серверная, без островов. Аналог [NotFoundBranch.ts](/docs/Frontend/ground/branches/404/NotFoundBranch.md).

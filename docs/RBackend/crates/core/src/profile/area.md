@@ -1,4 +1,4 @@
-# [core/profile/area.rs](/RBackend/crates/core/src/profile/area.rs)
+# [Зона по трофеям (area.rs)](/RBackend/crates/core/src/profile/area.rs)
 
 ## Назначение
 `AreaService` переводит сумму трофеев игрока в номер игровой области (арены).

@@ -1,4 +1,4 @@
-# [core/catalog/export/parts.rs](/RBackend/crates/core/src/catalog/export/parts.rs)
+# [Части предмета экспорта (parts.rs)](/RBackend/crates/core/src/catalog/export/parts.rs)
 
 ## Назначение
 Части [`ItemDef`](item.md): клетки, рецепты, боевые статы и прокачка. У всех структур `deny_unknown_fields`, имена полей JSON в `camelCase`.

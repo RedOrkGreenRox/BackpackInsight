@@ -1,4 +1,4 @@
-# [branches/style/_leptos.scss](/RBackend/crates/branches/style/_leptos.scss)
+# [Стили для разметки Leptos (_leptos.scss)](/RBackend/crates/branches/style/_leptos.scss)
 
 ## Назначение
 Дополнения к перенесённым стилям TS-версии, нужные разметке Leptos. Всё, что не помещается в «перенесено без изменений», собрано здесь, чтобы старые файлы оставались копией оригинала.

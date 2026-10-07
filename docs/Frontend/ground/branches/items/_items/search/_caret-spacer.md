@@ -1,4 +1,4 @@
-# [Стили caret-spacer](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_caret-spacer.scss)
+# [Промежутки для каретки (_caret-spacer.scss)](../../../../../../../Frontend/Web/ground/branches/items/_items/search/_caret-spacer.scss)
 
 ## Назначение
 Описывает видимые промежутки между atomic-элементами rich-input для постановки каретки.

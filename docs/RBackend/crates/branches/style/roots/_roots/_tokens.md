@@ -1,4 +1,4 @@
-# [style/roots/_roots/_tokens.scss](/RBackend/crates/branches/style/roots/_roots/_tokens.scss)
+# [Дизайн-токены (_tokens.scss)](/RBackend/crates/branches/style/roots/_roots/_tokens.scss)
 
 ## Назначение
 Единый набор дизайн-токенов сайта: размеры текста, отступы, скругления, поверхности «стекла», линии, цвета текста, тени, параметры доступности и движения. Новые стили берут значения отсюда, а не задают свои числа.

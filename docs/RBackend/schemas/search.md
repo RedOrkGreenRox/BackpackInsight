@@ -1,4 +1,4 @@
-# [search.fbs](/RBackend/schemas/search.fbs)
+# [Схема поискового индекса (search.fbs)](/RBackend/schemas/search.fbs)
 
 ## Назначение
 Схема поискового индекса (пространство имён `BackpackInsight.Search`, корень `SearchIndexPack`, идентификатор `"BISR"`): для каждого токена — номера строк предметов, где он встречается.

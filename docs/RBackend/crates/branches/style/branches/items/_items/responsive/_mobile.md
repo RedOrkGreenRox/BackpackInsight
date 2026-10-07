@@ -1,4 +1,4 @@
-# [style/branches/items/_items/responsive/_mobile.scss](/RBackend/crates/branches/style/branches/items/_items/responsive/_mobile.scss)
+# [Мобильная вёрстка библиотеки (_mobile.scss)](/RBackend/crates/branches/style/branches/items/_items/responsive/_mobile.scss)
 
 ## Назначение
 Детальная коррекция элементов библиотеки предметов для экранов уже 480px.

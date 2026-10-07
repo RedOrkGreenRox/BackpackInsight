@@ -1,4 +1,4 @@
-# [style/branches/404/_404/button/button.scss](/RBackend/crates/branches/style/branches/404/_404/button/button.scss)
+# [Кнопка возврата на главную (button.scss)](/RBackend/crates/branches/style/branches/404/_404/button/button.scss)
 
 ## Назначение
 Рендерер кнопки возврата на главную страницу. Генерирует HTML-код кнопки с локализованным текстом.

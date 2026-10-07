@@ -1,4 +1,4 @@
-# [error.fbs](/RBackend/schemas/error.fbs)
+# [Схема ошибки API (error.fbs)](/RBackend/schemas/error.fbs)
 
 ## Назначение
 Схема бинарной ошибки API (пространство имён `BackpackInsight.Error`, корень `ApiError`, идентификатор `"BIER"`). Ею отвечают все защищённые эндпоинты при отказе.

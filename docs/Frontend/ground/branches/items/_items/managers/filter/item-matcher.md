@@ -1,4 +1,4 @@
-# [item-matcher.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/item-matcher.ts)
+# [Проверка строгих условий поиска (item-matcher.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/item-matcher.ts)
 
 ## Назначение
 `ItemMatcher` — проверка строгих условий поиска и фильтров панели по подготовленным данным предмета (`preparedByKey`, см. [prepared-items](prepared-items.md)).

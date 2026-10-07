@@ -1,4 +1,4 @@
-# [api/routes/root.rs](/RBackend/crates/api/src/routes/root.rs)
+# [Корневой эндпоинт (root.rs)](/RBackend/crates/api/src/routes/root.rs)
 
 ## Назначение
 `GET /` — проверка, что сервер отвечает: текст константы `MESSAGE` («Backpack Insight API is running») с `content-type: text/plain; charset=utf-8`.

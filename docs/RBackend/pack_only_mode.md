@@ -1,4 +1,4 @@
-# Pack-only RBackend runtime
+# Режим только паков
 
 `api` теперь работает по правилу:
 

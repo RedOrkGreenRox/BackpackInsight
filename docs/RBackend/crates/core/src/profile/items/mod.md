@@ -1,4 +1,4 @@
-# [core/profile/items/mod.rs](/RBackend/crates/core/src/profile/items/mod.rs)
+# [Правила предметов профиля (mod.rs)](/RBackend/crates/core/src/profile/items/mod.rs)
 
 ## Назначение
 Правила предметов профиля: редкость, сколько карт нужно до следующего уровня, сколько опыта даёт текущий уровень. `ItemLevelService` объединяет их в одну сводку.

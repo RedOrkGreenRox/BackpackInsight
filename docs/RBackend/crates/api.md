@@ -1,4 +1,4 @@
-# api crate — RBackend Axum server
+# Обзор крейта api (crates/api/)
 
 `api` is the runtime Rust backend. It exposes operational text/XML endpoints and protected binary FlatBuffer API endpoints.
 

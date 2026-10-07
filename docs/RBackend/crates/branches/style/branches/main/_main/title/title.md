@@ -1,4 +1,4 @@
-# [style/branches/main/_main/title/title.scss](/RBackend/crates/branches/style/branches/main/_main/title/title.scss)
+# [Заголовок главной (title.scss)](/RBackend/crates/branches/style/branches/main/_main/title/title.scss)
 
 ## Назначение
 Отвечает за генерацию HTML-кода главного заголовка страницы.

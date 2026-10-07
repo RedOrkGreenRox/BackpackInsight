@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.scss)
+# [Подсказки только для ПК (upload-hint-pc-only.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.scss)
 
 ## Назначение
 Управление видимостью подсказок, актуальных только для управления мышью.

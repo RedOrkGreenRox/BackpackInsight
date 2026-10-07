@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/index.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/index.scss)
+# [Сборка стилей зоны загрузки (index.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/index.scss)
 
 ## Назначение
 Объединяет все модульные части оформления области перетаскивания.

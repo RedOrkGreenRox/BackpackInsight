@@ -1,4 +1,4 @@
-# [pack/api_items.rs](/RBackend/crates/pack/src/api_items.rs)
+# [Пак предметов для API (api_items.rs)](/RBackend/crates/pack/src/api_items.rs)
 
 ## Назначение
 Чтение пака предметов для API (`api_items_<lang>.fb`, схема `api_items.fbs`, идентификатор `"BIAI"`). Каждый предмет в паке хранится как дерево универсальных значений, которое здесь переводится в `PackValue`.

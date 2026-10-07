@@ -1,4 +1,4 @@
-# [style/branches/main/_main/title/styles/index.scss](/RBackend/crates/branches/style/branches/main/_main/title/styles/index.scss)
+# [Сборка стилей заголовка (index.scss)](/RBackend/crates/branches/style/branches/main/_main/title/styles/index.scss)
 
 ## Назначение
 Точка сборки для стилей главного текстового блока.

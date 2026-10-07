@@ -1,4 +1,4 @@
-# 🗄 Backend — источники данных
+# Источники данных (Backend/)
 
 Ветка `Backend/` содержит только статические JSON-справочники предметов для игры **Backpack Brawl**. Все серверные компоненты (FastAPI/Python/Alembic) удалены; живой бэкенд — Rust, см. [RBackend index](../RBackend/index.md).
 

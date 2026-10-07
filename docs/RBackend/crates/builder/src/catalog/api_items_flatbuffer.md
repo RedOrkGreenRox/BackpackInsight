@@ -1,4 +1,4 @@
-# [builder/catalog/api_items_flatbuffer.rs](/RBackend/crates/builder/src/catalog/api_items_flatbuffer.rs)
+# [Паки предметов для API (api_items_flatbuffer.rs)](/RBackend/crates/builder/src/catalog/api_items_flatbuffer.rs)
 
 ## Назначение
 Сборка паков предметов для API: `RBackend/generated/api_items_en.fb` и `api_items_ru.fb` (схема `RBackend/schemas/api_items.fbs`, `API_ITEMS_FILE_IDENTIFIER` = `"BIAI"`). Эти паки отдаёт [api/routes/packs](../../../api/src/routes/packs.md) и читает [middleware/items](../../../middleware/src/items.md).

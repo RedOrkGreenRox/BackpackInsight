@@ -1,4 +1,4 @@
-# [fuse-collector.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/fuse-collector.ts)
+# [Нечёткий поиск по термам (fuse-collector.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/fuse-collector.ts)
 
 ## Назначение
 `applyFuseSearch(items, terms, groupCount, fuse)` — нечёткий поиск по взвешенным термам плана ([search-plan](search-plan.md)). Возвращает только предметы, которые совпали хотя бы с одним термом **каждой** группы, по убыванию суммарной оценки; оценка записывается в предмет ([search-score](search-score.md)). Без индекса возвращает список как есть.

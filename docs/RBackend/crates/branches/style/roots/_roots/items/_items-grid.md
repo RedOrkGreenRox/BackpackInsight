@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_items-grid.scss](/RBackend/crates/branches/style/roots/_roots/items/_items-grid.scss)
+# [Сетка предметов (_items-grid.scss)](/RBackend/crates/branches/style/roots/_roots/items/_items-grid.scss)
 
 ## Назначение
 Описание макета (Layout) для отображения списков предметов. Использует CSS Grid для создания адаптивной и производительной сетки.

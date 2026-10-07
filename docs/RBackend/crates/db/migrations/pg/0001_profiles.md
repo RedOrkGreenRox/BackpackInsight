@@ -1,4 +1,4 @@
-# [pg/0001_profiles.sql](/RBackend/crates/db/migrations/pg/0001_profiles.sql)
+# [Таблица профилей Postgres (0001_profiles.sql)](/RBackend/crates/db/migrations/pg/0001_profiles.sql)
 
 ## Назначение
 Первая миграция Postgres: таблица `profiles` — одна строка на игрока.

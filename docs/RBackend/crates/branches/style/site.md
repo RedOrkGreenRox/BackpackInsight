@@ -1,4 +1,4 @@
-# [branches/style/site.scss](/RBackend/crates/branches/style/site.scss)
+# [Точка входа стилей сайта (site.scss)](/RBackend/crates/branches/style/site.scss)
 
 ## Назначение
 Точка входа стилей сайта. cargo-leptos компилирует её (`style-file` в `[[workspace.metadata.leptos]]` файла `RBackend/Cargo.toml`) в один файл `/pkg/backpack-insight.css`, который подключает `shell` ([roots/shell.rs](../src/roots/shell.md)). Стили страниц перенесены из TS-версии без изменений; этот файл решает, где каждый из них действует.

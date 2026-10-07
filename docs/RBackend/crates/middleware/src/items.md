@@ -1,4 +1,4 @@
-# [middleware/items.rs](/RBackend/crates/middleware/src/items.rs)
+# [Декодер пака предметов (items.rs)](/RBackend/crates/middleware/src/items.rs)
 
 ## Назначение
 Декодирование пака предметов (идентификатор `"BIAI"`, `api_items_<lang>.fb`) в типизированный список `ItemsData`.

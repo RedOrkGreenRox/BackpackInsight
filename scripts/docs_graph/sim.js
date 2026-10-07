@@ -1,16 +1,26 @@
 // Граф и силовая раскладка: узлы-документы отталкиваются, ссылки стягивают, зоны держат свои скопления.
 'use strict';
 
+// Папка дока: своё скопление на карте и цвет ореола звезды.
 const ZONES = {
-  rust: { label: 'RBackend · Rust', color: '--rust' },
-  ts: { label: 'Старый фронтенд · TS', color: '--ts' },
-  py: { label: 'Backend · Python', color: '--py' },
-  tools: { label: 'Скрипты и данные', color: '--tools' },
-  meta: { label: 'Общие документы', color: '--meta' },
+  rust: { label: 'RBackend', color: '--z-rust' },
+  ts: { label: 'Frontend', color: '--z-ts' },
+  py: { label: 'Backend', color: '--z-py' },
+  tools: { label: 'scripts и data', color: '--z-tools' },
+  meta: { label: 'Корень docs', color: '--z-meta' },
+};
+// Язык описываемого файла: цвет ядра звезды.
+const LANGS = {
+  rust: { label: 'Rust', color: '--l-rust' },
+  ts: { label: 'TS и JS', color: '--l-ts' },
+  scss: { label: 'SCSS', color: '--l-scss' },
+  py: { label: 'Python и PS', color: '--l-py' },
+  data: { label: 'Конфиги и данные', color: '--l-data' },
+  doc: { label: 'Папки и заметки', color: '--l-doc' },
 };
 
 const G = {
-  nodes: [], edges: [], byId: new Map(), hiddenZones: new Set(), showHubs: false,
+  nodes: [], edges: [], byId: new Map(), hiddenZones: new Set(), hiddenLangs: new Set(), showHubs: false,
   alpha: 1, onTick: null,
 };
 
@@ -28,6 +38,7 @@ function buildGraph(data) {
     ZONES[z].cx = Math.cos(a) * 520; ZONES[z].cy = Math.sin(a) * 520;
     ZONES[z].rgb = css.getPropertyValue(ZONES[z].color).trim();
   });
+  for (const l of Object.values(LANGS)) l.rgb = css.getPropertyValue(l.color).trim();
   const rand = rng(7);
   G.nodes = data.nodes.map((n, i) => ({
     ...n, i, x: ZONES[n.zone].cx + (rand() - 0.5) * 300, y: ZONES[n.zone].cy + (rand() - 0.5) * 300,
@@ -42,7 +53,7 @@ function buildGraph(data) {
   }
 }
 
-const visible = (n) => !G.hiddenZones.has(n.zone) && (G.showHubs || !n.hub);
+const visible = (n) => !G.hiddenZones.has(n.zone) && !G.hiddenLangs.has(n.lang) && (G.showHubs || !n.hub);
 const edgeOn = (e) => visible(e.s) && visible(e.t);
 
 function reheat(a = 0.6) { G.alpha = Math.max(G.alpha, a); }

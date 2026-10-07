@@ -1,4 +1,4 @@
-# [Замена focused token](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/token-replacer.ts)
+# [Замена терма под кареткой (token-replacer.ts)](../../../../../../../../Frontend/Web/ground/branches/items/_items/managers/runtime/token-replacer.ts)
 
 ## Назначение
 Заменяет выбранный rich-token новым фильтр-чипом без ручного раскрытия в текст.

@@ -1,4 +1,4 @@
-# [branches/roots/spec.rs](/RBackend/crates/branches/src/roots/spec.rs)
+# [Декларативный контракт ветки (spec.rs)](/RBackend/crates/branches/src/roots/spec.rs)
 
 ## Назначение
 `BranchSpec` — декларативный контракт ветки (аналог [BranchSpec.ts](/docs/Frontend/ground/roots/BranchSpec.md)) и сопоставление шаблона пути с реальным путём. Из одной спецификации получаются и маршрут Axum, и выбор ветки в `Gen`.

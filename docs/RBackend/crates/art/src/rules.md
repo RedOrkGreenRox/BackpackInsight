@@ -1,4 +1,4 @@
-# [art/rules.rs](/RBackend/crates/art/src/rules.rs)
+# [Модель файла правил (rules.rs)](/RBackend/crates/art/src/rules.rs)
 
 ## Назначение
 Модель файла правил [rules.toml](../rules.toml.md) (`serde`, `deny_unknown_fields`).

@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_advanced-panel.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_advanced-panel.scss)
+# [Панель расширенных фильтров (_advanced-panel.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_advanced-panel.scss)
 
 ## Назначение
 `_advanced-panel.scss` оформляет раскрываемую панель фильтров под поисковой строкой.

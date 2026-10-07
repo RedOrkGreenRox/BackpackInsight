@@ -1,4 +1,4 @@
-# [style/utils/_loading-states/loading-states.scss](/RBackend/crates/branches/style/utils/_loading-states/loading-states.scss)
+# [Индикаторы загрузки (loading-states.scss)](/RBackend/crates/branches/style/utils/_loading-states/loading-states.scss)
 
 ## Назначение
 Реализация визуальных эффектов для индикаторов ожидания и скелетных экранов.

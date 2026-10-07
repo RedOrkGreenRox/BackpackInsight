@@ -1,4 +1,4 @@
-# [docs_lint/graph.py](/scripts/docs_lint/graph.py)
+# [Связность документов (graph.py)](/scripts/docs_lint/graph.py)
 
 ## Назначение
 Связность сети документов: проверки `LINKS`, `TREE` и `FRESH` для [check_docs.py](../check_docs.md).

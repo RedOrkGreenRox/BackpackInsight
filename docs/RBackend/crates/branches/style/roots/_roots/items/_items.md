@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_items.scss](/RBackend/crates/branches/style/roots/_roots/items/_items.scss)
+# [Сборка стилей предметов (_items.scss)](/RBackend/crates/branches/style/roots/_roots/items/_items.scss)
 
 ## Назначение
 Агрегатор глобальных стилей предметов: подключает переменные и все атомы через `@use` в правильном порядке.

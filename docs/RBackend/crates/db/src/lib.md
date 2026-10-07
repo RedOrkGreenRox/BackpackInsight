@@ -1,4 +1,4 @@
-# [db/lib.rs](/RBackend/crates/db/src/lib.rs)
+# [Хранение профилей (lib.rs)](/RBackend/crates/db/src/lib.rs)
 
 ## Назначение
 Crate `db` — хранение профилей через SQLx с драйвером `Any`: один и тот же код работает с Postgres и SQLite (SQLite собирается вместе с бинарником через libsqlite3-sys, системная библиотека не нужна). Публичные функции принимают пул `AnyPool` и не знают, какой драйвер активен.

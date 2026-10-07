@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_item-name.scss](/RBackend/crates/branches/style/roots/_roots/items/_item-name.scss)
+# [Название предмета (_item-name.scss)](/RBackend/crates/branches/style/roots/_roots/items/_item-name.scss)
 
 ## Назначение
 Стилизация текстового заголовка предмета. Файл обеспечивает читаемость имен разной длины.

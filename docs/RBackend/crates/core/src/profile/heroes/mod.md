@@ -1,4 +1,4 @@
-# [core/profile/heroes/mod.rs](/RBackend/crates/core/src/profile/heroes/mod.rs)
+# [Правила героев (mod.rs)](/RBackend/crates/core/src/profile/heroes/mod.rs)
 
 ## Назначение
 Правила героев профиля: нормализация имени, уровень с престижем, лига по рейтингу — и `HeroService`, который собирает из сырых данных готового доменного героя.

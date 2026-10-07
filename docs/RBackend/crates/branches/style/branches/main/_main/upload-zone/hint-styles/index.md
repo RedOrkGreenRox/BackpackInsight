@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/hint-styles/index.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.scss)
+# [Сборка стилей подсказок (index.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.scss)
 
 ## Назначение
 Объединяет базовые стили подсказок и логику их скрытия на ПК/мобильных.

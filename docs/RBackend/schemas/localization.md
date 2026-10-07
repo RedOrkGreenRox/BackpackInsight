@@ -1,4 +1,4 @@
-# [localization.fbs](/RBackend/schemas/localization.fbs)
+# [Схема строк интерфейса (localization.fbs)](/RBackend/schemas/localization.fbs)
 
 ## Назначение
 Схема пака строк интерфейса (пространство имён `BackpackInsight.Localization`, корень `LocalePack`, идентификатор `"BILC"`).

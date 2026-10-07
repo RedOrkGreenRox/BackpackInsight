@@ -1,4 +1,4 @@
-# [sort-service.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/sort-service.ts)
+# [Сортировка результатов поиска (sort-service.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/sort-service.ts)
 
 ## Назначение
 `sortItems(items, sortBy, query)` — сортировка результатов поиска по цепочке критериев; возвращает новый массив.

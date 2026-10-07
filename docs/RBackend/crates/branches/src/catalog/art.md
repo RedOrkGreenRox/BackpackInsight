@@ -1,4 +1,4 @@
-# [branches/catalog/art.rs](/RBackend/crates/branches/src/catalog/art.rs)
+# [Картинки предметов (art.rs)](/RBackend/crates/branches/src/catalog/art.rs)
 
 ## Назначение
 Картинки предметов из `Frontend/Web/static/images/art/manifest.json`, который пишет крейт [art](/docs/RBackend/crates/art/src/main.md) (`art build`). Картинка ищется по `id` предмета — без угадывания имён файлов. Предмета нет в манифесте — карточка покажет заглушку.

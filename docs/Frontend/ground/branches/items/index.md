@@ -1,4 +1,4 @@
-# [Библиотека предметов (branches/items/)](../../../../../Frontend/Web/ground/branches/items/)
+# [Библиотека предметов (items/)](../../../../../Frontend/Web/ground/branches/items/)
 
 ## Назначение
 Точка входа раздела «Предметы»: интерактивный справочник всех предметов игры с поиском, фильтрами и карточкой деталей. Сборка страницы (`itemsSpec`, `ItemsDisplay`, `ItemsDataLoader`, `ItemsLogic`) описана в [ItemsBranch](ItemsBranch.md); здесь — карта модулей.

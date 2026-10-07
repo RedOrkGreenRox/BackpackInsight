@@ -1,4 +1,4 @@
-# [style/branches/main/_main/container/styles/container-responsive.scss](/RBackend/crates/branches/style/branches/main/_main/container/styles/container-responsive.scss)
+# [Адаптивный контейнер главной (container-responsive.scss)](/RBackend/crates/branches/style/branches/main/_main/container/styles/container-responsive.scss)
 
 ## Назначение
 Корректирует размеры контейнера под мобильные устройства и планшеты.

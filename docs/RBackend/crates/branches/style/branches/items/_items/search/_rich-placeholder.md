@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_rich-placeholder.scss](/RBackend/crates/branches/style/branches/items/_items/search/_rich-placeholder.scss)
+# [Слоты выбора условия (_rich-placeholder.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_rich-placeholder.scss)
 
 ## Назначение
 Описывает активные слоты выбора условия внутри логических шаблонов.

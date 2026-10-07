@@ -1,4 +1,4 @@
-# [browser_probe_tmp.cjs](/Frontend/Web/browser_probe_tmp.cjs)
+# [Разовый замер сайта в браузере (browser_probe_tmp.cjs)](/Frontend/Web/browser_probe_tmp.cjs)
 
 ## Назначение
 Разовый замер живого сайта в браузере через Playwright (CommonJS-скрипт, запускается `node browser_probe_tmp.cjs`). Ни сборка, ни сервер его не используют. Судя по имени и жёстко заданному пути вывода, это временный файл из WIP-коммита.

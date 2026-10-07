@@ -1,4 +1,4 @@
-# [rich-group-renderer.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-group-renderer.ts)
+# [Отрисовка групп условий (rich-group-renderer.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/rich-group-renderer.ts)
 
 ## Назначение
 Отрисовка групп условий `[…]` расширенного поиска в HTML и правка их исходного текста. Пустой слот в тексте обозначается маркером `()`. Стили — [search/_rich-group](../../search/_rich-group.md), [_rich-operator](../../search/_rich-operator.md), [_rich-placeholder](../../search/_rich-placeholder.md).

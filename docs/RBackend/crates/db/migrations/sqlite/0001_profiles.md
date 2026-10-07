@@ -1,4 +1,4 @@
-# [sqlite/0001_profiles.sql](/RBackend/crates/db/migrations/sqlite/0001_profiles.sql)
+# [Таблица профилей SQLite (0001_profiles.sql)](/RBackend/crates/db/migrations/sqlite/0001_profiles.sql)
 
 ## Назначение
 Первая миграция для SQLite (локальная разработка): таблица `profiles`, по смыслу совпадающая с [pg/0001_profiles](../pg/0001_profiles.md).

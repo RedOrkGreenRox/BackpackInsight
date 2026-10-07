@@ -1,4 +1,4 @@
-# [Индекс модулей деталей предмета (_itemDetail/index.ts)](../../../../../../../Frontend/Web/ground/branches/items/itemDetail/_itemDetail/index.ts)
+# [Модули деталей предмета (index.ts)](../../../../../../../Frontend/Web/ground/branches/items/itemDetail/_itemDetail/index.ts)
 
 ## Назначение
 Barrel-файл: реэкспортирует публичные модули подстраницы деталей предмета, чтобы внешние потребители импортировали их из одной точки.

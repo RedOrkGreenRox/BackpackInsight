@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/button-styles/button-states.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-states.scss)
+# [Состояния кнопки загрузки (button-states.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-states.scss)
 
 ## Назначение
 Описание интерактивных состояний кнопки загрузки.

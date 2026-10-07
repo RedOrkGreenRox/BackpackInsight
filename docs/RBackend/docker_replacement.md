@@ -1,4 +1,4 @@
-# RBackend Docker replacement
+# Замена Docker-образа на RBackend
 
 Эта контрольная точка заменяет Docker backend image со старого Python backend на Rust `RBackend/api`.
 

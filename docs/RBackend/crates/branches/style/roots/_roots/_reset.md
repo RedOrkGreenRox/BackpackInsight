@@ -1,4 +1,4 @@
-# [style/roots/_roots/_reset.scss](/RBackend/crates/branches/style/roots/_roots/_reset.scss)
+# [Сброс стилей (_reset.scss)](/RBackend/crates/branches/style/roots/_roots/_reset.scss)
 
 ## Назначение
 Базовый файл сброса стилей (Reset), обеспечивающий единообразное отображение приложения в различных браузерах и задающий фундаментальные настройки типографики.

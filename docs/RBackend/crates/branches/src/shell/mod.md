@@ -1,4 +1,4 @@
-# [branches/shell/mod.rs](/RBackend/crates/branches/src/shell/mod.rs)
+# [Острова общего каркаса (mod.rs)](/RBackend/crates/branches/src/shell/mod.rs)
 
 ## Назначение
 Острова общего каркаса сайта: боковая панель с меню и параллакс фона, а в браузере ещё докачка WASM ленивых островов. В отличие от [roots](../roots/mod.md), модуль компилируется в обе сборки (`ssr` и `hydrate`): сервер рендерит острова в HTML, WASM их оживляет. Остальной каркас (документ, фон, выбор ветки) рисует сервер в [roots/shell.rs](../roots/shell.md).

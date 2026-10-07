@@ -1,4 +1,4 @@
-# [core/catalog/ids.rs](/RBackend/crates/core/src/catalog/ids.rs)
+# [Идентификаторы каталога (ids.rs)](/RBackend/crates/core/src/catalog/ids.rs)
 
 ## Назначение
 Компактные типизированные идентификаторы строк каталога, чтобы не путать индексы предметов, героев и строк.

@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_dropdown-content.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-content.scss)
+# [Варианты внутри фильтра (_dropdown-content.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-content.scss)
 
 ## Назначение
 Стилизация области с вариантами выбора внутри фильтра.

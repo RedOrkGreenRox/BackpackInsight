@@ -1,4 +1,4 @@
-# [docs_lint/truth.py](/scripts/docs_lint/truth.py)
+# [Сверка документа с кодом (truth.py)](/scripts/docs_lint/truth.py)
 
 ## Назначение
 Сверка текста документа с кодом: проверки `COMPLETE` (документ описывает свой исходник) и `TRUTH` (документ не выдумывает имена).

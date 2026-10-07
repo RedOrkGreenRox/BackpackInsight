@@ -1,4 +1,4 @@
-# [core/image_key.rs](/RBackend/crates/core/src/image_key.rs)
+# [Ключ картинки предмета (image_key.rs)](/RBackend/crates/core/src/image_key.rs)
 
 ## Назначение
 `ItemIconService` выбирает ключ картинки предмета (имя файла без расширения). Правила повторяют фронтендовые [ItemIconService.ts](../../../../Frontend/ground/utils/ItemIconService.md) и скрипт проверки картинок [verify-item-images.js](../../../../Frontend/scripts/verify-item-images.md).

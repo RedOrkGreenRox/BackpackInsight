@@ -1,4 +1,4 @@
-# [style/roots/_roots/_error.scss](/RBackend/crates/branches/style/roots/_roots/_error.scss)
+# [Системные ошибки (_error.scss)](/RBackend/crates/branches/style/roots/_roots/_error.scss)
 
 ## Назначение
 Описание визуального оформления системных уведомлений об ошибках.

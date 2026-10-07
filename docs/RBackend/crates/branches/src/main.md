@@ -1,4 +1,4 @@
-# [branches/main.rs](/RBackend/crates/branches/src/main.rs)
+# [Бинарник SSR-сайта (main.rs)](/RBackend/crates/branches/src/main.rs)
 
 ## Назначение
 Бинарник `branches`: SSR-сайт Backpack Insight на Leptos + Axum. Собирается только с фичей `ssr` (`required-features` в `Cargo.toml` крейта).

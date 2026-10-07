@@ -1,4 +1,4 @@
-# [search-plan.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/search-plan.ts)
+# [План поиска расширенного режима (search-plan.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/search-plan.ts)
 
 ## Назначение
 `buildSearchPlan(rawQuery)` делит запрос расширенного режима на две части: строгие условия для [item-matcher](item-matcher.md) и взвешенные нечёткие термы для [fuse-collector](fuse-collector.md).

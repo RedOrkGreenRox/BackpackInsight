@@ -1,4 +1,4 @@
-# [style/branches/items/_items/filters/_filter-controls.scss](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-controls.scss)
+# [Контейнер фильтров (_filter-controls.scss)](/RBackend/crates/branches/style/branches/items/_items/filters/_filter-controls.scss)
 
 ## Назначение
 Верхнеуровневый контейнер для всей системы фильтров на странице Вики. Задает максимальную ширину и отступы блока.

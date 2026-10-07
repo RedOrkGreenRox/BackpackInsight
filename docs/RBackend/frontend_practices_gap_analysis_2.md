@@ -1,4 +1,4 @@
-# Frontend practices gap analysis — часть 2
+# Чего не хватает фронтенду, часть 2
 
 Начало (пункты 1–6): [часть 1](frontend_practices_gap_analysis.md).
 

@@ -1,4 +1,4 @@
-# [api/profile/view.rs](/RBackend/crates/api/src/profile/view.rs)
+# [Полный разбор профиля (view.rs)](/RBackend/crates/api/src/profile/view.rs)
 
 ## Назначение
 `profile_view(json, project_root, lang)` — полный разбор игрового профиля в `ProfileViewResponse`. Это ядро `POST /api/profile.fb`: результат кодируется в пак `"BIPR"` в [routes/profile_binary](../routes/profile_binary.md).

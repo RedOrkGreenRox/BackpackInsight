@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/zone-styles/index.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.scss)
+# [Технические классы зоны загрузки (index.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.scss)
 
 ## Назначение
 Точка сборки для технических классов зоны загрузки (скрытые элементы и т.д.).

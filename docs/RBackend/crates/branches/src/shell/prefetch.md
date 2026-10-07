@@ -1,4 +1,4 @@
-# [branches/shell/prefetch.rs](/RBackend/crates/branches/src/shell/prefetch.rs)
+# [Докачка ленивых островов (prefetch.rs)](/RBackend/crates/branches/src/shell/prefetch.rs)
 
 ## Назначение
 `prefetch_lazy_islands` — браузерная часть ленивых островов. Докачивает в HTTP-кэш WASM тех ленивых островов, которых нет на текущей странице, уже после её загрузки. Тогда при переходе (например, Главная → Каталог) остров оживает из кэша, а не ждёт сеть. Компилируется только с фичей `hydrate`.

@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/upload-area-hover.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-hover.scss)
+# [Отклик при перетаскивании (upload-area-hover.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-hover.scss)
 
 ## Назначение
 Описание визуального отклика при перетаскивании файла на область загрузки.

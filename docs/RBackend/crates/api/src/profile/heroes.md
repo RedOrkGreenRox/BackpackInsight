@@ -1,4 +1,4 @@
-# [api/profile/heroes.rs](/RBackend/crates/api/src/profile/heroes.rs)
+# [Чтение героев профиля (heroes.rs)](/RBackend/crates/api/src/profile/heroes.rs)
 
 ## Назначение
 Чтение героев из объекта `Hero` профиля. Значение каждого героя — строка `уровень:опыт:рейтинг`; ключ — внутреннее имя героя (например, `Warrior`).

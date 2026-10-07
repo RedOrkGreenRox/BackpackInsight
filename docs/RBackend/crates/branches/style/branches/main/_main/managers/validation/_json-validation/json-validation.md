@@ -1,4 +1,4 @@
-# [style/branches/main/_main/managers/validation/_json-validation/json-validation.scss](/RBackend/crates/branches/style/branches/main/_main/managers/validation/_json-validation/json-validation.scss)
+# [Мини-редактор JSON (json-validation.scss)](/RBackend/crates/branches/style/branches/main/_main/managers/validation/_json-validation/json-validation.scss)
 
 ## Назначение
 Стилизация "мини-редактора" кода, который появляется при обнаружении синтаксических ошибок в вставленном JSON-логе.

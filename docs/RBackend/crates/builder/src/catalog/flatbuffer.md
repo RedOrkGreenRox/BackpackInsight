@@ -1,4 +1,4 @@
-# [builder/catalog/flatbuffer.rs](/RBackend/crates/builder/src/catalog/flatbuffer.rs)
+# [Пак сводки каталога (flatbuffer.rs)](/RBackend/crates/builder/src/catalog/flatbuffer.rs)
 
 ## Назначение
 Сборка пака сводки каталога `RBackend/generated/catalog_summary.fb` (идентификатор `"BICS"`, схема `CATALOG_SCHEMA` — `RBackend/schemas/catalog.fbs`, см. [schemas](../../../../schemas.md)).

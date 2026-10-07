@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/button-styles/index.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.scss)
+# [Сборка стилей кнопки (index.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.scss)
 
 ## Назначение
 Объединяет базовые стили, адаптивность и состояния кнопок.

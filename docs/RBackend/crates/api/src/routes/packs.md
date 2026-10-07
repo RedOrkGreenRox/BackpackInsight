@@ -1,4 +1,4 @@
-# [api/routes/packs.rs](/RBackend/crates/api/src/routes/packs.rs)
+# [Отдача FlatBuffer-паков (packs.rs)](/RBackend/crates/api/src/routes/packs.rs)
 
 ## Назначение
 Отдача готовых FlatBuffer-паков из `RBackend/generated` как есть, без декодирования. Маршруты защищены секретом ([security/secret](../security/secret.md)).

@@ -1,4 +1,4 @@
-# [core/catalog/export/item.rs](/RBackend/crates/core/src/catalog/export/item.rs)
+# [Предмет экспорта игры (item.rs)](/RBackend/crates/core/src/catalog/export/item.rs)
 
 ## Назначение
 `ItemDef` — один предмет экспорта игры в строгом виде. `serde` с `rename_all = "camelCase"` и `deny_unknown_fields`: новое поле в экспорте или незнакомая редкость останавливают сборку, а не теряются молча.

@@ -1,4 +1,4 @@
-# [items-help-controller.ts](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-help-controller.ts)
+# [Справка по расширенному поиску (items-help-controller.ts)](/Frontend/Web/ground/branches/items/_items/managers/runtime/items-help-controller.ts)
 
 ## Назначение
 `ItemsHelpController` — справка по расширенному поиску в `#advancedSearchHelpContent`. Синтаксис, который она описывает, разобран в [search_filter_syntax](../../../../../../../search_filter_syntax.md).

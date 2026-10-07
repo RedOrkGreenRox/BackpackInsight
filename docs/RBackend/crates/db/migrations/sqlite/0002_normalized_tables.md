@@ -1,4 +1,4 @@
-# [sqlite/0002_normalized_tables.sql](/RBackend/crates/db/migrations/sqlite/0002_normalized_tables.sql)
+# [Нормализованные таблицы SQLite (0002_normalized_tables.sql)](/RBackend/crates/db/migrations/sqlite/0002_normalized_tables.sql)
 
 ## Назначение
 Вторая миграция для SQLite: те же таблицы `itemdefinition`, `hero`, `item`, связи и индексы, что в [pg/0002_normalized_tables](../pg/0002_normalized_tables.md).

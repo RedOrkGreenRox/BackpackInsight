@@ -1,4 +1,4 @@
-# [RBackend/Cargo.toml](/RBackend/Cargo.toml)
+# [Манифест рабочего пространства RBackend (Cargo.toml)](/RBackend/Cargo.toml)
 
 ## Назначение
 Корневой манифест Cargo workspace RBackend: состав крейтов, общие метаданные, линты и профиль сборки релиза.

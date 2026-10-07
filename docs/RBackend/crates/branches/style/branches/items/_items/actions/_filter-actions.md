@@ -1,4 +1,4 @@
-# [style/branches/items/_items/actions/_filter-actions.scss](/RBackend/crates/branches/style/branches/items/_items/actions/_filter-actions.scss)
+# [Действия панели фильтров (_filter-actions.scss)](/RBackend/crates/branches/style/branches/items/_items/actions/_filter-actions.scss)
 
 ## Назначение
 `_filter-actions.scss` оформляет нижние действия панели и отдельную категорию «Логика запроса».

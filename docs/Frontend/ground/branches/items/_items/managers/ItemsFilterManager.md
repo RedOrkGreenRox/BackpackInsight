@@ -1,4 +1,4 @@
-# [ItemsFilterManager.ts](/Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
+# [Фасад поиска и фильтрации предметов (ItemsFilterManager.ts)](/Frontend/Web/ground/branches/items/_items/managers/ItemsFilterManager.ts)
 
 ## Назначение
 `ItemsFilterManager` — фасад поиска и фильтрации страницы предметов. Держит Fuse-индекс и `ItemMatcher` и раздаёт вызовы чистым функциям каталога [filter/](filter/index.md). Синтаксис запросов для пользователя — [search_filter_syntax](../../../../../../search_filter_syntax.md).

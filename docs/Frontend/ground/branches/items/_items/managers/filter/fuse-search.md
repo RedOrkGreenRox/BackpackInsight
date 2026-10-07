@@ -1,4 +1,4 @@
-# [fuse-search.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/fuse-search.ts)
+# [Точки входа поиска (fuse-search.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/fuse-search.ts)
 
 ## Назначение
 Точки входа поиска для [ItemsFilterManager](../ItemsFilterManager.md). Перед каждым поиском старые оценки релевантности снимаются (`clearSearchScores`, [search-score](search-score.md)).

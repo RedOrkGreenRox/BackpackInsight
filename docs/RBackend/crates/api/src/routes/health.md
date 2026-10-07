@@ -1,4 +1,4 @@
-# [api/routes/health.rs](/RBackend/crates/api/src/routes/health.rs)
+# [Пробы состояния сервера (health.rs)](/RBackend/crates/api/src/routes/health.rs)
 
 ## Назначение
 Пробы состояния для оркестратора и деплоя.

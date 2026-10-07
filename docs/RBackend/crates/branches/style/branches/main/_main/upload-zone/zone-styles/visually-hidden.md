@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/zone-styles/visually-hidden.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/visually-hidden.scss)
+# [Скрытие элементов без потери доступности (visually-hidden.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/visually-hidden.scss)
 
 ## Назначение
 Утилитарный класс `.visually-hidden` для «честного» скрытия элементов (например, `input[type=file]`): невидим визуально, но доступен скринридерам и кликам по `<label>`.

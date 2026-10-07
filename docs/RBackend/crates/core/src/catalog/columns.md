@@ -1,4 +1,4 @@
-# [core/catalog/columns.rs](/RBackend/crates/core/src/catalog/columns.rs)
+# [Колоночное хранилище каталога (columns.rs)](/RBackend/crates/core/src/catalog/columns.rs)
 
 ## Назначение
 `CatalogColumns` — колоночное хранилище каталога предметов: каждая колонка — вектор, строка таблицы — `ItemId` ([ids](ids.md)). Строковые колонки хранят `StringId` из общего [StringPool](strings.md), поэтому совпадающие значения (например, `item_id` и `name`) не дублируются.

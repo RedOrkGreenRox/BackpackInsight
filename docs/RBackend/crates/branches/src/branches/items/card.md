@@ -1,4 +1,4 @@
-# [branches/branches/items/card.rs](/RBackend/crates/branches/src/branches/items/card.rs)
+# [Карточка предмета (card.rs)](/RBackend/crates/branches/src/branches/items/card.rs)
 
 ## Назначение
 Карточка предмета в сетке каталога. Один компонент для обеих сборок: сервер рендерит им первую порцию, остров — дописанные порции, поэтому разметка всегда одинакова. Разметка и классы — как у TS-версии (`ItemsLayoutRenderer`), чтобы работали перенесённые стили [_roots/items](../../../style/roots/_roots/items/_items.md).

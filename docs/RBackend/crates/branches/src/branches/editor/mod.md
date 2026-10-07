@@ -1,4 +1,4 @@
-# [branches/branches/editor/mod.rs](/RBackend/crates/branches/src/branches/editor/mod.rs)
+# [Страница «Редактор» (mod.rs)](/RBackend/crates/branches/src/branches/editor/mod.rs)
 
 ## Назначение
 `EditorBranch` — страница «Редактор» по адресу `/editor`. Пока заготовка: только заголовок, без содержимого. Чисто серверная (`ssr`), без островов. В TS-версии аналога нет.

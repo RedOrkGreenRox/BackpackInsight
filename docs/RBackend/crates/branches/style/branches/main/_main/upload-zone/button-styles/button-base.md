@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/button-styles/button-base.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-base.scss)
+# [Стеклянная кнопка (button-base.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-base.scss)
 
 ## Назначение
 Реализует эффект «стеклянного интерфейса» для главной кнопки загрузки.

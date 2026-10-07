@@ -1,4 +1,4 @@
-# [core/profile/identity/name.rs](/RBackend/crates/core/src/profile/identity/name.rs)
+# [Имя игрока (name.rs)](/RBackend/crates/core/src/profile/identity/name.rs)
 
 ## Назначение
 `ProfileNameService` читает отображаемое имя игрока.

@@ -1,4 +1,4 @@
-# builder — проверка и сборка данных
+# Обзор крейта builder (crates/builder/)
 
 Crate `builder` — консольная утилита для сборки образа и CI. Она проверяет исходные JSON из `Backend/DB` и картинки из `Frontend/Web/static/images/items`, а затем собирает в `RBackend/generated` FlatBuffer-паки, которые читает API, и каталог `items_{en,ru}.json` для сайта, проверенный строгой моделью ядра. В рантайм-сервер утилита не входит; для сборки паков нужен внешний компилятор `flatc`.
 

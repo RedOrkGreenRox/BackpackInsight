@@ -1,4 +1,4 @@
-# [style/roots/_roots/items/_item-level.scss](/RBackend/crates/branches/style/roots/_roots/items/_item-level.scss)
+# [Уровень предмета (_item-level.scss)](/RBackend/crates/branches/style/roots/_roots/items/_item-level.scss)
 
 ## Назначение
 Минималистичные стили для отображения уровня предмета (LVL) на карточке.

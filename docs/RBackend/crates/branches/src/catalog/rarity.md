@@ -1,4 +1,4 @@
-# [branches/catalog/rarity.rs](/RBackend/crates/branches/src/catalog/rarity.rs)
+# [Порядок редкостей (rarity.rs)](/RBackend/crates/branches/src/catalog/rarity.rs)
 
 ## Назначение
 Порядок редкостей для сортировки каталога по умолчанию: от самой ценной к самой простой. Повторяет `RARITY_WEIGHTS` TS-версии ([sort-service.ts](/docs/Frontend/ground/branches/items/_items/managers/filter/sort-service.md)), поэтому сетка начинается с тех же предметов, что и на старом сайте.

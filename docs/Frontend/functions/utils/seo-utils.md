@@ -1,4 +1,4 @@
-# [Утилиты SEO (functions/utils/seo-utils.ts)](../../../../Frontend/Web/functions/utils/seo-utils.ts)
+# [Утилиты SEO (seo-utils.ts)](../../../../Frontend/Web/functions/utils/seo-utils.ts)
 
 ## Назначение
 Вспомогательный модуль для Cloudflare Functions, содержащий логику генерации мета-тегов и ключевых слов в зависимости от языка пользователя.

@@ -1,4 +1,4 @@
-# [crates/db/Cargo.toml](/RBackend/crates/db/Cargo.toml)
+# [Манифест слоя хранения (Cargo.toml)](/RBackend/crates/db/Cargo.toml)
 
 ## Назначение
 Манифест пакета `db`. Слой хранения профилей на SQLx ([обзор](../db.md)).

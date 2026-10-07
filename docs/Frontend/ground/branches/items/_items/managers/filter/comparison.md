@@ -1,4 +1,4 @@
-# [comparison.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/comparison.ts)
+# [Числовые условия поиска (comparison.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/comparison.ts)
 
 ## Назначение
 `parseAndEvaluateComparison(item, term)` — проверка числового условия по характеристике предмета. Поддерживает формы `10<damage<20`, `damage>=5` и `5<cooldown`; операторы `<`, `<=`, `>`, `>=`, `=`. Внешние круглые скобки снимаются. Если формула не распознана, условие истинно, когда у предмета есть такая характеристика.

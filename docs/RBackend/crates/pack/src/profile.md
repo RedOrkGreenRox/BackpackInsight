@@ -1,4 +1,4 @@
-# [pack/profile.rs](/RBackend/crates/pack/src/profile.rs)
+# [Бинарный профиль (profile.rs)](/RBackend/crates/pack/src/profile.rs)
 
 ## Назначение
 Запись и чтение FlatBuffer-представления профиля игрока (схема `profile.fbs`, идентификатор `"BIPR"`) — бинарный ответ `POST /api/profile.fb`.

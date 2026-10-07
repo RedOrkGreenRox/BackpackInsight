@@ -1,4 +1,4 @@
-# [pack/error.rs](/RBackend/crates/pack/src/error.rs)
+# [Бинарная ошибка API (error.rs)](/RBackend/crates/pack/src/error.rs)
 
 ## Назначение
 Бинарная ошибка API: запись и чтение FlatBuffer `ApiError` (схема `error.fbs`, идентификатор файла `"BIER"`). Все ошибки бинарных эндпоинтов отдаются в этом формате.

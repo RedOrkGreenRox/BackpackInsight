@@ -1,4 +1,4 @@
-# [filter-options.ts](/Frontend/Web/ground/branches/items/_items/managers/filter/filter-options.ts)
+# [Значения для панели фильтров (filter-options.ts)](/Frontend/Web/ground/branches/items/_items/managers/filter/filter-options.ts)
 
 ## Назначение
 `calculateFilterOptions(items, preparedByKey)` — списки значений для панели фильтров (`FilterOptions` из [filter-types](filter-types.md)), собранные по всем предметам каталога.

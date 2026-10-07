@@ -1,4 +1,4 @@
-# [utils/SecurityService.ts](/Frontend/Web/ground/utils/SecurityService.ts)
+# [Защита от XSS (SecurityService.ts)](/Frontend/Web/ground/utils/SecurityService.ts)
 
 ## Назначение
 `SecurityService` — утилиты безопасности: защита от XSS, очистка HTML.

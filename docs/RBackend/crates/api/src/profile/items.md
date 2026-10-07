@@ -1,4 +1,4 @@
-# [api/profile/items.rs](/RBackend/crates/api/src/profile/items.rs)
+# [Чтение предметов профиля (items.rs)](/RBackend/crates/api/src/profile/items.rs)
 
 ## Назначение
 Чтение предметов из объекта `Item` профиля. Значение — строка `уровень:карты`, где уровень хранится с нуля; ключ — id или имя предмета в каталоге.

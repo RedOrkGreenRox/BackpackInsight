@@ -1,4 +1,4 @@
-# [style/branches/items/_items/search/_rich-operator.scss](/RBackend/crates/branches/style/branches/items/_items/search/_rich-operator.scss)
+# [Логические операторы в поиске (_rich-operator.scss)](/RBackend/crates/branches/style/branches/items/_items/search/_rich-operator.scss)
 
 ## Назначение
 Описывает inline-операторы `AND/OR/NOT` (`И/ИЛИ/НЕ`) внутри поисковой строки.

@@ -1,4 +1,4 @@
-# [style/branches/main/_main/upload-zone/styles/upload-area-responsive.scss](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-responsive.scss)
+# [Адаптивная зона загрузки (upload-area-responsive.scss)](/RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-responsive.scss)
 
 ## Назначение
 Адаптация области загрузки под малые экраны.

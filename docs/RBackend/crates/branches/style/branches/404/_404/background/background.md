@@ -1,4 +1,4 @@
-# [style/branches/404/_404/background/background.scss](/RBackend/crates/branches/style/branches/404/_404/background/background.scss)
+# [Фон страницы 404 (background.scss)](/RBackend/crates/branches/style/branches/404/_404/background/background.scss)
 
 ## Назначение
 Класс `BackgroundManager` управляет системой «редкостных» фонов для страницы 404, имитируя механику выпадения предметов в игре Backpack Brawl.

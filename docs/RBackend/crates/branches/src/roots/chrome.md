@@ -1,4 +1,4 @@
-# [branches/roots/chrome.rs](/RBackend/crates/branches/src/roots/chrome.rs)
+# [Обвязка страницы (chrome.rs)](/RBackend/crates/branches/src/roots/chrome.rs)
 
 ## Назначение
 Обвязка страницы вокруг ветки: боковая панель с навигацией. Сервер переводит все подписи на язык запроса и передаёт их острову `SidebarManager`, поэтому в WASM нет словарей.

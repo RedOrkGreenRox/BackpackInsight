@@ -1,4 +1,4 @@
-# [style/branches/404/_404/text/text.scss](/RBackend/crates/branches/style/branches/404/_404/text/text.scss)
+# [Текст ошибки 404 (text.scss)](/RBackend/crates/branches/style/branches/404/_404/text/text.scss)
 
 ## Назначение
 Рендерер описательного текста ошибки. Выводит локализованное сообщение для пользователя.
