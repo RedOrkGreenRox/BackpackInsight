@@ -26,5 +26,10 @@
 - Стили: [_button-toggle.scss](../../style/roots/_roots/shell/navigation/_button-toggle.md), [_sidebar.scss](../../style/roots/_roots/shell/sidebar/_sidebar.md), [_nav-tab.scss](../../style/roots/_roots/shell/sidebar/_nav-tab.md), [_lang-switcher.scss](../../style/roots/_roots/shell/sidebar/_lang-switcher.md).
 - Реэкспорт: [shell/mod.rs](mod.md).
 
+## Капля и смена языка (2026-10-07)
+- `attach` вешает на документ `focusin`/`focusout` → [drop_wave.rs](drop_wave.md): соседи «капли» закрытого меню отвечают волной.
+- Клик по `#lang-switcher` вызывает `lang_stay::remember(is_open())`; `lang_stay::watch(set_open_with)` после замены разметки возвращает меню в прежнее состояние и фокус на ссылку языка ([lang_stay.rs](lang_stay.md)).
+- **`set_open_with(open, focus_first)`** — как `set_open`, но фокус на первый пункт ставится только при `focus_first`; `set_open(open)` = `set_open_with(open, true)`.
+
 ---
 > 📌 **Подпись документации:** ручной аудит · 2026-10-07.

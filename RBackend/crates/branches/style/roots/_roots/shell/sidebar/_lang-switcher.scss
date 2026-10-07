@@ -2,6 +2,10 @@
 // Внешний вид общий с остальными пунктами (`.nav-tab`), здесь только отличия.
 #lang-switcher {
     flex-shrink: 0;
+    justify-content: center;
+    text-align: center;
+    // Такая же прозрачная полоса справа, как слева у всех пунктов: текст ровно по центру.
+    border-inline-end: calc(var(--line-width) * 4) solid transparent;
     padding-block-end: max(var(--space-md), env(safe-area-inset-bottom));
     border-block-start: var(--line-width) solid var(--line-subtle);
     user-select: none;

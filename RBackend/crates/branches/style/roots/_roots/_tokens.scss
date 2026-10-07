@@ -39,7 +39,6 @@
     --surface-panel: rgb(10 10 14 / 0.85);
     --overlay: rgb(0 0 0 / 0.6);
     --blur-glass: blur(0.75rem);
-    --blur-text: blur(0.375rem); /* короткое размытие текста при переходе */
 
     /* --- Линии --- */
     --line-subtle: rgb(255 255 255 / 0.1);
@@ -69,11 +68,17 @@
     /* --- Движение --- */
     --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
     --ease-soft: cubic-bezier(0.25, 0.8, 0.25, 1);
+    --ease-drop-out: cubic-bezier(0.34, 1.56, 0.64, 1); /* капля меню: вылет с перелётом */
+    --ease-drop-back: cubic-bezier(0.36, 0, 0.66, -0.56); /* капля меню: замах и возврат */
     --dur-fast: 150ms;
     --dur: 300ms;
     --dur-slow: 600ms;
     /* Только прозрачность, без движения: остаётся и при prefers-reduced-motion */
     --dur-fade: 300ms;
+    /* Переход между страницами: «в глазах размылось» */
+    --blur-nav: blur(1rem);
+    --dur-nav-out: 280ms;
+    --dur-nav-in: 520ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,39 +1,51 @@
-// Плавные переходы между страницами (замена `#app.fade-out` и AOS из TS-версии).
+// Переходы между страницами: «будто в глазах размылось — и ты уже на новой».
+// Размывается только содержимое страницы; фон и кнопка меню стоят на месте.
 //
 // 1. Клик по ссылке на другую страницу: `<body>` получает `navigating`
-//    (shell/fade.rs), и `#app` гаснет, пока сервер готовит страницу.
-// 2. Страница пришла: islands router переписывает `class` у `<body>`,
-//    `navigating` исчезает, и `#app` проявляется.
-// 3. View Transitions: фон стоит на месте, текст коротко размывается
-//    (так же выглядит смена языка).
+//    (shell/fade.rs), и `#app` начинает расплываться, пока сервер готовит
+//    страницу.
+// 2. Страница пришла, islands router меняет её внутри View Transition:
+//    старая (уже размытая) расплывается дальше и гаснет (--dur-nav-out),
+//    новая проступает из размытия (--dur-nav-in). `navigating` исчезает,
+//    потому что router переписывает `class` у `<body>`.
+// 3. Смена языка идёт тем же путём, но без шага 1: текст коротко
+//    размывается и проступает уже на другом языке.
 // 4. Появление заголовков (`data-aos`) выключено на время `navigating`
 //    и включается снова, поэтому повторяется на каждой новой странице.
 //
-// При prefers-reduced-motion движение и размытие выключены, остаётся только
-// смена прозрачности (--dur-fade): она не двигает содержимое.
+// При prefers-reduced-motion размытия нет, остаётся только смена прозрачности
+// (--dur-fade): она не двигает содержимое.
 
 #app {
-  transition: opacity var(--dur-fade) var(--ease-soft);
+  transition:
+    filter var(--dur-nav-out) ease-in,
+    opacity var(--dur-nav-out) ease-in;
 }
 
 body.navigating #app {
-  opacity: 0;
+  filter: var(--blur-nav);
+  opacity: 0.4;
 }
 
 .background-image {
   view-transition-name: site-background;
 }
 
-::view-transition-group(site-background) {
+.controls-wrapper {
+  view-transition-name: site-controls;
+}
+
+::view-transition-group(site-background),
+::view-transition-group(site-controls) {
   animation: none;
 }
 
 ::view-transition-old(root) {
-  animation: viewBlurOut var(--dur-fast) ease-in both;
+  animation: viewBlurOut var(--dur-nav-out) ease-in both;
 }
 
 ::view-transition-new(root) {
-  animation: viewBlurIn var(--dur) var(--ease-out) both;
+  animation: viewBlurIn var(--dur-nav-in) var(--ease-soft) calc(var(--dur-nav-out) / 2) both;
 }
 
 body:not(.navigating) {
@@ -47,6 +59,15 @@ body:not(.navigating) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #app {
+    transition: opacity var(--dur-fade) ease;
+  }
+
+  body.navigating #app {
+    filter: none;
+    opacity: 0;
+  }
+
   ::view-transition-old(root) {
     animation: pageFadeOut var(--dur-fade) ease both;
   }
@@ -63,14 +84,14 @@ body:not(.navigating) {
 @keyframes viewBlurOut {
   to {
     opacity: 0;
-    filter: var(--blur-text);
+    filter: var(--blur-nav);
   }
 }
 
 @keyframes viewBlurIn {
   from {
     opacity: 0;
-    filter: var(--blur-text);
+    filter: var(--blur-nav);
   }
 }
 

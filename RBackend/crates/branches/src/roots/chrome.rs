@@ -48,7 +48,10 @@ pub fn sidebar(ctx: &BranchCtx) -> impl IntoView {
             </div>
             <div class="nav-tabs">{tabs}</div>
             <a class="nav-tab" id="lang-switcher" href=format!("?lang={}", target.code()) hreflang=target.code()>
-                <span class="page-title">{switch_lang}</span>
+                <span class="page-title">{switch_lang.clone()}</span>
+                <span class="nav-drop" aria-hidden="true">
+                    <span class="nav-drop-label">{switch_lang}</span>
+                </span>
             </a>
         </nav>
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -59,6 +62,7 @@ pub fn sidebar(ctx: &BranchCtx) -> impl IntoView {
 /// переходе только переписывает атрибуты и не удалял бы устаревший.
 fn nav_tab(href: &str, icon: &str, label: String, current: bool) -> impl IntoView {
     let (avif, webp) = icon_paths(icon);
+    let webp_drop = webp.clone();
     let class = if current { "nav-tab active" } else { "nav-tab" };
     let aria_current = if current { "page" } else { "false" };
     view! {
@@ -67,7 +71,12 @@ fn nav_tab(href: &str, icon: &str, label: String, current: bool) -> impl IntoVie
                 <source srcset=avif r#type="image/avif"/>
                 <img src=webp alt="" loading="lazy"/>
             </picture>
-            <span class="page-title">{label}</span>
+            <span class="page-title">{label.clone()}</span>
+            // «Капля»: при закрытом меню выезжает из края экрана, когда пункт в фокусе.
+            <span class="nav-drop" aria-hidden="true">
+                <img src=webp_drop alt=""/>
+                <span class="nav-drop-label">{label}</span>
+            </span>
         </a>
     }
 }

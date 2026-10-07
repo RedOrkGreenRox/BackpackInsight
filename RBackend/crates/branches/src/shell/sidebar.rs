@@ -7,7 +7,9 @@
 //!
 //! Состояние «открыто» хранится в самой разметке (класс `open` у `#sidebar`).
 //! При переходе islands router переписывает атрибуты серверными, и меню
-//! закрывается само, без отдельного кода.
+//! закрывается само, без отдельного кода. Исключение — смена языка: меню и фокус
+//! остаются на месте ([`super::lang_stay`]). При закрытом меню пункты в фокусе
+//! выпускают «каплю» с волной по соседям ([`super::drop_wave`]).
 
 use leptos::prelude::*;
 
@@ -21,9 +23,10 @@ pub fn SidebarManager() -> impl IntoView {
 
 #[cfg(feature = "hydrate")]
 mod dom {
+    use super::super::{drop_wave, lang_stay};
     use leptos::prelude::{document, window, window_event_listener};
     use wasm_bindgen::{closure::Closure, JsCast};
-    use web_sys::{Element, HtmlElement, MouseEvent};
+    use web_sys::{Element, FocusEvent, HtmlElement, MouseEvent};
 
     const SIDEBAR: &str = "sidebar";
     const TOGGLE: &str = "menuToggle";
@@ -36,6 +39,9 @@ mod dom {
         let _ =
             document().add_event_listener_with_callback("click", click.as_ref().unchecked_ref());
         click.forget();
+        listen("focusin", drop_wave::on_focus_in);
+        listen("focusout", drop_wave::on_focus_out);
+        lang_stay::watch(set_open_with);
         // Обработчик живёт, пока открыт сайт; снимать его незачем.
         let _ = window_event_listener(leptos::ev::keydown, |ev| {
             if ev.key() == "Escape" && is_open() {
@@ -43,6 +49,13 @@ mod dom {
                 focus_by_id(TOGGLE);
             }
         });
+    }
+
+    fn listen(event: &str, handler: fn(&FocusEvent)) {
+        let closure = Closure::<dyn FnMut(FocusEvent)>::new(move |ev: FocusEvent| handler(&ev));
+        let _ =
+            document().add_event_listener_with_callback(event, closure.as_ref().unchecked_ref());
+        closure.forget();
     }
 
     fn on_click(ev: MouseEvent) {
@@ -56,6 +69,7 @@ mod dom {
             set_open(false);
         } else if let Some(link) = inside("#lang-switcher") {
             retarget_to_current_page(&link);
+            lang_stay::remember(is_open());
         } else if inside("#sidebar a").is_some() {
             set_open(false);
         }
@@ -70,6 +84,11 @@ mod dom {
     /// Класс `open` выдвигает панель, `sidebar-open` на `<body>` прячет кнопку
     /// и показывает затемнение. При открытии фокус переходит на первый пункт.
     fn set_open(open: bool) {
+        set_open_with(open, true);
+    }
+
+    /// То же, но фокус на первый пункт ставится, только если `focus_first`.
+    fn set_open_with(open: bool, focus_first: bool) {
         if let Some(sidebar) = document().get_element_by_id(SIDEBAR) {
             let _ = sidebar.class_list().toggle_with_force("open", open);
         }
@@ -79,7 +98,7 @@ mod dom {
         if let Some(toggle) = document().get_element_by_id(TOGGLE) {
             let _ = toggle.set_attribute("aria-expanded", if open { "true" } else { "false" });
         }
-        if open {
+        if open && focus_first {
             let first = document()
                 .query_selector("#sidebar .nav-tab")
                 .ok()

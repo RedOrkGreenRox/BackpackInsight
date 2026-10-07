@@ -10,13 +10,15 @@
 | :--- | :--- | :--- |
 | `SidebarManager` | [sidebar.rs](sidebar.md) | ленивый остров: кнопка меню, затемнение, `Escape`, ссылка языка |
 | `ParallaxManager` | [parallax.rs](parallax.md) | смещение фона за курсором |
-| `fade_on_leave` | [fade.rs](fade.md) | только `hydrate`: `#app` гаснет сразу по клику на ссылку другой страницы |
+| `fade_on_leave` | [fade.rs](fade.md) | только `hydrate`: `#app` расплывается сразу по клику на ссылку другой страницы |
+| (внутр.) `drop_wave` | [drop_wave.rs](drop_wave.md) | только `hydrate`: волна по соседям «капли» закрытого меню |
+| (внутр.) `lang_stay` | [lang_stay.rs](lang_stay.md) | только `hydrate`: смена языка не закрывает меню и не сбрасывает фокус |
 | `prefetch_lazy_islands` | [prefetch.rs](prefetch.md) | только `hydrate`: докачка WASM ленивых островов в простое |
 
 Имена с суффиксом «Manager» (`ItemsManager`) повторяют дендритную схему TS-версии, где интерактивные части страницы — менеджеры.
 
 ## Связи
-- Подключается в [lib.rs](../lib.md); `fade` и `prefetch` — только с фичей `hydrate`.
+- Подключается в [lib.rs](../lib.md); `fade`, `prefetch`, `drop_wave` и `lang_stay` — только с фичей `hydrate`; два последних вызывает [sidebar.rs](sidebar.md).
 - Использование: `App` в [roots/shell.rs](../roots/shell.md).
 
 ---

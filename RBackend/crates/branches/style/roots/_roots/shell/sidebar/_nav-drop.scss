@@ -1,0 +1,87 @@
+// «Капля»: меню закрыто, а фокус с клавиатуры попал в его пункт. Из края
+// экрана вылетает капля с иконкой и мелкой подписью; само меню остаётся за
+// экраном. Капля стоит слева от пункта (`inset-inline-end: 100%`), а пункт
+// закрытого меню начинается ровно у края экрана.
+//
+// Выход и возврат — плавные, с перелётом (--ease-drop-out/-back): капля
+// вытягивается, чуть проскакивает и садится. Соседние капли отвечают
+// затухающей волной (`.waving`, запускает shell/drop_wave.rs).
+.nav-drop {
+  position: absolute;
+  inset-inline-end: 100%;
+  inset-block-start: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  inline-size: max-content;
+  max-inline-size: calc(var(--icon-size) * 3);
+  padding: var(--space-xs) var(--space-sm) var(--space-xs) var(--space-md);
+  text-align: center;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at right, rgba(var(--azure-raw), 0.45) 0%, rgba(var(--azure-raw), 0) 75%),
+    var(--surface-panel);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border: var(--line-width) solid rgba(var(--azure-raw), 0.6);
+  border-inline-end: none;
+  // Капля: круглая спереди, плоская у края экрана.
+  border-radius: 60% 0 0 60% / 50% 0 0 50%;
+  box-shadow: var(--shadow-2), 0 0 var(--space-sm) rgba(var(--azure-raw), 0.45);
+  transform-origin: right center;
+  translate: 100% -50%;
+  scale: 0.3 0.6;
+  opacity: 0;
+  transition:
+    translate var(--dur-slow) var(--ease-drop-back),
+    scale var(--dur-slow) var(--ease-drop-back),
+    opacity var(--dur) var(--ease-soft) var(--dur-fast);
+
+  .sidebar.open & {
+    visibility: hidden;
+  }
+}
+
+.nav-drop-label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: normal;
+}
+
+.sidebar:not(.open) {
+  .nav-tabs {
+    overflow: visible;
+  }
+
+  .nav-tab:focus-visible .nav-drop {
+    translate: 0 -50%;
+    scale: 1;
+    opacity: 1;
+    transition:
+      translate var(--dur-slow) var(--ease-drop-out),
+      scale var(--dur-slow) var(--ease-drop-out),
+      opacity var(--dur-fast) var(--ease-soft);
+  }
+
+  .nav-drop.waving {
+    // Только `backwards`: после волны анимация не должна держать значения,
+    // иначе следующий выход капли случился бы скачком, без перехода.
+    animation: navDropWave var(--dur-slow) var(--ease-soft) backwards;
+  }
+}
+
+// Сосед выглядывает на --wave-amp своей ширины, проскакивает назад и прячется.
+@keyframes navDropWave {
+  35% {
+    translate: calc(100% - var(--wave-amp, 20%)) -50%;
+    scale: 0.8;
+    opacity: 1;
+  }
+
+  70% {
+    translate: calc(100% - var(--wave-amp, 20%) * 0.3) -50%;
+    scale: 0.6 0.75;
+    opacity: 0.6;
+  }
+}

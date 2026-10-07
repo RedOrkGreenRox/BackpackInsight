@@ -5,7 +5,11 @@
 //! разметка меню, выбор ветки) рисует сервер в [`crate::roots`].
 
 #[cfg(feature = "hydrate")]
+mod drop_wave;
+#[cfg(feature = "hydrate")]
 mod fade;
+#[cfg(feature = "hydrate")]
+mod lang_stay;
 mod parallax;
 #[cfg(feature = "hydrate")]
 mod prefetch;
