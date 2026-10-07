@@ -1,14 +1,12 @@
+// Подпись пункта меню.
 .page-title {
-  font-size: 1.5em;
+  font-size: var(--fs-lg);
   font-weight: 700;
-  color: var(--text-default-color);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  line-height: var(--lh-tight);
+  color: var(--text);
+  text-shadow: var(--shadow-1);
   z-index: 3;
-  white-space: nowrap;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-  @media (max-width: 600px) {
-    font-size: small;
-  }
+  transition:
+    color var(--dur) var(--ease-soft),
+    text-shadow var(--dur) var(--ease-soft);
 }
-
-

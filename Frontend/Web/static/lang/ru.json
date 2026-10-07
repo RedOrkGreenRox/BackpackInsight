@@ -63,7 +63,7 @@
   "profile_show_more": "Показать еще",
   "profile_save_card": "СОХРАНИТЬ КАРТОЧКУ",
   "profile_creating_card": "Создание...",
-  "lang_switch_button": "Switch to {{lang}}",
+  "lang_switch_button": "Сменить язык на {{lang}}",
   "json_validation_error": "Ошибка в строке {{line}}, колонка {{column}}",
   "json_empty": "JSON пуст",
   "json_unexpected_token": "Неожиданный символ: {{token}}",

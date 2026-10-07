@@ -1,55 +1,27 @@
+// Угол с кнопкой меню: справа сверху, с учётом выреза экрана телефона.
 .controls-wrapper {
   position: fixed;
-  top: clamp(10px, 2vh, 30px);
-  /* Переносим в правый угол */
-  right: clamp(10px, 3vw, 40px);
-  left: auto; /* Сбрасываем left */
+  inset-block-start: max(var(--space-sm), env(safe-area-inset-top));
+  inset-inline-end: max(var(--space-sm), env(safe-area-inset-right));
   z-index: 1100;
-
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-xs);
   pointer-events: none;
-
-  /* Плавность появления при закрытии меню */
-  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-
-  @media (max-width: 1100px) {
-    /* Возвращаем фиксированное позиционирование для мобилок, чтобы убрать полосу */
-    position: fixed;
-    top: clamp(10px, 2vh, 30px);
-    right: clamp(10px, 3vw, 40px);
-    left: auto;
-
-    width: auto; /* Убираем растягивание */
-    padding: 0;
-
-    /* Убираем фон и блюр */
-    background: none;
-    backdrop-filter: none;
-
-    pointer-events: none; /* Возвращаем none для контейнера */
-
-    /* На мобильных бургер тоже справа */
-    display: flex;
-    justify-content: flex-end;
-  }
+  transition: opacity var(--dur-slow) var(--ease-out);
 }
 
 .controls-wrapper > * {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 
-/* При открытии сайдбара кнопки плавно исчезают */
+// Меню открыто: кнопка плавно исчезает.
 body.sidebar-open .controls-wrapper,
 body.leaving .controls-wrapper {
   opacity: 0;
   pointer-events: none;
 
-  /* Используем ту же кривую, что и у сайдбара */
-  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-
   > * {
-      pointer-events: none;
+    pointer-events: none;
   }
 }

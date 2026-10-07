@@ -12,12 +12,13 @@
 - Шрифт: `--font-body`; шкала текста `--fs-xs`, `--fs-sm`, `--fs-md`, `--fs-lg`, `--fs-xl`, `--fs-display`; межстрочные `--lh-tight`, `--lh-body`.
 - Отступы: `--space-2xs`, `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`, `--space-xl`.
 - Скругления: `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-pill`, `--radius-round`.
-- Поверхности: `--surface-1`, `--surface-2`, `--surface-3`, `--surface-panel`, `--overlay`, `--blur-glass`.
+- Поверхности: `--surface-1`, `--surface-2`, `--surface-3`, `--surface-panel`, `--overlay`, `--blur-glass`, `--blur-text` (короткое размытие текста при переходе).
 - Линии: `--line-subtle`, `--line`, `--line-strong`, `--line-width`.
 - Текст и акцент: `--text`, `--text-muted`, `--text-heading`, `--accent`, `--danger`, `--success`.
 - Глубина: `--shadow-1`, `--shadow-2`.
 - Доступность: `--tap-min` (минимальная зона нажатия), `--focus-ring`.
-- Движение: `--ease-out`, `--ease-soft`, `--dur-fast`, `--dur`, `--dur-slow`; при `prefers-reduced-motion: reduce` длительности обнуляются.
+- Размеры каркаса: `--control-size` (кнопка меню, от `--tap-min` до 4.5rem), `--icon-size` (иконки пунктов меню), `--logo-size` (логотип в меню).
+- Движение: `--ease-out`, `--ease-soft`, `--dur-fast`, `--dur`, `--dur-slow`; при `prefers-reduced-motion: reduce` эти длительности обнуляются. `--dur-fade` — для смены одной прозрачности, без движения: она остаётся и при уменьшении движения.
 - Глобальная видимая рамка фокуса `:focus-visible` для ссылок, кнопок и полей; селектор обёрнут в `:where`, поэтому ветка переопределяет его обычным правилом.
 
 Цвета редкостей остаются в [items/_rarity-vars.scss](items/_rarity-vars.md).

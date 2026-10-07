@@ -1,14 +1,11 @@
-# [Кнопка-логотип (_button-logo.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.scss)
+# [Логотип в меню (_button-logo.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.scss)
 
 ## Назначение
-Стилизация кнопки-логотипа, расположенной в верхней части бокового меню.
-
-Перенесён из TS-версии без изменений; подробное описание правил — в доке оригинала [ground/roots/_roots/shell/sidebar/_button-logo.scss](/docs/Frontend/ground/roots/_roots/shell/sidebar/_button-logo.md).
-Общие стили каркаса: подключаются в [site.scss](../../../../site.md) глобально.
+Логотип в шапке меню, ссылка на главную. Перенесён из TS-версии ([оригинал](/docs/Frontend/ground/roots/_roots/shell/sidebar/_button-logo.md)) и переведён на токены [_tokens.scss](../../_tokens.md).
 
 ## Содержимое
-- Классы и id: `.button-logo`, `.logo-icon`.
+- **`.button-logo`** — квадрат `--logo-size` (было 128px), скругление `--radius-lg` для рамки фокуса, при наведении чуть увеличивается.
+- **`.button-logo picture`**, **`.button-logo .logo-icon`** — картинка на весь квадрат.
 
 ---
-
-> 📌 **Подпись документации:** по исходнику и описанию TS-версии · 2026-10-02
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

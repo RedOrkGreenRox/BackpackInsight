@@ -1,38 +1,31 @@
+// Логотип в шапке меню: ссылка на главную.
 .button-logo {
     position: relative;
-    width: 128px;
-    height: 128px;
-    cursor: pointer;
+    inline-size: var(--logo-size);
+    block-size: var(--logo-size);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-
-    background: none;
-    border: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-    transition: all 0.3s ease;
-    animation: none;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+    transition: transform var(--dur) var(--ease-soft);
 }
 
 .button-logo:hover {
     transform: scale(1.05);
-    animation: none;
 }
 
-/* Добавляем стили для picture, чтобы он не ломал верстку */
 .button-logo picture {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
 }
 
 .button-logo .logo-icon {
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: contain;
 }

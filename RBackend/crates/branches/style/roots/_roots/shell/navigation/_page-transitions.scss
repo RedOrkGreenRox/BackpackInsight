@@ -1,0 +1,101 @@
+// Плавные переходы между страницами (замена `#app.fade-out` и AOS из TS-версии).
+//
+// 1. Клик по ссылке на другую страницу: `<body>` получает `navigating`
+//    (shell/fade.rs), и `#app` гаснет, пока сервер готовит страницу.
+// 2. Страница пришла: islands router переписывает `class` у `<body>`,
+//    `navigating` исчезает, и `#app` проявляется.
+// 3. View Transitions: фон стоит на месте, текст коротко размывается
+//    (так же выглядит смена языка).
+// 4. Появление заголовков (`data-aos`) выключено на время `navigating`
+//    и включается снова, поэтому повторяется на каждой новой странице.
+//
+// При prefers-reduced-motion движение и размытие выключены, остаётся только
+// смена прозрачности (--dur-fade): она не двигает содержимое.
+
+#app {
+  transition: opacity var(--dur-fade) var(--ease-soft);
+}
+
+body.navigating #app {
+  opacity: 0;
+}
+
+.background-image {
+  view-transition-name: site-background;
+}
+
+::view-transition-group(site-background) {
+  animation: none;
+}
+
+::view-transition-old(root) {
+  animation: viewBlurOut var(--dur-fast) ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: viewBlurIn var(--dur) var(--ease-out) both;
+}
+
+body:not(.navigating) {
+  [data-aos="fade-down"] {
+    animation: aosFadeDown var(--dur-slow) var(--ease-out) both;
+  }
+
+  [data-aos="fade-up"] {
+    animation: aosFadeUp var(--dur-slow) var(--ease-out) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: pageFadeOut var(--dur-fade) ease both;
+  }
+
+  ::view-transition-new(root) {
+    animation: pageFadeIn var(--dur-fade) ease both;
+  }
+
+  body:not(.navigating) [data-aos] {
+    animation: pageFadeIn var(--dur-fade) ease both;
+  }
+}
+
+@keyframes viewBlurOut {
+  to {
+    opacity: 0;
+    filter: var(--blur-text);
+  }
+}
+
+@keyframes viewBlurIn {
+  from {
+    opacity: 0;
+    filter: var(--blur-text);
+  }
+}
+
+@keyframes aosFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--space-lg)));
+  }
+}
+
+@keyframes aosFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-lg));
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pageFadeOut {
+  to {
+    opacity: 0;
+  }
+}

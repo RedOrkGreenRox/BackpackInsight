@@ -1,14 +1,10 @@
 # [Подпись пункта меню (_page-title.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.scss)
 
 ## Назначение
-Стилизация текстовых меток внутри навигационных вкладок.
-
-Перенесён из TS-версии без изменений; подробное описание правил — в доке оригинала [ground/roots/_roots/shell/sidebar/_page-title.scss](/docs/Frontend/ground/roots/_roots/shell/sidebar/_page-title.md).
-Общие стили каркаса: подключаются в [site.scss](../../../../site.md) глобально.
+Подпись пункта меню. Перенесена из TS-версии ([оригинал](/docs/Frontend/ground/roots/_roots/shell/sidebar/_page-title.md)) и переведена на токены [_tokens.scss](../../_tokens.md).
 
 ## Содержимое
-- Классы и id: `.page-title`.
+- **`.page-title`** — жирный текст `--fs-lg`, цвет `--text`, тень `--shadow-1`, плавная смена цвета и тени.
 
 ---
-
-> 📌 **Подпись документации:** по исходнику и описанию TS-версии · 2026-10-02
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

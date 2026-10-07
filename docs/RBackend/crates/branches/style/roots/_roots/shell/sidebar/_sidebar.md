@@ -1,14 +1,14 @@
-# [Боковая панель (_sidebar.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.scss)
+# [Боковое меню (_sidebar.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.scss)
 
 ## Назначение
-Описание структуры и анимации основной панели навигации (Sidebar).
-
-Перенесён из TS-версии без изменений; подробное описание правил — в доке оригинала [ground/roots/_roots/shell/sidebar/_sidebar.scss](/docs/Frontend/ground/roots/_roots/shell/sidebar/_sidebar.md).
-Общие стили каркаса: подключаются в [site.scss](../../../../site.md) глобально.
+Боковое меню справа и затемнение под ним. Перенесено из TS-версии ([оригинал](/docs/Frontend/ground/roots/_roots/shell/sidebar/_sidebar.md)) и переведено на токены [_tokens.scss](../../_tokens.md). Фон стал плотнее: раньше панель была прозрачна на 80%, и на телефоне пункты не читались поверх карточек.
 
 ## Содержимое
-- Классы и id: `.sidebar`, `.sidebar-header`, `.sidebar-overlay`, `.low-res-mode`.
+- **`.sidebar`** — панель на всю высоту экрана (`100dvh`), ширина по содержимому в пределах `clamp(15rem, 22vw, 22rem)`…80vw (на узких экранах шире). Фон `--surface-panel` с размытием `--blur-glass`, граница слева `--line-subtle`. Спрятана за правым краем (`translateX(100%)`), **`.sidebar.open`** выдвигает её за `--dur-slow`.
+- **`.sidebar-header`** — шапка с логотипом и линией снизу.
+- **Фокус в закрытом меню** (`.sidebar:not(.open)`). Скрытые пункты получают фокус с клавиатуры. Пункт в фокусе (`.nav-tab:focus-visible`, переключатель языка или шапка с логотипом) выгибается из правого края экрана вместе с кусочком панели: сдвиг `translateX(-100%)`, скругление `--radius-pill` слева, свечение `--azure` от края экрана и тень. Остальное меню остаётся за экраном. Для этого `.nav-tabs` в закрытом меню не обрезает содержимое.
+- **`.sidebar-overlay`** — затемнение `--overlay` под открытым меню, появляется при **`body.sidebar-open`**; клик по нему закрывает меню ([shell/sidebar.rs](../../../../../src/shell/sidebar.md)).
+- **`.low-res-mode`** — без размытия в режиме экономии.
 
 ---
-
-> 📌 **Подпись документации:** по исходнику и описанию TS-версии · 2026-10-02
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

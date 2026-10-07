@@ -1,32 +1,30 @@
-# [Боковая панель (sidebar.rs)](/RBackend/crates/branches/src/shell/sidebar.rs)
+# [Меню сайта (sidebar.rs)](/RBackend/crates/branches/src/shell/sidebar.rs)
 
 ## Назначение
-Остров `SidebarManager`: кнопка меню, выезжающая боковая панель с навигацией и переключатель языка. Разметка, `id` и классы те же, что в TS-версии ([Shell.ts](/docs/Frontend/ground/roots/Shell.md)), поэтому без изменений работают перенесённые стили из `style/roots/_roots/shell`: [_sidebar.scss](../../style/roots/_roots/shell/sidebar/_sidebar.md), [_nav-tab.scss](../../style/roots/_roots/shell/sidebar/_nav-tab.md), [_lang-switcher.scss](../../style/roots/_roots/shell/sidebar/_lang-switcher.md), [_button-toggle.scss](../../style/roots/_roots/shell/navigation/_button-toggle.md).
+Ленивый остров `SidebarManager` (`#[island(lazy)]`) оживляет меню, которое нарисовал сервер ([roots/chrome.rs](../roots/chrome.md)). Сам остров ничего не рисует: он вешает обработчики на документ и переключает классы. Код острова собирается в отдельный WASM-файл (`cargo leptos build --split`), основной WASM от него не растёт; файл грузится параллельно с основным по `preload` из [lazy.rs](../roots/lazy.md).
 
 ## Ключевая функциональность
-- **`NavTab { href, icon, label }`** — вкладка: адрес, иконка внутри `/images` без формата и расширения (`templates/main` → `/images/templates/{avif,webp}/main.*`), подпись на языке страницы.
-- **`SidebarLabels { menu, home, switch_lang }`** — подписи кнопки меню, логотипа и переключателя языка («Switch to RU»).
-- **`SidebarManager(target, labels, tabs)`** — `target` — язык, на который ведёт переключатель. Разметка:
-  - `.controls-wrapper > button.menu-toggle#menuToggle` с `aria-label`, `aria-controls="sidebar"` и `aria-expanded`, иконка `/images/const/*/menu.*`;
-  - `nav.sidebar#sidebar` (класс `open`, пока панель открыта; `aria-label` — подпись главной):
-    - `.sidebar-header > a.button-logo` — ссылка на `/` с логотипом;
-    - `.nav-tabs` — по `a.nav-tab` на вкладку: `<picture>` (AVIF + WebP, `loading="lazy"`) и `span.page-title`;
-    - `a#lang-switcher` с `href="?lang=xx"` и `hreflang`;
-  - `.sidebar-overlay#sidebarOverlay` — затемнение, клик по нему закрывает панель.
-- **Поведение:**
-  - сигнал `open` переключает кнопка меню; клик по вкладке, логотипу или затемнению закрывает панель;
-  - `Escape` закрывает панель (`window_event_listener`, обработчик снимается в `on_cleanup`);
-  - `Effect` синхронизирует класс `sidebar-open` на `<body>`: он прячет кнопку меню и показывает затемнение.
-- **`icon_paths(icon)`** (приватная) — пара путей AVIF/WebP; без папки берётся `const`.
-- **`set_body_open(open)`** (приватная, работает только в `hydrate`) — `classList.toggle("sidebar-open", open)`.
-- **`retarget_to_current_page(ev, target)`** (приватная, только `hydrate`) — перед переходом переписывает `href` переключателя на текущий адрес с новым `lang`. Остров не перерисовывается при навигации, поэтому его серверный `href` не знает, на какой странице сейчас пользователь.
+- **`SidebarManager()`** — без пропсов. На сервере ничего не делает, в браузере (фича `hydrate`) вызывает `dom::attach`.
+- **`dom::attach`** (приватная, только `hydrate`) — один раз вешает:
+  - обработчик `click` на **документ** (не на окно): клик доходит сюда раньше, чем до islands router, который слушает окно;
+  - обработчик `keydown` на окно: `Escape` закрывает открытое меню и возвращает фокус на кнопку `#menuToggle`.
+  Острова не пересоздаются при переходах, поэтому обработчики живут, пока открыт сайт.
+- **`on_click`** — по `closest()` от цели клика:
+  - `#menuToggle` — открыть или закрыть меню;
+  - `#sidebarOverlay` — закрыть;
+  - `#lang-switcher` — `retarget_to_current_page`;
+  - любая другая ссылка в `#sidebar` — закрыть меню сразу, не дожидаясь новой страницы.
+- **`set_open(open)`** — класс `open` у `#sidebar` (панель выезжает), `sidebar-open` у `<body>` (кнопка прячется, появляется затемнение), `aria-expanded` у кнопки. При открытии фокус переходит на первый пункт меню.
+- **`is_open`**, **`focus_by_id`** — мелкие помощники.
+- **`retarget_to_current_page(link)`** — перед переходом ставит в ссылку языка текущий адрес с `lang` из её `hreflang`. Сервер знает только адрес, с которым пришла страница, а поиск в каталоге меняет адрес на месте.
 
-## Смена языка
-Переход по `?lang=xx` перехватывает islands router. Сервер запоминает язык в cookie ([ctx.rs](../roots/ctx.md)) и рендерит страницу заново. Остров обёрнут в `per_lang` ([per_lang.rs](../roots/per_lang.md)), поэтому router заменяет его целиком с новыми подписями.
+## Состояние в разметке
+Открыто ли меню, хранится в классах, а не в сигнале. При любом переходе islands router переписывает атрибуты серверными (`class="sidebar"`, `aria-expanded="false"`, `class` у `<body>`), и меню закрывается само.
 
 ## Связи
-- Подписи и вкладки собирает сервер: [roots/chrome.rs](../roots/chrome.md).
+- Разметка меню и пункты: [roots/chrome.rs](../roots/chrome.md). Остров ставит `App` ([roots/shell.rs](../roots/shell.md)).
+- Стили: [_button-toggle.scss](../../style/roots/_roots/shell/navigation/_button-toggle.md), [_sidebar.scss](../../style/roots/_roots/shell/sidebar/_sidebar.md), [_nav-tab.scss](../../style/roots/_roots/shell/sidebar/_nav-tab.md), [_lang-switcher.scss](../../style/roots/_roots/shell/sidebar/_lang-switcher.md).
 - Реэкспорт: [shell/mod.rs](mod.md).
 
 ---
-> 📌 **Подпись документации:** ручной аудит · 2026-10-02.
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

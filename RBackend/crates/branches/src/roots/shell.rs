@@ -8,7 +8,10 @@
 use super::{
     chrome::sidebar, split_files::SplitFiles, Backdrop, Branch, BranchCtx, Gen, LazyIslands,
 };
-use crate::{branches::not_found::NotFoundBranch, shell::ParallaxManager};
+use crate::{
+    branches::not_found::NotFoundBranch,
+    shell::{ParallaxManager, SidebarManager},
+};
 use leptos::{hydration::HydrationScripts, prelude::*};
 use leptos_meta::{provide_meta_context, Body, Html, MetaTags};
 
@@ -23,7 +26,7 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <meta name="theme-color" content="#121212"/>
-                <link rel="icon" type="image/png" href="/images/manifest/png/icon-128x128.png"/>
+                <link rel="icon" type="image/svg+xml" href="/images/const/favicon.svg"/>
                 <link rel="preload" href="/fonts/Signika-Regular.woff2" r#as="font" r#type="font/woff2" crossorigin="anonymous"/>
                 <link rel="stylesheet" href=css/>
                 <HydrationScripts options islands=true islands_router=true/>
@@ -65,6 +68,7 @@ pub fn App() -> impl IntoView {
             </picture>
         </div>
         <ParallaxManager/>
+        <SidebarManager/>
         <div class="overlay"></div>
         <main id="app" data-branch=entry.spec.name>{(entry.render)(ctx)}</main>
     }

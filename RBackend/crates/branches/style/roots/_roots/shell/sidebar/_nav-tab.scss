@@ -1,86 +1,85 @@
+// Пункты меню. Переключатель языка — тоже пункт (`a.nav-tab#lang-switcher`),
+// поэтому выглядит и подсвечивается так же.
 .nav-tabs {
     display: flex;
     flex-direction: column;
-    padding: 10px 0 0 0;
-    margin: 0;
-    width: 100%;
-    overflow-y: auto;
     flex-grow: 1;
+    inline-size: 100%;
+    margin: 0;
+    padding-block-start: var(--space-xs);
+    overflow-y: auto;
 }
 
 .nav-tab {
-    display: flex;
-    align-items: center; /* Центрирование по вертикали */
-    padding: clamp(12px, 2.5vh, 25px) clamp(15px, 3vw, 30px);
-    gap: clamp(10px, 1.5vw, 20px);
-    cursor: pointer;
-    border-left: 4px solid transparent;
-    transition: all 0.2s ease;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    cursor: pointer;
     background: transparent;
-    font-size: clamp(1rem, 2vmin, 1.3rem);
+    border-inline-start: calc(var(--line-width) * 4) solid transparent;
+    transition:
+        transform var(--dur) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-soft);
 }
 
-/* Поддержка picture */
 .nav-tab picture,
 .nav-tab img {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* Иконки теперь масштабируются от 32px до 40px */
-    width: clamp(32px, 5vmin, 40px);
-    height: clamp(32px, 5vmin, 40px);
-
-    flex-shrink: 0; /* Иконка не сжимается */
+    flex-shrink: 0;
+    inline-size: var(--icon-size);
+    block-size: var(--icon-size);
 }
 
-/* Картинка внутри picture */
 .nav-tab picture img {
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: contain;
-    transition: transform 0.2s;
+    transition: transform var(--dur-fast) var(--ease-soft);
 }
 
 .nav-tab .page-title {
     white-space: normal;
-    word-wrap: break-word;
-    word-break: normal;
+    overflow-wrap: break-word;
     hyphens: none;
-    -webkit-hyphens: none;
-    -ms-hyphens: none;
-
-    /* Улучшаем центровку текста */
-    line-height: 1.2;
-    margin-top: 2px; /* Микро-коррекция, если шрифт визуально выше центра */
 }
 
+// Свечение от левого края пункта: при наведении и у открытой страницы.
 .nav-tab::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
+    z-index: -1;
     background: radial-gradient(ellipse at left, rgba(var(--azure-raw), 1) 0%, rgba(var(--azure-raw), 0) 60%);
     opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
+    transition: opacity var(--dur) var(--ease-soft);
 }
 
-.nav-tab:not(.active):hover::before,
+.nav-tab:hover::before,
 .nav-tab.active::before {
     opacity: 1;
 }
 
 .nav-tab.active {
-    border-left-color: var(--azure);
-    color: var(--text-default-color);
-    text-shadow: 0 0 10px var(--azure);
+    border-inline-start-color: var(--accent);
+    color: var(--text);
+    text-shadow: 0 0 var(--space-xs) var(--accent);
 }
 
 .nav-tab:hover img {
     transform: scale(1.1);
-    filter: drop-shadow(0 0 5px var(--azure));
+    filter: drop-shadow(0 0 var(--space-2xs) var(--accent));
+}
+
+.nav-tab:focus-visible {
+    box-shadow: inset 0 0 0 calc(var(--line-width) * 2) var(--accent);
+}
+
+@media (max-width: 37.5rem) {
+    .nav-tab .page-title {
+        font-size: var(--fs-md);
+    }
 }

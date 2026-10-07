@@ -1,15 +1,11 @@
 # [Переключатель языка (_lang-switcher.scss)](/RBackend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.scss)
 
 ## Назначение
-Стилизация кнопки выбора языка (RU/EN), расположенной в нижней части сайдбара.
-
-Перенесён из TS-версии без изменений; подробное описание правил — в доке оригинала [ground/roots/_roots/shell/sidebar/_lang-switcher.scss](/docs/Frontend/ground/roots/_roots/shell/sidebar/_lang-switcher.md).
-Общие стили каркаса: подключаются в [site.scss](../../../../site.md) глобально.
+Переключатель языка — последний пункт меню, прижат к низу панели. Раньше это была отдельная таблетка со своими размерами; теперь он в одной системе с пунктами ([_nav-tab.scss](_nav-tab.md)), а этот файл задаёт только отличия. Значения — из токенов [_tokens.scss](../../_tokens.md).
 
 ## Содержимое
-- Классы и id: `#lang-switcher`, `.low-res-mode`, `.sidebar`.
-- Анимации: `@keyframes slideUpFadeIn`.
+- **`#lang-switcher`** — линия `--line-subtle` сверху, отступ снизу не меньше выреза экрана (`env(safe-area-inset-bottom)`), текст не выделяется; подпись `--fs-md`, без переноса.
+- В открытом меню (`.sidebar.open`) появляется снизу вверх (`slideUpFadeIn`) с задержкой `--dur`.
 
 ---
-
-> 📌 **Подпись документации:** по исходнику и описанию TS-версии · 2026-10-02
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

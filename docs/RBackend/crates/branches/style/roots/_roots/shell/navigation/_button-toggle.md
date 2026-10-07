@@ -1,14 +1,13 @@
 # [Кнопка меню (_button-toggle.scss)](/RBackend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.scss)
 
 ## Назначение
-Стилизация основной кнопки открытия меню (бургера). Файл определяет внешний вид, анимацию и поведение кнопки в зависимости от состояния приложения.
-
-Перенесён из TS-версии без изменений; подробное описание правил — в доке оригинала [ground/roots/_roots/shell/navigation/_button-toggle.scss](/docs/Frontend/ground/roots/_roots/shell/navigation/_button-toggle.md).
-Общие стили каркаса: подключаются в [site.scss](../../../../site.md) глобально.
+Кнопка открытия меню справа сверху. Перенесена из TS-версии ([оригинал](/docs/Frontend/ground/roots/_roots/shell/navigation/_button-toggle.md)) и переведена на токены [_tokens.scss](../../_tokens.md): раньше она была 100×100px и на телефоне закрывала карточки при прокрутке.
 
 ## Содержимое
-- Классы и id: `.menu-toggle`, `.toggle-icon`.
+- **`.menu-toggle`** — квадрат `--control-size`: не меньше зоны нажатия `--tap-min`, растёт с шириной экрана до 4.5rem. Стекло `--surface-1` с размытием `--blur-glass`, рамка `--line`, скругление `--radius-md`. При наведении фон `--surface-2` и рамка `--accent`.
+- **`.menu-toggle picture`**, **`.toggle-icon`** — иконка занимает 70% кнопки и масштабируется вместе с ней; при наведении чуть увеличивается.
+- **`body.sidebar-open .menu-toggle`** — меню открыто: кнопка не нажимается и отъезжает на `--space-lg` синхронно с панелью.
+- **`.low-res-mode .menu-toggle`** — без размытия в режиме экономии.
 
 ---
-
-> 📌 **Подпись документации:** по исходнику и описанию TS-версии · 2026-10-02
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

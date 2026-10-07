@@ -1,143 +1,116 @@
-//! `SidebarManager` — кнопка меню, выезжающая боковая панель и переключатель языка.
+//! `SidebarManager` — ленивый остров, который оживляет меню сайта.
 //!
-//! Разметка и классы те же, что в TS-версии (`ground/roots/Shell.ts`), поэтому
-//! работают перенесённые стили `style/roots/_roots/shell`. Переходы по ссылкам
-//! перехватывает islands router Leptos: страница не перезагружается.
+//! Разметку меню рисует сервер ([`crate::roots`], `chrome.rs`), поэтому остров
+//! ничего не рисует: он вешает обработчики на документ и переключает классы.
+//! Остров ленивый (`#[island(lazy)]`): его код лежит в отдельном WASM-файле и не
+//! утяжеляет основной.
+//!
+//! Состояние «открыто» хранится в самой разметке (класс `open` у `#sidebar`).
+//! При переходе islands router переписывает атрибуты серверными, и меню
+//! закрывается само, без отдельного кода.
 
-use crate::model::Lang;
 use leptos::prelude::*;
-use serde::{Deserialize, Serialize};
 
-/// Вкладка навигации: адрес, иконка (`templates/main` → `/images/templates/{avif,webp}/main.*`) и подпись.
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub struct NavTab {
-    /// Адрес страницы.
-    pub href: String,
-    /// Папка и имя иконки внутри `/images`, без формата и расширения.
-    pub icon: String,
-    /// Подпись на языке страницы.
-    pub label: String,
-}
-
-/// Подписи панели на языке страницы.
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub struct SidebarLabels {
-    /// Подпись кнопки меню.
-    pub menu: String,
-    /// Подпись логотипа (ссылка на главную).
-    pub home: String,
-    /// Текст кнопки смены языка («Switch to RU»).
-    pub switch_lang: String,
-}
-
-/// Остров боковой панели. `target` — язык, на который переключает кнопка.
-#[island]
+/// Остров меню.
+#[island(lazy)]
 #[allow(clippy::must_use_candidate)]
-pub fn SidebarManager(target: Lang, labels: SidebarLabels, tabs: Vec<NavTab>) -> impl IntoView {
-    let open = RwSignal::new(false);
-    Effect::new(move |_| set_body_open(open.get()));
-    let escape = window_event_listener(leptos::ev::keydown, move |ev| {
-        if ev.key() == "Escape" {
-            open.set(false);
-        }
-    });
-    on_cleanup(move || escape.remove());
-    let close = move |_| open.set(false);
-    let nav_label = labels.home.clone();
-    let home = labels.home;
-    let tabs = tabs
-        .into_iter()
-        .map(|tab| {
-            let (avif, webp) = icon_paths(&tab.icon);
-            view! {
-                <a class="nav-tab" href=tab.href on:click=close>
-                    <picture>
-                        <source srcset=avif r#type="image/avif"/>
-                        <img src=webp alt="" loading="lazy"/>
-                    </picture>
-                    <span class="page-title">{tab.label}</span>
-                </a>
+pub fn SidebarManager() -> impl IntoView {
+    #[cfg(feature = "hydrate")]
+    dom::attach();
+}
+
+#[cfg(feature = "hydrate")]
+mod dom {
+    use leptos::prelude::{document, window, window_event_listener};
+    use wasm_bindgen::{closure::Closure, JsCast};
+    use web_sys::{Element, HtmlElement, MouseEvent};
+
+    const SIDEBAR: &str = "sidebar";
+    const TOGGLE: &str = "menuToggle";
+
+    /// Вешает обработчики один раз: острова не пересоздаются при переходах.
+    pub fn attach() {
+        // На документе, а не на окне: так клик доходит сюда раньше, чем до
+        // islands router, и ссылка языка успевает получить новый адрес.
+        let click = Closure::<dyn FnMut(MouseEvent)>::new(on_click);
+        let _ =
+            document().add_event_listener_with_callback("click", click.as_ref().unchecked_ref());
+        click.forget();
+        // Обработчик живёт, пока открыт сайт; снимать его незачем.
+        let _ = window_event_listener(leptos::ev::keydown, |ev| {
+            if ev.key() == "Escape" && is_open() {
+                set_open(false);
+                focus_by_id(TOGGLE);
             }
-        })
-        .collect_view();
-
-    view! {
-        <div class="controls-wrapper">
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label=labels.menu
-                aria-controls="sidebar"
-                aria-expanded=move || open.get().to_string()
-                on:click=move |_| open.update(|value| *value = !*value)
-            >
-                <picture>
-                    <source srcset="/images/const/avif/menu.avif" r#type="image/avif"/>
-                    <img src="/images/const/webp/menu.webp" alt="" class="toggle-icon"/>
-                </picture>
-            </button>
-        </div>
-        <nav class="sidebar" class:open=move || open.get() id="sidebar" aria-label=nav_label>
-            <div class="sidebar-header">
-                <a class="button-logo" href="/" aria-label=home on:click=close>
-                    <picture>
-                        <source srcset="/images/const/avif/logo.avif" r#type="image/avif"/>
-                        <img src="/images/const/webp/logo.webp" alt="" class="logo-icon"/>
-                    </picture>
-                </a>
-            </div>
-            <div class="nav-tabs">{tabs}</div>
-            <a
-                id="lang-switcher"
-                href=format!("?lang={}", target.code())
-                hreflang=target.code()
-                on:click=move |ev| retarget_to_current_page(&ev, target)
-            >
-                {labels.switch_lang}
-            </a>
-        </nav>
-        <div class="sidebar-overlay" id="sidebarOverlay" on:click=close></div>
+        });
     }
-}
 
-/// Пути иконки в двух форматах.
-fn icon_paths(icon: &str) -> (String, String) {
-    let (dir, name) = icon.rsplit_once('/').unwrap_or(("const", icon));
-    (
-        format!("/images/{dir}/avif/{name}.avif"),
-        format!("/images/{dir}/webp/{name}.webp"),
-    )
-}
-
-/// Класс `sidebar-open` на `<body>` прячет кнопку меню и показывает затемнение.
-fn set_body_open(open: bool) {
-    #[cfg(feature = "hydrate")]
-    if let Some(body) = document().body() {
-        let _ = body.class_list().toggle_with_force("sidebar-open", open);
+    fn on_click(ev: MouseEvent) {
+        let Some(target) = ev.target().and_then(|node| node.dyn_into::<Element>().ok()) else {
+            return;
+        };
+        let inside = |selector: &str| target.closest(selector).ok().flatten();
+        if inside("#menuToggle").is_some() {
+            set_open(!is_open());
+        } else if inside("#sidebarOverlay").is_some() {
+            set_open(false);
+        } else if let Some(link) = inside("#lang-switcher") {
+            retarget_to_current_page(&link);
+        } else if inside("#sidebar a").is_some() {
+            set_open(false);
+        }
     }
-    #[cfg(not(feature = "hydrate"))]
-    let _ = open;
-}
 
-/// Перед переходом ставит в ссылку текущий адрес с новым `lang`: остров не
-/// перерисовывается при навигации, а язык надо сменить именно на открытой странице.
-fn retarget_to_current_page(ev: &leptos::ev::MouseEvent, target: Lang) {
-    #[cfg(feature = "hydrate")]
-    {
-        use wasm_bindgen::JsCast;
-        let anchor = ev
-            .current_target()
-            .and_then(|node| node.dyn_into::<web_sys::HtmlAnchorElement>().ok());
+    fn is_open() -> bool {
+        document()
+            .get_element_by_id(SIDEBAR)
+            .is_some_and(|el| el.class_list().contains("open"))
+    }
+
+    /// Класс `open` выдвигает панель, `sidebar-open` на `<body>` прячет кнопку
+    /// и показывает затемнение. При открытии фокус переходит на первый пункт.
+    fn set_open(open: bool) {
+        if let Some(sidebar) = document().get_element_by_id(SIDEBAR) {
+            let _ = sidebar.class_list().toggle_with_force("open", open);
+        }
+        if let Some(body) = document().body() {
+            let _ = body.class_list().toggle_with_force("sidebar-open", open);
+        }
+        if let Some(toggle) = document().get_element_by_id(TOGGLE) {
+            let _ = toggle.set_attribute("aria-expanded", if open { "true" } else { "false" });
+        }
+        if open {
+            let first = document()
+                .query_selector("#sidebar .nav-tab")
+                .ok()
+                .flatten();
+            if let Some(first) = first.and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
+                let _ = first.focus();
+            }
+        }
+    }
+
+    fn focus_by_id(id: &str) {
+        let element = document().get_element_by_id(id);
+        if let Some(element) = element.and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
+            let _ = element.focus();
+        }
+    }
+
+    /// Ставит в ссылку языка текущий адрес с новым `lang`. Сервер знает только
+    /// адрес, с которым страница пришла, а поиск в каталоге меняет его на месте.
+    fn retarget_to_current_page(link: &Element) {
+        let Some(lang) = link.get_attribute("hreflang") else {
+            return;
+        };
         let url = window()
             .location()
             .href()
             .ok()
             .and_then(|href| web_sys::Url::new(&href).ok());
-        if let (Some(anchor), Some(url)) = (anchor, url) {
-            url.search_params().set("lang", target.code());
-            anchor.set_href(&url.href());
+        if let Some(url) = url {
+            url.search_params().set("lang", &lang);
+            let _ = link.set_attribute("href", &url.href());
         }
     }
-    #[cfg(not(feature = "hydrate"))]
-    let _ = (ev, target);
 }

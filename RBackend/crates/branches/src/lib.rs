@@ -6,7 +6,7 @@
 //!   превращает спецификации в маршруты Axum и рендерит ветку;
 //! - [`branches`] — ветки-страницы (`MainBranch`, `ItemsBranch`, `EditorBranch`,
 //!   `NotFoundBranch`);
-//! - [`shell`] — острова общего каркаса: боковая панель и параллакс фона;
+//! - [`shell`] — острова общего каркаса: меню и параллакс фона;
 //! - [`catalog`] — каталог предметов из FlatBuffers-паков, живёт только на сервере.
 //!
 //! В браузер уходит готовый HTML. WASM содержит только острова
@@ -30,5 +30,6 @@ pub mod roots;
 pub fn hydrate() {
     console_error_panic_hook::set_once();
     leptos::mount::hydrate_islands();
+    shell::fade_on_leave();
     shell::prefetch_lazy_islands();
 }
