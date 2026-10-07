@@ -399,6 +399,7 @@
           - 📂 [**Постоянные ассеты**](Frontend/static/images/const/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
+          - 📂 [**editor**](Frontend/static/images/editor/index.md)
           - 📂 [**Иконки игровых терминов**](Frontend/static/images/fonticon/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
@@ -895,6 +896,7 @@
       - 📄 [symbols.py](scripts/docs_lint/symbols.md)
       - 📄 [truth.py](scripts/docs_lint/truth.md)
     - 📄 [Линтер документации](scripts/check_docs.md)
+    - 📄 [editor_ui_art.py](scripts/editor_ui_art.md)
     - 📄 [Генератор карты](scripts/generate_structure.md)
     - 📄 [Пуш в репозиторий](scripts/git_push.md)
     - 📄 [Переименование ассетов](scripts/rename_images.md)
