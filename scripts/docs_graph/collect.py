@@ -55,14 +55,24 @@ LINK, IMPORT = 1, 2
 # Глубина вложенности кластеров: глубже папки сливаются в предка, иначе мелкие подкластеры дробят карту.
 MAX_DEPTH = 5
 PROBLEMS = 'Проблемы'
+STYLES = 'Стили'
+# Где у части проекта отделяются стили: папка `style` нового сайта или, у старого фронтенда, где SCSS лежит
+# вперемешку с TS, — подкластер «Стили» на втором уровне, рядом с кодом той же части.
+STYLE_DIR, STYLE_DEPTH = 'style', 2
 
 
-def group_of(path: str, problems: list[str]) -> list[str]:
-    """Путь кластера: папки дока без `docs/` (у исходника — его папки) либо «Проблемы» и причина."""
+def group_of(path: str, problems: list[str], language: str) -> list[str]:
+    """Путь кластера: папки дока без `docs/` (у исходника — его папки), стили — в своём подкластере
+    рядом с кодом; у проблемного — «Проблемы» и причина."""
     if problems:
         return [PROBLEMS, problems[0]]
     rel = path[len('docs/'):] if path.startswith('docs/') else path
-    return [p for p in os.path.dirname(rel).split('/') if p][:MAX_DEPTH]
+    parts = [p for p in os.path.dirname(rel).split('/') if p]
+    if STYLE_DIR in parts:
+        parts[parts.index(STYLE_DIR)] = STYLES
+    elif language == 'scss':
+        parts.insert(STYLE_DEPTH, STYLES)
+    return parts[:MAX_DEPTH]
 
 
 def collect() -> dict:
@@ -72,11 +82,11 @@ def collect() -> dict:
     for d in docs:
         text, src = read(d), source_of(d)
         nodes.append({'id': d, 'title': title(d, text), 'zone': zone(d), 'lang': lang(src), 'hub': d in HUBS,
-                      'src': src, 'text': text, 'bad': bad.get(d, []), 'group': group_of(d, bad.get(d, []))})
+                      'src': src, 'text': text, 'bad': bad.get(d, []), 'group': group_of(d, bad.get(d, []), lang(src))})
     for s in orphan_src:
         why = [NO_MIRROR]
         nodes.append({'id': s, 'title': os.path.basename(s), 'zone': zone('docs/' + s), 'lang': lang(s),
-                      'hub': False, 'src': s, 'text': '', 'bad': why, 'group': group_of(s, why), 'code': True})
+                      'hub': False, 'src': s, 'text': '', 'bad': why, 'group': group_of(s, why, lang(s)), 'code': True})
     index = {n['id']: i for i, n in enumerate(nodes)}
 
     def node_of(path: str) -> int | None:

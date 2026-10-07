@@ -7,7 +7,7 @@
 
 ## Содержимое
 *   [**core.ts**](core.md): Точка инициализации.
-*   [**roots/**](roots/Branch.md): Базовые компоненты и глобальные стили.
+*   [**roots/**](roots/index.md): Базовые компоненты и глобальные стили.
     *   [`Branch.ts`](roots/Branch.md) — базовый жизненный цикл страницы.
     *   [`Gen.ts`](roots/Gen.md) — SPA-роутер.
     *   [`StructuredBranch.ts`](roots/StructuredBranch.md) — шаблон страницы с 4 слоями.

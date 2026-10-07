@@ -21,7 +21,7 @@
 ## Связи (Dependencies)
 Импортирует все атомарные стили элементов заголовка:
 *   `_nickname.scss`
-*   `_stats-player-grid.scss`
+*   [`_stats-player-grid.scss`](_stats-player-grid.md)
 *   `_stats-heroes-wrapper.scss`
 *   ... и другие.
 

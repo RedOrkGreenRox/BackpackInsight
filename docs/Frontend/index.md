@@ -48,6 +48,7 @@
 
 ## Связанные документы
 *   [тесты фронтенда](tests/index.md)
+*   [ядро фронтенда (ground/)](ground/index.md), [облачные функции (functions/)](functions/index.md), [изображения (images/)](static/images/index.md)
 *   [концепция проекта](../readme.md)
 
 ---

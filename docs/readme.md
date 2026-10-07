@@ -12,6 +12,8 @@
 *   [.gitignore](.gitignore.md)
 *   [.gitattributes](.gitattributes.md)
 *   [.dockerignore](.dockerignore.md)
+*   [пример переменных окружения](.env.md)
+*   [корневой package.json](package.md)
 
 ---
 

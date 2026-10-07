@@ -7,19 +7,22 @@ function drawGroups(ctx, toScreenXY, k) {
     for (const kid of g.kids.values()) {
       if (!kid.weight) continue;
       const [x, y] = toScreenXY(kid.cx, kid.cy), r = kid.r * k, bad = isProblem(kid) || kid.parent && isProblem(kid.parent);
-      const show = kid.depth === 1 || r > 70 * kid.depth;
-      if (!show) continue;
-      ctx.globalAlpha = kid.depth === 1 ? 0.28 : 0.16;
-      ctx.strokeStyle = bad ? G.bad : 'rgba(170,185,255,1)';
-      ctx.lineWidth = kid.depth === 1 ? 1.2 : 0.8;
-      ctx.setLineDash(kid.depth === 1 ? [] : [3, 5]);
-      ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
-      const size = kid.depth === 1 ? 15 : 12;
-      ctx.globalAlpha = kid.depth === 1 ? 0.75 : 0.55;
-      ctx.font = `600 ${size}px "Unbounded", "Golos Text", system-ui, sans-serif`;
-      ctx.fillStyle = bad ? G.bad : '#c9d1f2';
-      // Подпись большого круга — внутри у верхней кромки, маленького — над ним.
-      ctx.fillText(`${kid.name} · ${kid.weight}`, x, r > 90 ? y - r + size + 10 : y - r - 6);
+      // Кластеры стилей видны на любом масштабе и обведены цветом SCSS, чтобы отличать их от кода рядом.
+      const style = kid.name === 'Стили', main = kid.depth === 1 || style;
+      if (main || r > 70 * kid.depth) {
+        const color = bad ? G.bad : style ? LANGS.scss.rgb : 'rgba(170,185,255,1)';
+        ctx.globalAlpha = main ? 0.3 : 0.16;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = main ? 1.2 : 0.8;
+        ctx.setLineDash(main ? [] : [3, 5]);
+        ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
+        const size = kid.depth === 1 ? 15 : 12;
+        ctx.globalAlpha = main ? 0.8 : 0.55;
+        ctx.font = `600 ${size}px "Unbounded", "Golos Text", system-ui, sans-serif`;
+        ctx.fillStyle = bad || style ? color : '#c9d1f2';
+        // Подпись большого круга — внутри у верхней кромки, маленького — над ним.
+        ctx.fillText(`${kid.name} · ${kid.weight}`, x, r > 90 ? y - r + size + 10 : y - r - 6);
+      }
       walk(kid);
     }
   };
