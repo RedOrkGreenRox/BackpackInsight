@@ -9,3 +9,8 @@ if git diff --cached --name-only --diff-filter=ADR | grep -q .; then
     python3 "$root/scripts/generate_structure.py" >/dev/null
     git add "$root/docs/structure.md"
 fi
+# Граф документации (scripts/docs_graph) пересобирается в target/docs-graph.html,
+# когда в коммите меняются доки или сам сборщик графа.
+if git diff --cached --name-only | grep -qE '^(docs/|README\.md$|scripts/docs_graph/)'; then
+    python3 "$root/scripts/docs_graph/build.py" >/dev/null || echo "pre-commit: граф документации не собрался" >&2
+fi

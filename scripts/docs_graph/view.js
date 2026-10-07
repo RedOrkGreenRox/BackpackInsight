@@ -4,7 +4,8 @@
 const V = { cam: { x: 0, y: 0, k: 0.7 }, hover: null, selected: null, dirty: true, w: 0, h: 0, dpr: 1 };
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
-const dust = Array.from({ length: 220 }, (_, i) => { const r = rng(100 + i); return [r(), r(), r()]; });
+// Один генератор на всю пыль: соседние зёрна дают похожие числа и выстраивают точки в полосы.
+const dustRng = rng(7), dust = Array.from({ length: 220 }, () => [dustRng(), dustRng(), dustRng()]);
 
 function resize() {
   V.dpr = Math.min(window.devicePixelRatio || 1, 2);
