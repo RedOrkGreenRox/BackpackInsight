@@ -3,6 +3,7 @@
 // Рамка с каменной сеткой (scripts/editor_ui_art.py). Отступы — толщина рамки
 // в клетках картинки (клетка ≈ 71.4 px), чтобы сетка фона совпала с клетками поля.
 .ed-frame {
+    position: relative;
     padding: calc(var(--cell) * 0.295) calc(var(--cell) * 0.322) calc(var(--cell) * 0.225) calc(var(--cell) * 0.294);
     background: image-set(url("/images/editor/inventory.avif") type("image/avif"), url("/images/editor/inventory.webp") type("image/webp")) center / 100% 100% no-repeat;
 }
@@ -84,4 +85,45 @@
     filter: drop-shadow(0 0.4rem 0.6rem rgb(0 0 0 / 0.6));
 
     .ed-piece { pointer-events: none; }
+}
+
+// Кнопка «i» в правом верхнем углу рамки и её подсказка.
+.ed-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(var(--tap-min) * 0.8);
+    height: calc(var(--tap-min) * 0.8);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transform: translate(35%, -35%);
+
+    img { display: block; width: 100%; height: 100%; }
+    &:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+}
+
+.ed-info-text {
+    position: absolute;
+    top: calc(var(--tap-min) * 0.6);
+    right: 0;
+    z-index: 20;
+    max-width: min(22rem, calc(100vw - 2 * var(--space-md)));
+    margin: 0;
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--line-width) solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface-panel);
+    box-shadow: var(--shadow-2);
+    font-size: var(--fs-xs);
+}
+
+// Ручка размера поля — нижний край рамки.
+.ed-grip-field {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

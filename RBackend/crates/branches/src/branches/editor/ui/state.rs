@@ -1,7 +1,7 @@
 //! [`Editor`] — сигналы острова редактора, общие для всех его частей (через контекст).
 
 use super::drag::Drag;
-use crate::branches::editor::model::{Board, Kit, Placed};
+use crate::branches::editor::model::{Board, Kit, Pile, Placed};
 use leptos::{html, prelude::*};
 use std::sync::Arc;
 
@@ -29,6 +29,19 @@ impl Rect {
     }
 }
 
+/// Вид склада.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum StashMode {
+    /// Свободная зона: предметы падают и ложатся друг на друга.
+    #[default]
+    Gravity,
+    /// Список в порядке поступления.
+    List,
+}
+
+/// Куда положить следующий предмет на складе с гравитацией: указатель и точка захвата.
+pub type Spawn = ((f64, f64), (f64, f64));
+
 /// Состояние редактора. Копируется дёшево: внутри только сигналы и ссылки на узлы.
 #[derive(Clone, Copy)]
 pub struct Editor {
@@ -46,6 +59,16 @@ pub struct Editor {
     pub hover: RwSignal<Option<Placed>>,
     /// Размер клетки поля, px (меряется при начале перетаскивания).
     pub cell_px: RwSignal<f64>,
+    /// Вид склада.
+    pub stash: RwSignal<StashMode>,
+    /// Тела склада с гравитацией.
+    pub pile: RwSignal<Pile>,
+    /// Где отпустили предмет над складом (для склада с гравитацией).
+    pub spawn: StoredValue<Option<Spawn>>,
+    /// Клетка поля, заданная ручкой, px; `None` — по размеру экрана.
+    pub field_cell: RwSignal<Option<f64>>,
+    /// Высота списка каталога, заданная ручкой, px.
+    pub catalog_height: RwSignal<Option<f64>>,
     /// Поле.
     pub field: NodeRef<html::Div>,
     /// Склад.
@@ -66,6 +89,11 @@ impl Editor {
             pointer: RwSignal::new((0.0, 0.0)),
             hover: RwSignal::new(None),
             cell_px: RwSignal::new(0.0),
+            stash: RwSignal::new(StashMode::default()),
+            pile: RwSignal::new(Pile::default()),
+            spawn: StoredValue::new(None),
+            field_cell: RwSignal::new(None),
+            catalog_height: RwSignal::new(None),
             field: NodeRef::new(),
             storage: NodeRef::new(),
             catalog: NodeRef::new(),

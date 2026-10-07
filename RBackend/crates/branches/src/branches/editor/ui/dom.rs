@@ -1,4 +1,5 @@
-//! Обращения к странице: размеры элементов, точка захвата, адресная строка.
+//! Обращения к странице: размеры элементов, точка захвата, захват указателя,
+//! адресная строка и настройки в `localStorage`.
 //!
 //! Работают только в браузере (`hydrate`); при рендере на сервере это заглушки.
 
@@ -45,6 +46,55 @@ pub fn grab(ev: &leptos::ev::PointerEvent) -> (f64, f64) {
     }
     let _ = ev;
     (0.5, 0.5)
+}
+
+/// Все движения указателя `ev` идут элементу под ним, даже за его краем (для ручек размера).
+pub fn capture(ev: &leptos::ev::PointerEvent) {
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::JsCast;
+        if let Some(element) = ev
+            .current_target()
+            .and_then(|target| target.dyn_into::<web_sys::Element>().ok())
+        {
+            let _ = element.set_pointer_capture(ev.pointer_id());
+        }
+    }
+    let _ = ev;
+}
+
+/// Настройка из `localStorage`; `None`, если её нет или хранилище недоступно.
+#[must_use]
+pub fn pref(key: &str) -> Option<String> {
+    #[cfg(feature = "hydrate")]
+    {
+        window()
+            .local_storage()
+            .ok()
+            .flatten()?
+            .get_item(key)
+            .ok()
+            .flatten()
+    }
+    #[cfg(not(feature = "hydrate"))]
+    {
+        let _ = key;
+        None
+    }
+}
+
+/// Сохраняет настройку; пустое значение её убирает. Ошибки хранилища не мешают работе.
+pub fn set_pref(key: &str, value: &str) {
+    #[cfg(feature = "hydrate")]
+    if let Some(storage) = window().local_storage().ok().flatten() {
+        let _ = if value.is_empty() {
+            storage.remove_item(key)
+        } else {
+            storage.set_item(key, value)
+        };
+    }
+    #[cfg(not(feature = "hydrate"))]
+    let _ = (key, value);
 }
 
 /// Ставит параметры адреса без перезагрузки; пустое значение убирает параметр.

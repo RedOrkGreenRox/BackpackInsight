@@ -12,7 +12,7 @@
   - `leptos_meta` 0.8 — `<Title>`, `<Meta>`, `<Html>`, `<Body>` из веток;
   - `serde` с `derive` — пропсы островов и ответы серверных функций.
 - **`[features]`** — две сборки, необязательные зависимости включаются через `dep:`.
-- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`, а для перетаскивания в редакторе ([editor/ui/input.rs](src/branches/editor/ui/input.md)) — `Element`, `DomRect`, `EventTarget`, `PointerEvent`, `MouseEvent`, `KeyboardEvent`.
+- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`, а для перетаскивания в редакторе ([editor/ui/input.rs](src/branches/editor/ui/input.md)) — `Element`, `DomRect`, `EventTarget`, `PointerEvent`, `MouseEvent`, `KeyboardEvent`, а для настроек зрителя в `localStorage` ([editor/ui/dom.rs](src/branches/editor/ui/dom.md)) — `Storage`.
 - **`serde_json` без фичи** — нужен и серверу, и острову редактора (файл билда в браузере, [editor/model/file.rs](src/branches/editor/model/file.md)).
 - **Фича `ssr`** (сервер):
   - `leptos/ssr`, `leptos_meta/ssr`;

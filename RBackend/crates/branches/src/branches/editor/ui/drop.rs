@@ -6,7 +6,7 @@
 use super::{
     dom::rect,
     drag::{Drag, Lifted, Origin},
-    state::Editor,
+    state::{Editor, StashMode},
 };
 use crate::branches::editor::model::{Board, Kit, Placed};
 use leptos::prelude::*;
@@ -39,6 +39,9 @@ pub fn finish(editor: Editor, drag: Drag, cancel: bool) {
         drag.target(&kit, pointer, field, editor.cell_px.get_untracked())
     });
     let to_storage = !cancel && over(editor.storage);
+    if to_storage && editor.stash.get_untracked() == StashMode::Gravity {
+        editor.spawn.set_value(Some((pointer, drag.grab)));
+    }
     let to_catalog = !cancel && over(editor.catalog);
     editor.edit(|kit, board| {
         let placed = target.filter(|t| !cancel && board.fits(kit, t));

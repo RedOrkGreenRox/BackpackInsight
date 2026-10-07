@@ -4,11 +4,13 @@
 
 pub mod board;
 pub mod cell;
+pub mod contact;
 pub mod file;
 pub mod filter;
 pub mod kit;
 pub mod labels;
 pub mod orientation;
+pub mod pile;
 pub mod placed;
 pub mod url;
 
@@ -16,6 +18,8 @@ pub mod url;
 mod board_tests;
 #[cfg(test)]
 mod file_tests;
+#[cfg(test)]
+mod pile_tests;
 
 pub use board::Board;
 pub use cell::{place, Bounds, Cell, HEIGHT, WIDTH};
@@ -24,4 +28,5 @@ pub use filter::{Filter, Kind, SortBy};
 pub use kit::{Kit, KitItem};
 pub use labels::EditorLabels;
 pub use orientation::Orientation;
+pub use pile::{Body, Pile};
 pub use placed::Placed;

@@ -7,9 +7,11 @@
 *   `inventory` — рамка инвентаря с каменной сеткой 9 × 6 (687 × 464).
 *   `inventory-bag-mode` — то же в режиме сумок (оранжевая сетка).
 *   `storage` — фон склада (1048 × 216).
+*   `icons/` — иконки кнопок: `reset`, `bag-mode`, `stash-list`, `stash-gravity`, `info` (96 × 96).
+*   `heroes/` — круглые значки героев (48 × 48), `shared` — герой не выбран.
 
 ## Связи (Dependencies)
-*   Стили: [_field.scss](/docs/RBackend/crates/branches/style/branches/editor/_field.md) (рамка), [_panels.scss](/docs/RBackend/crates/branches/style/branches/editor/_panels.md) (склад).
+*   Стили: [_field.scss](/docs/RBackend/crates/branches/style/branches/editor/_field.md) (рамка), [_panels.scss](/docs/RBackend/crates/branches/style/branches/editor/_panels.md) (склад и каталог), [toolbar.rs](/docs/RBackend/crates/branches/src/branches/editor/ui/toolbar.md) (иконки), [hero.rs](/docs/RBackend/crates/branches/src/branches/editor/ui/hero.md) (портреты).
 
 ---
 

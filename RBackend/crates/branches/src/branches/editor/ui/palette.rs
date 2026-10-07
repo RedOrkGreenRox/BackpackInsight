@@ -1,11 +1,11 @@
 //! Каталог вместо магазина: поиск, вид, редкость, сортировка; герой берётся из билда.
 //! Предмет из каталога перетаскивается на поле или на склад.
 
-use super::{drag::Origin, input::start, piece::PieceArt, state::Editor};
+use super::{dom::rect, drag::Origin, grip::Grip, input::start, piece::PieceArt, state::Editor};
 use crate::branches::editor::model::{
     filter::rarities, EditorLabels, Filter, Kind, Orientation, SortBy,
 };
-use leptos::prelude::*;
+use leptos::{html, prelude::*};
 
 /// Сколько карточек показывать за раз.
 const PAGE: usize = 60;
@@ -34,28 +34,7 @@ pub fn Palette(labels: EditorLabels) -> impl IntoView {
                 .collect_view()
         })
     };
-    let kinds = Kind::ALL
-        .iter()
-        .map(|&(_, code)| {
-            let text = match code {
-                "bags" => labels.kind_bags.clone(),
-                "items" => labels.kind_items.clone(),
-                _ => labels.kind_all.clone(),
-            };
-            view! { <option value=code>{text}</option> }
-        })
-        .collect_view();
-    let sorts = SortBy::ALL
-        .iter()
-        .map(|&(_, code)| {
-            let text = match code {
-                "name" => labels.sort_name.clone(),
-                "price" => labels.sort_price.clone(),
-                _ => labels.sort_rarity.clone(),
-            };
-            view! { <option value=code>{text}</option> }
-        })
-        .collect_view();
+    let (kinds, sorts) = (kind_options(&labels), sort_options(&labels));
     let shown = move || {
         found
             .get()
@@ -68,6 +47,13 @@ pub fn Palette(labels: EditorLabels) -> impl IntoView {
     let loading = move || editor.kit.with(Option::is_none);
     let loading_text = labels.loading.clone();
     let more_text = labels.more.clone();
+    let cards = NodeRef::<html::Div>::new();
+    let height = move || {
+        editor
+            .catalog_height
+            .get()
+            .map(|h| format!("max-height:{h}px"))
+    };
     view! {
         <div class="ed-catalog" role="region" node_ref=editor.catalog aria-label=labels.catalog.clone()>
             <h2 class="ed-heading">{labels.catalog.clone()}</h2>
@@ -101,9 +87,11 @@ pub fn Palette(labels: EditorLabels) -> impl IntoView {
             <Show when=loading>
                 <p class="ed-loading">{loading_text.clone()}</p>
             </Show>
-            <div class="ed-cards">
+            <div class="ed-cards" node_ref=cards style=height>
                 <For each=shown key=|piece| *piece children=move |piece| view! { <Card piece/> }/>
             </div>
+            <Grip value=editor.catalog_height current=move |()| rect(cards).map(|r| r.height)
+                per_px=1.0 min=120.0 max=4000.0 label=labels.resize.clone() class="ed-grip-catalog"/>
             <Show when=more>
                 <button class="ed-button ed-more" on:click=move |_| limit.update(|l| *l += PAGE)>
                     {more_text.clone()}
@@ -134,4 +122,34 @@ fn Card(piece: usize) -> impl IntoView {
         </div>
     }
     .into_any()
+}
+
+/// Варианты вида: всё, сумки, предметы.
+fn kind_options(labels: &EditorLabels) -> impl IntoView {
+    Kind::ALL
+        .iter()
+        .map(|&(_, code)| {
+            let text = match code {
+                "bags" => labels.kind_bags.clone(),
+                "items" => labels.kind_items.clone(),
+                _ => labels.kind_all.clone(),
+            };
+            view! { <option value=code>{text}</option> }
+        })
+        .collect_view()
+}
+
+/// Варианты порядка: редкость, имя, цена.
+fn sort_options(labels: &EditorLabels) -> impl IntoView {
+    SortBy::ALL
+        .iter()
+        .map(|&(_, code)| {
+            let text = match code {
+                "name" => labels.sort_name.clone(),
+                "price" => labels.sort_price.clone(),
+                _ => labels.sort_rarity.clone(),
+            };
+            view! { <option value=code>{text}</option> }
+        })
+        .collect_view()
 }

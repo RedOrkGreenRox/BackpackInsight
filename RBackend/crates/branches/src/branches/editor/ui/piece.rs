@@ -37,14 +37,22 @@ pub fn size_style(width: i16, height: i16) -> String {
 /// `placed` — предмет в инвентаре или на складе.
 #[component]
 #[allow(clippy::must_use_candidate)]
-pub fn PieceArt(item: KitItem, orient: Orientation, #[prop(optional)] placed: bool) -> impl IntoView {
+pub fn PieceArt(
+    item: KitItem,
+    orient: Orientation,
+    #[prop(optional)] placed: bool,
+) -> impl IntoView {
     let b = item.bounds();
     let style = format!(
         "{};transform:translate(-50%,-50%) rotate({}deg)",
         size_style(b.width(), b.height()),
         u16::from(orient.turns()) * 90
     );
-    let image = if placed { item.placed_image() } else { &item.image };
+    let image = if placed {
+        item.placed_image()
+    } else {
+        &item.image
+    };
     let [avif, webp] = ["avif", "webp"].map(|format| srcset(image, format));
     view! {
         <div class="ed-art" style=style>

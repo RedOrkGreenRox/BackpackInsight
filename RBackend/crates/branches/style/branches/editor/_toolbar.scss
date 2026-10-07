@@ -1,0 +1,89 @@
+// Панель над полем: портрет героя со списком героев, иконки из игры, импорт и экспорт.
+.ed-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    width: calc(var(--cell) * 9.62);
+    max-width: 100%;
+}
+
+.ed-toolbar-gap { flex: 1; }
+
+.ed-icon {
+    width: var(--tap-min);
+    height: var(--tap-min);
+    padding: 0.2rem;
+    border: var(--line-width) solid transparent;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-soft);
+
+    img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    &:hover { background: var(--surface-2); }
+    &:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    &.ed-on { background: var(--surface-3); box-shadow: var(--azure-glow-high); }
+}
+
+.ed-hero { position: relative; }
+
+.ed-portrait {
+    width: calc(var(--tap-min) * 1.25);
+    height: calc(var(--tap-min) * 1.25);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+
+    img { display: block; width: 100%; height: 100%; }
+    &:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+}
+
+// Щелчок мимо списка закрывает его.
+.ed-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    border: 0;
+    background: transparent;
+    cursor: default;
+}
+
+.ed-heroes {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 31;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+    gap: var(--space-2xs);
+    width: min(26rem, calc(100vw - 2 * var(--space-md)));
+    margin-top: var(--space-2xs);
+    padding: var(--space-xs);
+    border: var(--line-width) solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface-panel);
+    box-shadow: var(--shadow-2);
+}
+
+.ed-hero-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs);
+    border: var(--line-width) solid transparent;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--text);
+    font: inherit;
+    font-size: var(--fs-xs);
+    cursor: pointer;
+
+    img { width: 2.5rem; height: 2.5rem; }
+    &:hover { background: var(--surface-2); }
+    &:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    &.ed-on { border-color: var(--accent); }
+}

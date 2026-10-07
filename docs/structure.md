@@ -400,6 +400,8 @@
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
           - 📂 [**editor**](Frontend/static/images/editor/index.md)
+            - 📂 **Секция героев**
+            - 📂 **icons**
           - 📂 [**Иконки игровых терминов**](Frontend/static/images/fonticon/index.md)
             - 📂 **Формат AVIF**
             - 📂 **Формат WebP**
@@ -553,6 +555,7 @@
                 - 📄 [board.rs](RBackend/crates/branches/src/branches/editor/model/board.md)
                 - 📄 [board_tests.rs](RBackend/crates/branches/src/branches/editor/model/board_tests.md)
                 - 📄 [cell.rs](RBackend/crates/branches/src/branches/editor/model/cell.md)
+                - 📄 [contact.rs](RBackend/crates/branches/src/branches/editor/model/contact.md)
                 - 📄 [file.rs](RBackend/crates/branches/src/branches/editor/model/file.md)
                 - 📄 [file_tests.rs](RBackend/crates/branches/src/branches/editor/model/file_tests.md)
                 - 📄 [filter.rs](RBackend/crates/branches/src/branches/editor/model/filter.md)
@@ -560,6 +563,8 @@
                 - 📄 [labels.rs](RBackend/crates/branches/src/branches/editor/model/labels.md)
                 - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/model/mod.md)
                 - 📄 [orientation.rs](RBackend/crates/branches/src/branches/editor/model/orientation.md)
+                - 📄 [pile.rs](RBackend/crates/branches/src/branches/editor/model/pile.md)
+                - 📄 [pile_tests.rs](RBackend/crates/branches/src/branches/editor/model/pile_tests.md)
                 - 📄 [placed.rs](RBackend/crates/branches/src/branches/editor/model/placed.md)
                 - 📄 [url.rs](RBackend/crates/branches/src/branches/editor/model/url.md)
               - 📂 **ui**
@@ -569,12 +574,15 @@
                 - 📄 [exchange.rs](RBackend/crates/branches/src/branches/editor/ui/exchange.md)
                 - 📄 [field.rs](RBackend/crates/branches/src/branches/editor/ui/field.md)
                 - 📄 [ghost.rs](RBackend/crates/branches/src/branches/editor/ui/ghost.md)
+                - 📄 [grip.rs](RBackend/crates/branches/src/branches/editor/ui/grip.md)
+                - 📄 [hero.rs](RBackend/crates/branches/src/branches/editor/ui/hero.md)
                 - 📄 [input.rs](RBackend/crates/branches/src/branches/editor/ui/input.md)
                 - 📄 [manager.rs](RBackend/crates/branches/src/branches/editor/ui/manager.md)
                 - 📄 [marks.rs](RBackend/crates/branches/src/branches/editor/ui/marks.md)
                 - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/ui/mod.md)
                 - 📄 [palette.rs](RBackend/crates/branches/src/branches/editor/ui/palette.md)
                 - 📄 [piece.rs](RBackend/crates/branches/src/branches/editor/ui/piece.md)
+                - 📄 [pile.rs](RBackend/crates/branches/src/branches/editor/ui/pile.md)
                 - 📄 [state.rs](RBackend/crates/branches/src/branches/editor/ui/state.md)
                 - 📄 [storage.rs](RBackend/crates/branches/src/branches/editor/ui/storage.md)
                 - 📄 [toolbar.rs](RBackend/crates/branches/src/branches/editor/ui/toolbar.md)
@@ -651,6 +659,7 @@
               - 📄 [_field.scss](RBackend/crates/branches/style/branches/editor/_field.md)
               - 📄 [Макет страницы](RBackend/crates/branches/style/branches/editor/_layout.md)
               - 📄 [_panels.scss](RBackend/crates/branches/style/branches/editor/_panels.md)
+              - 📄 [_toolbar.scss](RBackend/crates/branches/style/branches/editor/_toolbar.md)
             - 📂 **Библиотека предметов**
               - 📂 **Логика библиотеки**
                 - 📂 **Действия**

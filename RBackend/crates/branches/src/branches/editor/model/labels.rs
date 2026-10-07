@@ -35,12 +35,18 @@ pub struct EditorLabels {
     pub sort_price: String,
     /// «Показать ещё».
     pub more: String,
-    /// Заголовок поля.
+    /// Имя поля для экранных дикторов.
     pub inventory: String,
-    /// Заголовок склада.
+    /// Имя склада для экранных дикторов.
     pub storage: String,
-    /// Пустой склад.
-    pub storage_empty: String,
+    /// Кнопка «склад списком».
+    pub stash_list: String,
+    /// Кнопка «склад с гравитацией».
+    pub stash_gravity: String,
+    /// Кнопка подсказки «i».
+    pub info: String,
+    /// Подсказка ручки размера.
+    pub resize: String,
     /// Кнопка режима сумок.
     pub bag_mode: String,
     /// Кнопка сброса.

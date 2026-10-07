@@ -1,13 +1,20 @@
-// Каталог, панель кнопок и склад.
-.ed-catalog,
-.ed-storage {
+// Одна панель склада и каталога на фоне склада из игры (images/editor/storage):
+// склад сверху растёт по содержимому, каталог под ним.
+.ed-stash {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
     padding: var(--space-sm);
     border: var(--line-width) solid var(--line);
     border-radius: var(--radius-lg);
-    background: var(--surface-panel);
+    background: image-set(url("/images/editor/storage.avif") type("image/avif"), url("/images/editor/storage.webp") type("image/webp")) center top / max(100%, 65rem) auto repeat;
+    box-shadow: var(--shadow-1);
+}
+
+.ed-catalog {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
 }
 
 .ed-controls {
@@ -67,39 +74,24 @@
     line-height: var(--lh-tight);
 }
 
-.ed-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-2xs);
-}
-
-.ed-hero {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-
-    select {
-        min-height: var(--tap-min);
-        border: var(--line-width) solid var(--line);
-        border-radius: var(--radius-md);
-        background: var(--surface-2);
-        color: var(--text);
-        font: inherit;
-    }
-}
-
-// Склад на тёмной коже из игры (images/editor/storage), шириной с рамку поля.
+// Склад: по содержимому, не ниже двух строк; линия отделяет его от каталога.
 .ed-storage {
     --cell: calc(var(--field-cell) * 0.7);
-    width: 100%;
-    max-width: calc(var(--field-cell) * 9.62);
-    box-sizing: border-box;
-    min-height: 8rem;
-    background: image-set(url("/images/editor/storage.avif") type("image/avif"), url("/images/editor/storage.webp") type("image/webp")) center / cover;
+    padding-bottom: var(--space-xs);
+    border-bottom: var(--line-width) solid var(--line);
 }
 
+// Свободная зона с гравитацией: высоту задаёт остров (куча плюс строка).
+.ed-pile {
+    position: relative;
+    width: 100%;
+    transition: height var(--dur-fast) var(--ease-soft);
+}
+
+.ed-body { position: absolute; }
+
 .ed-storage-list {
+    min-height: calc(var(--cell) * 2);
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -112,9 +104,33 @@
     touch-action: none;
 }
 
-.ed-storage-empty,
 .ed-loading {
     margin: 0;
     color: var(--text-muted);
     font-size: var(--fs-sm);
+}
+
+// Ручка размера: полоска по краю; на сенсорных экранах её нет.
+.ed-grip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0.75rem;
+    cursor: ns-resize;
+    touch-action: none;
+
+    &::after {
+        content: "";
+        width: 3rem;
+        height: 0.25rem;
+        border-radius: var(--radius-sm);
+        background: var(--line-strong);
+        opacity: 0.5;
+        transition: opacity var(--dur-fast) var(--ease-soft);
+    }
+
+    &:hover::after, &:focus-visible::after { opacity: 1; }
+    &:focus-visible { outline: none; }
+
+    @media (pointer: coarse) { display: none; }
 }

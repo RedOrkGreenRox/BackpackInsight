@@ -5,8 +5,8 @@
 
 ## Ключевая функциональность
 - состояние: [state.rs](state.md); перетаскивание: [drag.rs](drag.md), [input.rs](input.md), [drop.rs](drop.md);
-- поле: [field.rs](field.md), [marks.rs](marks.md), [piece.rs](piece.md), [ghost.rs](ghost.md);
-- панели: [palette.rs](palette.md), [storage.rs](storage.md), [toolbar.rs](toolbar.md), [exchange.rs](exchange.md);
+- поле: [field.rs](field.md), [marks.rs](marks.md), [piece.rs](piece.md), [ghost.rs](ghost.md), [grip.rs](grip.md);
+- панели: [palette.rs](palette.md), [storage.rs](storage.md), [pile.rs](pile.md), [toolbar.rs](toolbar.md), [hero.rs](hero.md), [exchange.rs](exchange.md);
 - страница: [dom.rs](dom.md).
 
 ---

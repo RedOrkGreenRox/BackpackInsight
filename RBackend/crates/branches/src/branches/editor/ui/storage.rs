@@ -1,34 +1,38 @@
-//! Склад: предметы, которые не на поле, списком в порядке поступления.
+//! Склад: предметы, которые не на поле. Два вида: свободная зона с гравитацией
+//! ([`PileArea`]) и список в порядке поступления; высота растёт по содержимому.
 
 use super::{
     drag::Origin,
     input::start,
     piece::{size_style, PieceArt},
-    state::Editor,
+    pile::PileArea,
+    state::{Editor, StashMode},
 };
 use crate::branches::editor::model::Orientation;
 use leptos::prelude::*;
 
-/// Склад.
+/// Склад; `title` — имя области для экранных дикторов.
 #[component]
 #[allow(clippy::must_use_candidate)]
-pub fn Storage(title: String, empty: String) -> impl IntoView {
+pub fn Storage(title: String) -> impl IntoView {
     let editor = Editor::get();
     let stored = move || {
         editor
             .board
             .with(|b| b.storage.iter().copied().enumerate().collect::<Vec<_>>())
     };
-    let is_empty = move || editor.board.with(|b| b.storage.is_empty());
-    view! {
-        <div class="ed-storage" role="region" node_ref=editor.storage aria-label=title.clone()>
-            <h2 class="ed-heading">{title.clone()}</h2>
-            <Show when=is_empty>
-                <p class="ed-storage-empty">{empty.clone()}</p>
-            </Show>
+    let list = move || {
+        view! {
             <div class="ed-storage-list">
                 <For each=stored key=|entry| *entry children=move |(i, piece)| view! { <Stored index=i piece/> }/>
             </div>
+        }
+    };
+    view! {
+        <div class="ed-storage" role="region" node_ref=editor.storage aria-label=title>
+            <Show when=move || editor.stash.get() == StashMode::Gravity fallback=list>
+                <PileArea/>
+            </Show>
         </div>
     }
 }

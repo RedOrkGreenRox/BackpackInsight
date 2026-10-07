@@ -1,8 +1,8 @@
-// Раскладка как в игре: инвентарь (поле, а на широком экране справа от него склад)
-// занимает верхнюю половину экрана, каталог — под ним во всю ширину.
+// Раскладка сверху вниз: панель кнопок и поле ровно по центру, под ними одна
+// панель склада и каталога во всю ширину (_panels.scss).
 .ed-editor {
     // Клетка поля: растёт с экраном, но рамка поля (9.62 × 6.52 клетки, см. _field.scss)
-    // помещается и по ширине, и в верхнюю половину окна.
+    // помещается и по ширине, и в верхнюю половину окна. Ручка поля задаёт её инлайн.
     --field-cell: clamp(
         2.25rem,
         min(calc((100vw - 2 * var(--space-md)) / 9.62), calc((50vh - 4rem) / 6.52)),
@@ -22,21 +22,6 @@
     align-items: center;
     gap: var(--space-xs);
     min-width: 0;
-
-    @media (min-width: 64rem) {
-        display: grid;
-        grid-template-columns: auto minmax(14rem, 24rem);
-        justify-content: center;
-        align-items: start;
-        column-gap: var(--space-md);
-
-        > * { grid-column: 1; }
-        > .ed-storage {
-            grid-column: 2;
-            grid-row: 1 / span 4;
-            align-self: stretch;
-        }
-    }
 }
 
 .ed-heading {
