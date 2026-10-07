@@ -66,7 +66,6 @@ pub fn EditorManager(lang: Lang, labels: EditorLabels, code: url::UrlCode) -> im
     let hint = labels.hint.clone();
     view! {
         <div class="ed-editor" class:ed-dragging=move || editor.drag.with(|d| d.as_ref().is_some_and(|d| d.lifted.is_some()))>
-            <Palette labels=labels.clone()/>
             <div class="ed-board">
                 <Toolbar labels=labels.clone() dialog/>
                 <h2 class="ed-heading">{labels.inventory.clone()}</h2>
@@ -74,6 +73,7 @@ pub fn EditorManager(lang: Lang, labels: EditorLabels, code: url::UrlCode) -> im
                 <p class="ed-hint">{hint}</p>
                 <Storage title=labels.storage.clone() empty=labels.storage_empty.clone()/>
             </div>
+            <Palette labels=labels.clone()/>
             <Ghost/>
             <Exchange labels dialog/>
         </div>

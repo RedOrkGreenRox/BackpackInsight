@@ -1,19 +1,19 @@
-// Раскладка: на широком экране каталог слева, поле со складом справа;
-// на узком — сверху вниз, как в игре (магазин, инвентарь, склад).
+// Раскладка как в игре: инвентарь (поле, а на широком экране справа от него склад)
+// занимает верхнюю половину экрана, каталог — под ним во всю ширину.
 .ed-editor {
-    // Клетка поля: растёт с экраном, но поле 9 клеток всегда помещается.
-    --field-cell: clamp(2.25rem, calc((100vw - 2 * var(--space-md)) / 9), 4.25rem);
+    // Клетка поля: растёт с экраном, но поле 9 × 6 помещается и по ширине,
+    // и в верхнюю половину окна.
+    --field-cell: clamp(
+        2.25rem,
+        min(calc((100vw - 2 * var(--space-md)) / 9), calc((50vh - 4rem) / 6)),
+        4.25rem
+    );
     --cell: var(--field-cell);
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-md);
-    align-items: start;
     margin-top: var(--space-md);
     color: var(--text);
-
-    @media (min-width: 64rem) {
-        grid-template-columns: minmax(18rem, 1fr) auto;
-    }
 }
 
 .ed-board {
@@ -22,6 +22,21 @@
     align-items: center;
     gap: var(--space-xs);
     min-width: 0;
+
+    @media (min-width: 64rem) {
+        display: grid;
+        grid-template-columns: auto minmax(14rem, 24rem);
+        justify-content: center;
+        align-items: start;
+        column-gap: var(--space-md);
+
+        > * { grid-column: 1; }
+        > .ed-storage {
+            grid-column: 2;
+            grid-row: 1 / span 4;
+            align-self: stretch;
+        }
+    }
 }
 
 .ed-heading {
