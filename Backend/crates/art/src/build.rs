@@ -10,8 +10,8 @@ use crate::manifest::{ItemArt, Manifest};
 use crate::render::Fit;
 use crate::resolve::{Resolved, Resolver, Source};
 use crate::rules::Rules;
-use rayon::prelude::*;
 use backend_core::{CatalogExport, ItemDef};
+use rayon::prelude::*;
 use std::collections::BTreeMap;
 use std::path::Path;
 

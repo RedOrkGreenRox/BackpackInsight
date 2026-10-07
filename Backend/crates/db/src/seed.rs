@@ -41,7 +41,11 @@ pub async fn seed_itemdefinitions_if_empty(
         .map(|item| SeedRow {
             item_id: item.id.clone(),
             name: item.name.clone(),
-            name_ru: ru_by_id.get(item.id.as_str()).copied().unwrap_or("").to_string(),
+            name_ru: ru_by_id
+                .get(item.id.as_str())
+                .copied()
+                .unwrap_or("")
+                .to_string(),
             rarity: item.rarity.clone(),
             coin_value: item.coin_value,
             connected_hero: item.connected_hero.clone(),

@@ -177,7 +177,10 @@ mod tests {
     #[test]
     fn build_bulk_insert_2_rows_3_cols() {
         let sql = build_bulk_insert("INSERT INTO t (a, b, c) VALUES", 2, 3);
-        assert_eq!(sql, "INSERT INTO t (a, b, c) VALUES ($1, $2, $3), ($4, $5, $6)");
+        assert_eq!(
+            sql,
+            "INSERT INTO t (a, b, c) VALUES ($1, $2, $3), ($4, $5, $6)"
+        );
     }
 
     #[test]

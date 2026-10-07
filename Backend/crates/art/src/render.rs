@@ -5,9 +5,9 @@
 //! растяжение, если стороны отличаются в пределах допуска (рамки сумок, сдвиг на пару px);
 //! иначе вписывание по центру с сохранением пропорций и предупреждением.
 
+use backend_core::Cell;
 use image::imageops::{self, FilterType};
 use image::RgbaImage;
-use backend_core::Cell;
 use std::path::PathBuf;
 
 /// Пикселей на клетку в мастер-холсте.

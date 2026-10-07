@@ -3,8 +3,8 @@
 //! `api_items_{en,ru}.fb` иммутабельны внутри Docker-образа (генерируются
 //! на build-time через `builder build-all-packs`), поэтому инвалидация не нужна.
 
-use middleware::decode_items;
 use backend_core::{ItemRarity, RarityService};
+use middleware::decode_items;
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;

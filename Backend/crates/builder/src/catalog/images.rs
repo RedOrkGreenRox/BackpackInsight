@@ -47,7 +47,11 @@ pub fn check_images(project_root: &Path) -> Result<ImageCheckReport, String> {
                     }
                 }
             }
-            missing.push(format!("[{format}] {}: {}", name.or(id).unwrap_or("?"), expected.display()));
+            missing.push(format!(
+                "[{format}] {}: {}",
+                name.or(id).unwrap_or("?"),
+                expected.display()
+            ));
         }
     }
 

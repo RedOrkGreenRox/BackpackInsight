@@ -35,7 +35,10 @@ fn latest_localized_file(project_root: &Path, lang: &str) -> PathBuf {
             Some((version, entry.path()))
         })
         .max_by_key(|(version, _)| *version);
-    newest.map_or_else(|| db.join(format!("items_{lang}_5_1_0.json")), |(_, path)| path)
+    newest.map_or_else(
+        || db.join(format!("items_{lang}_5_1_0.json")),
+        |(_, path)| path,
+    )
 }
 
 pub fn latest_plain_items_file(project_root: &Path) -> PathBuf {

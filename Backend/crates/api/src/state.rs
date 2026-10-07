@@ -93,9 +93,7 @@ impl AppState {
         if missing.is_empty() {
             Ok(())
         } else {
-            Err(format!(
-                "Backend api requires generated packs: {missing:?}"
-            ))
+            Err(format!("Backend api requires generated packs: {missing:?}"))
         }
     }
 }

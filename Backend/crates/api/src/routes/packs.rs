@@ -31,12 +31,7 @@ pub async fn items_pack(
         }
     };
 
-    pack_response(
-        state
-            .project_root
-            .join("Backend/generated")
-            .join(file_name),
-    )
+    pack_response(state.project_root.join("Backend/generated").join(file_name))
 }
 
 pub async fn catalog_summary_pack(State(state): State<AppState>) -> Response {

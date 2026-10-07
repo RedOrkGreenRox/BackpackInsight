@@ -33,10 +33,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn finds_repo_root_from_crate_dir() {
+    fn finds_repo_root_from_crate_dir() -> Result<(), String> {
         let crate_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
-        let root = find_project_root_from(crate_dir).expect("root above crate dir");
+        let root = find_project_root_from(crate_dir)?;
         assert!(root.join(PROJECT_ROOT_MARKER).is_file());
+        Ok(())
     }
 
     #[test]
