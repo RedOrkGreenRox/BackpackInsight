@@ -40,32 +40,67 @@
   transition: transform var(--dur) var(--ease-out);
 }
 
-// Меню закрыто, а фокус с клавиатуры попал в его пункт: этот пункт выгибается
-// из края экрана вместе с кусочком панели и светится от края. Остальное меню
-// остаётся за экраном.
+// Меню закрыто, а фокус с клавиатуры попал в его пункт: из края экрана
+// выдвигается только этот пункт, компактно: иконка и мелкая подпись под ней.
+// Остальное меню остаётся за экраном. Ширину и раскладку пункт меняет, пока он
+// ещё за краем, поэтому скачков не видно.
 .sidebar:not(.open) {
   .nav-tabs {
     overflow: visible;
   }
 
-  :is(.sidebar-header:has(:focus-visible), .nav-tab:focus-visible) {
-    transform: translateX(-100%);
+  .sidebar-header:has(:focus-visible) {
+    justify-content: flex-start;
+  }
+
+  // Пункт выезжает плавно, а уходит сразу: иначе было бы видно, как он
+  // возвращается к полной ширине.
+  :is(.nav-tab, .button-logo) {
+    transition: none;
+  }
+
+  :is(.nav-tab, .button-logo):focus-visible {
+    inline-size: max-content;
+    max-inline-size: calc(var(--icon-size) * 3);
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-sm);
+    transform: translateX(calc(-100% - var(--space-2xs)));
+    transition: transform var(--dur) var(--ease-out);
+    text-align: center;
     background:
-      radial-gradient(ellipse at right, rgba(var(--azure-raw), 0.45) 0%, rgba(var(--azure-raw), 0) 70%),
+      radial-gradient(ellipse at right, rgba(var(--azure-raw), 0.45) 0%, rgba(var(--azure-raw), 0) 75%),
       var(--surface-panel);
     backdrop-filter: var(--blur-glass);
     -webkit-backdrop-filter: var(--blur-glass);
-    border-start-start-radius: var(--radius-pill);
-    border-end-start-radius: var(--radius-pill);
-    box-shadow: var(--shadow-2), 0 0 var(--space-md) rgba(var(--azure-raw), 0.5);
+    border: var(--line-width) solid rgba(var(--azure-raw), 0.6);
+    border-inline-end: none;
+    border-start-start-radius: var(--radius-lg);
+    border-end-start-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2), 0 0 var(--space-sm) rgba(var(--azure-raw), 0.45);
+
+    .page-title {
+      font-size: var(--fs-xs);
+      font-weight: 600;
+    }
+  }
+
+  // У логотипа нет подписи: выдвигается уменьшенная картинка, ниже кнопки
+  // меню, чтобы та его не закрывала.
+  .button-logo:focus-visible {
+    inline-size: calc(var(--icon-size) * 2);
+    block-size: calc(var(--icon-size) * 2);
+    padding: var(--space-2xs);
+    transform: translate(calc(-100% - var(--space-2xs)), var(--control-size));
   }
 
   .nav-tab:focus-visible::before {
     opacity: 0;
   }
 
-  .button-logo:focus-visible {
-    box-shadow: none;
+  #lang-switcher:focus-visible .page-title {
+    font-size: var(--fs-xs);
+    white-space: normal;
   }
 }
 
