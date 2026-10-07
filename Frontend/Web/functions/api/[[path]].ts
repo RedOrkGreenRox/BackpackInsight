@@ -1,6 +1,6 @@
 // Backend-owned Cloudflare Pages edge proxy.
 // It keeps API_SECRET on Cloudflare's server side and forwards only the binary
-// RBackend contract. The browser never receives this secret.
+// Backend contract. The browser never receives this secret.
 // @ts-ignore
 export const onRequest: PagesFunction<{ BACKEND: string; API_SECRET?: string }> = async (context) => {
   const { request, env } = context;
@@ -15,7 +15,7 @@ export const onRequest: PagesFunction<{ BACKEND: string; API_SECRET?: string }> 
     (request.method === "POST" && path === "/api/profile.fb");
 
   if (!proxied) {
-    return new Response("RBackend endpoint not found", {
+    return new Response("Backend endpoint not found", {
       status: 404,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
@@ -50,7 +50,7 @@ export const onRequest: PagesFunction<{ BACKEND: string; API_SECRET?: string }> 
 
     return response;
   } catch (error: any) {
-    return new Response(`RBackend offline: ${error?.message || "unknown error"}`, {
+    return new Response(`Backend offline: ${error?.message || "unknown error"}`, {
       status: 503,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });

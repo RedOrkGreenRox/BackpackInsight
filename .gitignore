@@ -11,8 +11,8 @@ venv/
 .continue
 
 # --- База данных ---
-Backend/DB/*.db
-Backend/DB/*.sqlite3
+Backend/data/*.db
+Backend/data/*.sqlite3
 Frontend/Web/*.db
 Frontend/Web/*.sqlite3
 
@@ -23,7 +23,7 @@ dist/
 # --- Rust ---
 target/
 **/target/
-RBackend/generated/
+Backend/generated/
 
 # Оставляем .css, но игнорируем тяжелые .map файлы
 **/*.css.map

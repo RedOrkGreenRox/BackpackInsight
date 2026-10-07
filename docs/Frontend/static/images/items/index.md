@@ -10,10 +10,10 @@
 ## Связи (Dependencies)
 *   Путь к иконке строит [ItemIconService](../../../ground/utils/ItemIconService.md) (учитывает «маскированные» предметы и спец-логику), формат выбирает [ImageFormatService](../../../ground/utils/ImageFormatService.md).
 *   SSR-страница предмета использует прямой путь `/images/items/webp/{id}.webp` ([item/[id].ts](../../../functions/item/[id].md)).
-*   Соответствие имён проверяет `cli check-images` ([main](../../../../RBackend/crates/cli/src/main.md)).
+*   Соответствие имён проверяет `cli check-images` ([main](../../../../Backend/crates/cli/src/main.md)).
 
 ## AI-контекст
-*   Слаги совпадают с [SlugService](../../../ground/utils/SlugService.md). Добавляя предмет в [items_*.json](../../../../Backend/DB/index.md), добавьте парные `avif`+`webp` с тем же слагом, иначе попадёте на [placeholder](../placeholder/index.md).
+*   Слаги совпадают с [SlugService](../../../ground/utils/SlugService.md). Добавляя предмет в [items_*.json](../../../../Backend/data/index.md), добавьте парные `avif`+`webp` с тем же слагом, иначе попадёте на [placeholder](../placeholder/index.md).
 
 ---
 

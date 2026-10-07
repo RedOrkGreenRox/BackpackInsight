@@ -3,9 +3,9 @@
 
 // Папка дока: своё скопление на карте и цвет ореола звезды.
 const ZONES = {
-  rust: { label: 'RBackend', color: '--z-rust' },
+  rust: { label: 'Backend', color: '--z-rust' },
   ts: { label: 'Frontend', color: '--z-ts' },
-  py: { label: 'Backend', color: '--z-py' },
+  py: { label: 'Python', color: '--z-py' },
   tools: { label: 'scripts и data', color: '--z-tools' },
   meta: { label: 'Корень docs', color: '--z-meta' },
 };

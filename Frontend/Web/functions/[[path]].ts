@@ -1,4 +1,4 @@
-// Cloudflare Pages edge proxy for the Leptos site (RBackend/crates/branches).
+// Cloudflare Pages edge proxy for the Leptos site (Backend/crates/branches).
 //
 // Turned on by the LEPTOS_SSR=true environment variable. Until then every request
 // falls through to the static TS frontend from the Pages build, as before.
@@ -33,7 +33,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       redirect: "manual",
     });
   } catch (error: any) {
-    return new Response(`RBackend offline: ${error?.message || "unknown error"}`, {
+    return new Response(`Backend offline: ${error?.message || "unknown error"}`, {
       status: 503,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });

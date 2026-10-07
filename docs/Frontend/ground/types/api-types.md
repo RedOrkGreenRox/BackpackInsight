@@ -16,7 +16,7 @@
 - `PlayerProfile` — профиль целиком: никнейм, уровень, трофеи, валюты, опыт, область, `item_stats`, списки героев и предметов со счётчиками, версии игры, `profile_skins` и необязательный `itemsSort` (`'rarity' | 'level'`).
 
 ## Связи
-- Серверные схемы: [RBackend/schemas](../../../RBackend/schemas.md).
+- Серверные схемы: [Backend/schemas](../../../Backend/schemas.md).
 - `ItemDefinition` реэкспортирует [ItemIconService](../utils/ItemIconService.md); его используют [ItemsCacheService](../utils/ItemsCacheService.md), [ItemsBranch](../branches/items/ItemsBranch.md) и [детали предмета](../branches/items/itemDetail/_itemDetail/utils/item-detail-types.md).
 
 ---

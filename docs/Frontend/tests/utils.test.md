@@ -8,7 +8,7 @@ Vitest-тесты ключевых утилит: [icon-parser](../ground/utils/i
 *   ApiService: поведение запросов/обработки ошибок.
 
 ## AI-контекст
-*   Тест парсера — важный страж синхронности с бэкендовым [core/catalog](../../RBackend/crates/core_catalog.md). Импорты актуальны.
+*   Тест парсера — важный страж синхронности с бэкендовым [core/catalog](../../Backend/crates/core_catalog.md). Импорты актуальны.
 
 ---
 

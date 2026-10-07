@@ -20,7 +20,7 @@ DEFAULT_OUT = os.path.join('target', 'docs-graph.html')
 SCRIPTS = ('sim.js', 'view.js', 'panel.js')
 # Зона документа по началу пути: (префикс, ключ зоны). Первое совпадение побеждает.
 ZONES = (
-    ('docs/RBackend/', 'rust'), ('docs/Frontend/', 'ts'), ('docs/Backend/', 'py'),
+    ('docs/Backend/', 'rust'), ('docs/Frontend/', 'ts'),
     ('docs/scripts/', 'tools'), ('docs/data/', 'tools'),
 )
 # Язык исходника по расширению; доки без файла и доки папок — «doc», остальное — «data».

@@ -8,7 +8,7 @@
 
 ## Ключевая функциональность
 - `OUT` — папка на выходе.
-- `FRAME` = `(180, 2, 867, 466)` — обрезка рамки без досок по бокам. Сетка внутри обрезки: x 21..664, y 21..448, клетка ≈ 71.4 px. Отступы рамки в клетках записаны в [_field.scss](/docs/RBackend/crates/branches/style/branches/editor/_field.md) (`.ed-frame`); при смене обрезки их надо пересчитать.
+- `FRAME` = `(180, 2, 867, 466)` — обрезка рамки без досок по бокам. Сетка внутри обрезки: x 21..664, y 21..448, клетка ≈ 71.4 px. Отступы рамки в клетках записаны в [_field.scss](/docs/Backend/crates/branches/style/branches/editor/_field.md) (`.ed-frame`); при смене обрезки их надо пересчитать.
 - `BACKGROUNDS` — имя на выходе → путь в архиве 3.0 и обрезка: `inventory` (`ui/GameElements/Inventory.png`), `inventory-bag-mode` (`ui/GameElements/InventoryBagMode.png`), `storage` (`ui/Backgrounds/Storage.png`, без обрезки).
 - `ICONS` — иконки кнопок из 7.0 (`ui/Icons/System/`) в `icons/`: `reset` (`arrows-undo`), `bag-mode` (`Bag`), `stash-list` (`bars`), `stash-gravity` (`caret-down`), `info` (`InfoIcon`).
 - `HEROES` — круглые значки героев 7.0 (`FontIconAssets/HeroIcons/`, 48 × 48) в `heroes/<герой>`; `shared` — значок «герой не выбран».
@@ -17,7 +17,7 @@
 - `main(kit3, kit7)` — все три группы.
 
 ## Связи
-- Картинки предметов делает крейт [art](/docs/RBackend/crates/art/src/main.md); там же «открытые» сумки (`Medium Bag open`), которые редактор показывает на поле.
+- Картинки предметов делает крейт [art](/docs/Backend/crates/art/src/main.md); там же «открытые» сумки (`Medium Bag open`), которые редактор показывает на поле.
 
 ---
 > 📌 **Подпись документации:** по исходнику · 2026-10-07

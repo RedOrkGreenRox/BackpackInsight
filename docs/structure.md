@@ -4,7 +4,7 @@
 
 | Раздел | Описание |
 | :--- | :--- |
-| [Бэкенд](Backend/index.md) | Python API, Модели, Логика парсинга |
+| [Бэкенд](Backend/index.md) | Rust: API, сайт Leptos, сборка каталога |
 | [Фронтенд](Frontend/index.md) | TypeScript, Интерфейс, Дизайн-система |
 
 ## 🏗 Иерархия исходного кода
@@ -14,8 +14,394 @@
 - 📦 **BackpackInsight**
   - 📂 **.githooks**
     - ❌ pre-commit <!-- MISSING DOC -->
-  - 📂 [**Бэкенд (Python/FastAPI)**](Backend/index.md)
-    - 📂 [**База данных и миграции**](Backend/DB/index.md)
+  - 📂 [**Бэкенд (Rust)**](Backend/index.md)
+    - 📂 **crates**
+      - 📂 **API роуты**
+        - 📂 **src**
+          - 📂 **Страница профиля**
+            - 📄 [catalog_cache.rs](Backend/crates/api/src/profile/catalog_cache.md)
+            - 📄 [heroes.rs](Backend/crates/api/src/profile/heroes.md)
+            - 📄 [items.rs](Backend/crates/api/src/profile/items.md)
+            - 📄 [json_input.rs](Backend/crates/api/src/profile/json_input.md)
+            - 📄 [mod.rs](Backend/crates/api/src/profile/mod.md)
+            - 📄 [regression_tests.rs](Backend/crates/api/src/profile/regression_tests.md)
+            - 📄 [view.rs](Backend/crates/api/src/profile/view.md)
+          - 📂 **routes**
+            - 📄 [health.rs](Backend/crates/api/src/routes/health.md)
+            - 📄 [mod.rs](Backend/crates/api/src/routes/mod.md)
+            - 📄 [packs.rs](Backend/crates/api/src/routes/packs.md)
+            - 📄 [profile_binary.rs](Backend/crates/api/src/routes/profile_binary.md)
+            - 📄 [robots.rs](Backend/crates/api/src/routes/robots.md)
+            - 📄 [root.rs](Backend/crates/api/src/routes/root.md)
+            - 📄 [sitemap.rs](Backend/crates/api/src/routes/sitemap.md)
+          - 📂 **security**
+            - 📄 [mod.rs](Backend/crates/api/src/security/mod.md)
+            - 📄 [rate_limit.rs](Backend/crates/api/src/security/rate_limit.md)
+            - 📄 [secret.rs](Backend/crates/api/src/security/secret.md)
+          - 📂 **seo**
+            - 📄 [mod.rs](Backend/crates/api/src/seo/mod.md)
+            - 📄 [robots.rs](Backend/crates/api/src/seo/robots.md)
+            - 📄 [sitemap.rs](Backend/crates/api/src/seo/sitemap.md)
+          - 📄 [error.rs](Backend/crates/api/src/error.md)
+          - 📄 [lib.rs](Backend/crates/api/src/lib.md)
+          - 📄 [main.rs](Backend/crates/api/src/main.md)
+          - 📄 [state.rs](Backend/crates/api/src/state.md)
+        - 📄 [Cargo.toml](Backend/crates/api/Cargo.toml.md)
+      - 📂 **art**
+        - 📂 **src**
+          - 📄 [build.rs](Backend/crates/art/src/build.md)
+          - 📄 [check.rs](Backend/crates/art/src/check.md)
+          - 📄 [encode.rs](Backend/crates/art/src/encode.md)
+          - 📄 [item.rs](Backend/crates/art/src/item.md)
+          - 📄 [kit.rs](Backend/crates/art/src/kit.md)
+          - 📄 [main.rs](Backend/crates/art/src/main.md)
+          - 📄 [manifest.rs](Backend/crates/art/src/manifest.md)
+          - 📄 [render.rs](Backend/crates/art/src/render.md)
+          - 📄 [render_tests.rs](Backend/crates/art/src/render_tests.md)
+          - 📄 [resolve.rs](Backend/crates/art/src/resolve.md)
+          - 📄 [resolve_tests.rs](Backend/crates/art/src/resolve_tests.md)
+          - 📄 [rules.rs](Backend/crates/art/src/rules.md)
+          - 📄 [test_kit.rs](Backend/crates/art/src/test_kit.md)
+        - 📄 [Cargo.toml](Backend/crates/art/Cargo.toml.md)
+        - 📄 [rules.toml](Backend/crates/art/rules.toml.md)
+      - 📂 **Страницы приложения**
+        - 📂 **src**
+          - 📂 **Страницы приложения**
+            - 📂 **editor**
+              - 📂 **model**
+                - 📄 [board.rs](Backend/crates/branches/src/branches/editor/model/board.md)
+                - 📄 [board_tests.rs](Backend/crates/branches/src/branches/editor/model/board_tests.md)
+                - 📄 [cell.rs](Backend/crates/branches/src/branches/editor/model/cell.md)
+                - 📄 [contact.rs](Backend/crates/branches/src/branches/editor/model/contact.md)
+                - 📄 [file.rs](Backend/crates/branches/src/branches/editor/model/file.md)
+                - 📄 [file_tests.rs](Backend/crates/branches/src/branches/editor/model/file_tests.md)
+                - 📄 [filter.rs](Backend/crates/branches/src/branches/editor/model/filter.md)
+                - 📄 [kit.rs](Backend/crates/branches/src/branches/editor/model/kit.md)
+                - 📄 [labels.rs](Backend/crates/branches/src/branches/editor/model/labels.md)
+                - 📄 [mod.rs](Backend/crates/branches/src/branches/editor/model/mod.md)
+                - 📄 [orientation.rs](Backend/crates/branches/src/branches/editor/model/orientation.md)
+                - 📄 [pile.rs](Backend/crates/branches/src/branches/editor/model/pile.md)
+                - 📄 [pile_tests.rs](Backend/crates/branches/src/branches/editor/model/pile_tests.md)
+                - 📄 [placed.rs](Backend/crates/branches/src/branches/editor/model/placed.md)
+                - 📄 [url.rs](Backend/crates/branches/src/branches/editor/model/url.md)
+              - 📂 **ui**
+                - 📄 [dom.rs](Backend/crates/branches/src/branches/editor/ui/dom.md)
+                - 📄 [drag.rs](Backend/crates/branches/src/branches/editor/ui/drag.md)
+                - 📄 [drop.rs](Backend/crates/branches/src/branches/editor/ui/drop.md)
+                - 📄 [exchange.rs](Backend/crates/branches/src/branches/editor/ui/exchange.md)
+                - 📄 [field.rs](Backend/crates/branches/src/branches/editor/ui/field.md)
+                - 📄 [ghost.rs](Backend/crates/branches/src/branches/editor/ui/ghost.md)
+                - 📄 [grip.rs](Backend/crates/branches/src/branches/editor/ui/grip.md)
+                - 📄 [hero.rs](Backend/crates/branches/src/branches/editor/ui/hero.md)
+                - 📄 [input.rs](Backend/crates/branches/src/branches/editor/ui/input.md)
+                - 📄 [manager.rs](Backend/crates/branches/src/branches/editor/ui/manager.md)
+                - 📄 [marks.rs](Backend/crates/branches/src/branches/editor/ui/marks.md)
+                - 📄 [mod.rs](Backend/crates/branches/src/branches/editor/ui/mod.md)
+                - 📄 [palette.rs](Backend/crates/branches/src/branches/editor/ui/palette.md)
+                - 📄 [piece.rs](Backend/crates/branches/src/branches/editor/ui/piece.md)
+                - 📄 [pile.rs](Backend/crates/branches/src/branches/editor/ui/pile.md)
+                - 📄 [state.rs](Backend/crates/branches/src/branches/editor/ui/state.md)
+                - 📄 [storage.rs](Backend/crates/branches/src/branches/editor/ui/storage.md)
+                - 📄 [toolbar.rs](Backend/crates/branches/src/branches/editor/ui/toolbar.md)
+              - 📄 [branch.rs](Backend/crates/branches/src/branches/editor/branch.md)
+              - 📄 [kit_fn.rs](Backend/crates/branches/src/branches/editor/kit_fn.md)
+              - 📄 [mod.rs](Backend/crates/branches/src/branches/editor/mod.md)
+            - 📂 **Библиотека предметов**
+              - 📄 [branch.rs](Backend/crates/branches/src/branches/items/branch.md)
+              - 📄 [card.rs](Backend/crates/branches/src/branches/items/card.md)
+              - 📄 [manager.rs](Backend/crates/branches/src/branches/items/manager.md)
+              - 📄 [mod.rs](Backend/crates/branches/src/branches/items/mod.md)
+              - 📄 [scroll.rs](Backend/crates/branches/src/branches/items/scroll.md)
+              - 📄 [search_fn.rs](Backend/crates/branches/src/branches/items/search_fn.md)
+              - 📄 [url.rs](Backend/crates/branches/src/branches/items/url.md)
+            - 📂 **Главная страница**
+              - 📄 [mod.rs](Backend/crates/branches/src/branches/main/mod.md)
+            - 📂 **not_found**
+              - 📄 [mod.rs](Backend/crates/branches/src/branches/not_found/mod.md)
+            - 📄 [mod.rs](Backend/crates/branches/src/branches/mod.md)
+          - 📂 **catalog**
+            - 📄 [art.rs](Backend/crates/branches/src/catalog/art.md)
+            - 📄 [item.rs](Backend/crates/branches/src/catalog/item.md)
+            - 📄 [load.rs](Backend/crates/branches/src/catalog/load.md)
+            - 📄 [mod.rs](Backend/crates/branches/src/catalog/mod.md)
+            - 📄 [rarity.rs](Backend/crates/branches/src/catalog/rarity.md)
+            - 📄 [search.rs](Backend/crates/branches/src/catalog/search.md)
+          - 📂 **Корневые системы**
+            - 📄 [backdrop.rs](Backend/crates/branches/src/roots/backdrop.md)
+            - 📄 [branch.rs](Backend/crates/branches/src/roots/branch.md)
+            - 📄 [chrome.rs](Backend/crates/branches/src/roots/chrome.md)
+            - 📄 [ctx.rs](Backend/crates/branches/src/roots/ctx.md)
+            - 📄 [gen.rs](Backend/crates/branches/src/roots/gen.md)
+            - 📄 [head.rs](Backend/crates/branches/src/roots/head.md)
+            - 📄 [i18n.rs](Backend/crates/branches/src/roots/i18n.md)
+            - 📄 [lazy.rs](Backend/crates/branches/src/roots/lazy.md)
+            - 📄 [mod.rs](Backend/crates/branches/src/roots/mod.md)
+            - 📄 [per_lang.rs](Backend/crates/branches/src/roots/per_lang.md)
+            - 📄 [request.rs](Backend/crates/branches/src/roots/request.md)
+            - 📄 [runner.rs](Backend/crates/branches/src/roots/runner.md)
+            - 📄 [shell.rs](Backend/crates/branches/src/roots/shell.md)
+            - 📄 [sitemap.rs](Backend/crates/branches/src/roots/sitemap.md)
+            - 📄 [spec.rs](Backend/crates/branches/src/roots/spec.md)
+            - 📄 [split_files.rs](Backend/crates/branches/src/roots/split_files.md)
+          - 📂 **shell**
+            - 📄 [drop_wave.rs](Backend/crates/branches/src/shell/drop_wave.md)
+            - 📄 [fade.rs](Backend/crates/branches/src/shell/fade.md)
+            - 📄 [lang_stay.rs](Backend/crates/branches/src/shell/lang_stay.md)
+            - 📄 [mod.rs](Backend/crates/branches/src/shell/mod.md)
+            - 📄 [parallax.rs](Backend/crates/branches/src/shell/parallax.md)
+            - 📄 [prefetch.rs](Backend/crates/branches/src/shell/prefetch.md)
+            - 📄 [sidebar.rs](Backend/crates/branches/src/shell/sidebar.md)
+          - 📄 [lib.rs](Backend/crates/branches/src/lib.md)
+          - 📄 [main.rs](Backend/crates/branches/src/main.md)
+          - 📄 [model.rs](Backend/crates/branches/src/model.md)
+        - 📂 **style**
+          - 📂 **Страницы приложения**
+            - 📂 **Ошибка 404**
+              - 📂 **Компоненты 404**
+                - 📂 **Фоновые элементы**
+                  - 📄 [Стили фона](Backend/crates/branches/style/branches/404/_404/background/background.md)
+                - 📂 **Основа страницы**
+                  - 📄 [Стили основы](Backend/crates/branches/style/branches/404/_404/body/body.md)
+                - 📂 **Кнопки**
+                  - 📄 [Стили кнопки](Backend/crates/branches/style/branches/404/_404/button/button.md)
+                - 📂 **Контейнер**
+                  - 📄 [Стили контейнера](Backend/crates/branches/style/branches/404/_404/container/container.md)
+                - 📂 **Слои наложения**
+                  - 📄 [Стили оверлея](Backend/crates/branches/style/branches/404/_404/overlay/overlay.md)
+                - 📂 **Текстовые блоки**
+                  - 📄 [Стили текста](Backend/crates/branches/style/branches/404/_404/text/text.md)
+                - 📂 **Заголовок**
+                  - 📄 [Стили заголовка](Backend/crates/branches/style/branches/404/_404/title/title.md)
+              - 📄 [Стили 404](Backend/crates/branches/style/branches/404/404.md)
+            - 📂 **editor**
+              - 📄 [_dialog.scss](Backend/crates/branches/style/branches/editor/_dialog.md)
+              - ❌ _editor.scss <!-- MISSING DOC -->
+              - 📄 [_field.scss](Backend/crates/branches/style/branches/editor/_field.md)
+              - 📄 [Макет страницы](Backend/crates/branches/style/branches/editor/_layout.md)
+              - 📄 [_panels.scss](Backend/crates/branches/style/branches/editor/_panels.md)
+              - 📄 [_toolbar.scss](Backend/crates/branches/style/branches/editor/_toolbar.md)
+            - 📂 **Библиотека предметов**
+              - 📂 **Логика библиотеки**
+                - 📂 **Действия**
+                  - 📄 [Стили чекбоксов](Backend/crates/branches/style/branches/items/_items/actions/_checkbox.md)
+                  - 📄 [Кнопка очистки](Backend/crates/branches/style/branches/items/_items/actions/_clear-btn.md)
+                  - 📄 [Действия фильтров](Backend/crates/branches/style/branches/items/_items/actions/_filter-actions.md)
+                - 📂 **Анимации**
+                  - 📄 [Анимация вылета](Backend/crates/branches/style/branches/items/_items/animations/_fade-up.md)
+                  - 📄 [Спиннер загрузки](Backend/crates/branches/style/branches/items/_items/animations/_loading-spinner.md)
+                - 📂 **Чипсы (Теги)**
+                  - 📄 [Фильтр-чипсы](Backend/crates/branches/style/branches/items/_items/chips/_filter-chip.md)
+                  - 📄 [Цвета чипсов](Backend/crates/branches/style/branches/items/_items/chips/_rarity-colors.md)
+                - 📂 **Система фильтрации**
+                  - 📄 [Расширенная панель](Backend/crates/branches/style/branches/items/_items/filters/_advanced-panel.md)
+                  - 📄 [Контент списка](Backend/crates/branches/style/branches/items/_items/filters/_dropdown-content.md)
+                  - 📄 [Кнопка списка](Backend/crates/branches/style/branches/items/_items/filters/_dropdown-toggle.md)
+                  - 📄 [Контейнер списка](Backend/crates/branches/style/branches/items/_items/filters/_dropdown.md)
+                  - 📄 [Обертка фильтров](Backend/crates/branches/style/branches/items/_items/filters/_filter-controls.md)
+                  - 📄 [Группа фильтров](Backend/crates/branches/style/branches/items/_items/filters/_filter-group.md)
+                  - 📄 [Кнопка фильтров](Backend/crates/branches/style/branches/items/_items/filters/_filter-toggle.md)
+                  - 📄 [Агрегатор фильтров](Backend/crates/branches/style/branches/items/_items/filters/_filters.md)
+                - 📂 **Макет**
+                  - 📄 [Макет страницы](Backend/crates/branches/style/branches/items/_items/layout/_layout.md)
+                - 📂 **Адаптивность**
+                  - 📄 [Моб. адаптив](Backend/crates/branches/style/branches/items/_items/responsive/_mobile.md)
+                  - 📄 [Планш. адаптив](Backend/crates/branches/style/branches/items/_items/responsive/_tablet.md)
+                - 📂 **Поиск**
+                  - 📄 [_caret-spacer.scss](Backend/crates/branches/style/branches/items/_items/search/_caret-spacer.md)
+                  - 📄 [Стили контейнера](Backend/crates/branches/style/branches/items/_items/search/_container.md)
+                  - 📄 [Стили поля ввода](Backend/crates/branches/style/branches/items/_items/search/_input.md)
+                  - 📄 [_prompt-lists.scss](Backend/crates/branches/style/branches/items/_items/search/_prompt-lists.md)
+                  - 📄 [_rich-group.scss](Backend/crates/branches/style/branches/items/_items/search/_rich-group.md)
+                  - 📄 [_rich-operator.scss](Backend/crates/branches/style/branches/items/_items/search/_rich-operator.md)
+                  - 📄 [_rich-placeholder.scss](Backend/crates/branches/style/branches/items/_items/search/_rich-placeholder.md)
+                  - 📄 [_rich-token.scss](Backend/crates/branches/style/branches/items/_items/search/_rich-token.md)
+              - 📄 [Стили списка предметов](Backend/crates/branches/style/branches/items/items.md)
+            - 📂 **Главная страница**
+              - 📂 **Логика главной**
+                - 📂 **Анимации**
+                  - 📄 [Анимации страницы](Backend/crates/branches/style/branches/main/_main/animations/animations.md)
+                - 📂 **Контейнер**
+                  - 📂 [**Стили**](Backend/crates/branches/style/branches/main/_main/container/styles/index.md)
+                    - 📄 [База контейнера](Backend/crates/branches/style/branches/main/_main/container/styles/container-base.md)
+                    - 📄 [Адаптив контейнера](Backend/crates/branches/style/branches/main/_main/container/styles/container-responsive.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/container/styles/index.md)
+                  - 📄 [Стили контейнера](Backend/crates/branches/style/branches/main/_main/container/container.md)
+                - 📂 **Ошибка**
+                  - 📄 [Стили уведомлений](Backend/crates/branches/style/branches/main/_main/error/error.md)
+                - 📂 **Менеджеры логики**
+                  - 📂 **Валидация JSON**
+                    - 📂 **Валидация JSON**
+                      - 📄 [Стили редактора ошибок](Backend/crates/branches/style/branches/main/_main/managers/validation/_json-validation/json-validation.md)
+                - 📂 **Заголовок**
+                  - 📂 [**Стили**](Backend/crates/branches/style/branches/main/_main/title/styles/index.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/title/styles/index.md)
+                    - 📄 [База заголовка](Backend/crates/branches/style/branches/main/_main/title/styles/title-base.md)
+                    - 📄 [Адаптив заголовка](Backend/crates/branches/style/branches/main/_main/title/styles/title-responsive.md)
+                  - 📄 [Стили заголовка](Backend/crates/branches/style/branches/main/_main/title/title.md)
+                - 📂 **Зона загрузки**
+                  - 📂 [**Стили кнопок**](Backend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.md)
+                    - 📄 [База кнопки](Backend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-base.md)
+                    - 📄 [Адаптив кнопки](Backend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-responsive.md)
+                    - 📄 [Состояния кнопки](Backend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-states.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.md)
+                  - 📂 [**Стили подсказок**](Backend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.md)
+                    - 📄 [База подсказки](Backend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-base.md)
+                    - 📄 [ПК-подсказка](Backend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.md)
+                  - 📂 [**Стили**](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/index.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/index.md)
+                    - 📄 [База области](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-base.md)
+                    - 📄 [Ховер области](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-hover.md)
+                    - 📄 [Адаптив области](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-responsive.md)
+                    - 📄 [Стили текстового поля](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-textarea.md)
+                    - 📄 [Управление выделением](Backend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-user-select.md)
+                  - 📂 [**Системные стили**](Backend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.md)
+                    - 📄 [Индекс стилей](Backend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.md)
+                    - 📄 [Скрытые элементы](Backend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/visually-hidden.md)
+                  - 📄 [Стиль кнопки профиля](Backend/crates/branches/style/branches/main/_main/upload-zone/button-view-profile.md)
+                  - 📄 [Стили области загрузки](Backend/crates/branches/style/branches/main/_main/upload-zone/upload-area.md)
+                  - 📄 [Стили подсказки](Backend/crates/branches/style/branches/main/_main/upload-zone/upload-hint.md)
+                  - 📄 [Стили зоны загрузки](Backend/crates/branches/style/branches/main/_main/upload-zone/upload-zone.md)
+              - 📄 [Стили главной](Backend/crates/branches/style/branches/main/main.md)
+          - 📂 **Корневые системы**
+            - 📂 **Базовые стили и Shell**
+              - 📂 **Библиотека предметов**
+                - 📄 [Стили карточки](Backend/crates/branches/style/roots/_roots/items/_item-card.md)
+                - 📄 [Стили иконки](Backend/crates/branches/style/roots/_roots/items/_item-image.md)
+                - 📄 [Стили уровня](Backend/crates/branches/style/roots/_roots/items/_item-level.md)
+                - 📄 [Стили ссылки](Backend/crates/branches/style/roots/_roots/items/_item-link.md)
+                - 📄 [Стили названия](Backend/crates/branches/style/roots/_roots/items/_item-name.md)
+                - 📄 [Стили редкостей](Backend/crates/branches/style/roots/_roots/items/_item-rarities.md)
+                - 📄 [Стили сетки](Backend/crates/branches/style/roots/_roots/items/_items-grid.md)
+                - 📄 [Стили списка предметов](Backend/crates/branches/style/roots/_roots/items/_items.md)
+                - 📄 [Переменные редкости](Backend/crates/branches/style/roots/_roots/items/_rarity-vars.md)
+              - 📂 **shell**
+                - 📂 **Навигация**
+                  - 📄 [Кнопка меню](Backend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.md)
+                  - 📄 [Обертка управления](Backend/crates/branches/style/roots/_roots/shell/navigation/_controls-wrapper.md)
+                  - 📄 [_page-transitions.scss](Backend/crates/branches/style/roots/_roots/shell/navigation/_page-transitions.md)
+                - 📂 **Параллакс**
+                  - 📄 [Стили фона](Backend/crates/branches/style/roots/_roots/shell/parallax/_background.md)
+                - 📂 **Боковое меню**
+                  - 📄 [Логотип в меню](Backend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.md)
+                  - 📄 [Переключатель языка](Backend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.md)
+                  - 📄 [_nav-drop.scss](Backend/crates/branches/style/roots/_roots/shell/sidebar/_nav-drop.md)
+                  - 📄 [Вкладки навигации](Backend/crates/branches/style/roots/_roots/shell/sidebar/_nav-tab.md)
+                  - 📄 [Заголовки меню](Backend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.md)
+                  - 📄 [Боковое меню](Backend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.md)
+              - 📄 [Глобальные анимации](Backend/crates/branches/style/roots/_roots/_animations.md)
+              - 📄 [Стили ошибок](Backend/crates/branches/style/roots/_roots/_error.md)
+              - 📄 [Шрифты](Backend/crates/branches/style/roots/_roots/_fonts.md)
+              - 📄 [Интерактивность](Backend/crates/branches/style/roots/_roots/_interactivity.md)
+              - 📄 [Режим экономии](Backend/crates/branches/style/roots/_roots/_low-res.md)
+              - 📄 [Базовый сброс](Backend/crates/branches/style/roots/_roots/_reset.md)
+              - 📄 [Стили оболочки](Backend/crates/branches/style/roots/_roots/_shell.md)
+              - 📄 [_tokens.scss](Backend/crates/branches/style/roots/_roots/_tokens.md)
+              - 📄 [Дизайн-переменные](Backend/crates/branches/style/roots/_roots/_vars.md)
+            - 📄 [Агрегатор ядра](Backend/crates/branches/style/roots/_roots.md)
+          - 📂 **Утилиты и сервисы**
+            - 📂 **Индикаторы загрузки**
+              - 📄 [Стили загрузки](Backend/crates/branches/style/utils/_loading-states/loading-states.md)
+          - 📄 [_leptos.scss](Backend/crates/branches/style/_leptos.md)
+          - 📄 [site.scss](Backend/crates/branches/style/site.md)
+        - 📄 [Cargo.toml](Backend/crates/branches/Cargo.toml.md)
+      - 📂 **builder**
+        - 📂 **src**
+          - 📂 **catalog**
+            - 📄 [api_items_flatbuffer.rs](Backend/crates/builder/src/catalog/api_items_flatbuffer.md)
+            - 📄 [export.rs](Backend/crates/builder/src/catalog/export.md)
+            - 📄 [files.rs](Backend/crates/builder/src/catalog/files.md)
+            - 📄 [flatbuffer.rs](Backend/crates/builder/src/catalog/flatbuffer.md)
+            - 📄 [images.rs](Backend/crates/builder/src/catalog/images.md)
+            - 📄 [locales.rs](Backend/crates/builder/src/catalog/locales.md)
+            - 📄 [mod.rs](Backend/crates/builder/src/catalog/mod.md)
+            - 📄 [validate.rs](Backend/crates/builder/src/catalog/validate.md)
+          - 📄 [main.rs](Backend/crates/builder/src/main.md)
+        - 📄 [Cargo.toml](Backend/crates/builder/Cargo.toml.md)
+      - 📂 **cli**
+        - 📂 **src**
+          - 📄 [main.rs](Backend/crates/cli/src/main.md)
+        - 📄 [Cargo.toml](Backend/crates/cli/Cargo.toml.md)
+      - 📂 **core**
+        - 📂 **src**
+          - 📂 **catalog**
+            - 📂 **export**
+              - 📄 [item.rs](Backend/crates/core/src/catalog/export/item.md)
+              - 📄 [mod.rs](Backend/crates/core/src/catalog/export/mod.md)
+              - 📄 [parts.rs](Backend/crates/core/src/catalog/export/parts.md)
+              - 📄 [rarity.rs](Backend/crates/core/src/catalog/export/rarity.md)
+              - 📄 [tests.rs](Backend/crates/core/src/catalog/export/tests.md)
+            - 📄 [columns.rs](Backend/crates/core/src/catalog/columns.md)
+            - 📄 [ids.rs](Backend/crates/core/src/catalog/ids.md)
+            - 📄 [mod.rs](Backend/crates/core/src/catalog/mod.md)
+            - 📄 [strings.rs](Backend/crates/core/src/catalog/strings.md)
+          - 📂 **Страница профиля**
+            - 📂 **Секция героев**
+              - 📄 [league.rs](Backend/crates/core/src/profile/heroes/league.md)
+              - 📄 [level.rs](Backend/crates/core/src/profile/heroes/level.md)
+              - 📄 [mod.rs](Backend/crates/core/src/profile/heroes/mod.md)
+              - 📄 [name.rs](Backend/crates/core/src/profile/heroes/name.md)
+              - 📄 [types.rs](Backend/crates/core/src/profile/heroes/types.md)
+            - 📂 **identity**
+              - 📄 [mod.rs](Backend/crates/core/src/profile/identity/mod.md)
+              - 📄 [name.rs](Backend/crates/core/src/profile/identity/name.md)
+              - 📄 [types.rs](Backend/crates/core/src/profile/identity/types.md)
+              - 📄 [uid.rs](Backend/crates/core/src/profile/identity/uid.md)
+            - 📂 **Библиотека предметов**
+              - 📄 [cards.rs](Backend/crates/core/src/profile/items/cards.md)
+              - 📄 [mod.rs](Backend/crates/core/src/profile/items/mod.md)
+              - 📄 [rarity.rs](Backend/crates/core/src/profile/items/rarity.md)
+              - 📄 [types.rs](Backend/crates/core/src/profile/items/types.md)
+              - 📄 [xp.rs](Backend/crates/core/src/profile/items/xp.md)
+            - 📂 **unlocks**
+              - 📄 [banners.rs](Backend/crates/core/src/profile/unlocks/banners.md)
+              - 📄 [mod.rs](Backend/crates/core/src/profile/unlocks/mod.md)
+              - 📄 [skins.rs](Backend/crates/core/src/profile/unlocks/skins.md)
+              - 📄 [types.rs](Backend/crates/core/src/profile/unlocks/types.md)
+            - 📂 **wallet**
+              - 📄 [mod.rs](Backend/crates/core/src/profile/wallet/mod.md)
+              - 📄 [read.rs](Backend/crates/core/src/profile/wallet/read.md)
+              - 📄 [types.rs](Backend/crates/core/src/profile/wallet/types.md)
+            - 📄 [area.rs](Backend/crates/core/src/profile/area.md)
+            - 📄 [check.rs](Backend/crates/core/src/profile/check.md)
+            - 📄 [level.rs](Backend/crates/core/src/profile/level.md)
+            - 📄 [mod.rs](Backend/crates/core/src/profile/mod.md)
+            - 📄 [score.rs](Backend/crates/core/src/profile/score.md)
+            - 📄 [types.rs](Backend/crates/core/src/profile/types.md)
+          - 📄 [image_key.rs](Backend/crates/core/src/image_key.md)
+          - 📄 [lib.rs](Backend/crates/core/src/lib.md)
+          - 📄 [project_root.rs](Backend/crates/core/src/project_root.md)
+          - 📄 [slug.rs](Backend/crates/core/src/slug.md)
+        - 📄 [Cargo.toml](Backend/crates/core/Cargo.toml.md)
+      - 📂 **db**
+        - 📂 **Миграции БД**
+          - 📂 **pg**
+            - 📄 [0001_profiles.sql](Backend/crates/db/migrations/pg/0001_profiles.md)
+            - 📄 [0002_normalized_tables.sql](Backend/crates/db/migrations/pg/0002_normalized_tables.md)
+          - 📂 **sqlite**
+            - 📄 [0001_profiles.sql](Backend/crates/db/migrations/sqlite/0001_profiles.md)
+            - 📄 [0002_normalized_tables.sql](Backend/crates/db/migrations/sqlite/0002_normalized_tables.md)
+        - 📂 **src**
+          - 📄 [lib.rs](Backend/crates/db/src/lib.md)
+          - 📄 [profile.rs](Backend/crates/db/src/profile.md)
+          - 📄 [seed.rs](Backend/crates/db/src/seed.md)
+        - 📄 [Cargo.toml](Backend/crates/db/Cargo.toml.md)
+      - 📂 **middleware**
+        - 📂 **src**
+          - 📄 [error.rs](Backend/crates/middleware/src/error.md)
+          - 📄 [items.rs](Backend/crates/middleware/src/items.md)
+          - 📄 [lib.rs](Backend/crates/middleware/src/lib.md)
+          - 📄 [profile.rs](Backend/crates/middleware/src/profile.md)
+        - 📄 [Cargo.toml](Backend/crates/middleware/Cargo.toml.md)
+      - 📂 **pack**
+        - 📂 **src**
+          - 📄 [api_items.rs](Backend/crates/pack/src/api_items.md)
+          - 📄 [catalog.rs](Backend/crates/pack/src/catalog.md)
+          - 📄 [error.rs](Backend/crates/pack/src/error.md)
+          - 📄 [lib.rs](Backend/crates/pack/src/lib.md)
+          - 📄 [profile.rs](Backend/crates/pack/src/profile.md)
+        - 📄 [Cargo.toml](Backend/crates/pack/Cargo.toml.md)
+    - 📂 [**data**](Backend/data/index.md)
       - 🗃 Справочник предметов (v3.1.0)
       - 🗃 Справочник предметов (v4.0.0)
       - 🗃 Справочник предметов (v5.0.0)
@@ -24,6 +410,16 @@
       - 🗃 items_ru_5_1_0.json
       - 🗃 items_ru_7_0_0.json
       - 🗃 Тултипы предметов
+    - 📂 **schemas**
+      - 📄 [api_items.fbs](Backend/schemas/api_items.md)
+      - 📄 [catalog.fbs](Backend/schemas/catalog.md)
+      - 📄 [error.fbs](Backend/schemas/error.md)
+      - 📄 [localization.fbs](Backend/schemas/localization.md)
+      - 📄 [profile.fbs](Backend/schemas/profile.md)
+      - 📄 [search.fbs](Backend/schemas/search.md)
+    - 📄 [Cargo.lock](Backend/Cargo.lock.md)
+    - 📄 [Cargo.toml](Backend/Cargo.toml.md)
+    - 📄 [Инструкции Docker](Backend/Dockerfile.md)
   - 📂 [**Фронтенд (TypeScript/Vite)**](Frontend/index.md)
     - 📂 [**Веб-приложение**](Frontend/index.md)
       - 📂 [**Облачные функции (SSR/SEO)**](Frontend/functions/index.md)
@@ -492,403 +888,6 @@
       - 📄 [Конфигурация TypeScript](Frontend/tsconfig.md)
       - 📄 [Конфигурация Vite](Frontend/vite.config.md)
       - 📄 [Конфиг Vitest](Frontend/vitest.config.md)
-  - 📂 [**RBackend**](RBackend/index.md)
-    - 📂 **crates**
-      - 📂 **API роуты**
-        - 📂 **src**
-          - 📂 **Страница профиля**
-            - 📄 [catalog_cache.rs](RBackend/crates/api/src/profile/catalog_cache.md)
-            - 📄 [heroes.rs](RBackend/crates/api/src/profile/heroes.md)
-            - 📄 [items.rs](RBackend/crates/api/src/profile/items.md)
-            - 📄 [json_input.rs](RBackend/crates/api/src/profile/json_input.md)
-            - 📄 [mod.rs](RBackend/crates/api/src/profile/mod.md)
-            - 📄 [regression_tests.rs](RBackend/crates/api/src/profile/regression_tests.md)
-            - 📄 [view.rs](RBackend/crates/api/src/profile/view.md)
-          - 📂 **routes**
-            - 📄 [health.rs](RBackend/crates/api/src/routes/health.md)
-            - 📄 [mod.rs](RBackend/crates/api/src/routes/mod.md)
-            - 📄 [packs.rs](RBackend/crates/api/src/routes/packs.md)
-            - 📄 [profile_binary.rs](RBackend/crates/api/src/routes/profile_binary.md)
-            - 📄 [robots.rs](RBackend/crates/api/src/routes/robots.md)
-            - 📄 [root.rs](RBackend/crates/api/src/routes/root.md)
-            - 📄 [sitemap.rs](RBackend/crates/api/src/routes/sitemap.md)
-          - 📂 **security**
-            - 📄 [mod.rs](RBackend/crates/api/src/security/mod.md)
-            - 📄 [rate_limit.rs](RBackend/crates/api/src/security/rate_limit.md)
-            - 📄 [secret.rs](RBackend/crates/api/src/security/secret.md)
-          - 📂 **seo**
-            - 📄 [mod.rs](RBackend/crates/api/src/seo/mod.md)
-            - 📄 [robots.rs](RBackend/crates/api/src/seo/robots.md)
-            - 📄 [sitemap.rs](RBackend/crates/api/src/seo/sitemap.md)
-          - 📄 [error.rs](RBackend/crates/api/src/error.md)
-          - 📄 [lib.rs](RBackend/crates/api/src/lib.md)
-          - 📄 [main.rs](RBackend/crates/api/src/main.md)
-          - 📄 [state.rs](RBackend/crates/api/src/state.md)
-        - 📄 [Cargo.toml](RBackend/crates/api/Cargo.toml.md)
-      - 📂 **art**
-        - 📂 **src**
-          - 📄 [build.rs](RBackend/crates/art/src/build.md)
-          - 📄 [check.rs](RBackend/crates/art/src/check.md)
-          - 📄 [encode.rs](RBackend/crates/art/src/encode.md)
-          - 📄 [item.rs](RBackend/crates/art/src/item.md)
-          - 📄 [kit.rs](RBackend/crates/art/src/kit.md)
-          - 📄 [main.rs](RBackend/crates/art/src/main.md)
-          - 📄 [manifest.rs](RBackend/crates/art/src/manifest.md)
-          - 📄 [render.rs](RBackend/crates/art/src/render.md)
-          - 📄 [render_tests.rs](RBackend/crates/art/src/render_tests.md)
-          - 📄 [resolve.rs](RBackend/crates/art/src/resolve.md)
-          - 📄 [resolve_tests.rs](RBackend/crates/art/src/resolve_tests.md)
-          - 📄 [rules.rs](RBackend/crates/art/src/rules.md)
-          - 📄 [test_kit.rs](RBackend/crates/art/src/test_kit.md)
-        - 📄 [Cargo.toml](RBackend/crates/art/Cargo.toml.md)
-        - 📄 [rules.toml](RBackend/crates/art/rules.toml.md)
-      - 📂 **Страницы приложения**
-        - 📂 **src**
-          - 📂 **Страницы приложения**
-            - 📂 **editor**
-              - 📂 **model**
-                - 📄 [board.rs](RBackend/crates/branches/src/branches/editor/model/board.md)
-                - 📄 [board_tests.rs](RBackend/crates/branches/src/branches/editor/model/board_tests.md)
-                - 📄 [cell.rs](RBackend/crates/branches/src/branches/editor/model/cell.md)
-                - 📄 [contact.rs](RBackend/crates/branches/src/branches/editor/model/contact.md)
-                - 📄 [file.rs](RBackend/crates/branches/src/branches/editor/model/file.md)
-                - 📄 [file_tests.rs](RBackend/crates/branches/src/branches/editor/model/file_tests.md)
-                - 📄 [filter.rs](RBackend/crates/branches/src/branches/editor/model/filter.md)
-                - 📄 [kit.rs](RBackend/crates/branches/src/branches/editor/model/kit.md)
-                - 📄 [labels.rs](RBackend/crates/branches/src/branches/editor/model/labels.md)
-                - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/model/mod.md)
-                - 📄 [orientation.rs](RBackend/crates/branches/src/branches/editor/model/orientation.md)
-                - 📄 [pile.rs](RBackend/crates/branches/src/branches/editor/model/pile.md)
-                - 📄 [pile_tests.rs](RBackend/crates/branches/src/branches/editor/model/pile_tests.md)
-                - 📄 [placed.rs](RBackend/crates/branches/src/branches/editor/model/placed.md)
-                - 📄 [url.rs](RBackend/crates/branches/src/branches/editor/model/url.md)
-              - 📂 **ui**
-                - 📄 [dom.rs](RBackend/crates/branches/src/branches/editor/ui/dom.md)
-                - 📄 [drag.rs](RBackend/crates/branches/src/branches/editor/ui/drag.md)
-                - 📄 [drop.rs](RBackend/crates/branches/src/branches/editor/ui/drop.md)
-                - 📄 [exchange.rs](RBackend/crates/branches/src/branches/editor/ui/exchange.md)
-                - 📄 [field.rs](RBackend/crates/branches/src/branches/editor/ui/field.md)
-                - 📄 [ghost.rs](RBackend/crates/branches/src/branches/editor/ui/ghost.md)
-                - 📄 [grip.rs](RBackend/crates/branches/src/branches/editor/ui/grip.md)
-                - 📄 [hero.rs](RBackend/crates/branches/src/branches/editor/ui/hero.md)
-                - 📄 [input.rs](RBackend/crates/branches/src/branches/editor/ui/input.md)
-                - 📄 [manager.rs](RBackend/crates/branches/src/branches/editor/ui/manager.md)
-                - 📄 [marks.rs](RBackend/crates/branches/src/branches/editor/ui/marks.md)
-                - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/ui/mod.md)
-                - 📄 [palette.rs](RBackend/crates/branches/src/branches/editor/ui/palette.md)
-                - 📄 [piece.rs](RBackend/crates/branches/src/branches/editor/ui/piece.md)
-                - 📄 [pile.rs](RBackend/crates/branches/src/branches/editor/ui/pile.md)
-                - 📄 [state.rs](RBackend/crates/branches/src/branches/editor/ui/state.md)
-                - 📄 [storage.rs](RBackend/crates/branches/src/branches/editor/ui/storage.md)
-                - 📄 [toolbar.rs](RBackend/crates/branches/src/branches/editor/ui/toolbar.md)
-              - 📄 [branch.rs](RBackend/crates/branches/src/branches/editor/branch.md)
-              - 📄 [kit_fn.rs](RBackend/crates/branches/src/branches/editor/kit_fn.md)
-              - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/mod.md)
-            - 📂 **Библиотека предметов**
-              - 📄 [branch.rs](RBackend/crates/branches/src/branches/items/branch.md)
-              - 📄 [card.rs](RBackend/crates/branches/src/branches/items/card.md)
-              - 📄 [manager.rs](RBackend/crates/branches/src/branches/items/manager.md)
-              - 📄 [mod.rs](RBackend/crates/branches/src/branches/items/mod.md)
-              - 📄 [scroll.rs](RBackend/crates/branches/src/branches/items/scroll.md)
-              - 📄 [search_fn.rs](RBackend/crates/branches/src/branches/items/search_fn.md)
-              - 📄 [url.rs](RBackend/crates/branches/src/branches/items/url.md)
-            - 📂 **Главная страница**
-              - 📄 [mod.rs](RBackend/crates/branches/src/branches/main/mod.md)
-            - 📂 **not_found**
-              - 📄 [mod.rs](RBackend/crates/branches/src/branches/not_found/mod.md)
-            - 📄 [mod.rs](RBackend/crates/branches/src/branches/mod.md)
-          - 📂 **catalog**
-            - 📄 [art.rs](RBackend/crates/branches/src/catalog/art.md)
-            - 📄 [item.rs](RBackend/crates/branches/src/catalog/item.md)
-            - 📄 [load.rs](RBackend/crates/branches/src/catalog/load.md)
-            - 📄 [mod.rs](RBackend/crates/branches/src/catalog/mod.md)
-            - 📄 [rarity.rs](RBackend/crates/branches/src/catalog/rarity.md)
-            - 📄 [search.rs](RBackend/crates/branches/src/catalog/search.md)
-          - 📂 **Корневые системы**
-            - 📄 [backdrop.rs](RBackend/crates/branches/src/roots/backdrop.md)
-            - 📄 [branch.rs](RBackend/crates/branches/src/roots/branch.md)
-            - 📄 [chrome.rs](RBackend/crates/branches/src/roots/chrome.md)
-            - 📄 [ctx.rs](RBackend/crates/branches/src/roots/ctx.md)
-            - 📄 [gen.rs](RBackend/crates/branches/src/roots/gen.md)
-            - 📄 [head.rs](RBackend/crates/branches/src/roots/head.md)
-            - 📄 [i18n.rs](RBackend/crates/branches/src/roots/i18n.md)
-            - 📄 [lazy.rs](RBackend/crates/branches/src/roots/lazy.md)
-            - 📄 [mod.rs](RBackend/crates/branches/src/roots/mod.md)
-            - 📄 [per_lang.rs](RBackend/crates/branches/src/roots/per_lang.md)
-            - 📄 [request.rs](RBackend/crates/branches/src/roots/request.md)
-            - 📄 [runner.rs](RBackend/crates/branches/src/roots/runner.md)
-            - 📄 [shell.rs](RBackend/crates/branches/src/roots/shell.md)
-            - 📄 [sitemap.rs](RBackend/crates/branches/src/roots/sitemap.md)
-            - 📄 [spec.rs](RBackend/crates/branches/src/roots/spec.md)
-            - 📄 [split_files.rs](RBackend/crates/branches/src/roots/split_files.md)
-          - 📂 **shell**
-            - 📄 [drop_wave.rs](RBackend/crates/branches/src/shell/drop_wave.md)
-            - 📄 [fade.rs](RBackend/crates/branches/src/shell/fade.md)
-            - 📄 [lang_stay.rs](RBackend/crates/branches/src/shell/lang_stay.md)
-            - 📄 [mod.rs](RBackend/crates/branches/src/shell/mod.md)
-            - 📄 [parallax.rs](RBackend/crates/branches/src/shell/parallax.md)
-            - 📄 [prefetch.rs](RBackend/crates/branches/src/shell/prefetch.md)
-            - 📄 [sidebar.rs](RBackend/crates/branches/src/shell/sidebar.md)
-          - 📄 [lib.rs](RBackend/crates/branches/src/lib.md)
-          - 📄 [main.rs](RBackend/crates/branches/src/main.md)
-          - 📄 [model.rs](RBackend/crates/branches/src/model.md)
-        - 📂 **style**
-          - 📂 **Страницы приложения**
-            - 📂 **Ошибка 404**
-              - 📂 **Компоненты 404**
-                - 📂 **Фоновые элементы**
-                  - 📄 [Стили фона](RBackend/crates/branches/style/branches/404/_404/background/background.md)
-                - 📂 **Основа страницы**
-                  - 📄 [Стили основы](RBackend/crates/branches/style/branches/404/_404/body/body.md)
-                - 📂 **Кнопки**
-                  - 📄 [Стили кнопки](RBackend/crates/branches/style/branches/404/_404/button/button.md)
-                - 📂 **Контейнер**
-                  - 📄 [Стили контейнера](RBackend/crates/branches/style/branches/404/_404/container/container.md)
-                - 📂 **Слои наложения**
-                  - 📄 [Стили оверлея](RBackend/crates/branches/style/branches/404/_404/overlay/overlay.md)
-                - 📂 **Текстовые блоки**
-                  - 📄 [Стили текста](RBackend/crates/branches/style/branches/404/_404/text/text.md)
-                - 📂 **Заголовок**
-                  - 📄 [Стили заголовка](RBackend/crates/branches/style/branches/404/_404/title/title.md)
-              - 📄 [Стили 404](RBackend/crates/branches/style/branches/404/404.md)
-            - 📂 **editor**
-              - 📄 [_dialog.scss](RBackend/crates/branches/style/branches/editor/_dialog.md)
-              - ❌ _editor.scss <!-- MISSING DOC -->
-              - 📄 [_field.scss](RBackend/crates/branches/style/branches/editor/_field.md)
-              - 📄 [Макет страницы](RBackend/crates/branches/style/branches/editor/_layout.md)
-              - 📄 [_panels.scss](RBackend/crates/branches/style/branches/editor/_panels.md)
-              - 📄 [_toolbar.scss](RBackend/crates/branches/style/branches/editor/_toolbar.md)
-            - 📂 **Библиотека предметов**
-              - 📂 **Логика библиотеки**
-                - 📂 **Действия**
-                  - 📄 [Стили чекбоксов](RBackend/crates/branches/style/branches/items/_items/actions/_checkbox.md)
-                  - 📄 [Кнопка очистки](RBackend/crates/branches/style/branches/items/_items/actions/_clear-btn.md)
-                  - 📄 [Действия фильтров](RBackend/crates/branches/style/branches/items/_items/actions/_filter-actions.md)
-                - 📂 **Анимации**
-                  - 📄 [Анимация вылета](RBackend/crates/branches/style/branches/items/_items/animations/_fade-up.md)
-                  - 📄 [Спиннер загрузки](RBackend/crates/branches/style/branches/items/_items/animations/_loading-spinner.md)
-                - 📂 **Чипсы (Теги)**
-                  - 📄 [Фильтр-чипсы](RBackend/crates/branches/style/branches/items/_items/chips/_filter-chip.md)
-                  - 📄 [Цвета чипсов](RBackend/crates/branches/style/branches/items/_items/chips/_rarity-colors.md)
-                - 📂 **Система фильтрации**
-                  - 📄 [Расширенная панель](RBackend/crates/branches/style/branches/items/_items/filters/_advanced-panel.md)
-                  - 📄 [Контент списка](RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-content.md)
-                  - 📄 [Кнопка списка](RBackend/crates/branches/style/branches/items/_items/filters/_dropdown-toggle.md)
-                  - 📄 [Контейнер списка](RBackend/crates/branches/style/branches/items/_items/filters/_dropdown.md)
-                  - 📄 [Обертка фильтров](RBackend/crates/branches/style/branches/items/_items/filters/_filter-controls.md)
-                  - 📄 [Группа фильтров](RBackend/crates/branches/style/branches/items/_items/filters/_filter-group.md)
-                  - 📄 [Кнопка фильтров](RBackend/crates/branches/style/branches/items/_items/filters/_filter-toggle.md)
-                  - 📄 [Агрегатор фильтров](RBackend/crates/branches/style/branches/items/_items/filters/_filters.md)
-                - 📂 **Макет**
-                  - 📄 [Макет страницы](RBackend/crates/branches/style/branches/items/_items/layout/_layout.md)
-                - 📂 **Адаптивность**
-                  - 📄 [Моб. адаптив](RBackend/crates/branches/style/branches/items/_items/responsive/_mobile.md)
-                  - 📄 [Планш. адаптив](RBackend/crates/branches/style/branches/items/_items/responsive/_tablet.md)
-                - 📂 **Поиск**
-                  - 📄 [_caret-spacer.scss](RBackend/crates/branches/style/branches/items/_items/search/_caret-spacer.md)
-                  - 📄 [Стили контейнера](RBackend/crates/branches/style/branches/items/_items/search/_container.md)
-                  - 📄 [Стили поля ввода](RBackend/crates/branches/style/branches/items/_items/search/_input.md)
-                  - 📄 [_prompt-lists.scss](RBackend/crates/branches/style/branches/items/_items/search/_prompt-lists.md)
-                  - 📄 [_rich-group.scss](RBackend/crates/branches/style/branches/items/_items/search/_rich-group.md)
-                  - 📄 [_rich-operator.scss](RBackend/crates/branches/style/branches/items/_items/search/_rich-operator.md)
-                  - 📄 [_rich-placeholder.scss](RBackend/crates/branches/style/branches/items/_items/search/_rich-placeholder.md)
-                  - 📄 [_rich-token.scss](RBackend/crates/branches/style/branches/items/_items/search/_rich-token.md)
-              - 📄 [Стили списка предметов](RBackend/crates/branches/style/branches/items/items.md)
-            - 📂 **Главная страница**
-              - 📂 **Логика главной**
-                - 📂 **Анимации**
-                  - 📄 [Анимации страницы](RBackend/crates/branches/style/branches/main/_main/animations/animations.md)
-                - 📂 **Контейнер**
-                  - 📂 [**Стили**](RBackend/crates/branches/style/branches/main/_main/container/styles/index.md)
-                    - 📄 [База контейнера](RBackend/crates/branches/style/branches/main/_main/container/styles/container-base.md)
-                    - 📄 [Адаптив контейнера](RBackend/crates/branches/style/branches/main/_main/container/styles/container-responsive.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/container/styles/index.md)
-                  - 📄 [Стили контейнера](RBackend/crates/branches/style/branches/main/_main/container/container.md)
-                - 📂 **Ошибка**
-                  - 📄 [Стили уведомлений](RBackend/crates/branches/style/branches/main/_main/error/error.md)
-                - 📂 **Менеджеры логики**
-                  - 📂 **Валидация JSON**
-                    - 📂 **Валидация JSON**
-                      - 📄 [Стили редактора ошибок](RBackend/crates/branches/style/branches/main/_main/managers/validation/_json-validation/json-validation.md)
-                - 📂 **Заголовок**
-                  - 📂 [**Стили**](RBackend/crates/branches/style/branches/main/_main/title/styles/index.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/title/styles/index.md)
-                    - 📄 [База заголовка](RBackend/crates/branches/style/branches/main/_main/title/styles/title-base.md)
-                    - 📄 [Адаптив заголовка](RBackend/crates/branches/style/branches/main/_main/title/styles/title-responsive.md)
-                  - 📄 [Стили заголовка](RBackend/crates/branches/style/branches/main/_main/title/title.md)
-                - 📂 **Зона загрузки**
-                  - 📂 [**Стили кнопок**](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.md)
-                    - 📄 [База кнопки](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-base.md)
-                    - 📄 [Адаптив кнопки](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-responsive.md)
-                    - 📄 [Состояния кнопки](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/button-states.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-styles/index.md)
-                  - 📂 [**Стили подсказок**](RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/index.md)
-                    - 📄 [База подсказки](RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-base.md)
-                    - 📄 [ПК-подсказка](RBackend/crates/branches/style/branches/main/_main/upload-zone/hint-styles/upload-hint-pc-only.md)
-                  - 📂 [**Стили**](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/index.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/index.md)
-                    - 📄 [База области](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-base.md)
-                    - 📄 [Ховер области](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-hover.md)
-                    - 📄 [Адаптив области](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-responsive.md)
-                    - 📄 [Стили текстового поля](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-textarea.md)
-                    - 📄 [Управление выделением](RBackend/crates/branches/style/branches/main/_main/upload-zone/styles/upload-area-user-select.md)
-                  - 📂 [**Системные стили**](RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.md)
-                    - 📄 [Индекс стилей](RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/index.md)
-                    - 📄 [Скрытые элементы](RBackend/crates/branches/style/branches/main/_main/upload-zone/zone-styles/visually-hidden.md)
-                  - 📄 [Стиль кнопки профиля](RBackend/crates/branches/style/branches/main/_main/upload-zone/button-view-profile.md)
-                  - 📄 [Стили области загрузки](RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-area.md)
-                  - 📄 [Стили подсказки](RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-hint.md)
-                  - 📄 [Стили зоны загрузки](RBackend/crates/branches/style/branches/main/_main/upload-zone/upload-zone.md)
-              - 📄 [Стили главной](RBackend/crates/branches/style/branches/main/main.md)
-          - 📂 **Корневые системы**
-            - 📂 **Базовые стили и Shell**
-              - 📂 **Библиотека предметов**
-                - 📄 [Стили карточки](RBackend/crates/branches/style/roots/_roots/items/_item-card.md)
-                - 📄 [Стили иконки](RBackend/crates/branches/style/roots/_roots/items/_item-image.md)
-                - 📄 [Стили уровня](RBackend/crates/branches/style/roots/_roots/items/_item-level.md)
-                - 📄 [Стили ссылки](RBackend/crates/branches/style/roots/_roots/items/_item-link.md)
-                - 📄 [Стили названия](RBackend/crates/branches/style/roots/_roots/items/_item-name.md)
-                - 📄 [Стили редкостей](RBackend/crates/branches/style/roots/_roots/items/_item-rarities.md)
-                - 📄 [Стили сетки](RBackend/crates/branches/style/roots/_roots/items/_items-grid.md)
-                - 📄 [Стили списка предметов](RBackend/crates/branches/style/roots/_roots/items/_items.md)
-                - 📄 [Переменные редкости](RBackend/crates/branches/style/roots/_roots/items/_rarity-vars.md)
-              - 📂 **shell**
-                - 📂 **Навигация**
-                  - 📄 [Кнопка меню](RBackend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.md)
-                  - 📄 [Обертка управления](RBackend/crates/branches/style/roots/_roots/shell/navigation/_controls-wrapper.md)
-                  - 📄 [_page-transitions.scss](RBackend/crates/branches/style/roots/_roots/shell/navigation/_page-transitions.md)
-                - 📂 **Параллакс**
-                  - 📄 [Стили фона](RBackend/crates/branches/style/roots/_roots/shell/parallax/_background.md)
-                - 📂 **Боковое меню**
-                  - 📄 [Логотип в меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_button-logo.md)
-                  - 📄 [Переключатель языка](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_lang-switcher.md)
-                  - 📄 [_nav-drop.scss](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-drop.md)
-                  - 📄 [Вкладки навигации](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_nav-tab.md)
-                  - 📄 [Заголовки меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_page-title.md)
-                  - 📄 [Боковое меню](RBackend/crates/branches/style/roots/_roots/shell/sidebar/_sidebar.md)
-              - 📄 [Глобальные анимации](RBackend/crates/branches/style/roots/_roots/_animations.md)
-              - 📄 [Стили ошибок](RBackend/crates/branches/style/roots/_roots/_error.md)
-              - 📄 [Шрифты](RBackend/crates/branches/style/roots/_roots/_fonts.md)
-              - 📄 [Интерактивность](RBackend/crates/branches/style/roots/_roots/_interactivity.md)
-              - 📄 [Режим экономии](RBackend/crates/branches/style/roots/_roots/_low-res.md)
-              - 📄 [Базовый сброс](RBackend/crates/branches/style/roots/_roots/_reset.md)
-              - 📄 [Стили оболочки](RBackend/crates/branches/style/roots/_roots/_shell.md)
-              - 📄 [_tokens.scss](RBackend/crates/branches/style/roots/_roots/_tokens.md)
-              - 📄 [Дизайн-переменные](RBackend/crates/branches/style/roots/_roots/_vars.md)
-            - 📄 [Агрегатор ядра](RBackend/crates/branches/style/roots/_roots.md)
-          - 📂 **Утилиты и сервисы**
-            - 📂 **Индикаторы загрузки**
-              - 📄 [Стили загрузки](RBackend/crates/branches/style/utils/_loading-states/loading-states.md)
-          - 📄 [_leptos.scss](RBackend/crates/branches/style/_leptos.md)
-          - 📄 [site.scss](RBackend/crates/branches/style/site.md)
-        - 📄 [Cargo.toml](RBackend/crates/branches/Cargo.toml.md)
-      - 📂 **builder**
-        - 📂 **src**
-          - 📂 **catalog**
-            - 📄 [api_items_flatbuffer.rs](RBackend/crates/builder/src/catalog/api_items_flatbuffer.md)
-            - 📄 [export.rs](RBackend/crates/builder/src/catalog/export.md)
-            - 📄 [files.rs](RBackend/crates/builder/src/catalog/files.md)
-            - 📄 [flatbuffer.rs](RBackend/crates/builder/src/catalog/flatbuffer.md)
-            - 📄 [images.rs](RBackend/crates/builder/src/catalog/images.md)
-            - 📄 [locales.rs](RBackend/crates/builder/src/catalog/locales.md)
-            - 📄 [mod.rs](RBackend/crates/builder/src/catalog/mod.md)
-            - 📄 [validate.rs](RBackend/crates/builder/src/catalog/validate.md)
-          - 📄 [main.rs](RBackend/crates/builder/src/main.md)
-          - 📄 [root.rs](RBackend/crates/builder/src/root.md)
-        - 📄 [Cargo.toml](RBackend/crates/builder/Cargo.toml.md)
-      - 📂 **cli**
-        - 📂 **src**
-          - 📄 [main.rs](RBackend/crates/cli/src/main.md)
-        - 📄 [Cargo.toml](RBackend/crates/cli/Cargo.toml.md)
-      - 📂 **core**
-        - 📂 **src**
-          - 📂 **catalog**
-            - 📂 **export**
-              - 📄 [item.rs](RBackend/crates/core/src/catalog/export/item.md)
-              - 📄 [mod.rs](RBackend/crates/core/src/catalog/export/mod.md)
-              - 📄 [parts.rs](RBackend/crates/core/src/catalog/export/parts.md)
-              - 📄 [rarity.rs](RBackend/crates/core/src/catalog/export/rarity.md)
-              - 📄 [tests.rs](RBackend/crates/core/src/catalog/export/tests.md)
-            - 📄 [columns.rs](RBackend/crates/core/src/catalog/columns.md)
-            - 📄 [ids.rs](RBackend/crates/core/src/catalog/ids.md)
-            - 📄 [mod.rs](RBackend/crates/core/src/catalog/mod.md)
-            - 📄 [strings.rs](RBackend/crates/core/src/catalog/strings.md)
-          - 📂 **Страница профиля**
-            - 📂 **Секция героев**
-              - 📄 [league.rs](RBackend/crates/core/src/profile/heroes/league.md)
-              - 📄 [level.rs](RBackend/crates/core/src/profile/heroes/level.md)
-              - 📄 [mod.rs](RBackend/crates/core/src/profile/heroes/mod.md)
-              - 📄 [name.rs](RBackend/crates/core/src/profile/heroes/name.md)
-              - 📄 [types.rs](RBackend/crates/core/src/profile/heroes/types.md)
-            - 📂 **identity**
-              - 📄 [mod.rs](RBackend/crates/core/src/profile/identity/mod.md)
-              - 📄 [name.rs](RBackend/crates/core/src/profile/identity/name.md)
-              - 📄 [types.rs](RBackend/crates/core/src/profile/identity/types.md)
-              - 📄 [uid.rs](RBackend/crates/core/src/profile/identity/uid.md)
-            - 📂 **Библиотека предметов**
-              - 📄 [cards.rs](RBackend/crates/core/src/profile/items/cards.md)
-              - 📄 [mod.rs](RBackend/crates/core/src/profile/items/mod.md)
-              - 📄 [rarity.rs](RBackend/crates/core/src/profile/items/rarity.md)
-              - 📄 [types.rs](RBackend/crates/core/src/profile/items/types.md)
-              - 📄 [xp.rs](RBackend/crates/core/src/profile/items/xp.md)
-            - 📂 **unlocks**
-              - 📄 [banners.rs](RBackend/crates/core/src/profile/unlocks/banners.md)
-              - 📄 [mod.rs](RBackend/crates/core/src/profile/unlocks/mod.md)
-              - 📄 [skins.rs](RBackend/crates/core/src/profile/unlocks/skins.md)
-              - 📄 [types.rs](RBackend/crates/core/src/profile/unlocks/types.md)
-            - 📂 **wallet**
-              - 📄 [mod.rs](RBackend/crates/core/src/profile/wallet/mod.md)
-              - 📄 [read.rs](RBackend/crates/core/src/profile/wallet/read.md)
-              - 📄 [types.rs](RBackend/crates/core/src/profile/wallet/types.md)
-            - 📄 [area.rs](RBackend/crates/core/src/profile/area.md)
-            - 📄 [check.rs](RBackend/crates/core/src/profile/check.md)
-            - 📄 [level.rs](RBackend/crates/core/src/profile/level.md)
-            - 📄 [mod.rs](RBackend/crates/core/src/profile/mod.md)
-            - 📄 [score.rs](RBackend/crates/core/src/profile/score.md)
-            - 📄 [types.rs](RBackend/crates/core/src/profile/types.md)
-          - 📄 [image_key.rs](RBackend/crates/core/src/image_key.md)
-          - 📄 [lib.rs](RBackend/crates/core/src/lib.md)
-          - 📄 [slug.rs](RBackend/crates/core/src/slug.md)
-        - 📄 [Cargo.toml](RBackend/crates/core/Cargo.toml.md)
-      - 📂 **db**
-        - 📂 **Миграции БД**
-          - 📂 **pg**
-            - 📄 [0001_profiles.sql](RBackend/crates/db/migrations/pg/0001_profiles.md)
-            - 📄 [0002_normalized_tables.sql](RBackend/crates/db/migrations/pg/0002_normalized_tables.md)
-          - 📂 **sqlite**
-            - 📄 [0001_profiles.sql](RBackend/crates/db/migrations/sqlite/0001_profiles.md)
-            - 📄 [0002_normalized_tables.sql](RBackend/crates/db/migrations/sqlite/0002_normalized_tables.md)
-        - 📂 **src**
-          - 📄 [lib.rs](RBackend/crates/db/src/lib.md)
-          - 📄 [profile.rs](RBackend/crates/db/src/profile.md)
-          - 📄 [seed.rs](RBackend/crates/db/src/seed.md)
-        - 📄 [Cargo.toml](RBackend/crates/db/Cargo.toml.md)
-      - 📂 **middleware**
-        - 📂 **src**
-          - 📄 [error.rs](RBackend/crates/middleware/src/error.md)
-          - 📄 [items.rs](RBackend/crates/middleware/src/items.md)
-          - 📄 [lib.rs](RBackend/crates/middleware/src/lib.md)
-          - 📄 [profile.rs](RBackend/crates/middleware/src/profile.md)
-        - 📄 [Cargo.toml](RBackend/crates/middleware/Cargo.toml.md)
-      - 📂 **pack**
-        - 📂 **src**
-          - 📄 [api_items.rs](RBackend/crates/pack/src/api_items.md)
-          - 📄 [catalog.rs](RBackend/crates/pack/src/catalog.md)
-          - 📄 [error.rs](RBackend/crates/pack/src/error.md)
-          - 📄 [lib.rs](RBackend/crates/pack/src/lib.md)
-          - 📄 [profile.rs](RBackend/crates/pack/src/profile.md)
-        - 📄 [Cargo.toml](RBackend/crates/pack/Cargo.toml.md)
-    - 📂 **schemas**
-      - 📄 [api_items.fbs](RBackend/schemas/api_items.md)
-      - 📄 [catalog.fbs](RBackend/schemas/catalog.md)
-      - 📄 [error.fbs](RBackend/schemas/error.md)
-      - 📄 [localization.fbs](RBackend/schemas/localization.md)
-      - 📄 [profile.fbs](RBackend/schemas/profile.md)
-      - 📄 [search.fbs](RBackend/schemas/search.md)
-    - 📄 [Cargo.lock](RBackend/Cargo.lock.md)
-    - 📄 [Cargo.toml](RBackend/Cargo.toml.md)
-    - 📄 [Инструкции Docker](RBackend/Dockerfile.md)
   - 📂 **Скрипты автоматизации**
     - 📂 **docs_graph**
       - 📄 [build.py](scripts/docs_graph/build.md)

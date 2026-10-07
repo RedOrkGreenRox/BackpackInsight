@@ -24,7 +24,7 @@ IGNORE_FILES = {
 # Словарь красивых имен
 BEAUTIFUL_NAMES = {
     # --- Директории (Папки) ---
-    "Backend": "Бэкенд (Python/FastAPI)",
+    "Backend": "Бэкенд (Rust)",
     "DB": "База данных и миграции",
     "PlayerData": "Логика игроков и предметов",
     "Frontend": "Фронтенд (TypeScript/Vite)",
@@ -541,7 +541,7 @@ def render() -> str:
         "",
         "| Раздел | Описание |",
         "| :--- | :--- |",
-        "| [Бэкенд](Backend/index.md) | Python API, Модели, Логика парсинга |",
+        "| [Бэкенд](Backend/index.md) | Rust: API, сайт Leptos, сборка каталога |",
         "| [Фронтенд](Frontend/index.md) | TypeScript, Интерфейс, Дизайн-система |",
         "",
         "## 🏗 Иерархия исходного кода",

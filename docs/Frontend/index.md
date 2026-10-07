@@ -43,7 +43,7 @@
 
 ## Куда дальше
 *   Общая карта проекта: [Центральный Хаб структуры](../structure.md).
-*   Rust-бэкенд: [RBackend index](../RBackend/index.md).
+*   Rust-бэкенд: [Backend index](../Backend/index.md).
 *   Backend JSON-источники: [Backend index](../Backend/index.md).
 
 ## Связанные документы

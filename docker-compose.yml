@@ -46,7 +46,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: RBackend/Dockerfile
+      dockerfile: Backend/Dockerfile
     container_name: backpack_insight_backend
     restart: always
     ports:

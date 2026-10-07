@@ -17,7 +17,7 @@
 
 ## Связи
 - Вызывается из [ApiService](../utils/ApiService.md) при загрузке каталога, профиля и разборе ошибок.
-- Схемы: [RBackend/schemas](../../../RBackend/schemas.md); серверный аналог — [middleware crate](../../../RBackend/crates/middleware.md).
+- Схемы: [Backend/schemas](../../../Backend/schemas.md); серверный аналог — [middleware crate](../../../Backend/crates/middleware.md).
 
 ---
 

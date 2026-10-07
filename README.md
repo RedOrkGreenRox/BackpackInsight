@@ -20,7 +20,7 @@
 *   **[Бэкенд (Backend)](docs/Backend/index.md)** — Логика обработки данных, API и база данных.
 *   **[Фронтенд (Frontend)](docs/Frontend/index.md)** — Веб-интерфейс, PWA и визуализация.
 *   **[Данные и Механики (Data)](docs/data/index.md)** — Описания предметов Backpack Brawl, формулы опыта и логика симуляции.
-*   **[Rust-бэкенд (RBackend)](docs/RBackend/index.md)** — сервер Axum, интерфейс Leptos (SSR + islands), сборщики данных и картинок, CLI.
+*   **[Rust-бэкенд (Backend)](docs/Backend/index.md)** — сервер Axum, интерфейс Leptos (SSR + islands), сборщики данных и картинок, CLI.
 
 ### Конфигурация репозитория и журналы
 *   [Переменные окружения (.env.example)](docs/.env.md), [исключения Git (.gitignore)](docs/.gitignore.md), [атрибуты Git (.gitattributes)](docs/.gitattributes.md), [исключения Docker (.dockerignore)](docs/.dockerignore.md).

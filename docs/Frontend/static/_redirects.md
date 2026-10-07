@@ -8,7 +8,7 @@
 
 ## Связи
 - Заголовки статики: [static/_headers](_headers.md).
-- Генерация sitemap на бэкенде: [api_sitemap_robots.md](/docs/RBackend/crates/api_sitemap_robots.md).
+- Генерация sitemap на бэкенде: [api_sitemap_robots.md](/docs/Backend/crates/api_sitemap_robots.md).
 
 ---
 

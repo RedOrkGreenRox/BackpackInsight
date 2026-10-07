@@ -11,7 +11,7 @@
 *   `heroes/` — круглые значки героев (48 × 48), `shared` — герой не выбран.
 
 ## Связи (Dependencies)
-*   Стили: [_field.scss](/docs/RBackend/crates/branches/style/branches/editor/_field.md) (рамка), [_panels.scss](/docs/RBackend/crates/branches/style/branches/editor/_panels.md) (склад и каталог), [toolbar.rs](/docs/RBackend/crates/branches/src/branches/editor/ui/toolbar.md) (иконки), [hero.rs](/docs/RBackend/crates/branches/src/branches/editor/ui/hero.md) (портреты).
+*   Стили: [_field.scss](/docs/Backend/crates/branches/style/branches/editor/_field.md) (рамка), [_panels.scss](/docs/Backend/crates/branches/style/branches/editor/_panels.md) (склад и каталог), [toolbar.rs](/docs/Backend/crates/branches/src/branches/editor/ui/toolbar.md) (иконки), [hero.rs](/docs/Backend/crates/branches/src/branches/editor/ui/hero.md) (портреты).
 
 ---
 

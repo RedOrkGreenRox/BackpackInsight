@@ -8,7 +8,7 @@
 - `profile = "minimal"` — только `rustc`, `cargo` и `rust-std`, без документации и дополнительных компонентов.
 
 ## Связи
-- Workspace: [RBackend/Cargo.toml](RBackend/Cargo.toml.md).
+- Workspace: [Backend/Cargo.toml](Backend/Cargo.toml.md).
 
 ---
 

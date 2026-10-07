@@ -10,9 +10,9 @@ Language rule (Иван, 2026-10-06): **talk to Иван in Russian**. English o
 
 - Repo: `https://github.com/RedOrkGreenRox/BackpackInsight` (public). Owner: Иван (GitHub `RedOrkGreenRox`).
 - Three live branches matter: `main` (Python, production), `Rustified` (orphan, Rust backend by an earlier AI "Arena"), `rust-leptos` (ALL our new work, PR #4 → `Rustified`, CI green, waiting for Иван's review).
-- Goal: the whole site in Rust. Backend = Axum workspace `RBackend/`. Frontend = Leptos 0.8 SSR + islands (crate `RBackend/crates/branches`), keeping Иван's **dendritic architecture** (Gen / Shell / Branch / BranchSpec / BranchRunner, pages = `*Branch`, islands = `*Manager`).
+- Goal: the whole site in Rust. Backend = Axum workspace `Backend/`. Frontend = Leptos 0.8 SSR + islands (crate `Backend/crates/branches`), keeping Иван's **dendritic architecture** (Gen / Shell / Branch / BranchSpec / BranchRunner, pages = `*Branch`, islands = `*Manager`).
 - Nothing new is deployed. Production deploys only on push to `main` (`.github/workflows/deploy.yml`). The Pages proxy for the Leptos server is gated by `LEPTOS_SSR=true` (off).
-- Next concrete blocker before any switch: `RBackend/Dockerfile` must build/run the `branches` server (see §7.1).
+- Next concrete blocker before any switch: `Backend/Dockerfile` must build/run the `branches` server (see §7.1).
 - Biggest next feature: the **Item Field** (Иван's own grid design, §6). Build it only from his description; ask about gaps.
 - Hard rules: no subagents/workflows (quota), no history rewrites without his command, files ≤150 lines, a mirror `.md` in `docs/` for every source file, keep the old look, no full-page reloads, item names are never translated.
 
@@ -73,8 +73,8 @@ branches:
   stale_branches_to_delete_by_owner: [rustified-docs-mirror, rustified-leptos-branches, leptos-lazy-islands]   # session got HTTP 403 on delete
   closed_prs: [1, 2, 3]   # superseded by #4, never merged
 
-rbackend_workspace:   # as on rust-leptos
-  path: RBackend/
+backend_workspace:   # as on rust-leptos
+  path: Backend/
   edition: "2021"
   lints: {unsafe_code: forbid, clippy_unwrap_used: warn, clippy_expect_used: warn}
   release_profile: {lto: fat, codegen-units: 1, strip: symbols}
@@ -100,7 +100,7 @@ rbackend_workspace:   # as on rust-leptos
     - GET /robots.txt
   api_exports_for_ssr: ["routes() without '/'", require_api_secret, shutdown_signal]   # commit 05869f9
 
-branches_crate:   # RBackend/crates/branches — the Leptos site
+branches_crate:   # Backend/crates/branches — the Leptos site
   leptos: "0.8.21 (islands, islands-router)"
   leptos_axum: "0.8.10"
   cargo_leptos: "0.3.10"
@@ -132,11 +132,11 @@ branches_crate:   # RBackend/crates/branches — the Leptos site
       i18n.rs, per_lang.rs: "translations and per-language data"
     shell/: {mod.rs: "", sidebar.rs: "slide-out side menu (old design)", parallax.rs: "parallax background", prefetch.rs: "idle prefetch of unused lazy chunks (hydrate only)"}
     branches/: {main/, items/: [branch.rs, card.rs, manager.rs, scroll.rs, search_fn.rs, url.rs, mod.rs], editor/, not_found/}
-    catalog/: [item.rs, load.rs, rarity.rs, search.rs, mod.rs]   # reads RBackend/generated/items_{en,ru}.json into rbackend_core::ItemDef (no pack crate)
+    catalog/: [item.rs, load.rs, rarity.rs, search.rs, mod.rs]   # reads Backend/generated/items_{en,ru}.json into backend_core::ItemDef (no pack crate)
   style: "SCSS ported from Frontend/Web/ground, same dendritic folders (roots/_roots/shell/{sidebar,navigation,parallax}, branches/{main,items,404})"
 
 cloudflare_pages_functions:   # Frontend/Web/functions on rust-leptos
-  "[[path]].ts": "catch-all proxy to the Leptos server; active only if env LEPTOS_SSR == 'true'; skips /images/ /fonts/ /lang/ and a few static files; returns 503 'RBackend offline' on fetch failure"
+  "[[path]].ts": "catch-all proxy to the Leptos server; active only if env LEPTOS_SSR == 'true'; skips /images/ /fonts/ /lang/ and a few static files; returns 503 'Backend offline' on fetch failure"
   "api/[[path]].ts": "API proxy to the backend with X-Internal-Secret"
   "api/item/[id].ts": "item API"
   "api/sitemap.ts": "sitemap"
@@ -186,7 +186,8 @@ docs_system:
 | 2026-10-06 | Chat with Иван stays in Russian; English only for machine-readable files for Claude (replaces a short-lived 2026-10-04 "English only" rule). |
 | 2026-10-06 | Phases G (Python/Rust dual run) and H (staged backend switch) are removed from `rust_migration_plan.md`; he never wanted them. |
 | 2026-10-06 | Filters and sort exist conceptually in the old TS site, but their UX is bad; that is what "unfinished" means. |
-| 2026-10-06 | Item catalog data format: the game's JSON export read into a strict Rust model (`rbackend_core::CatalogExport` / `ItemDef`, `deny_unknown_fields`). Not static JSON on Pages, not typed FlatBuffers. The site no longer reads `.fb` packs. |
+| 2026-10-06 | Item catalog data format: the game's JSON export read into a strict Rust model (`backend_core::CatalogExport` / `ItemDef`, `deny_unknown_fields`). Not static JSON on Pages, not typed FlatBuffers. The site no longer reads `.fb` packs. |
+| 2026-10-07 | `RBackend/` renamed to `Backend/` (crate `rbackend_core` → `backend_core`); the old `Backend/DB` game exports moved to `Backend/data/`. Rustified is the single work branch. |
 
 Working rules for agents: no subagents or workflows (quota); no git history rewrites without his command; don't switch production; send short progress updates during long work; put results in the reply text itself, not only in files.
 
@@ -251,7 +252,7 @@ Overall backend migration was ~35–40% done when analysed on 2026-10-01; phase 
 
 ### 7.1 Open work and known gaps
 
-- **Dockerfile (Codex P1 on PR #4):** `RBackend/Dockerfile` still builds and runs only `api`. It must build with `cargo leptos build --release --split` and run `branches` with `target/site` and `Frontend/Web/static` before `LEPTOS_SSR` is turned on. Acknowledged on the PR; Иван has not scheduled it.
+- **Dockerfile (Codex P1 on PR #4):** `Backend/Dockerfile` still builds and runs only `api`. It must build with `cargo leptos build --release --split` and run `branches` with `target/site` and `Frontend/Web/static` before `LEPTOS_SSR` is turned on. Acknowledged on the PR; Иван has not scheduled it.
 - **SonarQube:** gate passed, 17 issues not reviewed (4 from old PR #1, 13 from old PR #2).
 - **Leptos site gaps:** no advanced filters/sort, no Item Field, no profile page, the home upload form is static markup with no logic, the editor is an empty placeholder. Item detail is covered by the Item Field's detailed form, not a separate page.
 - **Data:** 110 of 1139 items (7.0.0 export) have no image yet; the site shows a placeholder. Another thread is building an `art` crate (image pipeline from the ContentKits in project files).
@@ -290,7 +291,7 @@ Security:
 
 main bugs: `api.py:187` wipes items; `DetachedInstanceError` (HTTP 400) after resync; missing `init_db.sql`.
 
-Rustified blockers: Postgres migration conflicts with the existing DB; SQLite URL lacks `mode=rwc`; seeding only on empty table → FK error 500; some 404 routes; 17 missing images; panic at `level.rs:32` in `RBackend/crates/core/src/profile/` (two `level.rs` files exist: `profile/level.rs` and `profile/heroes/level.rs`; check which); FlatBuffers packs bigger than JSON; validators check the wrong file.
+Rustified blockers: Postgres migration conflicts with the existing DB; SQLite URL lacks `mode=rwc`; seeding only on empty table → FK error 500; some 404 routes; 17 missing images; panic at `level.rs:32` in `Backend/crates/core/src/profile/` (two `level.rs` files exist: `profile/level.rs` and `profile/heroes/level.rs`; check which); FlatBuffers packs bigger than JSON; validators check the wrong file.
 
 Shared: `scripts/git_push.py` breaks history (never use it on the orphan branch); `update.ps1` and `run_docker.py` are destructive; 100 MB images without LFS; RU items JSON has `"language": "en"`; 67 embargoed items are served; docs 1:1 law was violated (fixed on `rust-leptos`).
 
@@ -319,7 +320,7 @@ Proposed, not started: a typed `project.toml` (read via serde) as the single sou
 | Repo rules | `REQUIREMENTS.md` (replaced ARENA.MD 2026-10-07) |
 | Project memory | shared Claude project memory (team/silo) |
 | This file | `SUMMARY.md` at the repo root on `rust-leptos` (PR #4); copy at `/mnt/project-files/reports/branches-2026-10-01/SUMMARY.md` |
-| Game data | `Backend/DB/items_{en,ru}_7_0_0.json` (also 5.1.0 for tests); ContentKit zips in `/mnt/project-files/` |
+| Game data | `Backend/data/items_{en,ru}_7_0_0.json` (also 5.1.0 for tests); ContentKit zips in `/mnt/project-files/` |
 
 ## 11. Questions still open for Иван
 

@@ -572,12 +572,12 @@ Backend phase считается готовой, когда:
 
 ## Naming checkpoint — дендрическая корневая система
 
-Пользователь уточнил: названия должны остаться тематическими, простыми и связанными с дендрической темой фронтенда. Поэтому backend в Rust-плане называется частью `RBackend/`, а не отдельным чужеродным `Backend v2`.
+Пользователь уточнил: названия должны остаться тематическими, простыми и связанными с дендрической темой фронтенда. Поэтому backend в Rust-плане называется частью `Backend/`, а не отдельным чужеродным `Backend v2`.
 
 Принята первая схема имён:
 
 ```text
-RBackend/                  Rust-workspace будущей корневой системы
+Backend/                  Rust-workspace будущей корневой системы
 core               корень доменных правил / oracle
 cli                CLI-доступ к корню
 будущий api        Axum API + SSR routes
@@ -602,12 +602,12 @@ SlugService
 ItemIconService
 ```
 
-Первая контрольная точка: `RBackend/crates/core` с `SlugService` и `RBackend/crates/cli` с командой `slug`.
+Первая контрольная точка: `Backend/crates/core` с `SlugService` и `Backend/crates/cli` с командой `slug`.
 
 
-## Checkpoint 2 — ItemIconService в RBackend
+## Checkpoint 2 — ItemIconService в Backend
 
-Вторая контрольная точка добавляет в `RBackend/crates/core` доменный `ItemIconService` и тип `ImageKey`.
+Вторая контрольная точка добавляет в `Backend/crates/core` доменный `ItemIconService` и тип `ImageKey`.
 
 Перенесена текущая логика:
 
@@ -1252,8 +1252,8 @@ GET /robots.txt
 
 ```text
 routes/health.rs
-docs/RBackend/backend_parity_layer.md
-docs/RBackend/contract_intentional_diffs.md
+docs/Backend/backend_parity_layer.md
+docs/Backend/contract_intentional_diffs.md
 ```
 
 Проверяются contract compare scripts для profile/items и basic operational endpoints health/ready/sitemap/robots.
@@ -1288,12 +1288,12 @@ api/src/security/secret.rs
 Эта точка начинает data source layer:
 
 ```text
-RBackend/schemas/catalog.fbs
-RBackend/schemas/profile.fbs
-RBackend/schemas/search.fbs
-RBackend/schemas/localization.fbs
-RBackend/schemas/error.fbs
-RBackend/crates/builder
+Backend/schemas/catalog.fbs
+Backend/schemas/profile.fbs
+Backend/schemas/search.fbs
+Backend/schemas/localization.fbs
+Backend/schemas/error.fbs
+Backend/crates/builder
 ```
 
 `builder` добавляет команды:
@@ -1314,7 +1314,7 @@ cargo run -p builder -- build-catalog-preview
 Эта точка добавляет первый настоящий бинарный FlatBuffer artifact для catalog summary:
 
 ```text
-RBackend/generated/catalog_summary.fb
+Backend/generated/catalog_summary.fb
 ```
 
 Новые команды `builder`:
@@ -1324,7 +1324,7 @@ cargo run -p builder -- build-catalog-flatbuffer
 cargo run -p builder -- verify-flatbuffer
 ```
 
-`build-catalog-flatbuffer` строит JSON под `RBackend/schemas/catalog.fbs`, вызывает внешний `flatc` и создаёт `.fb`.
+`build-catalog-flatbuffer` строит JSON под `Backend/schemas/catalog.fbs`, вызывает внешний `flatc` и создаёт `.fb`.
 
 `verify-flatbuffer` пока делает минимальную проверку file identifier `BICS`. Runtime-чтение `.fb` в `api` будет отдельной backend-точкой.
 
@@ -1334,10 +1334,10 @@ cargo run -p builder -- verify-flatbuffer
 Эта точка делает первый `.fb` pack runtime-читаемым:
 
 ```text
-RBackend/crates/pack
-RBackend/crates/pack/src/generated/catalog_generated.rs
+Backend/crates/pack
+Backend/crates/pack/src/generated/catalog_generated.rs
 build verify-flatbuffer через pack
-api /api/catalog-summary читает RBackend/generated/catalog_summary.fb, если он существует
+api /api/catalog-summary читает Backend/generated/catalog_summary.fb, если он существует
 ```
 
 `api` сохраняет fallback на raw JSON, чтобы dev-сервер работал без предварительного build-catalog-flatbuffer.
@@ -1350,16 +1350,16 @@ api /api/catalog-summary читает RBackend/generated/catalog_summary.fb, е�
 Эта точка делает `/api/items` pack-backed, если сгенерированы compatibility packs:
 
 ```text
-RBackend/generated/api_items_en.fb
-RBackend/generated/api_items_ru.fb
+Backend/generated/api_items_en.fb
+Backend/generated/api_items_ru.fb
 ```
 
 Добавлены:
 
 ```text
-RBackend/schemas/api_items.fbs
-RBackend/crates/pack/src/api_items.rs
-RBackend/crates/builder/src/catalog/api_items_flatbuffer.rs
+Backend/schemas/api_items.fbs
+Backend/crates/pack/src/api_items.rs
+Backend/crates/builder/src/catalog/api_items_flatbuffer.rs
 ```
 
 `api /api/items` теперь сначала пытается читать pack по `lang`, и только если pack отсутствует — использует raw JSON fallback.
@@ -1378,7 +1378,7 @@ GET /api/items.fb?lang=en|ru
 GET /api/catalog-summary.fb
 ```
 
-Они отдают готовые `.fb` packs из `RBackend/generated`. Старые JSON endpoints остаются только legacy/dev и для contract compare, но новый backend→middleware контракт должен идти через `.fb`.
+Они отдают готовые `.fb` packs из `Backend/generated`. Старые JSON endpoints остаются только legacy/dev и для contract compare, но новый backend→middleware контракт должен идти через `.fb`.
 
 
 ## Checkpoint 30 — Binary /api/profile.fb
@@ -1404,7 +1404,7 @@ ApiError FlatBuffer     BIER
 Добавлен crate:
 
 ```text
-RBackend/crates/middleware
+Backend/crates/middleware
 ```
 
 Он декодирует бинарные backend contracts:
@@ -1449,14 +1449,14 @@ JSON остаётся только как input: исходные файлы р�
 
 ## Checkpoint 32 — Production pack-only Docker replacement
 
-Добавлен production слой для RBackend как замены Python backend на том же порту 8000:
+Добавлен production слой для Backend как замены Python backend на том же порту 8000:
 
 ```text
-RBackend/Dockerfile
+Backend/Dockerfile
 ROOT_PROJECT_ROOT support
 pack verification at startup
-docker-compose backend -> RBackend/Dockerfile
-docker-compose.server backend -> RBackend/Dockerfile
+docker-compose backend -> Backend/Dockerfile
+docker-compose.server backend -> Backend/Dockerfile
 ```
 
 Docker build создаёт `.fb` packs через `builder`, затем собирает release `api`. Runtime запускает только Rust binary и содержит только generated packs.
@@ -1471,14 +1471,14 @@ ROOT_API_ADDR=0.0.0.0:8000
 ```
 
 
-## Checkpoint 33 — RBackend Docker replacement on same backend port
+## Checkpoint 33 — Backend Docker replacement on same backend port
 
-Добавлен `RBackend/Dockerfile` и compose backend service переключён на Rust backend без смены внешнего порта/имени контейнера:
+Добавлен `Backend/Dockerfile` и compose backend service переключён на Rust backend без смены внешнего порта/имени контейнера:
 
 ```text
 container_name: backpack_insight_backend
 port: 8000
-Dockerfile: RBackend/Dockerfile
+Dockerfile: Backend/Dockerfile
 ```
 
 Build stage запускает тесты, data validation и build-all-packs. Runtime содержит только release `api` binary и generated `.fb` packs.
@@ -1491,7 +1491,7 @@ Local compose оставляет `ROOT_LEGACY_JSON=true` для старого f
 Добавлен crate:
 
 ```text
-RBackend/crates/db
+Backend/crates/db
 ```
 
 Текущий scope:
@@ -1504,7 +1504,7 @@ atomic upsert by uid
 profile FlatBuffer bytes stored as BYTEA
 ```
 
-RBackend `api` подключает DB, если `ROOT_DB_ENABLED=true` или заданы `DATABASE_URL`/`POSTGRES_SERVER`. В `/api/profile.fb` успешный профиль сохраняется как бинарный `profile_fb`, без хранения raw user JSON.
+Backend `api` подключает DB, если `ROOT_DB_ENABLED=true` или заданы `DATABASE_URL`/`POSTGRES_SERVER`. В `/api/profile.fb` успешный профиль сохраняется как бинарный `profile_fb`, без хранения raw user JSON.
 
 
 ## Checkpoint 34 — Remove legacy JSON runtime endpoints

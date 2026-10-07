@@ -1,6 +1,6 @@
 // Cloudflare Pages sitemap function.
 // Kept as frontend/edge functionality, but the real sitemap is now produced by
-// RBackend and proxied with the server-side API secret.
+// Backend and proxied with the server-side API secret.
 // @ts-ignore
 export const onRequestGet: PagesFunction<{ BACKEND?: string; API_SECRET?: string }> = async ({ env, request }) => {
   const url = new URL(request.url);
@@ -21,7 +21,7 @@ export const onRequestGet: PagesFunction<{ BACKEND?: string; API_SECRET?: string
         });
       }
     } catch (error) {
-      console.error("RBackend sitemap proxy failed", error);
+      console.error("Backend sitemap proxy failed", error);
     }
   }
 

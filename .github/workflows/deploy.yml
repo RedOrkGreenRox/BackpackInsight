@@ -8,7 +8,7 @@ jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy RBackend on VPS
+      - name: Deploy Backend on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -47,17 +47,17 @@ jobs:
             export POSTGRES_BIND=127.0.0.1
             export ROOT_DB_ENABLED=true
 
-            echo "🚀 Building and starting RBackend + PostgreSQL"
+            echo "🚀 Building and starting Backend + PostgreSQL"
             $COMPOSE up -d --build --force-recreate db backend
 
-            echo "⏳ Waiting for RBackend health"
+            echo "⏳ Waiting for Backend health"
             for i in $(seq 1 60); do
               if curl -fsS http://localhost:8000/health >/dev/null 2>&1; then
-                echo "✅ RBackend health OK after $i attempts"
+                echo "✅ Backend health OK after $i attempts"
                 break
               fi
               if [ "$i" = "60" ]; then
-                echo "❌ RBackend did not become healthy"
+                echo "❌ Backend did not become healthy"
                 $COMPOSE logs --tail=80 backend
                 exit 1
               fi
@@ -119,4 +119,4 @@ jobs:
             echo "✅ DB persistence OK, profiles rows: $(cat /tmp/profile_count.txt)"
 
             docker image prune -f
-            echo "✅ RBackend deploy completed"
+            echo "✅ Backend deploy completed"
