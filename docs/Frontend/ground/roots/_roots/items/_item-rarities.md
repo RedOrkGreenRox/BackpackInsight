@@ -12,10 +12,13 @@
 
 ---
 
+## Классы
+`.rarity-common`, `.rarity-rare`, `.rarity-epic`, `.rarity-legendary`, `.rarity-mythic`, `.rarity-unique`, `.rarity-relic`, `.rarity-boon`, `.rarity-special` — по одному на редкость.
+
 ## Связи (Dependencies)
 *   Зависит от [**_rarity-vars.scss**](_rarity-vars.md).
 *   Подключается в [**_items.scss**](_items.md).
 
 ---
 
-> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15
+> 📌 **Подпись документации:** создано вручную в рамках глубокого аудита кодовой базы · 2026-06-15; селекторы сверены с исходником · 2026-10-06

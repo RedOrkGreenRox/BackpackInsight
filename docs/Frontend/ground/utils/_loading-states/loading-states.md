@@ -30,6 +30,18 @@
 ## Оптимизация
 В режиме [**Low-Res Mode**](../../roots/_roots/_low-res.md) все анимации бликов и пульсаций отключаются, а спиннеры заменяются на статичные индикаторы для экономии ресурсов процессора.
 
+## Все селекторы
+| Группа | Селекторы | Что это |
+| :--- | :--- | :--- |
+| Карточка | `.skeleton-card`: `.skeleton-image`, `.skeleton-content`, `.skeleton-title`, `.skeleton-text`, `.skeleton-meta`, `.skeleton-badge` | заглушка карточки предмета (`createCardSkeleton`) |
+| Профиль | `.skeleton-profile`: `.skeleton-header`, `.skeleton-avatar`, `.skeleton-info`, `.skeleton-name`, `.skeleton-level`, `.skeleton-stats`, `.skeleton-stat` | заглушка шапки профиля (`createProfileSkeleton`) |
+| Прогресс | `.progress-container`: `.progress-label`, `.progress-bar`, `.progress-fill`, `.progress-text` | полоса прогресса (`createProgressBar`) |
+| Спиннер | `.spinner`, `.spinner-circle`, `.spinner-small`, `.spinner-medium`, `.spinner-large` | вращающийся круг трёх размеров, анимация `spin` |
+| Страница | `.page-loading`, `.loading-text` | полноэкранная загрузка (`showPageLoading`) |
+| Экономия | `.low-res-mode` | без анимаций скелетов и спиннера |
+
+Разметку для всех них строит [LoadingStates.ts](../LoadingStates.md).
+
 ---
 
-> 📌 **Подпись документации:** атомарный стиль системных сервисов · 2026-06-15
+> 📌 **Подпись документации:** атомарный стиль системных сервисов · 2026-06-15; селекторы сверены с исходником · 2026-10-06

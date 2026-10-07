@@ -13,7 +13,7 @@ TS_METHOD_RE = re.compile(
     r'([A-Za-z_]\w*)\s*(?:<[^>\n]*>)?\([^;\n]*\)\s*(?::\s*[^;{=\n]+)?\{\s*$', re.M)
 HEX_RE = re.compile(r'#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})')
 RS_COMMENT_RE = re.compile(r'//[^\n]*|/\*.*?\*/', re.S)
-# В TS `//` встречается и в строках (`https://`), поэтому строчный комментарий — только после пробела или начала строки.
+# В TS и SCSS `//` встречается и в строках (`https://`), поэтому строчный комментарий — только после пробела или начала строки.
 TS_COMMENT_RE = re.compile(r'(?:(?<=\s)|^)//[^\n]*|/\*.*?\*/', re.S | re.M)
 
 
@@ -37,6 +37,7 @@ def symbols_ts(src: str) -> set[str]:
 
 def symbols_scss(src: str) -> set[str]:
     # `.rarity-#{$name}` даёт обрубок `.rarity-`, а `#fff` — цвет, не id: оба не символы.
+    src = TS_COMMENT_RE.sub('', src)
     found = ({'.' + n for n in _names(r'(?<![\w&$-])\.([A-Za-z][\w-]*)', src)}
              | {'#' + n for n in _names(r'(?<![\w&$-])#([A-Za-z][\w-]*)(?![^{]*\})', src)}
              | _names(r'@keyframes\s+([\w-]+)', src))
