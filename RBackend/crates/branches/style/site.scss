@@ -18,3 +18,7 @@ main[data-branch="EditorBranch"] {
   @include meta.load-css("branches/items/items");
 }
 
+main[data-branch="EditorBranch"] {
+  @include meta.load-css("branches/editor/editor");
+}
+

@@ -1,10 +1,9 @@
 //! Ветки-страницы сайта. Каждая ветка реализует [`crate::roots::Branch`] и
 //! регистрируется в [`crate::roots::Gen`].
 //!
-//! Модуль `items` компилируется и для сервера, и для WASM: в нём живёт остров
-//! `ItemsManager`. Остальные ветки чисто серверные.
+//! Модули `items` и `editor` компилируются и для сервера, и для WASM: в них живут
+//! острова `ItemsManager` и `EditorManager`. Остальные ветки чисто серверные.
 
-#[cfg(feature = "ssr")]
 pub mod editor;
 pub mod items;
 #[cfg(feature = "ssr")]

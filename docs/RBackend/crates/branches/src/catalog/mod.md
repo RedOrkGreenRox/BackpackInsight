@@ -4,9 +4,10 @@
 Каталог предметов на сервере (только `ssr`). Читается один раз на старте из `RBackend/generated/items_{en,ru}.json` в строгую модель `ItemDef` ([core/catalog/export](/docs/RBackend/crates/core/src/catalog/export/mod.md)) и дальше живёт в памяти. В браузер каталог целиком не уходит: страницы получают готовый HTML, остров — порции по `PAGE_SIZE` карточек ([model.rs](../model.md)).
 
 ## Ключевая функциональность
-- **Реэкспорт:** `CatalogItem` ([item.rs](item.md)); `search_page`, `search_upto`, `MAX_PAGE` ([search.rs](search.md)). Подмодули `art` ([art.rs](art.md)), `load` ([load.rs](load.md)) и `rarity` ([rarity.rs](rarity.md)) приватны.
+- **Реэкспорт:** `CatalogItem` ([item.rs](item.md)); `rarity_rank` (`rarity::rank`); `search_page`, `search_upto`, `MAX_PAGE` ([search.rs](search.md)). Подмодули `art` ([art.rs](art.md)), `load` ([load.rs](load.md)) и `rarity` ([rarity.rs](rarity.md)) приватны.
 - **`LangCatalog`** — каталог одного языка: предметы в порядке по умолчанию и два индекса `HashMap` (`by_slug`, `by_id`) → позиция.
   - `new(items)` — сортирует предметы по редкости от ценной к простой (`rarity::rank`, сортировка устойчивая, поэтому внутри одной редкости сохраняется порядок экспорта) и строит оба индекса. Это сортировка по умолчанию TS-версии;
+  - `with_version(version)` / `version()` — версия игры из экспорта (`7.0.0`), нужна набору редактора ([editor/kit_fn.rs](../branches/editor/kit_fn.md));
   - `items()` — все предметы в порядке по умолчанию (по ним идёт поиск);
   - `by_slug(slug)` — предмет и его позиция в этом порядке;
   - `by_id(id)` — предмет по исходному `id` (английское имя из экспорта игры).

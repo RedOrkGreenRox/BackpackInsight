@@ -1,0 +1,90 @@
+// Поле 9 × 6, слои сумок, предметов и отметок, предмет под указателем.
+.ed-field {
+    position: relative;
+    width: calc(var(--cell) * 9);
+    height: calc(var(--cell) * 6);
+    border: var(--line-width) solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface-1);
+    touch-action: none;
+}
+
+.ed-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(9, var(--cell));
+    grid-template-rows: repeat(6, var(--cell));
+}
+
+.ed-cell {
+    border: var(--line-width) solid var(--line-subtle);
+    background: rgb(40 48 52 / 0.6);
+}
+
+.ed-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ed-piece {
+    position: absolute;
+    pointer-events: auto;
+    cursor: grab;
+    touch-action: none;
+}
+
+// Картинка по центру блока; поворот задаёт инлайн-стиль.
+.ed-art {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+}
+
+// Режим сумок: предметы полупрозрачны и не берутся.
+.ed-ghosted {
+    opacity: 0.4;
+
+    .ed-piece { pointer-events: none; }
+}
+
+.ed-mark {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.ed-mark-fits { background: rgb(76 175 80 / 0.35); border: 0.125rem solid var(--success); }
+.ed-mark-blocked { background: rgb(231 76 60 / 0.3); border: 0.125rem solid var(--danger); }
+
+.ed-mark-star::after {
+    content: "★";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: calc(var(--cell) * 0.4);
+    color: var(--text-header-color);
+    text-shadow: 0 0 0.3rem rgb(0 0 0 / 0.9);
+}
+
+.ed-ghost {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    pointer-events: none;
+    filter: drop-shadow(0 0.4rem 0.6rem rgb(0 0 0 / 0.6));
+
+    .ed-piece { pointer-events: none; }
+}

@@ -1,0 +1,118 @@
+// Каталог, панель кнопок и склад.
+.ed-catalog,
+.ed-storage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border: var(--line-width) solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface-panel);
+}
+
+.ed-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+
+    input, select {
+        min-height: var(--tap-min);
+        padding: 0 var(--space-xs);
+        border: var(--line-width) solid var(--line);
+        border-radius: var(--radius-md);
+        background: var(--surface-2);
+        color: var(--text);
+        font: inherit;
+        font-size: var(--fs-sm);
+    }
+
+    .ed-search { flex: 1 1 12rem; }
+}
+
+.ed-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+    gap: var(--space-2xs);
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.ed-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs);
+    border-radius: var(--radius-md);
+    background: var(--surface-1);
+    cursor: grab;
+    // Прокрутка списка пальцем остаётся, предмет берётся движением вбок.
+    touch-action: pan-y;
+    user-select: none;
+
+    &:hover { background: var(--surface-3); }
+}
+
+// Картинка вписывается в квадрат 4rem по большей стороне формы.
+.ed-card-art {
+    --cell: calc(4rem / max(var(--w), var(--h)));
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+}
+
+.ed-card-name {
+    font-size: var(--fs-xs);
+    text-align: center;
+    line-height: var(--lh-tight);
+}
+
+.ed-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+}
+
+.ed-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+
+    select {
+        min-height: var(--tap-min);
+        border: var(--line-width) solid var(--line);
+        border-radius: var(--radius-md);
+        background: var(--surface-2);
+        color: var(--text);
+        font: inherit;
+    }
+}
+
+.ed-storage {
+    --cell: calc(var(--field-cell) * 0.7);
+    width: 100%;
+    max-width: calc(var(--field-cell) * 9);
+    box-sizing: border-box;
+    min-height: 8rem;
+}
+
+.ed-storage-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-xs);
+}
+
+.ed-stored {
+    position: relative;
+    cursor: grab;
+    touch-action: none;
+}
+
+.ed-storage-empty,
+.ed-loading {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--fs-sm);
+}

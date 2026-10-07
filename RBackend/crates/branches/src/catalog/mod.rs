@@ -11,6 +11,7 @@ mod rarity;
 mod search;
 
 pub use item::CatalogItem;
+pub use rarity::rank as rarity_rank;
 pub use search::{search_page, search_upto, MAX_PAGE};
 
 use crate::model::Lang;
@@ -21,6 +22,7 @@ use std::{collections::HashMap, path::Path, sync::Arc};
 /// и индексы по слагу и `id`.
 #[derive(Debug, Default)]
 pub struct LangCatalog {
+    version: String,
     items: Vec<CatalogItem>,
     by_slug: HashMap<String, usize>,
     by_id: HashMap<String, usize>,
@@ -43,10 +45,23 @@ impl LangCatalog {
             .map(|(i, it)| (it.def.id.clone(), i))
             .collect();
         Self {
+            version: String::new(),
             items,
             by_slug,
             by_id,
         }
+    }
+
+    /// Тот же каталог с версией игры (`7.0.0`).
+    #[must_use]
+    pub fn with_version(self, version: String) -> Self {
+        Self { version, ..self }
+    }
+
+    /// Версия игры, из экспорта которой собран каталог.
+    #[must_use]
+    pub fn version(&self) -> &str {
+        &self.version
     }
 
     /// Все предметы в порядке каталога.
@@ -86,8 +101,8 @@ impl Catalog {
         let art = ArtIndex::load(&project_root.join(format!(
             "Frontend/Web/static/images/{ART_DIR}/manifest.json"
         )))?;
-        let en = LangCatalog::new(load::load_items(&generated.join("items_en.json"), &art)?);
-        let ru = LangCatalog::new(load::load_items(&generated.join("items_ru.json"), &art)?);
+        let en = load::load_lang(&generated.join("items_en.json"), &art)?;
+        let ru = load::load_lang(&generated.join("items_ru.json"), &art)?;
         Ok(Self { en, ru })
     }
 

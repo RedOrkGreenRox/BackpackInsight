@@ -548,7 +548,7 @@
         - 📂 **src**
           - 📂 **Страницы приложения**
             - 📂 **editor**
-              - 📄 [mod.rs](RBackend/crates/branches/src/branches/editor/mod.md)
+              - 📄 [branch.rs](RBackend/crates/branches/src/branches/editor/branch.md)
             - 📂 **Библиотека предметов**
               - 📄 [branch.rs](RBackend/crates/branches/src/branches/items/branch.md)
               - 📄 [card.rs](RBackend/crates/branches/src/branches/items/card.md)

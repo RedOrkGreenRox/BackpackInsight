@@ -1,0 +1,65 @@
+// Раскладка: на широком экране каталог слева, поле со складом справа;
+// на узком — сверху вниз, как в игре (магазин, инвентарь, склад).
+.ed-editor {
+    // Клетка поля: растёт с экраном, но поле 9 клеток всегда помещается.
+    --field-cell: clamp(2.25rem, calc((100vw - 2 * var(--space-md)) / 9), 4.25rem);
+    --cell: var(--field-cell);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    align-items: start;
+    margin-top: var(--space-md);
+    color: var(--text);
+
+    @media (min-width: 64rem) {
+        grid-template-columns: minmax(18rem, 1fr) auto;
+    }
+}
+
+.ed-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    min-width: 0;
+}
+
+.ed-heading {
+    margin: 0;
+    font-size: var(--fs-md);
+    color: var(--text-heading);
+}
+
+.ed-hint {
+    margin: 0;
+    max-width: calc(var(--cell) * 9);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.ed-button {
+    min-height: var(--tap-min);
+    padding: 0 var(--space-sm);
+    border: var(--line-width) solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface-2);
+    color: var(--text);
+    font: inherit;
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease-soft);
+
+    &:hover { border-color: var(--line-strong); }
+    &:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    &.ed-on { border-color: var(--accent); box-shadow: var(--azure-glow-high); }
+}
+
+// Пока тащат предмет, страница не выделяет текст и не прокручивается пальцем.
+.ed-dragging {
+    user-select: none;
+    touch-action: none;
+    cursor: grabbing;
+}

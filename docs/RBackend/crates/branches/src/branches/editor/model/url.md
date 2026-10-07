@@ -1,0 +1,16 @@
+# [branches/branches/editor/model/url.rs](/RBackend/crates/branches/src/branches/editor/model/url.rs)
+
+## Назначение
+Короткая запись билда в адресе: `/editor?h=Mycella&b=…&s=…`. Поле `b` — записи `слаг.XYО` через `~` (`X`, `Y` — цифры клетки, `О` — `u`/`r`/`d`/`l`), склад `s` — слаги через `~`, `h` — герой. Символы безопасны в адресе и не кодируются.
+
+## Ключевая функциональность
+- `UrlCode { hero, field, storage }` — параметры, как их прочитал сервер ([branch.rs](../branch.md)).
+- `encode_field(kit, board)` — сумки, затем предметы; `encode_storage(kit, board)`.
+- `decode(kit, field, storage)` — записи с неизвестным слагом или битым кодом пропускаются, остальное ставится по правилам поля (`Board::put`).
+- Приватные `letter`, `from_letter`, `entry`.
+
+## Связи
+- Остров пишет адрес при каждом изменении: [ui/manager.rs](../ui/manager.md).
+
+---
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.

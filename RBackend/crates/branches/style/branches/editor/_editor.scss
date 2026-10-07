@@ -1,0 +1,6 @@
+// Редактор: раскладка страницы, поле, панели. Подключается в site.scss внутри
+// main[data-branch="EditorBranch"]; классы острова начинаются с `ed-`.
+@use "layout";
+@use "field";
+@use "panels";
+@use "dialog";

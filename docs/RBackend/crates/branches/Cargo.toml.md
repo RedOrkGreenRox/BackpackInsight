@@ -12,7 +12,8 @@
   - `leptos_meta` 0.8 — `<Title>`, `<Meta>`, `<Html>`, `<Body>` из веток;
   - `serde` с `derive` — пропсы островов и ответы серверных функций.
 - **`[features]`** — две сборки, необязательные зависимости включаются через `dep:`.
-- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`.
+- **Фича `hydrate`** (WASM): `console_error_panic_hook`, `wasm-bindgen`, `web-sys` с нужными API браузера: `History`, `Location`, `HtmlAnchorElement`, `HtmlElement`, `DomTokenList`, `CssStyleDeclaration`, `Url`, `UrlSearchParams`, а для докачки ленивых островов ([shell/prefetch.rs](src/shell/prefetch.md)) ещё `Document`, `NodeList`, `HtmlLinkElement`, `Response`, `Window`, а для перетаскивания в редакторе ([editor/ui/input.rs](src/branches/editor/ui/input.md)) — `Element`, `DomRect`, `EventTarget`, `PointerEvent`, `MouseEvent`, `KeyboardEvent`.
+- **`serde_json` без фичи** — нужен и серверу, и острову редактора (файл билда в браузере, [editor/model/file.rs](src/branches/editor/model/file.md)).
 - **Фича `ssr`** (сервер):
   - `leptos/ssr`, `leptos_meta/ssr`;
   - внутренние крейты `api` и `rbackend_core` (модель каталога); крейт `pack` сайту не нужен;
@@ -20,7 +21,6 @@
   - `any_spawner` с `tokio` — executor для фоновых задач рендера;
   - `tokio` (`macros`, `rt-multi-thread`, `net`);
   - `tower-http` с `fs`, `compression-br`, `compression-gzip`, `set-header` — статика, сжатие, `Cache-Control`;
-  - `serde_json` — словари интерфейса ([i18n.rs](src/roots/i18n.md));
   - `tracing`, `tracing-subscriber` (`env-filter`) — логи.
 - **Линты — свои вместо workspace:**
   - `[lints.rust]`: `unsafe_code = "deny"`, а не `forbid`: код-обвязка `wasm-bindgen` содержит `unsafe`, а `deny` всё равно запрещает его в рукописном коде;

@@ -1,0 +1,11 @@
+# [branches/branches/editor/ui/field.rs](/RBackend/crates/branches/src/branches/editor/ui/field.rs)
+
+## Назначение
+`Field(label)` — поле 9 × 6: сетка клеток, слой сумок, слой предметов (в режиме сумок полупрозрачный и не берётся, класс `ed-ghosted`) и слой отметок ([marks.rs](marks.md)).
+
+## Ключевая функциональность
+- Сумки и предметы — через `For` с ключом «номер + `Placed`».
+- `FieldPiece(placed, origin)` (приватный) — блок `.ed-piece` по `box_style`; нажатие начинает перетаскивание ([input.rs](input.md)), наведение ставит `hover` для звёзд.
+
+---
+> 📌 **Подпись документации:** ручной аудит · 2026-10-07.
