@@ -72,8 +72,9 @@ HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
 def page(data: dict, fragment: bool) -> str:
     html = read(os.path.join(HERE, 'page.html'))
     js = '\n'.join(read(os.path.join(HERE, name)) for name in SCRIPTS)
-    payload = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
-    body = html.replace('/*DATA*/', payload).replace('/*SCRIPTS*/', js)
+    payload = json.dumps(data, ensure_ascii=False).replace('<', '\\u003c')
+    # Скрипты подставляются раньше данных: в тексте документов сами маркеры тоже встречаются.
+    body = html.replace('/*SCRIPTS*/', js, 1).replace('/*DATA*/', payload, 1)
     return body if fragment else HEAD + body + '\n</body>\n</html>\n'
 
 
