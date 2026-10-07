@@ -39,6 +39,14 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
     }
 }
 
+/// Ленивые острова каркаса: они есть на каждой странице.
+const SHELL_ISLANDS: &[&str] = &["SidebarManager"];
+
+/// Острова страницы: ветки и каркаса.
+fn page_islands(branch: &[&'static str]) -> Vec<&'static str> {
+    branch.iter().chain(SHELL_ISLANDS).copied().collect()
+}
+
 /// Корневой компонент: выбор ветки и общий каркас страницы.
 #[component]
 pub fn App() -> impl IntoView {
@@ -59,7 +67,7 @@ pub fn App() -> impl IntoView {
         <Html {..} lang=ctx.lang.code()/>
         <Body {..} class=body_class/>
         {(entry.head)(&ctx).tags(entry.spec.sitemap)}
-        {LazyIslands::links(entry.spec.islands)}
+        {LazyIslands::links(&page_islands(entry.spec.islands))}
         {sidebar(&ctx)}
         <div class="background-image" id="bgImage" aria-hidden="true">
             <picture>

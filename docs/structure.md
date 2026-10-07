@@ -617,6 +617,7 @@
             - 📄 [spec.rs](RBackend/crates/branches/src/roots/spec.md)
             - 📄 [split_files.rs](RBackend/crates/branches/src/roots/split_files.md)
           - 📂 **shell**
+            - 📄 [fade.rs](RBackend/crates/branches/src/shell/fade.md)
             - 📄 [mod.rs](RBackend/crates/branches/src/shell/mod.md)
             - 📄 [parallax.rs](RBackend/crates/branches/src/shell/parallax.md)
             - 📄 [prefetch.rs](RBackend/crates/branches/src/shell/prefetch.md)
@@ -748,6 +749,7 @@
                 - 📂 **Навигация**
                   - 📄 [Кнопка меню](RBackend/crates/branches/style/roots/_roots/shell/navigation/_button-toggle.md)
                   - 📄 [Обертка управления](RBackend/crates/branches/style/roots/_roots/shell/navigation/_controls-wrapper.md)
+                  - 📄 [_page-transitions.scss](RBackend/crates/branches/style/roots/_roots/shell/navigation/_page-transitions.md)
                 - 📂 **Параллакс**
                   - 📄 [Стили фона](RBackend/crates/branches/style/roots/_roots/shell/parallax/_background.md)
                 - 📂 **Боковое меню**

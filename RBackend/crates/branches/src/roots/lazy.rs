@@ -88,21 +88,29 @@ impl LazyIslands {
         Ok(())
     }
 
-    /// Ссылки в `<head>` для страницы с островами `islands`.
+    /// Ссылки в `<head>` для страницы с островами `islands` (вместе с островами каркаса).
     pub fn links(islands: &[&str]) -> impl IntoView {
         let split = SPLIT.get().filter(|split| !split.chunks.is_empty())?;
         let prefixes: Vec<String> = islands
             .iter()
             .map(|island| format!("{}_loader_", snake_case(island)))
             .collect();
-        let chunks = split
-            .chunks
-            .iter()
-            .map(|chunk| {
-                let used = prefixes.iter().any(|prefix| chunk.key.starts_with(prefix));
+        // Общий файл нескольких островов (`chunk_*`) ставится один раз; он нужен
+        // странице, если нужен хоть одному её острову.
+        let mut hrefs: Vec<(&str, bool)> = Vec::new();
+        for chunk in &split.chunks {
+            let used = prefixes.iter().any(|prefix| chunk.key.starts_with(prefix));
+            match hrefs.iter_mut().find(|(href, _)| *href == chunk.href) {
+                Some(entry) => entry.1 |= used,
+                None => hrefs.push((&chunk.href, used)),
+            }
+        }
+        let chunks = hrefs
+            .into_iter()
+            .map(|(href, used)| {
                 let media = if used { "all" } else { "not all" };
                 view! {
-                    <Link rel="preload" href=chunk.href.clone() as_="fetch" type_="application/wasm" crossorigin="anonymous" media/>
+                    <Link rel="preload" href=href.to_owned() as_="fetch" type_="application/wasm" crossorigin="anonymous" media/>
                 }
             })
             .collect_view();
