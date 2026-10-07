@@ -1,5 +1,7 @@
 //! Картинка предмета на поле, на складе и под пальцем.
 //!
+//! В инвентаре и на складе сумка рисуется «открытой», как в игре; в каталоге — обычной.
+//!
 //! Картинка нарисована для поворота `Up` и покрывает охват формы. Блок снаружи
 //! занимает охват повёрнутой формы, картинка внутри стоит по центру и
 //! поворачивается CSS-трансформацией. Размеры — в `var(--cell)`.
@@ -32,16 +34,18 @@ pub fn size_style(width: i16, height: i16) -> String {
 }
 
 /// Картинка предмета `item`, повёрнутая на `orient`, по центру родительского блока.
+/// `placed` — предмет в инвентаре или на складе.
 #[component]
 #[allow(clippy::must_use_candidate)]
-pub fn PieceArt(item: KitItem, orient: Orientation) -> impl IntoView {
+pub fn PieceArt(item: KitItem, orient: Orientation, #[prop(optional)] placed: bool) -> impl IntoView {
     let b = item.bounds();
     let style = format!(
         "{};transform:translate(-50%,-50%) rotate({}deg)",
         size_style(b.width(), b.height()),
         u16::from(orient.turns()) * 90
     );
-    let [avif, webp] = ["avif", "webp"].map(|format| srcset(&item.image, format));
+    let image = if placed { item.placed_image() } else { &item.image };
+    let [avif, webp] = ["avif", "webp"].map(|format| srcset(image, format));
     view! {
         <div class="ed-art" style=style>
             <picture>

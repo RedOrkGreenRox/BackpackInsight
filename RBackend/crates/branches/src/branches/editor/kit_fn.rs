@@ -60,6 +60,7 @@ mod build {
             shape: cells(&def.item_shape),
             stars: cells(&def.item_stars),
             image: item.image.clone(),
+            placed: item.placed.clone(),
         }
     }
 }

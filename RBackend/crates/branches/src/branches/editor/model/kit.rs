@@ -39,6 +39,8 @@ pub struct KitItem {
     pub stars: Vec<Cell>,
     /// Картинка (рисует форму при повороте `Up`).
     pub image: ItemImage,
+    /// Картинка сумки в инвентаре; пустая — та же, что `image`.
+    pub placed: ItemImage,
 }
 
 impl KitItem {
@@ -46,6 +48,16 @@ impl KitItem {
     #[must_use]
     pub fn is_bag(&self) -> bool {
         self.types.iter().any(|t| t == BAG_TYPE)
+    }
+
+    /// Картинка на поле и на складе: у общих сумок она «открытая».
+    #[must_use]
+    pub fn placed_image(&self) -> &ItemImage {
+        if self.placed.is_empty() {
+            &self.image
+        } else {
+            &self.placed
+        }
     }
 
     /// Охват формы при повороте `Up`; у пустой формы — одна клетка.

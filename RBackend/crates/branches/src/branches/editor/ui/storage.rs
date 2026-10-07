@@ -51,7 +51,7 @@ fn Stored(index: usize, piece: usize) -> impl IntoView {
             title=name
             on:pointerdown=move |ev| start(editor, Origin::Storage(index), piece, &ev)
         >
-            <PieceArt item orient=Orientation::Up/>
+            <PieceArt item orient=Orientation::Up placed=true/>
         </div>
     }
     .into_any()

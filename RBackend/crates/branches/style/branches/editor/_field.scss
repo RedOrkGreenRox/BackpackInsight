@@ -1,25 +1,22 @@
-// Поле 9 × 6, слои сумок, предметов и отметок, предмет под указателем.
+// Поле 9 × 6 в рамке из игры, слои сумок, предметов и отметок, предмет под указателем.
+
+// Рамка с каменной сеткой (scripts/editor_ui_art.py). Отступы — толщина рамки
+// в клетках картинки (клетка ≈ 71.4 px), чтобы сетка фона совпала с клетками поля.
+.ed-frame {
+    padding: calc(var(--cell) * 0.295) calc(var(--cell) * 0.322) calc(var(--cell) * 0.225) calc(var(--cell) * 0.294);
+    background: image-set(url("/images/editor/inventory.avif") type("image/avif"), url("/images/editor/inventory.webp") type("image/webp")) center / 100% 100% no-repeat;
+}
+
+// Режим сумок: в игре сетка становится оранжевой.
+.ed-frame-bags {
+    background-image: image-set(url("/images/editor/inventory-bag-mode.avif") type("image/avif"), url("/images/editor/inventory-bag-mode.webp") type("image/webp"));
+}
+
 .ed-field {
     position: relative;
     width: calc(var(--cell) * 9);
     height: calc(var(--cell) * 6);
-    border: var(--line-width) solid var(--line-strong);
-    border-radius: var(--radius-sm);
-    background: var(--surface-1);
     touch-action: none;
-}
-
-.ed-grid {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: repeat(9, var(--cell));
-    grid-template-rows: repeat(6, var(--cell));
-}
-
-.ed-cell {
-    border: var(--line-width) solid var(--line-subtle);
-    background: rgb(40 48 52 / 0.6);
 }
 
 .ed-layer {

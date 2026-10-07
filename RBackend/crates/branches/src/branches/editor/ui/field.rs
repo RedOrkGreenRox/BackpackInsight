@@ -1,4 +1,6 @@
-//! Поле рюкзака 9 × 6: клетки, слой сумок, слой предметов и слой подсветки.
+//! Поле рюкзака 9 × 6 в рамке из игры: слой сумок, слой предметов и слой подсветки.
+//!
+//! Клетки нарисованы на фоне рамки (`images/editor/inventory`), в режиме сумок фон оранжевый.
 
 use super::{
     drag::Origin,
@@ -7,7 +9,7 @@ use super::{
     piece::{box_style, PieceArt},
     state::Editor,
 };
-use crate::branches::editor::model::{Bounds, Placed, HEIGHT, WIDTH};
+use crate::branches::editor::model::{Bounds, Placed};
 use leptos::prelude::*;
 
 /// Поле.
@@ -15,9 +17,6 @@ use leptos::prelude::*;
 #[allow(clippy::must_use_candidate)]
 pub fn Field(label: String) -> impl IntoView {
     let editor = Editor::get();
-    let cells = (0..WIDTH * HEIGHT)
-        .map(|_| view! { <div class="ed-cell"></div> })
-        .collect_view();
     let bags = move || {
         editor
             .board
@@ -29,15 +28,16 @@ pub fn Field(label: String) -> impl IntoView {
             .with(|b| b.items.iter().copied().enumerate().collect::<Vec<_>>())
     };
     view! {
-        <div class="ed-field" node_ref=editor.field role="grid" aria-label=label>
-            <div class="ed-grid" aria-hidden="true">{cells}</div>
-            <div class="ed-layer ed-bags">
-                <For each=bags key=|entry| *entry children=move |(i, p)| view! { <FieldPiece placed=p origin=Origin::Bag(i)/> }/>
+        <div class="ed-frame" class:ed-frame-bags=move || editor.board.with(|b| b.bag_mode)>
+            <div class="ed-field" node_ref=editor.field role="grid" aria-label=label>
+                <div class="ed-layer ed-bags">
+                    <For each=bags key=|entry| *entry children=move |(i, p)| view! { <FieldPiece placed=p origin=Origin::Bag(i)/> }/>
+                </div>
+                <div class="ed-layer ed-items" class:ed-ghosted=move || editor.board.with(|b| b.bag_mode)>
+                    <For each=items key=|entry| *entry children=move |(i, p)| view! { <FieldPiece placed=p origin=Origin::Item(i)/> }/>
+                </div>
+                <Marks/>
             </div>
-            <div class="ed-layer ed-items" class:ed-ghosted=move || editor.board.with(|b| b.bag_mode)>
-                <For each=items key=|entry| *entry children=move |(i, p)| view! { <FieldPiece placed=p origin=Origin::Item(i)/> }/>
-            </div>
-            <Marks/>
         </div>
     }
 }
@@ -64,7 +64,7 @@ fn FieldPiece(placed: Placed, origin: Origin) -> impl IntoView {
             on:pointerenter=move |_| editor.hover.set(Some(placed))
             on:pointerleave=move |_| editor.hover.set(None)
         >
-            <PieceArt item orient=placed.orient/>
+            <PieceArt item orient=placed.orient placed=true/>
         </div>
     }
     .into_any()

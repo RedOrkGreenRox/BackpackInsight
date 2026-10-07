@@ -59,7 +59,7 @@ pub fn Ghost() -> impl IntoView {
                 .filter_map(|p| {
                     let style = box_style(Bounds::of(&p.cells(&kit))?);
                     let item = kit.item(p.piece).clone();
-                    Some(view! { <div class="ed-piece" style=style><PieceArt item orient=p.orient/></div> })
+                    Some(view! { <div class="ed-piece" style=style><PieceArt item orient=p.orient placed=true/></div> })
                 })
                 .collect_view(),
         )

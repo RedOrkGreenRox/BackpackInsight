@@ -11,9 +11,11 @@
 | `def` | экспорт игры | `ItemDef` целиком |
 | `slug` | `def.id` | `SlugService::to_slug(id)` ([core/slug.rs](/docs/RBackend/crates/core/src/slug.md)) |
 | `image` | снаружи | `ItemImage` из манифеста `art` по `id` ([art.rs](art.md)); пустой, если картинки нет |
+| `placed` | снаружи | картинка сумки в инвентаре: состояние `PLACED_STATE` = `"open"` из манифеста; пустая у всех, кроме 6 общих сумок |
 | `search_text` | `def` | см. ниже |
 
 - **`new(def, image)`** — собирает предмет. `image` приходит из манифеста `art` ([load.rs](load.md)). `search_text` — имя, `id`, `connected_hero` (у общих предметов это `Shared`), редкость и типы через пробел в нижнем регистре; по этой строке работает поиск ([search.rs](search.md)).
+- **`with_placed(placed)`** — добавляет картинку поставленной сумки ([load.rs](load.md)).
 - **`card()`** — `ItemCard` для сетки: `slug`, `def.name`, редкость строкой (`ItemRarity` через `Display`), `image` ([model.rs](../model.md)).
 
 ## Связи

@@ -6,6 +6,9 @@
 use crate::model::{ItemCard, ItemImage};
 use rbackend_core::{ItemDef, SlugService};
 
+/// Состояние картинки в манифесте `art`, которым игра рисует сумку в инвентаре.
+pub const PLACED_STATE: &str = "open";
+
 /// Предмет каталога одного языка.
 #[derive(Clone, Debug, PartialEq)]
 pub struct CatalogItem {
@@ -15,6 +18,8 @@ pub struct CatalogItem {
     pub slug: String,
     /// Картинка из манифеста `art`; пустая, если её нет.
     pub image: ItemImage,
+    /// Картинка сумки, поставленной в инвентарь (состояние [`PLACED_STATE`]); у остальных пустая.
+    pub placed: ItemImage,
     /// Строка для поиска: имя, id, герой, редкость, типы в нижнем регистре.
     pub search_text: String,
 }
@@ -38,8 +43,16 @@ impl CatalogItem {
             slug: SlugService::to_slug(def.id.as_str()).to_string(),
             def,
             image,
+            placed: ItemImage::default(),
             search_text,
         }
+    }
+
+    /// Добавляет картинку поставленной сумки.
+    #[must_use]
+    pub fn with_placed(mut self, placed: ItemImage) -> Self {
+        self.placed = placed;
+        self
     }
 
     /// Карточка для сетки каталога.

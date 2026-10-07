@@ -3,13 +3,13 @@
 //! Файл пишет `builder build-catalog-json` после проверки экспорта игры строгой
 //! моделью [`CatalogExport`]; здесь та же модель, так что расхождение формата — ошибка старта.
 
-use super::{art::ArtIndex, CatalogItem, LangCatalog};
+use super::{art::ArtIndex, item::PLACED_STATE, CatalogItem, LangCatalog};
 use rbackend_core::CatalogExport;
 use std::{fs, path::Path};
 
 /// Читает каталог языка: предметы — в [`CatalogItem`], версия игры — из `appVersion`.
 ///
-/// Картинка берётся из манифеста `art` по `id` — он одинаков во всех языках.
+/// Картинка и картинка поставленной сумки берутся из манифеста `art` по `id` — он одинаков во всех языках.
 ///
 /// # Errors
 /// Файла нет или он не совпадает с моделью экспорта.
@@ -23,7 +23,8 @@ pub fn load_lang(path: &Path, art: &ArtIndex) -> Result<LangCatalog, String> {
         .into_iter()
         .map(|def| {
             let image = art.get(&def.id);
-            CatalogItem::new(def, image)
+            let placed = art.state(&def.id, PLACED_STATE);
+            CatalogItem::new(def, image).with_placed(placed)
         })
         .collect();
     Ok(LangCatalog::new(items).with_version(export.app_version))

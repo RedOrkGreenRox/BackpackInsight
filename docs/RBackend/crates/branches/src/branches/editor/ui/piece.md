@@ -6,7 +6,7 @@
 ## Ключевая функциональность
 - `box_style(bounds)` — `left/top/width/height` блока в клетках, строки сверху.
 - `size_style(width, height)`.
-- `PieceArt(item, orient)` — `.ed-art` с `<picture>` (`avif`, запасной `webp`, 1x — клетка 60 px, 2x — 120 px), `draggable="false"`; без картинки — заглушка.
+- `PieceArt(item, orient, placed)` — `placed` (необязательный) ставят поле, склад и предмет под пальцем: тогда берётся `placed_image`, и общие сумки рисуются открытыми, как в игре; каталог показывает обычную картинку. `.ed-art` с `<picture>` (`avif`, запасной `webp`, 1x — клетка 60 px, 2x — 120 px), `draggable="false"`; без картинки — заглушка.
 - Приватная `srcset`.
 
 ---
