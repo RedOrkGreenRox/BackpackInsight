@@ -39,7 +39,7 @@ pub fn sidebar(ctx: &BranchCtx) -> impl IntoView {
         </div>
         <nav class="sidebar" id="sidebar" aria-label=nav_label>
             <div class="sidebar-header">
-                <a class="button-logo" href="/" aria-label=home>
+                <a class="button-logo" href="/" aria-label=home tabindex="-1">
                     <picture>
                         <source srcset="/images/const/avif/logo.avif" r#type="image/avif"/>
                         <img src="/images/const/webp/logo.webp" alt="" class="logo-icon"/>

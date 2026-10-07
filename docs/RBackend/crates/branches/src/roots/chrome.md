@@ -15,7 +15,7 @@
   Новая страница в меню добавляется одной строкой.
 - **`sidebar(ctx)`** — разметка, `id` и классы те же, что в TS-версии ([Shell.ts](/docs/Frontend/ground/roots/Shell.md)):
   - `.controls-wrapper > button.menu-toggle#menuToggle` с `aria-label` (`sidebar_menu`), `aria-controls="sidebar"`, `aria-expanded="false"`;
-  - `nav.sidebar#sidebar` (`aria-label` — `sidebar_main`): `.sidebar-header > a.button-logo` на `/`, `.nav-tabs` с пунктами, `a.nav-tab#lang-switcher` с `href="?lang=xx"`, `hreflang` и подписью `lang_switch_button` («Сменить язык на EN» / «Switch to RU»);
+  - `nav.sidebar#sidebar` (`aria-label` — `sidebar_main`): `.sidebar-header > a.button-logo` на `/` с `tabindex="-1"` (с клавиатуры главную открывает пункт «Главная», логотип не выделяется), `.nav-tabs` с пунктами, `a.nav-tab#lang-switcher` с `href="?lang=xx"`, `hreflang` и подписью `lang_switch_button` («Сменить язык на EN» / «Switch to RU»);
   - `.sidebar-overlay#sidebarOverlay` — затемнение.
 - **`nav_tab(href, icon, label, current)`** — пункт: `<picture>` (AVIF + WebP, `loading="lazy"`) и `span.page-title`. У пункта открытой страницы класс `active` и `aria-current="page"`, у остальных `aria-current="false"`: router при переходе только переписывает атрибуты и не удалил бы устаревший.
 - **`is_current(path, href)`** — `/` совпадает только с главной, остальные пункты — со своим разделом (`/items` и `/items/...`).

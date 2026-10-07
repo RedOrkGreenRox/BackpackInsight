@@ -49,17 +49,13 @@
     overflow: visible;
   }
 
-  .sidebar-header:has(:focus-visible) {
-    justify-content: flex-start;
-  }
-
   // Пункт выезжает плавно, а уходит сразу: иначе было бы видно, как он
   // возвращается к полной ширине.
-  :is(.nav-tab, .button-logo) {
+  .nav-tab {
     transition: none;
   }
 
-  :is(.nav-tab, .button-logo):focus-visible {
+  .nav-tab:focus-visible {
     inline-size: max-content;
     max-inline-size: calc(var(--icon-size) * 3);
     flex-direction: column;
@@ -83,15 +79,6 @@
       font-size: var(--fs-xs);
       font-weight: 600;
     }
-  }
-
-  // У логотипа нет подписи: выдвигается уменьшенная картинка, ниже кнопки
-  // меню, чтобы та его не закрывала.
-  .button-logo:focus-visible {
-    inline-size: calc(var(--icon-size) * 2);
-    block-size: calc(var(--icon-size) * 2);
-    padding: var(--space-2xs);
-    transform: translate(calc(-100% - var(--space-2xs)), var(--control-size));
   }
 
   .nav-tab:focus-visible::before {
