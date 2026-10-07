@@ -132,5 +132,5 @@ pub fn listen(editor: Editor) {
             }
         }),
     ];
-    on_cleanup(move || handles.into_iter().for_each(|handle| handle.remove()));
+    on_cleanup(move || handles.into_iter().for_each(WindowListenerHandle::remove));
 }

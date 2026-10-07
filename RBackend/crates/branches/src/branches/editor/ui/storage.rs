@@ -21,15 +21,15 @@ pub fn Storage(title: String, empty: String) -> impl IntoView {
     };
     let is_empty = move || editor.board.with(|b| b.storage.is_empty());
     view! {
-        <section class="ed-storage" node_ref=editor.storage aria-label=title.clone()>
-            <h2 class="ed-heading">{title}</h2>
+        <div class="ed-storage" role="region" node_ref=editor.storage aria-label=title.clone()>
+            <h2 class="ed-heading">{title.clone()}</h2>
             <Show when=is_empty>
                 <p class="ed-storage-empty">{empty.clone()}</p>
             </Show>
             <div class="ed-storage-list">
                 <For each=stored key=|entry| *entry children=move |(i, piece)| view! { <Stored index=i piece/> }/>
             </div>
-        </section>
+        </div>
     }
 }
 
@@ -42,12 +42,13 @@ fn Stored(index: usize, piece: usize) -> impl IntoView {
         return ().into_any();
     };
     let item = kit.item(piece).clone();
+    let name = item.name.clone();
     let b = item.bounds();
     view! {
         <div
             class="ed-stored"
             style=size_style(b.width(), b.height())
-            title=item.name.clone()
+            title=name
             on:pointerdown=move |ev| start(editor, Origin::Storage(index), piece, &ev)
         >
             <PieceArt item orient=Orientation::Up/>

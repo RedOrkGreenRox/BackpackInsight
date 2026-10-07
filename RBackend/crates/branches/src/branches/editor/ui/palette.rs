@@ -69,7 +69,7 @@ pub fn Palette(labels: EditorLabels) -> impl IntoView {
     let loading_text = labels.loading.clone();
     let more_text = labels.more.clone();
     view! {
-        <section class="ed-catalog" node_ref=editor.catalog aria-label=labels.catalog.clone()>
+        <div class="ed-catalog" role="region" node_ref=editor.catalog aria-label=labels.catalog.clone()>
             <h2 class="ed-heading">{labels.catalog.clone()}</h2>
             <div class="ed-controls">
                 <input
@@ -109,7 +109,7 @@ pub fn Palette(labels: EditorLabels) -> impl IntoView {
                     {more_text.clone()}
                 </button>
             </Show>
-        </section>
+        </div>
     }
 }
 

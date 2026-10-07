@@ -51,6 +51,7 @@ fn FieldPiece(placed: Placed, origin: Origin) -> impl IntoView {
         return ().into_any();
     };
     let item = kit.item(placed.piece).clone();
+    let name = item.name.clone();
     let Some(b) = Bounds::of(&placed.cells(&kit)) else {
         return ().into_any();
     };
@@ -58,7 +59,7 @@ fn FieldPiece(placed: Placed, origin: Origin) -> impl IntoView {
         <div
             class="ed-piece"
             style=box_style(b)
-            title=item.name.clone()
+            title=name
             on:pointerdown=move |ev| start(editor, origin, placed.piece, &ev)
             on:pointerenter=move |_| editor.hover.set(Some(placed))
             on:pointerleave=move |_| editor.hover.set(None)

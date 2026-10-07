@@ -9,6 +9,7 @@ use super::{
     state::Editor,
 };
 use crate::branches::editor::model::{Board, Kit, Placed};
+use leptos::prelude::*;
 
 /// Снимает предмет с того места, откуда его взяли.
 pub fn lift(editor: Editor, drag: &mut Drag) {

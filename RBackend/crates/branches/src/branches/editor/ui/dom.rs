@@ -84,12 +84,13 @@ pub fn replace_query(pairs: &[(&str, String)]) {
 /// `data:`-ссылка на JSON для кнопки «Скачать».
 #[must_use]
 pub fn json_data_url(json: &str) -> String {
+    use std::fmt::Write;
     let mut out = String::from("data:application/json;charset=utf-8,");
     for byte in json.bytes() {
         if byte.is_ascii_alphanumeric() || b"-_.~".contains(&byte) {
             out.push(char::from(byte));
         } else {
-            out.push_str(&format!("%{byte:02X}"));
+            let _ = write!(out, "%{byte:02X}");
         }
     }
     out

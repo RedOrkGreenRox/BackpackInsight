@@ -5,9 +5,10 @@ use super::{
     kit::Kit,
     orientation::Orientation,
 };
+use serde::{Deserialize, Serialize};
 
 /// Предмет или сумка на поле.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct Placed {
     /// Номер предмета в [`Kit`].
     pub piece: usize,
