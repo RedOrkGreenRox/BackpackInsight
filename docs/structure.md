@@ -842,6 +842,12 @@
     - 📄 [Cargo.toml](RBackend/Cargo.toml.md)
     - 📄 [Инструкции Docker](RBackend/Dockerfile.md)
   - 📂 **Скрипты автоматизации**
+    - 📂 **docs_graph**
+      - 📄 [build.py](scripts/docs_graph/build.md)
+      - ❌ page.html <!-- MISSING DOC -->
+      - 📄 [panel.js](scripts/docs_graph/panel.md)
+      - 📄 [sim.js](scripts/docs_graph/sim.md)
+      - 📄 [view.js](scripts/docs_graph/view.md)
     - 📂 **docs_lint**
       - 📄 [Маркер пакета](scripts/docs_lint/__init__.md)
       - 📄 [files.py](scripts/docs_lint/files.md)
